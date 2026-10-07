@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 2 — Prices and Competitive Equilibrium</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part I: Welfare Theorems · Lesson 2 of 20</div>
+    <h1>Prices and Competitive Equilibrium</h1>
+    <div class="meta">Covers <a href="../sources/slides1-welfare-theorems.pdf#page=10">Slides 1, pp. 10–13</a> · About 30 min · Prerequisite: <a href="0001-the-economy.html">Lesson 1</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>state the definition of a competitive equilibrium (CE) from memory, and say what each piece means;</li>
+      <li>explain why only <em>relative</em> prices matter, and why one market clears automatically (Walras' law);</li>
+      <li>compute a CE by hand in a two-good exchange economy and a one-firm production economy.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides1-welfare-theorems.pdf#page=12">Slides 1, p. 12</a> (the definition). For a slower textbook treatment: Mas-Colell, Whinston &amp; Green, <em>Microeconomic Theory</em>, §15.B (Edgeworth box) and §16.B (the general definition). The classic reference is Debreu, <a href="https://cowles.yale.edu/sites/default/files/2022-09/m17-all.pdf"><em>Theory of Value</em></a> (1959), ch. 5.
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>1. Prices are a linear valuation of bundles</h2>
+
+  <p>With \(m\) commodities, a <strong>price vector</strong> is \(p = (p_1,\dots,p_m)\). It turns any bundle \(x \in \mathbb{R}^m\) into a number, its value in units of account:
+  $$p\cdot x \;=\; \sum_{s=1}^m p_s x_s .$$
+  Alvarez usually drops the dot and writes \(px\) <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=10">S1 p.10</a>. Two facts about this valuation get used in every proof in Part I:</p>
+  <ul>
+    <li><strong>Linearity.</strong> \(p\cdot(x^a + x^b) = p\cdot x^a + p\cdot x^b\). That is what lets us "add up budget constraints across consumers" in the First Welfare Theorem proof.</li>
+    <li><strong>Sign conventions carry through.</strong> Remember from <a href="0001-the-economy.html">Lesson 1</a> that a negative entry of a household's \(x\) is a sale, so it <em>subtracts</em> from the value of net purchases. For a firm, a negative entry of \(y\) is an input, so it subtracts from profit \(p\cdot y\).</li>
+  </ul>
+
+  <div class="intuition">
+    <div class="box-title">Intuition: prices and commodities are "dual"</div>
+    <p>The commodity space decides what a price <em>is</em>. If commodities are dated, then \(p_t\) is the price today of a good delivered at \(t\), and \(p_{t+1}/p_t = 1/(1+r_t)\) is a gross interest rate. If commodities are state-contingent, \(p(z^t)\) is an Arrow–Debreu price for delivery after history \(z^t\). Whatever the space, the value of a bundle is always an inner product: \(\sum_t\sum_{z^t} p_t(z^t)x_t(z^t)\), or \(\int p(s)x(s)\,ds\) <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=11">S1 p.11</a>. Real wages, terms of trade, factor prices and interest rates are all ratios of entries of the same vector \(p\).</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>2. The definition</h2>
+
+  <div class="definition">
+    <div class="box-title">Definition: Competitive Equilibrium <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=12">S1 p.12</a></div>
+    <p>A <strong>competitive equilibrium</strong> is a price vector \(p\in\mathbb{R}^m\) and an allocation \(\{\bar x^i,\bar y^j\}\) such that</p>
+    <ol>
+      <li><strong>Firms maximize profits.</strong> For every \(j\in J\),
+        $$\bar y^j \in \arg\max_{y\in Y^j}\; p\cdot y, \qquad \pi^j \equiv p\cdot \bar y^j .$$</li>
+      <li><strong>Households maximize utility subject to their budgets.</strong> For every \(i\in I\),
+        $$\bar x^i \in \arg\max_{x\in X^i}\; u^i(x)\quad\text{s.t.}\quad p\cdot x \;\le\; p\cdot e^i + \sum_{j\in J}\theta^i_j\,\pi^j .$$</li>
+      <li><strong>The allocation is feasible</strong> (markets clear): \(\sum_i \bar x^i = \sum_j \bar y^j + \sum_i e^i\).</li>
+    </ol>
+  </div>
+
+  <p>Read the budget constraint as <em>uses of funds ≤ sources of funds</em>. On the left is the value of net purchases. On the right are the value of the endowment, which the household can sell, plus its share of every firm's profits, which it owns via the \(\theta^i_j\).</p>
+
+  <div class="warning">
+    <div class="box-title">Three things the definition does <em>not</em> say</div>
+    <ul>
+      <li><strong>Nobody chooses prices.</strong> Each agent treats \(p\) as given (price-taking). Equilibrium is a <em>fixed point</em>: prices at which the independently chosen plans happen to be mutually consistent.</li>
+      <li><strong>Profits are not "earned and then spent" sequentially.</strong> \(\pi^j\) enters the budget as a number evaluated at the equilibrium plan, so the household takes it as given too.</li>
+      <li><strong>Feasibility is a separate requirement.</strong> Optimality of each agent at \(p\) does not by itself imply markets clear. Choosing \(p\) to make that happen is the whole problem.</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>3. Only relative prices matter</h2>
+
+  <p>Multiply every price by \(\lambda>0\). Each firm's objective \(\lambda p\cdot y\) has the same maximizers, so \(\bar y^j\) is unchanged and \(\pi^j\) scales by \(\lambda\). Each household's budget set
+  $$\{x: \lambda p\cdot x \le \lambda p\cdot e^i + \textstyle\sum_j\theta^i_j\lambda\pi^j\}$$
+  is identical to the original one. So if \((p,\bar x,\bar y)\) is a CE, then so is \((\lambda p,\bar x,\bar y)\). That is why we can always <strong>normalize one price</strong> (e.g. \(p_1 = 1\), or \(\sum_s p_s = 1\)): with \(m\) goods, there are only \(m-1\) prices to find.</p>
+
+  <h2>4. Walras' law: one market clears for free</h2>
+
+  <div class="theorem">
+    <div class="box-title">Walras' law</div>
+    <p>If every household's budget constraint binds, then for <em>any</em> prices \(p\) and any profit-maximizing and utility-maximizing plans,
+    $$p\cdot\Big(\underbrace{\textstyle\sum_i x^i - \sum_j y^j - \sum_i e^i}_{\text{aggregate excess demand } z(p)}\Big) = 0 .$$
+    Hence if \(m-1\) markets clear and \(p_m\neq 0\), the \(m\)-th clears too.</p>
+  </div>
+
+  <div class="proof">
+    <div class="box-title">Proof</div>
+    <ol class="steps">
+      <li>Binding budgets: \(p\cdot x^i = p\cdot e^i + \sum_j \theta^i_j\, p\cdot y^j\) for each \(i\).</li>
+      <li>Sum over \(i\) and swap the order of summation: \(\sum_i p\cdot x^i = \sum_i p\cdot e^i + \sum_j \big(\sum_i\theta^i_j\big)\, p\cdot y^j\).</li>
+      <li>Firms are fully owned by households, so \(\sum_i \theta^i_j = 1\) <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=5">S1 p.5</a>. Therefore \(p\cdot\big(\sum_i x^i - \sum_i e^i - \sum_j y^j\big) = 0\).</li>
+      <li>If \(z_s(p) = 0\) for \(s=1,\dots,m-1\), the identity reads \(p_m z_m(p) = 0\), so \(z_m(p)=0\) whenever \(p_m\ne 0\).</li>
+    </ol>
+    <div class="qed">∎</div>
+  </div>
+
+  <p>Why do budgets bind? Under local non-satiation (the key assumption of <a href="0003-pareto-optimality-and-lns.html">Lesson 3</a>), a household with money left over could buy a slightly better bundle nearby. Notice that Walras' law used exactly the two ingredients that reappear in the First Welfare Theorem proof: binding budgets and \(\sum_i\theta^i_j=1\).</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>5. See it: the Edgeworth box</h2>
+
+  <p>Two consumers, two goods, no firms, and a total endowment of one unit of each good. Consumer A's origin is bottom-left; consumer B's origin is top-right, so a point in the box is an allocation of both goods. Both have Cobb–Douglas utility, \(u^A = a\log x_1 + (1-a)\log x_2\) and \(u^B = b\log x_1 + (1-b)\log x_2\). Normalize \(p_2 = 1\) and let \(p\equiv p_1\).</p>
+
+  <div class="figure">
+    <div id="eb-ctrl"></div>
+    <div id="eb-fig"></div>
+    <div id="eb-read"></div>
+    <div class="verdict" id="eb-verdict"></div>
+    <div class="caption"><b>Interactive.</b> Drag the <b>endowment</b> point \(e\), or move the sliders. The black line is the budget line through \(e\) with slope \(-p\). The <span style="color:#2a78d6">blue</span> and <span style="color:#eb6834">orange</span> dots are A's and B's utility-maximizing demands at that price, with their indifference curves. The dashed <span style="color:#4a3aa7">violet</span> curve is the contract curve, where the two MRSs are equal. <b>Try:</b> set \(p\) too high and watch good 1 be in excess supply. Then press "Go to CE". In equilibrium, the two demands coincide and lie on the contract curve. That last fact is a preview of the First Welfare Theorem.</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const P = EconPlot.create('#eb-fig', { x: [0, 1], y: [0, 1], width: 460, height: 460, equal: true,
+      xlabel: 'x_1^A  →', ylabel: 'x_2^A  →', xticks: 5, yticks: 5, frame: true, margin: { t: 30, r: 30 } });
+    let e = [0.8, 0.2];
+    const pstar = (a, b) => (a * e[1] + b * (1 - e[1])) / (1 - a * e[0] - b * (1 - e[0]));
+    let S;
+    function draw(v) {
+      const { a, b, p } = v;
+      P.clear();
+      // contract curve
+      const ka = a / (1 - a), kb = b / (1 - b);
+      P.fn(x => kb * x / (ka * (1 - x) + kb * x), { color: C.violet, dash: '6 4', width: 1.6, domain: [0.001, 0.999], label: 'contract curve', labelAt: 0.82, labelDx: -110, labelDy: -12 });
+      // budget line
+      P.fn(x => e[1] - p * (x - e[0]), { color: C.ink, width: 1.6 });
+      P.text(1, 1, 'O^B', { dx: 4, dy: -6, italic: true });
+      P.text(0.02, 0.97, 'budget line: slope −p', { sans: true, size: 12, color: '#52514e' });
+      // demands
+      const mA = p * e[0] + e[1], mB = p * (1 - e[0]) + (1 - e[1]);
+      const A = [a * mA / p, (1 - a) * mA];
+      const Bown = [b * mB / p, (1 - b) * mB];       // in B's own coordinates
+      const B = [1 - Bown[0], 1 - Bown[1]];           // in A's coordinates
+      const uA = (x, y) => a * Math.log(x) + (1 - a) * Math.log(y);
+      const uB = (x, y) => b * Math.log(1 - x) + (1 - b) * Math.log(1 - y);
+      P.contour(uA, uA(A[0], A[1]), { color: C.blue, width: 1.8 });
+      P.contour(uB, uB(B[0], B[1]), { color: C.orange, width: 1.8 });
+      P.point(A[0], A[1], { color: C.blue, label: 'A demands', labelDx: -78, labelDy: 16 });
+      P.point(B[0], B[1], { color: C.orange, label: 'B demands', labelDx: 8, labelDy: -8 });
+      P.text(e[0], e[1], 'e', { dx: 10, dy: 16, italic: true });
+      handle.move(e[0], e[1]);
+      const z1 = A[0] + Bown[0] - 1, z2 = A[1] + Bown[1] - 1;
+      const ps = pstar(a, b);
+      EconPlot.readout('#eb-read', [
+        ['excess demand, good 1:', z1.toFixed(3), Math.abs(z1) < 0.005 ? 'good' : 'bad'],
+        ['excess demand, good 2:', z2.toFixed(3), Math.abs(z2) < 0.005 ? 'good' : 'bad'],
+        ['p·z = p z₁ + z₂ :', (p * z1 + z2).toFixed(3)],
+        ['equilibrium p* :', ps.toFixed(3)]
+      ]);
+      document.getElementById('eb-verdict').textContent = Math.abs(z1) < 0.005
+        ? 'Markets clear: this is a competitive equilibrium. Both demands are the same point, on the contract curve.'
+        : (z1 > 0 ? 'Good 1 is in excess demand, so p is too low. Raising p shrinks the excess demand.'
+                  : 'Good 1 is in excess supply, so p is too high. Lowering p shrinks the excess supply.')
+          + ' Note that p·z = 0 always (Walras\' law).';
+    }
+    const handle = P.drag(e[0], e[1], (x, y) => { e = [Math.min(0.98, Math.max(0.02, x)), Math.min(0.98, Math.max(0.02, y))]; draw(S.values); return e; });
+    S = EconPlot.sliders('#eb-ctrl', [
+      { id: 'a', label: 'a', min: 0.1, max: 0.9, step: 0.01, value: 0.5 },
+      { id: 'b', label: 'b', min: 0.1, max: 0.9, step: 0.01, value: 0.3 },
+      { id: 'p', label: 'p', min: 0.1, max: 4, step: 0.01, value: 1.6 }
+    ], draw);
+    S.button('Go to CE', () => S.set('p', Math.min(4, Math.max(0.1, pstar(S.values.a, S.values.b)))));
+  })();
+  </script>
+
+  <h3>Worked example: solve the box by hand</h3>
+  <p>Take endowments \(e^A = (e_1,e_2)\) and \(e^B=(1-e_1,1-e_2)\), with \(p_2=1\).</p>
+  <ol class="steps">
+    <li><strong>Wealth.</strong> \(m^A = p e_1 + e_2\) and \(m^B = p(1-e_1) + (1-e_2)\).</li>
+    <li><strong>Demands.</strong> Cobb–Douglas spends a fixed share of wealth on each good: \(x_1^A = a m^A/p\) and \(x_1^B = b m^B/p\).</li>
+    <li><strong>Clear market 1.</strong> \(a m^A + b m^B = p\), i.e. \(a(pe_1+e_2) + b(p(1-e_1) + 1 - e_2) = p\). Solving,
+      $$p^* = \frac{a e_2 + b(1-e_2)}{1 - a e_1 - b(1-e_1)} .$$</li>
+    <li><strong>Market 2 clears by Walras' law.</strong> There is no need to check it; the readout above confirms \(z_2=0\) whenever \(z_1=0\).</li>
+  </ol>
+  <p>With the default values \(a=0.5\), \(b=0.3\), \(e=(0.8,0.2)\), this gives \(p^* = (0.1+0.24)/(1-0.4-0.06) = 0.34/0.54 \approx 0.63\).</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>6. Check your understanding</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">1. In a CE, what does a household take as given when it solves its problem?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Prices and the consumption of other households</li>
+        <li class="quiz-option" data-option="b">Prices only; profits are chosen jointly with x</li>
+        <li class="quiz-option" data-option="c">Prices and the profits paid out by the firms</li>
+        <li class="quiz-option" data-option="d">Its utility level and the prices of the firms</li>
+      </ul>
+      <div class="quiz-explain">The right-hand side of the budget, \(p\cdot e^i + \sum_j\theta^i_j\pi^j\), is a number to the household. It contains prices and profits, both evaluated at equilibrium. Other households' consumption does not enter household \(i\)'s problem at all; it would only matter with consumption externalities (Lesson 5).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">2. Which pair of ingredients does the proof of Walras' law use?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Binding budgets and ownership shares summing to one</li>
+        <li class="quiz-option" data-option="b">Convex preferences and convex production possibility sets</li>
+        <li class="quiz-option" data-option="c">Strictly positive prices and continuous utility functions</li>
+        <li class="quiz-option" data-option="d">Feasibility of the allocation and profit maximization only</li>
+      </ul>
+      <div class="quiz-explain">Sum the binding budgets, then use \(\sum_i\theta^i_j = 1\) to turn household profit income into aggregate profits \(p\cdot\sum_j y^j\). Walras' law holds at <em>any</em> price vector, not only at equilibrium, which is why it cannot rely on feasibility.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">3. If \((p,\bar x,\bar y)\) is a CE, which of these is also a CE?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">\((p+\mathbf{1},\bar x,\bar y)\), adding one to every price</li>
+        <li class="quiz-option" data-option="b">\((p,\lambda\bar x,\lambda\bar y)\) for every positive scalar λ</li>
+        <li class="quiz-option" data-option="c">\((-p,\bar x,\bar y)\), flipping the sign of every price</li>
+        <li class="quiz-option" data-option="d">\((\lambda p,\bar x,\bar y)\) for every positive scalar λ</li>
+      </ul>
+      <div class="quiz-explain">Scaling all prices by \(\lambda>0\) leaves every budget set and every profit-maximization problem unchanged (profits scale by λ, but so does everything else). Adding a constant changes relative prices. Flipping the sign turns profit maximization into minimization.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">4. In the Edgeworth box at a price where good 1 is in excess demand, what is true of good 2?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">It is also in excess demand at that same price</li>
+        <li class="quiz-option" data-option="b">It is in excess supply, so that p·z equals zero</li>
+        <li class="quiz-option" data-option="c">Its market clears, because only one can fail</li>
+        <li class="quiz-option" data-option="d">Nothing can be said without the utility weights</li>
+      </ul>
+      <div class="quiz-explain">Walras' law says \(p z_1 + z_2 = 0\). With \(p>0\), \(z_1>0\) forces \(z_2<0\). Drag the endowment in the figure and watch the readout.</div>
+    </div>
+    <div class="quiz-score"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>7. Exercises</h2>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 2.1 <span class="tag slides">Slides p.11</span></div>
+    <p>For each commodity space from <a href="0001-the-economy.html">Lesson 1</a>, interpret a <em>ratio</em> of two prices as a familiar economic object:</p>
+    <ol class="parts" type="a">
+      <li>\(m=2\): consumption and leisure.</li>
+      <li>\(L=\mathbb{R}^{2T}\): one consumption good in each of \(T\) periods (look at \(p_{t}/p_{t+1}\)).</li>
+      <li>\(L=\mathbb{R}^k\): one good in each of \(k\) states of nature.</li>
+      <li>\(m = k\times\#\text{locations}\): goods differentiated by where they are delivered.</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(p_{\text{leisure}}/p_{c}\) is the <strong>real wage</strong>: how much consumption one hour of leisure costs. (b) \(p_t/p_{t+1} = 1+r_t\) is the <strong>gross real interest rate</strong> between \(t\) and \(t+1\). (c) \(p_s/\sum_{s'}p_{s'}\) is the price of an <strong>Arrow security</strong> paying one unit in state \(s\), relative to a riskless bond. Ratios \(p_s/p_{s'}\) combine probabilities and marginal-utility weights. (d) The ratio of the price of the export bundle to the import bundle is the <strong>terms of trade</strong>; for the same good at two locations it reflects transport cost.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 2.2 <span class="tag exam">Exam-style</span></div>
+    <p>Two consumers, two goods. \(u^A = \tfrac13\log x_1 + \tfrac23\log x_2\) with \(e^A=(1,0)\), and \(u^B = \tfrac12\log x_1+\tfrac12\log x_2\) with \(e^B=(0,1)\). Normalize \(p_2=1\).</p>
+    <ol class="parts" type="a">
+      <li>Find the equilibrium relative price \(p_1\).
+        <div class="numcheck" data-answer="0.75" data-tol="0.002" data-prompt="p₁ ="></div></li>
+      <li>Find A's equilibrium consumption of good 1.
+        <div class="numcheck" data-answer="1/3" data-tol="0.002" data-prompt="x₁ᴬ ="></div></li>
+      <li>Verify directly that the good-2 market clears, without invoking Walras' law.</li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body">
+      <p>Use the formula from the worked example with \(a=1/3\), \(b=1/2\), \(e_1=1\), \(e_2=0\). Or start from scratch: A's wealth is \(p_1\) and B's wealth is \(1\).</p>
+    </div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Wealths: \(m^A = p_1\), \(m^B = 1\). Good-1 demands: \(x_1^A = \tfrac13 p_1/p_1 = \tfrac13\) and \(x_1^B = \tfrac12\cdot 1/p_1\). Clearing: \(\tfrac13 + \tfrac{1}{2p_1} = 1\) gives \(p_1 = \tfrac34\).<br>
+      (b) \(x_1^A = 1/3\). A always spends a third of its wealth on good 1, and its wealth is \(p_1\), so it keeps a third of its own endowment.<br>
+      (c) \(x_2^A = \tfrac23 m^A = \tfrac23\cdot\tfrac34 = \tfrac12\) and \(x_2^B = \tfrac12 m^B = \tfrac12\). The total is \(1 = \) the endowment of good 2. ✓</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 2.3 <span class="tag exam">Exam-style</span> (Robinson Crusoe with a firm)</div>
+    <p>One household with endowment \(e=(0,1)\) (no consumption good, one unit of time) and utility \(u(c,\ell) = \log c + \log \ell\) over consumption and leisure. One firm with technology \(Y=\{(c,-n): 0\le c\le \sqrt{n},\ n\ge 0\}\), owned entirely by the household. Normalize the price of consumption to 1 and let \(w\) be the price of time.</p>
+    <ol class="parts" type="a">
+      <li>Solve the firm's problem: labour demand \(n(w)\), output and profit \(\pi(w)\).</li>
+      <li>Write the household budget constraint in the general form \(p\cdot x\le p\cdot e+\theta\pi\), being careful with signs, and solve for \(c(w)\) and \(\ell(w)\).</li>
+      <li>Find the equilibrium \(w\), \(n\) and \(c\). Which market did you <em>not</em> need to clear?</li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>The household's bundle is \(x=(c,\ell)\) with \(\ell\in[0,1]\). The time market clears when \(\ell + n = 1\). The firm's \(y=(\sqrt n,-n)\) uses time as an input.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) The firm maximizes \(\sqrt n - wn\). The FOC \(\tfrac{1}{2\sqrt n} = w\) gives \(n = 1/(4w^2)\), output \(1/(2w)\) and profit \(\pi = \tfrac1{2w} - \tfrac1{4w} = \tfrac{1}{4w}\).<br>
+      (b) \(c + w\ell \le w\cdot 1 + \pi\). Log utility splits full income \(M = w + \pi\) equally: \(c = M/2\) and \(\ell = M/(2w)\).<br>
+      (c) Clear the goods market: \(c = 1/(2w)\), so \((w + \tfrac{1}{4w})/2 = \tfrac{1}{2w}\). This gives \(w^2 + \tfrac14 = 1\), so \(w = \sqrt3/2\). Then \(n = 1/(4w^2) = 1/3\), \(\ell = 2/3\) and \(c = \sqrt{1/3} = 1/\sqrt3\). The time market (\(\ell + n = 1\)) then clears automatically by Walras' law: \(\tfrac23 + \tfrac13 = 1\). ✓</p>
+      <p>Sanity check against the planner: \(\max \log\sqrt n + \log(1-n)\) gives \(\tfrac{1}{2n} = \tfrac1{1-n}\), so \(n = 1/3\). The CE allocation equals the planner's allocation, which is what the welfare theorems predict.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 2.4 <span class="tag proof">Proof</span></div>
+    <p>Show that if some household has a <em>slack</em> budget constraint at its optimum, Walras' law can fail, i.e. \(p\cdot z(p) < 0\). Construct a one-line example and say which assumption it violates.</p>
+    <details class="solution"><summary>Show solution</summary><div class="body"><p>Let one household have a bliss point \(x^b\) with \(p\cdot x^b < p\cdot e\), and let every bundle be weakly worse than \(x^b\). For example, \(u(x) = -\|x - x^b\|^2\). It chooses \(x^b\) and leaves money unspent, so \(p\cdot z = p\cdot(x^b - e) < 0\). This violates <strong>local non-satiation</strong>: at \(x^b\) there is no better bundle nearby. In <a href="0003-pareto-optimality-and-lns.html">Lesson 3</a> we'll see that LNS is exactly what forces budgets to bind.</p></div></details>
+  </div>
+
+  <div class="takeaways">
+    <h2>Key takeaways</h2>
+    <ul>
+      <li>A CE is <strong>prices + allocation</strong>: firms maximize \(p\cdot y\), households maximize \(u^i\) on the budget \(p\cdot x\le p\cdot e^i + \sum_j\theta^i_j\pi^j\), and markets clear.</li>
+      <li>Only relative prices matter: normalize one price.</li>
+      <li>Walras' law: \(p\cdot z(p) = 0\) at every \(p\) when budgets bind. So \(m-1\) clearing conditions suffice.</li>
+      <li>In the Edgeworth box, the CE demands coincide on the contract curve, which previews the First Welfare Theorem.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "why does the firm take prices as given if it's the only firm?" or "walk me through Exercise 2.3 with a general Cobb–Douglas technology."</div>
+
+  <div class="lesson-nav">
+    <a href="0001-the-economy.html">← Lesson 1: The economy</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0003-pareto-optimality-and-lns.html">Lesson 3: Pareto optimality &amp; LNS →</a>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 9: OLG Equilibrium Prices and Interest Rates</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part II: Overlapping Generations · Lesson 9 of 20</div>
+    <h1>Equilibrium Prices and Interest Rates in the OLG Economy</h1>
+    <div class="meta">Covers <a href="../sources/slides2-olg.pdf#page=9">Class Note II, pp. 9–14</a> · About 35 min · Prerequisite: <a href="0008-olg-environment.html">Lesson 8</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>derive the equilibrium price sequence \(p_t\) and interest rates \(r_t\) of the no-trade equilibrium from first-order conditions;</li>
+      <li>solve the log example: \(\bar r = (\alpha-\beta)/(\beta(1-\alpha))\) and \(p_t = (1+\bar r)^{-(t-1)}\);</li>
+      <li>derive the savings function \(s(r;\alpha,\beta)\), sign its derivatives, and use it to explain why \(\bar r\) rises with \(\alpha\) and falls with \(\beta\).</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides2-olg.pdf#page=9">Class Note II, pp. 9–14</a>. Samuelson's <a href="https://ideas.repec.org/a/ucp/jpolec/v66y1958p467.html">1958 paper</a> §II derives the same "biological" interest rate. Ljungqvist &amp; Sargent, <em>Recursive Macroeconomic Theory</em>, ch. "Overlapping Generations", treat the same endowment economy with "Samuelson" and "classical" cases.
+  </div>
+
+  <h2>1. Prices that support autarky</h2>
+
+  <p>Lesson 8 told us the allocation, \(x^i = e^i\). It did not tell us the prices. The proposition held <em>for any</em> positive prices at each step, so prices must be pinned down by something else: each generation must <em>choose</em> its endowment when facing them. In equilibrium, autarky is not imposed. It is optimal at the equilibrium prices.</p>
+
+  <p>Normalize \(p_1 = 1\). If \(v^i\) is differentiable and the endowment is interior, the first-order conditions are <strong>necessary</strong> at the optimum \(x^i = e^i\) <a class="slide-ref" href="../sources/slides2-olg.pdf#page=9">II p.9</a>:</p>
+  $$v^i_1(e^i_i,e^i_{i+1}) = \lambda^i p_i,\qquad v^i_2(e^i_i,e^i_{i+1}) = \lambda^i p_{i+1}
+  \quad\Longrightarrow\quad
+  \frac{p_{i+1}}{p_i} = \frac{v^i_2(e^i_i,e^i_{i+1})}{v^i_1(e^i_i,e^i_{i+1})}\qquad i\ge1.$$
+
+  <p>Equilibrium relative prices equal each generation's <strong>marginal rate of substitution evaluated at its endowment</strong>. Geometrically, the budget line through the endowment is tangent to the indifference curve there.</p>
+
+  <div class="definition">
+    <div class="box-title">Definition: interest rates from Arrow–Debreu prices <a class="slide-ref" href="../sources/slides2-olg.pdf#page=10">II p.10</a></div>
+    <p>The net interest rate between \(t\) and \(t+1\) is defined by
+    $$\frac{1}{1+r_t} = \frac{p_{t+1}}{p_t}.$$
+    In the no-trade equilibrium, for all \(t\ge1\),
+    $$r_t = \frac{v^t_1(e^t_t,e^t_{t+1})}{v^t_2(e^t_t,e^t_{t+1})} - 1,\qquad p_t = \frac{1}{(1+r_1)(1+r_2)\cdots(1+r_{t-1})} .$$</p>
+  </div>
+
+  <p>Interpretation: \(p_t/p_{t+1} = 1+r_t\) is how many date-\(t+1\) goods one date-\(t\) good buys. That is exactly the gross return on a one-period loan (Exercise 8.4 makes the sequential-markets equivalence precise). The formula for \(p_t\) chains the one-period rates. Each \(r_t\) is determined by generation \(t\) alone, the only generation with access to both dates \(t\) and \(t+1\).</p>
+
+  <div class="intuition">
+    <div class="box-title">Intuition: an "autarky interest rate"</div>
+    <p>\(r_t\) is the interest rate at which generation \(t\) is exactly content to neither borrow nor lend. If the young are impatient relative to their endowment profile, so that they would like to borrow against a large old-age endowment, the rate must be high enough to talk them out of it. If they would like to save, the rate must be low (possibly negative) enough to discourage saving. Since nobody can actually trade, it is the price that must adjust.</p>
+  </div>
+
+  <h2>2. The log example</h2>
+
+  <div class="definition">
+    <div class="box-title">The baseline parametrization <a class="slide-ref" href="../sources/slides2-olg.pdf#page=11">II p.11</a></div>
+    <p>All generations \(i\ge1\) have
+    $$v(c_y,c_o) = (1-\beta)\log c_y + \beta\log c_o,\qquad \beta\in(0,1),$$
+    and endowments \(e^i_i = 1-\alpha\) (young), \(e^i_{i+1} = \alpha\) (old), with \(e^0_1=\alpha\) and \(\alpha\in(0,1)\). The aggregate endowment is constant: \(\bar e_t = (1-\alpha) + \alpha = 1\).</p>
+  </div>
+
+  <p>\(\beta\) is the weight on old-age consumption: a "patience" or "taste for the future" parameter. \(\alpha\) is the share of lifetime endowment received when old: a "pension-like" endowment. These two numbers alone determine everything.</p>
+
+  <div class="notation box">
+    <div class="box-title">Notation alert</div>
+    <p>Class Note II puts \(1-\alpha\) in youth and \(\alpha\) in old age. Class Note III's privatization slides flip this (young \(\alpha\), old \(1-\alpha\)); see <a href="0014-privatizing-social-security.html">Lesson 14</a>. Here, and in Lessons 10–13, we follow Note II.</p>
+  </div>
+
+  <h3>Equilibrium prices</h3>
+  <p>With log utility, \(v_1 = (1-\beta)/c_y\) and \(v_2 = \beta/c_o\). Evaluating at the endowment \((1-\alpha,\alpha)\) <a class="slide-ref" href="../sources/slides2-olg.pdf#page=12">II p.12</a>:</p>
+  $$\frac{1}{1+r_t} = \frac{p_{t+1}}{p_t} = \frac{\beta/\alpha}{(1-\beta)/(1-\alpha)} = \frac{\beta}{1-\beta}\cdot\frac{1-\alpha}{\alpha}.$$
+  <p>This is the same for every \(t\), so \(r_t\equiv\bar r\) with</p>
+  $$\boxed{\;1+\bar r = \frac{(1-\beta)\,\alpha}{\beta\,(1-\alpha)},\qquad \bar r = \frac{\alpha-\beta}{\beta(1-\alpha)},\qquad p_t = \left(\frac{\beta}{1-\beta}\cdot\frac{1-\alpha}{\alpha}\right)^{t-1} = (1+\bar r)^{-(t-1)}.\;}$$
+  <p>Check the algebra of \(\bar r\): \(\frac{(1-\beta)\alpha - \beta(1-\alpha)}{\beta(1-\alpha)} = \frac{\alpha - \beta}{\beta(1-\alpha)}\). So <strong>\(\bar r>0 \iff \alpha>\beta\)</strong>, <strong>\(\bar r=0\iff\alpha=\beta\)</strong> and <strong>\(\bar r<0\iff\alpha<\beta\)</strong> <a class="slide-ref" href="../sources/slides2-olg.pdf#page=14">II p.14</a>.</p>
+
+  <h2>3. The savings function</h2>
+
+  <p>The savings of generation \(t\) when young are \(e^t_t - x^t_t\). Facing a constant rate \(r\), a young agent who saves \(s\) consumes \(1-\alpha-s\) now and \(\alpha + (1+r)s\) later. Its problem (the slide question on <a class="slide-ref" href="../sources/slides2-olg.pdf#page=13">II p.13</a>) is</p>
+  $$s(r;\alpha,\beta) = \arg\max_s\;(1-\beta)\log(1-\alpha-s) + \beta\log\big(\alpha+s(1+r)\big).$$
+
+  <div class="proof">
+    <div class="box-title">Derivation (slide question, p. 13)</div>
+    <ol class="steps">
+      <li><strong>FOC.</strong> The objective is strictly concave in \(s\), so the FOC is necessary and sufficient:
+        $$\frac{1-\beta}{1-\alpha-s} = \frac{\beta(1+r)}{\alpha+s(1+r)} .$$</li>
+      <li><strong>Cross-multiply.</strong> \((1-\beta)\alpha + (1-\beta)(1+r)s = \beta(1+r)(1-\alpha) - \beta(1+r)s\).</li>
+      <li><strong>Collect \(s\).</strong> \((1+r)s\,[(1-\beta)+\beta] = \beta(1+r)(1-\alpha) - (1-\beta)\alpha\). Divide by \(1+r\):
+        $$\boxed{\;s(r;\alpha,\beta) = \beta(1-\alpha) - \frac{(1-\beta)\,\alpha}{1+r}\;}$$</li>
+      <li><strong>Match the slide's form.</strong> \((1-\alpha)-(1-\beta)\big[(1-\alpha)+\tfrac{\alpha}{1+r}\big] = (1-\alpha)\beta - \tfrac{(1-\beta)\alpha}{1+r}\). ✓ The slide's version reads as "endowment minus consumption": the young consume a share \(1-\beta\) of lifetime wealth \((1-\alpha)+\alpha/(1+r)\) and save the rest of their young endowment.</li>
+      <li><strong>Comparative statics.</strong>
+        $$\frac{\partial s}{\partial r} = \frac{(1-\beta)\alpha}{(1+r)^2} > 0,\qquad \frac{\partial s}{\partial\beta} = (1-\alpha) + \frac{\alpha}{1+r} > 0,\qquad \frac{\partial s}{\partial\alpha} = -\beta - \frac{1-\beta}{1+r} < 0.$$
+        Savings are increasing in \(r\), increasing in \(\beta\), and decreasing in \(\alpha\) (given \(1+r>0\)).</li>
+    </ol>
+    <div class="qed">∎</div>
+  </div>
+
+  <div class="warning">
+    <div class="box-title">Why savings rise with \(r\) here (not always!)</div>
+    <p>A higher \(r\) has a substitution effect (save more) and an income effect. Because the agent receives some endowment when old, a higher \(r\) <em>lowers</em> the present value of lifetime wealth \((1-\alpha)+\alpha/(1+r)\), and this income effect also raises saving. With log utility the pure-substitution and pure-income effects on \(c_y\) from \(r\) cancel, leaving only this wealth effect. If \(\alpha = 0\), saving \(s=\beta\) would not depend on \(r\) at all.</p>
+  </div>
+
+  <p><strong>Equilibrium is \(s(\bar r) = 0\).</strong> Since only generation \(t\) can be in the loan market at \(t\), the equilibrium rate is the one at which the young <em>choose</em> zero savings. Setting \(s=0\): \(\beta(1-\alpha)(1+\bar r) = (1-\beta)\alpha\). This gives the same \(\bar r\) as the FOC route in §2.</p>
+
+  <div class="figure">
+    <div id="sv-ctrl"></div>
+    <div class="figure-row">
+      <div id="sv-budget"></div>
+      <div id="sv-curve"></div>
+    </div>
+    <div id="sv-read"></div>
+    <div class="caption"><b>Interactive.</b> <b>Left:</b> a young agent's budget line through the endowment \((1-\alpha,\alpha)\), with slope \(-(1+r)\), and the chosen point (blue). <b>Right:</b> the savings function \(s(r)\), with the current \(r\) marked and the equilibrium \(\bar r\) where it crosses zero (violet). Move \(r\) until the chosen point sits on the endowment: that's \(\bar r\), and the indifference curve is tangent <em>at</em> the endowment. Then raise \(\beta\). The \(s(r)\) curve shifts up, so \(\bar r\) must fall to restore \(s=0\). Raise \(\alpha\) and the curve shifts down, so \(\bar r\) rises.</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const L = EconPlot.create('#sv-budget', { x: [0, 1.2], y: [0, 1.2], width: 360, height: 340, equal: true, xlabel: 'c_y', ylabel: 'c_o', xticks: [0, 0.2, 0.4, 0.6, 0.8, 1, 1.2], yticks: [0, 0.2, 0.4, 0.6, 0.8, 1, 1.2] });
+    const R = EconPlot.create('#sv-curve', { x: [-0.9, 2], y: [-0.6, 0.6], width: 380, height: 340, xlabel: 'r', ylabel: 's(r)', xticks: 6, yticks: 6 });
+    function draw(v) {
+      const { alpha: a, beta: b, r } = v;
+      const rbar = (a - b) / (b * (1 - a));
+      const s = rr => b * (1 - a) - (1 - b) * a / (1 + rr);
+      // left panel
+      L.clear();
+      L.fn(c => a + (1 + r) * (1 - a - c), { color: C.ink, width: 1.6, domain: [0, 1.2] });
+      const cy = (1 - b) * ((1 - a) + a / (1 + r)), co = b * ((1 + r) * (1 - a) + a);
+      const U = (x, y) => (1 - b) * Math.log(x) + b * Math.log(y);
+      L.contour(U, U(cy, co), { color: C.blue, width: 1.8 });
+      L.point(1 - a, a, { color: C.ink, hollow: true, label: 'endowment', labelDx: 8, labelDy: 16 });
+      L.point(cy, co, { color: C.blue, label: 'choice', labelDx: 8, labelDy: -8 });
+      // right panel
+      R.clear();
+      R.hline(0, { dash: null, color: '#b9b6ae' });
+      R.fn(s, { color: C.blue, domain: [-0.89, 2], label: 's(r)', labelAt: 1.6, labelDy: -10 });
+      if (rbar > -0.9 && rbar < 2) {
+        R.vline(rbar, { color: C.violet });
+        R.point(rbar, 0, { color: C.violet, label: 'r̄', labelDx: 6, labelDy: 18 });
+      }
+      R.point(r, s(r), { color: C.orange, r: 5 });
+      EconPlot.readout('#sv-read', [
+        ['savings s(r) :', s(r).toFixed(3), Math.abs(s(r)) < 0.004 ? 'good' : ''],
+        ['equilibrium r̄ :', rbar.toFixed(3)],
+        ['1 + r̄ :', (1 + rbar).toFixed(3)],
+        ['sign of r̄ :', rbar > 1e-9 ? 'positive (α > β)' : rbar < -1e-9 ? 'negative (α < β)' : 'zero (α = β)']
+      ]);
+    }
+    const S = EconPlot.sliders('#sv-ctrl', [
+      { id: 'alpha', label: 'α', min: 0.05, max: 0.95, step: 0.01, value: 0.3 },
+      { id: 'beta', label: 'β', min: 0.05, max: 0.95, step: 0.01, value: 0.5 },
+      { id: 'r', label: 'r', min: -0.85, max: 2, step: 0.005, value: 0.4, fmt: v => (+v).toFixed(3) }
+    ], draw);
+    S.button('Set r = r̄', () => { const { alpha: a, beta: b } = S.values; S.set('r', Math.max(-0.85, Math.min(2, (a - b) / (b * (1 - a))))); });
+  })();
+  </script>
+
+  <h2>4. Why \(\bar r\) rises with \(\alpha\) and falls with \(\beta\)</h2>
+  <p>The slides give a "zero-savings" argument <a class="slide-ref" href="../sources/slides2-olg.pdf#page=14">II p.14</a>. Make it precise with the implicit function theorem applied to \(s(\bar r;\alpha,\beta)=0\):</p>
+  $$\frac{\partial\bar r}{\partial\beta} = -\frac{\partial s/\partial\beta}{\partial s/\partial r} < 0,\qquad \frac{\partial\bar r}{\partial\alpha} = -\frac{\partial s/\partial\alpha}{\partial s/\partial r} > 0 .$$
+  <ul>
+    <li><strong>Higher \(\beta\):</strong> the young want to shift consumption toward old age, so at the old rate they would save (\(s>0\)). Nobody can absorb those savings, so the rate must fall until they no longer want to.</li>
+    <li><strong>Higher \(\alpha\):</strong> more of the endowment arrives in old age, so the young want to <em>borrow</em> (\(s<0\)). The rate must rise until they no longer want to.</li>
+  </ul>
+  <p>The same conclusions follow from differentiating \(1+\bar r = \frac{(1-\beta)\alpha}{\beta(1-\alpha)}\) directly: it is increasing in \(\alpha\) and decreasing in \(\beta\).</p>
+
+  <h2>5. The price path</h2>
+
+  <div class="figure">
+    <div id="pp-ctrl"></div>
+    <div id="pp-fig"></div>
+    <div class="caption"><b>Interactive.</b> The equilibrium prices \(p_t = (1+\bar r)^{-(t-1)}\), \(t=1,\dots,15\) (with \(p_1=1\)), on a log scale, so a geometric path is a straight line. When \(\alpha>\beta\) (so \(\bar r>0\)) prices fall geometrically and the sum \(\sum_t p_t\) is finite. When \(\alpha\le\beta\) (so \(\bar r\le 0\)) prices are constant or <em>rising</em>, and \(\sum_t p_t = \infty\). That divergence is exactly what breaks the First Welfare Theorem in <a href="0012-why-the-1wt-fails-in-olg.html">Lesson 12</a>.</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const host = document.getElementById('pp-fig');
+    function draw(v) {
+      const { alpha: a, beta: b } = v;
+      const g = b * (1 - a) / ((1 - b) * a);   // p_{t+1}/p_t = 1/(1+rbar)
+      const pts = []; let sum = 0;
+      for (let t = 1; t <= 15; t++) { const p = Math.pow(g, t - 1); pts.push([t, p]); sum += p; }
+      host.innerHTML = '';
+      const lab = { '-3': '0.001', '-2': '0.01', '-1': '0.1', '0': '1', '1': '10', '2': '100', '3': '1000' };
+      const P = EconPlot.create(host, { x: [0.5, 15.5], y: [-3, 3], width: 620, height: 280, xlabel: 't', ylabel: 'p_t  (log scale)', xticks: [1, 3, 5, 7, 9, 11, 13, 15], yticks: [-3, -2, -1, 0, 1, 2, 3], ytickfmt: v => lab[String(v)], zeroLines: false, margin: { l: 60 } });
+      P.hline(0, { dash: null, color: '#b9b6ae' });
+      pts.forEach(([t, p]) => { const y = Math.log10(p); P.segment(t, 0, t, y, { color: C.blue, width: 3, opacity: 0.35 }); P.point(t, y, { color: C.blue, r: 3.5 }); });
+      const rbar = 1 / g - 1;
+      P.text(1.2, 2.6, `r̄ = ${rbar.toFixed(3)},  p_{t+1}/p_t = ${g.toFixed(3)},  Σ_{t≤15} p_t = ${sum.toFixed(2)}`, { sans: true, size: 12 });
+    }
+    EconPlot.sliders('#pp-ctrl', [
+      { id: 'alpha', label: 'α', min: 0.05, max: 0.95, step: 0.01, value: 0.35 },
+      { id: 'beta', label: 'β', min: 0.05, max: 0.95, step: 0.01, value: 0.45 }
+    ], draw);
+  })();
+  </script>
+
+  <h2>6. Check your understanding</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">1. In the no-trade equilibrium, what determines \(p_{t+1}/p_t\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The initial old's marginal utility at date one only</li>
+        <li class="quiz-option" data-option="b">Aggregate endowment growth between dates t and t+1</li>
+        <li class="quiz-option" data-option="c">Generation t's MRS evaluated at its own endowment</li>
+        <li class="quiz-option" data-option="d">An arbitrary choice, since every price is consistent</li>
+      </ul>
+      <div class="quiz-explain">Generation \(t\) is the only one that values both date-\(t\) and date-\((t+1)\) goods. Its FOC at the (forced) optimum \(x^t=e^t\) gives \(p_{t+1}/p_t = v^t_2/v^t_1\) at \(e^t\). Only the level \(p_1\) is arbitrary.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">2. In the log example with \(\alpha = 0.25\) and \(\beta = 0.5\), what is the sign of \(\bar r\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Negative, because the old-age endowment is relatively small</li>
+        <li class="quiz-option" data-option="b">Positive, because the young are relatively quite patient</li>
+        <li class="quiz-option" data-option="c">Zero, because aggregate endowment is constant over time</li>
+        <li class="quiz-option" data-option="d">Undetermined, because prices are only defined up to scale</li>
+      </ul>
+      <div class="quiz-explain">\(\bar r = (\alpha-\beta)/(\beta(1-\alpha)) = (-0.25)/(0.375) = -2/3\). The young want old-age consumption share \(\beta=0.5\) but receive only \(\alpha=0.25\) of their endowment when old. They want to save, and the rate must fall below zero to discourage them.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">3. Holding \(r\) fixed, why does saving \(s(r;\alpha,\beta)\) fall when \(\alpha\) rises?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Higher α raises patience, so agents want to consume later</li>
+        <li class="quiz-option" data-option="b">Higher α lowers the interest rate that young agents face</li>
+        <li class="quiz-option" data-option="c">Higher α makes agents value old-age consumption much less</li>
+        <li class="quiz-option" data-option="d">Higher α moves endowment to old age, so less needs saving</li>
+      </ul>
+      <div class="quiz-explain">\(\alpha\) is an endowment parameter, not a preference parameter. Shifting endowment from youth to old age means the agent already has more old-age resources, so it saves less (and may borrow). Formally \(\partial s/\partial\alpha = -\beta - (1-\beta)/(1+r) < 0\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">4. When \(\bar r<0\), how do the Arrow–Debreu prices \(p_t\) behave as \(t\to\infty\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">They fall geometrically and their sum is finite</li>
+        <li class="quiz-option" data-option="b">They rise geometrically and their sum is infinite</li>
+        <li class="quiz-option" data-option="c">They stay constant and their sum is finite overall</li>
+        <li class="quiz-option" data-option="d">They oscillate and their sum is not well defined</li>
+      </ul>
+      <div class="quiz-explain">\(p_t = (1+\bar r)^{-(t-1)}\) with \(1+\bar r\in(0,1)\), so \(p_t\) grows like \(\big(1/(1+\bar r)\big)^{t-1}\to\infty\). Future goods are increasingly <em>expensive</em> in today's units: the economy is "starved" of ways to save.</div>
+    </div>
+    <div class="quiz-score"></div>
+  </div>
+
+  <h2>7. Exercises</h2>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 9.1 <span class="tag slides">Slides p.13</span></div>
+    <p>Using the formula for \(s(r;\alpha,\beta)\), take \(\alpha = 0.4\), \(\beta = 0.6\).</p>
+    <ol class="parts" type="a">
+      <li>Compute the equilibrium interest rate \(\bar r\).
+        <div class="numcheck" data-answer="-5/9" data-tol="0.002" data-prompt="r̄ ="></div></li>
+      <li>Compute the savings the young would choose at \(r=0\).
+        <div class="numcheck" data-answer="0.6*0.6-0.4*0.4" data-tol="0.002" data-prompt="s(0) ="></div></li>
+      <li>Compute \(p_4\) (with \(p_1=1\)).
+        <div class="numcheck" data-answer="Math.pow(9/4,3)" data-tol="0.002" data-prompt="p₄ ="></div></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(\bar r = (0.4-0.6)/(0.6\cdot0.6) = -0.2/0.36 = -5/9 \approx -0.556\).<br>
+      (b) \(s(0) = \beta(1-\alpha) - (1-\beta)\alpha = 0.36 - 0.16 = 0.20\). At a zero rate the young want to save; hence the equilibrium rate must be below zero.<br>
+      (c) \(1/(1+\bar r) = 9/4\), so \(p_4 = (9/4)^3 \approx 11.39\).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 9.2 <span class="tag exam">Exam-style</span> (CRRA)</div>
+    <p>Replace log utility with \(v(c_y,c_o) = (1-\beta)\frac{c_y^{1-\sigma}}{1-\sigma} + \beta\frac{c_o^{1-\sigma}}{1-\sigma}\), \(\sigma>0\), keeping the endowments \((1-\alpha,\alpha)\). (a) Find \(1+\bar r\). (b) For which parameters is \(\bar r<0\)? Does this depend on \(\sigma\)? (c) How does \(\bar r\) respond to \(\sigma\) when \(\alpha<1/2\)? Interpret.</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(1+\bar r = \dfrac{v_1}{v_2}\Big|_e = \dfrac{1-\beta}{\beta}\Big(\dfrac{\alpha}{1-\alpha}\Big)^{\sigma}\).<br>
+      (b) \(\bar r<0 \iff (1-\beta)\alpha^\sigma < \beta(1-\alpha)^\sigma\). For \(\sigma = 1\) this is \(\alpha<\beta\). In general it depends on \(\sigma\).<br>
+      (c) If \(\alpha<1/2\), then \(\alpha/(1-\alpha)<1\) and \(1+\bar r\) is <em>decreasing</em> in \(\sigma\). A more curved utility (stronger desire to smooth) makes the young more eager to move resources toward their poor old age. The rate must fall further to stop them from saving.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 9.3 <span class="tag exam">Exam-style</span> (non-stationary endowments)</div>
+    <p>Keep log preferences with weight \(\beta\), but let generation \(t\)'s endowments be \(e^t_t = w_t\) and \(e^t_{t+1}=a_t\), where \(\{w_t,a_t\}\) are arbitrary positive sequences. (a) Find \(r_t\) and \(p_t\). (b) Suppose \(w_t = 1\) for all \(t\), and \(a_t = 1/2\) for \(t\) odd and \(a_t=2\) for \(t\) even, with \(\beta = 1/2\). Compute \(r_1,r_2\) and \(p_2,p_3,p_5\).</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(1+r_t = \dfrac{(1-\beta)/w_t}{\beta/a_t} = \dfrac{1-\beta}{\beta}\cdot\dfrac{a_t}{w_t}\), and \(p_t = \prod_{s=1}^{t-1}\dfrac{\beta w_s}{(1-\beta)a_s}\).<br>
+      (b) \(1+r_1 = a_1/w_1 = 1/2\), so \(r_1=-1/2\); \(1+r_2 = 2\), so \(r_2 = 1\). Then \(p_2 = 1/(1+r_1) = 2\), \(p_3 = p_2/(1+r_2) = 1\), and \(p_5 = 1\) (the two-period cycle repeats). Note that the <em>generation</em> born at \(t\) alone determines \(r_t\). Nothing links rates across generations, because nobody trades across them.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 9.4 <span class="tag proof">Proof</span></div>
+    <p>Show directly (without FOCs) that at the prices \(p_t = (1+\bar r)^{-(t-1)}\), the young of generation \(t\) find their endowment optimal. Specifically, show that the optimal \(c_y\) at rate \(\bar r\) equals \(1-\alpha\).</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>Log utility spends a share \(1-\beta\) of lifetime wealth on youth: \(c_y = (1-\beta)\big[(1-\alpha) + \alpha/(1+\bar r)\big]\). Substitute \(1/(1+\bar r) = \beta(1-\alpha)/((1-\beta)\alpha)\): \(\alpha/(1+\bar r) = \beta(1-\alpha)/(1-\beta)\). So \(c_y = (1-\beta)(1-\alpha) + \beta(1-\alpha) = 1-\alpha\). ✓ Equivalently, \(s(\bar r) = 0\).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 9.5 <span class="tag exam">Exam-style</span></div>
+    <p>True or false, with an explanation: "Because nobody trades in the OLG equilibrium, the equilibrium interest rate has no economic meaning."</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p><strong>False.</strong> \(\bar r\) is the rate at which a young agent would be indifferent at the margin to lending or borrowing a little. It summarizes the marginal value of transferring resources across time. Its sign determines welfare properties: \(\bar r<0\) means the young value an extra unit of old-age consumption more than a unit of youth consumption, \(v_2/v_1>1\). That is exactly when a transfer scheme from young to old (social security, money, debt) can make everyone better off (Lessons 10–11). It is a <em>shadow price</em> with real content, even without trade.</p>
+    </div></details>
+  </div>
+
+  <div class="takeaways">
+    <h2>Key takeaways</h2>
+    <ul>
+      <li>Equilibrium prices make autarky optimal: \(p_{t+1}/p_t = v^t_2/v^t_1\) at the endowment, and \(1+r_t = p_t/p_{t+1}\).</li>
+      <li>Log example: \(1+\bar r = \frac{(1-\beta)\alpha}{\beta(1-\alpha)}\), so \(\bar r \gtrless 0 \iff \alpha\gtrless\beta\), and \(p_t = (1+\bar r)^{-(t-1)}\).</li>
+      <li>Savings: \(s(r) = \beta(1-\alpha) - (1-\beta)\alpha/(1+r)\), increasing in \(r\) and \(\beta\), decreasing in \(\alpha\). \(\bar r\) solves \(s(\bar r)=0\).</li>
+      <li>When \(\bar r\le0\), the prices \(p_t\) don't fall, so \(\sum_t p_t=\infty\). Keep this in mind for Lesson 12.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "why are the FOCs necessary even though agents don't trade?" or "decompose the effect of r on savings into income and substitution effects."</div>
+
+  <div class="lesson-nav">
+    <a href="0008-olg-environment.html">← Lesson 8: OLG environment</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="../reference/olg-cheatsheet.html">OLG cheat sheet</a>
+    <a href="0010-olg-efficiency.html">Lesson 10: Efficiency →</a>
+  </div>
+
+</div>
+</body>
+</html>

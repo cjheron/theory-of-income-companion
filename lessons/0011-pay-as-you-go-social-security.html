@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 11: Pay-As-You-Go Social Security</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part II: Overlapping Generations · Lesson 11 of 20</div>
+    <h1>Pay-As-You-Go Social Security</h1>
+    <div class="meta">Covers <a href="../sources/slides2-olg.pdf#page=19">Class Note II, pp. 19–20</a> · About 30 min · Prerequisite: <a href="0010-olg-efficiency.html">Lesson 10</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>model a pay-as-you-go (PAYG) social security system as a change in after-tax endowments, and solve for the new CE;</li>
+      <li>find the tax \(\tau^* = \beta-\alpha\) that implements the best symmetric allocation;</li>
+      <li>answer the slide question: for which parameters, and for which taxes \(\tau\), does social security produce a CE that Pareto-dominates the original one? Answer: <em>iff \(\bar r<0\)</em>, and then for every \(\tau\in(0,\bar\tau]\).</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides2-olg.pdf#page=19">Class Note II, pp. 19–20</a>. Samuelson's <a href="https://ideas.repec.org/a/ucp/jpolec/v66y1958p467.html">1958 paper</a> makes the same point with a "social compact" and with fiat money. Exercise 11.6 shows that the two are equivalent. Diamond, <a href="https://www.jstor.org/stable/1809231">"National Debt in a Neoclassical Growth Model"</a>, <em>AER</em> (1965), extends the argument to an economy with capital (see <a href="0015-olg-with-capital.html">Lesson 15</a>).
+  </div>
+
+  <h2>1. The policy</h2>
+
+  <div class="definition">
+    <div class="box-title">Definition: PAYG social security with tax \(\tau\) <a class="slide-ref" href="../sources/slides2-olg.pdf#page=19">II p.19</a></div>
+    <p>At every date, each young agent pays a lump-sum tax \(\tau\) and each old agent alive receives a transfer \(\tau\). One young and one old are alive at each date, so taxes equal transfers <strong>period by period</strong>: the government budget balances for every \(\tau\) and the government never issues debt. After-tax endowments become
+    $$e^i_i = (1-\alpha)-\tau,\qquad e^i_{i+1} = \alpha+\tau\quad (i\ge1),\qquad e^0_1 = \alpha+\tau .$$
+    We need \(\tau<1-\alpha\) so that young endowments stay positive. A negative \(\tau\) is a transfer from old to young.</p>
+  </div>
+
+  <p>"Pay-as-you-go" means that current workers' contributions are paid out immediately to current retirees. Nothing is invested. Contrast this with a <em>funded</em> system that would save contributions and pay retirees out of the accumulated returns; Lesson 14 shows how to move between the two.</p>
+
+  <h2>2. The equilibrium with social security</h2>
+
+  <p>The policy only relabels endowments. Every assumption of the no-trade proposition (Lesson 8) still holds with the after-tax endowments, so <strong>the unique CE is again autarky</strong>, now at the after-tax point:</p>
+  $$c_y(\tau) = 1-\alpha-\tau,\qquad c_o(\tau) = \alpha+\tau .$$
+  <p>The equilibrium interest rate follows from Lesson 9's formula evaluated at the new endowment:</p>
+  $$1+r(\tau) = \frac{v_1}{v_2}\Big|_{(1-\alpha-\tau,\ \alpha+\tau)} = \frac{(1-\beta)(\alpha+\tau)}{\beta(1-\alpha-\tau)},$$
+  <p>which is increasing in \(\tau\). Social security shifts resources toward old age, so the young want to save less. To keep them content with zero savings, the interest rate must rise.</p>
+
+  <h3>Implementing the best symmetric allocation</h3>
+  <p>Choosing \(\tau\) so that the after-tax endowment <em>is</em> \((1-\beta,\beta)\) requires <a class="slide-ref" href="../sources/slides2-olg.pdf#page=19">II p.19</a></p>
+  $$\boxed{\;\tau^* = \beta-\alpha\;}$$
+  <p>and then \(1+r(\tau^*) = \frac{(1-\beta)\beta}{\beta(1-\beta)} = 1\): the interest rate becomes <strong>zero</strong>, the biological rate of return.</p>
+
+  <h2>3. When does social security make everyone better off?</h2>
+
+  <p>Compare the CE with policy \(\tau\) to the CE without it (\(\tau=0\)).</p>
+  <ul>
+    <li><strong>Initial old:</strong> consumption \(\alpha+\tau\). They gain iff \(\tau>0\).</li>
+    <li><strong>Generations \(i\ge1\):</strong> utility \(W(\tau) \equiv (1-\beta)\log(1-\alpha-\tau) + \beta\log(\alpha+\tau)\).</li>
+  </ul>
+
+  <div class="proof">
+    <div class="box-title">Analysis of \(W(\tau)\)</div>
+    <ol class="steps">
+      <li><strong>Strict concavity.</strong> \(W''(\tau) = -\frac{1-\beta}{(1-\alpha-\tau)^2} - \frac{\beta}{(\alpha+\tau)^2} < 0\).</li>
+      <li><strong>Peak.</strong> \(W'(\tau) = -\frac{1-\beta}{1-\alpha-\tau} + \frac{\beta}{\alpha+\tau} = 0\) at \(\alpha+\tau = \beta\), i.e. at \(\tau^*=\beta-\alpha\).</li>
+      <li><strong>Slope at zero.</strong> \(W'(0) = \frac{\beta}{\alpha} - \frac{1-\beta}{1-\alpha} = \frac{1-\beta}{1-\alpha}\Big[\frac{1}{1+\bar r}-1\Big]\). This is positive iff \(\bar r<0\) iff \(\beta>\alpha\). A small PAYG system is a "bond" paying a gross return of 1. The young value it at \(1/(1+\bar r)\), which exceeds 1 exactly when \(\bar r<0\).</li>
+      <li><strong>Case \(\beta>\alpha\).</strong> \(W\) rises on \([0,\tau^*]\) and falls after, with \(W\to-\infty\) as \(\tau\uparrow1-\alpha\). By continuity there is a unique \(\bar\tau\in(\tau^*,1-\alpha)\) with \(W(\bar\tau)=W(0)\). Hence \(W(\tau)\ge W(0)\iff\tau\in[0,\bar\tau]\).</li>
+      <li><strong>Case \(\beta\le\alpha\).</strong> \(\tau^*\le0\), so \(W\) is strictly decreasing on \([0,1-\alpha)\). Any \(\tau>0\) hurts generations \(i\ge1\), and any \(\tau<0\) hurts the initial old. No \(\tau\ne0\) is a Pareto improvement.</li>
+    </ol>
+    <div class="qed">∎</div>
+  </div>
+
+  <div class="theorem">
+    <div class="box-title">Answer to the slide question <a class="slide-ref" href="../sources/slides2-olg.pdf#page=20">II p.20</a></div>
+    <p>A PAYG system with tax \(\tau\) yields a CE that Pareto-dominates the no-policy CE <strong>if and only if</strong> \(\beta>\alpha\), equivalently the no-policy CE has a <strong>negative interest rate</strong> \(\bar r<0\), and \(\tau\in(0,\bar\tau]\), where \(\bar\tau>\beta-\alpha\) solves
+    $$(1-\beta)\log\frac{1-\alpha-\bar\tau}{1-\alpha} + \beta\log\frac{\alpha+\bar\tau}{\alpha} = 0 .$$
+    At \(\tau=\bar\tau\) the young are exactly indifferent, but the initial old strictly gain, so it is still a Pareto improvement. The improvement is largest for the young at \(\tau^*=\beta-\alpha\). If \(\beta=\tfrac12\), then \(W\) is symmetric around \(\tau^*\) and \(\bar\tau = 2(\beta-\alpha)\) exactly. Otherwise \(\bar\tau\gtrless2(\beta-\alpha)\) as \(\beta\lessgtr\tfrac12\) (Exercise 11.3).</p>
+  </div>
+
+  <div class="figure">
+    <div id="ss-ctrl"></div>
+    <div class="figure-row">
+      <div id="ss-box"></div>
+      <div id="ss-welf"></div>
+    </div>
+    <div id="ss-read"></div>
+    <div class="verdict" id="ss-verdict"></div>
+    <div class="caption"><b>Interactive.</b> <b>Left:</b> the after-tax endowment, which is also the CE, \((1-\alpha-\tau,\alpha+\tau)\) (violet), slides along \(c_y+c_o=1\) as \(\tau\) changes. Orange is the no-policy CE, blue is the best symmetric point. <b>Right:</b> welfare changes relative to \(\tau=0\): blue is \(W(\tau)-W(0)\) for every generation \(i\ge1\); orange is the initial old's gain \(\tau\). The two are in different units (utils vs. goods), so only their <em>signs</em> matter for Pareto comparisons. The <span style="color:#1baf7a"><b>aqua band</b></span> on the axis is the Pareto-improving set \((0,\bar\tau]\). <b>Try:</b> lower \(\beta\) below \(\alpha\) and watch the band disappear, as the blue curve now peaks at a negative \(\tau\).</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const L = EconPlot.create('#ss-box', { x: [0, 1], y: [0, 1], width: 340, height: 340, equal: true, xlabel: 'c_y', ylabel: 'c_o', xticks: 5, yticks: 5 });
+    const R = EconPlot.create('#ss-welf', { x: [-0.3, 0.8], y: [-0.4, 0.5], width: 400, height: 340, xlabel: 'τ', ylabel: 'welfare change', xticks: [-0.2, 0, 0.2, 0.4, 0.6, 0.8], yticks: 5 });
+    const W = (a, b, t) => (1 - b) * Math.log(1 - a - t) + b * Math.log(a + t);
+    function draw(v) {
+      const { alpha: a, beta: b } = v;
+      let t = Math.min(v.tau, 1 - a - 0.005); t = Math.max(t, -a + 0.005);
+      const tstar = b - a;
+      const tbar = b > a ? EconPlot.bisect(x => W(a, b, x) - W(a, b, 0), tstar, 1 - a - 1e-9) : NaN;
+      // left
+      L.clear();
+      L.fn(x => 1 - x, { color: C.ink, width: 1.6 });
+      L.hline(a, { color: C.orange });
+      L.contour((x, y) => (1 - b) * Math.log(x) + b * Math.log(y), W(a, b, t), { color: C.violet, width: 1.6 });
+      L.point(1 - a, a, { color: C.orange, label: 'no-policy CE', labelAnchor: 'end', labelDx: -8, labelDy: 18 });
+      L.point(1 - b, b, { color: C.blue, label: 'best', labelDx: 8, labelDy: -6 });
+      L.point(1 - a - t, a + t, { color: C.violet, r: 6, label: 'CE with τ', labelDx: -78, labelDy: -8 });
+      // right
+      R.clear();
+      R.hline(0, { dash: null, color: '#b9b6ae' });
+      R.fn(x => W(a, b, x) - W(a, b, 0), { color: C.blue, domain: [-a + 0.002, 1 - a - 0.002], label: 'gens i ≥ 1', labelAt: Math.min(0.75, tstar + 0.05), labelDy: -10 });
+      R.fn(x => x, { color: C.orange, label: 'initial old', labelAt: 0.45, labelDx: 6, labelDy: 14 });
+      if (b > a) {
+        R.segment(0, 0, tbar, 0, { color: C.aqua, width: 8, opacity: 0.9 });
+        R.vline(tstar, { color: C.blue });
+        R.text(tstar, -0.36, 'τ*', { anchor: 'middle', italic: true });
+        R.text(tbar, 0, 'τ̄', { anchor: 'middle', dy: 20, italic: true });
+      }
+      R.vline(t, { color: C.violet, dash: '2 3' });
+      R.point(t, W(a, b, t) - W(a, b, 0), { color: C.blue, r: 4 });
+      R.point(t, t, { color: C.orange, r: 4 });
+      const r = (1 - b) * (a + t) / (b * (1 - a - t)) - 1;
+      const dY = W(a, b, t) - W(a, b, 0);
+      EconPlot.readout('#ss-read', [
+        ['τ* = β − α :', tstar.toFixed(3)],
+        ['τ̄ :', b > a ? tbar.toFixed(3) : 'none (β ≤ α)'],
+        ['2(β − α) :', (2 * tstar).toFixed(3)],
+        ['r(τ) :', r.toFixed(3)],
+        ['Δ gens i ≥ 1 :', dY.toFixed(4), dY >= -1e-9 ? 'good' : 'bad'],
+        ['Δ initial old :', t.toFixed(3), t >= -1e-9 ? 'good' : 'bad']
+      ]);
+      const pi = t > 1e-9 && dY >= -1e-9;
+      document.getElementById('ss-verdict').textContent = pi
+        ? 'Pareto improvement: the initial old gain and no generation loses.'
+        : (Math.abs(t) < 1e-9 ? 'τ = 0: no policy.' : 'Not a Pareto improvement: ' + (t < 0 ? 'the initial old lose.' : 'generations i ≥ 1 lose.'));
+    }
+    const S = EconPlot.sliders('#ss-ctrl', [
+      { id: 'alpha', label: 'α', min: 0.05, max: 0.9, step: 0.01, value: 0.2 },
+      { id: 'beta', label: 'β', min: 0.05, max: 0.9, step: 0.01, value: 0.4 },
+      { id: 'tau', label: 'τ', min: -0.25, max: 0.75, step: 0.005, value: 0.1, fmt: v => (+v).toFixed(3) }
+    ], draw);
+    S.button('τ = τ*', () => S.set('tau', S.values.beta - S.values.alpha));
+  })();
+  </script>
+
+  <div class="intuition">
+    <div class="box-title">Intuition: PAYG is an asset with return equal to population growth</div>
+    <p>From any generation's point of view, PAYG says: give up \(\tau\) when young, get \(\tau\) when old. That's a savings instrument with a gross return of \(1\), the ratio of contributors to recipients. Private markets offered an "autarky" return \(1+\bar r\). If \(1+\bar r<1\), the PAYG asset dominates and everyone wants some. The initial old receive a pure windfall. The scheme's "capital" is the promise that the next young will pay, and that promise is honoured forever. In <a href="0013-growing-olg-economy.html">Lesson 13</a> the return on PAYG becomes \((1+n)(1+g)\) and the condition becomes \(1+\bar r<(1+n)(1+g)\).</p>
+  </div>
+
+  <h2>4. Check your understanding</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">1. What is the CE allocation once PAYG social security with tax \(\tau\) is introduced?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The best symmetric allocation, for any positive tax τ</li>
+        <li class="quiz-option" data-option="b">The original endowment, since taxes cancel out exactly</li>
+        <li class="quiz-option" data-option="c">Autarky at the after-tax endowment (1−α−τ, α+τ)</li>
+        <li class="quiz-option" data-option="d">Whatever allocation sets the interest rate equal to zero</li>
+      </ul>
+      <div class="quiz-explain">The no-trade proposition applies to any positive endowments, including after-tax ones. So consumption equals after-tax endowment. Only at \(\tau=\beta-\alpha\) is this the best symmetric allocation, and only then is \(r=0\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">2. Why does a small PAYG system benefit generations \(i\ge1\) exactly when \(\bar r<0\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">It pays a zero net return, beating the market rate r̄</li>
+        <li class="quiz-option" data-option="b">It lowers taxes on the young below the transfer to the old</li>
+        <li class="quiz-option" data-option="c">It raises aggregate endowment above one in every period</li>
+        <li class="quiz-option" data-option="d">It eliminates the initial old, who were the binding agents</li>
+      </ul>
+      <div class="quiz-explain">\(W'(0) = \frac{1-\beta}{1-\alpha}\big[\frac1{1+\bar r}-1\big]\). The marginal value of a unit received when old, relative to a unit paid when young, is \(1/(1+\bar r)\). PAYG trades them one-for-one, so it helps iff \(1/(1+\bar r)>1\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">3. With \(\beta>\alpha\), which taxes \(\tau\) give a Pareto improvement over the no-policy CE?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Only the single tax τ = β − α, and no other value</li>
+        <li class="quiz-option" data-option="b">Every tax τ between zero and one minus α, inclusive</li>
+        <li class="quiz-option" data-option="c">Every tax τ between zero and 2(β − α), for any β</li>
+        <li class="quiz-option" data-option="d">Every tax in (0, τ̄], where young utility returns to CE</li>
+      </ul>
+      <div class="quiz-explain">The initial old gain for any \(\tau>0\). The young weakly gain on \([0,\bar\tau]\) by concavity of \(W\). \(\bar\tau\) equals \(2(\beta-\alpha)\) only in the special case \(\beta=1/2\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">4. Social security is in place with \(\tau=\tau^*\). The government abolishes it at date \(T\). Who loses?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Generation T, since it never pays the tax when young</li>
+        <li class="quiz-option" data-option="b">Generation T − 1, which paid when young but gets nothing</li>
+        <li class="quiz-option" data-option="c">Nobody, since the government budget always balanced</li>
+        <li class="quiz-option" data-option="d">The initial old, since the scheme retroactively unwinds</li>
+      </ul>
+      <div class="quiz-explain">Generation \(T-1\) paid \(\tau^*\) at \(T-1\) and expected \(\tau^*\) at \(T\). Abolition leaves it with \((1-\beta,\alpha)\), worse than both the CE and the best allocation. Generation \(T\) returns to autarky, and earlier generations are unaffected. The chain must never be broken.</div>
+    </div>
+    <div class="quiz-score"></div>
+  </div>
+
+  <h2>5. Exercises</h2>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 11.1 <span class="tag slides">Slides p.20</span></div>
+    <p>Answer the slide question in full: (a) under what parameter values does the PAYG policy produce a CE that Pareto-dominates the CE without the policy? (b) What interest rate must the CE without policy have? (c) Does it matter whether the tax is \(\tau^*\) or some other positive number?</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(\beta>\alpha\) (Case 1 of Lesson 10). (b) \(\bar r<0\). (c) Yes: \(\tau\) must lie in \((0,\bar\tau]\). Any such \(\tau\) works, and \(\tau^*=\beta-\alpha\) is the best one for generations \(i\ge1\). Too large a tax (\(\tau>\bar\tau\)) over-saves on the young's behalf and makes them worse off than in autarky, even though the initial old still gain. See the analysis in §3 for the proof.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 11.2 <span class="tag exam">Exam-style</span></div>
+    <p>Let \(\alpha=0.2\), \(\beta=0.4\).</p>
+    <ol class="parts" type="a">
+      <li>Compute the no-policy interest rate \(\bar r\).
+        <div class="numcheck" data-answer="(0.2-0.4)/(0.4*0.8)" data-tol="0.002" data-prompt="r̄ ="></div></li>
+      <li>Compute the interest rate in the CE with \(\tau = 0.1\).
+        <div class="numcheck" data-answer="0.6*0.3/(0.4*0.7)-1" data-tol="0.002" data-prompt="r(0.1) ="></div></li>
+      <li>Compute \(\bar\tau\) numerically (you may use the figure).
+        <div class="numcheck" data-answer="0.42621" data-tol="0.003" data-prompt="τ̄ ="></div></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(\bar r = -0.2/0.32 = -0.625\). (b) \(1+r = \frac{0.6\cdot0.3}{0.4\cdot0.7} = 0.643\), so \(r\approx-0.357\). The rate rises toward 0 as \(\tau\to\tau^*=0.2\). (c) Solve \(0.6\log\frac{0.8-\tau}{0.8} + 0.4\log\frac{0.2+\tau}{0.2}=0\) on \((0.2,0.8)\): \(\bar\tau\approx0.426\), slightly above \(2(\beta-\alpha)=0.4\).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 11.3 <span class="tag proof">Proof</span></div>
+    <p>Show that when \(\beta=\tfrac12\), \(\bar\tau = 2(\beta-\alpha) = 1-2\alpha\). Then show that, more generally, \(\bar\tau>2(\beta-\alpha)\) if \(\beta<\tfrac12\) and \(\bar\tau<2(\beta-\alpha)\) if \(\beta>\tfrac12\).</p>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>Write young utility as a function of old-age consumption \(c\): \(f(c) = (1-\beta)\log(1-c) + \beta\log c\), with peak at \(c=\beta\). With \(d\equiv\beta-\alpha>0\), the CE is at \(c = \beta-d\), and \(\tau=2d\) puts the young at \(c=\beta+d\). Study \(g(d)\equiv f(\beta+d)-f(\beta-d)\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <ol class="steps">
+        <li><strong>Reduction.</strong> \(\bar\tau\) is where \(f\) returns to its CE level \(f(\beta-d)\) on the far side of the peak. Since \(f\) is strictly decreasing to the right of \(\beta\): \(\bar\tau > 2d \iff f(\beta+d) > f(\beta-d) \iff g(d) > 0\), and \(\bar\tau = 2d\iff g(d)=0\).</li>
+        <li><strong>Derivative.</strong> \(g(0)=0\) and \(g'(d) = f'(\beta+d)+f'(\beta-d)\). Using \(f'(c) = \frac{\beta}{c}-\frac{1-\beta}{1-c}\):
+          $$g'(d) = \beta\Big[\tfrac{1}{\beta+d}+\tfrac{1}{\beta-d}\Big] - (1-\beta)\Big[\tfrac{1}{1-\beta-d}+\tfrac{1}{1-\beta+d}\Big] = \frac{2\beta^2}{\beta^2-d^2} - \frac{2(1-\beta)^2}{(1-\beta)^2-d^2}.$$</li>
+        <li><strong>Sign.</strong> \(h(x) = \frac{x^2}{x^2-d^2} = 1 + \frac{d^2}{x^2-d^2}\) is strictly decreasing in \(x>d\). So \(g'(d)>0\iff h(\beta)>h(1-\beta)\iff\beta<1-\beta\iff\beta<\tfrac12\). For \(\beta=\tfrac12\), \(g'\equiv0\).</li>
+        <li><strong>Conclusion.</strong> Integrating from \(g(0)=0\): if \(\beta=\tfrac12\), \(g\equiv0\) and \(\bar\tau = 2d = 1-2\alpha\) (indeed \(f(c)=\tfrac12\log(c(1-c))\) is symmetric about \(\tfrac12\)). If \(\beta<\tfrac12\), \(g(d)>0\) and \(\bar\tau>2(\beta-\alpha)\). If \(\beta>\tfrac12\), \(g(d)<0\) and \(\bar\tau<2(\beta-\alpha)\). (Here \(d\) ranges over values with \(\beta+d<1\), which holds whenever \(\beta<\tfrac12\). If \(\beta+d\ge1\), then \(\tau=2d\) is infeasible and \(\bar\tau<2d\) trivially.)</li>
+      </ol>
+      <p>Numerical check: \((\alpha,\beta) = (0.2,0.4)\) gives \(\bar\tau = 0.426 > 0.4\); \((0.3,0.5)\) gives exactly \(0.4\); \((0.5,0.7)\) gives \(0.358<0.4\). Try them in the figure.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 11.4 <span class="tag exam">Exam-style</span> (transitions)</div>
+    <p>Suppose \(\beta>\alpha\). (a) The government introduces PAYG with \(\tau^*\) at date \(T>1\), not date 1. Rank every generation's welfare relative to the no-policy CE. (b) It instead introduces it at date 1 and abolishes it at date \(T\). Rank again. (c) What does this say about the political economy of PAYG systems?</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Generations \(0,\dots,T-2\) are unaffected (autarky). Generation \(T-1\) is the "initial old" of the new system: it gets \(\tau^*\) for free when old and strictly gains. Generations \(\ge T\) pay and receive \(\tau^*\) and strictly gain. Pareto improvement.</p>
+      <p>(b) Generations \(0,\dots,T-2\) strictly gain. Generation \(T-1\) pays \(\tau^*\) when young and receives nothing when old: it consumes \((1-\beta,\alpha)\) and strictly loses relative to the CE. Generations \(\ge T\) are back to autarky and unaffected. Not a Pareto improvement.</p>
+      <p>(c) Introducing PAYG creates a windfall for the generation that is old at introduction, and abolishing it imposes a loss on the generation that is old at abolition. Every generation has an incentive to keep the system going. In the inefficient case, PAYG is a self-sustaining "social compact" (Samuelson's phrase).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 11.5 <span class="tag exam">Exam-style</span></div>
+    <p>Now take \(\beta<\alpha\) (so \(\bar r>0\)). (a) Show that a negative \(\tau\) (old-to-young transfers) raises the utility of every generation \(i\ge1\) for small \(|\tau|\). (b) Why is this nevertheless not a Pareto improvement? (c) Would it be one if the economy started at date \(-\infty\), with no initial old?</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(W'(0) = \frac{1-\beta}{1-\alpha}\big[\frac1{1+\bar r}-1\big]<0\) when \(\bar r>0\), so lowering \(\tau\) below 0 raises \(W\).</p>
+      <p>(b) The initial old's consumption falls to \(\alpha+\tau<\alpha\). Someone loses.</p>
+      <p>(c) With a doubly-infinite time line \(t\in\mathbb{Z}\), there is no initial old. Every generation is both a payer and a receiver, so \(\tau<0\) would make everyone better off when \(\bar r>0\) (and \(\tau>0\) when \(\bar r<0\)). The asymmetry between Cases 1 and 3 comes entirely from having a <em>beginning</em> without an end. (Shell 1971 discusses such "doubly infinite" economies.)</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 11.6 <span class="tag exam">Exam-style</span> (fiat money)</div>
+    <p>Remove social security. Instead, at date 1 the initial old hold \(M>0\) units of intrinsically useless fiat money. Each period the young may buy money from the old at price \(1/P_t\) (goods per unit of money) and sell it when old. (a) Write generation \(t\)'s budget constraints and show that the gross real return on money is \(P_t/P_{t+1}\). (b) Look for a stationary monetary equilibrium with \(P_t = P\). Find real balances \(M/P\) and consumption. (c) When does such an equilibrium exist? Compare with the PAYG system.</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Young: \(c_y + m_t/P_t = 1-\alpha\). Old: \(c_o = \alpha + m_t/P_{t+1}\). Real savings \(s_t = m_t/P_t\) earn gross return \(P_t/P_{t+1}\).</p>
+      <p>(b) With constant \(P\) the return is 1, i.e. \(r=0\). Money-market clearing requires the young to hold all money, \(m_t=M\), so \(M/P = s(0) = \beta(1-\alpha)-(1-\beta)\alpha = \beta-\alpha\). Consumption is \(c_y = 1-\alpha-(\beta-\alpha) = 1-\beta\) and \(c_o = \beta\), with the initial old consuming \(\alpha + M/P = \beta\).</p>
+      <p>(c) It requires \(M/P>0\), i.e. \(\beta>\alpha\), exactly when \(\bar r<0\). The allocation is identical to PAYG with \(\tau^*\). Valued fiat money is a privately-sustained version of social security: each young generation "pays" the old for money and is "repaid" by the next young. This is Samuelson's "social contrivance of money".</p>
+    </div></details>
+  </div>
+
+  <div class="takeaways">
+    <h2>Key takeaways</h2>
+    <ul>
+      <li>PAYG with tax \(\tau\) relabels endowments to \((1-\alpha-\tau,\alpha+\tau)\). The new CE is autarky there, with \(1+r(\tau) = \frac{(1-\beta)(\alpha+\tau)}{\beta(1-\alpha-\tau)}\).</li>
+      <li>\(\tau^*=\beta-\alpha\) implements the best symmetric allocation and drives \(r\) to 0.</li>
+      <li><strong>PAYG Pareto-improves iff \(\bar r<0\)</strong> (\(\beta>\alpha\)), and then for every \(\tau\in(0,\bar\tau]\), where \(W(\bar\tau)=W(0)\).</li>
+      <li>PAYG is an asset with return equal to population growth (here 0). It beats markets when \(\bar r\) is below that. Valued fiat money does the same job.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "why doesn't the government budget constraint ever bind here?" or "how does this change with population growth?" (preview of Lesson 13).</div>
+
+  <div class="lesson-nav">
+    <a href="0010-olg-efficiency.html">← Lesson 10: Efficiency</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="../reference/olg-cheatsheet.html">OLG cheat sheet</a>
+    <a href="0012-why-the-1wt-fails-in-olg.html">Lesson 12: Why the 1WT fails →</a>
+  </div>
+
+</div>
+</body>
+</html>

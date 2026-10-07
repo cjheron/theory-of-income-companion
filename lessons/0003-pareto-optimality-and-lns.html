@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 3 — Pareto Optimality and Local Non-Satiation</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part I: Welfare Theorems · Lesson 3 of 20</div>
+    <h1>Pareto Optimality and Local Non-Satiation</h1>
+    <div class="meta">Covers <a href="../sources/slides1-welfare-theorems.pdf#page=14">Slides 1, pp. 14–15 and 19</a> · About 35 min · Prerequisite: <a href="0002-competitive-equilibrium.html">Lesson 2</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>define Pareto dominance and Pareto optimality (PO), and find the PO allocations of a two-person economy, including non-differentiable ones;</li>
+      <li>state local non-satiation (LNS) precisely, and decide whether a given utility function satisfies it (the three slide questions on p. 19);</li>
+      <li>prove the lemma "LNS ⇒ budgets bind", the engine of both Walras' law and the First Welfare Theorem.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides1-welfare-theorems.pdf#page=14">Slides 1, pp. 14–15</a>. For more pictures of the Edgeworth box and Pareto set: Mas-Colell, Whinston &amp; Green, §15.B and Definition 3.B.3 (local non-satiation), with the discussion of thick indifference curves around Figure 3.B.2. Debreu, <a href="https://cowles.yale.edu/sites/default/files/2022-09/m17-all.pdf"><em>Theory of Value</em></a>, ch. 6, states the welfare theorems with exactly this "insatiability" assumption.
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>1. Pareto dominance and Pareto optimality</h2>
+
+  <div class="definition">
+    <div class="box-title">Definition: Pareto optimal allocation <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=14">S1 p.14</a></div>
+    <p>A feasible allocation \(\{x^i,y^j\}\) <strong>Pareto dominates</strong> a feasible allocation \(\{\bar x^i,\bar y^j\}\) if
+    $$u^i(x^i)\ \ge\ u^i(\bar x^i)\ \text{ for all } i\in I,\qquad u^{i'}(x^{i'})\ >\ u^{i'}(\bar x^{i'})\ \text{ for some } i'\in I .$$
+    A feasible allocation \(\{\bar x^i,\bar y^j\}\) is <strong>Pareto optimal (PO)</strong> if no feasible allocation Pareto dominates it.</p>
+  </div>
+
+  <p>Three remarks that are easy to forget under exam pressure:</p>
+  <ul>
+    <li><strong>PO is price-free.</strong> It uses only feasibility (<a href="0001-the-economy.html">Lesson 1</a>) and utilities. A planner could check it with no markets at all.</li>
+    <li><strong>PO is about efficiency, not equity.</strong> Giving everything to one person is typically PO (Exercise 3.4). There is usually a whole continuum of PO allocations.</li>
+    <li><strong>The comparison set matters.</strong> PO is relative to the set of feasible allocations. Change technology, or restrict attention (e.g. to "symmetric" allocations in OLG, <a href="0010-olg-efficiency.html">Lesson 10</a>), and you change what counts as optimal.</li>
+  </ul>
+
+  <div class="definition">
+    <div class="box-title">Related: weak Pareto optimality</div>
+    <p>\(\bar x\) is <strong>weakly PO</strong> if there is no feasible \(x\) with \(u^i(x^i)>u^i(\bar x^i)\) for <em>every</em> \(i\). PO ⇒ weakly PO. The converse can fail when some agent is satiated. You will see in <a href="0004-first-welfare-theorem.html">Lesson 4</a> that every CE is weakly PO with <em>no</em> assumptions at all; LNS is what upgrades this to full PO.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>2. See it: the lens and the contract curve</h2>
+
+  <p>Use the Edgeworth box from <a href="0002-competitive-equilibrium.html">Lesson 2</a>: total endowment \((1,1)\), \(u^A=a\log x_1+(1-a)\log x_2\), \(u^B=b\log x_1+(1-b)\log x_2\). Pick any allocation, A's bundle \(\bar x=(\bar x_1,\bar x_2)\) and B's \(\mathbf 1-\bar x\), and draw both indifference curves through it.</p>
+  <ul>
+    <li>The region between them, where both agents are strictly better off, is the <strong>lens</strong>. A non-empty lens means \(\bar x\) is not PO.</li>
+    <li>At an interior allocation, the lens is empty exactly when the indifference curves are <em>tangent</em>, i.e. the marginal rates of substitution are equal:
+      $$\underbrace{\frac{a}{1-a}\frac{x_2}{x_1}}_{MRS^A} = \underbrace{\frac{b}{1-b}\frac{1-x_2}{1-x_1}}_{MRS^B}
+      \quad\Longleftrightarrow\quad x_2=\frac{k_b x_1}{k_a(1-x_1)+k_b x_1},\quad k_a=\tfrac{a}{1-a},\ k_b=\tfrac{b}{1-b}.$$
+      This locus is the <strong>contract curve</strong>: the set of interior PO allocations.</li>
+  </ul>
+
+  <div class="figure">
+    <div id="lens-ctrl"></div>
+    <div id="lens-fig"></div>
+    <div id="lens-read"></div>
+    <div class="verdict" id="lens-verdict"></div>
+    <div class="caption"><b>Interactive.</b> Drag the allocation \(\bar x\). The <span style="color:#2a78d6">blue</span> curve is A's indifference curve through \(\bar x\) and the <span style="color:#eb6834">orange</span> curve is B's. The shaded <b>lens</b> contains the allocations that make <em>both</em> strictly better off. The dashed <span style="color:#4a3aa7">violet</span> curve is the contract curve, and its thick <span style="color:#1baf7a">aqua</span> stretch is the part inside the lens: the PO allocations that Pareto dominate \(\bar x\). <b>Try:</b> drag \(\bar x\) onto the contract curve and watch the lens collapse.</div>
+  </div>
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const P = EconPlot.create('#lens-fig', { x: [0, 1], y: [0, 1], width: 460, height: 460, equal: true, frame: true,
+      xlabel: 'x_1^A  →', ylabel: 'x_2^A  →', margin: { t: 30, r: 30 } });
+    let xb = [0.75, 0.25], S;
+    function draw(v) {
+      const { a, b } = v;
+      P.clear();
+      const uA = (x, y) => a * Math.log(x) + (1 - a) * Math.log(y);
+      const uB = (x, y) => b * Math.log(1 - x) + (1 - b) * Math.log(1 - y);
+      const A0 = uA(xb[0], xb[1]), B0 = uB(xb[0], xb[1]);
+      P.region((x, y) => uA(x, y) > A0 && uB(x, y) > B0, { fill: C.fillAqua, res: 140 });
+      const ka = a / (1 - a), kb = b / (1 - b);
+      const cc = x => kb * x / (ka * (1 - x) + kb * x);
+      P.fn(cc, { color: C.violet, dash: '6 4', width: 1.6, domain: [0.001, 0.999] });
+      // portion of contract curve inside the (weak) lens
+      const seg = [];
+      for (let i = 1; i < 600; i++) { const x = i / 600, y = cc(x); seg.push(uA(x, y) >= A0 - 1e-12 && uB(x, y) >= B0 - 1e-12 ? [x, y] : [NaN, NaN]); }
+      P.path(seg, { color: C.aqua, width: 5 });
+      P.contour(uA, A0, { color: C.blue, width: 1.8 });
+      P.contour(uB, B0, { color: C.orange, width: 1.8 });
+      P.text(0.02, 0.96, 'contract curve: dashed', { sans: true, size: 12, color: '#52514e' });
+      P.text(1, 1, 'O^B', { dx: 4, dy: -6, italic: true });
+      P.text(xb[0], xb[1], 'x̄', { dx: 10, dy: 16, italic: true });
+      h.move(xb[0], xb[1]);
+      const mA = ka * xb[1] / xb[0], mB = kb * (1 - xb[1]) / (1 - xb[0]);
+      EconPlot.readout('#lens-read', [
+        ['MRS^A at x̄:', mA.toFixed(3)],
+        ['MRS^B at x̄:', mB.toFixed(3)],
+        ['gap MRS^A − MRS^B:', (mA - mB).toFixed(3), Math.abs(mA - mB) < 0.02 ? 'good' : 'bad']
+      ]);
+      document.getElementById('lens-verdict').textContent = Math.abs(mA - mB) < 0.02
+        ? 'The MRSs are (almost) equal: the lens has (almost) vanished, so x̄ is (approximately) Pareto optimal.'
+        : (mA > mB
+          ? 'MRS^A > MRS^B: A values good 1 more (in units of good 2) than B does. Moving good 1 from B to A, compensated with good 2, helps both, so x̄ is not PO.'
+          : 'MRS^A < MRS^B: B values good 1 more than A does. Moving good 1 from A to B, compensated with good 2, helps both, so x̄ is not PO.');
+    }
+    const h = P.drag(xb[0], xb[1], (x, y) => { xb = [Math.min(0.98, Math.max(0.02, x)), Math.min(0.98, Math.max(0.02, y))]; draw(S.values); return xb; });
+    S = EconPlot.sliders('#lens-ctrl', [
+      { id: 'a', label: 'a', min: 0.1, max: 0.9, step: 0.01, value: 0.5 },
+      { id: 'b', label: 'b', min: 0.1, max: 0.9, step: 0.01, value: 0.3 }
+    ], draw);
+  })();
+  </script>
+
+  <div class="warning">
+    <div class="box-title">Tangency is not the definition</div>
+    <p>"MRSs equal" characterizes PO only for interior allocations with smooth, convex preferences. The <em>definition</em> is "no feasible Pareto improvement". At corners, with kinks (Leontief), or with non-convexities you must go back to the definition. Exercise 3.3 is a typical exam case.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>3. Local non-satiation</h2>
+
+  <div class="definition">
+    <div class="box-title">Definition: Local non-satiation (LNS) <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=15">S1 p.15</a></div>
+    <p>\((u^i,X^i)\) satisfies <strong>local non-satiation</strong> if for every \(x\in X^i\) and every \(\varepsilon>0\) there is an \(\hat x\in B_\varepsilon(x)\cap X^i\) with \(u^i(\hat x)>u^i(x)\), where
+    $$B_\varepsilon(x)=\{x'\in X^i:\ \|x-x'\|<\varepsilon\},\qquad \|x\|^2=\sum_{k=1}^m x_k^2 .$$</p>
+  </div>
+
+  <p>In words: <em>however close you insist on staying, there is always something slightly better nearby.</em> Note that LNS is a joint property of \(u^i\) <strong>and</strong> \(X^i\): the better bundle must be <em>consumable</em>. Two pictures show how it fails:</p>
+
+  <div class="figure">
+    <div class="figure-row">
+      <div id="lns-bliss"></div>
+      <div id="lns-thick"></div>
+    </div>
+    <div class="caption"><b>Left: a bliss point.</b> \(u=-(x_1-0.5)^2-(x_2-0.55)^2\) has circular indifference curves. At the bliss point \(x^b\) nothing in any ball is better, so LNS fails <em>at that one point</em>, and that is enough to violate the definition. <b>Right: a thick indifference curve.</b> \(u\) equals \(x_1+x_2\) below the band, stays constant at \(0.8\) inside the shaded band \(0.8\le x_1+x_2\le 1.2\), and equals \(x_1+x_2-0.4\) above it. This \(u\) is continuous and (weakly) increasing, yet in the interior of the band a small enough ball contains nothing strictly better. This is the counterexample behind slide question 2.</div>
+  </div>
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const L = EconPlot.create('#lns-bliss', { x: [0, 1], y: [0, 1], width: 300, height: 300, equal: true, xlabel: 'x_1', ylabel: 'x_2', margin: { l: 54, b: 40 } });
+    const ub = (x, y) => -((x - 0.5) ** 2 + (y - 0.55) ** 2);
+    [0.02, 0.06, 0.12, 0.2].forEach(r => L.contour(ub, -r * r * 4, { color: C.blue, width: 1.5 }));
+    L.param(t => 0.5 + 0.07 * Math.cos(t), t => 0.55 + 0.07 * Math.sin(t), [0, 2 * Math.PI], { color: C.orange, dash: '3 3', width: 1.5 });
+    L.point(0.5, 0.55, { color: C.orange });
+    L.text(0.5, 0.04, 'bliss point x^b: nothing better in B_ε', { anchor: 'middle', size: 12, sans: true });
+    const R = EconPlot.create('#lns-thick', { x: [0, 1], y: [0, 1], width: 300, height: 300, equal: true, xlabel: 'x_1', ylabel: 'x_2', margin: { l: 54, b: 40 } });
+    R.region((x, y) => x + y >= 0.8 && x + y <= 1.2, { fill: C.fillOrange });
+    [0.3, 0.55, 0.8].forEach(k => R.fn(x => k - x, { color: C.blue, width: 1.5 }));
+    [1.2, 1.45, 1.7].forEach(k => R.fn(x => k - x, { color: C.blue, width: 1.5 }));
+    R.param(t => 0.5 + 0.06 * Math.cos(t), t => 0.5 + 0.06 * Math.sin(t), [0, 2 * Math.PI], { color: C.orange, dash: '3 3', width: 1.5 });
+    R.point(0.5, 0.5, { color: C.orange });
+    R.text(0.6, 0.43, 'u = 0.8 in band', { size: 11, sans: true });
+    R.text(0.04, 0.12, 'u = x_1 + x_2', { size: 12, sans: true });
+    R.text(0.62, 0.93, 'u = x_1 + x_2 − 0.4', { size: 12, sans: true });
+  })();
+  </script>
+
+  <h3>The lemma LNS is really used for</h3>
+
+  <div class="theorem">
+    <div class="box-title">Lemma: LNS ⇒ budget constraints bind (and every better bundle costs more)</div>
+    <p>Let \((u^i,X^i)\) satisfy LNS, let \(p\) be a price vector, and let \(\bar x\) maximize \(u^i\) on \(\{x\in X^i: p\cdot x\le M\}\). Then</p>
+    <ol>
+      <li>\(p\cdot \bar x = M\) (the budget binds);</li>
+      <li>for every \(x\in X^i\) with \(u^i(x)\ge u^i(\bar x)\), we have \(p\cdot x\ge p\cdot\bar x\);</li>
+      <li>for every \(x\in X^i\) with \(u^i(x)> u^i(\bar x)\), we have \(p\cdot x> p\cdot\bar x\). (This part needs only optimality.)</li>
+    </ol>
+  </div>
+
+  <div class="proof">
+    <div class="box-title">Proof</div>
+    <ol class="steps">
+      <li><strong>A tool.</strong> By Cauchy–Schwarz, \(|p\cdot\hat x-p\cdot x|=|p\cdot(\hat x-x)|\le\|p\|\,\|\hat x-x\|\). So moving less than \(\varepsilon\) changes cost by less than \(\|p\|\varepsilon\).</li>
+      <li><strong>Part 2.</strong> Suppose \(u^i(x)\ge u^i(\bar x)\) but \(p\cdot x<p\cdot\bar x\). Let \(\delta=p\cdot\bar x-p\cdot x>0\) and pick \(\varepsilon>0\) with \(\|p\|\varepsilon<\delta\) (any \(\varepsilon\) works if \(p=0\)). LNS gives \(\hat x\in X^i\), \(\|\hat x-x\|<\varepsilon\), with \(u^i(\hat x)>u^i(x)\ge u^i(\bar x)\). By Step 1, \(p\cdot\hat x<p\cdot x+\delta=p\cdot\bar x\le M\). So \(\hat x\) is affordable and strictly better than \(\bar x\), contradicting optimality.</li>
+      <li><strong>Part 1.</strong> If \(p\cdot\bar x<M\), apply the same perturbation to \(x=\bar x\) itself, with \(\|p\|\varepsilon<M-p\cdot\bar x\): there is an affordable \(\hat x\) better than \(\bar x\). Contradiction.</li>
+      <li><strong>Part 3.</strong> If \(u^i(x)>u^i(\bar x)\) and \(p\cdot x\le p\cdot\bar x\le M\), then \(x\) is affordable and strictly better. Contradiction. No LNS is needed.</li>
+    </ol>
+    <div class="qed">∎</div>
+  </div>
+
+  <p>Parts 2 and 3 are, word for word, equations (1) and (2) in the proof of the First Welfare Theorem (<a href="0004-first-welfare-theorem.html">Lesson 4</a>). Part 1 is what makes Walras' law hold (<a href="0002-competitive-equilibrium.html">Lesson 2</a>).</p>
+
+  <div class="intuition">
+    <div class="box-title">Intuition: why "local", and why not monotonicity?</div>
+    <p>The proof only ever perturbs a bundle by a tiny amount to make a budget argument. So we need "better is available nearby", not "more is better". LNS allows goods that are bads (\(u=x_2-x_1^2\) satisfies it: just raise \(x_2\)), and it says nothing about convexity or continuity. It is about the weakest assumption that makes "money left on the table is wasted" true.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>4. The slide questions on LNS <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=19">S1 p.19</a></h2>
+
+  <p>Fix the vocabulary first; the answers depend on it. For bundles in \(\mathbb{R}^m\), write \(x'\ge x\) for "every coordinate weakly larger" and \(x'\gg x\) for "every coordinate strictly larger".</p>
+  <table class="simple">
+    <tr><th>Name</th><th>Condition</th></tr>
+    <tr><td>increasing (weakly)</td><td>\(x'\ge x\ \Rightarrow\ u(x')\ge u(x)\)</td></tr>
+    <tr><td>monotone (MWG)</td><td>\(x'\gg x\ \Rightarrow\ u(x')>u(x)\)</td></tr>
+    <tr><td>strictly increasing</td><td>\(x'\ge x,\ x'\neq x\ \Rightarrow\ u(x')>u(x)\)</td></tr>
+  </table>
+  <p>Throughout, take \(X^i=\mathbb{R}^m_+\) (or any set such that \(x\in X^i\) implies \(x+t\,\mathbf e_k\in X^i\) for small \(t>0\)). Try the three questions as Exercise 3.1 before opening the solutions.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>5. Check your understanding</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">1. Allocation \(\bar x\) is PO. What can you conclude about any other feasible allocation \(x\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Everybody weakly prefers \(\bar x\) to \(x\)</li>
+        <li class="quiz-option" data-option="b">Somebody strictly prefers \(x\) to \(\bar x\)</li>
+        <li class="quiz-option" data-option="c">If anybody gains, somebody else loses</li>
+        <li class="quiz-option" data-option="d">Total utility is higher under \(\bar x\)</li>
+      </ul>
+      <div class="quiz-explain">No feasible \(x\) has everyone weakly better and someone strictly better, so if someone strictly gains, someone strictly loses. PO does not rank \(\bar x\) above every alternative, and there is no "total utility" in the definition.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">2. On \(X=\mathbb{R}^2_+\), which utility function violates LNS?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">\(u=\min\{x_1+x_2,\,1\}\)</li>
+        <li class="quiz-option" data-option="b">\(u=\min\{x_1,\,x_2\}\)</li>
+        <li class="quiz-option" data-option="c">\(u=x_2-x_1^2\)</li>
+        <li class="quiz-option" data-option="d">\(u=x_1^2+x_2^2\)</li>
+      </ul>
+      <div class="quiz-explain">\(\min\{x_1+x_2,1\}\) is satiated once \(x_1+x_2\ge 1\): at \((1,1)\) nothing nearby is better. Leontief satisfies LNS (raise <em>both</em> goods a bit), \(x_2-x_1^2\) does (raise \(x_2\)), and \(x_1^2+x_2^2\) is strictly increasing on \(\mathbb{R}^2_+\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">3. In the proof that LNS makes budgets bind, which property of \(u\) is used?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Continuity of \(u\) at the optimal bundle</li>
+        <li class="quiz-option" data-option="b">Quasi-concavity of \(u\) on the whole set</li>
+        <li class="quiz-option" data-option="c">Strict monotonicity in at least one good</li>
+        <li class="quiz-option" data-option="d">Only a strictly better bundle close by</li>
+      </ul>
+      <div class="quiz-explain">The proof perturbs \(\bar x\) to a nearby better bundle and uses Cauchy–Schwarz to keep it affordable. That is LNS and nothing more. No continuity, convexity or monotonicity is needed.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">4. Goods are indivisible, \(X^i=\mathbb{Z}^m_+\), and \(u\) is strictly increasing. Does LNS hold?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Yes, since adding one unit always helps</li>
+        <li class="quiz-option" data-option="b">No, since tiny balls hold only the point</li>
+        <li class="quiz-option" data-option="c">Yes, since strict monotonicity implies it</li>
+        <li class="quiz-option" data-option="d">No, since utility cannot be continuous</li>
+      </ul>
+      <div class="quiz-explain">For \(\varepsilon<1\), \(B_\varepsilon(x)\cap\mathbb{Z}^m_+=\{x\}\). The better bundle must be <em>in \(X^i\)</em> and within ε, so LNS fails even though more is better. LNS is a property of \((u,X)\) jointly.</div>
+    </div>
+    <div class="quiz-score"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>6. Exercises</h2>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 3.1 <span class="tag slides">Slides p.19</span> (the three LNS questions)</div>
+    <ol class="parts" type="a">
+      <li>If \(u\) is continuous and strictly increasing, does it satisfy local non-satiation?</li>
+      <li>If \(u\) is continuous and increasing, does it satisfy local non-satiation?</li>
+      <li>If \(u\) is strictly increasing, but not necessarily continuous, does it satisfy local non-satiation?</li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (a), construct \(\hat x\) explicitly and check its distance from \(x\). Then ask which hypotheses your construction actually used. For (b), think about the most boring increasing function there is.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p><strong>(a) Yes.</strong> Fix \(x\in X\) and \(\varepsilon>0\). Let \(\hat x = x+\tfrac{\varepsilon}{2}\mathbf e_1\). Then \(\hat x\in X\) (we may increase a coordinate), \(\|\hat x-x\|=\varepsilon/2<\varepsilon\), and \(\hat x\ge x\) with \(\hat x\ne x\), so strict monotonicity gives \(u(\hat x)>u(x)\). ∎</p>
+      <p><strong>(b) Not in general.</strong> A constant function \(u\equiv 0\) is continuous and (weakly) increasing but nothing is ever strictly better. A less trivial example is the thick-band utility in the figure: continuous, increasing, and violating LNS inside the band. <em>Caveat:</em> if "increasing" is read as MWG's "monotone" (\(x'\gg x\Rightarrow u(x')>u(x)\)), then the answer is <strong>yes</strong>: take \(\hat x=x+\frac{\varepsilon}{2\sqrt m}\mathbf 1\), which has \(\|\hat x-x\|=\varepsilon/2\) and \(\hat x\gg x\). On an exam, state which definition you use.</p>
+      <p><strong>(c) Yes.</strong> The proof of (a) never used continuity. Continuity is irrelevant for LNS; it matters for <em>existence</em> of optima and for the Second Welfare Theorem (Arrow's remark, <a href="0007-arrows-remark-and-decentralization.html">Lesson 7</a>). The slide pairs (a) with (c) to make exactly this point.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 3.2 <span class="tag exam">Exam-style</span></div>
+    <p>In the Edgeworth box with \(a=1/3\), \(b=1/2\) (Exercise 2.2), find the contract curve \(x_2=\phi(x_1)\). Then verify that the CE allocation \(x^A=(1/3,1/2)\) lies on it.</p>
+    <ol class="parts" type="a">
+      <li>Compute \(\phi(1/3)\).
+        <div class="numcheck" data-answer="0.5" data-tol="0.002" data-prompt="φ(1/3) ="></div></li>
+      <li>Explain, without the welfare theorem, why landing on the contract curve was guaranteed.</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>\(k_a=\frac{1/3}{2/3}=\tfrac12\), \(k_b=1\), so \(\phi(x_1)=\frac{x_1}{\frac12(1-x_1)+x_1}=\frac{2x_1}{1+x_1}\). Then \(\phi(1/3)=\frac{2/3}{4/3}=\tfrac12\) ✓.</p>
+      <p>(b) In a CE, each consumer's interior optimum sets \(MRS^i=p_1/p_2\). Both face the <em>same</em> price ratio, so \(MRS^A=MRS^B\): tangency, hence the contract curve. This is the calculus version of the First Welfare Theorem.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 3.3 <span class="tag exam">Exam-style</span> (PO without calculus)</div>
+    <p>Total endowment \((1,1)\). \(u^A=x_1+x_2\) (perfect substitutes) and \(u^B=\min\{x_1,x_2\}\) (Leontief). Characterize the set of all PO allocations.</p>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>If B's bundle is off its diagonal, B has some "useless" units. What happens if you give those to A? Then write A's utility in terms of B's bundle: \(u^A=2-(x_1^B+x_2^B)\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p><strong>Claim:</strong> PO ⇔ B's bundle is on the diagonal, \(x^B=(t,t)\) for some \(t\in[0,1]\), and A gets \((1-t,1-t)\).</p>
+      <p>(⇒) If \(x^B_1\ne x^B_2\), say \(x^B_1>x^B_2\), move \(x^B_1-x^B_2\) units of good 1 from B to A. B's min is unchanged; A gains strictly. So the original allocation was not PO.</p>
+      <p>(⇐) At \(x^B=(t,t)\): \(u^B=t\), \(u^A=2-2t\). Any feasible allocation has \(u^B=\min\{x^B_1,x^B_2\}\le\frac{x^B_1+x^B_2}{2}=\frac{2-u^A}{2}\), i.e. \(u^A+2u^B\le 2\), with equality on the diagonal. Raising one agent's utility therefore strictly lowers the other's bound, so no Pareto improvement exists. Note that MRS^B is undefined at the kink, so tangency would not have helped.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 3.4 <span class="tag proof">Proof</span> (efficiency ≠ equity)</div>
+    <p>Pure exchange, \(I\) agents, each \(u^i\) strictly increasing on \(\mathbb{R}^m_+\). Show that the allocation giving the <em>entire</em> aggregate endowment to agent 1 is PO.</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>Let \(\bar x^1=\sum_i e^i\) and \(\bar x^i=0\) for \(i\ne1\). Take any feasible \(x\ne\bar x\). By feasibility \(x^1=\sum_i e^i-\sum_{i\ne1}x^i\le\bar x^1\), and since \(x\ne\bar x\), some \(x^i\ne0\) for \(i\ne1\), so \(x^1\le\bar x^1\) with \(x^1\ne\bar x^1\). Strict monotonicity gives \(u^1(x^1)<u^1(\bar x^1)\): agent 1 is strictly worse. Hence no Pareto improvement exists. ∎</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 3.5 <span class="tag proof">Proof</span> (satiation breaks the link)</div>
+    <p>Two goods, two agents, each endowed with \((1,1)\). \(u^A=\min\{x_1+x_2,\,1\}\) and \(u^B=x_1+x_2\). Show that \(p=(1,1)\) with no trade is a CE, and that this CE is not PO. Which part of the Lemma fails for A?</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>At \(p=(1,1)\), A's budget is \(x_1+x_2\le 2\). Every bundle with \(x_1+x_2\ge1\) gives the maximum utility 1, so \(x^A=(1,1)\) is optimal. B maximizes \(x_1+x_2\) subject to \(x_1+x_2\le2\), so \(x^B=(1,1)\) is optimal. Markets clear: this is a CE.<br>
+      Not PO: give A \((\tfrac12,\tfrac12)\) and B \((\tfrac32,\tfrac32)\). A still gets 1; B gets 3 instead of 2.<br>
+      For A, \((\tfrac12,\tfrac12)\) is weakly preferred to \((1,1)\) yet strictly <em>cheaper</em>. That is a failure of Part 2 of the Lemma, which is equation (1) in the 1WT proof. Notice that A's chosen bundle does exhaust its budget; what fails is Part 2, not Part 1. A <em>could</em> have spent less and been just as happy, and that wasted value is what B could have used.</p>
+    </div></details>
+  </div>
+
+  <div class="takeaways">
+    <h2>Key takeaways</h2>
+    <ul>
+      <li>PO means no feasible allocation makes everyone weakly better and someone strictly better. It is price-free and says nothing about equity.</li>
+      <li>In the smooth interior case, PO ⇔ equal MRSs (the contract curve). Otherwise, use the definition.</li>
+      <li>LNS: in every ε-ball around every \(x\in X^i\) there is a strictly better consumable bundle. Strictly increasing ⇒ LNS (continuity irrelevant); weakly increasing does not imply LNS.</li>
+      <li>Lemma: LNS ⇒ budgets bind, and weakly-better bundles cost at least as much. This is the whole of what the 1WT needs from preferences.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "do lexicographic preferences satisfy LNS?" or "what's the Pareto set if both agents have Leontief preferences?"</div>
+
+  <div class="lesson-nav">
+    <a href="0002-competitive-equilibrium.html">← Lesson 2: Prices &amp; CE</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0004-first-welfare-theorem.html">Lesson 4: The First Welfare Theorem →</a>
+  </div>
+
+</div>
+</body>
+</html>

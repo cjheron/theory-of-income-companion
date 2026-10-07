@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 16 — Heterogeneity and Long Lives in the OLG Model</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part III: OLG Extensions (Class Note III) · Lesson 16 of 20</div>
+    <h1>Heterogeneity and Long Lives in the OLG Model</h1>
+    <div class="meta">Covers <a href="../sources/slides3-olg-extensions.pdf#page=20">Class Note III, pp. 20–24</a> · About 35 min · Prerequisites: <a href="0010-olg-efficiency.html">Lesson 10</a>, <a href="0011-pay-as-you-go-social-security.html">Lesson 11</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>derive each type's consumption under log utility and show that the equilibrium interest rate depends on the distribution of endowments <em>only</em> through the mean \(\bar\alpha\);</li>
+      <li>construct a feasible allocation that Pareto-dominates the equilibrium when \(\bar\alpha<\beta\), and verify both properties;</li>
+      <li>show with numbers that a <em>uniform</em> PAYG system can hurt some types even though the economy is dynamically inefficient;</li>
+      <li>prove that with \(N\)-period lives and negative interest rates, a small transfer from younger to older ages is a Pareto improvement.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides3-olg-extensions.pdf#page=20">Class Note III, pp. 20–24</a>. Samuelson's original consumption-loan model actually has <em>three</em>-period lives, and its argument is the ancestor of §4: Samuelson, P. (1958), <a href="https://ideas.repec.org/a/ucp/jpolec/v66y1958p467.html">“An Exact Consumption-Loan Model of Interest with or without the Social Contrivance of Money,”</a> <em>JPE</em> 66(6): 467–482.
+  </div>
+
+  <div class="box notation">
+    <div class="box-title">Notation alert</div>
+    <p>The heterogeneity slides return to the <strong>Class Note II convention</strong>: young endowment \(1-\alpha_n\), old endowment \(\alpha_n\). This is the reverse of the privatization slides (<a href="0014-privatizing-social-security.html">Lesson 14</a>), where young had \(\alpha\). Here \(\alpha\) is an endowment share again, not the capital share of <a href="0015-olg-with-capital.html">Lesson 15</a>. Preferences are \((1-\beta)\log c_y + \beta\log c_o\) for every type.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>1. Heterogeneity within a generation</h2>
+
+  <p>Each generation has \(N\) types \(n=1,\dots,N\), each of mass \(1/N\), so total population per generation is 1. Type \(n\) has endowments \(e^{t,n}_t = 1-\alpha_n\) when young and \(e^{t,n}_{t+1} = \alpha_n\) when old <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=20">III p.20</a>. Define the average old-age endowment</p>
+  $$\bar\alpha = \frac1N\sum_{n=1}^N \alpha_n .$$
+  <p>The aggregate endowment per period is still \(\frac1N\sum_n(1-\alpha_n) + \frac1N\sum_n\alpha_n = 1\).</p>
+
+  <h3>Individual demands</h3>
+  <ol class="steps">
+    <li><strong>Lifetime wealth</strong> of a type-\(\alpha\) agent at interest rate \(r\): \(W(\alpha,r) = (1-\alpha) + \dfrac{\alpha}{1+r}\).</li>
+    <li><strong>Log utility spends fixed shares of wealth</strong>: \(c_y = (1-\beta)W\) and \(c_o/(1+r) = \beta W\). So
+      $$c_y(\alpha,r) = (1-\beta)\Big[(1-\alpha) + \frac{\alpha}{1+r}\Big], \qquad c_o(\alpha,r) = \beta\big[(1+r)(1-\alpha) + \alpha\big].$$</li>
+    <li><strong>Ratio across types.</strong> Both consumptions are proportional to \(W\), so
+      $$\frac{c_y(\alpha,r)}{c_y(\bar\alpha,r)} = \frac{c_o(\alpha,r)}{c_o(\bar\alpha,r)} = \frac{W(\alpha,r)}{W(\bar\alpha,r)} = \frac{(1+r)(1-\alpha)+\alpha}{(1+r)(1-\bar\alpha)+\bar\alpha} = \frac{1+(1-\alpha)r}{1+(1-\bar\alpha)r} .$$</li>
+  </ol>
+  <p>Every type chooses the <em>same shape</em> of lifetime consumption, the bundle of a hypothetical average type scaled up or down by relative wealth.</p>
+
+  <h3>Aggregation and the interest rate</h3>
+  <p>Saving of type \(\alpha\) is</p>
+  $$s(\alpha,r) = (1-\alpha) - c_y(\alpha,r) = \beta(1-\alpha) - (1-\beta)\frac{\alpha}{1+r},$$
+  <p>which is the same formula as in <a href="0009-olg-prices-and-interest-rates.html">Lesson 9</a> and is <strong>linear in \(\alpha\)</strong>. Averaging a linear function gives the function at the average: \(\frac1N\sum_n s(\alpha_n,r) = s(\bar\alpha,r)\). Equilibrium requires zero aggregate saving (there is no asset in positive net supply), so <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=21">III p.21</a></p>
+  $$s(\bar\alpha,\bar r) = 0 \quad\Longleftrightarrow\quad \bar r = \frac{\bar\alpha-\beta}{\beta(1-\bar\alpha)} .$$
+  <p>This is the homogeneous-economy interest rate with \(\alpha=\bar\alpha\). In particular, \(\bar r<0\) iff \(\bar\alpha<\beta\).</p>
+
+  <div class="warning">
+    <div class="box-title">One big difference: now there is trade</div>
+    <p>In the homogeneous economy the equilibrium was autarky (<a href="0008-olg-environment.html">Lesson 8</a>). Here only <em>aggregate</em> saving is zero. Types with \(\alpha_n<\bar\alpha\) (poor when old) save, \(s>0\), and types with \(\alpha_n>\bar\alpha\) borrow from them. Young agents trade with each other in a within-generation credit market. The old still cannot trade with the young, since nobody would lend to someone about to die.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>2. The equilibrium is still inefficient when \(\bar\alpha<\beta\)</h2>
+
+  <p>The best aggregate symmetric allocation is \(c_y^* = 1-\beta\), \(c_o^*=\beta\), as before. The slides <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=21">III p.21</a> propose distributing it across types in proportion to equilibrium wealth:</p>
+  <div class="definition">
+    <div class="box-title">The rescaled allocation</div>
+    <p>Let \(\lambda_n \equiv \dfrac{1+(1-\alpha_n)\bar r}{1+(1-\bar\alpha)\bar r}\). Give every young type-\(n\) agent \(\big(\lambda_n(1-\beta),\ \lambda_n\beta\big)\) over its life, and give every initial-old type-\(n\) agent \(\alpha_n + (\beta-\bar\alpha)\).</p>
+  </div>
+
+  <div class="theorem">
+    <div class="box-title">Claim</div>
+    <p>If \(\bar\alpha<\beta\), the rescaled allocation is feasible and Pareto-dominates the competitive equilibrium.</p>
+  </div>
+  <div class="proof">
+    <div class="box-title">Proof</div>
+    <ol class="steps">
+      <li><strong>The weights average to one.</strong> \(\lambda_n\) is linear in \(\alpha_n\), so \(\frac1N\sum_n\lambda_n = \dfrac{1+(1-\bar\alpha)\bar r}{1+(1-\bar\alpha)\bar r} = 1\).</li>
+      <li><strong>Feasibility at \(t\ge2\).</strong> Average young consumption plus average old consumption is \((1-\beta)\cdot 1 + \beta\cdot 1 = 1\), the aggregate endowment.</li>
+      <li><strong>Feasibility at \(t=1\).</strong> The initial old consume on average \(\bar\alpha + \beta - \bar\alpha = \beta\), and the young of generation 1 consume \(1-\beta\) on average. The total is 1.</li>
+      <li><strong>The CE bundle of type \(n\) is \(\lambda_n\) times the average type's.</strong> By the ratio formula, type \(n\) consumes \(\lambda_n\big(c_y(\bar\alpha,\bar r), c_o(\bar\alpha,\bar r)\big)\). At \(\bar r\) the average type saves zero, so its bundle is its endowment \((1-\bar\alpha,\bar\alpha)\). Type \(n\)'s CE bundle is therefore \(\lambda_n(1-\bar\alpha,\bar\alpha)\).</li>
+      <li><strong>Young generations gain.</strong> With log utility, \(v(\lambda c_y,\lambda c_o) = \log\lambda + v(c_y,c_o)\). So type \(n\)'s gain is \(v(1-\beta,\beta) - v(1-\bar\alpha,\bar\alpha)\), the same for every type. It is strictly positive, because \((1-\beta,\beta)\) uniquely maximizes \(v\) on \(c_y+c_o=1\) and \(\bar\alpha\ne\beta\).</li>
+      <li><strong>Initial old gain.</strong> In the CE they consume \(\alpha_n\) (nothing to trade). Now they get \(\alpha_n + \beta-\bar\alpha > \alpha_n\) since \(\bar\alpha<\beta\).</li>
+    </ol>
+    <div class="qed">∎</div>
+  </div>
+  <p>So heterogeneity does not remove the negative-interest-rate inefficiency. But notice how carefully the improvement had to be constructed: each type's share \(\lambda_n\) depends on its own \(\alpha_n\).</p>
+
+  <h2>3. A uniform PAYG system is not enough</h2>
+
+  <p>Now suppose the government uses the simple tool of <a href="0011-pay-as-you-go-social-security.html">Lesson 11</a>: every young person pays \(\tau\) and every old person receives \(\tau\) <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=22">III p.22</a>. After-tax endowments become \(1-\alpha_n-\tau\) and \(\alpha_n+\tau\), so the average old endowment rises to \(\bar\alpha+\tau\) and</p>
+  $$r(\tau) = \frac{\bar\alpha+\tau-\beta}{\beta(1-\bar\alpha-\tau)}, \qquad \text{increasing in } \tau .$$
+  <p>With log utility, type \(n\)'s equilibrium utility is (up to a constant common to all types)</p>
+  $$U_n(\tau) = \log W_n(\tau) + \beta\log\big(1+r(\tau)\big), \qquad W_n(\tau) = (1-\alpha_n-\tau) + \frac{\alpha_n+\tau}{1+r(\tau)} .$$
+  <p>(Plug \(c_y=(1-\beta)W\) and \(c_o=\beta(1+r)W\) into \(v\).) A higher \(r\) helps lenders and hurts borrowers. The types with high \(\alpha_n\) are borrowers, and the policy destroys their cheap credit.</p>
+
+  <div class="box exercise" style="background:#f6f8fb;border-color:#1a3a5c">
+    <div class="box-title" style="color:#1a3a5c">Worked example</div>
+    <p>\(\beta = 0.5\), two equal-sized types with \(\alpha_1 = 0.05\) and \(\alpha_2 = 0.55\), so \(\bar\alpha = 0.3<\beta\).</p>
+    <ol class="steps">
+      <li>\(\bar r = (0.3-0.5)/(0.5\cdot 0.7) = -4/7\approx -0.571\), so \(1+\bar r = 3/7\). Type 1 saves \(s_1 = 0.5(0.95) - 0.5(0.05)(7/3) \approx 0.417\); type 2 borrows \(s_2\approx -0.417\).</li>
+      <li>Choose \(\tau = \beta-\bar\alpha = 0.2\). Then \(\bar\alpha+\tau=\beta\), so \(r(\tau) = 0\), \(W_n = 1\) and \(U_n = 0\) for both types.</li>
+      <li>Before the policy: \(U_1 = \log(0.95 + 0.05\cdot\tfrac73) + 0.5\log\tfrac37 \approx 0.0645 - 0.4236 = -0.359\), and \(U_2 = \log(0.45 + 0.55\cdot\tfrac73) + 0.5\log\tfrac37 \approx 0.550 - 0.424 = +0.126\).</li>
+      <li><strong>Type 1 gains 0.359; type 2 loses 0.126.</strong> The uniform PAYG system is <em>not</em> a Pareto improvement, even though the rescaled allocation of §2 gives <em>both</em> types a gain of \(v(0.5,0.5)-v(0.7,0.3)\approx 0.087\).</li>
+    </ol>
+  </div>
+
+  <div class="figure">
+    <div id="het-ctrl"></div>
+    <div id="het-fig"></div>
+    <div id="het-read"></div>
+    <div class="verdict" id="het-verdict"></div>
+    <div class="caption"><b>Interactive: welfare change by type.</b> The <span style="color:#2a78d6">blue</span> curve is the utility change \(U_n(\tau)-U_n(0)\) of a young agent with old-age endowment \(\alpha_n\), under a uniform PAYG tax \(\tau\). The <span style="color:#eb6834">orange</span> line is the gain from the rescaled allocation of §2, which is the same for every type and exists only when \(\bar\alpha<\beta\). <b>Try:</b> the defaults reproduce the worked example (types 0.05 and 0.55 marked). Shrink \(\tau\) toward 0: the cutoff type moves toward \(\bar\alpha\), but some borrowers always lose. Then set \(\bar\alpha>\beta\): now \(\bar r>0\), the orange line disappears, and borrowers still lose. No allocation can help everyone, because the First Welfare Theorem applies.</div>
+  </div>
+
+  <div class="intuition">
+    <div class="box-title">Lesson from the slides <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=22">III p.22</a></div>
+    <p>Correcting <em>aggregate</em> dynamic inefficiency, i.e. raising \(r\) toward the growth rate, is one problem. <em>Distributing</em> the gains so that nobody loses is a second one. A uniform tax solves the first but not the second, because it changes a relative price, \(r\), at which heterogeneous agents are on opposite sides of the market. Exercise 16.4 shows that adding within-generation lump-sum transfers fixes the second problem.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>4. Agents who live \(N\) periods</h2>
+
+  <p>Now return to a single type per generation, but let each generation live \(N\ge2\) periods <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=23">III p.23</a>. Generation \(t\) has utility \(u^t = v^t(c^t_t,\dots,c^t_{t+N-1})\), and at every date one generation of each age \(a=1,\dots,N\) is alive. At the equilibrium allocation \(\bar c^t\), the first-order conditions are</p>
+  $$v^t_a(\bar c^t) = \lambda^t p_{t+a-1}, \qquad a = 1,\dots,N,$$
+  <p>where \(v^t_a\) is the marginal utility of consumption at age \(a\), \(\lambda^t>0\) is the multiplier on the budget, and \(p_s\) is the date-\(s\) price.</p>
+
+  <div class="definition">
+    <div class="box-title">The "young-to-old" transfer \((\tau, Y)\)</div>
+    <p>Fix \(Y<N\). Every agent of age \(1,\dots,Y\) gives up \(\tau\). Every agent of age \(Y+1,\dots,N\) receives \(\dfrac{Y\tau}{N-Y}\). For generation \(t\), the value at birth of this change is
+    $$P^t(\tau,Y) = \frac{1}{p_t}\Big[-\tau\sum_{a=1}^{Y} p_{t+a-1} + \frac{Y\tau}{N-Y}\sum_{a=Y+1}^N p_{t+a-1}\Big].$$</p>
+  </div>
+
+  <div class="theorem">
+    <div class="box-title">Claim <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=24">III p.24</a></div>
+    <p>In the pure-exchange economy, if all equilibrium interest rates are negative, then for \(\tau>0\) small enough the transfer \((\tau,Y)\) Pareto-dominates the equilibrium allocation.</p>
+  </div>
+  <div class="proof">
+    <div class="box-title">Proof</div>
+    <ol class="steps">
+      <li><strong>Feasibility, date by date.</strong> At each date there is exactly one generation of each age. Total consumption changes by \(-Y\tau + (N-Y)\cdot\frac{Y\tau}{N-Y} = 0\). No goods are created or destroyed.</li>
+      <li><strong>Prices rise over time.</strong> \(p_{s+1}/p_s = 1/(1+r_s) > 1\) when \(r_s<0\). So every price \(p_{t+a-1}\) with \(a>Y\) exceeds every price with \(a\le Y\).</li>
+      <li><strong>The transfer has positive value.</strong> Rewrite \(P^t(\tau,Y) = \frac{Y\tau}{p_t}\big[\overline{p}_{\text{late}} - \overline{p}_{\text{early}}\big]\), where \(\overline{p}_{\text{late}}\) is the average of the \(N-Y\) late prices and \(\overline{p}_{\text{early}}\) the average of the \(Y\) early ones. By step 2, \(P^t(\tau,Y)>0\).</li>
+      <li><strong>Marginal welfare.</strong> Differentiating utility at \(\tau=0\) and using the FOCs:
+        $$\frac{d u^t}{d\tau}\Big|_{\tau=0} = \sum_a v^t_a\,\frac{dc^t_a}{d\tau} = \lambda^t \sum_a p_{t+a-1}\frac{dc^t_a}{d\tau} = \lambda^t p_t\, P^t(1,Y) > 0 .$$
+        This holds for every generation born at \(t\ge 1\).</li>
+      <li><strong>Generations already alive at date 1.</strong> A generation that is age \(a_0>1\) at date 1 experiences only the changes at ages \(a_0,\dots,N\). It skips some of the negative terms in \(P\), so its marginal value is even larger (if \(a_0>Y\), it only receives). So it gains too.</li>
+      <li>Since every generation's marginal utility gain is strictly positive at \(\tau=0\), there is a \(\bar\tau>0\) such that all gain for \(\tau\in(0,\bar\tau)\). (With infinitely many generations one needs a single \(\bar\tau\) that works for all of them. That holds, for example, in a stationary equilibrium with constant \(r\), where every generation faces the same problem. The slides take this step as given.) ∎</li>
+    </ol>
+  </div>
+  <p>Check: with \(N=2\), \(Y=1\), we get \(P = (p_{t+1}-p_t)/p_t = \frac{1}{1+r_t}-1\), positive iff \(r_t<0\). This is exactly the PAYG argument of <a href="0011-pay-as-you-go-social-security.html">Lesson 11</a>.</p>
+
+  <div class="warning">
+    <div class="box-title">Why this needs pure exchange <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=24">III p.24</a></div>
+    <p>Step 1 checked feasibility only against a <em>fixed</em> endowment. With intertemporal production, a reallocation of consumption changes saving and therefore the capital path, as in <a href="0015-olg-with-capital.html">Lesson 15</a>. The new consumption plan must be matched by a feasible production and capital path, which is not automatic.</p>
+  </div>
+
+  <div class="figure">
+    <div id="np-ctrl"></div>
+    <div id="np-fig"></div>
+    <div class="caption"><b>Interactive: value of the transfer.</b> \(P^t(1,Y)\) as a function of a constant interest rate \(r\), for each \(Y=1,\dots,N-1\). With \(p_{t+a-1}/p_t = (1+r)^{-(a-1)}\), every curve is positive exactly when \(r<0\). <b>Try:</b> increase \(N\). The curves get steeper, because longer lives mean more periods over which a negative return compounds.</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    // ── Figure 1: heterogeneity welfare changes ──
+    const host = document.getElementById('het-fig');
+    EconPlot.sliders('#het-ctrl', [
+      { id: 'b', label: 'β', min: 0.2, max: 0.8, step: 0.01, value: 0.5 },
+      { id: 'ab', label: 'ᾱ', min: 0.1, max: 0.7, step: 0.01, value: 0.3 },
+      { id: 'tau', label: 'τ', min: 0.01, max: 0.4, step: 0.005, value: 0.2, fmt: v => v.toFixed(3) }
+    ], v => {
+      const { b, ab, tau } = v;
+      host.innerHTML = '';
+      const r0 = (ab - b) / (b * (1 - ab));
+      const ok = ab + tau < 0.98;
+      const r1 = (ab + tau - b) / (b * (1 - ab - tau));
+      const U = (x, t, r) => Math.log((1 - x - t) + (x + t) / (1 + r)) + b * Math.log(1 + r);
+      const amax = Math.min(0.99, 1 - tau - 0.01);
+      const dU = x => U(x, tau, r1) - U(x, 0, r0);
+      const vv = (cy, co) => (1 - b) * Math.log(cy) + b * Math.log(co);
+      const pi = ab < b ? vv(1 - b, b) - vv(1 - ab, ab) : NaN;
+      let lo = 0, hi = 0;
+      for (let i = 1; i < 100; i++) { const y = dU(amax * i / 100); if (isFinite(y)) { lo = Math.min(lo, y); hi = Math.max(hi, y); } }
+      if (isFinite(pi)) hi = Math.max(hi, pi);
+      lo = Math.max(lo, -1.5); hi = Math.min(hi, 1.5);
+      const pad = 0.1 * (hi - lo + 0.01);
+      const Q = EconPlot.create(host, { x: [0, 1], y: [lo - pad, hi + pad], width: 520, height: 340, xlabel: 'α_n  (type’s old-age endowment)', ylabel: 'Δ utility' });
+      Q.hline(0, { dash: null, color: '#b9b6ae', width: 1 });
+      if (ok) Q.fn(dU, { color: C.blue, width: 2.2, domain: [0.005, amax], label: 'uniform PAYG', labelAt: 0.12, labelDy: -10 });
+      if (isFinite(pi)) Q.hline(pi, { color: C.orange, dash: '6 4', width: 2, label: 'rescaled allocation', labelDx: -150, labelDy: -8 });
+      Q.vline(ab, { width: 1, label: 'ᾱ', labelDx: 4, labelDy: 14 });
+      let cut = NaN;
+      if (ok) {
+        cut = EconPlot.bisect(dU, 0.001, amax);
+        if (isFinite(cut)) Q.point(cut, 0, { hollow: true, color: C.blue, label: 'cutoff', labelDx: 6, labelDy: 18 });
+        [0.05, 0.55].forEach(x => { if (x < amax) Q.point(x, dU(x), { color: C.ink, r: 3.5 }); });
+      }
+      EconPlot.readout('#het-read', [
+        ['r̄ before :', r0.toFixed(3), r0 < 0 ? 'bad' : ''],
+        ['r(τ) after :', ok ? r1.toFixed(3) : '—'],
+        ['cutoff type :', isFinite(cut) ? cut.toFixed(3) : 'none'],
+        ['rescaled gain :', isFinite(pi) ? pi.toFixed(3) : 'n/a (ᾱ ≥ β)']
+      ]);
+      let msg;
+      if (!ok) msg = 'τ too large: the young cannot pay it.';
+      else if (!isFinite(cut)) msg = dU(0.5) > 0 ? 'Every young type gains from this τ.' : 'Every young type loses from this τ.';
+      else msg = 'Types with α_n above ' + cut.toFixed(3) + ' (the borrowers) lose, because the policy raises the interest rate from ' + r0.toFixed(3) + ' to ' + r1.toFixed(3) + '. Types below the cutoff (the lenders) gain.';
+      if (ab >= b) msg += ' Here ᾱ ≥ β, so r̄ ≥ 0 and no Pareto improvement exists.';
+      document.getElementById('het-verdict').textContent = msg;
+    });
+
+    // ── Figure 2: N-period transfer value ──
+    const host2 = document.getElementById('np-fig');
+    const cols = [C.blue, C.orange, C.aqua, C.violet, C.muted, C.ink];
+    EconPlot.sliders('#np-ctrl', [
+      { id: 'N', label: 'N', min: 2, max: 6, step: 1, value: 3, fmt: v => v.toFixed(0) }
+    ], v => {
+      const N = Math.round(v.N);
+      host2.innerHTML = '';
+      const Pv = (r, Y) => { const q = 1 / (1 + r); let s = 0; for (let a = 1; a <= N; a++) s += (a <= Y ? -1 : Y / (N - Y)) * Math.pow(q, a - 1); return s; };
+      let lo = 0, hi = 0;
+      for (let Y = 1; Y < N; Y++) { lo = Math.min(lo, Pv(0.3, Y)); hi = Math.max(hi, Pv(-0.3, Y)); }
+      const Q = EconPlot.create(host2, { x: [-0.3, 0.3], y: [lo * 1.1, hi * 1.1], width: 520, height: 300, xlabel: 'r', ylabel: 'P^t(1,Y)' });
+      for (let Y = 1; Y < N; Y++) Q.fn(r => Pv(r, Y), { color: cols[(Y - 1) % cols.length], width: 2, label: 'Y = ' + Y, labelAt: -0.3 + 0.07 * Y, labelDy: -6 });
+    });
+  })();
+  </script>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>5. Check your understanding</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">1. Why does the equilibrium interest rate depend on the \(\alpha_n\) only through \(\bar\alpha\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Because each type's saving is linear in its α_n</li>
+        <li class="quiz-option" data-option="b">Because each type faces a different interest rate</li>
+        <li class="quiz-option" data-option="c">Because nobody trades with anyone in equilibrium</li>
+        <li class="quiz-option" data-option="d">Because all types share the same lifetime wealth</li>
+      </ul>
+      <div class="quiz-explain">\(s(\alpha,r) = \beta(1-\alpha) - (1-\beta)\alpha/(1+r)\) is affine in \(\alpha\), so average saving is \(s(\bar\alpha,r)\). With non-log preferences this exact aggregation generally fails. Types <em>do</em> trade, and their wealths differ.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">2. In the worked example, why does type 2 (α = 0.55) lose from uniform PAYG?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">It pays more tax than type 1 when it is young</li>
+        <li class="quiz-option" data-option="b">It receives a smaller transfer when it is old</li>
+        <li class="quiz-option" data-option="c">It borrows, and the policy raises interest rates</li>
+        <li class="quiz-option" data-option="d">It lends, and the policy lowers interest rates</li>
+      </ul>
+      <div class="quiz-explain">Taxes and transfers are identical across types. Type 2 is a borrower (\(s_2<0\)), and the policy raises \(r\) from \(-4/7\) to 0, which makes borrowing much more expensive.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">3. In the \(N\)-period argument, what guarantees that the transfer is feasible?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Prices increase over time when interest rates are negative</li>
+        <li class="quiz-option" data-option="b">Each date has one generation of each age, so flows net out</li>
+        <li class="quiz-option" data-option="c">The first-order conditions hold for each generation alive</li>
+        <li class="quiz-option" data-option="d">Each generation's budget constraint holds with equality</li>
+      </ul>
+      <div class="quiz-explain">At any date, \(Y\) age groups each give \(\tau\) and \(N-Y\) age groups each receive \(Y\tau/(N-Y)\), so the net is zero. Rising prices are what make the transfer <em>valuable</em>, not what make it feasible.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">4. With \(N=2\) and \(Y=1\), \(P^t(1,1)\) equals which expression?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">\(r_t/(1+r_t)\), positive exactly when r is positive</li>
+        <li class="quiz-option" data-option="b">\(1+r_t\), the gross return on saving from t to t+1</li>
+        <li class="quiz-option" data-option="c">\(r_t\), the net interest rate between t and t+1</li>
+        <li class="quiz-option" data-option="d">\(1/(1+r_t)-1\), positive exactly when r is negative</li>
+      </ul>
+      <div class="quiz-explain">\(P = (-p_t + p_{t+1})/p_t = p_{t+1}/p_t - 1 = 1/(1+r_t) - 1\). This is the value at birth of paying 1 when young and receiving 1 when old, i.e. two-period PAYG.</div>
+    </div>
+    <div class="quiz-score"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>6. Exercises</h2>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 16.1 <span class="tag slides">Slides III p.20</span></div>
+    <p>Derive \(c_y(\alpha,r)\), \(c_o(\alpha,r)\) and the ratio formula from scratch, starting from the type-\(\alpha\) household problem with sequential budget constraints \(c_y + s = 1-\alpha\) and \(c_o = (1+r)s+\alpha\).</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>Eliminate \(s\): \(c_y + c_o/(1+r) = W \equiv 1-\alpha+\alpha/(1+r)\). The Lagrangian FOCs are \((1-\beta)/c_y = \lambda\) and \(\beta/c_o = \lambda/(1+r)\), so \(c_y = (1-\beta)/\lambda\) and \(c_o/(1+r) = \beta/\lambda\). Substituting into the budget gives \(1/\lambda = W\). Hence \(c_y = (1-\beta)W\) and \(c_o = \beta(1+r)W = \beta[(1+r)(1-\alpha)+\alpha]\). Both are proportional to \(W\), so the ratio across types is \(W(\alpha,r)/W(\bar\alpha,r)\). Multiplying numerator and denominator by \(1+r\) gives \(\frac{(1+r)(1-\alpha)+\alpha}{(1+r)(1-\bar\alpha)+\bar\alpha} = \frac{1+(1-\alpha)r}{1+(1-\bar\alpha)r}\).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 16.2 <span class="tag exam">Exam-style</span></div>
+    <p>Use the worked example (\(\beta=0.5\), \(\alpha_1=0.05\), \(\alpha_2=0.55\)).</p>
+    <ol class="parts" type="a">
+      <li>Compute \(\lambda_2\), type 2's weight in the rescaled allocation.
+        <div class="numcheck" data-answer="26/21" data-tol="0.002" data-prompt="λ₂ ="></div></li>
+      <li>Compute type 2's equilibrium consumption when young, \(c_y(0.55,\bar r)\).
+        <div class="numcheck" data-answer="0.5*(0.45+0.55*7/3)" data-tol="0.002" data-prompt="c_y ="></div></li>
+      <li>Check that this equals \(\lambda_2(1-\bar\alpha)\).</li>
+      <li>In the rescaled allocation, what does type 2 consume when young? Is that more or less than in the CE? Why is it nevertheless better off?</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(\lambda_2 = \frac{1+0.45(-4/7)}{1+0.7(-4/7)} = \frac{1-1.8/7}{0.6} = \frac{5.2/7}{0.6} = 26/21\approx 1.238\).<br>
+      (b) \(0.5(0.45 + 0.55\cdot 7/3) = 0.5(0.45+1.2833) = 0.8667\).<br>
+      (c) \(\lambda_2\cdot 0.7 = 0.8667\). ✓<br>
+      (d) \(\lambda_2(1-\beta) = 0.619 < 0.867\). Type 2 consumes <em>less</em> when young but much more when old: \(\lambda_2\beta = 0.619\) versus \(\lambda_2\bar\alpha = 0.371\). Its CE profile is tilted too far toward youth, because the negative interest rate made borrowing against old-age endowment cheap. The rescaled profile \((1-\beta,\beta)\) is the best shape, and log utility makes the gain independent of the scale \(\lambda_2\).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 16.3 <span class="tag exam">Exam-style</span></div>
+    <p>In the worked example with \(\tau = \beta-\bar\alpha\), find the cutoff type \(\hat\alpha\) such that types with \(\alpha_n>\hat\alpha\) lose. Give a closed form in terms of \(\bar r\) and \(\beta\), and evaluate it.</p>
+    <div class="numcheck" data-answer="0.39564" data-tol="0.003" data-prompt="α̂ ="></div>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>After the policy, \(r=0\) and \(U_n = 0\) for every type. So the cutoff solves \(U_n(0) = 0\), i.e. \(\log W(\hat\alpha,\bar r) + \beta\log(1+\bar r) = 0\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>\(W(\hat\alpha,\bar r) = (1+\bar r)^{-\beta}\), i.e. \(1 + \hat\alpha\big(\tfrac{1}{1+\bar r}-1\big) = (1+\bar r)^{-\beta}\), so
+      $$\hat\alpha = \frac{(1+\bar r)^{-\beta} - 1}{(1+\bar r)^{-1} - 1} = \frac{(7/3)^{1/2}-1}{7/3 - 1} = \frac{0.5275}{1.3333}\approx 0.396 .$$
+      Since \(\hat\alpha>\bar\alpha=0.3\), some borrowers (those with \(\alpha_n\in(0.3,0.396)\)) still gain: the move of the consumption profile toward the optimal shape outweighs their higher borrowing cost.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 16.4 <span class="tag exam">Exam-style</span> (design a Pareto-improving policy)</div>
+    <p>Show that the rescaled allocation of §2 can be implemented as a competitive equilibrium with (i) a uniform PAYG tax \(\tau=\beta-\bar\alpha\) and (ii) lump-sum transfers \(T_n\) among the young of each generation, summing to zero. Find \(T_n\).</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>With \(\tau=\beta-\bar\alpha\), the post-tax average old endowment is \(\beta\), so \(r=0\) (for any zero-sum within-generation transfers, since saving remains linear in endowments). At \(r=0\) a type-\(n\) young agent's wealth is \((1-\alpha_n-\tau+T_n) + (\alpha_n+\tau) = 1+T_n\). It consumes \((1-\beta)(1+T_n)\) and \(\beta(1+T_n)\). Matching the rescaled allocation requires \(1+T_n = \lambda_n\), i.e.
+      $$T_n = \lambda_n - 1 = \frac{(\bar\alpha-\alpha_n)\,\bar r}{1+(1-\bar\alpha)\bar r}.$$
+      These sum to zero because \(\lambda_n\) averages to one. With \(\bar r<0\), high-\(\alpha_n\) types (the borrowers hurt by the rise in \(r\)) receive \(T_n>0\). The initial old receive \(\tau = \beta-\bar\alpha\), as in §2.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 16.5 <span class="tag slides">Slides III pp.23–24</span></div>
+    <p>Let \(N=3\) and suppose the interest rate is constant at \(r=-0.1\).</p>
+    <ol class="parts" type="a">
+      <li>Compute \(P^t(1,1)\) (take 1 at age 1; give ½ at ages 2 and 3).
+        <div class="numcheck" data-answer="0.172840" data-tol="0.003" data-prompt="P(1,1) ="></div></li>
+      <li>Compute \(P^t(1,2)\) (take 1 at ages 1 and 2; give 2 at age 3).
+        <div class="numcheck" data-answer="0.358025" data-tol="0.003" data-prompt="P(1,2) ="></div></li>
+      <li>Show that a generation aged 2 at date 1 gains even more from the \(Y=2\) transfer than a newborn does.</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>Let \(q=1/(1+r) = 1/0.9\). (a) \(-1 + \tfrac12(q+q^2) = -1 + \tfrac12(1.1111+1.2346)\approx 0.1728\). (b) \(-(1+q) + 2q^2 = -2.1111 + 2.4691 \approx 0.3580\). (c) The age-2 generation pays only at age 2 and receives 2 at age 3. Valued at its date-1 price, that is \(-1 + 2q \approx 1.222 > 0.358\). It skips the age-1 payment.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 16.6 <span class="tag exam">Exam-style</span></div>
+    <p>Suppose instead that all equilibrium interest rates are positive. Consider the reverse transfer, from old ages to young ages. Show that it raises the value \(P^t\) for every generation born at \(t\ge 1\), but that it cannot be a Pareto improvement. Identify a generation that must lose.</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>With \(r>0\) prices fall over time, so the reverse transfer has positive value for every generation born at \(t\ge1\): it receives early, when goods are expensive, and pays late, when they are cheap. But a generation aged \(a_0>Y\) at date 1 <em>only pays</em>; it receives nothing in its remaining life. It strictly loses. This is consistent with the First Welfare Theorem: with \(r>0\), the value of the aggregate endowment is finite (<a href="0012-why-the-1wt-fails-in-olg.html">Lesson 12</a>), so the equilibrium is Pareto optimal.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 16.7 <span class="tag slides">Slides III p.24</span></div>
+    <p>Explain in a few sentences why the \(N\)-period argument "does not automatically go through" with intertemporal production. Use the Cobb–Douglas model of <a href="0015-olg-with-capital.html">Lesson 15</a> as an example.</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>With production, the set of feasible consumption paths depends on the capital path. Moving consumption from the young to the old changes saving, hence \(K_{t+1}\), output and factor prices. So "total consumption unchanged each period" no longer guarantees feasibility, because output itself changes. And welfare effects include price effects. In Lesson 15, PAYG lowered \(K\), and whether steady-state generations gained depended on \(r^*\), not merely on the sign of a valuation like \(P^t\). The negative-interest-rate argument must be redone with a feasible production plan.</p>
+    </div></details>
+  </div>
+
+  <div class="takeaways">
+    <h2>Key takeaways</h2>
+    <ul>
+      <li>With log utility, type-\(\alpha\) consumption is the average type's bundle scaled by \(\frac{1+(1-\alpha)r}{1+(1-\bar\alpha)r}\), and saving is linear in \(\alpha\). So \(\bar r = \frac{\bar\alpha-\beta}{\beta(1-\bar\alpha)}\) depends only on \(\bar\alpha\).</li>
+      <li>There is trade within generations: low-\(\alpha\) types lend to high-\(\alpha\) types.</li>
+      <li>If \(\bar\alpha<\beta\), the wealth-rescaled best symmetric allocation, plus \(\beta-\bar\alpha\) to the initial old, Pareto-dominates the CE.</li>
+      <li>Uniform PAYG raises \(r\) and hurts borrowers: correcting aggregate inefficiency does not settle the distribution of gains.</li>
+      <li>With \(N\)-period lives and \(r<0\), any small young-to-old transfer has positive value \(P^t\) for every generation and is a Pareto improvement in pure exchange.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "does exact aggregation survive with CRRA utility?" or "redo the N-period argument for a generation that's already age Y+1 at date 1."</div>
+
+  <div class="lesson-nav">
+    <a href="0015-olg-with-capital.html">← Lesson 15: OLG with capital</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0017-perpetual-youth-households.html">Lesson 17: Perpetual youth, households →</a>
+  </div>
+
+</div>
+</body>
+</html>

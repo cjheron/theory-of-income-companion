@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 19 — Perpetual Youth with Capital: the Phase Diagram</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part IV: Perpetual Youth (Blanchard–Yaari) · Lesson 19 of 20</div>
+    <h1>Perpetual Youth with Capital: the Phase Diagram</h1>
+    <div class="meta">Covers <a href="../sources/slides-blanchard-yaari.pdf#page=29">Blanchard–Yaari slides 19, 22–34</a> · About 40 min · Prerequisite: <a href="0018-perpetual-youth-aggregation.html">Lesson 18</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>derive the two-equation \((K,C)\) system of the Blanchard–Yaari economy with capital from the aggregate consumption rule and factor prices;</li>
+      <li>draw the phase diagram (both loci, the field, the saddle path) and explain why the equilibrium must sit on the saddle path;</li>
+      <li>prove the comparative statics of the steady state in \(p\), \(\theta\), \(\alpha\), and say when the steady state is above or below the golden rule.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Blanchard, O. J. (1985), <a href="https://ideas.repec.org/a/ucp/jpolec/v93y1985i2p223-47.html">"Debt, Deficits, and Finite Horizons,"</a> <em>Journal of Political Economy</em> 93(2): 223–247. Section III ("The closed economy") and Figures 2 and 4 are reproduced on <a href="../sources/slides-blanchard-yaari.pdf#page=39">slides 28</a> and <a href="../sources/slides-blanchard-yaari.pdf#page=44">33</a>. Households come from Yaari (1965), <a href="https://academic.oup.com/restud/article-abstract/32/2/137/1555438"><em>Review of Economic Studies</em> 32(2)</a>.
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>1. Where we are: one aggregate rule, three economies</h2>
+
+  <p><a href="0018-perpetual-youth-aggregation.html">Lesson 18</a> aggregated the households into three equations that hold for <em>any</em> path of interest rates \(r(t)\) and labour income \(Y(t)\) <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=24">BY slide 16</a>:</p>
+  $$C = (p+\theta)(H+V),\qquad \dot V = rV + Y - C,\qquad \dot H = (r+p+\alpha)H - Y,$$
+  <p>and, after eliminating \(H\),</p>
+  $$\boxed{\;\dot C = [\,r + \alpha - \theta\,]\,C \;-\; (p+\alpha)(p+\theta)\,V\;}$$
+  <p>To close the model we need to say what \(Y\), \(r\) and \(V\) are in general equilibrium. Alvarez does this three ways <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=29">BY slide 19</a>:</p>
+  <table class="simple">
+    <tr><th>Economy</th><th>Labour income \(Y\)</th><th>Interest rate</th><th>Non-human wealth \(V\)</th><th>Lesson</th></tr>
+    <tr><td>Pure endowment</td><td>\(Y = C\)</td><td>whatever clears goods</td><td>\(V=0\)</td><td><a href="0018-perpetual-youth-aggregation.html">18</a></td></tr>
+    <tr><td>Capital</td><td>\(\mathcal F(K) - \mathcal F'(K)K\)</td><td>\(r=\mathcal F'(K)\)</td><td>\(V = K\)</td><td><strong>this lesson</strong></td></tr>
+    <tr><td>Capital + government debt</td><td>same, minus taxes</td><td>\(r=\mathcal F'(K)\)</td><td>\(V = K + B\)</td><td><a href="0020-perpetual-youth-fiscal-policy.html">20</a></td></tr>
+  </table>
+
+  <div class="box notation">
+    <div class="box-title">Notation: read before every Blanchard–Yaari formula</div>
+    <ul>
+      <li>\(p\) is the <strong>death rate</strong> (expected lifetime \(1/p\)), not a price. \(\theta\) is the pure <strong>discount rate</strong>, not the PAYG tax of <a href="0014-privatizing-social-security.html">Lesson 14</a>.</li>
+      <li>\(\alpha\) is the rate at which <strong>labour income declines with age</strong>, not the old-age endowment of Class Note II or a capital share. When we use Cobb–Douglas below, the capital share is called \(a\).</li>
+      <li>\(\mathcal F(K) \equiv F(K,1) - \delta K\) is output <strong>net of depreciation</strong>. So the golden rule is \(\mathcal F'(K_{GR}) = 0\), and \(r = \mathcal F'(K)\) with no "\(-\delta\)" in sight. (The slides write \(\mathcal F\) as a calligraphic F; plain \(F\) is the gross technology.)</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>2. Technology in continuous time</h2>
+
+  <p>Take a neoclassical, constant-returns \(F(K,L)\) and labour supplied inelastically at \(L=1\) <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=33">BY slide 22</a>. The continuous-time equations are limits of discrete time with period length \(\Delta\):</p>
+  <ol class="steps">
+    <li><strong>Feasibility at \(t\)</strong> (flows per unit time): \(I(t) + C(t) = F(K(t),1)\).</li>
+    <li><strong>Capital accumulation over a period of length \(\Delta\):</strong> \(K_{t+\Delta} = \Delta I_t + K_t(1-\Delta\delta)\). Rearranging, \(\dfrac{K_{t+\Delta}-K_t}{\Delta} = I_t - \delta K_t\), and letting \(\Delta\downarrow 0\) gives \(\dot K = I - \delta K\).</li>
+    <li><strong>Substitute \(I\) from feasibility:</strong>
+      $$\dot K(t) = F(K(t),1) - \delta K(t) - C(t) \;=\; \mathcal F(K(t)) - C(t).$$</li>
+  </ol>
+
+  <h3>Factor prices</h3>
+  <p>Competitive firms rent capital and hire labour <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=34">BY slide 23</a>:</p>
+  <ul>
+    <li><strong>Wage bill</strong> (aggregate labour income, \(L=1\)): \(Y = w = F_L(K,1) = F(K,1) - F_K(K,1)K = \mathcal F(K) - \mathcal F'(K)K\). The middle equality is Euler's theorem for CRS. The last one holds because the \(\delta K\) terms cancel: \(\mathcal F - \mathcal F'K = (F - \delta K) - (F_K - \delta)K\).</li>
+    <li><strong>Interest rate.</strong> In discrete time, owning a unit of capital from \(t\) to \(t+\Delta\) pays the rental \(\nu_{t+\Delta}\Delta\) and loses \(\delta\Delta\) to depreciation. Arbitrage with a bond paying \(r_t\Delta\) gives \(\nu_{t+\Delta} = r_t + \delta\), and firms set \(F_K(K_{t+\Delta},1) = \nu_{t+\Delta}\). In the limit, \(F_K(K(t),1) = r(t)+\delta\), i.e.
+    $$r(t) = \mathcal F'(K(t)).$$</li>
+    <li><strong>Product exhaustion:</strong> \(rK + Y = \mathcal F'(K)K + \mathcal F(K) - \mathcal F'(K)K = \mathcal F(K)\). Net output is paid out entirely as interest and wages.</li>
+  </ul>
+
+  <h2>3. The equilibrium \((K,C)\) system</h2>
+
+  <p>In a closed economy without government, the only asset households can hold in net terms is capital, so \(V(t) = \int_{-\infty}^t N(s,t)\,v(s,t)\,ds = K(t)\). Substituting \(V=K\), \(r=\mathcal F'(K)\) and \(Y = \mathcal F - \mathcal F'K\) into the two aggregate laws of motion <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=35">BY slide 24</a>:</p>
+  <ul>
+    <li>\(\dot V = rV + Y - C\) becomes \(\dot K = \mathcal F'(K)K + \mathcal F(K) - \mathcal F'(K)K - C = \mathcal F(K) - C\). This is exactly the technology equation, as it must be (Walras' law again).</li>
+    <li>The \(\dot C\) equation becomes the "Euler equation" of this economy.</li>
+  </ul>
+
+  <div class="theorem">
+    <div class="box-title">The Blanchard–Yaari dynamical system</div>
+    $$\dot C = \big[\mathcal F'(K) + \alpha - \theta\big]\,C \;-\; (p+\alpha)(p+\theta)\,K, \qquad \dot K = \mathcal F(K) - C,$$
+    <p>with \(K(0)\) given (predetermined) and \(C(0)\) free (a "jump" variable, since \(C(0) = (p+\theta)(K(0)+H(0))\) and \(H(0)\) depends on the whole future path of wages and interest rates).</p>
+  </div>
+
+  <div class="intuition">
+    <div class="box-title">Intuition: the extra term is generational turnover</div>
+    <p>Each <em>individual</em> obeys the Ramsey-like Euler equation \(\dot c/c = r - \theta\). Aggregate consumption grows more slowly, by the term \((p+\alpha)(p+\theta)K\). At every instant, a flow \(p\) of people die and are replaced by newborns who own <em>no</em> capital, so they consume less than the people they replace. With \(\alpha>0\) there is a second effect: the newborns' labour income is the highest anyone gets, while older people's income has decayed, so wealth shifts towards the old. Set \(p=\alpha=0\) and you get back the representative-agent Ramsey model, \(\dot C = (\mathcal F'(K)-\theta)C\).</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>4. The phase diagram</h2>
+
+  <p>The recipe, from <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=36">BY slide 25</a>: draw the two loci, find the steady state, find the direction of motion everywhere, then discard the paths that eventually become infeasible.</p>
+
+  <h3>The \(\dot K = 0\) locus: \(C = \mathcal F(K)\)</h3>
+  <p>This curve is concave, starts at the origin with infinite slope (Inada), peaks at the <strong>golden rule</strong> \(\mathcal F'(K_{GR}) = 0\), and then falls, crossing zero at \(K_{\max}\) where depreciation eats all output <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=37">BY slide 26</a>. <strong>Above</strong> it, \(C > \mathcal F(K)\) and capital falls. <strong>Below</strong> it, capital rises.</p>
+
+  <h3>The \(\dot C = 0\) locus: \(C = \dfrac{(p+\alpha)(p+\theta)}{\mathcal F'(K)+\alpha-\theta}\,K\)</h3>
+  <p>This is defined where the denominator is positive, i.e. for \(K < \hat K\) with \(\mathcal F'(\hat K) = \theta - \alpha\). If \(\theta-\alpha \le -\delta\), no such \(\hat K\) exists and the locus is defined for all \(K\).</p>
+  <ul>
+    <li>It passes through the origin, since \(\mathcal F'(K)\to\infty\) as \(K\to 0\).</li>
+    <li>It is <strong>increasing</strong>: the numerator \(K\) rises and the denominator falls because \(\mathcal F''<0\).</li>
+    <li>It shoots to \(+\infty\) as \(K\uparrow\hat K\) (the denominator goes to \(0^+\)).</li>
+    <li>It is convex. Alvarez states this (<a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=37">slide 26</a>), and it holds for Cobb–Douglas; you can see it in the figure.</li>
+  </ul>
+  <p><strong>Direction:</strong> for \(K<\hat K\), the coefficient on \(C\) in \(\dot C\) is positive. So \(\dot C>0\) <em>above</em> the locus and \(\dot C<0\) below it. For \(K\ge\hat K\), both terms of \(\dot C\) are \(\le 0\), so consumption falls everywhere there.</p>
+
+  <h3>The steady state is unique</h3>
+  <div class="theorem">
+    <div class="box-title">Claim: unique interior steady state <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=37">BY slide 26</a></div>
+    <p>There is exactly one \(\bar K\in(0,\min\{\hat K,K_{\max}\})\) with
+    $$\frac{\mathcal F(\bar K)}{\bar K} \;=\; \frac{(p+\alpha)(p+\theta)}{\mathcal F'(\bar K)+\alpha-\theta}, \qquad \bar C = \mathcal F(\bar K).$$</p>
+  </div>
+  <div class="proof">
+    <div class="box-title">Proof</div>
+    <ol class="steps">
+      <li>A steady state needs \(C = \mathcal F(K)\) and \(C\) on the \(\dot C=0\) locus. Divide by \(K>0\) to get the displayed equation. Since the right side is positive, we also need \(\mathcal F(K)>0\), i.e. \(K<K_{\max}\), and \(K<\hat K\).</li>
+      <li><strong>The left side \(\mathcal F(K)/K\) (average product) is strictly decreasing.</strong> Its derivative is \((\mathcal F'K - \mathcal F)/K^2 < 0\), because strict concavity with \(\mathcal F(0)=0\) gives \(\mathcal F(K) > \mathcal F'(K)K\). It tends to \(+\infty\) as \(K\to0\) (Inada) and to \(0\) at \(K_{\max}\).</li>
+      <li><strong>The right side is strictly increasing in \(K\)</strong> (its denominator falls). It tends to \(0\) as \(K\to 0\) and to \(+\infty\) as \(K\to\hat K\).</li>
+      <li>A strictly decreasing function that starts above a strictly increasing one and ends below it crosses it exactly once.</li>
+    </ol>
+    <div class="qed">∎</div>
+  </div>
+  <p>The same picture (LHS falling, RHS rising) drives every comparative static in §6: <em>anything that raises the right-hand side at a given \(K\) lowers \(\bar K\)</em>.</p>
+
+  <h3>The saddle path</h3>
+  <p>The two loci cut the plane into four regions. In the region to the left of the steady state and above both loci, \(K\) falls and \(C\) rises: paths shoot up-left and hit \(K=0\) in finite time with \(C>0\), which is infeasible. Below and to the right, \(C\) falls while \(K\) first rises. Such paths eventually reach \(C = 0\) in finite time, because on the axis \(\dot C = -(p+\alpha)(p+\theta)K < 0\), so \(C\) goes negative, which is also infeasible <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=38">BY slide 27</a>. Between these two families there is exactly one upward-sloping curve \(C = S(K)\), the <strong>stable manifold</strong> or saddle path, that converges to \((\bar K,\bar C)\).</p>
+
+  <div class="definition">
+    <div class="box-title">Perfect-foresight equilibrium</div>
+    <p>Given \(K(0)>0\), the equilibrium sets \(C(0) = S(K(0))\), and then \(C(t) = S(K(t))\) for all \(t\ge 0\), with \(K(t)\to\bar K\) monotonically.</p>
+  </div>
+
+  <div class="figure">
+    <div id="pd-ctrl"></div>
+    <div id="pd-fig"></div>
+    <div id="pd-read"></div>
+    <div class="caption"><b>Interactive phase diagram</b> for \(F(K,1) = K^a\), so \(\mathcal F(K) = K^a - \delta K\). The black curve is \(\dot K=0\) (\(C=\mathcal F(K)\)). The <span style="color:#2a78d6">blue</span> curve is \(\dot C = 0\), with its asymptote at \(\hat K\) when it lies in view. The thick <span style="color:#eb6834">orange</span> curve is the saddle path \(S(K)\), computed by integrating the system <em>backwards in time</em> from a point just off the steady state along the stable eigenvector. Gray arrows show the direction of motion. The dashed vertical line is the golden rule. <b>Try:</b> (1) raise \(p\) and watch \(\bar K\) fall; (2) set \(p\) small, \(\theta=0.01\) and \(\alpha\) above \(\theta\) (e.g. \(0.06\)), and watch \(\bar K\) cross the golden rule, so \(\bar r<0\); (3) push \(p\) and \(\alpha\) to their minimum: the \(\dot C=0\) locus becomes almost vertical at \(\mathcal F'(K)=\theta\) (the Ramsey limit of §7).</div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>5. Adjustment to the steady state</h2>
+
+  <p><a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=40">BY slide 29</a> asks: suppose \(0 < K(0) < \bar K\). Describe the paths of \(C\), \(K\), \(Y\), \(r\), \(H\). Are they monotone?</p>
+
+  <div class="figure">
+    <div id="tp-ctrl"></div>
+    <div class="figure-row">
+      <div id="tp-fig"></div>
+      <div id="tp-r"></div>
+    </div>
+    <div class="caption"><b>Transition from \(K(0)\)</b>, using the parameters of the phase diagram above. Left: \(K\), \(C\), labour income \(Y\) and human wealth \(H = C/(p+\theta) - K\), each divided by its steady-state value (so all converge to 1). Right: the interest rate \(r(t) = \mathcal F'(K(t))\) against its steady state \(\bar r\) (dashed). Slide \(K(0)/\bar K\) above 1 to see the reverse transition.</div>
+  </div>
+
+  <div class="proof">
+    <div class="box-title">Answers, with reasons</div>
+    <ol class="steps">
+      <li><strong>\(K(t)\) and \(C(t)\) both rise monotonically.</strong> The saddle path is upward sloping and lies <em>below</em> the \(\dot K = 0\) curve to the left of \(\bar K\), so \(\dot K>0\) all along it. \(K\) rises monotonically, and \(C = S(K)\) rises with it.</li>
+      <li><strong>\(Y(t)\) rises monotonically.</strong> \(Y = \mathcal F(K) - \mathcal F'(K)K\) has \(dY/dK = -\mathcal F''(K)K > 0\), and \(K\) is rising. (More capital per worker means a higher wage.)</li>
+      <li><strong>\(r(t)\) falls monotonically.</strong> \(r = \mathcal F'(K)\) with \(\mathcal F''<0\). Capital is scarce early, so its return is high.</li>
+      <li><strong>\(H(t)\) rises monotonically.</strong> Write \(H(t) = \int_0^\infty Y(t+u)\exp\!\big(-\!\int_0^u [r(t+v)+p+\alpha]\,dv\big)du\). Moving \(t\) later raises every future wage \(Y(t+u)\) and lowers every future interest rate \(r(t+v)\), so the integrand rises pointwise. (This needs \(\alpha\) and \(p\) constant, which they are.)</li>
+      <li><strong>Relation between \(S(K)\) and \(C = (\theta+p)(K+H)\)</strong> <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=38">slide 27</a>. The consumption rule \(C=(\theta+p)(K+H)\) holds at every date for any price path. In equilibrium the price path is itself a function of the current state, so human wealth is a function of \(K\) too: \(H(t) = h(K(t))\). The saddle path is just the consumption rule with this <em>equilibrium</em> human wealth plugged in:
+        $$S(K) = (\theta+p)\,\big(K + h(K)\big).$$</li>
+      <li><strong>Is \(S\) linear? No, not in general.</strong> \(h(K)\) is the present value of the wages the economy will pay starting from \(K\), discounted at interest rates that depend on \(K\) nonlinearly through \(\mathcal F\). Numerically (\(a=0.33\), \(\delta=0.08\), \(\theta=0.03\), \(p=0.05\), \(\alpha=0\)), \(C/K\) falls from about \(0.48\) at \(K=0.3\bar K\) to \(0.29\) at \(\bar K\), so \(S\) is not a ray. It is close to linear only near \(\bar K\), where its slope is the stable eigenvector \(\mathcal F'(\bar K) - \lambda_s\).</li>
+    </ol>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>6. Comparative statics of the steady state</h2>
+
+  <p>Recall the steady-state equation \(\dfrac{\mathcal F(\bar K)}{\bar K} = \dfrac{(p+\alpha)(p+\theta)}{\mathcal F'(\bar K)+\alpha-\theta}\). Its left side is decreasing in \(K\), its right side increasing, and neither side depends on parameters except through the right side. So <strong>a parameter change that raises the right side at the old \(\bar K\) lowers \(\bar K\)</strong>, and vice versa <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=41">BY slide 30</a>.</p>
+
+  <table class="simple">
+    <tr><th>Change</th><th>Effect on RHS at fixed \(K\)</th><th>\(\bar K\)</th><th>\(\bar r\)</th><th>Why, economically</th></tr>
+    <tr><td>\(p\uparrow\)</td><td>numerator \((p+\alpha)(p+\theta)\uparrow\)</td><td>↓</td><td>↑</td><td>Shorter horizons: more of the capital stock is "lost" to newborns each instant, so there is less aggregate saving.</td></tr>
+    <tr><td>\(\theta\uparrow\)</td><td>numerator ↑, denominator ↓</td><td>↓</td><td>↑</td><td>More impatience.</td></tr>
+    <tr><td>\(\alpha\uparrow\)</td><td>↓ if \(\mathcal F'(\bar K) < \theta+p\) (always true, see below)</td><td>↑</td><td>↓</td><td>Income is front-loaded, so agents save when young to finance old age, even with flat consumption.</td></tr>
+  </table>
+
+  <div class="proof">
+    <div class="box-title">Proof that \(\bar K\) is increasing in \(\alpha\) <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=43">BY slide 32</a></div>
+    <ol class="steps">
+      <li>Since \((p+\theta)\) does not involve \(\alpha\), it suffices to show \(\dfrac{p+\alpha}{\mathcal F'(\bar K)+\alpha-\theta}\) is decreasing in \(\alpha\) at the steady state.</li>
+      <li>Differentiate, holding \(K\) fixed: \(\dfrac{\partial}{\partial\alpha}\dfrac{p+\alpha}{\mathcal F'+\alpha-\theta} = \dfrac{(\mathcal F'+\alpha-\theta)-(p+\alpha)}{(\mathcal F'+\alpha-\theta)^2} = \dfrac{\mathcal F'(\bar K)-\theta-p}{(\mathcal F'+\alpha-\theta)^2}.\) This is negative iff \(\mathcal F'(\bar K) < \theta+p\).</li>
+      <li>At \(\alpha=0\) we have \(\mathcal F'(\bar K) < \theta + p\) (proved next). So at \(\alpha=0\), raising \(\alpha\) lowers the RHS and raises \(\bar K\).</li>
+      <li>A higher \(\bar K\) means an even lower \(\mathcal F'(\bar K)\), so \(\mathcal F'(\bar K)<\theta+p\) continues to hold as \(\alpha\) rises. Therefore the derivative stays negative and \(\bar K\) is increasing for all \(\alpha\ge0\).</li>
+    </ol>
+    <div class="qed">∎</div>
+  </div>
+
+  <div class="proof">
+    <div class="box-title">Proof that with \(\alpha = 0\): \(\theta < \mathcal F'(\bar K) < \theta + p\) <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=42">BY slide 31</a></div>
+    <ol class="steps">
+      <li>With \(\alpha=0\), the steady state is \(\mathcal F(\bar K)\,[\mathcal F'(\bar K)-\theta] = p(p+\theta)\bar K\). The right side is positive and \(\mathcal F(\bar K)>0\), so \(\mathcal F'(\bar K) > \theta\). <em>Lower bound done.</em></li>
+      <li>Define \(K^{**}\) by \(\mathcal F'(K^{**}) = \theta+p\) and \(K^*\) by \(\mathcal F'(K^*) = \theta\). Then \(K^{**}<K^* = \hat K\).</li>
+      <li>Let \(g(K) \equiv \mathcal F(K)[\mathcal F'(K)-\theta] - p(p+\theta)K\). By the uniqueness argument, \(g>0\) to the left of \(\bar K\) and \(g<0\) between \(\bar K\) and \(\hat K\).</li>
+      <li>Evaluate at \(K^{**}\): \(g(K^{**}) = p\,\mathcal F(K^{**}) - p(p+\theta)K^{**} = p\,[\mathcal F(K^{**}) - \mathcal F'(K^{**})K^{**}]\).</li>
+      <li>Concavity with \(\mathcal F(0)=0\) gives \(\mathcal F(K) > \mathcal F'(K)K\) (average product exceeds marginal product), so \(g(K^{**})>0\). Hence \(K^{**}<\bar K\), i.e. \(\mathcal F'(\bar K) < \mathcal F'(K^{**}) = \theta+p\). ∎</li>
+    </ol>
+  </div>
+  <div class="warning">
+    <div class="box-title">Watch the direction of the concavity inequality</div>
+    <p>Slide 31 states the concavity step as a comparison between \(\mathcal F(K^{**})\) and \((p+\theta)K^{**} = \mathcal F'(K^{**})K^{**}\). The direction that concavity delivers, and that the argument needs, is \(\mathcal F(K^{**}) > \mathcal F'(K^{**})K^{**}\). If your copy shows "\(<\)", read it as "\(>\)". You can check: for \(\mathcal F = \sqrt K\), \(\sqrt K > \tfrac{1}{2\sqrt K}K = \tfrac12\sqrt K\).</p>
+  </div>
+
+  <p>This is Blanchard's Figure 2 (<a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=39">BY slide 28</a>): with \(\alpha=0\) the steady state lies strictly between \(K^{**}\) (\(\mathcal F'=\theta+p\)) and \(K^*\) (\(\mathcal F'=\theta\)). The individual consumption profile has \(\dot c/c = \bar r - \theta > 0\), so people consume more as they age and therefore save when young. That saving is what builds the capital stock.</p>
+
+  <h3>Golden rule and dynamic (in)efficiency</h3>
+  <ul>
+    <li><strong>\(\alpha = 0\):</strong> \(\bar r = \mathcal F'(\bar K) > \theta > 0\), so \(\bar K < K_{GR}\). The economy is dynamically efficient; compare the positive-interest case of <a href="0010-olg-efficiency.html">Lesson 10</a>.</li>
+    <li><strong>\(\alpha>\theta\):</strong> \(\hat K\) satisfies \(\mathcal F'(\hat K) = \theta-\alpha<0\), so \(\hat K > K_{GR}\) and \(\bar K\) <em>can</em> exceed \(K_{GR}\), giving \(\bar r<0\). This is Blanchard's Figure 4 (<a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=44">BY slide 33</a>). Agents save heavily for the years when their labour income has decayed.</li>
+  </ul>
+
+  <div class="theorem">
+    <div class="box-title">Exact condition for \(\bar r < 0\)</div>
+    <p>\(\bar K > K_{GR}\) iff \(g\) is still positive at \(K_{GR}\), where now \(g(K) = \mathcal F(K)[\mathcal F'(K)+\alpha-\theta] - (p+\alpha)(p+\theta)K\). Since \(\mathcal F'(K_{GR})=0\),
+    $$\bar r < 0 \iff (\alpha-\theta)\,\frac{\mathcal F(K_{GR})}{K_{GR}} \;>\; (p+\alpha)(p+\theta).$$
+    This requires \(\alpha>\theta\). Because the right side is increasing in \(p\), it holds when \(p\) is <em>small enough</em> relative to \(\alpha-\theta\).</p>
+  </div>
+  <div class="warning">
+    <div class="box-title">A slide bullet to read carefully</div>
+    <p>Slide 31 says "if \(\alpha>\theta\), for \(p\) large enough, \(\bar K\) larger than golden rule." Since \(\bar K\) is <em>decreasing</em> in \(p\) (and \(\bar K\to0\) as \(p\to\infty\)), the condition above shows it is <em>small</em> \(p\) (long horizons) together with \(\alpha>\theta\) that pushes \(\bar K\) past the golden rule. The figure confirms this: with \(a=0.33\), \(\delta=0.08\), \(\theta=0.01\), \(\alpha=0.06\), you get \(\bar r\approx-0.024\) at \(p=0.02\) but \(\bar r\approx+0.082\) at \(p=0.2\). The bullet probably means "for \(\alpha\) large enough". Ask Alvarez or a TA if in doubt. Also remember that \(p\to0\) forces \(\alpha=0\) (§7), so the inefficient region needs \(p>0\).</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>7. The infinite-lifetime limit \(p\downarrow 0\)</h2>
+  <p><a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=45">BY slide 34</a> With \(p=0\) nobody dies and nobody is born. If individual labour income decayed at rate \(\alpha>0\), aggregate labour income would decay too, so a stationary economy requires \(\alpha=0\). The system becomes the Ramsey–Cass–Koopmans model:</p>
+  $$\dot C = [\mathcal F'(K)-\theta]\,C, \qquad \dot K = \mathcal F(K) - C.$$
+  <ul>
+    <li>The \(\dot C=0\) locus is the <strong>vertical line</strong> \(\mathcal F'(\bar K)=\theta\) (the modified golden rule). In the figure, the blue curve steepens towards this line as \(p,\alpha\to0\).</li>
+    <li><strong>A slightly different argument</strong> rules out the non-saddle paths. Paths below the saddle path now have \(C\to0\) only <em>asymptotically</em>: \(\dot C/C = \mathcal F'-\theta\) is bounded once \(K>K^*\), so \(C\) never actually hits zero. These paths are feasible, so infeasibility cannot rule them out. Instead they violate the household's transversality condition: they converge to \(K_{\max}\) with \(r=\mathcal F'(K_{\max})<0\), so wealth discounted at \(r\) explodes. With \(p>0\), the extra term \(-(p+\alpha)(p+\theta)K\) makes \(C\) hit zero in <em>finite</em> time, which is simpler.</li>
+    <li>The adjustment from \(K(0)<\bar K\) looks the same: \(K, C, Y\) rise and \(r\) falls.</li>
+  </ul>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>8. Check your understanding</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">1. Why does aggregate consumption grow more slowly than individual consumption \(\dot c/c = r-\theta\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Old agents face a higher interest rate on their annuities</li>
+        <li class="quiz-option" data-option="b">Dying agents are replaced by newborns who hold no wealth</li>
+        <li class="quiz-option" data-option="c">Newborns discount the future at a higher rate than adults</li>
+        <li class="quiz-option" data-option="d">Firms retain part of profits instead of paying dividends</li>
+      </ul>
+      <div class="quiz-explain">The term \(-(p+\alpha)(p+\theta)V\) is generational turnover. Wealthy dying cohorts are replaced by newborns with \(v(t,t)=0\). With \(\alpha>0\), wealth also tilts towards the old, whose labour income has decayed. Everyone faces the same \(r+p\) on annuities and has the same \(\theta\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">2. With \(\alpha=0\) and \(p>0\), where does the steady-state interest rate lie?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Exactly at θ, as in the Ramsey model</li>
+        <li class="quiz-option" data-option="b">Below zero, past the golden-rule level</li>
+        <li class="quiz-option" data-option="c">Between zero and θ, below impatience</li>
+        <li class="quiz-option" data-option="d">Strictly between θ and θ plus p</li>
+      </ul>
+      <div class="quiz-explain">\(\theta<\mathcal F'(\bar K)<\theta+p\). The lower bound comes from the sign of the steady-state equation; the upper bound from concavity (\(\mathcal F > \mathcal F'K\)) evaluated at \(K^{**}\). So the economy is below the golden rule and dynamically efficient.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">3. Along the transition from \(K(0)<\bar K\), which variable <em>falls</em>?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The interest rate r</li>
+        <li class="quiz-option" data-option="b">Human wealth H</li>
+        <li class="quiz-option" data-option="c">Labour income Y</li>
+        <li class="quiz-option" data-option="d">Consumption C</li>
+      </ul>
+      <div class="quiz-explain">\(K\) rises along the saddle path, so \(r=\mathcal F'(K)\) falls while \(Y = \mathcal F - \mathcal F'K\) rises. \(H\) rises because future wages rise and future discount rates fall. \(C=S(K)\) rises.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">4. Which parameter change <em>raises</em> steady-state capital \(\bar K\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">A higher death rate p</li>
+        <li class="quiz-option" data-option="b">A higher discount rate θ</li>
+        <li class="quiz-option" data-option="c">A faster income decline α</li>
+        <li class="quiz-option" data-option="d">A higher depreciation δ</li>
+      </ul>
+      <div class="quiz-explain">Raising \(\alpha\) lowers the right side \((p+\alpha)(p+\theta)/(\mathcal F'+\alpha-\theta)\) whenever \(\mathcal F'(\bar K)<\theta+p\), which always holds. So the intersection with the falling average-product curve moves right. Higher \(p\) or \(\theta\) raise the right side. Higher \(\delta\) lowers net average product and \(\mathcal F'\), which shrinks \(\bar K\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">5. Why must \(C(0)\) lie on the saddle path when \(p>0\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Paths elsewhere violate the government budget constraint</li>
+        <li class="quiz-option" data-option="b">Paths elsewhere reach zero capital or consumption in finite time</li>
+        <li class="quiz-option" data-option="c">Paths elsewhere converge to a second, unstable steady state</li>
+        <li class="quiz-option" data-option="d">Paths elsewhere imply negative wages in the long run</li>
+      </ul>
+      <div class="quiz-explain">Above \(S\), \(C\) keeps rising while \(K\) falls, so \(K\) hits 0 with \(C>0\). Below \(S\), \(\dot C<0\) with \(\dot C = -(p+\alpha)(p+\theta)K<0\) even at \(C=0\), so \(C\) turns negative in finite time. Both are infeasible. (With \(p=0\) we need the transversality condition instead.)</div>
+    </div>
+    <div class="quiz-score"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>9. Exercises</h2>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 19.1 <span class="tag proof">Proof</span> (the steady state is a saddle)</div>
+    <p>Linearize the \((K,C)\) system around \((\bar K,\bar C)\). Show that the Jacobian has determinant \(<0\), so it has one negative and one positive eigenvalue. Then find the slope of the saddle path at the steady state.</p>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>Use the steady-state condition to replace \((p+\alpha)(p+\theta)\) by \(\mathcal F(\bar K)(\mathcal F'(\bar K)+\alpha-\theta)/\bar K\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>\(J = \begin{pmatrix} \mathcal F' & -1 \\ \mathcal F''\bar C - (p+\alpha)(p+\theta) & \mathcal F'+\alpha-\theta \end{pmatrix}\), evaluated at \(\bar K\). Then
+      $$\det J = \mathcal F'(\mathcal F'+\alpha-\theta) + \mathcal F''\bar C - (p+\alpha)(p+\theta).$$
+      Substitute \((p+\alpha)(p+\theta) = \tfrac{\mathcal F}{\bar K}(\mathcal F'+\alpha-\theta)\):
+      $$\det J = (\mathcal F'+\alpha-\theta)\Big(\mathcal F' - \tfrac{\mathcal F}{\bar K}\Big) + \mathcal F''\bar C.$$
+      The first factor is \(>0\) (we are left of \(\hat K\)), the second is \(<0\) (marginal &lt; average product), and \(\mathcal F''\bar C<0\). So \(\det J<0\). The eigenvalues \(\lambda_s<0<\lambda_u\) are real with opposite signs: a saddle. The first row gives the eigenvector: \((\mathcal F'-\lambda)\,dK - dC = 0\), so the saddle path has slope \(dC/dK = \mathcal F'(\bar K) - \lambda_s\). This is positive whenever \(\mathcal F'(\bar K)\ge0\), and the figure uses exactly this direction to start its backward integration.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 19.2 <span class="tag exam">Exam-style</span></div>
+    <p>Let \(\mathcal F(K) = \sqrt K - 0.05K\), \(\theta=0.03\), \(p=0.02\), \(\alpha=0\).</p>
+    <ol class="parts" type="a">
+      <li>Compute the golden-rule capital stock. <div class="numcheck" data-answer="100" data-tol="0.002" data-prompt="K_GR ="></div></li>
+      <li>Compute \(K^{**}\) (\(\mathcal F'=\theta+p\)) and \(K^*\) (\(\mathcal F'=\theta\)). These bracket \(\bar K\).
+        <div class="numcheck" data-answer="25" data-tol="0.002" data-prompt="K** ="></div>
+        <div class="numcheck" data-answer="39.0625" data-tol="0.002" data-prompt="K* ="></div></li>
+      <li>Solving the steady-state equation numerically gives \(\bar K\approx 32.3\). Find \(\bar r\) to three decimals and confirm it lies in \((\theta,\theta+p)\). <div class="numcheck" data-answer="0.0379" data-tol="0.02" data-prompt="r̄ ≈"></div></li>
+      <li>Is this economy dynamically efficient? Would the answer change if \(\alpha\) rose to \(0.02\)? Argue from the comparative statics, without solving.</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(\tfrac{1}{2\sqrt K} = 0.05\), so \(\sqrt K = 10\) and \(K_{GR}=100\). (b) \(\tfrac{1}{2\sqrt K} = 0.10\) gives \(K^{**}=25\); \(\tfrac{1}{2\sqrt K} = 0.08\) gives \(\sqrt K=6.25\), \(K^*=39.0625\). (c) \(\bar r = \tfrac{1}{2\sqrt{32.32}} - 0.05 \approx 0.0879 - 0.05 = 0.038 \in(0.03,0.05)\). ✓ (d) Yes, since \(\bar r>0\) and \(\bar K<K_{GR}\). Raising \(\alpha\) to \(0.02\) raises \(\bar K\) and lowers \(\bar r\), but \(\alpha=0.02<\theta\) and the condition for \(\bar r<0\) needs \(\alpha>\theta\). So the economy stays dynamically efficient.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 19.3 <span class="tag exam">Exam-style</span> (when is the economy dynamically inefficient?)</div>
+    <p>Let \(F(K,1)=K^{a}\) with \(a=1/3\) and \(\delta=0.1\). Let \(\theta=0.01\), \(\alpha=0.05\).</p>
+    <ol class="parts" type="a">
+      <li>Show that net average product at the golden rule equals \(\delta(1-a)/a\), and compute it.</li>
+      <li>Find the threshold death rate \(\bar p\) such that \(\bar r<0\) iff \(p<\bar p\). <div class="numcheck" data-answer="0.0617" data-tol="0.01" data-prompt="p̄ ≈"></div></li>
+      <li>Interpret: why do <em>longer</em> expected lifetimes make overaccumulation possible here, while they make it <em>impossible</em> when \(\alpha=0\)?</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) The golden rule has \(aK^{a-1}=\delta\), so \(K_{GR}^{a-1} = \delta/a\) and \(\mathcal F/K = K^{a-1}-\delta = \delta/a-\delta = \delta(1-a)/a = 0.2\).<br>
+      (b) We need \((\alpha-\theta)\cdot0.2 > (p+\alpha)(p+\theta)\), i.e. \(0.008 > p^2+0.06p+0.0005\). The positive root of \(p^2+0.06p-0.0075=0\) is \(\bar p = (-0.06+\sqrt{0.0336})/2\approx0.0617\). So \(\bar r<0\) iff \(p<0.0617\) (expected lifetime above about 16 years).<br>
+      (c) With \(\alpha>\theta\), people want to save for the period when their earnings have decayed. The longer they expect to live, the more they save, and turnover (which redistributes capital to wealthless newborns) is slower. With \(\alpha=0\), saving comes only from the \(\bar r>\theta\) tilt, which requires \(\bar r>0\). As \(p\to0\), the economy converges to Ramsey's modified golden rule \(\bar r=\theta>0\), never above the golden rule.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 19.4 <span class="tag exam">Exam-style</span> (an unexpected rise in mortality)</div>
+    <p>The economy (\(\alpha=0\)) is in steady state. At \(t=0\) the death rate rises unexpectedly and permanently from \(p\) to \(p'>p\). Describe the paths of \(K\), \(C\) and \(r\) using the phase diagram. Does \(C\) jump up or down on impact? Check your answer with the interactive figure.</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>The \(\dot K=0\) locus does not depend on \(p\). The \(\dot C=0\) locus shifts up (bigger numerator), so the new steady state has \(\bar K'<\bar K\), and \(\bar C' = \mathcal F(\bar K')<\bar C\) since we are left of the golden rule. \(K\) cannot jump, so on impact \(C\) jumps onto the <em>new</em> saddle path at the old \(K=\bar K\). To the right of the new steady state, the new saddle path lies <em>above</em> \(C=\mathcal F(K)\) (that is where \(\dot K<0\)). So \(C(0^+) > \mathcal F(\bar K) = \bar C\): <strong>consumption jumps up</strong>. Then \(K\) and \(C\) fall monotonically to the new steady state, and \(r\) rises monotonically. Intuition: higher mortality raises everyone's marginal propensity to consume out of wealth, \(p+\theta\), so current consumption rises and saving falls.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 19.5 <span class="tag slides">Slides p.27</span> <span class="tag proof">Proof</span></div>
+    <p>(a) Show that any path starting <em>below</em> the saddle path reaches \(C=0\) in finite time when \(p>0\). (b) Explain why this argument fails when \(p=\alpha=0\), and which condition replaces it.</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Take a path below \(S\). It eventually enters the region \(\mathcal R = \{C < \mathcal F(K),\ C < \text{the } \dot C=0 \text{ locus}\}\), where \(\dot K>0\) and \(\dot C<0\). (If it starts left of \(\bar K\) above the \(\dot C=0\) locus, it moves up-right but passes <em>below</em> the steady state, so it crosses the locus.) <strong>\(\mathcal R\) is invariant.</strong> The path moves right and down, while the \(\dot C=0\) locus is increasing, so it cannot cross that locus again. At the \(\dot K=0\) boundary, \(\dot K=0\) and \(\dot C<0\), so the path moves straight down, away from the boundary. Inside \(\mathcal R\), \(K\) is increasing and bounded by \(K_{\max}\), and \(C\) is decreasing. If \(C\) stayed positive, \((K,C)\) would converge to a rest point of the system in the closure of \(\mathcal R\). The only candidates with \(K>0\) are \((\bar K,\bar C)\), which is not in that closure for a path strictly below \(S\), and points with \(C=0\). But at \(C=0\), \(\dot C = -(p+\alpha)(p+\theta)K<0\), so no such point is a rest point. Hence \(C\) reaches \(0\) in finite time with \(\dot C<0\), and the path becomes infeasible.<br>
+      (b) With \(p=\alpha=0\), \(\dot C = (\mathcal F'-\theta)C\) is proportional to \(C\), so \(C\) decays only exponentially and never reaches 0. The path converges to \((K_{\max},0)\), which is feasible but violates the transversality condition \(\lim_{T\to\infty}K(T)e^{-\int_0^T r}=0\), since \(r=\mathcal F'(K_{\max})<0\). That is the "slightly different argument" of slide 34.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 19.6 <span class="tag slides">Slides p.29</span></div>
+    <p>Starting from \(K(0) > \bar K\), describe the paths of \(C\), \(K\), \(Y\), \(r\), \(H\). Then explain why aggregate human wealth \(H\) can move even though nothing happens to any individual's labour endowment profile.</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>Everything reverses: \(K\), \(C\), \(Y\) and \(H\) fall monotonically and \(r\) rises monotonically (set \(K(0)/\bar K>1\) in the transition figure). \(H\) is a <em>price-weighted</em> object: the present value of wages, which depend on \(K\), discounted at \(r+p+\alpha\), where \(r\) also depends on \(K\). It moves with general-equilibrium prices even though each person's labour <em>services</em> profile is fixed.</p>
+    </div></details>
+  </div>
+
+  <div class="takeaways">
+    <h2>Key takeaways</h2>
+    <ul>
+      <li>With capital: \(\dot C = [\mathcal F'(K)+\alpha-\theta]C - (p+\alpha)(p+\theta)K\) and \(\dot K = \mathcal F(K)-C\). It is Ramsey plus a generational-turnover term.</li>
+      <li>\(\dot K=0\): \(C=\mathcal F(K)\), hump-shaped with its peak at the golden rule. \(\dot C=0\): increasing and convex, with an asymptote at \(\mathcal F'(\hat K)=\theta-\alpha\). The steady state is unique (falling average product vs rising RHS), and it is a saddle.</li>
+      <li>From \(K(0)<\bar K\): \(K,C,Y,H\) rise and \(r\) falls, monotonically. \(S(K) = (\theta+p)(K+h(K))\) is nonlinear in general.</li>
+      <li>\(\bar K\) falls with \(p\) and \(\theta\) and rises with \(\alpha\). With \(\alpha=0\): \(\theta<\bar r<\theta+p\), so the economy is dynamically efficient. With \(\alpha>\theta\) and long enough lifetimes, \(\bar r<0\) is possible.</li>
+      <li>As \(p\to0\) (forcing \(\alpha=0\)), we get Ramsey: a vertical \(\dot C=0\) locus at \(\mathcal F'=\theta\), and the transversality condition rules out the bad paths.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Ask your teacher.</strong> Try: "derive the convexity of the \(\dot C=0\) locus for Cobb–Douglas", "why does \(H\) use \(r+p+\alpha\) but \(V\) grow at \(r\)?", or "redo Exercise 19.4 for an increase in \(\theta\)".</div>
+
+  <div class="lesson-nav">
+    <a href="0018-perpetual-youth-aggregation.html">← Lesson 18: Aggregation</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/perpetual-youth-cheatsheet.html">Perpetual-youth cheatsheet</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0020-perpetual-youth-fiscal-policy.html">Lesson 20: Fiscal policy →</a>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  const C = EconPlot.C;
+  let PDv = null;
+
+  function solve(v) {
+    const { p, th, al, a, d } = v;
+    const F = K => Math.pow(K, a) - d * K;
+    const Fp = K => a * Math.pow(K, a - 1) - d;
+    const Fpp = K => a * (a - 1) * Math.pow(K, a - 2);
+    const Kmax = Math.pow(1 / d, 1 / (1 - a));
+    const KGR = Math.pow(a / d, 1 / (1 - a));
+    const Khat = (th - al + d > 0) ? Math.pow((th - al + d) / a, 1 / (a - 1)) : Infinity;
+    const k = (p + al) * (p + th);
+    const g = K => F(K) * (Fp(K) + al - th) - k * K;
+    const hi = Math.min(Kmax, Khat) * (1 - 1e-9);
+    const Kb = EconPlot.bisect(g, 1e-9 * hi, hi);
+    const Cb = F(Kb);
+    const j11 = Fp(Kb), j21 = Fpp(Kb) * Cb - k, j22 = Fp(Kb) + al - th;
+    const tr = j11 + j22, det = j11 * j22 + j21, disc = Math.sqrt(tr * tr - 4 * det);
+    const ls = (tr - disc) / 2, lu = (tr + disc) / 2;
+    const f = y => [F(y[0]) - y[1], (Fp(y[0]) + al - th) * y[1] - k * y[0]];
+    return { F, Fp, Kmax, KGR, Khat, k, Kb, Cb, ls, lu, f, v };
+  }
+
+  function branch(M, sign, Klo, Khi) {
+    const eps = 1e-5 * M.Kb, v2 = M.Fp(M.Kb) - M.ls;
+    const back = (t, y) => { const z = M.f(y); return [-z[0], -z[1]]; };
+    return EconPlot.rk4(back, [M.Kb + sign * eps, M.Cb + sign * eps * v2], 0, 800, 16000,
+      y => !(y[0] > Klo && y[0] < Khi && y[1] > 0 && isFinite(y[1]) && y[1] < 1e4));
+  }
+
+  function drawPhase(v) {
+    const M = solve(v);
+    const host = document.getElementById('pd-fig');
+    host.innerHTML = '';
+    const xmax = Math.min(M.Kmax * 0.999, Math.max(1.6 * M.Kb, Math.min(1.25 * M.KGR, 3 * M.Kb)));
+    const ymax = 1.3 * M.F(Math.min(M.KGR, xmax));
+    const P = EconPlot.create(host, { x: [0, xmax], y: [0, ymax], width: 560, height: 400, xlabel: 'K', ylabel: 'C' });
+    // vector field
+    for (let i = 1; i <= 11; i++) for (let j = 1; j <= 8; j++) {
+      const K = xmax * i / 12, Cc = ymax * j / 9;
+      const z = M.f([K, Cc]);
+      const ux = z[0] / xmax * 500, uy = z[1] / ymax * 330;
+      const n = Math.hypot(ux, uy); if (!(n > 0)) continue;
+      const L = 13;
+      const x2 = P.invX(P.X(K) + L * ux / n), y2 = P.invY(P.Y(Cc) - L * uy / n);
+      P.arrow(K, Cc, x2, y2, { color: '#b9b6ae', width: 1.1 });
+    }
+    if (M.KGR < xmax) { P.vline(M.KGR); P.text(M.KGR, ymax * 0.93, 'K_{GR}', { dx: 5, italic: true, color: '#52514e' }); }
+    if (M.Khat < xmax) { P.vline(M.Khat, { color: C.blue, dash: '2 4', width: 1 }); P.text(M.Khat, ymax * 0.06, 'K̂', { dx: 5, italic: true, color: '#52514e' }); }
+    P.fn(M.F, { color: C.ink, width: 2, domain: [1e-6, xmax], label: 'K̇ = 0', labelAt: xmax * 0.93, labelDy: -8, labelDx: -30 });
+    const loc = K => { const den = M.Fp(K) + v.al - v.th; return den > 0 ? M.k * K / den : NaN; };
+    P.fn(loc, { color: C.blue, width: 2, domain: [1e-6, Math.min(xmax, M.Khat * (1 - 1e-6))], n: 600, ymax: ymax * 3 });
+    { const Kl = EconPlot.bisect(K => loc(K) - 0.3 * ymax, 1e-6, Math.min(xmax, M.Khat * (1 - 1e-6)));
+      if (isFinite(Kl)) P.text(Kl, 0.3 * ymax, 'Ċ = 0', { dx: 8, dy: 4, color: C.ink }); }
+    // saddle path
+    const L = branch(M, -1, 0.01 * M.Kb, xmax * 1.5), R = branch(M, 1, 0.01 * M.Kb, xmax * 1.5);
+    const path = L.slice().reverse().concat(R);
+    P.path(path, { color: C.orange, width: 3, label: 'saddle path S(K)', labelAt: M.Kb * 0.45, labelDx: -40, labelDy: -14 });
+    P.point(M.Kb, M.Cb, { color: C.ink, r: 5, label: '(K̄, C̄)', labelDx: 8, labelDy: 18 });
+    const rb = M.Fp(M.Kb);
+    EconPlot.readout('#pd-read', [
+      ['K̄ :', M.Kb.toFixed(2)], ['C̄ :', M.Cb.toFixed(3)],
+      ['r̄ = 𝓕′(K̄) :', rb.toFixed(4), rb < 0 ? 'bad' : 'good'],
+      ['θ, θ+p :', v.th.toFixed(3) + ', ' + (v.th + v.p).toFixed(3)],
+      ['K_GR :', M.KGR.toFixed(2)],
+      ['K̂ :', isFinite(M.Khat) ? M.Khat.toFixed(2) : '∞'],
+      ['eigenvalues :', M.ls.toFixed(3) + ', ' + M.lu.toFixed(3)],
+      ['efficiency :', rb < 0 ? 'K̄ > K_GR (r̄ < 0)' : 'K̄ < K_GR (r̄ > 0)', rb < 0 ? 'bad' : 'good']
+    ]);
+    PDv = Object.assign({}, v);
+    drawPath();
+  }
+
+  let TP;
+  function drawPath() {
+    if (!PDv || !TP) return;
+    const M = solve(PDv);
+    const ratio = TP.values.k0;
+    const K0 = ratio * M.Kb;
+    const br = ratio < 1 ? branch(M, -1, Math.min(K0, 0.999 * M.Kb) * 0.98, 1e9) : branch(M, 1, 0, Math.max(K0, M.Kb) * 1.02);
+    // forward path = reversed backward branch, from first point past K0
+    const fw = br.slice().reverse();
+    let i0 = 0;
+    for (let i = 0; i < fw.length; i++) { if (ratio < 1 ? fw[i][0] >= K0 : fw[i][0] <= K0) { i0 = i; break; } }
+    const h = 800 / 16000;
+    const pts = fw.slice(Math.max(0, i0 - 1));
+    const Ybar = M.F(M.Kb) - M.Fp(M.Kb) * M.Kb, Hbar = M.Cb / (PDv.p + PDv.th) - M.Kb;
+    let Tend = (pts.length - 1) * h;
+    for (let i = 0; i < pts.length; i++) if (Math.abs(pts[i][0] / M.Kb - 1) < 0.005) { Tend = i * h; break; }
+    const Tmax = Math.min(150, Math.max(10, 1.5 * Tend));
+    const series = { K: [], C: [], Y: [], H: [], r: [] };
+    pts.forEach((y, i) => {
+      const t = i * h; if (t > Tmax) return;
+      const Yv = M.F(y[0]) - M.Fp(y[0]) * y[0], Hv = y[1] / (PDv.p + PDv.th) - y[0];
+      series.K.push([t, y[0] / M.Kb]); series.C.push([t, y[1] / M.Cb]);
+      series.Y.push([t, Yv / Ybar]); series.H.push([t, Hv / Hbar]); series.r.push([t, M.Fp(y[0])]);
+    });
+    const all = [].concat(series.K, series.C, series.Y, series.H).map(q => q[1]);
+    const lo = Math.min(0.9, Math.min(...all) - 0.05), hi = Math.max(1.1, Math.max(...all) + 0.05);
+    const h1 = document.getElementById('tp-fig'); h1.innerHTML = '';
+    const P = EconPlot.create(h1, { x: [0, Tmax], y: [lo, hi], width: 360, height: 300, xlabel: 't', ylabel: 'relative to steady state', margin: { l: 48, r: 40 } });
+    P.hline(1, { color: '#8c8a84' });
+    const sers = [['K', series.K, C.blue], ['C', series.C, C.orange], ['Y', series.Y, C.aqua], ['H', series.H, C.violet]];
+    const rank = { Y: 0, H: 1, C: 2, K: 3 };
+    sers.forEach(([nm, pts2, col]) => {
+      const i = ratio < 1 ? rank[nm] : 3 - rank[nm];
+      P.path(pts2, { color: col });
+      // legend (bottom-right if converging from below, top-right if from above)
+      const yy = ratio < 1 ? lo + (hi - lo) * (0.08 + 0.075 * (3 - i)) : hi - (hi - lo) * (0.08 + 0.075 * i);
+      P.segment(Tmax * 0.74, yy, Tmax * 0.84, yy, { color: col, width: 3 });
+      P.text(Tmax * 0.86, yy, nm, { dy: 4, italic: true });
+    });
+    const h2 = document.getElementById('tp-r'); h2.innerHTML = '';
+    const rv = series.r.map(q => q[1]); const rb = M.Fp(M.Kb);
+    const rlo = Math.min(rb, ...rv), rhi = Math.max(rb, ...rv); const pad = (rhi - rlo) * 0.1 + 1e-3;
+    const R = EconPlot.create(h2, { x: [0, Tmax], y: [rlo - pad, rhi + pad], width: 360, height: 300, xlabel: 't', ylabel: 'r(t)', margin: { l: 56, r: 30 } });
+    R.hline(rb, { label: 'r̄', labelDx: -20 });
+    R.path(series.r, { color: C.ink, label: 'r(t)', labelAt: Tmax * 0.1, labelDx: 6, labelDy: -6 });
+  }
+
+  EconPlot.sliders('#pd-ctrl', [
+    { id: 'p', label: 'p', min: 0.005, max: 0.3, step: 0.005, value: 0.05, fmt: x => x.toFixed(3) },
+    { id: 'th', label: 'θ', min: 0.005, max: 0.1, step: 0.005, value: 0.03, fmt: x => x.toFixed(3) },
+    { id: 'al', label: 'α', min: 0, max: 0.1, step: 0.005, value: 0, fmt: x => x.toFixed(3) },
+    { id: 'a', label: 'a', min: 0.2, max: 0.5, step: 0.01, value: 0.33 },
+    { id: 'd', label: 'δ', min: 0.02, max: 0.15, step: 0.005, value: 0.08, fmt: x => x.toFixed(3) }
+  ], v => drawPhase(Object.assign({}, v)));
+  TP = EconPlot.sliders('#tp-ctrl', [
+    { id: 'k0', label: 'K(0)/K̄', min: 0.2, max: 1.8, step: 0.05, value: 0.4 }
+  ], () => drawPath());
+  drawPath();
+})();
+</script>
+</body>
+</html>

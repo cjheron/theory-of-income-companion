@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Perpetual Youth (Blanchard–Yaari) Cheatsheet — Theory of Income</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <style>
+    .cs h2 { margin-top: 1.4rem; }
+    .cs p, .cs li, .cs td { font-size: 0.92rem; }
+    .cs table.simple { width: 100%; }
+    .cs .box { padding: 0.6rem 1rem; margin: 0.7rem 0; }
+  </style>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page cs">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Reference Document</div>
+    <h1>Perpetual Youth (Blanchard–Yaari): Cheatsheet</h1>
+    <div class="meta">Compresses <a href="../lessons/0017-perpetual-youth-households.html">Lessons 17</a>–<a href="../lessons/0020-perpetual-youth-fiscal-policy.html">20</a> · Source: <a href="../sources/slides-blanchard-yaari.pdf">Alvarez, OLG Perpetual Youth slides</a>; Blanchard (1985) <a href="https://ideas.repec.org/a/ucp/jpolec/v93y1985i2p223-47.html"><em>JPE</em></a></div>
+  </div>
+
+  <div class="box notation">
+    <div class="box-title">Notation traps</div>
+    <ul>
+      <li>\(p\) = death rate (not a price). \(\theta\) = discount rate (in Class Note III, θ is the PAYG tax). \(\alpha\) = rate of decline of labour income with age (in Note II it is the old endowment; in Note III's Cobb–Douglas example it is the capital share).</li>
+      <li>\(\mathcal F(K) = F(K,1)-\delta K\) is <strong>net</strong> output, so \(r=\mathcal F'(K)\) and the golden rule is \(\mathcal F'(K_{GR})=0\).</li>
+      <li>\(B\) = government <strong>debt</strong> here; in Class Note III, \(B\) is government <em>assets</em>.</li>
+    </ul>
+  </div>
+
+  <h2>1. Demographics and annuities</h2>
+  <table class="simple">
+    <tr><td>Death</td><td>Each instant, die with probability \(p\,dt\). Expected lifetime \(1/p\). Population normalized to 1.</td></tr>
+    <tr><td>Cohort size</td><td>\(N(s,t) = p\,e^{-p(t-s)}\), with \(\int_{-\infty}^t N(s,t)\,ds = 1\).</td></tr>
+    <tr><td>Annuities</td><td>Fair insurers: \(v\tfrac{1+\Delta r}{1-p\Delta} \approx v[1+(r+p)\Delta]\). Wealth earns \(r+p\) while alive and goes to the insurer at death.</td></tr>
+    <tr><td>Preferences</td><td>\(E_t\int_t^\infty \log c\,e^{-\theta(z-t)}dz = \int_t^\infty \log c(z)\,e^{-(p+\theta)(z-t)}dz\).</td></tr>
+  </table>
+
+  <h2>2. Household problem</h2>
+  <table class="simple">
+    <tr><td>Prices</td><td>\(R(t,z) = \exp\{-\int_t^z [r(\mu)+p]\,d\mu\}\)</td></tr>
+    <tr><td>Budget</td><td>\(\int_t^\infty [c-y]\,R(t,z)\,dz = v(t)\); \(\ h(t) = \int_t^\infty y(z)R(t,z)\,dz\)</td></tr>
+    <tr><td>Solution (log)</td><td>\(\boxed{c(t) = (\theta+p)\,[v(t)+h(t)]}\), because the weights \(e^{-(\theta+p)(z-t)}\) integrate to \(1/(\theta+p)\).</td></tr>
+    <tr><td>ODEs</td><td>\(\dot v = (r+p)v + y - c\), \(\ \dot h = (r+p)h - y\), \(\ \dot c = (r-\theta)c\). Boundaries: \(\lim R\,v = 0\) and \(\lim R\,y = 0\).</td></tr>
+  </table>
+
+  <h2>3. Aggregation</h2>
+  <table class="simple">
+    <tr><td>Labour income</td><td>\(y(s,t) = aY(t)e^{-\alpha(t-s)}\), with \(a = (p+\alpha)/p\).</td></tr>
+    <tr><td>Aggregates</td><td>\(C = (p+\theta)(H+V)\); \(\ \dot V = rV + Y - C\) (aggregate wealth grows at \(r\): the \(pV\) annuity income is a transfer from the dead); \(\ \dot H = (r+p+\alpha)H - Y\).</td></tr>
+    <tr><td>Key equation</td><td>\(\boxed{\dot C = (r+\alpha-\theta)\,C - (p+\alpha)(p+\theta)\,V}\). The last term is generational turnover.</td></tr>
+    <tr><td>Pure endowment</td><td>\(V=0\), \(C=Y\) ⇒ \(r = \theta-\alpha\). Individuals have \(\dot c/c = -\alpha = \dot y/y\), so the equilibrium is <strong>autarky</strong>.</td></tr>
+  </table>
+
+  <h2>4. Capital (Lesson 19)</h2>
+  <table class="simple">
+    <tr><td>Factor prices</td><td>\(r = \mathcal F'(K)\), \(\ Y = \mathcal F(K) - \mathcal F'(K)K\), \(\ V = K\), \(\ rK+Y = \mathcal F(K)\).</td></tr>
+    <tr><td>System</td><td>\(\dot C = [\mathcal F'(K)+\alpha-\theta]C - (p+\alpha)(p+\theta)K\), \(\quad \dot K = \mathcal F(K)-C\).</td></tr>
+    <tr><td>\(\dot K=0\)</td><td>\(C=\mathcal F(K)\): hump-shaped, peak at \(K_{GR}\). \(K\) falls above it.</td></tr>
+    <tr><td>\(\dot C=0\)</td><td>\(C = \dfrac{(p+\alpha)(p+\theta)K}{\mathcal F'(K)+\alpha-\theta}\): from the origin, increasing and convex, with an asymptote at \(\mathcal F'(\hat K)=\theta-\alpha\). \(C\) rises above it.</td></tr>
+    <tr><td>Steady state</td><td>\(\dfrac{\mathcal F(\bar K)}{\bar K} = \dfrac{(p+\alpha)(p+\theta)}{\mathcal F'(\bar K)+\alpha-\theta}\). Unique (falling LHS vs rising RHS). A saddle (\(\det J<0\)). Saddle-path slope \(\mathcal F'(\bar K)-\lambda_s\).</td></tr>
+    <tr><td>Selection</td><td>Off-saddle paths hit \(K=0\) or \(C=0\) in finite time (\(\dot C|_{C=0} = -(p+\alpha)(p+\theta)K<0\)). With \(p=0\), use the TVC instead.</td></tr>
+    <tr><td>Transition, \(K_0<\bar K\)</td><td>\(K, C, Y, H\) rise monotonically, and \(r\) falls. \(S(K) = (\theta+p)(K+h(K))\), which is nonlinear.</td></tr>
+    <tr><td>Comparative statics</td><td>\(\bar K\) falls with \(p\) and \(\theta\), and rises with \(\alpha\) (the RHS falls in \(\alpha\) iff \(\mathcal F'(\bar K)<\theta+p\), which always holds).</td></tr>
+    <tr><td>\(\alpha=0\)</td><td>\(\theta<\mathcal F'(\bar K)<\theta+p\) (lower bound from signs; upper from \(\mathcal F(K^{**})>\mathcal F'(K^{**})K^{**}\)). So \(\bar K<K_{GR}\): dynamically efficient.</td></tr>
+    <tr><td>\(\bar r<0\) iff</td><td>\((\alpha-\theta)\,\mathcal F(K_{GR})/K_{GR} > (p+\alpha)(p+\theta)\). Needs \(\alpha>\theta\) and small enough \(p\).</td></tr>
+    <tr><td>\(p\to0\)</td><td>Requires \(\alpha=0\). This is Ramsey: the \(\dot C=0\) locus is vertical at \(\mathcal F'(\bar K)=\theta\).</td></tr>
+  </table>
+
+  <h2>5. Fiscal policy (Lesson 20)</h2>
+  <table class="simple">
+    <tr><td>Government</td><td>\(\dot B = G-T+rB\). With \(\lim Be^{-\int r}=0\) ⇔ \(B(t) = \int_t^\infty (T-G)e^{-\int_t^z r}dz\).</td></tr>
+    <tr><td>Ricardian (\(\alpha=0\), PE)</td><td>Tax cut \(dT(t)<0\) repaid at \(t+s\): \(\boxed{dH(t) = -dT(t)\,[1-e^{-ps}]}\), \(dC = (p+\theta)dH>0\). Equivalence holds iff \(p=0\). In GE, \(r\) rises (endowment) or \(K\) is crowded out (capital).</td></tr>
+    <tr><td>Endowment + debt</td><td>\(C=Y-G\), \(V=B\): \(\ r = (p+\alpha)(p+\theta)\tfrac{B}{Y-G} + \theta-\alpha\).<br>With \(b=B/(Y-G)\), \(k=(p+\alpha)(p+\theta)\), \(\sigma=(T-G)/(Y-G)\): \(\ \dot b = kb^2+(\theta-\alpha)b-\sigma = r(b)\,b-\sigma\).</td></tr>
+    <tr><td>\(T=G=0\)</td><td>Steady states \(0\) and \(\bar B = \tfrac{(\alpha-\theta)Y}{(p+\alpha)(p+\theta)}\) (positive iff \(\bar r<0\)). Slopes: \(\theta-\alpha\) at 0 and \(\alpha-\theta\) at \(\bar B\), so \(\bar B\) is unstable and has \(r=0\) (rolled-over debt). 2-period analogue: \(\bar B = \beta-\alpha = \) PAYG τ.</td></tr>
+    <tr><td>\(T\neq G\)</td><td>The smaller root is always stable (slope \(-\sqrt{\cdot}\)). Surplus: roots straddle 0, and the positive Ricardian root is unstable. Deficit: sustainable with \(b>0\) only if \(\alpha>\theta\), and only up to \(|\sigma|\le(\theta-\alpha)^2/4k\).</td></tr>
+    <tr><td>Capital + debt (\(\alpha=0\))</td><td>\([\mathcal F'-\theta]C^* = p(p+\theta)(B^*+K^*)\), \(C^*=\mathcal F(K^*)-G\), \(B^*=(T-G)/r^*\). Higher \(T\) ⇒ higher \(B^*\), lower \(K^*\), higher \(r^*\). A \(G\)-increase crowds in via \(B^*\) less than an equal \(T\)-cut, and lowers \(C\).</td></tr>
+    <tr><td>Balanced budget</td><td>\(B\) fixed, \(T=r B+G\): \([\mathcal F'-\theta](\mathcal F-G) = p(p+\theta)(B+K^*)\). Higher \(B\) or \(G\) ⇒ lower \(K^*\), higher \(r^*\). Effects vanish as \(p\to0\) (\(\mathcal F'(K^*)=\theta\)).</td></tr>
+  </table>
+
+  <div class="lesson-nav">
+    <a href="../index.html">Course index</a>
+    <a href="ge-glossary.html">Glossary</a>
+    <a href="../lessons/0019-perpetual-youth-capital.html">Lesson 19</a>
+    <a href="../lessons/0020-perpetual-youth-fiscal-policy.html">Lesson 20</a>
+  </div>
+</div>
+</body>
+</html>

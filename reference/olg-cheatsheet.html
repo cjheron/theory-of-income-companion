@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OLG Cheatsheet — Theory of Income</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <style>
+    .cs { font-size: 0.9rem; }
+    .cs h2 { font-size: 1.05rem; margin-top: 1.4rem; }
+    .cs .card { background: #f8f8f4; border: 1px solid #d8d4cc; border-radius: 4px; padding: 0.6rem 1rem; margin: 0.6rem 0; break-inside: avoid; }
+    .cs .card p { margin: 0.35rem 0; }
+    .cs table.simple { font-size: 0.85rem; margin: 0.5rem 0; width: 100%; }
+    .cs .src { font-family: var(--font-sans); font-size: 0.72rem; color: var(--muted); }
+  </style>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page cs">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Reference Document</div>
+    <h1>Overlapping Generations: Cheatsheet</h1>
+    <div class="meta">Class Note II (OLG, social security, 1WT) and Class Note III (extensions). Lessons <a href="../lessons/0008-olg-environment.html">8</a>–<a href="../lessons/0016-olg-heterogeneity-and-long-lives.html">16</a>.</div>
+  </div>
+
+  <div class="box notation">
+    <div class="box-title">Notation traps</div>
+    <ul>
+      <li><strong>Note II</strong> (and Note III's growth &amp; heterogeneity slides): young endowment \(1-\alpha\), old \(\alpha\); PAYG tax \(\tau\).</li>
+      <li><strong>Note III privatization slides</strong>: young \(\alpha\), old \(1-\alpha\); PAYG tax \(\theta\); \(\tau^t_s\) = tax paid by generation \(t\) at date \(s\); \(B_t\) = government <em>assets</em>.</li>
+      <li><strong>Note III capital example</strong>: \(\alpha\) is the capital share in \(F=K^\alpha L^{1-\alpha}\).</li>
+      <li><strong>Blanchard–Yaari</strong>: \(\theta\) = discount rate, \(\alpha\) = rate at which labour income declines with age, \(p\) = death rate (see the <a href="perpetual-youth-cheatsheet.html">perpetual-youth cheatsheet</a>).</li>
+    </ul>
+  </div>
+
+  <h2>1. Environment <a class="slide-ref" href="../sources/slides2-olg.pdf#page=4">N2 pp.4–6</a> · <a href="../lessons/0008-olg-environment.html">L8</a></h2>
+  <div class="card">
+    <p>\(L=\mathbb{R}^\infty\) (one good per date \(t=1,2,\dots\)); agents \(I=\{0,1,2,\dots\}\) indexed by birth date. Generation \(i\ge1\): \(u^i=v^i(x^i_i,x^i_{i+1})\), endowment \((e^i_i,e^i_{i+1})\gg0\). Initial old: \(u^0=x^0_1\), endowment \(e^0_1\).</p>
+    <p>Feasibility at each date: \(x^{t-1}_t+x^t_t=e^{t-1}_t+e^t_t\equiv\bar e_t\).</p>
+  </div>
+
+  <h2>2. Competitive equilibrium <a class="slide-ref" href="../sources/slides2-olg.pdf#page=7">N2 pp.7–10</a> · <a href="../lessons/0008-olg-environment.html">L8</a>, <a href="../lessons/0009-olg-prices-and-interest-rates.html">L9</a></h2>
+  <div class="card">
+    <p><strong>Budget:</strong> \(p_ix_i+p_{i+1}x_{i+1}=p_ie^i_i+p_{i+1}e^i_{i+1}\). <strong>Unique CE = no trade</strong> \(x^i=e^i\), by forward induction from the initial old.</p>
+    <p><strong>Prices:</strong> \(\dfrac{p_{t+1}}{p_t}=\dfrac{1}{1+r_t}=\dfrac{v^t_2(e^t_t,e^t_{t+1})}{v^t_1(e^t_t,e^t_{t+1})}\), and \(p_t=\prod_{s<t}(1+r_s)^{-1}\) with \(p_1=1\).</p>
+    <p><strong>Log example</strong> \(v=(1-\beta)\log c_y+\beta\log c_o\), endowments \((1-\alpha,\alpha)\):
+    \(\displaystyle 1+\bar r=\frac{(1-\beta)\alpha}{\beta(1-\alpha)},\quad \bar r=\frac{\alpha-\beta}{\beta(1-\alpha)}\).
+    Savings: \(s(r)=\beta(1-\alpha)-\dfrac{(1-\beta)\alpha}{1+r}\), increasing in \(r\) and \(\beta\), decreasing in \(\alpha\).</p>
+  </div>
+
+  <h2>3. Efficiency: best symmetric allocation, three cases <a class="slide-ref" href="../sources/slides2-olg.pdf#page=15">N2 pp.15–18</a> · <a href="../lessons/0010-olg-efficiency.html">L10</a></h2>
+  <div class="card">
+    <p>Symmetric: \(c_y+c_o=1\). Best (for the young): \((c_y^*,c_o^*)=(1-\beta,\beta)\). CE: \((1-\alpha,\alpha)\). All \(t\ge1\) prefer \(c^*\) unless \(\alpha=\beta\); the initial old prefer \(c^*\) iff \(\beta>\alpha\).</p>
+    <table class="simple">
+      <tr><th>Case</th><th>Parameters</th><th>\(\bar r\)</th><th>\(p\cdot\sum\bar x^i\)</th><th>Conclusion</th></tr>
+      <tr><td>1</td><td>\(\beta>\alpha\)</td><td>\(<0\)</td><td>\(\infty\)</td><td>CE Pareto-dominated by \(c^*\)</td></tr>
+      <tr><td>2</td><td>\(\beta=\alpha\)</td><td>\(0\)</td><td>\(\infty\)</td><td>CE \(=c^*\), PO</td></tr>
+      <tr><td>3</td><td>\(\beta<\alpha\)</td><td>\(>0\)</td><td>\((1+\bar r)/\bar r\)</td><td>Not ranked; CE is PO (1WT)</td></tr>
+    </table>
+  </div>
+
+  <h2>4. Pay-as-you-go social security <a class="slide-ref" href="../sources/slides2-olg.pdf#page=19">N2 pp.19–20</a> · <a href="../lessons/0011-pay-as-you-go-social-security.html">L11</a></h2>
+  <div class="card">
+    <p>Tax young \(\tau\), give to current old: after-tax endowments \((1-\alpha-\tau,\ \alpha+\tau)\), initial old \(\alpha+\tau\). The CE is still no trade. \(\tau=\beta-\alpha\) implements \(c^*\). If \(\beta>\alpha\) (\(\bar r<0\)), every \(\tau\in(0,\bar\tau)\) is a Pareto improvement, where \(\bar\tau>\beta-\alpha\) solves \(v(1-\alpha-\bar\tau,\alpha+\bar\tau)=v(1-\alpha,\alpha)\). If \(\beta\le\alpha\), any \(\tau>0\) hurts generations \(t\ge1\).</p>
+  </div>
+
+  <h2>5. Why the 1WT fails <a class="slide-ref" href="../sources/slides2-olg.pdf#page=21">N2 pp.21–27</a> · <a href="../lessons/0012-why-the-1wt-fails-in-olg.html">L12</a></h2>
+  <div class="card">
+    <p><strong>Theorem.</strong> LNS + \(p\cdot\sum_i\bar x^i<\infty\) ⇒ the CE is PO. The proof needs finiteness to sum \(p\cdot x^i\ge p\cdot\bar x^i\) (strict for one \(i'\)) into \(\sum p\cdot x^i>\sum p\cdot\bar x^i\). Otherwise it reads "\(\infty>\infty\)".</p>
+    <p><strong>Double infinity</strong> (Shell 1971): finitely many goods ⇒ value \(=\sum_\ell p_\ell\bar e_\ell<\infty\); finitely many agents (monotone \(u\)) ⇒ \(p\cdot\bar x^i\le p\cdot e^i<\infty\), finite sum. Only infinitely many agents <em>and</em> goods can break it.</p>
+    <p>Finite value is <em>sufficient</em>, not necessary (Case 2). In Case 1, every agent's improved bundle costs <em>more</em> at CE prices, by \(p_t(\beta-\alpha)\big(\tfrac{1}{1+\bar r}-1\big)\).</p>
+  </div>
+
+  <h2>6. Growing economy <a class="slide-ref" href="../sources/slides2-olg.pdf#page=28">N2 pp.28–33</a>, <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=25">N3 pp.25–27</a> · <a href="../lessons/0013-growing-olg-economy.html">L13</a></h2>
+  <div class="card">
+    <p>\(N_t=(1+n)^t\); \(e^t_t=(1+g)^t(1-\alpha)\), \(e^t_{t+1}=(1+g)^t\alpha\). Savings \(s_t=(1+g)^ts(r)\). Still no trade, and <strong>\(\bar r\) is unchanged</strong> by \(g\) and \(n\).</p>
+    <p>Let \(G\equiv(1+g)(1+n)\) and \(W\equiv(1-\alpha)G+\alpha\). Normalized feasibility: \(G\hat c_y+\hat c_o=W\). Best: \(\hat c_y^*=(1-\beta)W/G\), \(\hat c_o^*=\beta W\).</p>
+    <p><strong>Inefficiency condition:</strong> \(c^*\) Pareto-dominates the CE \(\iff\hat c^*_o>\alpha\iff \boxed{1+\bar r<(1+g)(1+n)}\) (roughly \(\bar r<n+g\)). This holds \(\iff\) the value of the aggregate endowment \(W\sum_t(G/(1+\bar r))^{t-1}\) is infinite.</p>
+    <p><strong>PAYG:</strong> \(\tau_t=\hat\tau(1+g)^t\); each old person gets \(\hat\tau G\) (normalized). Optimal \(\hat\tau=\beta(1-\alpha)-\dfrac{\alpha(1-\beta)}{G}\), which is positive iff \(G>1+\bar r\). Post-reform \(1+r=G\) (golden rule / biological interest rate).</p>
+    <p><strong>Note III form</strong> (\(g=0\)): \(c_y+\dfrac{c_o}{1+n}=(1-\alpha)+\dfrac{\alpha}{1+n}\); PAYG gives \(c_o=\alpha+(1+n)\tau\). <strong>A permanent fall in \(n\)</strong> with fixed \(\tau\) rotates the line around autarky. The current old and all future generations lose.</p>
+  </div>
+
+  <h2>7. Privatizing social security <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=3">N3 pp.3–14</a> · <a href="../lessons/0014-privatizing-social-security.html">L14</a></h2>
+  <div class="card">
+    <p><span class="src">(Note III notation: young α, old 1−α, PAYG tax θ.)</span> HH: \(s_t+c^t_t=e^t_t-\tau^t_t\), \(c^t_{t+1}=(1+r_t)s_t+e^t_{t+1}-\tau^t_{t+1}\). Gov: \(B_t+g_t=(1+r_{t-1})B_{t-1}+\tau^t_t+\tau^{t-1}_t\). <strong>Walras:</strong> \(B_t+s_t=(1+r_{t-1})(B_{t-1}+s_{t-1})\), so \(B_0+s_0=0\Rightarrow B_t+s_t=0\).</p>
+    <p>PAYG (\(\tau^t_t=\theta,\ \tau^t_{t+1}=-\theta\)): \(B_t=s_t=0\); PV of taxes \(=\theta\bar r/(1+\bar r)\).</p>
+    <p>Privatized: \(\tilde\tau^0_1=-\theta\), \(\tilde\tau^t_t=\theta\bar r/(1+\bar r)\), \(\tilde\tau^t_{t+1}=0\). Lifetime budgets unchanged ⇒ \(\tilde c=c\), \(\tilde r=\bar r\); \(\tilde s_t=\theta/(1+\bar r)\), \(\tilde B_t=-\theta/(1+\bar r)\) for all \(t\ge1\). Implicit liability → explicit, rolled-over debt.</p>
+    <p><strong>Ricardian equivalence, generation by generation:</strong> timing changes are neutral iff each generation's PV of taxes is preserved. Shifting PV across generations is not neutral.</p>
+  </div>
+
+  <h2>8. Extensions in one line each <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=15">N3 pp.15–24</a> · <a href="../lessons/0015-olg-with-capital.html">L15</a>, <a href="../lessons/0016-olg-heterogeneity-and-long-lives.html">L16</a></h2>
+  <div class="card">
+    <p><strong>Capital (Diamond):</strong> \(w_t=F_L(K_t,1)\), \(r_t=F_K(K_{t+1},1)-\delta\), asset clearing \(B_t+s_t=K_{t+1}\); with no government, \(K_{t+1}=s\big(F_K(K_{t+1},1)-\delta,\,F_L(K_t,1),\dots\big)\). PAYG lowers saving (\(\partial s^*/\partial\tau<0\)) and, if \(0<\partial s^*/\partial K<1\), lowers the stable steady-state \(K\).</p>
+    <p><strong>Cobb–Douglas, only old-age consumption:</strong> \(K_{t+1}=(1-\alpha)K_t^\alpha-\tau\), \(K^*=(1-\alpha)^{1/(1-\alpha)}\); generation 1: \(\left.\dfrac{dc^1_2}{d\tau}\right|_{0}=\delta-\dfrac{\alpha^2}{1-\alpha}\). It can gain via a higher return on capital, but that does not mean all generations can gain when \(r>0\).</p>
+    <p><strong>Heterogeneity</strong> (types \(\alpha_n\), log): \(c_y(\alpha,r)/c_y(\bar\alpha,r)=\dfrac{1+(1-\alpha)r}{1+(1-\bar\alpha)r}\); \(\bar r=\dfrac{\bar\alpha-\beta}{\beta(1-\bar\alpha)}\), so \(\bar r<0\iff\bar\alpha<\beta\). A uniform PAYG tax need not help every type.</p>
+    <p><strong>\(N\)-period lives:</strong> if all \(r_t<0\), so that \(p_t\) is increasing, then shifting \(\tau\) from ages \(1..Y\) to \(Y\tau/(N-Y)\) at ages \(Y{+}1..N\) has positive value \(P^t(\tau,Y)>0\) for all generations ⇒ Pareto improvement (pure exchange only).</p>
+  </div>
+
+  <div class="lesson-nav">
+    <a href="../index.html">Course index</a>
+    <a href="ge-glossary.html">Glossary</a>
+    <a href="welfare-theorems-cheatsheet.html">Welfare theorems cheatsheet</a>
+    <a href="perpetual-youth-cheatsheet.html">Perpetual-youth cheatsheet</a>
+  </div>
+
+</div>
+</body>
+</html>

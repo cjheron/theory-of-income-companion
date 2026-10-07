@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 1 — The Economy: Commodities, Agents, Feasibility</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part I: Welfare Theorems · Lesson 1 of 20</div>
+    <h1>The Economy: Commodities, Agents, Feasibility</h1>
+    <div class="meta">Covers <a href="../sources/slides1-welfare-theorems.pdf#page=1">Slides 1, pp. 1–9</a> · About 30 min · Prerequisite: none</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>list the primitives of an economy (commodity space, households, firms, ownership, endowments) and say what each one is;</li>
+      <li>apply the sign conventions without hesitating: for a household, positive means demand and negative means supply; for a firm, positive means output and negative means input;</li>
+      <li>write material balance for any economy, including one with dates and states of nature, and count its commodities.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides1-welfare-theorems.pdf#page=2">Slides 1, pp. 2–9</a>. The classic, and still the cleanest, statement of "a commodity is a good at a date, location and state" is Debreu, <a href="https://cowles.yale.edu/sites/default/files/2022-09/m17-all.pdf"><em>Theory of Value</em></a> (1959), ch. 2 (commodities and prices) and ch. 7 (uncertainty). For a textbook pace, see Mas-Colell, Whinston &amp; Green, §16.B and §19.B.
+  </div>
+
+  <p>This whole course rests on one template. An <em>economy</em> is a short list of mathematical objects. A <em>competitive equilibrium</em> (<a href="0002-competitive-equilibrium.html">Lesson 2</a>) and a <em>Pareto optimum</em> (<a href="0003-pareto-optimality-and-lns.html">Lesson 3</a>) are properties of allocations in that economy. Later models (OLG, Blanchard–Yaari, growth) are this same template with a particular commodity space and set of agents plugged in, so it pays to be fluent in it now.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>1. The commodity space</h2>
+
+  <div class="definition">
+    <div class="box-title">Definition: Commodity space <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=2">S1 p.2</a></div>
+    <p>The <strong>commodity space</strong> \(L\) is a vector space whose elements are bundles of commodities. Typically \(L=\mathbb{R}^m\): there are \(m\) goods, and a bundle \(x=(x_1,\dots,x_m)\) lists a quantity of each. Sometimes \(m=\infty\), e.g. \(L=\mathbb{R}^\infty\) in the overlapping-generations model (<a href="0008-olg-environment.html">Lesson 8</a>).</p>
+  </div>
+
+  <p>The key modelling idea is that a commodity is not just a physical object. Two units of the same physical good count as <strong>different commodities</strong> if they differ in any of the following <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=2">S1 p.2</a>:</p>
+  <table class="simple">
+    <tr><th>Distinguished by</th><th>Example</th><th>Use</th></tr>
+    <tr><td>characteristics</td><td>wheat vs. steel</td><td>classical static GE</td></tr>
+    <tr><td>location</td><td>wheat in Chicago vs. in Rotterdam</td><td>geography, trade</td></tr>
+    <tr><td>time</td><td>consumption in 2026 vs. 2027</td><td>dynamics, saving, interest rates</td></tr>
+    <tr><td>state of nature</td><td>an umbrella if it rains vs. if it is dry</td><td>uncertainty, insurance</td></tr>
+  </table>
+  <p>Because "time" and "uncertainty" are just more coordinates, every theorem we prove for \(\mathbb{R}^m\) automatically covers dynamic and stochastic economies, as long as \(m\) stays finite. Whether it survives \(m=\infty\) is precisely the OLG question of <a href="0012-why-the-1wt-fails-in-olg.html">Lesson 12</a>.</p>
+
+  <h3>The catalogue of commodity spaces <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=8">S1 pp.8–9</a></h3>
+  <table class="simple">
+    <tr><th>Space</th><th>What the coordinates are</th></tr>
+    <tr><td>\(m=2\)</td><td>static consumption and leisure (labour–leisure choice)</td></tr>
+    <tr><td>\(\mathbb{R}^m\)</td><td>\(m\) different goods</td></tr>
+    <tr><td>\(m=2\times 2\)</td><td>two inputs (capital, labour) and two final goods</td></tr>
+    <tr><td>\(m=k\times\#\text{locations}\)</td><td>basic trade with goods differentiated by origin (Armington)</td></tr>
+    <tr><td>\(\mathbb{R}^{2T}\)</td><td>consumption and investment in each of \(T\) periods</td></tr>
+    <tr><td>\(\mathbb{R}^{k\times\infty}\)</td><td>\(k\) goods every period, infinite horizon</td></tr>
+    <tr><td>\(\mathbb{R}^{k}\)</td><td>one period, \(k\) states of nature ("now and then")</td></tr>
+    <tr><td>\(\mathbb{R}^{k+1}\)</td><td>two periods: one good today, plus one good in each of \(k\) states tomorrow</td></tr>
+    <tr><td>\(\{x_t: Z^t\to\mathbb{R}^k\}_{t\ge0}\)</td><td>an event tree: \(x_t(z^t)\) is the \(k\)-vector consumed after history \(z^t=(z_0,\dots,z_t)\)</td></tr>
+  </table>
+
+  <p>The last row is the workhorse of stochastic macro. \(Z\) is a finite set of shocks, and a history grows recursively: \(z^{t+1}=(z^t,z_{t+1})\). Each node of the tree is a separate set of \(k\) commodities. Continuous time or a continuum of states can be handled the same way (sums become integrals); the slides use it "whenever is simpler" without dwelling on the measure theory <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=9">S1 p.9</a>.</p>
+
+  <div class="figure">
+    <div id="tree-ctrl"></div>
+    <div id="tree-fig"></div>
+    <div id="tree-read"></div>
+    <div class="caption"><b>Interactive: the date–event tree.</b> Each dot is a history \(z^t\), and at each dot the household consumes a \(k\)-vector \(x_t(z^t)\). Each dot is therefore \(k\) separate commodities with \(k\) separate prices \(p_t(z^t)\). Here \(z_0\) is known (one root). Move the sliders: the number of commodities is \(k\sum_{t=0}^{T}|Z|^t\), so it explodes geometrically with the horizon. That is why we will later prefer recursive methods to listing every commodity.</div>
+  </div>
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    let P = null;
+    function draw(v) {
+      const T = Math.round(v.T), Z = Math.round(v.Z), k = Math.round(v.k);
+      document.getElementById('tree-fig').innerHTML = '';
+      P = EconPlot.create('#tree-fig', { x: [-0.35, T + 0.9], y: [0, 1], width: 560, height: 330, grid: false,
+        xticks: Array.from({ length: T + 1 }, (_, i) => i), yticks: [], xlabel: 'date t', zeroLines: false, margin: { l: 20, r: 10, t: 12, b: 44 } });
+      const pos = (t, j) => [t, (j + 0.5) / Math.pow(Z, t)];
+      const names = ['H', 'L', 'M'];
+      for (let t = 1; t <= T; t++) {
+        const n = Math.pow(Z, t);
+        for (let j = 0; j < n; j++) {
+          const [x, y] = pos(t, j), [xp, yp] = pos(t - 1, Math.floor(j / Z));
+          P.segment(xp, yp, x, y, { color: C.muted, width: 1.2 });
+        }
+      }
+      let count = 0;
+      for (let t = 0; t <= T; t++) {
+        const n = Math.pow(Z, t);
+        for (let j = 0; j < n; j++) {
+          count++;
+          const [x, y] = pos(t, j);
+          P.point(x, y, { color: t === T ? C.blue : C.ink, r: n > 20 ? 3 : 4.5 });
+          if (t === T && n <= 9) {
+            // history label
+            let h = [], q = j;
+            for (let s = 0; s < t; s++) { h.unshift(names[q % Z]); q = Math.floor(q / Z); }
+            P.text(x, y, 'z^' + t + ' = (z_0,' + h.join(',') + ')', { dx: 8, dy: 4, size: 12, italic: true });
+          }
+        }
+      }
+      P.text(0, 0.5, 'z_0', { dx: -8, dy: -10, italic: true, anchor: 'end' });
+      EconPlot.readout('#tree-read', [
+        ['histories (nodes):', String(count)],
+        ['terminal nodes |Z|^T:', String(Math.pow(Z, T))],
+        ['commodities k·Σ|Z|^t:', String(k * count)]
+      ]);
+    }
+    EconPlot.sliders('#tree-ctrl', [
+      { id: 'T', label: 'T', min: 1, max: 4, step: 1, value: 2, fmt: v => String(Math.round(v)) },
+      { id: 'Z', label: '|Z|', min: 2, max: 3, step: 1, value: 2, fmt: v => String(Math.round(v)) },
+      { id: 'k', label: 'k', min: 1, max: 5, step: 1, value: 1, fmt: v => String(Math.round(v)) }
+    ], draw);
+  })();
+  </script>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>2. Households</h2>
+
+  <div class="definition">
+    <div class="box-title">Definition: Households <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=2">S1 pp.2–3</a></div>
+    <p>Households are indexed by \(i=1,\dots,I\). Abusing notation, \(I\) also denotes the <em>set</em> of households. Each household has</p>
+    <ul>
+      <li>a <strong>consumption possibility set</strong> \(X^i\subset L\): the bundles it is physically able to consume;</li>
+      <li>a <strong>utility function</strong> \(u^i: X^i\to\mathbb{R}\).</li>
+    </ul>
+    <p>The set of households may be infinite: countably many (\(i=1,2,3,\dots\), as in OLG) or a continuum (as in Blanchard–Yaari, <a href="0017-perpetual-youth-households.html">Lesson 17</a>).</p>
+  </div>
+
+  <p>\(X^i\) is where physical constraints live: non-negativity of consumption, or a cap on hours (with 24 hours a day, labour supply cannot exceed 24). It is <em>not</em> the budget set. \(X^i\) contains what is possible, the budget set contains what is affordable, and the budget only appears once we have prices.</p>
+
+  <div class="warning">
+    <div class="box-title">Sign convention for households <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=3">S1 p.3</a></div>
+    <p><strong>Positive entries of \(x^i\) are quantities demanded (purchases); negative entries are quantities offered (sales).</strong> If labour is a commodity and the household supplies 8 hours, then \(x^i_{\text{labour}}=-8\). An equivalent and common alternative is to make <em>leisure</em> the commodity, endow the household with 24 hours of time, and keep \(x\ge 0\). Both conventions describe the same economy; just keep track of which one you are using.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>3. Firms</h2>
+
+  <div class="definition">
+    <div class="box-title">Definition: Firms <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=4">S1 p.4</a></div>
+    <p>Firms are indexed by \(j=1,\dots,J\) (and \(J\) also denotes the set). Firm \(j\)'s technology is a <strong>production possibility set</strong> \(Y^j\subset L\): the firm can carry out any plan \(y\in Y^j\). <strong>Positive entries of \(y\) are outputs (offered); negative entries are inputs (demanded).</strong></p>
+  </div>
+
+  <p>A production function is a special case. A firm turning labour \(n\) into output with \(f\) has
+  $$Y^j=\{(c,\,-n)\;:\; n\ge 0,\ c\le f(n)\}.$$
+  The inequality \(c\le f(n)\) allows waste (free disposal). With this sign convention, profit is simply the value of the plan, \(p\cdot y = p_c\,c + p_n\cdot(-n) = p_c c - p_n n\): revenue minus cost, with no special formula needed.</p>
+
+  <div class="figure">
+    <div id="ppf-ctrl"></div>
+    <div id="ppf-fig"></div>
+    <div id="ppf-read"></div>
+    <div class="caption"><b>Interactive: a production set with the sign convention.</b> The horizontal axis is the labour coordinate \(y_n=-n\le 0\), the vertical axis is output \(y_c\). The shaded set is \(Y=\{(y_c,y_n): y_n\le 0,\ 0\le y_c\le\sqrt{-y_n}\}\). With prices \(p=(1,w)\) for (good, labour), the dashed lines are iso-profit lines \(y_c + w\,y_n=\pi\). The profit-maximizing plan is where the highest iso-profit line touches \(Y\). Raise \(w\) and the firm uses less labour.</div>
+  </div>
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const P = EconPlot.create('#ppf-fig', { x: [-1.2, 0.15], y: [-0.1, 1.3], width: 520, height: 360,
+      xlabel: 'y_n = −n  (labour, an input)', ylabel: 'y_c  (output)' });
+    function draw(v) {
+      const w = v.w;
+      const n = 1 / (4 * w * w), c = Math.sqrt(n), pi = c - w * n;
+      P.clear();
+      P.region((a, cc) => a <= 0 && cc >= 0 && cc <= Math.sqrt(-a), { fill: C.fillBlue });
+      P.fn(a => Math.sqrt(-a), { domain: [-1.2, 0], color: C.blue });
+      P.text(-1.15, 0.3, 'Y: 0 ≤ y_c ≤ √(−y_n)', { size: 13, color: '#2a78d6' });
+      // iso-profit: y_c + w y_n = π  =>  y_c = π − w y_n
+      [-0.25, 0.25].forEach(d => P.fn(a => pi + d - w * a, { color: C.muted, width: 1, dash: '4 4' }));
+      P.fn(a => pi - w * a, { color: C.orange, width: 1.8, dash: '7 4' });
+      P.text(-0.02, pi + 0.02 * w + 0.1, 'iso-profit π*', { size: 13, anchor: 'end' });
+      P.point(-n, c, { color: C.orange, label: 'optimal plan', labelDx: 8, labelDy: 18 });
+      P.segment(-n, 0, -n, c, { color: C.muted, width: 1, dash: '3 3' });
+      P.text(-n, 0, '−n*', { dy: -6, dx: 4, italic: true });
+      EconPlot.readout('#ppf-read', [
+        ['labour demand n* = 1/(4w²):', n.toFixed(3)],
+        ['output √n*:', c.toFixed(3)],
+        ['profit p·y = √n* − w n*:', pi.toFixed(3)]
+      ]);
+    }
+    EconPlot.sliders('#ppf-ctrl', [{ id: 'w', label: 'w', min: 0.45, max: 2, step: 0.01, value: 0.8 }], draw);
+  })();
+  </script>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>4. Ownership and endowments</h2>
+
+  <div class="definition">
+    <div class="box-title">Definition: Ownership structure <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=5">S1 p.5</a></div>
+    <ul>
+      <li>Household \(i\) owns a share \(\theta^i_j\ge 0\) of firm \(j\). Every firm is entirely owned by households:
+        $$\sum_{i\in I}\theta^i_j = 1\quad\text{for all } j\in J.$$</li>
+      <li>Household \(i\) owns an <strong>endowment</strong> \(e^i\in L\), a bundle it brings to the market.</li>
+    </ul>
+  </div>
+
+  <p>Ownership is what routes firm profits back to people, so that no value "leaks out" of the economy. The condition \(\sum_i\theta^i_j=1\) is used in exactly two places: in Walras' law (<a href="0002-competitive-equilibrium.html">Lesson 2</a>) and in the First Welfare Theorem (<a href="0004-first-welfare-theorem.html">Lesson 4</a>). The pair \((e^i,\theta^i)\) is a household's <em>wealth endowment</em>. In the Second Welfare Theorem it is the policy instrument: redistributing \(e\) and \(\theta\) lets us reach different Pareto optima (<a href="0007-arrows-remark-and-decentralization.html">Lesson 7</a>).</p>
+
+  <div class="definition">
+    <div class="box-title">Summary: an economy is the list</div>
+    $$\mathcal{E}=\Big(L,\ \{X^i,u^i,e^i,(\theta^i_j)_{j\in J}\}_{i\in I},\ \{Y^j\}_{j\in J}\Big).$$
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>5. Feasible allocations</h2>
+
+  <div class="definition">
+    <div class="box-title">Definition: Feasible allocation <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=6">S1 p.6</a></div>
+    <p>An <strong>allocation</strong> \(\{x^i,y^j\}\) is a consumption bundle for every household and a production plan for every firm. It is <strong>feasible</strong> if</p>
+    <ol>
+      <li>each household can consume its bundle: \(x^i\in X^i\) for all \(i\in I\);</li>
+      <li>each firm can produce its plan: \(y^j\in Y^j\) for all \(j\in J\);</li>
+      <li><strong>material balance</strong> (demand equals supply):
+        $$\sum_{i\in I}x^i \;=\; \sum_{j\in J}y^j \;+\; \sum_{i\in I}e^i .$$</li>
+    </ol>
+  </div>
+
+  <p>Material balance is a vector equation, one equation per commodity <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=7">S1 p.7</a>:
+  $$\begin{pmatrix}x^1_1\\ \vdots\\ x^1_m\end{pmatrix}+\cdots+\begin{pmatrix}x^I_1\\ \vdots\\ x^I_m\end{pmatrix}
+  =\begin{pmatrix}y^1_1\\ \vdots\\ y^1_m\end{pmatrix}+\cdots+\begin{pmatrix}y^J_1\\ \vdots\\ y^J_m\end{pmatrix}
+  +\begin{pmatrix}e^1_1\\ \vdots\\ e^1_m\end{pmatrix}+\cdots+\begin{pmatrix}e^I_1\\ \vdots\\ e^I_m\end{pmatrix}.$$
+  Read row \(s\): <em>total use of good \(s\) by households = total net output of good \(s\) by firms + total endowment of good \(s\)</em>. Because inputs are negative, a firm's use of good \(s\) as an input is netted out on the right-hand side automatically.</p>
+
+  <div class="intuition">
+    <div class="box-title">Intuition: feasibility needs no prices</div>
+    <p>Feasibility is a purely physical, planner's-eye notion: is this allocation <em>possible</em> with the resources and technologies available? Nothing about prices, budgets or ownership enters it. That is why Pareto optimality, which is defined over feasible allocations, is also price-free. The welfare theorems are bridges between this price-free world and the price-based world of competitive equilibrium.</p>
+  </div>
+
+  <div class="warning">
+    <div class="box-title">Feasibility vs. budget feasibility</div>
+    <p>An allocation can be feasible without each bundle being affordable at some prices, and every household can be on its budget without markets clearing. A CE requires both. Keep the words straight: <em>feasible</em> refers to the aggregate resource constraint, <em>budget-feasible</em> to an individual's budget set.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>6. Check your understanding</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">1. A household supplies 40 hours of labour, and labour is a commodity. What is that entry of \(x^i\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">It is +40, since labour is a good the household owns</li>
+        <li class="quiz-option" data-option="b">It is −40, since sales enter household bundles negatively</li>
+        <li class="quiz-option" data-option="c">It is zero, since labour enters only the firm's plan</li>
+        <li class="quiz-option" data-option="d">It is +40, since positive entries mean quantities offered</li>
+      </ul>
+      <div class="quiz-explain">For households, positive entries are purchases and negative entries are sales <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=3">S1 p.3</a>. The firm that hires the labour has −40 in its plan too (an input), and material balance nets the two.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">2. Ice cream in Chicago in July and ice cream in Chicago in January are…</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">one commodity, because the physical good is identical</li>
+        <li class="quiz-option" data-option="b">one commodity, because the location is the same city</li>
+        <li class="quiz-option" data-option="c">two commodities, because the delivery dates differ</li>
+        <li class="quiz-option" data-option="d">two commodities, but only if their market prices differ</li>
+      </ul>
+      <div class="quiz-explain">A commodity is a good at a given date, location and state <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=2">S1 p.2</a>. Whether the two prices end up equal is an equilibrium outcome; it doesn't decide what counts as a commodity.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">3. Which object does the definition of a <em>feasible</em> allocation not involve?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The ownership shares and the price vector</li>
+        <li class="quiz-option" data-option="b">The consumption sets and the endowments</li>
+        <li class="quiz-option" data-option="c">The production sets and the endowments</li>
+        <li class="quiz-option" data-option="d">The consumption sets and production sets</li>
+      </ul>
+      <div class="quiz-explain">Feasibility is \(x^i\in X^i\), \(y^j\in Y^j\) and \(\sum x=\sum y+\sum e\). Shares \(\theta\) and prices \(p\) only enter budget constraints, i.e. the definition of a CE.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">4. Two periods, two shocks per period after date 0, one good, with \(z_0\) known. How many commodities are there?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Two, one for each date of the economy</li>
+        <li class="quiz-option" data-option="b">Four, one for each terminal history only</li>
+        <li class="quiz-option" data-option="c">Six, one for each date at each shock</li>
+        <li class="quiz-option" data-option="d">Seven, one for each node of the tree</li>
+      </ul>
+      <div class="quiz-explain">With dates \(t=0,1,2\): \(1+2+4=7\) histories, each with \(k=1\) good. Set \(T=2\), \(|Z|=2\), \(k=1\) in the tree figure to check.</div>
+    </div>
+    <div class="quiz-score"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>7. Exercises</h2>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 1.1 <span class="tag slides">Slides pp.8–9</span></div>
+    <p>Count the commodities, and describe what one coordinate means, for each economy:</p>
+    <ol class="parts" type="a">
+      <li>Two final goods and two inputs, static.</li>
+      <li>\(T=10\) periods, one consumption good and one investment good per period.</li>
+      <li>Two periods; today one good; tomorrow one good in each of \(k=3\) states.
+        <div class="numcheck" data-answer="4" data-tol="0.001" data-prompt="# commodities ="></div></li>
+      <li>An event tree with \(|Z|=3\), dates \(t=0,\dots,3\), \(z_0\) known, and \(k=2\) goods at each node.
+        <div class="numcheck" data-answer="80" data-tol="0.001" data-prompt="# commodities ="></div></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(m=4\): e.g. \(x=(c_1,c_2,k,n)\). A household typically has positive entries for the two final goods and negative ones for capital and labour; a firm the reverse. (b) \(m=2T=20\); the coordinate \(x_{2t-1}\) is consumption at date \(t\) and \(x_{2t}\) is investment at date \(t\). (c) \(m=k+1=4\): \((x_0, x_1(s_1),x_1(s_2),x_1(s_3))\), where \(x_1(s)\) is a claim to the good tomorrow <em>delivered only if</em> state \(s\) occurs. (d) Nodes: \(1+3+9+27=40\), times \(k=2\) gives \(80\).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 1.2 <span class="tag exam">Exam-style</span> (write the economy down)</div>
+    <p>A two-period economy has one consumption good per period. There are two households. Household 1 is endowed with 1 unit of the good at \(t=0\) and nothing at \(t=1\); household 2 has nothing at \(t=0\) and 1 unit at \(t=1\). A single firm has a <em>storage</em> technology: one unit stored at \(t=0\) returns \(R\) units at \(t=1\). Household 1 owns 30% of the firm and household 2 owns 70%. Utility is \(\log c_0+\beta\log c_1\) for both.</p>
+    <ol class="parts" type="a">
+      <li>Write \(L\), \(X^i\), \(e^i\), \(\theta^i\) and \(Y\), using the sign conventions.</li>
+      <li>Write the material balance conditions, one per commodity.</li>
+      <li>Is the allocation "household 1 consumes \((0.5,0.5R)\), household 2 consumes \((0,1)\), the firm stores 0.5" feasible?</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(L=\mathbb{R}^2\), \(X^i=\mathbb{R}^2_+\), \(e^1=(1,0)\), \(e^2=(0,1)\), \(\theta^1=0.3\), \(\theta^2=0.7\). The storage set is \(Y=\{(y_0,y_1): y_0\le 0,\ y_1\le -R\,y_0\}\): the date-0 good is an input (negative) and the date-1 good an output.<br>
+      (b) Date 0: \(x^1_0+x^2_0 = y_0 + 1\). Date 1: \(x^1_1+x^2_1 = y_1+1\).<br>
+      (c) The firm's plan is \(y=(-0.5,0.5R)\in Y\). Date 0: \(0.5+0=-0.5+1\) ✓. Date 1: \(0.5R+1 = 0.5R+1\) ✓. Both bundles are non-negative, so the allocation is feasible. Notice that we never needed prices.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 1.3 <span class="tag slides">Slides p.3</span> (time endowment vs. labour sales)</div>
+    <p>A household has 1 unit of time, values consumption \(c\) and leisure \(\ell\), and works \(n=1-\ell\) hours. Describe its \(X^i\) and \(e^i\) in two ways: (i) with commodities (consumption, leisure) and a time endowment; (ii) with commodities (consumption, labour) and no time endowment. Show that the household's net trade with the market is identical in both.</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(i) \(X=\{(c,\ell): c\ge0,\ 0\le\ell\le1\}\) and \(e=(0,1)\). Net trade: \(x-e=(c,\ell-1)=(c,-n)\).<br>
+      (ii) \(X=\{(c,x_n): c\ge0,\ -1\le x_n\le 0\}\) with \(x_n=-n\), and \(e=(0,0)\). Net trade \(x-e=(c,-n)\).<br>
+      Same net trade, so the same budget constraints (\(p\cdot(x-e)\le\) profits) and the same equilibria. Physical limits on hours appear in \(X^i\) either way (\(\ell\le 1\), or \(x_n\ge-1\)).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 1.4 <span class="tag proof">Proof</span></div>
+    <p>Let every \(X^i\) and \(Y^j\) be convex. Show that the set of feasible allocations is convex. (We will use convexity heavily in the Second Welfare Theorem, <a href="0006-second-welfare-theorem.html">Lesson 6</a>.)</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>Take feasible \(\{x^i,y^j\}\) and \(\{x'^i,y'^j\}\), and \(\lambda\in[0,1]\). Let \(x^i_\lambda=\lambda x^i+(1-\lambda)x'^i\) and similarly \(y^j_\lambda\). By convexity, \(x^i_\lambda\in X^i\) and \(y^j_\lambda\in Y^j\). Material balance is linear: \(\sum_i x^i_\lambda = \lambda\sum_i x^i+(1-\lambda)\sum_i x'^i = \lambda(\sum_j y^j+\sum_i e^i)+(1-\lambda)(\sum_j y'^j+\sum_i e^i) = \sum_j y^j_\lambda+\sum_i e^i\). ∎</p>
+    </div></details>
+  </div>
+
+  <div class="takeaways">
+    <h2>Key takeaways</h2>
+    <ul>
+      <li>An economy is \((L,\{X^i,u^i,e^i,\theta^i\},\{Y^j\})\). Commodities are distinguished by characteristics, location, date and state.</li>
+      <li>Signs: for a household, + is a purchase and − a sale; for a firm, + is an output and − an input. Profit is just \(p\cdot y\).</li>
+      <li>\(\sum_i\theta^i_j=1\): firms are fully owned by households.</li>
+      <li>Feasible means \(x^i\in X^i\), \(y^j\in Y^j\) and \(\sum x^i=\sum y^j+\sum e^i\), one equation per commodity, with no prices involved.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "how would I write an economy with capital that lasts three periods?" or "why is a commodity space a <em>vector</em> space, and when does that matter?"</div>
+
+  <div class="lesson-nav">
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0002-competitive-equilibrium.html">Lesson 2: Prices &amp; competitive equilibrium →</a>
+  </div>
+
+</div>
+</body>
+</html>

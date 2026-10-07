@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Glossary — Theory of Income</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']] } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Reference</div>
+    <h1>Glossary &amp; Notation</h1>
+    <div class="meta">The terms every lesson uses, defined once. Notation follows Alvarez's slides; where the decks clash, see <a href="#traps">notation traps</a>.</div>
+  </div>
+
+  <h2>Part I: The economy and equilibrium</h2>
+  <dl class="gloss">
+    <dt>\(L\), commodity space</dt>
+    <dd>Vector space of bundles; usually \(\mathbb{R}^m\), with \(m=\infty\) in OLG. Commodities are distinguished by physical characteristics, location, date and state of nature. <span class="see"><a href="../lessons/0001-the-economy.html">L1</a></span></dd>
+    <dt>\(X^i\), \(u^i\)</dt>
+    <dd>Consumption possibility set and utility function of household \(i\in I\). In \(x\in X^i\), positive entries are purchases and negative entries are sales (e.g. labour). <span class="see"><a href="../lessons/0001-the-economy.html">L1</a></span></dd>
+    <dt>\(Y^j\)</dt>
+    <dd>Technology (production possibility set) of firm \(j\in J\). In \(y\in Y^j\), positive entries are outputs and negative entries are inputs.</dd>
+    <dt>\(e^i\), \(\theta^i_j\)</dt>
+    <dd>Endowment of \(i\); share of firm \(j\) owned by \(i\), with \(\theta^i_j\ge0\) and \(\sum_i\theta^i_j=1\).</dd>
+    <dt>Feasible allocation</dt>
+    <dd>\(\{x^i,y^j\}\) with \(x^i\in X^i\), \(y^j\in Y^j\), and material balance \(\sum_i x^i=\sum_j y^j+\sum_i e^i\) (every good, every date and state).</dd>
+    <dt>\(p\), \(p\cdot x\)</dt>
+    <dd>Price vector and the value of bundle \(x\) (inner product). Only relative prices matter, so we normalize one. <span class="see"><a href="../lessons/0002-competitive-equilibrium.html">L2</a></span></dd>
+    <dt>Competitive equilibrium (CE)</dt>
+    <dd>\((p,\{\bar x^i,\bar y^j\})\): each \(\bar y^j\) maximizes \(p\cdot y\) on \(Y^j\), each \(\bar x^i\) maximizes \(u^i\) subject to \(p\cdot x\le p\cdot e^i+\sum_j\theta^i_j\pi^j\), and the allocation is feasible. <span class="see"><a href="../lessons/0002-competitive-equilibrium.html">L2</a></span></dd>
+    <dt>Walras' law</dt>
+    <dd>With binding budgets, \(p\cdot z(p)=0\) at every \(p\), where \(z\) is aggregate excess demand. So \(m-1\) clearing conditions suffice.</dd>
+    <dt>Pareto optimal (PO)</dt>
+    <dd>A feasible allocation that no other feasible allocation <em>Pareto-dominates</em>, i.e. makes everyone weakly better off and someone strictly better off. <span class="see"><a href="../lessons/0003-pareto-optimality-and-lns.html">L3</a></span></dd>
+    <dt>Local non-satiation (LNS)</dt>
+    <dd>For every \(x\in X^i\) and \(\varepsilon>0\), there is \(\hat x\in B_\varepsilon(x)\cap X^i\) with \(u^i(\hat x)>u^i(x)\). No bliss points and no thick indifference curves. <span class="see"><a href="../lessons/0003-pareto-optimality-and-lns.html">L3</a></span></dd>
+    <dt>First Welfare Theorem (1WT)</dt>
+    <dd>Under LNS, every CE allocation is PO. It needs no convexity. In infinite economies it also needs \(p\cdot\sum_i\bar x^i<\infty\). <span class="see"><a href="../lessons/0004-first-welfare-theorem.html">L4</a>, <a href="../lessons/0012-why-the-1wt-fails-in-olg.html">L12</a></span></dd>
+    <dt>Upper contour set</dt>
+    <dd>\(\{x\in X^i: u^i(x)\ge u^i(\bar x)\}\). It is strictly convex under strict quasi-concavity (Assumption HH).</dd>
+    <dt>Aggregate production set \(Y\)</dt>
+    <dd>\(Y=\sum_j Y^j\) (set sum). Assumption FF: \(Y\) is convex.</dd>
+    <dt>Second Welfare Theorem (2WT)</dt>
+    <dd>Under HH and FF, plus one non-satiated household, any PO allocation is supported by some \(p\ne0\): firms maximize profits and households <em>minimize expenditure</em> (a quasi-equilibrium). <span class="see"><a href="../lessons/0006-second-welfare-theorem.html">L6</a></span></dd>
+    <dt>Separating hyperplane theorem</dt>
+    <dd>Two disjoint convex sets (here \(A\) and \(\operatorname{Int}B\)) can be separated by a hyperplane \(\{x: p\cdot x = c\}\), \(p\ne0\).</dd>
+    <dt>Arrow's remark / cheapest point</dt>
+    <dd>If \(\bar x^i\) is not the cheapest point in \(X^i\) (some \(\tilde x^i\) has \(p\cdot\tilde x^i<p\cdot\bar x^i\)), expenditure minimization implies utility maximization, so the quasi-equilibrium is a CE. <span class="see"><a href="../lessons/0007-arrows-remark-and-decentralization.html">L7</a></span></dd>
+  </dl>
+
+  <h2>Part II–III: Overlapping generations</h2>
+  <dl class="gloss">
+    <dt>Generation \(i\)</dt>
+    <dd>Agents born at date \(i\ge1\) live for dates \(i,i+1\) with utility \(v^i(x_i^i,x_{i+1}^i)\). The <strong>initial old</strong> (\(i=0\)) live only at \(t=1\), with \(u^0=x_1^0\). <span class="see"><a href="../lessons/0008-olg-environment.html">L8</a></span></dd>
+    <dt>\(\bar e_t\)</dt>
+    <dd>Aggregate endowment at \(t\): \(e_t^{t-1}+e_t^t\). Feasibility: \(x_t^{t-1}+x_t^t=\bar e_t\).</dd>
+    <dt>\(r_t\)</dt>
+    <dd>Net interest rate, \(1/(1+r_t)=p_{t+1}/p_t\), so \(p_t=1/\prod_{s<t}(1+r_s)\) with \(p_1=1\). <span class="see"><a href="../lessons/0009-olg-prices-and-interest-rates.html">L9</a></span></dd>
+    <dt>\(s(r;\alpha,\beta)\)</dt>
+    <dd>Savings of the young: \(\beta(1-\alpha)-(1-\beta)\alpha/(1+r)\) in the log example. Equilibrium sets \(s=0\), so \(\bar r=(\alpha-\beta)/(\beta(1-\alpha))\).</dd>
+    <dt>Symmetric allocation</dt>
+    <dd>\((c_y,c_o)\), the same for every generation; feasible iff \(c_y+c_o=1\) (no growth). The best one for the young is \((1-\beta,\beta)\). <span class="see"><a href="../lessons/0010-olg-efficiency.html">L10</a></span></dd>
+    <dt>Dynamic inefficiency</dt>
+    <dd>A CE that is Pareto-dominated, e.g. by intergenerational transfers. It arises when \(\bar r<0\), or with growth when \(1+\bar r<(1+g)(1+n)\). <span class="see"><a href="../lessons/0013-growing-olg-economy.html">L13</a></span></dd>
+    <dt>Pay-as-you-go (PAYG) social security</dt>
+    <dd>Tax each young agent \(\tau\) and transfer the proceeds to the current old. It is balanced every period. With population growth each old agent receives \((1+n)\tau\). <span class="see"><a href="../lessons/0011-pay-as-you-go-social-security.html">L11</a></span></dd>
+    <dt>Value of aggregate consumption</dt>
+    <dd>\(p\cdot\sum_i\bar x^i\). The 1WT proof needs it finite. In the OLG example it equals \(\sum_t p_t\), which diverges iff \(\bar r\le0\). <span class="see"><a href="../lessons/0012-why-the-1wt-fails-in-olg.html">L12</a></span></dd>
+    <dt>Ricardian equivalence</dt>
+    <dd>Changing the timing of taxes while preserving each generation's present value leaves consumption and prices unchanged. <span class="see"><a href="../lessons/0014-privatizing-social-security.html">L14</a>, <a href="../lessons/0020-perpetual-youth-fiscal-policy.html">L20</a></span></dd>
+    <dt>\(B_t\)</dt>
+    <dd>Government <em>assets</em> in Class Note III (\(B_t<0\) is debt). Asset market clearing: \(B_t+s_t=0\) (endowment) or \(B_t+s_t=K_{t+1}\) (with capital).</dd>
+    <dt>Golden rule</dt>
+    <dd>The steady-state capital stock that maximizes steady-state consumption: \(F'(K)=\delta\) gross, or \(r=n\) with growth (\(r=0\) without). <span class="see"><a href="../lessons/0015-olg-with-capital.html">L15</a></span></dd>
+  </dl>
+
+  <h2>Part IV: Perpetual youth (Blanchard–Yaari)</h2>
+  <dl class="gloss">
+    <dt>\(p\)</dt>
+    <dd><strong>Death rate</strong> (hazard), not a price; expected lifetime \(1/p\). Cohort born at \(s\) has size \(N(s,t)=pe^{-p(t-s)}\) at \(t\); total population is 1. <span class="see"><a href="../lessons/0017-perpetual-youth-households.html">L17</a></span></dd>
+    <dt>Actuarially fair annuity</dt>
+    <dd>Wealth held with an insurer earns \(r+p\) while alive and is forfeited at death. The insurer breaks even.</dd>
+    <dt>\(\theta\)</dt>
+    <dd>Pure rate of time preference. The effective discount rate is \(\theta+p\).</dd>
+    <dt>\(R(t,z)\)</dt>
+    <dd>Price at \(t\) of a good at \(z\) for a surviving agent: \(\exp(-\int_t^z[r(\mu)+p]d\mu)\).</dd>
+    <dt>\(h\), \(v\); \(H\), \(V\)</dt>
+    <dd>Individual human and non-human wealth; aggregates over cohorts. With log utility, \(c=(\theta+p)(h+v)\) and \(C=(\theta+p)(H+V)\).</dd>
+    <dt>\(\alpha\) (BY)</dt>
+    <dd>Rate at which labour income declines with age: \(y(s,t)=aY(t)e^{-\alpha(t-s)}\) with \(a=(p+\alpha)/p\). <span class="see"><a href="../lessons/0018-perpetual-youth-aggregation.html">L18</a></span></dd>
+    <dt>Aggregate system</dt>
+    <dd>\(\dot C=(r+\alpha-\theta)C-(p+\alpha)(p+\theta)V\), \(\dot V=rV+Y-C\). Endowment economy: \(r=\theta-\alpha\). <span class="see"><a href="../lessons/0019-perpetual-youth-capital.html">L19</a></span></dd>
+    <dt>\(F(K)\) (BY)</dt>
+    <dd>Net output \(F(K,1)-\delta K\), so \(r=F'(K)\) and \(Y=F(K)-F'(K)K\).</dd>
+  </dl>
+
+  <h2 id="traps">Notation traps across slide decks</h2>
+  <table class="simple">
+    <tr><th>Symbol</th><th>Class Note II</th><th>Class Note III</th><th>Blanchard–Yaari</th></tr>
+    <tr><td>\(\alpha\)</td><td>old-age endowment (young get \(1-\alpha\))</td><td>privatization slides: <em>young</em> endowment; Cobb–Douglas: capital share; heterogeneity/population slides: as in Note II</td><td>decline rate of labour income with age</td></tr>
+    <tr><td>\(\theta\)</td><td>ownership share \(\theta^i_j\) (Slides 1)</td><td>PAYG tax per young</td><td>discount rate</td></tr>
+    <tr><td>\(\tau\)</td><td>PAYG tax per young</td><td>generic tax \(\tau^t_s\) (positive = tax)</td><td>(unused; taxes are \(T\))</td></tr>
+    <tr><td>\(p\)</td><td>prices \(p_t\)</td><td>prices</td><td>death rate</td></tr>
+    <tr><td>\(B\)</td><td>(unused)</td><td>government <em>assets</em></td><td>government <em>debt</em></td></tr>
+  </table>
+
+  <div class="lesson-nav">
+    <a href="../index.html">Course index</a>
+    <a href="welfare-theorems-cheatsheet.html">Welfare theorems cheatsheet</a>
+    <a href="olg-cheatsheet.html">OLG cheatsheet</a>
+    <a href="perpetual-youth-cheatsheet.html">Perpetual youth cheatsheet</a>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 4 — The First Welfare Theorem</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part I: Welfare Theorems · Lesson 4 of 20</div>
+    <h1>The First Welfare Theorem</h1>
+    <div class="meta">Covers <a href="../sources/slides1-welfare-theorems.pdf#page=14">Slides 1, pp. 14–19</a> · About 35 min · Prerequisite: <a href="0003-pareto-optimality-and-lns.html">Lesson 3</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>state the First Welfare Theorem (1WT) and reproduce its proof from memory, in five steps;</li>
+      <li>point to the exact line where each assumption is used: LNS, utility maximization, profit maximization, feasibility, and finitely many agents;</li>
+      <li>say what the theorem does <em>not</em> need (convexity, continuity, differentiability) and test it on examples.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides1-welfare-theorems.pdf#page=15">Slides 1, pp. 15–18</a> (statement and proof). The same argument appears in Mas-Colell, Whinston &amp; Green, Proposition 16.C.1, and in Debreu, <a href="https://cowles.yale.edu/sites/default/files/2022-09/m17-all.pdf"><em>Theory of Value</em></a>, §6.3. Keep this lesson's proof next to <a href="0012-why-the-1wt-fails-in-olg.html">Lesson 12</a>: the OLG counterexample breaks exactly one line of it.
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>1. The theorem</h2>
+
+  <div class="theorem">
+    <div class="box-title">First Welfare Theorem <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=15">S1 p.15</a></div>
+    <p>Let \(\big(p,\{\bar x^i,\bar y^j\}\big)\) be a competitive equilibrium. Assume that the preferences of every agent satisfy local non-satiation. Then \(\{\bar x^i,\bar y^j\}\) is Pareto optimal.</p>
+  </div>
+
+  <p>In one sentence: <em>if prices are such that everyone is optimizing and markets clear, there is no way to make someone better off without hurting someone else.</em> This is Adam Smith's invisible hand made precise. It is remarkable mostly for how little it assumes. There is nothing about convexity, continuity, or the shape of technology; the CE just has to exist.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>2. The idea in one picture</h2>
+
+  <p>The heart of the proof is the Lemma from <a href="0003-pareto-optimality-and-lns.html">Lesson 3</a>: <strong>at equilibrium prices, everything a household likes at least as much as \(\bar x^i\) costs at least as much as \(\bar x^i\)</strong>. Geometrically, the upper contour set \(\{x: u^i(x)\ge u^i(\bar x^i)\}\) lies entirely on or above the budget hyperplane through \(\bar x^i\). A Pareto improvement would make every household's bundle weakly more expensive and one strictly so. Its total value would then exceed the value of what the economy can produce, which is impossible.</p>
+
+  <div class="figure">
+    <div id="ucs-ctrl"></div>
+    <div id="ucs-fig"></div>
+    <div id="ucs-read"></div>
+    <div class="verdict" id="ucs-verdict"></div>
+    <div class="caption"><b>Interactive.</b> One household with income \(M=1\) facing prices \((p,1)\). <span style="color:#2a78d6">Blue</span>: the upper contour set of the chosen bundle \(\bar x\). <span style="color:#52514e">Gray</span>: the strictly cheaper half-space \(\{x: p\cdot x<p\cdot\bar x\}\). <span style="color:#eb6834">Orange</span>: their overlap, i.e. bundles that are weakly preferred <em>and</em> cheaper. Under Cobb–Douglas (LNS holds) there is no orange: this is equation (1) of the proof. Press <b>"toggle satiation"</b> to switch to \(u=\min\{x_1x_2,\kappa\}\), which violates LNS. The orange region appears, and with it the gap through which a Pareto improvement slips (Exercise 3.5).</div>
+  </div>
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const P = EconPlot.create('#ucs-fig', { x: [0, 1.6], y: [0, 1.6], width: 460, height: 440, equal: true, xlabel: 'x_1', ylabel: 'x_2' });
+    let sat = false, S;
+    function draw(v) {
+      const p = v.p, a = 0.5, M = 1;
+      P.clear();
+      const xb = [a * M / p, (1 - a) * M];
+      const cd = (x, y) => (x > 0 && y > 0) ? a * Math.log(x) + (1 - a) * Math.log(y) : -Infinity;
+      const kappa = 0.55 * xb[0] * xb[1];
+      const u = sat ? ((x, y) => Math.min(x * y, kappa)) : cd;
+      const ub = u(xb[0], xb[1]);
+      const cost = (x, y) => p * x + y, cb = cost(xb[0], xb[1]);
+      P.region((x, y) => cost(x, y) < cb - 1e-9, { fill: C.fillGray, res: 120 });
+      P.region((x, y) => u(x, y) >= ub - 1e-12 && cost(x, y) >= cb - 1e-9, { fill: C.fillBlue, res: 120 });
+      P.region((x, y) => u(x, y) >= ub - 1e-12 && cost(x, y) < cb - 1e-9, { fill: 'rgba(235,104,52,0.45)', res: 120 });
+      P.fn(x => M - p * x, { color: C.ink, width: 1.8 });
+      if (sat) P.contour((x, y) => x * y, kappa, { color: C.blue, width: 1.8 });
+      else P.contour(cd, ub, { color: C.blue, width: 1.8 });
+      P.point(xb[0], xb[1], { color: C.ink, label: 'x̄', labelDx: 8, labelDy: -8 });
+      P.text(1.55, 1.5, 'upper contour set', { anchor: 'end', size: 12, sans: true, color: '#2a78d6' });
+      P.text(0.04, 0.08, 'cheaper than x̄', { size: 12, sans: true, color: '#52514e' });
+      // measure overlap area roughly
+      let n = 0; const N = 120;
+      for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) { const x = 1.6 * (i + .5) / N, y = 1.6 * (j + .5) / N; if (u(x, y) >= ub - 1e-12 && cost(x, y) < cb - 1e-9) n++; }
+      EconPlot.readout('#ucs-read', [
+        ['preferences:', sat ? 'min{x₁x₂, κ}: satiated' : 'Cobb–Douglas: LNS holds', sat ? 'bad' : 'good'],
+        ['p·x̄:', cb.toFixed(3)],
+        ['weakly-better and cheaper area:', (n * (1.6 / N) ** 2).toFixed(3), n ? 'bad' : 'good']
+      ]);
+      document.getElementById('ucs-verdict').textContent = n
+        ? 'LNS fails. Some bundles are as good as x̄ but strictly cheaper, so equation (1) of the proof is false and the household "wastes" value that others could use.'
+        : 'LNS holds. Every bundle at least as good as x̄ costs at least p·x̄: the upper contour set lies on or above the budget line. This is equation (1).';
+    }
+    S = EconPlot.sliders('#ucs-ctrl', [{ id: 'p', label: 'p', min: 0.4, max: 2.5, step: 0.01, value: 1 }], draw);
+    S.button('toggle satiation', () => { sat = !sat; draw(S.values); });
+  })();
+  </script>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>3. The proof, step by step <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=16">S1 pp.16–18</a></h2>
+
+  <p><strong>Strategy: contradiction.</strong> Suppose the CE allocation is not PO. Then some feasible allocation \(\{x^i,y^j\}\) Pareto dominates it:
+  $$u^i(x^i)\ge u^i(\bar x^i)\ \ \forall i\in I,\qquad u^{i'}(x^{i'})>u^{i'}(\bar x^{i'})\ \text{ for some } i'\in I.$$
+  We will value both allocations at the equilibrium prices \(p\) and show that the dominating one would have to be worth more than the economy can supply.</p>
+
+  <div class="proof">
+    <div class="box-title">Proof</div>
+    <ol class="steps">
+      <li>
+        <strong>Weakly better costs weakly more (uses LNS).</strong>
+        $$p\cdot x^i\ \ge\ p\cdot\bar x^i\quad\text{for all } i\in I. \tag{1}$$
+        Suppose instead \(p\cdot x^i<p\cdot\bar x^i\) for some \(i\). Let \(\delta=p\cdot\bar x^i-p\cdot x^i>0\) and choose \(\varepsilon\) with \(\|p\|\varepsilon<\delta\). LNS gives \(\hat x\in X^i\) with \(\|\hat x-x^i\|<\varepsilon\) and \(u^i(\hat x)>u^i(x^i)\ge u^i(\bar x^i)\). By Cauchy–Schwarz, \(p\cdot\hat x<p\cdot x^i+\delta=p\cdot\bar x^i\), so \(\hat x\) is within \(i\)'s budget (\(\bar x^i\) was affordable). It is strictly better than \(\bar x^i\), contradicting the fact that \(\bar x^i\) maximizes utility on the budget set. The slides compress this to "by choosing the neighborhood small enough"; the ε–δ choice above is that sentence written out.
+      </li>
+      <li>
+        <strong>Strictly better costs strictly more (uses only optimality).</strong>
+        $$p\cdot x^{i'}\ >\ p\cdot\bar x^{i'}. \tag{2}$$
+        If \(p\cdot x^{i'}\le p\cdot\bar x^{i'}\), then \(x^{i'}\) is affordable for \(i'\) and strictly better than \(\bar x^{i'}\), contradicting optimality.
+      </li>
+      <li>
+        <strong>Add up over households (uses finitely many terms / finite values).</strong> Summing (1) over all \(i\), with the strict inequality (2) for \(i'\), and using linearity of \(p\cdot\):
+        $$p\cdot\sum_{i\in I}x^i\ >\ p\cdot\sum_{i\in I}\bar x^i. \tag{3}$$
+        <em>Flag this step.</em> Adding infinitely many inequalities and keeping the strict one only makes sense if the sums are finite numbers. If \(p\cdot\sum_i\bar x^i=\infty\), (3) degenerates into "∞ > ∞". That is the OLG loophole (<a href="0012-why-the-1wt-fails-in-olg.html">Lesson 12</a>).
+      </li>
+      <li>
+        <strong>Firms were already doing the best they could (uses profit maximization).</strong> Each \(\bar y^j\) maximizes \(p\cdot y\) on \(Y^j\), and the dominating plan \(y^j\) is in \(Y^j\) (feasibility), so \(p\cdot\bar y^j\ge p\cdot y^j\). Summing over \(j\):
+        $$p\cdot\sum_{j\in J}\bar y^j\ \ge\ p\cdot\sum_{j\in J}y^j. \tag{4}$$
+      </li>
+      <li>
+        <strong>Contradiction with feasibility.</strong> Both allocations satisfy material balance, so taking values at \(p\):
+        $$p\cdot\sum_i x^i=p\cdot\sum_j y^j+p\cdot\sum_i e^i,\qquad p\cdot\sum_i\bar x^i=p\cdot\sum_j\bar y^j+p\cdot\sum_i e^i .$$
+        Subtract the second from the first. The endowment terms cancel:
+        $$\underbrace{p\cdot\sum_i x^i-p\cdot\sum_i\bar x^i}_{>\,0\ \text{by (3)}}\;=\;\underbrace{p\cdot\sum_j y^j-p\cdot\sum_j\bar y^j}_{\le\,0\ \text{by (4)}} .$$
+        A strictly positive number cannot equal a non-positive one. So no Pareto-dominating allocation exists, and the CE allocation is PO.
+      </li>
+    </ol>
+    <div class="qed">∎</div>
+  </div>
+
+  <div class="intuition">
+    <div class="box-title">Intuition: the accounting behind the proof</div>
+    <p>Prices turn "better off" into "more expensive" (Steps 1–2). Profit maximization means no firm could have produced anything more valuable (Step 4). Feasibility says the value of what households consume equals the value of what firms produce plus endowments (Step 5). So a Pareto improvement would need households to consume more value than the economy can create at these prices. Every inequality is evaluated at the <em>same</em> \(p\); this is why everybody facing the same prices matters.</p>
+  </div>
+
+  <h3>Proof map: what is used where</h3>
+  <table class="simple">
+    <tr><th>Step</th><th>Inequality</th><th>Assumption used</th><th>Breaks if…</th></tr>
+    <tr><td>1</td><td>\(p x^i\ge p\bar x^i\)</td><td>LNS + utility maximization</td><td>thick indifference curves, satiation (Lesson 3)</td></tr>
+    <tr><td>2</td><td>\(p x^{i'}>p\bar x^{i'}\)</td><td>utility maximization; \(u^{i'}\) depends only on \(x^{i'}\)</td><td>consumption externalities (Lesson 5)</td></tr>
+    <tr><td>3</td><td>\(p\sum x^i>p\sum\bar x^i\)</td><td>sums are finite</td><td>infinitely many agents <em>and</em> goods with \(p\sum\bar x^i=\infty\) (OLG)</td></tr>
+    <tr><td>4</td><td>\(p\sum\bar y^j\ge p\sum y^j\)</td><td>profit maximization at \(p\); \(Y^j\) independent of others</td><td>market power, production externalities (Lesson 5)</td></tr>
+    <tr><td>5</td><td>contradiction</td><td>feasibility; a price for every good</td><td>missing markets (Lesson 5)</td></tr>
+  </table>
+
+  <div class="warning">
+    <div class="box-title">Not used anywhere</div>
+    <p>Convexity of preferences or technology, continuity of \(u\), differentiability, \(p\gg 0\), and the ownership shares \(\theta\) (they cancel because feasibility is valued directly) are all absent. Increasing returns, non-convex preferences and so on do not by themselves invalidate the 1WT. They may destroy <em>existence</em> of a CE, but whenever a CE exists, it is PO. That is the point of slide questions p.19 (convex \(u\)) and p.20 (increasing returns), developed in <a href="0005-when-the-first-welfare-theorem-fails.html">Lesson 5</a>.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>4. Check your understanding</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">1. Equation (1), \(p\cdot x^i\ge p\cdot\bar x^i\) for all \(i\), follows from…</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">feasibility of both allocations being compared</li>
+        <li class="quiz-option" data-option="b">local non-satiation plus utility maximization</li>
+        <li class="quiz-option" data-option="c">profit maximization by all firms in the economy</li>
+        <li class="quiz-option" data-option="d">convexity of every household's preferences set</li>
+      </ul>
+      <div class="quiz-explain">If a weakly preferred \(x^i\) were strictly cheaper, LNS would give a nearby strictly better and still affordable bundle, contradicting optimality of \(\bar x^i\). Convexity plays no role.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">2. Which step would fail if \(p\cdot\sum_i \bar x^i=+\infty\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Step 1, the inequality derived from local non-satiation</li>
+        <li class="quiz-option" data-option="b">Step 2, the strict inequality for the agent who gains</li>
+        <li class="quiz-option" data-option="c">Step 4, the inequality derived from firms' profit maximization</li>
+        <li class="quiz-option" data-option="d">Step 3, the summation that preserves the strict inequality</li>
+      </ul>
+      <div class="quiz-explain">Each individual inequality still holds, but summing infinitely many of them gives "∞ > ∞", which says nothing. This is exactly the OLG failure (Lesson 12).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">3. Every \(u^i\) is strictly convex (not concave) and strictly increasing, and a CE exists. Its allocation is…</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Pareto optimal, since LNS still holds here</li>
+        <li class="quiz-option" data-option="b">not Pareto optimal, since convexity fails</li>
+        <li class="quiz-option" data-option="c">Pareto optimal, but only with one consumer</li>
+        <li class="quiz-option" data-option="d">undetermined without differentiable utility</li>
+      </ul>
+      <div class="quiz-explain">Strictly increasing implies LNS (Lesson 3), and the proof never uses quasi-concavity. Non-convex preferences can make a CE <em>fail to exist</em>, but if one exists it is PO. See Exercise 4.1.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">4. In Step 5, why do the endowment terms drop out?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Endowments have zero value at equilibrium prices</li>
+        <li class="quiz-option" data-option="b">Endowments are owned by the firms, not households</li>
+        <li class="quiz-option" data-option="c">Both allocations share the same aggregate endowment</li>
+        <li class="quiz-option" data-option="d">Walras' law sets the value of endowments to zero</li>
+      </ul>
+      <div class="quiz-explain">Feasibility for \(x\) and for \(\bar x\) both contain \(\sum_i e^i\), the same physical resources, so subtracting the two valued constraints cancels \(p\cdot\sum_i e^i\).</div>
+    </div>
+    <div class="quiz-score"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>5. Exercises</h2>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 4.1 <span class="tag slides">Slides p.19</span> (convex utility)</div>
+    <p>"Suppose that all \(u\) are convex (instead of concave). Does the first welfare theorem hold?"</p>
+    <ol class="parts" type="a">
+      <li>Answer in general.</li>
+      <li>Two agents, each endowed with \((1,1)\), each with \(u(x)=x_1^2+x_2^2\). Find a CE at \(p=(1,1)\) and verify that it is PO.</li>
+      <li>Compare each agent's utility with the "equal split" allocation \((1,1),(1,1)\). What does this tell you about convexity and equal treatment?</li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>A convex function on a budget line is maximized at an endpoint. Check whether the two agents can choose <em>different</em> corners that together clear the market.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) <strong>Yes, whenever a CE exists and LNS holds.</strong> The proof never uses concavity or quasi-concavity. A strictly increasing convex \(u\) on \(\mathbb{R}^m_+\) satisfies LNS. The catch is existence: demands jump between corners, so a CE may fail to exist. But that is a separate question from efficiency.</p>
+      <p>(b) At \(p=(1,1)\), wealth is 2 and the budget is \(x_1+x_2\le2\). \(x_1^2+x_2^2\) is maximized at a corner, \((2,0)\) or \((0,2)\), each with utility 4. Let A choose \((2,0)\) and B choose \((0,2)\). Markets clear: \(2+0=2\) and \(0+2=2\). So this is a CE. By the 1WT it is PO. Directly: any feasible allocation has \(u^A+u^B=\|x^A\|^2+\|x^B\|^2\le\) its maximum on the box, which is 8 and is attained only at the corner allocations, so neither can gain without the other losing.</p>
+      <p>(c) The equal split gives each agent \(1+1=2<4\). With convex preferences, <em>specializing</em> is efficient and identical agents optimally consume different bundles. Equal treatment and efficiency can conflict. Convexity is what the Second Welfare Theorem will need (Lesson 6), not the first.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 4.2 <span class="tag exam">Exam-style</span> (the proof with numbers)</div>
+    <p>Take the CE of Exercise 2.2: \(p=(3/4,\,1)\), \(\bar x^A=(1/3,1/2)\), \(\bar x^B=(2/3,1/2)\), \(u^A=\frac13\log x_1+\frac23\log x_2\), \(u^B=\frac12\log x_1+\frac12\log x_2\). A planner proposes to give A the bundle \((0.25,\,0.6)\) and B the rest.</p>
+    <ol class="parts" type="a">
+      <li>Check that A is better off. What does this bundle cost at \(p\)?
+        <div class="numcheck" data-answer="0.7875" data-tol="0.001" data-prompt="p·xᴬ ="></div></li>
+      <li>What is the value of B's new bundle at \(p\)?
+        <div class="numcheck" data-answer="0.9625" data-tol="0.001" data-prompt="p·xᴮ ="></div></li>
+      <li>Explain, using Step 2 of the proof applied to B, why B must be worse off, and confirm numerically.</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(u^A(0.25,0.6)=\tfrac13\ln0.25+\tfrac23\ln0.6\approx-0.803 > u^A(\bar x^A)=\tfrac13\ln\tfrac13+\tfrac23\ln\tfrac12\approx-0.828\). Cost: \(0.75\cdot0.25+0.6=0.7875>p\cdot\bar x^A=0.75\), as equation (2) predicts.<br>
+      (b) B gets \((0.75,0.4)\), worth \(0.75\cdot0.75+0.4=0.9625\).<br>
+      (c) Total value is fixed at \(p\cdot(1,1)=1.75\). A's bundle rose in value by 0.0375, so B's fell by the same amount: \(0.9625<p\cdot\bar x^B=1\). B's new bundle is therefore <em>cheaper</em> than \(\bar x^B\). If B weakly preferred it, equation (1) would be violated. So B must be strictly worse off. Check: \(u^B(0.75,0.4)=\tfrac12(\ln0.75+\ln0.4)\approx-0.602<u^B(\bar x^B)=\tfrac12(\ln\tfrac23+\ln\tfrac12)\approx-0.549\). ✓</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 4.3 <span class="tag proof">Proof</span> (weak PO for free)</div>
+    <p>Show that <em>without any assumption on preferences</em> (no LNS), every CE allocation is weakly Pareto optimal: no feasible allocation makes <em>every</em> household strictly better off. Which step of the proof are you avoiding?</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>Suppose a feasible \(\{x^i,y^j\}\) has \(u^i(x^i)>u^i(\bar x^i)\) for all \(i\). Step 2's argument (which uses only optimality) now applies to <em>every</em> \(i\): \(p\cdot x^i>p\cdot\bar x^i\) for all \(i\). Summing gives (3). Steps 4–5 go through unchanged, giving a contradiction. We avoided Step 1, the only place LNS enters. LNS is needed only to handle the agents who are merely indifferent.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 4.4 <span class="tag exam">Exam-style</span> (locate the broken line)</div>
+    <p>For each modification, say whether the 1WT can fail and identify the first equation of the proof, (1)–(4) or Step 5, that can no longer be established:</p>
+    <ol class="parts" type="a">
+      <li>One household's utility is \(\min\{x_1+x_2,\,1\}\).</li>
+      <li>A firm's chosen \(\bar y^j\) is feasible but does not maximize \(p\cdot y\) (say, a monopolist restricts output).</li>
+      <li>Household 1's utility depends on household 2's consumption, \(u^1(x^1,x^2)\).</li>
+      <li>There are countably many households and countably many goods, and \(p\cdot\sum_i\bar x^i=\infty\).</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Equation (1): the satiated household can have a weakly better, strictly cheaper bundle (Exercise 3.5).<br>
+      (b) Equation (4): \(p\cdot\bar y^j\ge p\cdot y^j\) is no longer guaranteed. A dominating allocation can use a more valuable production plan.<br>
+      (c) Equation (2) (and (1)): household 1's optimality was computed taking \(\bar x^2\) as given. In the dominating allocation, \(x^2\) changes too, so "\(u^1(x^1,x^2)>u^1(\bar x^1,\bar x^2)\)" no longer says \(x^1\) is better <em>given \(\bar x^2\)</em>, and the revealed-preference argument says nothing about its cost.<br>
+      (d) Equation (3): the strict inequality cannot be kept after summing infinite values. Lesson 12 shows this really happens in the OLG model.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 4.5 <span class="tag proof">Proof</span> (zero prices)</div>
+    <p>Show that in any CE where some household satisfies LNS, \(p\ne 0\). Where is this implicitly needed in Step 1?</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>If \(p=0\), every bundle in \(X^i\) is affordable. LNS at \(\bar x^i\) gives a strictly better \(\hat x\in X^i\), which is affordable. This contradicts optimality, so \(p\ne0\). In the proof, \(p=0\) would make every valuation trivially zero, and (2) would read \(0>0\). The fact you just proved says this case never arises, so the price comparisons in Steps 1–5 are never vacuous. (Individual prices can still be zero, e.g. for a good nobody wants.)</p>
+    </div></details>
+  </div>
+
+  <div class="takeaways">
+    <h2>Key takeaways</h2>
+    <ul>
+      <li>1WT: CE + LNS ⇒ PO. The proof is by contradiction in five steps: (1) weakly better ⇒ weakly costlier [LNS]; (2) strictly better ⇒ strictly costlier; (3) sum over households; (4) profits were maximal; (5) feasibility gives \(+\) = \(\le 0\), a contradiction.</li>
+      <li>No convexity, continuity or differentiability is used. Non-convexities threaten <em>existence</em>, not efficiency.</li>
+      <li>Fragile points: satiation (1), externalities (2), infinite values (3), market power (4), missing markets (5).</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "quiz me on the five steps of the 1WT proof" or "why doesn't the proof need the ownership shares θ?"</div>
+
+  <div class="lesson-nav">
+    <a href="0003-pareto-optimality-and-lns.html">← Lesson 3: Pareto optimality &amp; LNS</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/welfare-theorems-cheatsheet.html">Welfare-theorems cheat sheet</a>
+    <a href="0005-when-the-first-welfare-theorem-fails.html">Lesson 5: When the 1WT fails →</a>
+  </div>
+
+</div>
+</body>
+</html>

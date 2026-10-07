@@ -1,0 +1,11 @@
+# Instructor's slide PDFs: not republished (the site links to the class Dropbox instead)
+sources/
+
+# Personal study files
+MISSION.md
+NOTES.md
+learning-records/
+archive/
+.claude/
+
+.DS_Store

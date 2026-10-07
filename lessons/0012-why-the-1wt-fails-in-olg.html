@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 12 — Why the First Welfare Theorem Fails in OLG</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part II: Overlapping Generations · Lesson 12 of 20</div>
+    <h1>Why the First Welfare Theorem Fails in OLG</h1>
+    <div class="meta">Covers <a href="../sources/slides2-olg.pdf#page=21">Class Note II, pp. 21–27</a> · About 35 min · Prerequisites: <a href="0004-first-welfare-theorem.html">Lesson 4</a>, <a href="0010-olg-efficiency.html">Lesson 10</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>point to the <em>exact</em> line of the First Welfare Theorem proof that breaks in the OLG economy, and say why;</li>
+      <li>compute the value of the aggregate endowment \(p\cdot\sum_i\bar x^i\) and classify the three cases of <a href="0010-olg-efficiency.html">Lesson 10</a> by whether it is finite;</li>
+      <li>prove that the 1WT survives with infinitely many agents <em>or</em> infinitely many goods, so it is the <strong>double infinity</strong> that causes the failure.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides2-olg.pdf#page=21">Class Note II, pp. 21–27</a>. The classic diagnosis is Karl Shell, <a href="https://ideas.repec.org/a/ucp/jpolec/v79y1971i5p1002-11.html">"Notes on the Economics of Infinity"</a>, <em>JPE</em> 79(5), 1971. It is ten pages long and very readable. The original model is Samuelson, <a href="https://ideas.repec.org/a/ucp/jpolec/v66y1958p467.html">"An Exact Consumption-Loan Model of Interest…"</a>, <em>JPE</em> 66(6), 1958.
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>1. Where we are</h2>
+
+  <p>In <a href="0010-olg-efficiency.html">Lesson 10</a> we found, in the log example with endowments \((1-\alpha,\alpha)\) and preferences \((1-\beta)\log c_y+\beta\log c_o\), that the unique CE is autarky, with
+  $$\bar r = \frac{\alpha-\beta}{\beta(1-\alpha)}, \qquad p_t = \Big(\frac{1}{1+\bar r}\Big)^{t-1}.$$
+  When \(\beta>\alpha\) (Case 1, \(\bar r<0\)), the best symmetric allocation \((1-\beta,\beta)\) makes <em>every</em> generation, including the initial old, strictly better off. So the CE is <strong>not Pareto optimal</strong>. Yet log utility is strictly increasing, so local non-satiation holds. The theorem's only hypothesis is satisfied and its conclusion fails. Something in the proof must break <a class="slide-ref" href="../sources/slides2-olg.pdf#page=21">N2 p.21</a>.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>2. Re-run the proof and watch it break</h2>
+
+  <p>Recall the structure of the proof from <a href="0004-first-welfare-theorem.html">Lesson 4</a> (pure exchange, no firms). Suppose a feasible \(\{x^i\}\) Pareto-dominates the CE \(\{\bar x^i\}\).</p>
+
+  <div class="proof">
+    <div class="box-title">The 1WT proof, line by line, in the OLG economy <a class="slide-ref" href="../sources/slides2-olg.pdf#page=24">N2 pp.24–25</a></div>
+    <ol class="steps">
+      <li><strong>Agent by agent: still fine.</strong> LNS and utility maximization give \(p\cdot x^i\ge p\cdot\bar x^i\) for all \(i\), and \(p\cdot x^{i'}>p\cdot\bar x^{i'}\) for some \(i'\). Each generation lives two periods, so each \(p\cdot x^i\) is a sum of two finite numbers. Nothing infinite has appeared yet.</li>
+      <li><strong>Sum over agents: this is where it breaks.</strong> We want to conclude
+        $$\sum_{i\in I} p\cdot x^i \;>\; \sum_{i\in I} p\cdot \bar x^i. \tag{$\ast$}$$
+        Adding up a strict and infinitely many weak inequalities gives a strict inequality between the sums <em>only if the sums are finite numbers</em>. If \(\sum_i p\cdot\bar x^i=+\infty\), then both sides are \(+\infty\), and \((\ast)\) would say "\(\infty>\infty\)", which is false <a class="slide-ref" href="../sources/slides2-olg.pdf#page=25">N2 p.25</a>.</li>
+      <li><strong>Feasibility: holds, but can't produce a contradiction.</strong> Both allocations exhaust the same aggregate endowment, so \(p\cdot\sum_i x^i = p\cdot\sum_i e^i = p\cdot\sum_i\bar x^i\). With finite values this contradicts \((\ast)\). With infinite values it is the harmless statement \(\infty=\infty\).</li>
+    </ol>
+  </div>
+
+  <div class="theorem">
+    <div class="box-title">The 1WT with infinitely many agents and goods <a class="slide-ref" href="../sources/slides2-olg.pdf#page=21">N2 p.21</a></div>
+    <p>Let \((p,\{\bar x^i\})\) be a CE and suppose all preferences satisfy LNS. If, in addition, the <strong>value of the aggregate consumption is finite</strong>,
+    $$p\cdot\sum_{i\in I}\bar x^i<\infty,$$
+    then \(\{\bar x^i\}\) is Pareto optimal.</p>
+  </div>
+
+  <div class="warning">
+    <div class="box-title">Sufficient, not necessary</div>
+    <p>Finite value is a <em>sufficient</em> condition for efficiency. When it fails, the proof fails, but the CE need not be inefficient. Case 2 (\(\alpha=\beta\), \(\bar r=0\)) has infinite value, yet the CE coincides with the best symmetric allocation and is in fact Pareto optimal (Exercise 12.6). The sharp characterization is due to Cass (1972) and Balasko–Shell (1980). Roughly, a CE in this kind of economy is efficient iff \(\sum_t 1/p_t=\infty\). This goes beyond the slides; know that it exists.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>3. Compute the value of the aggregate endowment</h2>
+
+  <p>At each date \(t\ge1\) aggregate consumption is \(\bar x^{t-1}_t+\bar x^t_t = \bar e_t = 1\), so \(\sum_{i=0}^\infty\bar x^i = (1,1,1,\dots)\) <a class="slide-ref" href="../sources/slides2-olg.pdf#page=22">N2 p.22</a>. Its value is a geometric series:
+  $$p\cdot\sum_i\bar x^i=\lim_{T\to\infty}\sum_{t=1}^{T}\Big(\frac{1}{1+\bar r}\Big)^{t-1}
+  =\lim_{T\to\infty}\frac{1+\bar r}{\bar r}\Big[1-\Big(\frac{1}{1+\bar r}\Big)^{T}\Big]\quad(\bar r\neq0),$$
+  and the partial sum is just \(T\) when \(\bar r=0\) <a class="slide-ref" href="../sources/slides2-olg.pdf#page=23">N2 p.23</a>.</p>
+
+  <table class="simple">
+    <tr><th>Case</th><th>Parameters</th><th>\(\bar r\)</th><th>\(p\cdot\sum_i\bar x^i\)</th><th>1WT applies?</th><th>CE is PO?</th></tr>
+    <tr><td>1</td><td>\(\beta>\alpha\)</td><td>\(<0\)</td><td>\(+\infty\) (prices grow)</td><td>No</td><td><strong>No</strong>: \((1-\beta,\beta)\) dominates</td></tr>
+    <tr><td>2</td><td>\(\beta=\alpha\)</td><td>\(=0\)</td><td>\(+\infty\) (sum is \(T\))</td><td>No</td><td>Yes (Ex. 12.6)</td></tr>
+    <tr><td>3</td><td>\(\beta<\alpha\)</td><td>\(>0\)</td><td>\((1+\bar r)/\bar r<\infty\)</td><td>Yes</td><td>Yes</td></tr>
+  </table>
+
+  <div class="figure">
+    <div id="ps-ctrl"></div>
+    <div id="ps-fig"></div>
+    <div id="ps-read"></div>
+    <div class="verdict" id="ps-verdict"></div>
+    <div class="caption"><b>Interactive.</b> Dots are the partial sums \(S_T=\sum_{t=1}^T p_t\) of the value of the aggregate endowment, where \(p_t=(1+\bar r)^{-(t-1)}\) and \(\bar r\) comes from \(\alpha,\beta\). The dashed <span style="color:#eb6834">orange</span> line is the limit \((1+\bar r)/\bar r\), drawn when it exists. The grey diagonal is the knife-edge \(\bar r=0\), where \(S_T=T\). <b>Try:</b> set \(\alpha=\beta\), then nudge \(\beta\) just below \(\alpha\). The sum converges, but to a very large number, because \((1+\bar r)/\bar r\to\infty\) as \(\bar r\downarrow0\).</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const P = EconPlot.create('#ps-fig', { x: [0, 40], y: [0, 60], width: 560, height: 340,
+      xlabel: 'T', ylabel: 'S_T = Σ p_t', xticks: 8, yticks: 6 });
+    function draw(v) {
+      const { alpha, beta } = v;
+      const r = (alpha - beta) / (beta * (1 - alpha));
+      P.clear();
+      P.fn(T => T, { color: C.muted, dash: '3 4', width: 1.2, label: 'r̄ = 0 : S_T = T', labelAt: 34, labelDx: -40, labelDy: -12 });
+      let S = 0, S40 = 0;
+      for (let T = 1; T <= 40; T++) {
+        S += Math.pow(1 / (1 + r), T - 1);
+        if (S <= 62) P.point(T, S, { color: C.blue, r: 3.2 });
+        if (T === 40) S40 = S;
+      }
+      let lim = null;
+      if (r > 1e-9) {
+        lim = (1 + r) / r;
+        if (lim < 60) P.hline(lim, { color: C.orange, dash: '6 4', width: 1.6, label: 'limit (1+r̄)/r̄', labelDx: -130, labelDy: -6 });
+      }
+      const cs = Math.abs(alpha - beta) < 1e-9 ? 2 : (beta > alpha ? 1 : 3);
+      EconPlot.readout('#ps-read', [
+        ['r̄ = (α−β)/(β(1−α)) :', r.toFixed(3)],
+        ['S₄₀ :', S40 > 1e6 ? S40.toExponential(2) : S40.toFixed(2)],
+        ['limit :', lim === null ? '+∞' : lim.toFixed(2), lim === null ? 'bad' : 'good'],
+        ['case :', String(cs)]
+      ]);
+      document.getElementById('ps-verdict').textContent =
+        cs === 3 ? 'Case 3 (β < α, r̄ > 0): the value is finite, so the 1WT applies and the CE is Pareto optimal.'
+        : cs === 2 ? 'Case 2 (β = α, r̄ = 0): the value is infinite, so the proof does not apply. The CE is still PO here, because it equals the best symmetric allocation.'
+        : 'Case 1 (β > α, r̄ < 0): prices rise over time, so the value explodes. The proof breaks and the CE is in fact Pareto-dominated.';
+    }
+    EconPlot.sliders('#ps-ctrl', [
+      { id: 'alpha', label: 'α', min: 0.1, max: 0.9, step: 0.01, value: 0.5 },
+      { id: 'beta', label: 'β', min: 0.1, max: 0.9, step: 0.01, value: 0.4 }
+    ], draw);
+  })();
+  </script>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>4. The Pareto improvement, priced at CE prices</h2>
+
+  <p>It helps to see the failure in numbers. In Case 1, compare the improving allocation \(x^*\) (the best symmetric one) with the CE \(\bar x=e\) at CE prices. Write \(q\equiv 1/(1+\bar r) = p_{t+1}/p_t\), so \(q>1\) when \(\bar r<0\).</p>
+  <ul>
+    <li><strong>Initial old:</strong> \(p\cdot x^{*0}-p\cdot\bar x^0 = p_1(\beta-\alpha)>0\).</li>
+    <li><strong>Generation \(t\ge1\):</strong> \(p\cdot x^{*t}-p\cdot\bar x^t = p_t\big[(1-\beta)-(1-\alpha)\big]+p_{t+1}(\beta-\alpha) = p_t(\beta-\alpha)(q-1)>0\).</li>
+  </ul>
+  <p>Every agent's new bundle is strictly <em>more expensive</em> at CE prices. That is exactly what steps 1–2 of the proof predict. Yet both allocations are feasible and use up the same aggregate endowment \((1,1,\dots)\). With finitely many agents this would be impossible: a finite sum of strictly larger numbers is strictly larger. With infinitely many agents and an infinite total value it is perfectly consistent.</p>
+
+  <div class="figure">
+    <div id="chain-fig"></div>
+    <div class="caption"><b>The transfer chain (Hilbert's hotel).</b> Moving from \((1-\alpha,\alpha)\) to \((1-\beta,\beta)\) means every young person hands \(\varepsilon=\beta-\alpha\) to the current old person (arrows). The initial old receive \(\varepsilon\) and give nothing. Every later generation gives \(\varepsilon\) when young and receives \(\varepsilon\) when old. When \(\beta>\alpha\), each generation <em>wants</em> that trade, because its MRS at the endowment exceeds 1. With finitely many generations, someone, the last young, would give without receiving. With infinitely many generations there is no last one, so the chain never has to be "closed". No market price can replicate it: each young person would be lending to someone who will be dead when the loan comes due.</div>
+  </div>
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const P = EconPlot.create('#chain-fig', { x: [0.5, 6.6], y: [-0.5, 5.5], width: 560, height: 300, grid: false,
+      xticks: [1, 2, 3, 4, 5, 6], yticks: [0, 1, 2, 3, 4, 5], xlabel: 'date t', ylabel: 'generation i',
+      ytickfmt: v => 'gen ' + v, zeroLines: false });
+    for (let i = 0; i <= 5; i++) {
+      const a = i === 0 ? 1 : i, b = i === 0 ? 1 : Math.min(i + 1, 6.4);
+      P.segment(a - 0.12, i, b + 0.12, i, { color: '#bdb9b0', width: 9 });
+      if (i >= 1) P.text(i, i, 'young', { dx: -16, dy: -10, size: 11, sans: true, color: '#52514e' });
+      if (i >= 1 && i + 1 <= 6) P.text(i + 1, i, 'old', { dx: -9, dy: 20, size: 11, sans: true, color: '#52514e' });
+    }
+    for (let t = 1; t <= 5; t++) {
+      P.arrow(t, t - 0.15, t, t - 1 + 0.18, { color: C.orange, width: 2 });
+      P.text(t, t - 0.5, 'ε', { dx: 6, color: C.orange, italic: true });
+    }
+    P.text(6.5, 3.0, '… and so on: no last generation', { size: 12, sans: true, color: '#52514e', anchor: 'end' });
+    P.text(1.25, 0, '← initial old: receive ε, give nothing', { dy: 4, size: 12, sans: true, color: '#52514e' });
+  })();
+  </script>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>5. It takes a double infinity</h2>
+
+  <p>Why didn't this come up in <a href="0004-first-welfare-theorem.html">Lesson 4</a>? Because there both the set of agents and the set of goods were finite, so every sum was finite. The two slide questions below show that relaxing <em>one</em> of the two finiteness assumptions is not enough to break the theorem <a class="slide-ref" href="../sources/slides2-olg.pdf#page=26">N2 pp.26–27</a>. Shell (1971) calls this the <strong>double infinity</strong> of traders and dated commodities.</p>
+
+  <table class="simple">
+    <tr><th></th><th>Finitely many goods</th><th>Infinitely many goods</th></tr>
+    <tr><th>Finitely many agents</th><td>Lesson 4: value finite ✓</td><td>Ex. 12.3: each \(p\cdot\bar x^i\) finite, finite sum ✓</td></tr>
+    <tr><th>Infinitely many agents</th><td>Ex. 12.2: \(\sum_\ell p_\ell\bar e_\ell\), finite sum ✓</td><td><strong>OLG: can be \(\infty\)</strong> ✗</td></tr>
+  </table>
+
+  <div class="intuition">
+    <div class="box-title">Intuition: what the infinite value means</div>
+    <p>An infinite value of the aggregate endowment says the economy's total wealth at date-1 prices is unbounded. When \(\bar r<0\), goods in the far future are <em>more</em> valuable than goods today, and there is no end to the future. A pay-as-you-go scheme (<a href="0011-pay-as-you-go-social-security.html">Lesson 11</a>) or fiat money is a way of tapping that wealth. Each generation is paid back by the next, at the implicit return \(0>\bar r\). With growth, that return becomes \((1+g)(1+n)-1\) (<a href="0013-growing-olg-economy.html">Lesson 13</a>).</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>6. Check your understanding</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">1. Which step of the 1WT proof fails in the OLG example with \(\bar r<0\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Showing each dominating bundle costs at least as much</li>
+        <li class="quiz-option" data-option="b">Summing the cost inequalities into a strict aggregate one</li>
+        <li class="quiz-option" data-option="c">Using local non-satiation to rule out cheaper bundles</li>
+        <li class="quiz-option" data-option="d">Checking that the dominating allocation is feasible</li>
+      </ul>
+      <div class="quiz-explain">The agent-by-agent inequalities all still hold (Section 4 even computes them). What fails is aggregating: when \(\sum_i p\cdot\bar x^i=\infty\), adding a strict inequality to infinitely many weak ones does not give a strict inequality between the totals.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">2. In Case 2 (\(\alpha=\beta\)), the value of the aggregate endowment is infinite. What follows?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The CE is Pareto dominated by the best symmetric one</li>
+        <li class="quiz-option" data-option="b">No competitive equilibrium exists for these parameters</li>
+        <li class="quiz-option" data-option="c">The 1WT is silent, yet the CE happens to be optimal</li>
+        <li class="quiz-option" data-option="d">The 1WT applies because the interest rate is zero</li>
+      </ul>
+      <div class="quiz-explain">Finite value is sufficient, not necessary. With \(\alpha=\beta\) the CE <em>is</em> the best symmetric allocation, and it is Pareto optimal (Exercise 12.6), even though the 1WT cannot be used to show it.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">3. Which economy can have a CE with infinite aggregate value?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Infinitely many agents and infinitely many dated goods</li>
+        <li class="quiz-option" data-option="b">Infinitely many agents but only finitely many goods</li>
+        <li class="quiz-option" data-option="c">Finitely many agents with infinitely many dated goods</li>
+        <li class="quiz-option" data-option="d">Finitely many agents and finitely many distinct goods</li>
+      </ul>
+      <div class="quiz-explain">This is the double infinity. With finitely many goods, the value is \(\sum_\ell p_\ell\bar e_\ell\), a finite sum. With finitely many agents and monotone preferences, each \(p\cdot\bar x^i\le p\cdot e^i<\infty\), and a finite sum of finite numbers is finite.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">4. In Case 1, at CE prices, how does generation \(t\)'s best-symmetric bundle compare in value with its endowment?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">It costs exactly the same, since both are feasible</li>
+        <li class="quiz-option" data-option="b">It costs strictly less, which is why they prefer it</li>
+        <li class="quiz-option" data-option="c">The comparison is undefined since prices are infinite</li>
+        <li class="quiz-option" data-option="d">It costs strictly more, as the 1WT proof's step 2 says</li>
+      </ul>
+      <div class="quiz-explain">The difference is \(p_t(\beta-\alpha)(q-1)>0\) with \(q=1/(1+\bar r)>1\). Each price \(p_t\) is finite; only the infinite sum over agents is a problem. The bundle is strictly preferred, so by utility maximization it must be unaffordable, i.e. strictly more expensive.</div>
+    </div>
+    <div class="quiz-score"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>7. Exercises</h2>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 12.1 <span class="tag slides">Slides N2 p.23</span></div>
+    <p>Let \(\alpha=0.5\) and \(\beta=0.4\).</p>
+    <ol class="parts" type="a">
+      <li>Compute \(\bar r\).
+        <div class="numcheck" data-answer="0.25" data-tol="0.002" data-prompt="r̄ ="></div></li>
+      <li>Compute \(p\cdot\sum_i\bar x^i\).
+        <div class="numcheck" data-answer="5" data-tol="0.002" data-prompt="value ="></div></li>
+      <li>Which case is this, and what does the 1WT let you conclude?</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(\bar r = (0.5-0.4)/(0.4\cdot0.5) = 0.1/0.2 = 0.25\). (b) The geometric series with ratio \(1/1.25=0.8\) sums to \(1/(1-0.8) = 5 = (1+\bar r)/\bar r\). (c) Case 3: \(\beta<\alpha\) and the value is finite, so the 1WT applies and the CE (autarky) is Pareto optimal. Consistent with Lesson 10, the initial old strictly prefer autarky (\(\alpha=0.5\)) to the best symmetric allocation (\(\beta=0.4\)).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 12.2 <span class="tag slides">Slides N2 p.26</span> <span class="tag proof">Proof</span></div>
+    <p>Pure exchange, finitely many goods \(L=\mathbb{R}^m\), infinitely many agents, consumption sets \(X^i=\mathbb{R}^m_+\), and aggregate endowment bounded in each component: \(\bar e_\ell\equiv\sum_{i\in I}e^i_\ell<\infty\) for \(\ell=1,\dots,m\). Show that in any CE \((p,\{\bar x^i\})\), \(p\cdot\sum_i\bar x^i<\infty\). Then explain why the 1WT goes through.</p>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>Follow the slide hint: \(p\cdot\sum_i\bar x^i = p_1\sum_i\bar x^i_1+\dots+p_m\sum_i\bar x^i_m\). What does feasibility say about each \(\sum_i\bar x^i_\ell\)? Why can you swap the two sums?</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <ol class="steps">
+        <li><strong>Prices are non-negative.</strong> If \(p_\ell<0\) for some \(\ell\), any agent with LNS-type monotone preferences would demand unboundedly much of good \(\ell\), since buying it relaxes the budget. That contradicts feasibility with \(\bar e_\ell<\infty\). So \(p\ge0\). (Under the strict monotonicity used in class, \(p\gg0\).)</li>
+        <li><strong>Swap the sums.</strong> All terms \(p_\ell\bar x^i_\ell\) are non-negative, so by Tonelli's theorem for series, \(\sum_i\sum_\ell p_\ell\bar x^i_\ell=\sum_\ell p_\ell\sum_i\bar x^i_\ell\), whether finite or not.</li>
+        <li><strong>Use feasibility good by good.</strong> \(\sum_i\bar x^i_\ell=\bar e_\ell<\infty\). Hence \(p\cdot\sum_i\bar x^i=\sum_{\ell=1}^m p_\ell\bar e_\ell\), a <em>finite</em> sum of finite numbers, so it is finite.</li>
+        <li><strong>1WT.</strong> Any dominating feasible \(\{x^i\}\) also satisfies \(\sum_i p\cdot x^i=\sum_\ell p_\ell\bar e_\ell<\infty\). Summing \(p\cdot x^i\ge p\cdot\bar x^i\) (strict for \(i'\)) over agents is now legitimate: \(\sum_i p\cdot x^i\ge \sum_{i\ne i'}p\cdot\bar x^i+p\cdot x^{i'}>\sum_i p\cdot\bar x^i\). This contradicts the equality of both sums with \(\sum_\ell p_\ell\bar e_\ell\).</li>
+      </ol>
+      <p><em>Why this matters:</em> the "infinite number of agents" alone is harmless, because there are only \(m\) prices and \(m\) finite aggregate quantities to multiply.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 12.3 <span class="tag slides">Slides N2 p.27</span> <span class="tag proof">Proof</span></div>
+    <p>Finitely many agents (\(I\) finite), infinitely many goods \(L=\mathbb{R}^\infty\), all \(u^i\) strictly increasing. Show that in any CE, \(p\cdot\sum_{i\in I}\bar x^i<\infty\).</p>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>The slide asks two questions. Could \(p\cdot\bar x^i\) be infinite for some \(i\)? And could \(p\cdot\sum_i\bar x^i\) be infinite if every \(p\cdot\bar x^i\) is finite?</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <ol class="steps">
+        <li><strong>Each agent's wealth is finite.</strong> Suppose \(p\cdot e^i=\infty\). Then the budget constraint \(p\cdot x\le p\cdot e^i\) does not bind anything. In particular, \(\bar x^i+\delta\mathbf 1_\ell\) (one more unit of any good \(\ell\)) is affordable, and by strict monotonicity it is strictly better than \(\bar x^i\). So no utility maximum exists, contradicting the CE. Hence \(p\cdot e^i<\infty\).</li>
+        <li><strong>Each agent's consumption has finite value.</strong> \(p\cdot\bar x^i\le p\cdot e^i<\infty\) by the budget constraint.</li>
+        <li><strong>Finite sum.</strong> Linearity gives \(p\cdot\sum_{i\in I}\bar x^i=\sum_{i\in I}p\cdot\bar x^i\) (all terms non-negative, \(p\ge0\) by monotonicity). This is a sum of \(|I|<\infty\) finite numbers, hence finite.</li>
+      </ol>
+      <p><em>Contrast with OLG:</em> there too each \(p\cdot\bar x^i\) is finite (two-period lives), but there are infinitely many of them. When \(\bar r\le0\) their sum diverges.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 12.4 <span class="tag exam">Exam-style</span></div>
+    <p>Let \(\alpha=0.2\) and \(\beta=0.4\) (Case 1). Normalize \(p_1=1\).</p>
+    <ol class="parts" type="a">
+      <li>Compute \(\bar r\).
+        <div class="numcheck" data-answer="-0.625" data-tol="0.002" data-prompt="r̄ ="></div></li>
+      <li>Compute \(p\cdot x^{*1}-p\cdot\bar x^1\) for generation 1, where \(x^*\) is the best symmetric allocation.
+        <div class="numcheck" data-answer="1/3" data-tol="0.003" data-prompt="Δ value ="></div></li>
+      <li>Explain why parts (a)–(b) do not contradict feasibility of \(x^*\).</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(\bar r=(0.2-0.4)/(0.4\cdot0.8) = -0.2/0.32=-0.625\), so \(q=1/(1+\bar r)=1/0.375=8/3\) and \(p_2 = 8/3\).<br>
+      (b) \(p_1(\beta-\alpha)(q-1)=0.2\cdot(5/3)=1/3\). Check directly: \(p\cdot x^{*1}=0.6+\tfrac83(0.4)=1.6\overline{6}\) and \(p\cdot\bar x^1 = 0.8+\tfrac83(0.2)=1.3\overline{3}\). The difference is \(1/3\). ✓<br>
+      (c) Generation \(t\)'s excess cost is \(p_t/3\) and grows without bound, since \(p_t=(8/3)^{t-1}\). The total value of either allocation is \(\sum_t p_t=\infty\). Summing agent-level strict inequalities over infinitely many agents cannot contradict "\(\infty=\infty\)". In words: the extra cost of generation \(t\)'s bundle is paid for by generation \(t+1\)'s transfer, forever.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 12.5 <span class="tag exam">Exam-style</span> (truncating the economy)</div>
+    <p>Keep the Case 1 parameters but let the world end at date \(T\): generation \(T\) is born, consumes \(c^T_T\) when young, and has no old age (its utility is \(\log c^T_T\)). Generations \(0,\dots,T-1\) are as before.</p>
+    <ol class="parts" type="a">
+      <li>Show that the CE is still autarky.</li>
+      <li>Show that the transfer scheme of Section 4 is no longer a Pareto improvement.</li>
+      <li>Which hypothesis of the original 1WT is now satisfied, and so what do you conclude about the CE?</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) The induction of <a href="0008-olg-environment.html">Lesson 8</a> works forward from date 1 as before. At date \(T\), generation \(T\) consumes what is left: \(\bar e_T-\bar x^{T-1}_T = e^T_T\).<br>
+      (b) Moving to \((1-\beta,\beta)\) requires generation \(T\) to hand \(\beta-\alpha>0\) to generation \(T-1\) and receive nothing. Its utility falls, so the scheme is not a Pareto improvement. The chain must be closed by someone, and the last generation pays.<br>
+      (c) There are now finitely many agents (\(T+1\)) and finitely many goods (\(T\) dates), so the value of the aggregate endowment is finite. The 1WT applies and the autarky CE is Pareto optimal, whatever the sign of \(\bar r\). Lesson: it is the <em>absence of a last generation</em> that makes the improvement possible.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 12.6 <span class="tag proof">Proof</span> (beyond the slides: Case 2 is efficient)</div>
+    <p>Let \(\alpha=\beta\), so the CE is \(\bar c=(1-\beta,\beta)\) for every generation, with \(\bar r=0\). Show that no feasible allocation Pareto-dominates it.</p>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>Let \(d_t\) be the extra amount the old get at date \(t\) relative to \(\bar c\). Feasibility then forces the young at \(t\) to get \(d_t\) less. Use strict concavity of \(v\) and the fact that its indifference curve at \(\bar c\) is tangent to the line \(c_y+c_o=1\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <ol class="steps">
+        <li>WLOG feasibility holds with equality (throwing goods away cannot help). Any allocation can be described by \(d_t\equiv x^{t-1}_t-\beta\), with \(x^t_t=1-\beta-d_t\). The initial old are weakly better off iff \(d_1\ge0\).</li>
+        <li>Generation \(t\) gets \((1-\beta-d_t,\ \beta+d_{t+1})\). At \(\bar c\) the MRS is 1, so the indifference curve is tangent to a line of slope \(-1\). By strict quasi-concavity, the curve lies strictly above that line away from \(\bar c\). Hence weakly preferring requires \(d_{t+1}\ge d_t\), with strict inequality \(d_{t+1}>d_t\) whenever \(d_t\ne0\).</li>
+        <li>For a strict improvement, some \(d_k>0\): either the initial old gain (\(d_1>0\)), or some generation strictly gains, which by step 2 forces some later \(d>0\). From then on \(d\) is strictly increasing. Strict convexity gives more: because log has curvature bounded away from zero on compact sets, \(d_{t+1}-d_t\ge\kappa d_t^2\) for some \(\kappa>0\). An increasing sequence satisfying this exceeds any bound in finitely many steps.</li>
+        <li>But \(d_t\le 1-\beta\) (the young cannot consume negative amounts). Contradiction. ∎</li>
+      </ol>
+      <p>Compare with Case 1: there the MRS at the CE exceeds 1. Generation \(t\) accepts \(d_{t+1}=d_t=\varepsilon\), a <em>constant</em> transfer, so no explosion is needed.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 12.7 <span class="tag exam">Exam-style</span> True or false?</div>
+    <ol class="parts" type="a">
+      <li>"In the OLG endowment economy, the competitive equilibrium is Pareto optimal if and only if the value of the aggregate endowment is finite."</li>
+      <li>"In the OLG endowment economy, some agent has infinite wealth when \(\bar r<0\)."</li>
+      <li>"If the 1WT fails in an economy, some agent must violate local non-satiation."</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) <strong>False.</strong> "If" is true (that's the 1WT with infinitely many goods and agents). "Only if" fails: Case 2 has infinite value and a PO CE.<br>
+      (b) <strong>False.</strong> Each generation's wealth \(p_te^t_t+p_{t+1}e^t_{t+1}\) is finite; only the <em>sum</em> over generations diverges.<br>
+      (c) <strong>False.</strong> In Case 1 log preferences satisfy LNS. The failure comes from the double infinity: the finiteness of \(p\cdot\sum_i\bar x^i\) is an extra condition the finite-economy proof uses implicitly.</p>
+    </div></details>
+  </div>
+
+  <div class="takeaways">
+    <h2>Key takeaways</h2>
+    <ul>
+      <li>The 1WT proof needs \(p\cdot\sum_i\bar x^i<\infty\) to add up the agent-level inequalities. With finitely many agents or finitely many goods this is automatic.</li>
+      <li>In the OLG log example, the value is \(\sum_t(1+\bar r)^{-(t-1)}\), which is finite iff \(\bar r>0\).</li>
+      <li>Case 1 (\(\bar r<0\)) is a genuine failure: every agent's improved bundle costs more at CE prices, financed by the next generation, forever.</li>
+      <li>Finite value is sufficient, not necessary: Case 2 (\(\bar r=0\)) is efficient anyway.</li>
+      <li>The culprit is the <strong>double infinity</strong> (Shell 1971): no last generation means the transfer chain never has to close.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "why does fiat money have value exactly when \(\bar r\le0\)?" or "walk me through the Balasko–Shell criterion \(\sum 1/p_t=\infty\)."</div>
+
+  <div class="lesson-nav">
+    <a href="0011-pay-as-you-go-social-security.html">← Lesson 11: Pay-as-you-go social security</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="../reference/olg-cheatsheet.html">OLG cheatsheet</a>
+    <a href="0013-growing-olg-economy.html">Lesson 13: The growing economy →</a>
+  </div>
+
+</div>
+</body>
+</html>

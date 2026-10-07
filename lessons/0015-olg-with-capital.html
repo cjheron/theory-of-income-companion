@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 15 — OLG with Capital: Social Security and Capital Accumulation</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part III: OLG Extensions (Class Note III) · Lesson 15 of 20</div>
+    <h1>OLG with Capital: Social Security and Capital Accumulation</h1>
+    <div class="meta">Covers <a href="../sources/slides3-olg-extensions.pdf#page=15">Class Note III, pp. 15–19</a> · About 40 min · Prerequisites: <a href="0011-pay-as-you-go-social-security.html">Lesson 11</a>, <a href="0014-privatizing-social-security.html">Lesson 14</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>explain the timing of capital, rental rates and interest rates, and derive \(r_t = F_K(K_{t+1},1)-\delta\);</li>
+      <li>show that household budgets, the government budget and goods-market clearing imply \(B_t + s_t = K_{t+1}\) (Walras' law with capital);</li>
+      <li>sign the effect of pay-as-you-go (PAYG) social security on saving and on the steady-state capital stock, and explain why the sign flips at an unstable steady state;</li>
+      <li>work through the Cobb–Douglas example: show that generation 1 can gain even when \(r>0\), and that steady-state generations lose exactly when \(r>0\).</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides3-olg-extensions.pdf#page=15">Class Note III, pp. 15–19</a>. The model with capital is due to Diamond, P. (1965), <a href="https://www.jstor.org/stable/1809231">“National Debt in a Neoclassical Growth Model,”</a> <em>American Economic Review</em> 55(5): 1126–1150 (<a href="https://www.aeaweb.org/aer/top20/55.5.1126-1150.pdf">free PDF from the AEA</a>). Sections I–III are the relevant part.
+  </div>
+
+  <div class="box notation">
+    <div class="box-title">Notation alert</div>
+    <ul>
+      <li>In this lesson <strong>\(\alpha\) is the capital share</strong> in \(F(K,L)=K^\alpha L^{1-\alpha}\). It is <em>not</em> an endowment parameter as in Class Note II (<a href="0009-olg-prices-and-interest-rates.html">Lesson 9</a>).</li>
+      <li>Households now have <strong>one unit of labour when young and none when old</strong>. Their income is the wage \(w_t\), not an endowment of goods.</li>
+      <li>The PAYG tax is \(\tau\): \(\tau^t_t=\tau\) when young, \(\tau^t_{t+1}=-\tau\) when old. The privatization slides (<a href="0014-privatizing-social-security.html">Lesson 14</a>) called the same object \(\theta\).</li>
+      <li>\(r_t\) is indexed by the date the saving is <em>made</em>: it is the return from \(t\) to \(t+1\).</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>1. From endowments to production</h2>
+
+  <p>So far the OLG economy had no way to move goods through time except trade between generations. Now we add a storable, productive asset: <strong>capital</strong>. One generation is born each period, of constant size one (no population growth). There is a constant-returns production function \(F(K,L)\), and capital depreciates at rate \(\delta\) <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=15">III p.15</a>:</p>
+  $$K_{t+1} = I_t + (1-\delta)K_t, \qquad g_t + I_t + C_t = F(K_t, L_t), \qquad C_t = c^t_t + c^{t-1}_t .$$
+  <p>Labour is supplied inelastically by the young, so \(L_t = 1\) throughout.</p>
+
+  <h2>2. Factor prices and the timing of the interest rate</h2>
+
+  <p>A competitive firm rents capital at rental rate \(v_t\) and hires labour at wage \(w_t\). With constant returns and price-taking,</p>
+  $$w_t = F_L(K_t, L_t), \qquad v_t = F_K(K_t, L_t).$$
+  <p>Now track one unit of goods saved by a young household at date \(t\). There are two ways to carry it to \(t+1\):</p>
+  <table class="simple">
+    <tr><th>Asset bought at \(t\)</th><th>Payoff at \(t+1\)</th></tr>
+    <tr><td>Bond (government debt or a private loan)</td><td>\(1 + r_t\)</td></tr>
+    <tr><td>One unit of capital, installed for production at \(t+1\)</td><td>rental \(v_{t+1}\) + undepreciated capital \(1-\delta\)</td></tr>
+  </table>
+  <p>If both are held in equilibrium, no-arbitrage requires equal payoffs: \(1 + r_t = v_{t+1} + 1 - \delta\), i.e. \(v_{t+1} = r_t + \delta\). With \(L_{t+1}=1\):</p>
+  <div class="theorem">
+    <div class="box-title">Interest rate with capital <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=15">III p.15</a></div>
+    $$r_t = F_K(K_{t+1}, 1) - \delta .$$
+    <p>The interest rate between \(t\) and \(t+1\) depends on <strong>next period's</strong> capital stock. That stock is exactly what today's young save.</p>
+  </div>
+  <p>This timing is what makes the equilibrium law of motion <em>implicit</em> (§5). Savers' return depends on how much they save in total.</p>
+
+  <h2>3. Households</h2>
+
+  <p>Generation \(t\) earns \(w_t\) when young, pays \(\tau^t_t\) when young and \(\tau^t_{t+1}\) when old, and saves \(s_t\):</p>
+  $$s_t + c^t_t = w_t - \tau^t_t, \qquad c^t_{t+1} = (1+r_t)s_t - \tau^t_{t+1}.$$
+  <p>Eliminating \(s_t\) gives the lifetime budget constraint <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=15">III p.15</a>:</p>
+  $$c^t_t + \frac{c^t_{t+1}}{1+r_t} = w_t - \tau^t_t - \frac{\tau^t_{t+1}}{1+r_t} \;\equiv\; W_t .$$
+  <p>Optimal saving depends on three things: the interest rate, first-period disposable income, and lifetime wealth \(W_t\). Alvarez writes</p>
+  $$s_t = s\!\left(r_t,\; w_t - \tau^t_t,\; w_t - \tau^t_t - \frac{\tau^t_{t+1}}{1+r_t}\right).$$
+  <p>The second argument matters because saving is disposable first-period income minus first-period consumption: \(s = (w-\tau^t_t) - c_y(r, W)\).</p>
+
+  <h2>4. Walras' law with capital</h2>
+
+  <p>With a government that issues assets \(B_t\) (\(B_t<0\) is debt) and buys \(g_t\), the government budget is \(B_t + g_t = (1+r_{t-1})B_{t-1} + \tau^t_t + \tau^{t-1}_t\), as in <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=3">III p.3</a>. Household saving now has two uses: lending to the government and holding capital.</p>
+
+  <div class="theorem">
+    <div class="box-title">Asset-market clearing is implied <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=16">III p.16</a></div>
+    <p>If household budgets, the government budget and goods-market clearing hold at every date, and \(B_0 + s_0 = K_1\), then
+    $$B_t + s_t = K_{t+1}\quad\text{for all } t\ge 1 .$$</p>
+  </div>
+
+  <div class="proof">
+    <div class="box-title">Proof (the slides only assert this step)</div>
+    <ol class="steps">
+      <li><strong>Add the two household budgets alive at \(t\).</strong> Young: \(s_t + c^t_t = w_t - \tau^t_t\). Old: \(c^{t-1}_t = (1+r_{t-1})s_{t-1} - \tau^{t-1}_t\). Summing,
+        $$s_t + c^t_t + c^{t-1}_t = w_t + (1+r_{t-1})s_{t-1} - \tau^t_t - \tau^{t-1}_t .$$</li>
+      <li><strong>Use goods-market clearing.</strong> \(c^t_t + c^{t-1}_t = F(K_t,1) - g_t - K_{t+1} + (1-\delta)K_t\).</li>
+      <li><strong>Use constant returns (Euler's theorem).</strong> \(F(K_t,1) = w_t + v_t K_t = w_t + (r_{t-1}+\delta)K_t\). Output is exhausted by factor payments, so firms make zero profit. Substituting steps 2 and 3 into step 1, the \(w_t\) and \(\delta K_t\) terms cancel:
+        $$s_t - K_{t+1} + \tau^t_t + \tau^{t-1}_t - g_t = (1+r_{t-1})(s_{t-1} - K_t).$$</li>
+      <li><strong>Add the government budget</strong> written as \(B_t - \tau^t_t - \tau^{t-1}_t + g_t = (1+r_{t-1})B_{t-1}\):
+        $$\big(B_t + s_t - K_{t+1}\big) = (1+r_{t-1})\big(B_{t-1} + s_{t-1} - K_t\big).$$</li>
+      <li><strong>Induction.</strong> The term in brackets is zero at \(t=0\), so it is zero for all \(t\).</li>
+    </ol>
+    <div class="qed">∎</div>
+  </div>
+
+  <div class="intuition">
+    <div class="box-title">Intuition</div>
+    <p>The young are the only savers. Whatever they don't lend to the government must end up as next period's capital. This is the same accounting as in <a href="0014-privatizing-social-security.html">Lesson 14</a>, with \(K_{t+1}\) replacing zero on the right-hand side.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>5. The equilibrium law of motion</h2>
+
+  <p>With no taxes, government spending or debt (\(\tau=g=B=0\)), asset-market clearing becomes \(s_t = K_{t+1}\). Substituting factor prices <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=16">III p.16</a>:</p>
+  $$K_{t+1} = s\big(F_K(K_{t+1},1) - \delta,\; F_L(K_t,1),\; F_L(K_t,1)\big).$$
+  <p>Given \(K_1>0\), owned by the initial old, this equation pins down \(K_2\), then \(K_3\), and so on. It is <strong>implicit</strong> because \(K_{t+1}\) appears on both sides through \(r_t\). By the implicit function theorem it defines a map \(K_{t+1} = s^*(K_t)\) locally, provided</p>
+  $$1 - s_r\,F_{KK}(K_{t+1},1) \neq 0 .$$
+  <p>Since \(F_{KK}<0\), this holds automatically whenever saving is non-decreasing in \(r\) (\(s_r\ge 0\)). The slides' "local conditions in the problem set" amount to this denominator being positive.</p>
+
+  <h2>6. Social security lowers saving, and (usually) capital</h2>
+
+  <p>Introduce PAYG: \(\tau^t_t = \tau\), \(\tau^t_{t+1} = -\tau\). Each old person receives the tax paid by the one young person alive. Holding \(r_t\) and \(w_t\) fixed, lifetime wealth changes by <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=17">III p.17</a></p>
+  $$\frac{\partial W_t}{\partial \tau} = -\Big(1 - \frac{1}{1+r_t}\Big) = -\frac{r_t}{1+r_t} < 0 \quad\text{when } r_t>0 .$$
+  <p>The household pays \(\tau\) today and gets back \(\tau\) tomorrow, which is a zero net return. Saving privately would have earned \(r_t>0\).</p>
+
+  <div class="theorem">
+    <div class="box-title">Claim: saving falls with \(\tau\)</div>
+    <p>If old-age consumption is a normal good and \(r_t>0\), then at fixed prices \(\partial s_t/\partial\tau < -\tfrac{1}{1+r_t} < 0\).</p>
+  </div>
+  <div class="proof">
+    <div class="box-title">Proof</div>
+    <ol class="steps">
+      <li>From the old-age budget, \(c_o = (1+r)s + \tau\), so \(s = \dfrac{c_o(r,W) - \tau}{1+r}\).</li>
+      <li>Differentiate: \(\dfrac{\partial s}{\partial\tau} = \dfrac{1}{1+r}\Big(\dfrac{\partial c_o}{\partial W}\dfrac{\partial W}{\partial\tau} - 1\Big)\).</li>
+      <li>Normality gives \(\partial c_o/\partial W > 0\), and \(\partial W/\partial\tau = -r/(1+r)<0\), so the term in brackets is less than \(-1\). ∎</li>
+    </ol>
+  </div>
+  <p>The economics: PAYG directly replaces private saving for retirement, since the transfer \(\tau\) arrives when old anyway, and the wealth loss reduces old-age consumption further. Both forces cut \(s\).</p>
+
+  <h3>From saving to the capital stock</h3>
+  <p>In general equilibrium, write the law of motion with the policy as \(K_{t+1} = s^*(K_t,\tau)\). Applying the implicit function theorem to \(K' - s\big(F_K(K',1)-\delta,\,\cdot\,\big) = 0\) gives</p>
+  $$\frac{\partial s^*}{\partial\tau} = \frac{s_\tau}{1 - s_r F_{KK}} < 0,$$
+  <p>using the claim and the positive denominator from §5. A steady state solves \(K^* = s^*(K^*,\tau)\). Differentiate both sides with respect to \(\tau\):</p>
+  $$\frac{dK^*}{d\tau} = \frac{\partial s^*}{\partial K}\frac{dK^*}{d\tau} + \frac{\partial s^*}{\partial \tau} \quad\Longrightarrow\quad \boxed{\frac{dK^*}{d\tau} = \frac{\partial s^*/\partial\tau}{1 - \partial s^*/\partial K}} .$$
+  <div class="theorem">
+    <div class="box-title">Steady-state comparative statics <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=17">III p.17</a></div>
+    <ul>
+      <li>If \(0<\partial s^*/\partial K<1\), the steady state is <strong>stable</strong>: the map crosses the 45° line from above. Then \(dK^*/d\tau<0\): social security lowers steady-state capital.</li>
+      <li>If \(\partial s^*/\partial K > 1\), the steady state is <strong>unstable</strong>: the map crosses from below. Then \(dK^*/d\tau>0\). The sign flips, but this steady state is never reached from nearby initial conditions.</li>
+    </ul>
+  </div>
+  <p>Graphically, a higher \(\tau\) shifts the map \(s^*(\cdot,\tau)\) down. Where the map crosses the 45° line from above, the crossing moves left. Where it crosses from below, the crossing moves right. The figure below shows both cases at once.</p>
+
+  <div class="figure">
+    <div id="lom-ctrl"></div>
+    <div id="lom-fig"></div>
+    <div id="lom-read"></div>
+    <div class="verdict" id="lom-verdict"></div>
+    <div class="caption"><b>Interactive: Cobb–Douglas law of motion</b> \(K_{t+1} = (1-\alpha)K_t^\alpha - \tau\) (see §7). The <span style="color:#2a78d6">blue</span> curve is the map with the current \(\tau\); the dashed gray curve is \(\tau=0\). The <span style="color:#eb6834">orange</span> staircase is the equilibrium path starting from \(K_1\). <b>Try:</b> raise \(\tau\) from 0. The upper, stable steady state moves <em>left</em> and a lower, unstable one appears and moves <em>right</em>. Then start \(K_1\) just below the unstable steady state: capital collapses, because the young cannot afford the tax.</div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>7. A Cobb–Douglas example</h2>
+
+  <p>Let \(F(K,L) = K^\alpha L^{1-\alpha}\) and suppose consumers care <em>only</em> about old-age consumption <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=18">III p.18</a>. Then the young save everything they have after tax, \(s_t = w_t - \tau\), and saving does not depend on \(r_t\). That makes the law of motion explicit:</p>
+  <ol class="steps">
+    <li><strong>Wage.</strong> \(w_t = F_L(K_t,1) = (1-\alpha)K_t^\alpha\).</li>
+    <li><strong>Law of motion.</strong> \(K_{t+1} = s_t = (1-\alpha)K_t^\alpha - \tau\).</li>
+    <li><strong>Steady state without social security.</strong> \(K^* = (1-\alpha)K^{*\alpha}\), so \(K^{*\,1-\alpha} = 1-\alpha\) and
+      $$K^* = (1-\alpha)^{1/(1-\alpha)} .$$
+      A fact used repeatedly below: \(K^{*\,\alpha-1} = \dfrac{1}{1-\alpha}\). Also \(w^* = (1-\alpha)K^{*\alpha} = K^*\), since the young save the whole wage.</li>
+    <li><strong>Stability.</strong> The slope of the map at \(K^*\) is \(\alpha(1-\alpha)K^{*\,\alpha-1} = \alpha\in(0,1)\), so \(K^*\) is stable.</li>
+    <li><strong>Steady-state interest rate.</strong> \(r^* = \alpha K^{*\,\alpha-1} - \delta = \dfrac{\alpha}{1-\alpha} - \delta\).</li>
+  </ol>
+
+  <h3>Introducing PAYG at \(K_1 = K^*\): who gains?</h3>
+  <p><strong>Generation 0</strong> (initial old) owns \(K_1\), whose return is already fixed, and receives \(\tau\) from the young. It gains \(\tau\).</p>
+  <p><strong>Generation 1</strong> earns \(w_1 = K^*\), pays \(\tau\) and saves \(K_2 = K^* - \tau\). When old it receives the gross return on its capital plus the transfer from generation 2:</p>
+  $$c^1_2(\tau) = (K^*-\tau)\big[1 - \delta + \alpha (K^*-\tau)^{\alpha-1}\big] + \tau .$$
+  <p>Differentiate and evaluate at \(\tau=0\):</p>
+  <ol class="steps">
+    <li>Write \(K_2 = K^*-\tau\), so \(dK_2/d\tau=-1\), and \(c^1_2 = K_2\big[1-\delta+\alpha K_2^{\alpha-1}\big] + \tau\). By the product rule, \(\dfrac{d}{dK_2}\Big(K_2\big[1-\delta+\alpha K_2^{\alpha-1}\big]\Big) = 1-\delta+\alpha K_2^{\alpha-1} + \alpha(\alpha-1)K_2^{\alpha-1}\). Hence
+      $$\frac{dc^1_2}{d\tau} = -\big[1-\delta+\alpha K_2^{\alpha-1}\big] - \alpha(\alpha-1)K_2^{\alpha-1} + 1 .$$</li>
+    <li>Collect terms: \(= \delta - \alpha K_2^{\alpha-1} + \alpha(1-\alpha)K_2^{\alpha-1} = \delta - \alpha^2 K_2^{\alpha-1}\).</li>
+    <li>At \(\tau=0\), \(K_2 = K^*\) and \(K^{*\,\alpha-1}=1/(1-\alpha)\):
+      $$\boxed{\left.\frac{dc^1_2}{d\tau}\right|_{\tau=0} = \delta - \frac{\alpha^2}{1-\alpha}} .$$</li>
+  </ol>
+  <p>So for \(\delta>0\), generation 1 gains when \(\alpha\) is small enough, namely when \(\alpha^2/(1-\alpha) < \delta\) <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=18">III p.18</a>.</p>
+
+  <div class="intuition">
+    <div class="box-title">Why can generation 1 gain? <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=19">III p.19</a></div>
+    <p>In the pure-endowment economy, social security only reshuffles goods; nothing about production changes. With capital, taxing the young lowers \(K_2\), which <strong>raises the marginal product of capital</strong> \(\alpha K_2^{\alpha-1}\). Generation 1 is the owner of \(K_2\). It loses \(1+r\) per unit of foregone saving but gets \(\tau\) back from generation 2, and every remaining unit earns more. The term \(-\alpha(\alpha-1)K_2^{\alpha-1} = \alpha(1-\alpha)K_2^{\alpha-1}>0\) in step 1 is exactly this price effect. It is a pecuniary transfer from generation 2, whose wage \(w_2 = (1-\alpha)K_2^\alpha\) is lower.</p>
+  </div>
+
+  <h3>But steady-state generations lose whenever \(r^*>0\)</h3>
+  <p>Let \(K(\tau)\) be the stable steady state of \(K = (1-\alpha)K^\alpha - \tau\). A steady-state generation consumes \(c_{ss}(\tau) = K(\tau)\big[1-\delta+\alpha K(\tau)^{\alpha-1}\big] + \tau\).</p>
+  <ol class="steps">
+    <li>Implicit differentiation of the steady state at \(\tau=0\): \(K' = \alpha(1-\alpha)K^{\alpha-1}K' - 1 = \alpha K' - 1\), so \(K'(0) = -\dfrac{1}{1-\alpha}\).</li>
+    <li>Differentiate \(c_{ss}\): \(c_{ss}' = \big[1-\delta+\alpha K^{\alpha-1} + \alpha(\alpha-1)K^{\alpha-1}\big]K' + 1 = \big[1+r^* - \alpha\big]K' + 1\), using \(\alpha(\alpha-1)K^{*\,\alpha-1}=-\alpha\).</li>
+    <li>Substitute \(K'(0)\): \(c_{ss}'(0) = 1 - \dfrac{1 + r^* - \alpha}{1-\alpha} = \dfrac{(1-\alpha) - (1+r^*-\alpha)}{1-\alpha}\), so
+      $$\boxed{c_{ss}'(0) = -\frac{r^*}{1-\alpha}} .$$</li>
+  </ol>
+  <p>Steady-state generations gain from PAYG if and only if \(r^*<0\). That is the dynamic-inefficiency condition of <a href="0012-why-the-1wt-fails-in-olg.html">Lesson 12</a>, with no population growth. The gain to generation 1 is a <em>transition</em> effect. When \(r^*>0\), the CE has finite aggregate value and the First Welfare Theorem applies (<a href="0012-why-the-1wt-fails-in-olg.html">Lesson 12</a>). So no feasible reallocation, PAYG included, can make <em>every</em> generation better off: someone, here the generations far in the future, must lose <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=19">III p.19</a>.</p>
+
+  <div class="figure">
+    <div id="c-ctrl"></div>
+    <div id="c-fig"></div>
+    <div id="c-read"></div>
+    <div class="verdict" id="c-verdict"></div>
+    <div class="caption"><b>Interactive: who gains from PAYG?</b> Old-age consumption as a function of the tax \(\tau\), starting from \(K_1 = K^*\). <span style="color:#2a78d6">Blue</span>: generation 1, \(c^1_2(\tau)\). <span style="color:#eb6834">Orange</span>: a generation in the new stable steady state, \(c_{ss}(\tau)\). <b>Try:</b> \(\alpha=0.2\), \(\delta=0.1\). Here \(r^*=0.15>0\), yet the blue curve rises at first while the orange curve falls. Then raise \(\delta\) above \(\alpha/(1-\alpha)\), so \(r^*<0\): now both rise, and PAYG is a Pareto improvement for small \(\tau\).</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    // ── Figure 1: law of motion with cobweb ──
+    const P = EconPlot.create('#lom-fig', { x: [0, 1], y: [0, 1], width: 460, height: 440, equal: true,
+      xlabel: 'K_t', ylabel: 'K_{t+1}', xticks: 5, yticks: 5 });
+    function roots(a, tau) {
+      const g = K => (1 - a) * Math.pow(K, a) - tau - K;
+      const Km = Math.pow(a * (1 - a), 1 / (1 - a));
+      if (tau <= 1e-9) return { lo: 0, hi: Math.pow(1 - a, 1 / (1 - a)), Km };
+      if (g(Km) <= 0) return { lo: NaN, hi: NaN, Km };
+      return { lo: EconPlot.bisect(g, 1e-9, Km), hi: EconPlot.bisect(g, Km, 2), Km };
+    }
+    EconPlot.sliders('#lom-ctrl', [
+      { id: 'a', label: 'α', min: 0.1, max: 0.6, step: 0.01, value: 0.3 },
+      { id: 'tau', label: 'τ', min: 0, max: 0.15, step: 0.002, value: 0.04, fmt: v => v.toFixed(3) },
+      { id: 'd', label: 'δ', min: 0, max: 1, step: 0.01, value: 0.1 },
+      { id: 'K1', label: 'K₁', min: 0.01, max: 1, step: 0.005, value: 0.15, fmt: v => v.toFixed(3) }
+    ], v => {
+      const { a, tau, d, K1 } = v;
+      P.clear();
+      const f = K => (1 - a) * Math.pow(K, a) - tau;
+      P.fn(K => K, { color: C.muted, width: 1.2, label: '45°', labelAt: 0.93, labelDx: -30, labelDy: -4 });
+      P.fn(K => (1 - a) * Math.pow(K, a), { color: C.muted, dash: '5 4', width: 1.4, domain: [0.0005, 1] });
+      P.fn(f, { color: C.blue, width: 2.2, domain: [0.0005, 1], label: 'τ = ' + tau.toFixed(3), labelAt: 0.97, labelDx: -60, labelDy: 18 });
+      // cobweb
+      let K = K1, pts = [[K, 0]], collapsed = false;
+      for (let i = 0; i < 40; i++) {
+        const Kn = f(K);
+        pts.push([K, Math.max(Kn, 0)]);
+        if (Kn <= 0) { collapsed = true; break; }
+        pts.push([Kn, Kn]);
+        K = Kn;
+      }
+      P.path(pts, { color: C.orange, width: 1.5 });
+      P.point(K1, 0, { color: C.orange, r: 4, label: 'K_1', labelDx: 6, labelDy: -10 });
+      const R = roots(a, tau);
+      if (isFinite(R.hi)) {
+        P.point(R.hi, R.hi, { color: C.blue, label: 'stable', labelDx: -12, labelDy: -12, labelAnchor: 'end' });
+        if (R.lo > 1e-6) P.point(R.lo, R.lo, { hollow: true, color: C.blue, label: 'unstable', labelDx: 4, labelDy: -34 });
+      }
+      const rs = isFinite(R.hi) ? a * Math.pow(R.hi, a - 1) - d : NaN;
+      EconPlot.readout('#lom-read', [
+        ['stable K̄ :', isFinite(R.hi) ? R.hi.toFixed(3) : 'none'],
+        ['unstable K̲ :', isFinite(R.lo) ? R.lo.toFixed(3) : 'none'],
+        ['slope at K̄ :', isFinite(R.hi) ? (a * (1 - a) * Math.pow(R.hi, a - 1)).toFixed(3) : '—'],
+        ['r at K̄ :', isFinite(rs) ? rs.toFixed(3) : '—', rs < 0 ? 'bad' : '']
+      ]);
+      const K0 = Math.pow(1 - a, 1 / (1 - a));
+      document.getElementById('lom-verdict').textContent = !isFinite(R.hi)
+        ? 'τ is so large that the map lies entirely below the 45° line. No positive steady state exists, and capital always collapses.'
+        : (collapsed ? 'Starting below the unstable steady state, capital shrinks until the young cannot pay τ out of their wage, so no equilibrium continues. '
+                     : 'The path converges to the stable steady state. ')
+          + (tau > 0 ? 'Compared with τ = 0 (K* = ' + K0.toFixed(3) + '), the stable steady state is lower by ' + (K0 - R.hi).toFixed(3) + '.' : '');
+    });
+
+    // ── Figure 2: consumption of generation 1 and steady-state generation ──
+    const host = document.getElementById('c-fig');
+    EconPlot.sliders('#c-ctrl', [
+      { id: 'a', label: 'α', min: 0.1, max: 0.5, step: 0.01, value: 0.2 },
+      { id: 'd', label: 'δ', min: 0, max: 1, step: 0.01, value: 0.1 }
+    ], v => {
+      const { a, d } = v;
+      const Ks = Math.pow(1 - a, 1 / (1 - a));
+      const c1 = t => (Ks - t) * (1 - d + a * Math.pow(Ks - t, a - 1)) + t;
+      const Kss = t => roots(a, t).hi;
+      const css = t => { const K = Kss(t); return isFinite(K) ? K * (1 - d + a * Math.pow(K, a - 1)) + t : NaN; };
+      const tmax = Math.min(0.9 * ((1 - a) * Math.pow(roots(a, 0).Km, a) - roots(a, 0).Km), 0.9 * Ks);
+      let lo = Infinity, hi = -Infinity;
+      for (let i = 0; i <= 60; i++) { const t = tmax * i / 60; [c1(t), css(t)].forEach(y => { if (isFinite(y)) { lo = Math.min(lo, y); hi = Math.max(hi, y); } }); }
+      const pad = 0.08 * (hi - lo + 1e-3);
+      host.innerHTML = '';
+      const Q = EconPlot.create(host, { x: [0, tmax], y: [lo - pad, hi + pad], width: 520, height: 340, xlabel: 'τ', ylabel: 'old-age consumption' });
+      Q.fn(c1, { color: C.blue, width: 2.2, label: 'generation 1', labelAt: tmax * 0.55, labelDy: -10 });
+      Q.fn(css, { color: C.orange, width: 2.2, label: 'steady state', labelAt: tmax * 0.75, labelDy: 18 });
+      Q.point(0, c1(0), { color: C.ink, r: 4 });
+      const rstar = a / (1 - a) - d, s1 = d - a * a / (1 - a), s2 = -rstar / (1 - a);
+      EconPlot.readout('#c-read', [
+        ['K* :', Ks.toFixed(3)],
+        ['r* = α/(1−α) − δ :', rstar.toFixed(3), rstar < 0 ? 'bad' : ''],
+        ['gen-1 slope δ − α²/(1−α) :', s1.toFixed(3), s1 > 0 ? 'good' : 'bad'],
+        ['steady-state slope −r*/(1−α) :', s2.toFixed(3), s2 > 0 ? 'good' : 'bad']
+      ]);
+      document.getElementById('c-verdict').textContent =
+        (s1 > 0 ? 'Generation 1 gains from a small τ. ' : 'Generation 1 loses from a small τ. ')
+        + (rstar > 0 ? 'Since r* > 0, steady-state generations lose: PAYG is not a Pareto improvement.'
+                     : 'Since r* < 0 (dynamic inefficiency), steady-state generations gain too: small PAYG is a Pareto improvement.');
+    });
+  })();
+  </script>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>8. Check your understanding</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">1. Why does \(r_t\) depend on \(K_{t+1}\) rather than \(K_t\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Because the old own the capital stock at date t</li>
+        <li class="quiz-option" data-option="b">Because saving at t becomes capital used at t+1</li>
+        <li class="quiz-option" data-option="c">Because the wage at t depends only on capital K_t</li>
+        <li class="quiz-option" data-option="d">Because depreciation happens before the production</li>
+      </ul>
+      <div class="quiz-explain">A unit saved at \(t\) is installed and earns the rental \(v_{t+1} = F_K(K_{t+1},1)\) at \(t+1\), plus \(1-\delta\). No-arbitrage with bonds gives \(1+r_t = F_K(K_{t+1},1)+1-\delta\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">2. Which property of \(F\) is used to derive \(B_t + s_t = K_{t+1}\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Inada conditions at zero and infinity for capital</li>
+        <li class="quiz-option" data-option="b">Strict concavity of F in capital, holding labour fixed</li>
+        <li class="quiz-option" data-option="c">Constant returns, so factor payments exhaust output</li>
+        <li class="quiz-option" data-option="d">A capital share that is constant over all of time</li>
+      </ul>
+      <div class="quiz-explain">Euler's theorem \(F = w L + vK\) means there are no profits left over. With decreasing returns, profits would appear and someone would have to own the firms, adding a term to household budgets.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">3. Raising \(\tau\) shifts the map \(s^*(\cdot,\tau)\) down. At a steady state where \(\partial s^*/\partial K > 1\), what happens?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">K* rises, but that steady state is unstable anyway</li>
+        <li class="quiz-option" data-option="b">K* falls, just as it does at the stable steady state</li>
+        <li class="quiz-option" data-option="c">K* is unchanged because the slope exceeds one there</li>
+        <li class="quiz-option" data-option="d">The steady state disappears for any positive τ value</li>
+      </ul>
+      <div class="quiz-explain">\(dK^*/d\tau = s^*_\tau/(1-s^*_K)\). With \(s^*_\tau<0\) and \(s^*_K>1\), the denominator is negative, so \(dK^*/d\tau>0\). Visually, the map crosses the 45° line from below, so shifting it down moves the crossing right. Check the hollow point in the first figure.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">4. In the Cobb–Douglas example with \(r^*>0\), generation 1 can gain from PAYG. Why is this consistent with the First Welfare Theorem?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Because the First Welfare Theorem fails with capital</li>
+        <li class="quiz-option" data-option="b">Because generation 0 loses the transfer it receives</li>
+        <li class="quiz-option" data-option="c">Because preferences in the example are not convex</li>
+        <li class="quiz-option" data-option="d">Because later steady-state generations lose instead</li>
+      </ul>
+      <div class="quiz-explain">With \(r^*>0\) the equilibrium is Pareto optimal, so PAYG cannot be a Pareto improvement. It helps generations 0 and 1 at the expense of the generations far in the future: \(c_{ss}'(0) = -r^*/(1-\alpha) < 0\).</div>
+    </div>
+    <div class="quiz-score"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>9. Exercises</h2>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 15.1 <span class="tag slides">Slides III p.15</span></div>
+    <p>Suppose instead that households own capital directly, rent it to firms, and sell the undepreciated stock to the next young generation. Show that the return on this strategy equals \(F_K(K_{t+1},1)+1-\delta\). Conclude that if the government also issued bonds paying \(1+r_t > F_K(K_{t+1},1)+1-\delta\), no one would hold capital. What would that imply for \(K_{t+1}\) and for \(F_K\)?</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>Buy one unit of capital at \(t\). At \(t+1\), rent it for \(v_{t+1}=F_K(K_{t+1},1)\), then sell the \(1-\delta\) that remains (one-for-one with goods, since installed capital and goods trade at par). The gross return is \(F_K(K_{t+1},1)+1-\delta\). If bonds paid strictly more, every saver would hold only bonds and \(K_{t+1}=0\). But then \(F_K(0,1) = \infty\) under Inada conditions, which contradicts the inequality. So in equilibrium with \(K_{t+1}>0\), the returns must be equal. This is the content of \(v_{t+1}=r_t+\delta\).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 15.2 <span class="tag proof">Proof</span></div>
+    <p>Redo the Walras' law argument of §4 when \(F\) has <em>decreasing</em> returns, with profits \(\pi_t = F(K_t,1)-w_t - v_tK_t>0\) paid to the young. Show that the conclusion \(B_t+s_t=K_{t+1}\) survives once household budgets include \(\pi_t\).</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>The young budget becomes \(s_t+c^t_t = w_t+\pi_t-\tau^t_t\). In step 3, \(F(K_t,1) = w_t + \pi_t + (r_{t-1}+\delta)K_t\). The extra \(\pi_t\) appears on both sides and cancels. Everything else is unchanged, so the same recursion and the same induction apply. The point: Walras' law needs every unit of output to be <em>someone's</em> income, which is the role of \(\sum_i\theta^i_j=1\) in <a href="0002-competitive-equilibrium.html">Lesson 2</a>.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 15.3 <span class="tag slides">Slides III p.17</span></div>
+    <p>The claim in §6 assumed \(r_t>0\). Suppose instead \(r_t<0\), so PAYG <em>raises</em> lifetime wealth. Show that if both \(c_y\) and \(c_o\) are normal, saving still falls with \(\tau\) at fixed prices.</p>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>From the lifetime budget \(c_y + c_o/(1+r) = W\), normality of \(c_y\) gives \(\partial c_o/\partial W \le 1+r\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>Again \(\partial s/\partial\tau = \frac{1}{1+r}\big(c_{o,W}\cdot(-\tfrac{r}{1+r}) - 1\big)\). With \(r<0\), the first term is positive, but \(c_{o,W}\le 1+r\) implies \(c_{o,W}\cdot\frac{-r}{1+r} \le -r\). So the bracket is at most \(-r-1 = -(1+r) < 0\). Saving falls. Intuitively, the transfer received when old directly substitutes for private saving one-for-one. The wealth effect can offset at most a fraction of that.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 15.4 <span class="tag exam">Exam-style</span> (Diamond model with log utility)</div>
+    <p>Generation \(t\) has utility \((1-\beta)\log c^t_t + \beta\log c^t_{t+1}\), supplies one unit of labour when young, and \(F(K,L)=K^\alpha L^{1-\alpha}\) with full depreciation (\(\delta=1\)). There is no government.</p>
+    <ol class="parts" type="a">
+      <li>Show that \(s_t = \beta w_t\), independent of \(r_t\), and that \(K_{t+1} = \beta(1-\alpha)K_t^\alpha\).</li>
+      <li>Find the positive steady state \(\bar K\) and the steady-state interest rate \(\bar r\). For \(\beta = 0.5\), \(\alpha = 0.3\):
+        <div class="numcheck" data-answer="0.22319" data-tol="0.002" data-prompt="K̄ ="></div>
+        <div class="numcheck" data-answer="-1/7" data-tol="0.002" data-prompt="r̄ ="></div></li>
+      <li>Is this steady state dynamically inefficient? Give the condition on \((\alpha,\beta)\) in general.</li>
+      <li>Now let the population of young grow at rate \(n\), so that per-young capital satisfies \((1+n)k_{t+1} = s_t\). Find \(1+\bar r\) and show that \(\bar r < n\) if and only if \(\alpha<\beta(1-\alpha)\), whatever \(n\) is.</li>
+      <li>Introduce PAYG with tax \(\tau\) per young (and \(n=0\)). Write the new law of motion. (You may leave it implicit.)</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Lifetime wealth is \(w_t\); log utility gives \(c^t_t = (1-\beta)w_t\), so \(s_t = \beta w_t\). With \(\delta=1\) and \(s_t = K_{t+1}\), \(K_{t+1} = \beta(1-\alpha)K_t^\alpha\).<br>
+      (b) \(\bar K = (\beta(1-\alpha))^{1/(1-\alpha)} = 0.35^{1/0.7}\approx 0.2232\). \(\bar r = \alpha\bar K^{\alpha-1} - 1 = \dfrac{\alpha}{\beta(1-\alpha)} - 1 = 0.3/0.35 - 1 = -1/7\).<br>
+      (c) With \(n=0\), the golden rule is \(F_K - \delta = 0\), i.e. \(r=0\). Here \(\bar r<0\), so capital exceeds the golden rule: the steady state is dynamically inefficient. In general, \(\bar r<0 \iff \alpha < \beta(1-\alpha)\).<br>
+      (d) \(\bar k = \big(\beta(1-\alpha)/(1+n)\big)^{1/(1-\alpha)}\), so \(1+\bar r = \alpha\bar k^{\alpha-1} = \dfrac{\alpha(1+n)}{\beta(1-\alpha)}\). Hence \(1+\bar r<1+n \iff \alpha<\beta(1-\alpha)\). With full depreciation the condition is independent of \(n\). (For \(\beta=0.5\), \(\alpha=0.3\), \(n=0.2\): \(\bar r\approx 0.029 < 0.2\).)<br>
+      (e) Lifetime wealth is \(w_t - \tau + \tau/(1+r_t)\), so \(c_y = (1-\beta)W_t\) and \(s_t = w_t-\tau-c_y = \beta(w_t-\tau) - (1-\beta)\tau/(1+r_t)\). Then
+      $$K_{t+1} = \beta\big((1-\alpha)K_t^\alpha - \tau\big) - \frac{(1-\beta)\tau}{\alpha K_{t+1}^{\alpha-1}} .$$
+      Saving is lower for every \(K_t\). This is the implicit law of motion of §5.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 15.5 <span class="tag exam">Exam-style</span> (Cobb–Douglas example)</div>
+    <p>In the example of §7, let \(\alpha = 0.2\) and \(\delta=0.1\).</p>
+    <ol class="parts" type="a">
+      <li>Compute \(K^*\) and \(r^*\).
+        <div class="numcheck" data-answer="0.75659" data-tol="0.002" data-prompt="K* ="></div>
+        <div class="numcheck" data-answer="0.15" data-tol="0.002" data-prompt="r* ="></div></li>
+      <li>Compute \(dc^1_2/d\tau\) at \(\tau=0\). Does generation 1 gain?
+        <div class="numcheck" data-answer="0.05" data-tol="0.002" data-prompt="slope ="></div></li>
+      <li>Compute \(c_{ss}'(0)\) for the steady-state generations.
+        <div class="numcheck" data-answer="-0.1875" data-tol="0.002" data-prompt="slope ="></div></li>
+      <li>Who, besides generation 1, gains? Explain in one sentence why this does not contradict the First Welfare Theorem.</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(K^* = 0.8^{1.25}\approx 0.7566\) and \(r^* = 0.2/0.8 - 0.1 = 0.15\).<br>
+      (b) \(\delta - \alpha^2/(1-\alpha) = 0.1 - 0.04/0.8 = 0.05 > 0\): generation 1 gains.<br>
+      (c) \(-r^*/(1-\alpha) = -0.15/0.8 = -0.1875\): steady-state generations lose.<br>
+      (d) Generation 0 gains \(\tau\). Because \(r^*>0\), the value of the aggregate endowment is finite and the First Welfare Theorem applies. The pre-reform equilibrium is Pareto optimal, so gains for early generations must be paid for by losses for later ones.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 15.6 <span class="tag slides">Slides III p.18</span></div>
+    <p>In the same example, explain why generation 1's gain is <em>larger</em> when \(\alpha\) is <em>smaller</em>, even though a smaller \(\alpha\) makes capital less important in production. Which term in \(dc^1_2/d\tau\) does \(\alpha\) control?</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>\(dc^1_2/d\tau = \underbrace{-(1+r^*)}_{\text{lost return}} + \underbrace{\alpha(1-\alpha)K^{*\,\alpha-1}}_{\text{price effect}} + \underbrace{1}_{\text{transfer}} = \delta - \alpha^2/(1-\alpha)\). The price effect equals \(\alpha\), but the lost return \(1+r^*=1-\delta+\alpha/(1-\alpha)\) also rises with \(\alpha\). The net cost \(\alpha/(1-\alpha) - \alpha = \alpha^2/(1-\alpha)\) is increasing in \(\alpha\). With a small capital share, the steady-state return to saving is low, so giving up saving costs little, and a zero-return PAYG system competes well. When \(\delta > \alpha/(1-\alpha)\), so that \(r^*<0\), PAYG beats saving outright.</p>
+    </div></details>
+  </div>
+
+  <div class="takeaways">
+    <h2>Key takeaways</h2>
+    <ul>
+      <li>Timing: \(r_t = F_K(K_{t+1},1)-\delta\). Today's saving determines tomorrow's return, so the law of motion \(K_{t+1}=s(r(K_{t+1}),w(K_t),\dots)\) is implicit.</li>
+      <li>Walras' law with capital: \(B_t + s_t = K_{t+1}\). It needs constant returns (or profits paid out) so that every unit of output is someone's income.</li>
+      <li>PAYG lowers saving (if \(c_o\) is normal), and lowers the <em>stable</em> steady-state capital stock: \(dK^*/d\tau = s^*_\tau/(1-s^*_K)\).</li>
+      <li>Cobb–Douglas example: generation 1 gains iff \(\delta>\alpha^2/(1-\alpha)\), through a higher return on scarcer capital. Steady-state generations gain iff \(r^*<0\). With \(r^*>0\), the First Welfare Theorem rules out a Pareto improvement.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "redo the Cobb–Douglas example with log utility instead of old-age-only utility" or "why does the unstable steady state move the 'wrong' way?"</div>
+
+  <div class="lesson-nav">
+    <a href="0014-privatizing-social-security.html">← Lesson 14: Privatizing social security</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0016-olg-heterogeneity-and-long-lives.html">Lesson 16: Heterogeneity &amp; long lives →</a>
+  </div>
+
+</div>
+</body>
+</html>

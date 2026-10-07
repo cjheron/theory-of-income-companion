@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 6 — The Second Welfare Theorem</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part I: Welfare Theorems · Lesson 6 of 20</div>
+    <h1>The Second Welfare Theorem</h1>
+    <div class="meta">Covers <a href="../sources/slides1-welfare-theorems.pdf#page=24">Slides 1, pp. 24–30</a> · About 40 min · Prerequisites: <a href="0003-pareto-optimality-and-lns.html">Lesson 3</a>, <a href="0004-first-welfare-theorem.html">Lesson 4</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>state Assumptions HH and FF and the 2WT exactly, including what it does <em>not</em> conclude (utility maximization);</li>
+      <li>reproduce the proof: the two sets \(A\) and \(B\), why \(A\cap\operatorname{Int}(B)=\emptyset\), the separating hyperplane, and the two "construct a violating point" arguments the slides leave implicit;</li>
+      <li>say which hypothesis each step uses, and draw the picture where it fails.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides1-welfare-theorems.pdf#page=24">Slides 1, pp. 24–30</a>. Textbook: Mas-Colell, Whinston &amp; Green §16.D (same theorem, separating the <em>strictly</em> preferred set instead) and Mathematical Appendix M.G (separating hyperplane theorems). Debreu, <a href="https://cowles.yale.edu/sites/default/files/2022-09/m17-all.pdf"><em>Theory of Value</em></a>, ch. 6.
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>1. The question: can any efficient allocation be a market outcome?</h2>
+
+  <p>The 1WT says CE ⇒ PO. The 2WT asks the converse. Pick any PO allocation \(\{\bar x^i,\bar y^j\}\), however unequal or equal you like. Is there a price vector \(p\) at which every firm wants to produce \(\bar y^j\) and every household wants \(\bar x^i\)? If so, the allocation can be <strong>decentralized</strong>: a planner only needs to choose the distribution of wealth (endowments and ownership shares, i.e. lump-sum transfers), and markets do the rest. That is the theoretical basis for separating <em>efficiency</em> (leave it to markets) from <em>equity</em> (handle it with lump-sum transfers).</p>
+
+  <p>The answer is yes, under convexity. The tool is the separating hyperplane theorem: <strong>prices are the normal vector of a hyperplane that separates "what people would like" from "what the economy can produce"</strong>.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>2. The assumptions <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=24">S1 p.24</a></h2>
+
+  <div class="definition">
+    <div class="box-title">Assumption HH (households)</div>
+    <p>For every \(i\): \(X^i\) is convex, and \(u^i\) is continuous with <strong>strictly convex upper contour sets</strong> <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=25">S1 p.25</a>: for all \(x,x'\in X^i\),
+    $$u^i(x')>u^i(x)\ \Longrightarrow\ u^i\big(\theta x+(1-\theta)x'\big)>u^i(x)\quad\text{for all }\theta\in(0,1).$$</p>
+  </div>
+
+  <div class="definition">
+    <div class="box-title">Assumption FF (firms)</div>
+    <p>The <strong>aggregate</strong> production set is convex:
+    $$Y=\Big\{y\in L:\ y=\textstyle\sum_{j\in J}y^j,\ y^j\in Y^j\ \text{for all }j\Big\}\ \text{is convex.}$$</p>
+  </div>
+
+  <div class="intuition">
+    <div class="box-title">Reading the assumptions</div>
+    <ul>
+      <li><strong>What "strictly convex" means here.</strong> If you mix a bundle with a strictly better one, you are strictly better off than with the original. This rules out "dents" in indifference curves; it is a form of strict quasi-concavity. It implies the upper contour sets \(\{x\in X^i: u^i(x)\ge u^i(\bar x)\}\) are <em>convex</em>, which is the property the proof actually uses most. (With continuity, the slide's condition implies ordinary quasi-concavity.)</li>
+      <li><strong>FF is about the aggregate.</strong> Only \(Y=\sum_jY^j\) must be convex. If every \(Y^j\) is convex, so is the sum, but a sum can be convex even when individual sets aren't.</li>
+      <li><strong>The 1WT used neither assumption.</strong> Convexity is the price of going backwards from PO to CE.</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>3. The theorem <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=26">S1 p.26</a></h2>
+
+  <div class="theorem">
+    <div class="box-title">Second Welfare Theorem (main part)</div>
+    <p>Assume HH and FF. Let \(\{\bar x^i,\bar y^j\}\) be a PO allocation, and suppose some household \(h\) is <strong>not satiated</strong> at its bundle: there is \(\tilde x^h\in X^h\) with \(u^h(\tilde x^h)>u^h(\bar x^h)\). Then there is a price vector \(p\ne 0\) such that</p>
+    <ol>
+      <li><strong>(profit maximization)</strong> \(p\,\bar y^j\ \ge\ p\,y\) for all \(y\in Y^j\) and all \(j\);</li>
+      <li><strong>(expenditure minimization)</strong> for each \(i\), \(\bar x^i\) solves \(\min_{x\in X^i} p\,x\) s.t. \(u^i(x)\ge u^i(\bar x^i)\).</li>
+    </ol>
+  </div>
+
+  <div class="warning">
+    <div class="box-title">Read the conclusion carefully</div>
+    <p>Part 2 says households <em>minimize expenditure</em> to reach their PO utility. It does <strong>not</strong> say they <em>maximize utility</em> subject to the budget \(p\,x\le p\,\bar x^i\). The pair \((p,\{\bar x^i,\bar y^j\})\) is a <strong>quasi-equilibrium (with transfers)</strong>. Upgrading it to a full CE needs one more condition, which is Arrow's remark (<a href="0007-arrows-remark-and-decentralization.html">Lesson 7</a>). There is a genuine counterexample when that condition fails.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>4. The tool: separating hyperplanes</h2>
+
+  <div class="theorem">
+    <div class="box-title">Separating hyperplane theorem (Minkowski)</div>
+    <p>Let \(A, B\subset\mathbb{R}^m\) be convex, with \(\operatorname{Int}(B)\ne\emptyset\) and \(A\cap\operatorname{Int}(B)=\emptyset\). Then there is \(p\in\mathbb{R}^m\), \(p\neq 0\), such that
+    $$p\cdot x\ \ge\ p\cdot z\qquad\text{for all }x\in A,\ z\in B .$$
+    Geometrically, the hyperplane \(\{v:p\cdot v=c\}\), for any \(c\) between \(\sup_B p\cdot z\) and \(\inf_A p\cdot x\), has \(A\) on one side and \(B\) on the other.</p>
+  </div>
+
+  <p>Both convexity and the non-empty interior matter. Two interlocking crescents can be disjoint with no line between them, and that is exactly the failure of the 2WT under non-convexities. A set with empty interior (a single point, say) touches <em>everything</em> in the sense of "\(A\cap\operatorname{Int}B=\emptyset\)" trivially, so that hypothesis would carry no information.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>5. The proof, step by step <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=27">S1 pp.27–30</a></h2>
+
+  <div class="proof">
+    <div class="box-title">Proof</div>
+    <ol class="steps">
+      <li>
+        <strong>Define the two sets.</strong> \(A\) is everything the economy would need in aggregate to make <em>everyone at least as well off</em> as at the PO allocation. \(B\) is everything the economy <em>can</em> make available:
+        $$A=\Big\{\textstyle\sum_i x^i:\ x^i\in X^i,\ u^i(x^i)\ge u^i(\bar x^i)\ \forall i\Big\},\qquad B=Y+\Big\{\textstyle\sum_i e^i\Big\}.$$
+      </li>
+      <li>
+        <strong>Both sets are convex.</strong> Each upper contour set \(U^i=\{x\in X^i:u^i(x)\ge u^i(\bar x^i)\}\) is convex by HH. \(A=U^1+\dots+U^I\) is a set-sum of convex sets, hence convex: if \(a=\sum_i x^i\) and \(a'=\sum_i x'^i\), then \(\theta a+(1-\theta)a'=\sum_i[\theta x^i+(1-\theta)x'^i]\), and each bracket lies in \(U^i\). \(B\) is a translate of \(Y\), which is convex by FF.
+      </li>
+      <li>
+        <strong>\(A\) and the interior of \(B\) don't meet: \(A\cap\operatorname{Int}(B)=\emptyset\).</strong> Suppose \(x=\sum_ix^i\in A\cap\operatorname{Int}(B)\). Take the non-satiated household \(h\) and its \(\tilde x^h\), and for \(\theta\in(0,1)\) set \(x^{h,\theta}=(1-\theta)x^h+\theta\tilde x^h\in X^h\) (by convexity of \(X^h\)).
+        <ul>
+          <li><em>\(h\) strictly gains.</em> We know \(u^h(x^h)\ge u^h(\bar x^h)\) and \(u^h(\tilde x^h)>u^h(\bar x^h)\). If \(u^h(\tilde x^h)>u^h(x^h)\), HH gives \(u^h(x^{h,\theta})>u^h(x^h)\ge u^h(\bar x^h)\). If \(u^h(x^h)>u^h(\tilde x^h)\), HH (with roles swapped) gives \(u^h(x^{h,\theta})>u^h(\tilde x^h)>u^h(\bar x^h)\). If they are equal, both exceed \(u^h(\bar x^h)\) strictly, and continuity gives \(u^h(x^{h,\theta})>u^h(\bar x^h)\) for \(\theta\) small. <span style="color:var(--muted)">(The slides do this in one line; these are the cases hiding inside it.)</span></li>
+          <li><em>It's still producible.</em> The new aggregate is \(x+\theta(\tilde x^h-x^h)\). Since \(x\) is in the <em>interior</em> of \(B\), a small enough move stays inside \(B\). So there are \(y^j\in Y^j\) with \(x+\theta(\tilde x^h-x^h)=\sum_jy^j+\sum_ie^i\).</li>
+        </ul>
+        Give everyone \(i\ne h\) the bundle \(x^i\) and give \(h\) the bundle \(x^{h,\theta}\). This allocation is feasible, everyone is weakly better off than at \(\bar x\), and \(h\) is strictly better off. That contradicts Pareto optimality.
+      </li>
+      <li>
+        <strong>Separate.</strong> By Steps 2–3 (and \(\operatorname{Int}(B)\neq\emptyset\); see the remark below), there is \(p\ne0\) with
+        $$p\,x\ \ge\ p\,z\qquad\forall\,x\in A,\ z\in B. \tag{6}$$
+        <em>Why insist on \(p\ne0\)?</em> \(p=0\) satisfies (6) trivially and says nothing. With zero prices every bundle is free, so no budget set means anything.
+      </li>
+      <li>
+        <strong>The hyperplane passes through the PO aggregate.</strong> Let \(\bar x\equiv\sum_i\bar x^i\) and \(\bar z\equiv\sum_j\bar y^j+\sum_ie^i\). Trivially \(u^i(\bar x^i)\ge u^i(\bar x^i)\), so \(\bar x\in A\). And \(\bar z\in B\). Feasibility says \(\bar x=\bar z\), so
+        $$p\sum_i\bar x^i = p\sum_j\bar y^j+p\sum_ie^i. \tag{7}$$
+        Combining with (6): \(p\,\bar x=\min_{x\in A}p\,x=\max_{z\in B}p\,z\). The PO aggregate is simultaneously the <em>cheapest</em> point of \(A\) and the <em>most valuable</em> point of \(B\). Steps 6–7 split each of these statements into its individual pieces.
+      </li>
+      <li>
+        <strong>Firms maximize profits</strong> (the slides' "one can construct a \(z\)"). Suppose some firm \(j\) has \(\hat y\in Y^j\) with \(p\,\hat y>p\,\bar y^j\). Replace only firm \(j\)'s plan:
+        $$\hat z\ \equiv\ \hat y+\sum_{k\neq j}\bar y^k+\sum_ie^i\ \in B .$$
+        Then \(p\,\hat z = p\,\bar z + (p\,\hat y-p\,\bar y^j) > p\,\bar z \overset{(7)}{=} p\,\bar x\). But \(\bar x\in A\), so (6) requires \(p\,\bar x\ge p\,\hat z\). Contradiction. Hence \(p\,\bar y^j\ge p\,y\) for all \(y\in Y^j\).
+      </li>
+      <li>
+        <strong>Households minimize expenditure</strong> (the slides' "one can construct an \(x\)"). Suppose some \(i\) has \(\hat x\in X^i\) with \(u^i(\hat x)\ge u^i(\bar x^i)\) and \(p\,\hat x<p\,\bar x^i\). Replace only household \(i\)'s bundle:
+        $$\hat a\ \equiv\ \hat x+\sum_{k\neq i}\bar x^k\ \in A .$$
+        Then \(p\,\hat a = p\,\bar x-(p\,\bar x^i-p\,\hat x)<p\,\bar x\overset{(7)}{=}p\,\bar z\). But \(\bar z\in B\), so (6) requires \(p\,\hat a\ge p\,\bar z\). Contradiction. Hence \(\bar x^i\) minimizes \(p\,x\) over \(\{x\in X^i: u^i(x)\ge u^i(\bar x^i)\}\).
+      </li>
+    </ol>
+    <div class="qed">∎</div>
+  </div>
+
+  <div class="notation">
+    <div class="box-title">A remark the slides skip: \(\operatorname{Int}(B)\ne\emptyset\)</div>
+    <p>In a pure exchange economy, \(Y=\{0\}\) and \(B=\{\sum_ie^i\}\) is a single point with empty interior. Then Step 3 is vacuous and Step 4 has nothing to separate. Two standard fixes:</p>
+    <ul>
+      <li>(i) Assume <strong>free disposal</strong>, \(-\mathbb{R}^m_+\subseteq Y\). Then \(B\supseteq\sum_ie^i-\mathbb{R}^m_+\), which has an interior.</li>
+      <li>(ii) Follow MWG and separate the convex set of <em>strictly</em> preferred aggregates, \(A^{\succ}=\sum_i\{x:u^i(x)>u^i(\bar x^i)\}\), from \(B\). These are disjoint by PO, and the separating theorem for disjoint convex sets needs no interior. LNS then extends the inequality to weakly preferred bundles.</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>6. See it: Robinson Crusoe</h2>
+
+  <p>One household and one firm. The goods are leisure \(\ell\) and consumption \(c\). The endowment is one unit of time, \(e=(1,0)\). The firm turns labour \(n\) into output \(c\le n^\gamma\), so \(B=\{(\ell,c):\ \ell\le1,\ c\le(1-\ell)^\gamma\}\) (with free disposal). Utility is \(u=\log c+b\log\ell\). The PO allocation maximizes \(\gamma\log n+b\log(1-n)\), so \(\bar n=\gamma/(\gamma+b)\). The candidate supporting price of leisure (in units of \(c\)) is the slope of the frontier at \(\bar n\): \(w=\gamma\bar n^{\gamma-1}\).</p>
+
+  <div class="figure">
+    <div id="rc-ctrl"></div>
+    <div id="rc-fig"></div>
+    <div id="rc-read"></div>
+    <div class="verdict" id="rc-verdict"></div>
+    <div class="caption"><b>Interactive.</b> <span style="color:#2a78d6">Blue</span>: the producible set \(B\). <span style="color:#eb6834">Orange</span>: the set \(A\) of bundles weakly preferred to the PO point. Black: the price line through the PO point with slope \(-w\). With \(\gamma\le1\) (convex \(B\)) the line separates the sets: \(A\) lies above it and \(B\) below. That gives a supporting price at which the firm maximizes profit. Push \(\gamma\) above 1 (increasing returns): \(B\) becomes non-convex, part of it pokes above the line (<span style="color:#4a3aa7">violet</span>), and at the "tangency" price the firm would rather produce at a corner. <b>The 2WT fails.</b></div>
+  </div>
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const P = EconPlot.create('#rc-fig', { x: [0, 1.1], y: [0, 1.2], width: 520, height: 440, xlabel: 'leisure ℓ', ylabel: 'consumption c' });
+    EconPlot.sliders('#rc-ctrl', [
+      { id: 'g', label: 'γ', min: 0.3, max: 2.0, step: 0.01, value: 0.5 },
+      { id: 'b', label: 'b', min: 0.3, max: 2.5, step: 0.01, value: 1 }
+    ], v => {
+      const { g, b } = v;
+      P.clear();
+      const nbar = g / (g + b), lbar = 1 - nbar, cbar = Math.pow(nbar, g);
+      const w = g * Math.pow(nbar, g - 1);
+      const ubar = Math.log(cbar) + b * Math.log(lbar);
+      const front = l => (l <= 1 ? Math.pow(Math.max(0, 1 - l), g) : NaN);
+      const line = l => cbar - w * (l - lbar);
+      P.region((l, c) => l <= 1 && c <= front(l), { fill: C.fillBlue });
+      P.region((l, c) => l > 0 && c > 0 && Math.log(c) + b * Math.log(l) >= ubar, { fill: C.fillOrange });
+      P.region((l, c) => l <= 1 && c <= front(l) && c > line(l) + 0.004, { fill: 'rgba(74,58,167,0.45)' });
+      P.fn(front, { color: C.blue, width: 2.2, domain: [0, 1] });
+      P.fn(l => Math.exp(ubar) * Math.pow(l, -b), { color: C.orange, width: 2.2, domain: [0.02, 1.1] });
+      P.fn(line, { color: C.ink, width: 1.6 });
+      P.point(lbar, cbar, { label: 'PO', labelDx: 8, labelDy: -8 });
+      P.text(0.06, 0.12, 'B = Y + e', { color: C.blue, size: 15, italic: true });
+      P.text(0.86, 1.1, 'A', { color: '#b0501f', size: 16, italic: true });
+      // firm's problem at w
+      let best = -Infinity, nb = 0;
+      for (let k = 0; k <= 1000; k++) { const n = k / 1000, pr = Math.pow(n, g) - w * n; if (pr > best) { best = pr; nb = n; } }
+      const piBar = cbar - w * nbar;
+      const ok = best <= piBar + 1e-6;
+      EconPlot.readout('#rc-read', [
+        ['PO labour n̄ = γ/(γ+b):', nbar.toFixed(3)], ['price of leisure w:', w.toFixed(3)],
+        ['profit at PO plan:', piBar.toFixed(3), ok ? 'good' : 'bad'], ['max profit over n∈[0,1]:', best.toFixed(3) + ' (n=' + nb.toFixed(2) + ')', ok ? 'good' : 'bad']
+      ]);
+      document.getElementById('rc-verdict').textContent = ok
+        ? 'Separation holds: at price w the firm\u2019s best plan is the PO plan, and the household\u2019s cheapest way to reach its PO utility is the PO bundle. The 2WT delivers.'
+        : 'Separation fails: at the only candidate price, the firm earns more elsewhere (violet region), so no price decentralizes the PO allocation.';
+    });
+  })();
+  </script>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>7. What each hypothesis buys</h2>
+  <table class="simple">
+    <tr><th>Hypothesis</th><th>Used in</th><th>If it fails…</th></tr>
+    <tr><td>Some \(h\) not satiated (\(\tilde x^h\))</td><td>Step 3</td><td>If everyone is at a bliss point with resources to spare, \(A\) can sit <em>inside</em> \(B\). Then no hyperplane separates them, and only \(p=0\) "supports" the allocation (Exercise 6.2).</td></tr>
+    <tr><td>Convex upper contour sets (HH)</td><td>Steps 2–3</td><td>\(A\) is non-convex. The PO tangency may not be a household optimum at the tangency price (Lesson 7, Edgeworth box).</td></tr>
+    <tr><td>\(X^i\) convex, \(u^i\) continuous</td><td>Step 3</td><td>The mixture \(x^{h,\theta}\) may not be consumable, or may not beat \(\bar x^h\).</td></tr>
+    <tr><td>Aggregate \(Y\) convex (FF)</td><td>Steps 2, 6</td><td>Increasing returns or fixed costs: firms don't maximize profit at the supporting price (figure above; Lesson 7).</td></tr>
+    <tr><td>\(\operatorname{Int}(B)\neq\emptyset\)</td><td>Steps 3–4</td><td>The proof is vacuous. Use free disposal or MWG's strict version.</td></tr>
+  </table>
+
+  <div class="intuition">
+    <div class="box-title">Intuition: prices as shadow values</div>
+    <p>\(p\) is the vector of <strong>shadow prices</strong> of the planner's problem: the Lagrange multipliers on the resource constraints when maximizing a weighted sum of utilities. In the smooth interior case, separation boils down to "every MRS equals every MRT equals the price ratio". The hyperplane argument gets this with no derivatives, so it covers kinks and corners too. Convexity is exactly what makes these first-order "tangency" conditions <em>global</em> optimality conditions for each agent.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>8. Check your understanding</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">1. In the 2WT proof, why is the set \(A\) convex?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Because the aggregate production set Y is assumed convex</li>
+        <li class="quiz-option" data-option="b">Because the PO allocation maximizes a weighted sum of utility</li>
+        <li class="quiz-option" data-option="c">Because sums of convex upper contour sets remain convex sets</li>
+        <li class="quiz-option" data-option="d">Because prices are linear, so every budget set is convex</li>
+      </ul>
+      <div class="quiz-explain">HH makes each \(U^i=\{x\in X^i:u^i(x)\ge u^i(\bar x^i)\}\) convex, and \(A=\sum_iU^i\). FF is what makes \(B\) convex. Prices haven't been found yet at that stage of the proof.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">2. Where in the proof is the non-satiated household \(h\) used?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">To show that A does not intersect the interior of B</li>
+        <li class="quiz-option" data-option="b">To show that firms maximize profits at the price p</li>
+        <li class="quiz-option" data-option="c">To show that the separating price vector is nonzero</li>
+        <li class="quiz-option" data-option="d">To show that the set B has a nonempty interior here</li>
+      </ul>
+      <div class="quiz-explain">Without \(h\), an interior point of \(B\) could lie in \(A\): everyone satiated, with leftover resources. \(p\neq0\) comes from the separation theorem itself.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">3. What does the 2WT (main part) conclude about households?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Each maximizes utility on the budget set at price p</li>
+        <li class="quiz-option" data-option="b">Each receives the same value of wealth at price p</li>
+        <li class="quiz-option" data-option="c">Each is at an interior bundle of its consumption set</li>
+        <li class="quiz-option" data-option="d">Each minimizes the cost of reaching its PO utility</li>
+      </ul>
+      <div class="quiz-explain">The conclusion is expenditure minimization, i.e. a quasi-equilibrium. Utility maximization needs Arrow's extra condition (Lesson 7).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">4. In Step 6, firm \(j\) could earn more with \(\hat y\). What point violates the separation inequality?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The aggregate demand with household j's bundle replaced</li>
+        <li class="quiz-option" data-option="b">The aggregate supply with only firm j's plan replaced by ŷ</li>
+        <li class="quiz-option" data-option="c">The aggregate endowment with every firm's plan set to zero</li>
+        <li class="quiz-option" data-option="d">The aggregate supply with every firm's plan replaced by ŷ</li>
+      </ul>
+      <div class="quiz-explain">\(\hat z=\hat y+\sum_{k\neq j}\bar y^k+\sum e^i\in B\) has \(p\hat z>p\bar z=p\bar x\), contradicting \(p\bar x\ge p\hat z\) with \(\bar x\in A\).</div>
+    </div>
+    <div class="quiz-score"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>9. Exercises</h2>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 6.1 <span class="tag proof">Proof</span></div>
+    <p>Reproduce the 2WT proof from a blank page, in this order: (i) define \(A\) and \(B\); (ii) prove convexity; (iii) prove \(A\cap\operatorname{Int}B=\emptyset\); (iv) separate; (v) derive (7); (vi) profit maximization; (vii) expenditure minimization. Then check yourself against §5. For each step, name the hypothesis it uses.</p>
+    <details class="solution"><summary>Show checklist</summary><div class="body"><p>(ii) HH gives convex \(U^i\); \(A\) is their set-sum; FF makes \(B\) convex. (iii) Non-satiated \(h\), convex \(X^h\), HH or continuity, \(x\) interior to \(B\), and PO. (iv) Minkowski with \(\operatorname{Int}B\ne\emptyset\). (v) Feasibility of the PO allocation. (vi) Build \(\hat z\) by changing only firm \(j\). (vii) Build \(\hat a\) by changing only household \(i\).</p></div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 6.2 <span class="tag proof">Proof</span> Why we need \(h\)</div>
+    <p>One household, two goods, no firms but free disposal: \(Y=-\mathbb{R}^2_+\). The endowment is \(e=(2,2)\) and \(u(x)=-\|x-(1,1)\|^2\) (bliss at \((1,1)\)). Show that \(\bar x=(1,1)\) (with \(\bar y=(-1,-1)\), i.e. disposing of the excess) is PO, that no household satisfies the non-satiation hypothesis, and that no \(p\neq0\) satisfies the 2WT's conclusions.</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>Nothing beats the bliss point, so \(\bar x\) is PO and no \(\tilde x\) exists. \(A=\{(1,1)\}\) and \(B=(2,2)-\mathbb{R}^2_+\). Since \((1,1)\in\operatorname{Int}B\), Step 3's conclusion fails. Suppose \(p\neq0\) supported it. Profit maximization over \(Y=-\mathbb{R}^2_+\) at \(\bar y=(-1,-1)\) requires \(p\cdot\bar y\ge p\cdot0=0\), i.e. \(p_1+p_2\le0\), and also \(p\ge 0\) (otherwise disposing of more of a negatively priced good would raise profit beyond any bound). These force \(p=0\). Contradiction. Only \(p=0\) works: a satiated economy has zero shadow prices.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 6.3 <span class="tag exam">Exam-style</span> Crusoe by hand</div>
+    <p>In the figure's economy take \(\gamma=\tfrac12\) and \(b=1\) (this is <a href="0002-competitive-equilibrium.html">Exercise 2.3</a> again, approached from the planner's side).</p>
+    <ol class="parts" type="a">
+      <li>Find the PO labour input \(\bar n\).
+        <div class="numcheck" data-answer="1/3" data-tol="0.002" data-prompt="n̄ ="></div></li>
+      <li>Find the supporting wage (price of leisure in units of \(c\)).
+        <div class="numcheck" data-answer="Math.sqrt(3)/2" data-tol="0.002" data-prompt="w ="></div></li>
+      <li>Find the firm's profit at that price, and check that the household can afford \((\bar\ell,\bar c)\) with income \(w\cdot1+\pi\).</li>
+      <li>Now take \(\gamma=2\), \(b=1\). Find \(\bar n\) and \(w\), and show that at \(w\) the firm's profit at \(\bar n\) is negative while \(n=1\) earns more.</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(\bar n=\gamma/(\gamma+b)=1/3\). (b) \(w=\tfrac12\bar n^{-1/2}=\tfrac{\sqrt3}{2}\approx0.866\), matching the CE wage of Exercise 2.3, as the 1WT and 2WT together predict. (c) \(\bar c=\sqrt{1/3}\approx0.577\), so \(\pi=\bar c-w\bar n=0.577-0.289=0.289\). Income is \(w+\pi=1.155\), and the cost of the bundle is \(\bar c+w\bar\ell=0.577+0.866\cdot\tfrac23=1.155\). ✓ (d) \(\bar n=2/3\), \(w=2\bar n=4/3\), and \(\pi(\bar n)=\tfrac49-\tfrac43\cdot\tfrac23=-\tfrac49<0\), while \(\pi(1)=1-\tfrac43=-\tfrac13>-\tfrac49\) and \(\pi(0)=0\). The firm shuts down, so the PO allocation is not decentralizable.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 6.4 <span class="tag exam">Exam-style</span> Decentralizing with transfers</div>
+    <p>The Edgeworth box of <a href="0002-competitive-equilibrium.html">Exercise 2.2</a>: \(u^A=\tfrac13\log x_1+\tfrac23\log x_2\), \(u^B=\tfrac12\log x_1+\tfrac12\log x_2\), total endowment \((1,1)\), initial endowments \(e^A=(1,0)\) and \(e^B=(0,1)\). A planner wants the PO allocation with \(\bar x^A_1=\tfrac12\).</p>
+    <ol class="parts" type="a">
+      <li>Find \(\bar x^A_2\) (use the contract curve).
+        <div class="numcheck" data-answer="2/3" data-tol="0.002" data-prompt="x̄₂ᴬ ="></div></li>
+      <li>Find the supporting relative price \(p_1/p_2\).
+        <div class="numcheck" data-answer="2/3" data-tol="0.002" data-prompt="p₁/p₂ ="></div></li>
+      <li>Find the lump-sum transfer to A (in units of good 2) that decentralizes it, with \(p_2=1\).
+        <div class="numcheck" data-answer="1/3" data-tol="0.002" data-prompt="T^A ="></div></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Equal MRS: \(\tfrac{1}{2}\tfrac{x_2}{x_1}=\tfrac{1-x_2}{1-x_1}\). At \(x_1=\tfrac12\) this gives \(x_2/2 = 1-x_2\), so \(x_2=\tfrac23\). (b) \(MRS^A=\tfrac12\cdot\tfrac{2/3}{1/2}=\tfrac23\), and for B, \((1/3)/(1/2)=\tfrac23\). ✓ (c) \(p\cdot\bar x^A=\tfrac23\cdot\tfrac12+\tfrac23=1\) and \(p\cdot e^A=\tfrac23\), so \(T^A=\tfrac13\) and \(T^B=-\tfrac13\). Check: with wealth 1, A demands \(x_1=\tfrac13\cdot1/\tfrac23=\tfrac12\) and \(x_2=\tfrac23\). ✓</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 6.5 <span class="tag proof">Proof</span> Prices are non-negative</div>
+    <p>Suppose \(X^i=\mathbb{R}^m_+\) and some household's \(u^i\) is (weakly) increasing in every good. Show that the separating \(p\) from the 2WT satisfies \(p\ge0\).</p>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>If \(p_k<0\), what happens to \(p\cdot(\bar x+t\,e_k)\) as \(t\to\infty\)? Is \(\bar x+t\,e_k\) in \(A\)?</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body"><p>Give household \(i\) the extra \(t\,e_k\), where \(e_k\) is the \(k\)-th unit vector. By monotonicity it is weakly better off, and others are unchanged, so \(\bar x+t\,e_k\in A\) for all \(t\ge0\). By (6), \(p\cdot\bar x+t\,p_k\ge p\cdot\bar z\) for all \(t\). If \(p_k<0\), the left side goes to \(-\infty\). Contradiction. Hence \(p_k\ge0\) for every \(k\).</p></div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 6.6 <span class="tag exam">Exam-style</span> True / False / Uncertain</div>
+    <ol class="parts" type="a">
+      <li>"Under the 2WT assumptions, any PO allocation is a CE for the original endowments."</li>
+      <li>"The 2WT requires that every firm's production set be convex."</li>
+      <li>"In the 2WT, the supporting prices are unique."</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body"><p>(a) <strong>False.</strong> It is a quasi-equilibrium <em>with transfers</em>: wealth must be redistributed so that each \(i\) can afford exactly \(p\bar x^i\) (Lesson 7). Even then, utility maximization needs Arrow's condition. (b) <strong>False.</strong> Only the aggregate \(Y\) must be convex. (c) <strong>False in general.</strong> At kinks (Leontief preferences, linear technologies with corners) many hyperplanes separate \(A\) and \(B\). With smooth indifference curves at an interior point, relative prices are pinned down by the common MRS.</p></div></details>
+  </div>
+
+  <div class="takeaways">
+    <h2>Key takeaways</h2>
+    <ul>
+      <li>\(A\) = aggregates making everyone at least as well off; \(B\) = producible aggregates. PO + a non-satiated \(h\) ⇒ \(A\cap\operatorname{Int}B=\emptyset\).</li>
+      <li>Convexity (HH, FF) ⇒ a separating \(p\neq0\) exists. The PO aggregate is the cheapest point of \(A\) and the most valuable point of \(B\).</li>
+      <li>Change one firm's plan to get profit maximization; change one household's bundle to get expenditure minimization.</li>
+      <li>The conclusion is a quasi-equilibrium with transfers, not yet a CE (Lesson 7).</li>
+      <li>Non-convexities (IRS, fixed costs, non-convex preferences) are where decentralization breaks.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher). Try "prove the separating hyperplane theorem in \(\mathbb{R}^2\)" or "show me how the Lagrange multipliers of the planner's problem equal \(p\)."</div>
+
+  <div class="lesson-nav">
+    <a href="0005-when-the-first-welfare-theorem-fails.html">← Lesson 5: Stress-testing the 1WT</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="../reference/welfare-theorems-cheatsheet.html">Cheatsheet</a>
+    <a href="0007-arrows-remark-and-decentralization.html">Lesson 7: Arrow's remark &amp; decentralization →</a>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 10: Is the OLG Equilibrium Efficient?</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part II: Overlapping Generations · Lesson 10 of 20</div>
+    <h1>Is the OLG Equilibrium Efficient? The Best Symmetric Allocation</h1>
+    <div class="meta">Covers <a href="../sources/slides2-olg.pdf#page=15">Class Note II, pp. 15–18</a> · About 35 min · Prerequisite: <a href="0009-olg-prices-and-interest-rates.html">Lesson 9</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>define symmetric allocations and derive the best symmetric allocation \((c_y^*,c_o^*) = (1-\beta,\beta)\);</li>
+      <li>compare it to the CE \((1-\alpha,\alpha)\) for every agent, including the initial old, and classify the three cases;</li>
+      <li>state and explain the punchline: <strong>the CE is Pareto-dominated exactly when \(\bar r<0\)</strong>, a counterexample to the First Welfare Theorem.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides2-olg.pdf#page=15">Class Note II, pp. 15–18</a>. Samuelson's <a href="https://ideas.repec.org/a/ucp/jpolec/v66y1958p467.html">1958 paper</a>, §§III–IV, is where this "consumption-loan paradox" was first spotted. Shell, <a href="https://ideas.repec.org/a/ucp/jpolec/v79y1971i5p1002-11.html">"Notes on the Economics of Infinity"</a>, <em>JPE</em> (1971), distils why it happens. We'll come back to it in Lesson 12.
+  </div>
+
+  <h2>1. The question</h2>
+  <p>Lesson 4 proved that every CE with locally non-satiated preferences is Pareto optimal. Log utility is strictly increasing, hence LNS. So the First Welfare Theorem <em>seems</em> to say the autarky equilibrium of Lessons 8–9 is PO. Here we test that claim directly, by searching for a feasible allocation that everybody weakly prefers. To keep the search tractable, we restrict attention to allocations that treat every generation the same way.</p>
+
+  <h2>2. Symmetric allocations</h2>
+
+  <div class="definition">
+    <div class="box-title">Definition: symmetric allocation <a class="slide-ref" href="../sources/slides2-olg.pdf#page=15">II p.15</a></div>
+    <p>An allocation is <strong>symmetric</strong> if consumption depends only on age, not on the generation. It is described by two numbers \((c_y,c_o)\):
+    $$x^i_i = c_y\ \ (i\ge1),\qquad x^i_{i+1} = c_o\ \ (i\ge0).$$
+    Note that the <strong>initial old</strong> also receive \(c_o\). Since \(\bar e_t=1\), feasibility at each date reads \(x^{t-1}_t + x^t_t = c_o + c_y = 1\): one condition, the same at every date.</p>
+  </div>
+
+  <p>The CE \((1-\alpha,\alpha)\) is itself a feasible symmetric allocation, since \(1-\alpha+\alpha = 1\). So the set we are searching contains the equilibrium, which is what makes the comparison clean.</p>
+
+  <h2>3. The best symmetric allocation</h2>
+  <p>"Best" here means best from the point of view of a generation \(i\ge1\), all of whom have the same \(v\) <a class="slide-ref" href="../sources/slides2-olg.pdf#page=16">II p.16</a>:</p>
+  $$\max_{c_y,c_o}\;(1-\beta)\log c_y + \beta\log c_o\quad\text{s.t.}\quad c_y + c_o = 1 .$$
+
+  <div class="proof">
+    <div class="box-title">Derivation</div>
+    <ol class="steps">
+      <li><strong>Substitute the constraint.</strong> Maximize \(f(c_y) = (1-\beta)\log c_y + \beta\log(1-c_y)\) over \(c_y\in(0,1)\). \(f\) is strictly concave, so the FOC is necessary and sufficient.</li>
+      <li><strong>FOC.</strong> \(\frac{1-\beta}{c_y} = \frac{\beta}{c_o}\), i.e. \(\frac{\beta}{1-\beta}\frac{c_y}{c_o} = 1\): the MRS equals the "technological" rate at which feasibility lets you swap youth for old-age goods, which is one-for-one.</li>
+      <li><strong>Solve with feasibility.</strong> \(c_y = \tfrac{1-\beta}{\beta}c_o\) and \(c_y+c_o=1\) give
+        $$\boxed{\;c_y^* = 1-\beta,\qquad c_o^* = \beta.\;}$$</li>
+    </ol>
+    <div class="qed">∎</div>
+  </div>
+
+  <div class="intuition">
+    <div class="box-title">Intuition: the "golden rule" of the endowment economy</div>
+    <p>Along the symmetric frontier, giving the old one more unit costs the young exactly one unit, because there is one old person per young person and no growth. The best allocation equates the MRS to this <strong>biological rate of return</strong> of 1. Equivalently, the implied interest rate at \((1-\beta,\beta)\) is \(r = v_1/v_2 - 1 = 0\), the population growth rate. In Lesson 13, with growth, the biological rate becomes \((1+n)(1+g)\).</p>
+  </div>
+
+  <h2>4. Comparing the CE with the best symmetric allocation</h2>
+
+  <p>There are two kinds of agent to check <a class="slide-ref" href="../sources/slides2-olg.pdf#page=17">II p.17</a>:</p>
+  <table class="simple">
+    <tr><th></th><th>CE</th><th>Best symmetric</th></tr>
+    <tr><td>Generations \(i\ge1\)</td><td>\(v(1-\alpha,\alpha)\)</td><td>\(v(1-\beta,\beta)\)</td></tr>
+    <tr><td>Initial old \(i=0\)</td><td>\(\alpha\)</td><td>\(\beta\)</td></tr>
+  </table>
+  <ul>
+    <li><strong>Generations \(i\ge1\)</strong> weakly prefer the best symmetric allocation, because it maximizes \(v\) over a set that contains the CE. They <em>strictly</em> prefer it unless \(\alpha=\beta\), since the maximizer is unique.</li>
+    <li><strong>The initial old</strong> only care about their consumption: \(\beta\) vs \(\alpha\). Everything hinges on them.</li>
+  </ul>
+
+  <div class="theorem">
+    <div class="box-title">The three cases <a class="slide-ref" href="../sources/slides2-olg.pdf#page=18">II p.18</a></div>
+    <table class="simple">
+      <tr><th>Case</th><th>Parameters</th><th>\(\bar r\)</th><th>Initial old</th><th>Conclusion</th></tr>
+      <tr><td>1</td><td>\(\beta>\alpha\)</td><td>\(<0\)</td><td>prefer best</td><td><strong>CE is Pareto-dominated</strong></td></tr>
+      <tr><td>2</td><td>\(\beta=\alpha\)</td><td>\(=0\)</td><td>indifferent</td><td>CE = best symmetric</td></tr>
+      <tr><td>3</td><td>\(\beta<\alpha\)</td><td>\(>0\)</td><td>prefer CE</td><td>not comparable</td></tr>
+    </table>
+    <p>Hence: <strong>the CE is Pareto-dominated by the best symmetric allocation if and only if \(\bar r<0\).</strong> (Recall \(\bar r = \frac{\alpha-\beta}{\beta(1-\alpha)}\).)</p>
+  </div>
+
+  <div class="figure">
+    <div id="ef-ctrl"></div>
+    <div id="ef-fig"></div>
+    <div id="ef-read"></div>
+    <div class="verdict" id="ef-verdict"></div>
+    <div class="caption"><b>Interactive.</b> The symmetric feasibility line \(c_y+c_o=1\), the CE \((1-\alpha,\alpha)\) (orange) and the best symmetric allocation \((1-\beta,\beta)\) (blue), each with the indifference curve of a generation \(i\ge1\). The dashed horizontal line at \(c_o=\alpha\) is the initial old's CE consumption; they gain at any point above it. The thick <span style="color:#1baf7a"><b>aqua segment</b></span> is the set of symmetric allocations that Pareto-dominate the CE: above the dashed line <em>and</em> on or inside the orange indifference curve. <b>Drag</b> the violet point along the line to test any candidate. <b>Try:</b> set \(\beta<\alpha\) and the aqua segment vanishes. The initial old and the young pull in opposite directions.</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const P = EconPlot.create('#ef-fig', { x: [0, 1], y: [0, 1], width: 460, height: 460, equal: true, xlabel: 'c_y', ylabel: 'c_o', xticks: 5, yticks: 5 });
+    let cand = 0.35; // candidate c_o
+    let S;
+    const v = (b, x, y) => (1 - b) * Math.log(x) + b * Math.log(y);
+    function upper(a, b) { // largest c_o on the line with v >= v(CE), for b>a
+      const f = co => v(b, 1 - co, co) - v(b, 1 - a, a);
+      return EconPlot.bisect(f, Math.max(b, a), 1 - 1e-9);
+    }
+    function draw(val) {
+      const a = val.alpha, b = val.beta;
+      P.clear();
+      P.fn(x => 1 - x, { color: C.ink, width: 1.6, label: 'c_y + c_o = 1', labelAt: 0.06, labelDx: 6, labelDy: -2 });
+      P.hline(a, { color: C.orange });
+      P.text(0.02, a, 'c_o = α: initial old\'s CE consumption', { anchor: 'start', dy: 15, size: 12, sans: true, color: '#52514e' });
+      const uCE = v(b, 1 - a, a), uB = v(b, 1 - b, b);
+      P.contour((x, y) => v(b, x, y), uCE, { color: C.orange, width: 1.8 });
+      if (Math.abs(a - b) > 1e-3) P.contour((x, y) => v(b, x, y), uB, { color: C.blue, width: 1.8 });
+      let seg = null;
+      if (b > a + 1e-6) { const hi = upper(a, b); seg = [a, hi]; P.segment(1 - a, a, 1 - hi, hi, { color: C.aqua, width: 7, opacity: 0.85 }); }
+      P.point(1 - a, a, { color: C.orange, label: 'CE', labelDx: 8, labelDy: 16 });
+      P.point(1 - b, b, { color: C.blue, label: 'best symmetric', labelDx: 8, labelDy: -8 });
+      const co = cand, cy = 1 - co;
+      const dYoung = v(b, cy, co) - uCE, dOld = co - a;
+      handle.move(cy, co);
+      const rbar = (a - b) / (b * (1 - a));
+      const kase = Math.abs(a - b) < 1e-9 ? 2 : (b > a ? 1 : 3);
+      EconPlot.readout('#ef-read', [
+        ['r̄ :', rbar.toFixed(3)],
+        ['case :', String(kase)],
+        ['candidate (c_y, c_o) :', `(${cy.toFixed(3)}, ${co.toFixed(3)})`],
+        ['Δ utility, gens i ≥ 1 :', dYoung.toFixed(4), dYoung >= -1e-9 ? 'good' : 'bad'],
+        ['Δ consumption, initial old :', dOld.toFixed(3), dOld >= -1e-9 ? 'good' : 'bad'],
+        ['best symmetric gain, gens ≥ 1 :', (uB - uCE).toFixed(4)]
+      ]);
+      const pi = dYoung >= -1e-9 && dOld >= -1e-9 && (dYoung > 1e-7 || dOld > 1e-7);
+      document.getElementById('ef-verdict').textContent =
+        (kase === 1 ? 'Case 1 (β > α, r̄ < 0): the best symmetric allocation Pareto-dominates the CE. ' :
+         kase === 2 ? 'Case 2 (β = α, r̄ = 0): the CE is the best symmetric allocation. ' :
+                      'Case 3 (β < α, r̄ > 0): no symmetric allocation Pareto-dominates the CE. Moving toward the best point helps the young but hurts the initial old. ') +
+        (pi ? 'Your candidate IS a Pareto improvement.' : 'Your candidate is NOT a Pareto improvement.');
+    }
+    const handle = P.drag(1 - cand, cand, (x, y) => {
+      // project onto the line c_y + c_o = 1
+      const co = Math.min(0.99, Math.max(0.01, (y - x + 1) / 2));
+      cand = co; draw(S.values); return [1 - co, co];
+    }, { color: C.violet });
+    S = EconPlot.sliders('#ef-ctrl', [
+      { id: 'alpha', label: 'α', min: 0.05, max: 0.95, step: 0.01, value: 0.25 },
+      { id: 'beta', label: 'β', min: 0.05, max: 0.95, step: 0.01, value: 0.5 }
+    ], draw);
+  })();
+  </script>
+
+  <h2>5. Why Case 1 is a genuine Pareto improvement: the chain of transfers</h2>
+  <p>Read the move from CE to best symmetric in Case 1 as a transfer. Each young person hands \(\beta-\alpha>0\) units to the contemporaneous old person:</p>
+  <ul>
+    <li>The <strong>initial old</strong> receive \(\beta-\alpha\) and give nothing. They gain.</li>
+    <li>Each <strong>generation \(i\ge1\)</strong> gives \(\beta-\alpha\) when young and receives \(\beta-\alpha\) when old. This is a "loan" at a <strong>zero</strong> interest rate. In the CE their marginal rate of substitution at the endowment implies a rate \(\bar r<0\), so a zero return beats what the market offered: they would be willing to save at a negative return, and here they get a zero one.</li>
+    <li>The scheme is feasible at every date because aggregate consumption is still \(1\), and it never has to be "repaid", because <strong>there is no last generation</strong>.</li>
+  </ul>
+
+  <div class="warning">
+    <div class="box-title">The chain must never end</div>
+    <p>If the transfers stopped at some date \(T\), generation \(T-1\) would give when young and receive nothing when old. They would be worse off, so the scheme would no longer be a Pareto improvement. The gain to the initial old is financed by an infinite sequence of future generations, each passing the bill forward. This is possible <em>only</em> because the economy has infinitely many agents and dates. That double infinity is the heart of Lesson 12.</p>
+  </div>
+
+  <div class="intuition">
+    <div class="box-title">Case 3: why there's no free lunch when \(\bar r>0\)</div>
+    <p>When \(\bar r>0\), the young would rather <em>borrow</em> against their large old-age endowment. Moving toward \((1-\beta,\beta)\) means transferring from the old to the young. Generations \(i\ge1\) like it (they receive when young, repay when old at rate \(0<\bar r\)), but the initial old pay without being repaid. Someone always loses, so the CE is not dominated by any symmetric allocation (Exercise 10.3). In fact it is Pareto optimal among <em>all</em> allocations, as Lesson 12 will show using the finiteness of \(\sum_t p_t\).</p>
+  </div>
+
+  <h2>6. Check your understanding</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">1. Why do generations \(i\ge 1\) always weakly prefer the best symmetric allocation to the CE?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Because the best allocation gives them strictly more of both goods</li>
+        <li class="quiz-option" data-option="b">Because the CE is one of the symmetric allocations being maximized over</li>
+        <li class="quiz-option" data-option="c">Because the interest rate is negative in every possible parametrization</li>
+        <li class="quiz-option" data-option="d">Because initial old consumption is irrelevant to their own utility level</li>
+      </ul>
+      <div class="quiz-explain">\((1-\alpha,\alpha)\) satisfies \(c_y+c_o=1\), so it is in the feasible set of the problem whose solution is \((1-\beta,\beta)\). The maximum is at least as good as any feasible point, and strictly better unless they coincide.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">2. In Case 3 (\(\beta<\alpha\)), why is the CE not Pareto-dominated by the best symmetric allocation?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The young prefer their endowment to every other symmetric bundle</li>
+        <li class="quiz-option" data-option="b">The best symmetric allocation is infeasible once β falls below α</li>
+        <li class="quiz-option" data-option="c">The interest rate is zero, so every allocation gives equal utility</li>
+        <li class="quiz-option" data-option="d">The initial old would consume β instead of α, which is strictly less</li>
+      </ul>
+      <div class="quiz-explain">Generations \(i\ge1\) still strictly prefer \((1-\beta,\beta)\). But the initial old get \(\beta<\alpha\), so they are strictly worse off. One agent losing is enough to rule out Pareto dominance.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">3. What implicit interest rate does generation \(i\ge1\) earn on the transfer scheme that implements the best symmetric allocation?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Zero, since it gives β − α young and gets β − α old</li>
+        <li class="quiz-option" data-option="b">The market rate r̄, since the scheme mimics a bond</li>
+        <li class="quiz-option" data-option="c">Negative, since it gives more than it later receives</li>
+        <li class="quiz-option" data-option="d">Infinite, since only the initial old ever contribute</li>
+      </ul>
+      <div class="quiz-explain">Each generation pays \(\beta-\alpha\) and receives \(\beta-\alpha\) one period later: gross return 1, so net return 0. In Case 1 the market rate \(\bar r\) is negative, so this beats the market. That's why generations \(i\ge1\) gain.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">4. Which feature of the economy makes the Case 1 improvement possible?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Log utility, which makes savings increasing in rates</li>
+        <li class="quiz-option" data-option="b">A constant aggregate endowment equal to one forever</li>
+        <li class="quiz-option" data-option="c">Infinitely many generations, so no one is left holding the bill</li>
+        <li class="quiz-option" data-option="d">The initial old caring only about consumption at date one</li>
+      </ul>
+      <div class="quiz-explain">The transfer chain never ends, so no generation is left paying without being repaid. With a final generation \(T\), backward induction would unravel any such scheme. The double infinity of agents and goods is the key (Lesson 12).</div>
+    </div>
+    <div class="quiz-score"></div>
+  </div>
+
+  <h2>7. Exercises</h2>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 10.1 <span class="tag slides">Slides p.16–18</span></div>
+    <p>Let \(\alpha = 0.2\), \(\beta = 0.5\).</p>
+    <ol class="parts" type="a">
+      <li>Compute the utility gain of each generation \(i\ge1\) from moving from the CE to the best symmetric allocation, \(v(1-\beta,\beta)-v(1-\alpha,\alpha)\).
+        <div class="numcheck" data-answer="0.5*Math.log(0.5/0.8)+0.5*Math.log(0.5/0.2)" data-tol="0.002" data-prompt="Δv ="></div></li>
+      <li>Compute the consumption gain of the initial old.
+        <div class="numcheck" data-answer="0.3" data-tol="0.002" data-prompt="Δx₁⁰ ="></div></li>
+      <li>Which case is this, and what is \(\bar r\)?
+        <div class="numcheck" data-answer="(0.2-0.5)/(0.5*0.8)" data-tol="0.002" data-prompt="r̄ ="></div></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(\tfrac12\log\tfrac{0.5}{0.8} + \tfrac12\log\tfrac{0.5}{0.2} = \tfrac12\log(0.625\cdot2.5) = \tfrac12\log 1.5625 \approx 0.223\).<br>
+      (b) \(\beta - \alpha = 0.3\).<br>
+      (c) Case 1, since \(\beta>\alpha\). \(\bar r = -0.3/0.4 = -0.75\).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 10.2 <span class="tag exam">Exam-style</span></div>
+    <p>Generalize the best symmetric allocation to arbitrary preferences: let \(v\) be strictly increasing, strictly quasi-concave and differentiable. (a) Characterize the best symmetric allocation. (b) Show that the CE is dominated by it whenever \(v_2/v_1>1\) at the endowment, i.e. whenever \(\bar r<0\). (c) Is \(\bar r<0\) also necessary for <em>some</em> symmetric allocation to dominate the CE?</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(\max v(c_y,1-c_y)\): FOC \(v_1 = v_2\), i.e. MRS \(=1\), implied rate \(r=0\).</p>
+      <p>(b) Write \(c_o = \alpha+\tau\), \(c_y = 1-\alpha-\tau\) along the line. Then \(\frac{d}{d\tau}v = -v_1+v_2\), which at \(\tau=0\) is \(v_1(v_2/v_1-1) = v_1\cdot(\tfrac{1}{1+\bar r}-1) > 0\) iff \(\bar r<0\). So a small \(\tau>0\) raises the utility of generations \(i\ge1\) and raises the initial old's consumption: a Pareto improvement. The best symmetric allocation, which maximizes \(v\) along the line, has \(v\) at least as large, and \(c_o^*>\alpha\) because \(v\) is still increasing in \(\tau\) at \(\tau=0\) and is quasi-concave along the line.</p>
+      <p>(c) Yes. If \(\bar r\ge0\), then the initial old need \(\tau\ge0\), but along the line \(v\) is quasi-concave in \(\tau\) with \(dv/d\tau\le0\) at \(\tau=0\). So it is non-increasing for all \(\tau\ge0\) and strictly decreasing unless \(\bar r = 0\) and \(\tau=0\). Generations \(i\ge1\) lose (or, in Case 2, nobody gains), so no symmetric improvement exists.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 10.3 <span class="tag proof">Proof</span></div>
+    <p>Show that in Case 3 (\(\beta<\alpha\)) no feasible symmetric allocation Pareto-dominates the CE.</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>Let \((c_y,c_o)\) be feasible (\(c_y+c_o\le1\)) and weakly preferred by everyone. The initial old need \(c_o\ge\alpha\), so \(c_y\le1-\alpha\). Generations \(i\ge1\) need \(v(c_y,c_o)\ge v(1-\alpha,\alpha)\). Since \(v\) is increasing, it suffices to check \(c_o = 1-c_y\). The function \(f(c_y) = v(c_y,1-c_y)\) is strictly concave with maximum at \(1-\beta > 1-\alpha\), so it is strictly increasing on \((0,1-\alpha]\). Hence for \(c_y\le 1-\alpha\), \(f(c_y)\le f(1-\alpha)\), with equality only at \(c_y = 1-\alpha\). So the only weakly preferred feasible symmetric allocation is the CE itself, and nobody is strictly better off.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 10.4 <span class="tag exam">Exam-style</span></div>
+    <p>In Case 1, a planner proposes a <em>one-time</em> transfer: at date 1, generation 1 gives \(\varepsilon>0\) to generation 0, and nothing else changes. Is this a Pareto improvement? What about a transfer of \(\varepsilon\) from young to old at every date \(t=1,\dots,T\) and none after? Explain the general lesson.</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>Neither is a Pareto improvement. In the one-time scheme, generation 1 loses \(\varepsilon\) when young and gets nothing back. In the \(T\)-period scheme, generations \(1,\dots,T-1\) gain (for \(\varepsilon\) small, since \(\bar r<0\)), but generation \(T\) pays when young and receives nothing when old, so it loses. <strong>Lesson:</strong> every Pareto improvement over the Case-1 CE must involve transfers from young to old at <em>every</em> date forever. In a finite-horizon OLG economy the CE would be PO, by the ordinary First Welfare Theorem.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 10.5 <span class="tag proof">Proof</span> (harder)</div>
+    <p>Show that the best symmetric allocation \((1-\beta,\beta)\) is Pareto optimal among <em>all</em> feasible allocations, not just symmetric ones.</p>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>Write any feasible allocation that doesn't waste goods as \(x^t_t = 1-\beta-\delta_t\) and \(x^{t-1}_t = \beta+\delta_t\), where \(\delta_t\) is the extra amount given to the old at date \(t\). Use \(\log(1+z)\le z\) and \(\log(1-z)\le -z - z^2/2\) for \(z\in[0,1)\) to bound each generation's utility gain.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>Wasting goods never helps, so take feasibility with equality and parametrize as in the hint. The initial old need \(\delta_1\ge0\). Generation \(t\)'s utility change is
+      $$\Delta_t = (1-\beta)\log\Big(1-\tfrac{\delta_t}{1-\beta}\Big) + \beta\log\Big(1+\tfrac{\delta_{t+1}}{\beta}\Big).$$
+      Suppose \(\delta_t\ge0\) (true for \(t=1\)). Apply \(\log(1-z)\le -z-z^2/2\) with \(z=\delta_t/(1-\beta)\in[0,1)\), and \(\log(1+z)\le z\) (valid for every \(z>-1\)) with \(z = \delta_{t+1}/\beta\):
+      $$\Delta_t \;\le\; -\delta_t - \kappa\,\delta_t^2 + \delta_{t+1},\qquad \kappa = \tfrac{1}{2(1-\beta)} > 0 .$$
+      So \(\Delta_t\ge0\) requires \(\delta_{t+1}\ge\delta_t + \kappa\delta_t^2\ge\delta_t\ge0\). By induction from \(\delta_1\ge0\), every \(\delta_t\ge0\) and the sequence is non-decreasing. If some \(\delta_k>0\), then for \(t\ge k\), \(\delta_{t+1}\ge\delta_t(1+\kappa\delta_k)\). The sequence grows geometrically and eventually exceeds \(1-\beta\), so young consumption becomes negative: infeasible. Hence all \(\delta_t = 0\), the allocation is the best symmetric one, and nobody is strictly better off. ∎</p>
+      <p><em>Remark:</em> this "transfers must grow geometrically to keep everyone happy" logic is the essence of the Balasko–Shell/Cass characterization of efficiency in OLG economies. It reappears in the many-period argument of Lesson 16.</p>
+    </div></details>
+  </div>
+
+  <div class="takeaways">
+    <h2>Key takeaways</h2>
+    <ul>
+      <li>Symmetric allocations: \((c_y,c_o)\) with \(c_y+c_o=1\). The CE \((1-\alpha,\alpha)\) is one of them.</li>
+      <li>Best symmetric: \((1-\beta,\beta)\). The MRS equals the biological return of 1, so the implied interest rate is 0.</li>
+      <li>Generations \(i\ge1\) always weakly prefer it. The initial old prefer it iff \(\beta>\alpha\). <strong>CE Pareto-dominated \(\iff\beta>\alpha\iff\bar r<0\).</strong></li>
+      <li>The improvement is an endless chain of young-to-old transfers. It works only because there is no last generation.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "why can't the First Welfare Theorem proof handle this?" (preview of Lesson 12) or "is the CE PO in Case 3 even against non-symmetric allocations?"</div>
+
+  <div class="lesson-nav">
+    <a href="0009-olg-prices-and-interest-rates.html">← Lesson 9: Prices &amp; interest rates</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="../reference/olg-cheatsheet.html">OLG cheat sheet</a>
+    <a href="0011-pay-as-you-go-social-security.html">Lesson 11: Social security →</a>
+  </div>
+
+</div>
+</body>
+</html>

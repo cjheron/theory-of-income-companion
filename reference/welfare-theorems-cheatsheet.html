@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welfare Theorems Cheatsheet — Theory of Income</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <style>
+    .sheet { font-size: 0.9rem; line-height: 1.55; }
+    .sheet h2 { font-size: 1.05rem; margin-top: 1.4rem; }
+    .sheet .box { padding: 0.6rem 0.9rem; margin: 0.6rem 0; }
+    .sheet ol, .sheet ul { margin-top: 0.2rem; margin-bottom: 0.2rem; }
+    .sheet li { margin: 0.15rem 0; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.2rem; }
+    @media (max-width: 700px) { .two { grid-template-columns: 1fr; } }
+    .sheet table.simple { font-size: 0.82rem; margin: 0.5rem 0; width: 100%; }
+    .sheet table.simple td, .sheet table.simple th { padding: 0.25rem 0.5rem; }
+    .see { font-family: var(--font-sans); font-size: 0.72rem; color: var(--muted); }
+    .see a { color: var(--accent); }
+  </style>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page sheet">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Reference · Slides 1</div>
+    <h1>Welfare Theorems: Cheatsheet</h1>
+    <div class="meta">Definitions, statements, proof skeletons, failure modes. Lessons <a href="../lessons/0001-the-economy.html">1</a>–<a href="../lessons/0007-arrows-remark-and-decentralization.html">7</a> · <a href="ge-glossary.html">Glossary</a> · <a href="../index.html">Index</a></div>
+  </div>
+
+  <h2>Objects</h2>
+  <div class="two">
+    <div>
+      <ul>
+        <li><b>Economy</b>: \(L\) (e.g. \(\mathbb{R}^m\)); households \(i\in I\) with \((X^i,u^i,e^i,\theta^i_j)\); firms \(j\in J\) with \(Y^j\); \(\sum_i\theta^i_j=1\).</li>
+        <li><b>Signs</b>: \(x>0\) purchase / \(x<0\) sale; \(y>0\) output / \(y<0\) input.</li>
+        <li><b>Feasible</b>: \(x^i\in X^i\), \(y^j\in Y^j\), \(\sum_ix^i=\sum_jy^j+\sum_ie^i\).</li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li><b>CE</b> \((p,\bar x,\bar y)\): \(\bar y^j\in\arg\max_{Y^j}p\,y\); \(\bar x^i\in\arg\max_{X^i}u^i\) s.t. \(p\,x\le p\,e^i+\sum_j\theta^i_j\pi^j\); feasible. <span class="see"><a href="../lessons/0002-competitive-equilibrium.html">L2</a></span></li>
+        <li><b>PO</b>: feasible, no feasible \(x\) with \(u^i(x^i)\ge u^i(\bar x^i)\ \forall i\), \(>\) for some. <span class="see"><a href="../lessons/0003-pareto-optimality-and-lns.html">L3</a></span></li>
+        <li><b>Walras</b>: binding budgets ⇒ \(p\cdot z(p)=0\) for all \(p\).</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Assumptions</h2>
+  <table class="simple">
+    <tr><th>Name</th><th>Statement</th><th>Used by</th></tr>
+    <tr><td>LNS</td><td>\(\forall x\in X^i,\ \varepsilon>0\ \exists\hat x\in B_\varepsilon(x)\cap X^i:\ u^i(\hat x)>u^i(x)\). Implied by strict monotonicity on \(\mathbb{R}^m_+\); continuity is irrelevant.</td><td>1WT</td></tr>
+    <tr><td>HH</td><td>\(X^i\) convex; \(u^i\) continuous; \(u^i(x')>u^i(x)\Rightarrow u^i(\theta x+(1-\theta)x')>u^i(x)\ \forall\theta\in(0,1)\)</td><td>2WT</td></tr>
+    <tr><td>FF</td><td>Aggregate \(Y=\sum_jY^j\) convex</td><td>2WT</td></tr>
+    <tr><td>Non-satiated \(h\)</td><td>\(\exists h,\tilde x^h:\ u^h(\tilde x^h)>u^h(\bar x^h)\)</td><td>2WT Step 3</td></tr>
+    <tr><td>Arrow</td><td>\(\forall i\ \exists\tilde x^i\in X^i:\ p\,\tilde x^i<p\,\bar x^i\) (not a cheapest point)</td><td>QE ⇒ CE</td></tr>
+  </table>
+
+  <h2>1WT: CE ⇒ PO (under LNS) <span class="see"><a href="../lessons/0004-first-welfare-theorem.html">L4</a></span></h2>
+  <div class="box proof">
+    <p>Suppose a feasible \(\{x,y\}\) Pareto-dominates the CE allocation \(\{\bar x,\bar y\}\).</p>
+    <ol>
+      <li>\(u^i(x^i)\ge u^i(\bar x^i)\Rightarrow p\,x^i\ge p\,\bar x^i\). <i>If cheaper, LNS gives a better affordable bundle nearby.</i> (1)</li>
+      <li>\(u^{i'}(x^{i'})>u^{i'}(\bar x^{i'})\Rightarrow p\,x^{i'}>p\,\bar x^{i'}\). <i>Else it was affordable.</i> (2)</li>
+      <li>Sum: \(p\sum_ix^i>p\sum_i\bar x^i\). (3)</li>
+      <li>Profit max: \(p\sum_j\bar y^j\ge p\sum_jy^j\). (4)</li>
+      <li>Feasibility of both: \(p\sum x^i-p\sum\bar x^i=p\sum y^j-p\sum\bar y^j\). LHS \(>0\ge\) RHS. Contradiction. ∎</li>
+    </ol>
+  </div>
+
+  <h2>When the 1WT breaks <span class="see"><a href="../lessons/0005-when-the-first-welfare-theorem-fails.html">L5</a></span></h2>
+  <table class="simple">
+    <tr><th>Modification</th><th>1WT?</th><th>Which step / why</th></tr>
+    <tr><td>No LNS (thick ICs, bliss)</td><td>Fails</td><td>(1): weakly preferred can be strictly cheaper</td></tr>
+    <tr><td>Convex \(u\), non-convex \(Y\), IRS</td><td>Holds</td><td>Not used; IRS threatens <em>existence</em> of CE</td></tr>
+    <tr><td>One price-taking firm</td><td>Holds</td><td>\(|J|\) never used. Monopoly pricing isn't a CE.</td></tr>
+    <tr><td>Consumption externality</td><td>Fails</td><td>(1)–(2): optimality holds others' \(\bar x\) fixed</td></tr>
+    <tr><td>Production externality</td><td>Fails</td><td>(4): \(Y^{j'}(y^j)\) differs from \(Y^{j'}(\bar y^j)\)</td></tr>
+    <tr><td>Incomplete markets</td><td>Fails (unconstrained)</td><td>(5): untraded goods have no price. Constrained PO in the fixed-endowment case.</td></tr>
+    <tr><td>Heterogeneous / wrong beliefs</td><td>Holds</td><td>PO w.r.t. agents' own beliefs (beliefs live in \(u^i\))</td></tr>
+    <tr><td>Lump-sum taxes</td><td>Holds</td><td>Only endowment values change</td></tr>
+    <tr><td>Distorting taxes</td><td>Fails</td><td>Agents face different prices: MRS ≠ MRT</td></tr>
+    <tr><td>Infinitely many agents and goods (OLG)</td><td>Can fail</td><td>(3): \(p\sum\bar x^i=\infty\), so "∞ > ∞" <span class="see"><a href="../lessons/0012-why-the-1wt-fails-in-olg.html">L12</a></span></td></tr>
+  </table>
+
+  <h2>2WT: PO ⇒ quasi-equilibrium (under HH, FF, non-satiated \(h\)) <span class="see"><a href="../lessons/0006-second-welfare-theorem.html">L6</a></span></h2>
+  <div class="box theorem"><p>\(\exists p\ne0\): (i) \(p\,\bar y^j\ge p\,y\ \forall y\in Y^j\); (ii) \(\bar x^i\in\arg\min\{p\,x: x\in X^i,\ u^i(x)\ge u^i(\bar x^i)\}\).</p></div>
+  <div class="box proof">
+    <ol>
+      <li>\(A=\sum_i\{x\in X^i:u^i(x)\ge u^i(\bar x^i)\}\); \(B=Y+\sum_ie^i\).</li>
+      <li>Convex: HH (set-sum of convex sets) and FF.</li>
+      <li>\(A\cap\operatorname{Int}B=\emptyset\): else mix \(h\)'s bundle toward \(\tilde x^h\). It stays in \(B\) (interior), \(h\) strictly gains, and that contradicts PO.</li>
+      <li>Minkowski (needs \(\operatorname{Int}B\ne\emptyset\), e.g. free disposal): \(p\ne0\), \(p\,x\ge p\,z\ \forall x\in A,z\in B\). (6)</li>
+      <li>\(\bar x=\sum\bar x^i\in A\), \(\bar z=\sum\bar y^j+\sum e^i\in B\), \(\bar x=\bar z\) ⇒ \(p\bar x=\min_Ap\,x=\max_Bp\,z\). (7)</li>
+      <li>Firm \(j\) with \(p\hat y>p\bar y^j\): \(\hat z=\hat y+\sum_{k\ne j}\bar y^k+\sum e^i\in B\) has \(p\hat z>p\bar x\). Contradicts (6).</li>
+      <li>Household \(i\) with \(u^i(\hat x)\ge u^i(\bar x^i)\), \(p\hat x<p\bar x^i\): \(\hat a=\hat x+\sum_{k\ne i}\bar x^k\in A\) has \(p\hat a<p\bar z\). Contradicts (6). ∎</li>
+    </ol>
+  </div>
+  <p>Monotone \(u^i\) ⇒ \(p\ge0\): otherwise \(\bar x+te_k\in A\) and \(p\cdot(\bar x+te_k)\to-\infty\).</p>
+
+  <h2>Arrow's remark: QE ⇒ CE <span class="see"><a href="../lessons/0007-arrows-remark-and-decentralization.html">L7</a></span></h2>
+  <div class="two">
+    <div class="box proof">
+      <p>Suppose \(\hat x\) with \(p\hat x\le p\bar x^i\), \(u(\hat x)>u(\bar x^i)\). Let \(x^\theta=\theta\tilde x^i+(1-\theta)\hat x\).</p>
+      <ol>
+        <li>Continuity, \(\theta\) small: \(u(x^\theta)>u(\bar x^i)\).</li>
+        <li>\(p\,x^\theta<\theta p\bar x^i+(1-\theta)p\bar x^i=p\bar x^i\).</li>
+        <li>This contradicts expenditure minimization. ∎</li>
+      </ol>
+    </div>
+    <div class="box warning">
+      <div class="box-title">Exceptional case</div>
+      <p>\(u=\sqrt{x_1}+x_2\), \(e=(0,1)\). The IC is vertical at \(e\), so \(p=(1,0)\) and \(e\) is the cheapest point. There is a quasi-equilibrium but no CE: \(x_1^d=(p_2/2p_1)^2>0\) whenever \(p_2>0\).</p>
+      <p><b>Rule it out</b>: \(X^i=\mathbb{R}^m_+\), monotone (so \(p\ge0\)), \(\bar x^i\gg0\) ⇒ \(p\bar x^i>0=p\cdot0\).</p>
+    </div>
+  </div>
+
+  <h2>Decentralization</h2>
+  <ul>
+    <li>Need wealth \(=p\,\bar x^i\): \(p\,e^i+\sum_j\theta^i_j\pi^j=p\,\bar x^i\). One choice: any \(\theta\), with \(e^i=\bar x^i-\sum_j\theta^i_j\bar y^j\).</li>
+    <li>Not unique. Equivalently, zero-sum lump-sum transfers \(T^i=p\bar x^i-p\hat e^i-\sum_j\hat\theta^i_j\pi^j\).</li>
+  </ul>
+
+  <h2>Non-convex failures of the 2WT</h2>
+  <table class="simple">
+    <tr><th>Example</th><th>What breaks</th></tr>
+    <tr><td>\(u^A=x_1^2+x_2^2\), \(u^B=\min\{x^B_1,x^B_2\}\); \((t,t)\) is PO</td><td>A's demand on any line is an endpoint, never \((t,t)\)</td></tr>
+    <tr><td>Crusoe, \(c=n^\gamma\), \(\gamma>1\)</td><td>Firm earns \(\bar\pi=\bar n^\gamma(1-\gamma)<0\) at the tangency price</td></tr>
+    <tr><td>Fixed cost: \(c=(n-n_0)^\gamma\), \(u=\log c+b\log\ell\)</td><td>\(\bar n=\frac{\gamma+bn_0}{\gamma+b}\); fails iff \(n_0>\frac{1-\gamma}{1+b}\) (firm shuts down)</td></tr>
+  </table>
+
+  <h2>Numbers worth remembering</h2>
+  <ul>
+    <li>Cobb–Douglas box, \(p_2=1\): \(p_1^*=\frac{ae_2+b(1-e_2)}{1-ae_1-b(1-e_1)}\). Contract curve \(x_2=\frac{k_bx_1}{k_a(1-x_1)+k_bx_1}\) with \(k=\frac{a}{1-a}\).</li>
+    <li>Crusoe \(c=n^\gamma\), \(u=\log c+b\log\ell\): \(\bar n=\gamma/(\gamma+b)\), \(w=\gamma\bar n^{\gamma-1}\). For \(\gamma=\tfrac12\), \(b=1\): \(\bar n=\tfrac13\), \(w=\tfrac{\sqrt3}2\).</li>
+    <li>Pigou: \(u^1=\log s+m\), \(u^2=m-\gamma s\): \(s^{CE}=1\), \(s^{PO}=\frac1{1+\gamma}\), DWL \(=\gamma-\log(1+\gamma)\), tax \(t=\gamma\).</li>
+  </ul>
+
+</div>
+</body>
+</html>

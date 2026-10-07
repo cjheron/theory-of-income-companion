@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 7 — Arrow's Remark, Decentralization, and Non-Convexities</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part I: Welfare Theorems · Lesson 7 of 20</div>
+    <h1>Arrow's Remark, Decentralization, and Non-Convexities</h1>
+    <div class="meta">Covers <a href="../sources/slides1-welfare-theorems.pdf#page=31">Slides 1, pp. 31–35</a> · About 40 min · Prerequisite: <a href="0006-second-welfare-theorem.html">Lesson 6</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>prove Arrow's remark: expenditure minimization + "not the cheapest point" ⇒ utility maximization;</li>
+      <li>exhibit the classic counterexample where a PO allocation is a quasi-equilibrium but <em>not</em> a CE, and state assumptions that rule it out;</li>
+      <li>design endowments and ownership shares that decentralize a given PO allocation, and explain why they are not unique;</li>
+      <li>draw the two pictures from slide 35 where non-convexities make the 2WT fail.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides1-welfare-theorems.pdf#page=31">Slides 1, pp. 31–35</a>. Mas-Colell, Whinston &amp; Green §16.D, which introduces <em>price quasi-equilibrium with transfers</em>, gives the condition under which it is a full equilibrium, and draws the "exceptional case". The exceptional case goes back to Arrow's 1951 Berkeley Symposium paper, "An Extension of the Basic Theorems of Classical Welfare Economics".
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>1. Where Lesson 6 left us</h2>
+
+  <p>The 2WT delivered a price \(p\neq0\) at which firms maximize profits and each household's \(\bar x^i\) <em>minimizes expenditure</em> over \(\{x\in X^i: u^i(x)\ge u^i(\bar x^i)\}\). Give household \(i\) exactly enough wealth, \(M^i=p\,\bar x^i\), to buy its PO bundle. Is \(\bar x^i\) then its <em>utility-maximizing</em> choice in \(\{x\in X^i: p\,x\le M^i\}\)? These are dual problems, and duality can fail at exactly one kind of point.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>2. Arrow's remark <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=31">S1 p.31</a></h2>
+
+  <div class="theorem">
+    <div class="box-title">Arrow's remark</div>
+    <p>Let \(X^i\) be convex and \(u^i\) continuous (the slides also assume strict quasi-concavity). Suppose \(\bar x^i\) solves \(\min_{x\in X^i}p\,x\) s.t. \(u^i(x)\ge u^i(\bar x^i)\), and suppose \(\bar x^i\) is <strong>not a cheapest point</strong> of \(X^i\): there is \(\tilde x^i\in X^i\) with \(p\,\tilde x^i<p\,\bar x^i\). Then \(\bar x^i\) solves \(\max_{x\in X^i}u^i(x)\) s.t. \(p\,x\le p\,\bar x^i\).</p>
+    <p>Consequently, if this holds for every \(i\), the PO allocation and \(p\) form a <strong>competitive equilibrium</strong> for any ownership structure that gives each \(i\) wealth \(p\,\bar x^i\).</p>
+  </div>
+
+  <div class="proof">
+    <div class="box-title">Proof <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=32">S1 pp.32–33</a></div>
+    <ol class="steps">
+      <li><strong>Suppose not.</strong> Then there is \(\hat x\in X^i\) with \(p\,\hat x\le p\,\bar x^i\) and \(u^i(\hat x)>u^i(\bar x^i)\).</li>
+      <li><strong>Mix toward the cheap point.</strong> For \(\theta\in(0,1)\) let \(x^\theta=\theta\tilde x^i+(1-\theta)\hat x\), which lies in \(X^i\) by convexity.</li>
+      <li><strong>Still good enough.</strong> As \(\theta\to0\), \(x^\theta\to\hat x\). Since \(u^i(\hat x)>u^i(\bar x^i)\) and \(u^i\) is continuous, \(u^i(x^\theta)>u^i(\bar x^i)\) for all \(\theta\) small enough. (Only continuity is needed here. Strict quasi-concavity is not.)</li>
+      <li><strong>Strictly cheaper.</strong> \(p\,x^\theta=\theta\,p\,\tilde x^i+(1-\theta)\,p\,\hat x<\theta\,p\,\bar x^i+(1-\theta)\,p\,\bar x^i=p\,\bar x^i\). The strict inequality comes from \(p\,\tilde x^i<p\,\bar x^i\) and \(\theta>0\).</li>
+      <li><strong>Contradiction.</strong> \(x^\theta\) reaches at least utility \(u^i(\bar x^i)\) at strictly lower cost than \(\bar x^i\). That contradicts expenditure minimization.</li>
+    </ol>
+    <div class="qed">∎</div>
+  </div>
+
+  <div class="intuition">
+    <div class="box-title">Intuition: why we need room to economize</div>
+    <p>A better bundle \(\hat x\) that costs no more than \(\bar x^i\) is not itself a contradiction, because expenditure minimization only rules out <em>strictly cheaper</em> ways to reach \(u^i(\bar x^i)\). We need to shave a little off \(\hat x\)'s cost without losing too much utility. Mixing in a strictly cheaper bundle does exactly that. If \(\bar x^i\) is already the cheapest point in \(X^i\), there is nothing to mix with, and the argument collapses.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>3. The exceptional case: a PO allocation that is not a CE <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=34">S1 p.34</a></h2>
+
+  <p>Slide 34 asks for an example with \(m=2\) where \(\bar x\) minimizes expenditure but the hint warns that "the cost minimizing choice must be the cheapest point". Here is the canonical one. One household, no firms, \(X=\mathbb{R}^2_+\), endowment \(e=(0,1)\), and
+  $$u(x_1,x_2)=\sqrt{x_1}+x_2 .$$
+  \(u\) is continuous, increasing and concave (so quasi-concave). Good 2 has constant marginal utility, which is the "no Inada condition" of the hint. Good 1 has infinite marginal utility at \(x_1=0\).</p>
+
+  <ul>
+    <li><strong>PO.</strong> The only feasible allocation (up to disposal) is \(\bar x=e=(0,1)\), so it is trivially PO.</li>
+    <li><strong>The only supporting price is \(p=(1,0)\).</strong> The indifference curve through \((0,1)\), \(x_2=1-\sqrt{x_1}\), has slope \(-1/(2\sqrt{x_1})\to-\infty\) at \(x_1=0\): it is <em>vertical</em> at \(\bar x\). The only line through \(\bar x\) with \(A\) on one side is the vertical axis \(x_1=0\), so \(p\propto(1,0)\). At this \(p\), \(p\,\bar x=0=\min_{x\ge0}p\,x\): \(\bar x\) is a cheapest point.</li>
+    <li><strong>Quasi-equilibrium, yes.</strong> Expenditure \(x_1\) is minimized at \(x_1=0\), and \((0,1)\) reaches the PO utility. ✓</li>
+    <li><strong>CE, no.</strong> At \(p=(1,0)\) the budget set is \(\{x_1=0,\ x_2\ \text{anything}\}\): good 2 is free, so utility is unbounded and there is no demand. At any \(p\) with \(p_2>0\), demand is \(x_1=(p_2/2p_1)^2>0=e_1\), so good 1 is in excess demand. <strong>No CE exists</strong>, even though the 2WT's quasi-equilibrium does.</li>
+  </ul>
+
+  <div class="figure">
+    <div id="ex-ctrl"></div>
+    <div id="ex-fig"></div>
+    <div id="ex-read"></div>
+    <div class="caption"><b>Interactive.</b> \(q=p_1/(p_1+p_2)\) is the weight on good 1. The black line is the budget through the endowment \(e=(0,1)\); the <span style="color:#2a78d6">blue</span> curve is the indifference curve through \(e\); the <span style="color:#eb6834">orange</span> dot is the household's demand. For every \(q<1\) the household wants positive \(x_1\), and there is none to give. At \(q=1\) the budget line becomes the vertical axis, tangent to the indifference curve at \(e\), but then good 2 is free and demand runs off to infinity.</div>
+  </div>
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const P = EconPlot.create('#ex-fig', { x: [0, 1.5], y: [0, 2.2], width: 480, height: 400, xlabel: 'x_1', ylabel: 'x_2' });
+    EconPlot.sliders('#ex-ctrl', [{ id: 'q', label: 'q', min: 0.2, max: 1, step: 0.005, value: 0.6, fmt: v => v.toFixed(3) }], v => {
+      P.clear();
+      const q = v.q, p1 = q, p2 = 1 - q;
+      P.fn(x => 1 - Math.sqrt(x), { color: C.blue, width: 2.2, domain: [0, 1], label: 'u = 1 (through e)', labelAt: 0.82, labelDy: 18 });
+      P.fn(x => 1.8 - Math.sqrt(x), { color: C.blue, width: 1.2, dash: '4 4', domain: [0, 1.5] });
+      let rows;
+      if (p2 > 1e-6) {
+        P.fn(x => 1 - (p1 / p2) * x, { color: C.ink, width: 1.6 });
+        const x1 = Math.pow(p2 / (2 * p1), 2), x2 = 1 - (p1 / p2) * x1;
+        const uD = Math.sqrt(x1) + x2;
+        P.contour((a, b) => Math.sqrt(a) + b, uD, { color: C.orange, width: 1.6, dash: '6 3' });
+        if (x2 >= 0) P.point(x1, x2, { color: C.orange, label: 'demand', labelDy: -8 });
+        rows = [['p₁/p₂ :', (p1 / p2).toFixed(3)], ['demand x₁ = (p₂/2p₁)² :', x1.toFixed(3), 'bad'],
+                ['excess demand for good 1 :', x1.toFixed(3), 'bad'], ['CE at this price?', 'no']];
+        if (x2 < 0) rows[1] = ['demand x₁ (corner, x₂ = 0):', (p2 / p1).toFixed(3), 'bad'];
+      } else {
+        P.vline(0.003, { color: C.ink, dash: null, width: 3 });
+        P.arrow(0.06, 1.15, 0.06, 2.1, { color: C.orange, width: 2 });
+        P.text(0.1, 1.75, 'good 2 free: demand → ∞', { color: '#b0501f', sans: true, size: 12 });
+        rows = [['p :', '(1, 0)'], ['e is cheapest point?', 'yes', 'bad'], ['expenditure-min at e?', 'yes', 'good'], ['utility max exists?', 'no', 'bad']];
+      }
+      P.point(0, 1, { label: 'e = x̄', labelDx: 8, labelDy: -6 });
+      EconPlot.readout('#ex-read', rows);
+    });
+  })();
+  </script>
+
+  <h3>Ruling the exceptional case out <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=34">S1 p.34</a></h3>
+  <p>Slide 34's last question: what assumptions on \(u^i\), \(X^i\) guarantee that no PO bundle is a cheapest point? A clean sufficient set:</p>
+  <ol>
+    <li>\(X^i=\mathbb{R}^m_+\), so \(0\in X^i\) and \(p\cdot0=0\).</li>
+    <li>Preferences are monotone, so \(p\ge0\) (Lesson 6, <a href="0006-second-welfare-theorem.html">Exercise 6.5</a>). With \(p\neq0\), some \(p_k>0\).</li>
+    <li><strong>Interiority:</strong> every PO bundle is strictly positive, \(\bar x^i\gg0\). This is guaranteed if bundles on the boundary of \(\mathbb{R}^m_+\) are worse than every strictly positive bundle, e.g. Cobb–Douglas \(\prod_kx_k^{a_k}\), or any \(u\) satisfying Inada conditions in every good, as long as each agent gets positive utility at the PO allocation.</li>
+  </ol>
+  <p>Then \(p\,\bar x^i\ge p_k\bar x^i_k>0=p\cdot0\), so \(\tilde x^i=0\) is strictly cheaper and Arrow's remark applies. Alternative routes: assume \(p\gg0\) (e.g. strictly monotone preferences together with an interiority condition) and \(\bar x^i\neq0\); or assume each household's wealth exceeds the minimum cost of \(X^i\) (a "minimum wealth" or survival condition). In the counterexample, (3) fails: \(\bar x_1=0\), and the household has no wealth to spare at \(p=(1,0)\).</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>4. Decentralization: who must own what? <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=34">S1 p.34</a></h2>
+
+  <p>For \((p,\bar x,\bar y)\) to be a CE we need each household's wealth to be exactly the cost of its PO bundle:
+  $$p\,e^i+\sum_j\theta^i_j\,\pi^j\ =\ p\,\bar x^i\quad\text{for all }i,\qquad \pi^j=p\,\bar y^j .$$
+  If wealth were higher, \(i\) would buy more than \(\bar x^i\). If lower, \(i\) could not afford it.</p>
+
+  <div class="theorem">
+    <div class="box-title">A decentralizing ownership structure</div>
+    <p>Pick any shares \(\theta^i_j\ge0\) with \(\sum_i\theta^i_j=1\) (e.g. \(\theta^i_j=1/I\)) and set
+    $$e^i\ \equiv\ \bar x^i-\sum_j\theta^i_j\,\bar y^j .$$
+    Then (i) \(\sum_ie^i=\sum_i\bar x^i-\sum_j\bar y^j\) equals the economy's aggregate endowment, by feasibility; and (ii) \(p\,e^i+\sum_j\theta^i_j\pi^j=p\,\bar x^i-\sum_j\theta^i_jp\,\bar y^j+\sum_j\theta^i_jp\,\bar y^j=p\,\bar x^i\). ✓</p>
+  </div>
+
+  <p><strong>Is it unique? No, far from it.</strong> Only the <em>value</em> \(p\,e^i+\sum_j\theta^i_j\pi^j\) matters. (i) Any shares \(\theta\) work, with \(e^i\) adjusted. (ii) The composition of \(e^i\) can change in any direction \(d^i\) with \(p\cdot d^i=0\) and \(\sum_id^i=0\). (iii) Equivalently, starting from <em>any</em> initial endowments, lump-sum transfers \(T^i=p\,\bar x^i-p\,e^i-\sum_j\theta^i_j\pi^j\) (which sum to zero) implement the allocation. This is the precise sense in which "any efficient allocation can be reached by markets plus lump-sum transfers".</p>
+
+  <div class="warning">
+    <div class="box-title">Why this is less useful in practice than it sounds</div>
+    <p>The transfers depend on \(\bar x^i\) and \(p\), i.e. on everyone's preferences. They must also be <em>lump-sum</em>: independent of anything the household chooses. Real tax systems condition on income or consumption, which distorts MRS ≠ MRT (Lesson 5, <a href="0005-when-the-first-welfare-theorem-fails.html">Exercise 5.6(d)</a>). The 2WT is a benchmark, not a policy recipe.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>5. Non-convexities: the two failures on slide 35 <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=35">S1 p.35</a></h2>
+
+  <h3>(a) A non-quasi-concave household in the Edgeworth box</h3>
+  <p>Total endowment \((1,1)\). A has \(u^A=x_1^2+x_2^2\): strictly increasing (so LNS holds) but <em>convex</em>, with indifference curves that bow outward (quarter circles). B has Leontief preferences \(u^B=\min\{x^B_1,x^B_2\}\). Consider \(\bar x^A=(t,t)\) and \(\bar x^B=(1-t,1-t)\).</p>
+  <ul>
+    <li><strong>It is PO.</strong> B is at least as well off only at \(x^A\in\{x_1\le t,\ x_2\le t\}\), a square whose farthest point from A's origin is \((t,t)\). So A can't gain without hurting B.</li>
+    <li><strong>It is not a CE for any prices or transfers.</strong> On any budget line through \((t,t)\), A's convex utility is maximized at an <em>endpoint</em> of the line, never in the middle. So A never demands \((t,t)\).</li>
+  </ul>
+
+  <div class="figure">
+    <div id="nq-ctrl"></div>
+    <div id="nq-fig"></div>
+    <div id="nq-read"></div>
+    <div class="caption"><b>Interactive.</b> Move \(t\) along the diagonal (every such point is PO) and tilt the price line through it. The <span style="color:#eb6834">orange</span> L is B's indifference curve, with B's better set shaded below-left. The <span style="color:#2a78d6">blue</span> arc is A's indifference curve through \((t,t)\). However you tilt the line, A's demand (<span style="color:#4a3aa7">violet</span>) jumps to an intercept, which is often outside the box, where A gets strictly higher utility. The PO point is never chosen.</div>
+  </div>
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const P = EconPlot.create('#nq-fig', { x: [0, 1], y: [0, 1], width: 420, height: 420, equal: true, frame: true,
+      xlabel: 'x_1^A  →', ylabel: 'x_2^A  →', margin: { t: 26, r: 30 } });
+    EconPlot.sliders('#nq-ctrl', [
+      { id: 't', label: 't', min: 0.15, max: 0.85, step: 0.01, value: 0.45 },
+      { id: 'q', label: 'p₁/p₂', min: 0.3, max: 3, step: 0.01, value: 1 }
+    ], v => {
+      const { t, q } = v;
+      P.clear();
+      P.region((x, y) => x <= t && y <= t, { fill: C.fillOrange });
+      P.segment(t, 0, t, t, { color: C.orange, width: 2.2 });
+      P.segment(0, t, t, t, { color: C.orange, width: 2.2 });
+      const r = Math.SQRT2 * t;
+      P.param(a => r * Math.cos(a), a => r * Math.sin(a), [0, Math.PI / 2], { color: C.blue, width: 2.2 });
+      P.fn(x => t - q * (x - t), { color: C.ink, width: 1.6 });
+      const ix = t + t / q, iy = t + q * t;           // x1- and x2-intercepts
+      const dem = ix >= iy ? [ix, 0] : [0, iy];
+      const inBox = dem[0] <= 1 && dem[1] <= 1;
+      if (inBox) P.point(dem[0], dem[1], { color: C.violet, r: 6 });
+      else { const ex = dem[0] > 0 ? [1, 0.03] : [0.03, 1]; P.arrow(t, t, ex[0] - (dem[0] > 0 ? 0.03 : 0), ex[1] - (dem[0] > 0 ? 0 : 0.03), { color: C.violet, width: 1.6, dash: '4 3' }); P.text(dem[0] > 0 ? 0.62 : 0.05, dem[0] > 0 ? 0.08 : 0.94, 'A demands outside box →', { color: C.violet, sans: true, size: 11 }); }
+      P.point(t, t, { label: 'PO (t,t)', labelDx: 8, labelDy: -8 });
+      P.text(1, 1, 'O^B', { dx: 4, dy: -6, italic: true });
+      EconPlot.readout('#nq-read', [
+        ['u^A at PO :', (2 * t * t).toFixed(3)], ['A’s demand :', '(' + dem[0].toFixed(2) + ', ' + dem[1].toFixed(2) + ')'],
+        ['u^A at demand :', (dem[0] ** 2 + dem[1] ** 2).toFixed(3), 'bad'], ['PO decentralized?', 'no', 'bad']
+      ]);
+    });
+  })();
+  </script>
+
+  <h3>(b) A fixed cost in production</h3>
+  <p>One consumer, one firm, two goods: leisure \(\ell\) and consumption \(c\). The consumer has one unit of time and utility \(\log c+b\log\ell\). The firm needs a <strong>fixed</strong> labour input \(n_0\) before producing anything, and then has <strong>increasing marginal cost</strong>:
+  $$c=\begin{cases}0 & n\le n_0\\ (n-n_0)^\gamma & n>n_0\end{cases},\qquad 0<\gamma<1 .$$
+  The production set has a flat segment from \(n=0\) to \(n=n_0\) followed by a concave piece, so it is <strong>not convex</strong>. The PO allocation is interior (because \(\log c\to-\infty\) at \(c=0\)), at \(\bar n=(\gamma+bn_0)/(\gamma+b)\). The only candidate price is the slope there, \(w=\gamma(\bar n-n_0)^{\gamma-1}\). At that price the firm's profit from the PO plan is
+  $$\bar\pi=(\bar n-n_0)^{\gamma}-w\bar n=(\bar n-n_0)^{\gamma-1}\big[(1-\gamma)\bar n-n_0\big],$$
+  which is <strong>negative iff \(n_0>(1-\gamma)\bar n\)</strong>, i.e. iff \(n_0>\frac{1-\gamma}{1+b}\). In that case the firm prefers to shut down (\(n=0\), \(\pi=0\)), and the PO allocation cannot be decentralized.</p>
+
+  <div class="figure">
+    <div id="fc-ctrl"></div>
+    <div id="fc-fig"></div>
+    <div id="fc-read"></div>
+    <div class="verdict" id="fc-verdict"></div>
+    <div class="caption"><b>Interactive.</b> <span style="color:#2a78d6">Blue</span>: the producible set (the flat segment at \(c=0\) between \(\ell=1-n_0\) and \(\ell=1\) is the fixed cost). <span style="color:#eb6834">Orange</span>: the PO indifference curve. Black: the supporting line at the PO point. The violet dot is the "no production" plan \((\ell,c)=(1,0)\). When it lies <em>above</em> the price line, that plan is worth more than the PO plan at the supporting price, so the firm shuts down. Raise \(n_0\) past \((1-\gamma)/(1+b)\) and watch it happen.</div>
+  </div>
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const P = EconPlot.create('#fc-fig', { x: [0, 1.1], y: [-0.15, 1], width: 520, height: 420, xlabel: 'leisure ℓ', ylabel: 'consumption c' });
+    EconPlot.sliders('#fc-ctrl', [
+      { id: 'n0', label: 'n₀', min: 0, max: 0.5, step: 0.005, value: 0.15, fmt: v => v.toFixed(3) },
+      { id: 'g', label: 'γ', min: 0.3, max: 0.9, step: 0.01, value: 0.5 },
+      { id: 'b', label: 'b', min: 0.3, max: 2, step: 0.01, value: 1 }
+    ], v => {
+      const { n0, g, b } = v;
+      P.clear();
+      const front = l => { const n = 1 - l; return n > n0 ? Math.pow(n - n0, g) : 0; };
+      const nb = (g + b * n0) / (g + b), lb = 1 - nb, cb = Math.pow(nb - n0, g), w = g * Math.pow(nb - n0, g - 1);
+      const ub = Math.log(cb) + b * Math.log(lb), line = l => cb - w * (l - lb);
+      const pib = cb - w * nb, thr = (1 - g) / (1 + b), ok = pib >= -1e-9;
+      P.region((l, c) => l <= 1 && c <= front(l), { fill: C.fillBlue });
+      P.fn(front, { color: C.blue, width: 2.2, domain: [0, 1], n: 600 });
+      P.fn(l => Math.exp((ub - b * Math.log(l))), { color: C.orange, width: 2.2, domain: [0.05, 1.1] });
+      P.fn(line, { color: C.ink, width: 1.6 });
+      P.hline(0, { color: '#8c8a84', dash: null, width: 1 });
+      P.point(lb, cb, { label: 'PO', labelDx: 8, labelDy: -8 });
+      P.point(1, 0, { color: ok ? C.ink : C.violet, r: 6, label: 'no production', labelDx: -96, labelDy: 18 });
+      if (n0 > 0.01) P.text(1 - n0 / 2, 0, 'fixed cost', { anchor: 'middle', dy: -8, sans: true, size: 11, color: C.blue });
+      EconPlot.readout('#fc-read', [
+        ['PO labour n̄ :', nb.toFixed(3)], ['supporting wage w :', w.toFixed(3)],
+        ['profit at PO plan π̄ :', pib.toFixed(3), ok ? 'good' : 'bad'], ['threshold (1−γ)/(1+b) :', thr.toFixed(3)]
+      ]);
+      document.getElementById('fc-verdict').textContent = ok
+        ? 'π̄ ≥ 0: at price w the firm prefers the PO plan to shutting down, so the PO allocation is decentralizable (the non-convexity is not binding).'
+        : 'π̄ < 0: at the only candidate price the firm would rather shut down. The PO allocation cannot be decentralized. The 2WT fails because Y is not convex.';
+    });
+  })();
+  </script>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>6. Check your understanding</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">1. Where does the proof of Arrow's remark use the cheaper bundle \(\tilde x^i\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">To show the better bundle is at least as costly as x̄</li>
+        <li class="quiz-option" data-option="b">To make a mixture strictly cheaper than the bundle x̄</li>
+        <li class="quiz-option" data-option="c">To show that the price vector p is strictly positive</li>
+        <li class="quiz-option" data-option="d">To keep the mixture inside the upper contour set of x̄</li>
+      </ul>
+      <div class="quiz-explain">\(p\,x^\theta=\theta p\tilde x+(1-\theta)p\hat x<p\bar x\) needs \(p\tilde x<p\bar x\). Staying above \(u(\bar x)\) comes from continuity and \(\theta\) small.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">2. In the example \(u=\sqrt{x_1}+x_2\), \(e=(0,1)\), why is there no CE?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Because u is not continuous at the endowment point e</li>
+        <li class="quiz-option" data-option="b">Because the allocation (0,1) is not Pareto optimal</li>
+        <li class="quiz-option" data-option="c">Because u is not quasi-concave on the consumption set</li>
+        <li class="quiz-option" data-option="d">Because good 1 is in excess demand unless p₂ equals 0</li>
+      </ul>
+      <div class="quiz-explain">For \(p_2>0\), demand \(x_1=(p_2/2p_1)^2>0\). At \(p_2=0\), good 2 is free and demand doesn't exist. \(u\) is continuous and concave, and \((0,1)\) is trivially PO.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">3. Which ownership structures decentralize a PO allocation at price \(p\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Any with each household's wealth equal to p times its bundle</li>
+        <li class="quiz-option" data-option="b">Only the one giving every household equal shares of each firm</li>
+        <li class="quiz-option" data-option="c">Only the one where endowments equal the PO consumption bundles</li>
+        <li class="quiz-option" data-option="d">Any with endowments proportional to the aggregate endowment</li>
+      </ul>
+      <div class="quiz-explain">The condition is \(p\,e^i+\sum_j\theta^i_j\pi^j=p\,\bar x^i\). Many \((e,\theta)\) satisfy it, so the structure is not unique.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">4. With a fixed cost, when does the PO allocation fail to be decentralizable?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Whenever the fixed labour requirement is strictly positive</li>
+        <li class="quiz-option" data-option="b">Whenever the marginal cost of production is increasing</li>
+        <li class="quiz-option" data-option="c">When the firm's profit at the supporting price is negative</li>
+        <li class="quiz-option" data-option="d">When the household's utility function is not quasi-concave</li>
+      </ul>
+      <div class="quiz-explain">A small fixed cost can be harmless: the firm still prefers the PO plan to shutting down. Failure happens when \(\bar\pi<0\), i.e. \(n_0>(1-\gamma)/(1+b)\) in the example.</div>
+    </div>
+    <div class="quiz-score"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>7. Exercises</h2>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 7.1 <span class="tag slides">Slides p.34</span> Ownership structure</div>
+    <p>Let \(\{\bar x^i,\bar y^j\}\) be PO and \(p\) the price from the 2WT, with Arrow's condition holding for every \(i\). (a) Describe endowments and shares \((e^i,\theta^i_j)\) for which \((p,\bar x,\bar y)\) is a CE. (b) Is the structure unique? (c) Starting instead from given endowments \(\hat e^i\) and shares \(\hat\theta^i_j\), what lump-sum transfers work? Show they sum to zero.</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Any \(\theta\) with \(\sum_i\theta^i_j=1\), and \(e^i=\bar x^i-\sum_j\theta^i_j\bar y^j\) (§4). Firms maximize profit at \(p\) by the 2WT. Households have wealth exactly \(p\bar x^i\) and maximize utility by Arrow's remark. Markets clear because the allocation is feasible.<br>
+      (b) No. Any \((e,\theta)\) with the right wealth values works, e.g. perturb \(e^i\) by \(d^i\) with \(p\cdot d^i=0\) and \(\sum_i d^i=0\).<br>
+      (c) \(T^i=p\bar x^i-p\hat e^i-\sum_j\hat\theta^i_j p\bar y^j\). Then \(\sum_iT^i=p\big(\sum_i\bar x^i-\sum_i\hat e^i-\sum_j\bar y^j\big)=0\) by feasibility and \(\sum_i\hat\theta^i_j=1\).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 7.2 <span class="tag slides">Slides p.34</span> The cheapest point</div>
+    <p>Construct an example with \(m=2\) and quasi-concave \(u\) in which \(\bar x\) minimizes expenditure at given \(p\) but does not maximize utility on \(\{x:p\,x\le p\,\bar x\}\). Draw indifference curves and the budget line. Verify every claim.</p>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>The slide's hint: one good with zero price, \(u\) increasing, no Inada condition. Make the free good one with <em>constant</em> marginal utility.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body"><p>\(u=\sqrt{x_1}+x_2\), \(p=(1,0)\), \(\bar x=(0,1)\) (§3 and the figure at \(q=1\)). Expenditure \(p\,x=x_1\ge0=p\,\bar x\), so \(\bar x\) minimizes expenditure, and it is the cheapest point of \(\mathbb{R}^2_+\). The budget set \(\{x_1\le0\}=\{(0,x_2)\}\) contains \((0,2)\) with \(u=2>1\), so \(\bar x\) is not a utility maximizer. The budget line is the vertical axis, tangent to the indifference curve \(x_2=1-\sqrt{x_1}\) at \(\bar x\).</p></div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 7.3 <span class="tag slides">Slides p.34</span> <span class="tag proof">Proof</span></div>
+    <p>Give assumptions on \(u^i\), \(X^i\) ensuring that at every PO allocation and its supporting \(p\), each \(\bar x^i\) is not a cheapest point. Prove your claim, including that the relevant prices are non-negative.</p>
+    <details class="solution"><summary>Show solution</summary><div class="body"><p>Take \(X^i=\mathbb{R}^m_+\); \(u^i\) continuous, quasi-concave and increasing; and strictly positive bundles strictly preferred to all boundary bundles (e.g. Cobb–Douglas), with each agent getting a utility above the boundary level at the PO allocation. Then \(\bar x^i\gg0\). Monotonicity gives \(p\ge0\) (Exercise 6.5: otherwise \(\bar x+te_k\in A\) and \(p\cdot(\bar x+te_k)\to-\infty\)). Since \(p\neq0\), some \(p_k>0\), so \(p\,\bar x^i\ge p_k\bar x^i_k>0=p\cdot0\). Hence \(\tilde x^i=0\) is strictly cheaper.</p></div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 7.4 <span class="tag slides">Slides p.35</span> Non-quasi-concave Edgeworth box</div>
+    <p>Sketch an Edgeworth box with one agent whose utility is not quasi-concave, in which some PO allocation cannot be decentralized. Prove it is PO and prove no price works.</p>
+    <details class="solution"><summary>Show solution</summary><div class="body"><p>Use §5(a): \(u^A=x_1^2+x_2^2\), \(u^B=\min\{x_1^B,x_2^B\}\), \(\bar x^A=(t,t)\). <em>PO:</em> any allocation with \(u^B\ge 1-t\) has \(x^A\le(t,t)\) componentwise, so \(u^A(x^A)\le 2t^2=u^A(\bar x^A)\). <em>Not decentralizable:</em> on any budget line \(L\) through \((t,t)\) with \(p\ge0\), \(p\ne0\), \(u^A\) is strictly convex along \(L\), so its maximum over the segment \(L\cap\mathbb{R}^2_+\) is attained only at an endpoint. Since \((t,t)\) is interior to that segment, it is not demanded. (If \(p_1\) or \(p_2\) is 0, demand is unbounded.)</p></div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 7.5 <span class="tag slides">Slides p.35</span> <span class="tag exam">Exam-style</span> Fixed cost</div>
+    <p>In §5(b) with \(\gamma=\tfrac12\):</p>
+    <ol class="parts" type="a">
+      <li>Show that \(\bar n=(\gamma+bn_0)/(\gamma+b)\).</li>
+      <li>For \(b=1\), find the critical fixed cost above which the PO allocation can't be decentralized.
+        <div class="numcheck" data-answer="0.25" data-tol="0.002" data-prompt="n₀* ="></div></li>
+      <li>For \(b=\tfrac12\) (a household that cares less about leisure), find it again. Interpret the change.
+        <div class="numcheck" data-answer="1/3" data-tol="0.002" data-prompt="n₀* ="></div></li>
+      <li>Sketch the production possibility set and explain, in terms of the 2WT proof, which step fails.</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Maximize \(\gamma\log(n-n_0)+b\log(1-n)\). FOC: \(\gamma/(n-n_0)=b/(1-n)\), so \(\gamma(1-n)=b(n-n_0)\) and \(n=(\gamma+bn_0)/(\gamma+b)\).<br>
+      (b) \(\bar\pi<0\iff n_0>(1-\gamma)\bar n\iff n_0(\gamma+b)>(1-\gamma)(\gamma+bn_0)\iff n_0\,\gamma(1+b)>\gamma(1-\gamma)\iff n_0>\frac{1-\gamma}{1+b}=\tfrac14\).<br>
+      (c) \(\frac{1/2}{3/2}=\tfrac13\). When leisure matters less, the PO plan uses more labour, which spreads the fixed cost over more output, so a larger fixed cost is tolerable before profits turn negative.<br>
+      (d) The set is flat between \(\ell=1-n_0\) and \(\ell=1\), then rises concavely: it is not convex. Assumption FF fails, so Step 6 of the 2WT (firms maximize profits at \(p\)) breaks. The plan "no production" lies above the supporting hyperplane.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 7.6 <span class="tag exam">Exam-style</span> True / False / Uncertain</div>
+    <ol class="parts" type="a">
+      <li>"If \(u^i\) is strictly increasing, Arrow's condition holds automatically."</li>
+      <li>"A small fixed cost always makes the 2WT fail."</li>
+      <li>"If a PO allocation is supported as a quasi-equilibrium with \(p\gg0\) and every \(\bar x^i\neq0\) with \(X^i=\mathbb{R}^m_+\), it is a CE with transfers."</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body"><p>(a) <strong>False.</strong> \(u=\sqrt{x_1}+x_2\) is strictly increasing, yet \(\bar x\) is the cheapest point at \(p=(1,0)\). Monotonicity gives \(p\ge0\), not \(p\gg0\) or interiority. (b) <strong>False.</strong> In §5(b) decentralization survives for \(n_0\le(1-\gamma)/(1+b)\). Non-convexity is a problem only when it binds at the supporting price. (c) <strong>True.</strong> \(p\,\bar x^i>0=p\cdot0\), so Arrow's remark applies (given continuity and convex \(X^i\)).</p></div></details>
+  </div>
+
+  <div class="takeaways">
+    <h2>Key takeaways</h2>
+    <ul>
+      <li>2WT ⇒ quasi-equilibrium. Arrow's remark (a strictly cheaper bundle exists, plus continuity) ⇒ full CE with transfers.</li>
+      <li>The exceptional case: a zero-wealth agent at a boundary with a vertical indifference curve (\(\sqrt{x_1}+x_2\), \(e=(0,1)\)). There is a quasi-equilibrium but no CE.</li>
+      <li>Interiority + monotonicity + \(X=\mathbb{R}^m_+\) rule it out.</li>
+      <li>Decentralizing wealth: \(p\,e^i+\sum_j\theta^i_j\pi^j=p\,\bar x^i\). Infinitely many \((e,\theta)\) do it, or equivalently zero-sum lump-sum transfers.</li>
+      <li>Non-convex preferences make households go to corners; non-convex technology (IRS, fixed costs) makes firms shut down or go to corners. Either way the 2WT fails.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher). Try "why does a continuum of agents convexify the economy (Aumann)?" or "can a two-part tariff decentralize the fixed-cost example?"</div>
+
+  <div class="lesson-nav">
+    <a href="0006-second-welfare-theorem.html">← Lesson 6: The Second Welfare Theorem</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="../reference/welfare-theorems-cheatsheet.html">Cheatsheet</a>
+    <a href="0008-olg-environment.html">Lesson 8: The OLG environment →</a>
+  </div>
+
+</div>
+</body>
+</html>
