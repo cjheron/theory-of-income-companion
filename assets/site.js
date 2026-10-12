@@ -14,7 +14,8 @@
     'slides1-welfare-theorems.pdf': BASE + 'AJ33gHxfLzEahGPug4HzuOk/1.%20Welfare%20Theorems/slidesnotes1theoryincome2026_revised.pdf' + RL,
     'slides2-olg.pdf': BASE + 'AJI5knp3cAcAJ5vNvKdLHHc/2-OLG%20Models/slidesnotes2theoryincome_Fall2026_revised.pdf' + RL,
     'slides3-olg-extensions.pdf': BASE + 'AIbU38ww5Uu37niEtoAsrfc/2-OLG%20Models/slidesnotes2theoryincome2026_OLG_extensions.pdf' + RL,
-    'slides-blanchard-yaari.pdf': BASE + 'AKyvihV-XhYopjk9DdiBWDk/2-OLG%20Models/Blanchard-Yari/model_of_perpetual_youth_Blanchard_Yaari_Fall2026_revised.pdf' + RL
+    'slides-blanchard-yaari.pdf': BASE + 'AKyvihV-XhYopjk9DdiBWDk/2-OLG%20Models/Blanchard-Yari/model_of_perpetual_youth_Blanchard_Yaari_Fall2026_revised.pdf' + RL,
+    'slides4-aggregation-planner.pdf': BASE + 'AMqLH94oaYUjF_lMe4al9MM/3-Aggregation%20Social%20Planner/slidesnotes3theoryincome_Fall2026_revised.pdf' + RL
   };
   var CLASS_NOTES = BASE + 'ALVspsCuMymaBs2MzSqeOwQ?rlkey=vg06spyn2hsedldeyyaenifrn&dl=0';
   if (location.protocol === 'file:') return;

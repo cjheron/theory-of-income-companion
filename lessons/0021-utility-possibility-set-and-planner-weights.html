@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 21 — The Planner Problem and Pareto Weights</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part V: Aggregation &amp; the Social Planner · Lesson 21 of 25</div>
+    <h1>The Planner Problem and Pareto Weights</h1>
+    <div class="meta">Covers <a href="../sources/slides4-aggregation-planner.pdf#page=1">Class Note 3, slides 1–10</a> · About 40 min · Prerequisites: <a href="0003-pareto-optimality-and-lns.html">Lesson 3</a> (Pareto optimality), <a href="0006-second-welfare-theorem.html">Lesson 6</a> (separating hyperplanes)</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>define the utility possibility set \(U\), and prove that it is convex under HH, FF and concave utilities (CC);</li>
+      <li>state and prove both directions of "Pareto optimal \(\Leftrightarrow\) solves a weighted planner problem", saying exactly which assumption each step uses;</li>
+      <li>explain why zero weights are dangerous, and why concavity (a <em>cardinal</em> property) and not quasi-concavity is what the theorem needs.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides4-aggregation-planner.pdf#page=3">Class Note 3, slides 3–10</a>. The textbook version is Mas-Colell, Whinston &amp; Green, <em>Microeconomic Theory</em>, §16.E ("Pareto Optimality and Social Welfare Optima"), which draws the same pictures of \(U\). The idea of recovering an equilibrium from a weighted planner problem goes back to Negishi, "Welfare Economics and Existence of an Equilibrium for a Competitive Economy", <em>Metroeconomica</em> (1960). Lessons <a href="0022-representative-agent-and-planner-focs.html">22</a> and <a href="0023-negishi-weights-and-welfare-theorems.html">23</a> build on it.
+  </div>
+
+  <div class="notation">
+    <div class="box-title">Notation for Part V</div>
+    <ul>
+      <li>The footer of these slides says "Class Notes III", but this is the deck in <strong>folder 3</strong> (Aggregation, Social Planner). It is <em>not</em> the OLG-extensions deck that Lessons 14–16 call Class Note III. Slide chips below read "N3 s.k" for slide \(k\).</li>
+      <li>\(\lambda=(\lambda_1,\dots,\lambda_I)\) is now a vector of <strong>Pareto weights</strong>, one per household. (In <a href="0002-competitive-equilibrium.html">Lesson 2</a>, \(\lambda\) was a scalar rescaling prices.)</li>
+      <li>Later in Part V, \(\theta^i\) is a household's translation or subsistence vector and \(\delta^i\) its share of the aggregate endowment. Elsewhere in the course, \(\theta\) is the PAYG tax (Class Note III) and the discount rate (Blanchard–Yaari), and \(\delta\) is depreciation.</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>1. The big picture</h2>
+
+  <p>The two welfare theorems connect competitive equilibria with Pareto optima. This lesson adds a third object: the solution to a <strong>planner's problem</strong> that maximizes a weighted sum of utilities,
+  $$W(\lambda):\qquad \max_{\{x^i,y^j\}}\ \sum_{i\in I}\lambda_i\,u^i(x^i)\quad\text{subject to feasibility.}$$
+  The main theorem says that, under convexity assumptions, the Pareto optima are <em>exactly</em> the solutions of \(W(\lambda)\) as \(\lambda\) ranges over non-negative weight vectors <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=5">N3 s.5</a>. That is what licenses the "representative agent" of macroeconomics: a single maximization problem whose objective is \(\sum_i\lambda_iu^i\) <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=1">N3 s.1</a>. Lesson 23 will show that the CE weights are \(\lambda_i=1/\mu_i\), the reciprocal of each household's marginal utility of income.</p>
+
+  <div class="intuition">
+    <div class="box-title">Intuition: pick a direction, then climb</div>
+    <p>Pareto optimality is a statement about a <em>set</em>: no feasible point is better for everyone. A planner with weights \(\lambda\) instead maximizes a single number, "move as far as possible in direction \(\lambda\)". If the set of attainable utility vectors is convex, every point on its outer edge is the farthest point in <em>some</em> direction. So choosing \(\lambda\) is the same as choosing where on the Pareto frontier to be, i.e. choosing a distribution of welfare.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>2. The utility possibility set</h2>
+
+  <div class="definition">
+    <div class="box-title">Definition: utility possibility set <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=3">N3 s.3</a></div>
+    <p>$$U=\Big\{u\in\mathbb R^I:\ u_i\le u^i(x^i)\ \text{for all } i\in I,\ \text{for some feasible allocation }\{x^i,y^j\}\Big\}.$$</p>
+    <p>Feasible means \(x^i\in X^i\), \(y^j\in Y^j\) and \(\sum_ix^i\le\sum_jy^j+\sum_ie^i\) (the slides' exchange economy, eq. (1), allows disposal: <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=14">N3 s.14</a>).</p>
+  </div>
+
+  <p>Three features of this definition do real work later.</p>
+  <ul>
+    <li><strong>It lives in utility space, not commodity space.</strong> Each point is a list of \(I\) utility numbers. In Lesson 6 we separated sets of <em>bundles</em> in \(\mathbb R^m\). Here we separate in \(\mathbb R^I\), and the normal vector will be a vector of weights on <em>people</em>, not prices of goods.</li>
+    <li><strong>The "\(\le\)" makes \(U\) downward comprehensive</strong> <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=8">N3 s.8</a>: if \(u\in U\) and \(u'\le u\) componentwise, then \(u'\in U\) (use the same allocation). So \(U\) extends forever down and to the left. This is what makes the weights non-negative.</li>
+    <li><strong>The Pareto frontier is part of the boundary of \(U\).</strong> If \(\bar x\) is PO, then \(\bar u=(u^i(\bar x^i))_i\) is not in the interior of \(U\) (proved in §4). The converse fails: points on vertical or horizontal stretches of the boundary are not PO (§6).</li>
+  </ul>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>3. When is \(U\) convex?</h2>
+
+  <p>The theorem's key step separates \(U\) with a hyperplane, which needs \(U\) to be convex. We get there in two steps: convexity of the set of feasible allocations, then convexity of \(U\).</p>
+
+  <div class="theorem">
+    <div class="box-title">Step A: feasible allocations form a convex set <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=3">N3 s.3, Question</a></div>
+    <p>If the aggregate production set \(Y=\sum_jY^j\) and every \(X^i\) are convex (Assumptions FF and the first half of HH from <a href="0006-second-welfare-theorem.html">Lesson 6</a>), then the set \(\mathcal F\) of feasible allocations is convex.</p>
+  </div>
+
+  <div class="proof">
+    <div class="box-title">Proof</div>
+    <ol class="steps">
+      <li><strong>Write feasibility in aggregate form.</strong> An allocation is a list \((x^1,\dots,x^I,y)\) with \(x^i\in X^i\), \(y\in Y\) and \(\sum_ix^i\le y+\bar e\), where \(\bar e=\sum_ie^i\). (Only the aggregate \(y=\sum_jy^j\) matters for feasibility, which is why FF is stated for \(Y\).)</li>
+      <li><strong>Take two feasible allocations</strong> \((x^i,y)\) and \((\hat x^i,\hat y)\), and \(t\in[0,1]\). Let \(x^i_t=tx^i+(1-t)\hat x^i\) and \(y_t=ty+(1-t)\hat y\).</li>
+      <li><strong>Each piece stays in its set.</strong> \(x^i_t\in X^i\) because \(X^i\) is convex; \(y_t\in Y\) because \(Y\) is convex.</li>
+      <li><strong>The resource constraint is linear, so it survives averaging.</strong> Multiply \(\sum_ix^i\le y+\bar e\) by \(t\) and \(\sum_i\hat x^i\le\hat y+\bar e\) by \(1-t\), and add: \(\sum_ix^i_t\le y_t+\bar e\). So \((x^i_t,y_t)\in\mathcal F\).</li>
+    </ol>
+    <div class="qed">∎</div>
+  </div>
+
+  <p>Convexity of \(\mathcal F\) is not enough for convexity of \(U\): the map from allocations to utilities can bend a convex set into a non-convex one. We need a property of the functions \(u^i\) themselves.</p>
+
+  <div class="definition">
+    <div class="box-title">Assumption CC <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=4">N3 s.4</a></div>
+    <p>Every \(u^i\) is <strong>concave</strong>: \(u^i(tx+(1-t)x')\ge tu^i(x)+(1-t)u^i(x')\) for all \(x,x'\in X^i\), \(t\in[0,1]\).</p>
+  </div>
+
+  <div class="warning">
+    <div class="box-title">Concavity is cardinal, not ordinal <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=4">N3 s.4, Question</a></div>
+    <p>An <em>ordinal</em> property survives every strictly increasing transformation \(f\), since \(f\circ u\) represents the same preferences and generates the same demands. Concavity does not survive.</p>
+    <ul>
+      <li><strong>Counterexample.</strong> \(u(x)=\log x\) on \(x>0\) is concave. Its transformation \(v=e^{2u}=x^2\) represents the same preferences (more is better) but is strictly convex.</li>
+      <li>In the other direction, \(u(x_1,x_2)=x_1x_2\) is not concave (along the diagonal it equals \(t^2\)), but \(\sqrt{x_1x_2}\), which represents the same preferences, is concave.</li>
+      <li><strong>The ordinal cousin is quasi-concavity</strong>: convex upper contour sets \(\{x:u(x)\ge c\}\). A strictly increasing \(f\) maps these sets into each other, \(\{f(u)\ge f(c)\}=\{u\ge c\}\), so quasi-concavity is preserved. Assumption HH from Lesson 6 is quasi-concavity, an ordinal assumption; CC is a strictly stronger, cardinal one.</li>
+    </ul>
+    <p>So CC is an assumption about the <em>utility numbers</em> we feed the planner, not about behaviour. This matters in §7.</p>
+  </div>
+
+  <div class="theorem">
+    <div class="box-title">Step B: under HH, FF and CC, \(U\) is convex <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=4">N3 s.4, Question</a></div>
+  </div>
+
+  <div class="proof">
+    <div class="box-title">Proof</div>
+    <ol class="steps">
+      <li><strong>Pick two points of \(U\) and their allocations.</strong> Let \(u,\hat u\in U\). By definition there are feasible allocations \(x\) and \(\hat x\) with \(u_i\le u^i(x^i)\) and \(\hat u_i\le u^i(\hat x^i)\) for every \(i\).</li>
+      <li><strong>Average the allocations.</strong> For \(t\in[0,1]\), \(x_t=tx+(1-t)\hat x\) is feasible by Step A (this uses convex \(X^i\) and \(Y\)).</li>
+      <li><strong>Use concavity, agent by agent.</strong> \(u^i(x^i_t)\ge t\,u^i(x^i)+(1-t)\,u^i(\hat x^i)\ge t\,u_i+(1-t)\,\hat u_i\).</li>
+      <li><strong>Use the "\(\le\)" in the definition of \(U\).</strong> Step 3 says the vector \(tu+(1-t)\hat u\) is weakly below the utilities delivered by the feasible allocation \(x_t\). Hence \(tu+(1-t)\hat u\in U\).</li>
+    </ol>
+    <div class="qed">∎</div>
+    <p>Step 3 is the only place CC enters. With merely quasi-concave \(u^i\), we only know \(u^i(x^i_t)\ge\min\{u^i(x^i),u^i(\hat x^i)\}\), which bounds \(x_t\)'s utility below by the <em>worse</em> endpoint, not by the average. That is too weak to put \(tu+(1-t)\hat u\) in \(U\).</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>4. The theorem: Pareto optima are planner solutions</h2>
+
+  <div class="theorem">
+    <div class="box-title">Theorem <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=5">N3 s.5</a></div>
+    <p>Assume the \(u^i\) are strictly increasing, that HH, CC and FF hold, and that \(U\) has a nonempty interior.</p>
+    <ol>
+      <li><strong>(Sufficiency.)</strong> If \(\lambda\in\mathbb R^I_{++}\) (all weights strictly positive) and \(\{\bar x^i,\bar y^j\}\) solves \(W(\lambda)\), then \(\{\bar x^i,\bar y^j\}\) is Pareto optimal.</li>
+      <li><strong>(Necessity.)</strong> If \(\{\bar x^i,\bar y^j\}\) is Pareto optimal, there is a nonzero \(\lambda\in\mathbb R^I_+\) for which it solves \(W(\lambda)\).</li>
+    </ol>
+  </div>
+
+  <p>Notice the asymmetry: strictly positive weights in part 1, merely non-negative weights in part 2. Both halves are sharp, as §6 shows.</p>
+
+  <div class="proof">
+    <div class="box-title">Proof of 1 (sufficiency) <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=6">N3 s.6</a></div>
+    <ol class="steps">
+      <li><strong>Suppose not.</strong> Let \(\lambda\gg0\) and let \(\bar x\) solve \(W(\lambda)\), but suppose some feasible \(\hat x\) Pareto-dominates it: \(u^i(\hat x^i)\ge u^i(\bar x^i)\) for all \(i\), with strict inequality for some \(k\).</li>
+      <li><strong>Weight and add.</strong> Multiply each inequality by \(\lambda_i\ge0\) and sum: \(\sum_i\lambda_iu^i(\hat x^i)\ge\sum_i\lambda_iu^i(\bar x^i)\).</li>
+      <li><strong>Strict positivity makes it strict.</strong> Agent \(k\)'s term is strictly larger <em>and</em> \(\lambda_k>0\), so \(\lambda_ku^k(\hat x^k)>\lambda_ku^k(\bar x^k)\) and the sum inequality is strict.</li>
+      <li><strong>Contradiction.</strong> \(\hat x\) is feasible and gives a strictly higher value of the planner's objective than \(\bar x\), which was supposed to be a maximizer.</li>
+    </ol>
+    <div class="qed">∎</div>
+    <p><strong>What this used:</strong> only \(\lambda\gg0\). No convexity, no concavity, no monotonicity. If \(\lambda_k=0\), step 3 fails: the agent who gains gets no weight, so \(\hat x\) only ties with \(\bar x\).</p>
+  </div>
+
+  <div class="proof">
+    <div class="box-title">Proof of 2 (necessity) <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=7">N3 s.7–8</a></div>
+    <ol class="steps">
+      <li><strong>Map the optimum into utility space.</strong> Let \(\bar u=(u^1(\bar x^1),\dots,u^I(\bar x^I))\). It is in \(U\), using \(\bar x\) itself.</li>
+      <li><strong>\(\bar u\) is on the boundary of \(U\).</strong> If \(\bar u\) were interior, then \(\bar u+\varepsilon\mathbf 1\in U\) for some \(\varepsilon>0\). Some feasible \(x\) would then give \(u^i(x^i)\ge\bar u_i+\varepsilon>\bar u_i\) for <em>every</em> \(i\), contradicting Pareto optimality of \(\bar x\).</li>
+      <li><strong>Support \(U\) at \(\bar u\).</strong> \(U\) is convex (Step B, which uses HH, FF, CC). By the supporting hyperplane theorem, a convex set has a supporting hyperplane at every boundary point: there is \(\lambda^*\in\mathbb R^I\), \(\lambda^*\ne0\), with
+      $$\lambda^*\cdot\bar u\ \ge\ \lambda^*\cdot u\qquad\text{for every }u\in U.$$</li>
+      <li><strong>Translate back to allocations.</strong> For any feasible \(x\), the vector \((u^i(x^i))_i\) lies in \(U\). Step 3 then says \(\sum_i\lambda^*_iu^i(x^i)\le\sum_i\lambda^*_iu^i(\bar x^i)\): \(\bar x\) solves \(W(\lambda^*)\).</li>
+      <li><strong>The weights are non-negative</strong> <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=8">N3 s.8</a>. Suppose \(\lambda^*_i\lt 0\) for some \(i\). By downward comprehensiveness, \(\bar u-\varepsilon e_i\in U\) for \(\varepsilon>0\) (\(e_i\) is the \(i\)th unit vector: lower agent \(i\)'s utility and nobody else's). Then
+      $$\lambda^*\cdot(\bar u-\varepsilon e_i)=\lambda^*\cdot\bar u-\varepsilon\lambda^*_i>\lambda^*\cdot\bar u,$$
+      contradicting step 3. So \(\lambda^*\ge0\), and \(\lambda^*\ne0\) from step 3.</li>
+    </ol>
+    <div class="qed">∎</div>
+  </div>
+
+  <table class="simple">
+    <tr><th>Assumption</th><th>Where the proof uses it</th></tr>
+    <tr><td>\(\lambda\gg0\)</td><td>Sufficiency, step 3. Nothing else is needed for that direction.</td></tr>
+    <tr><td>\(X^i\), \(Y\) convex (HH, FF)</td><td>Feasible allocations are convex (Step A), feeding into Step B.</td></tr>
+    <tr><td>\(u^i\) concave (CC)</td><td>\(U\) is convex (Step B, step 3), so the supporting hyperplane exists.</td></tr>
+    <tr><td>"\(\le\)" in the definition of \(U\)</td><td>Step B, step 4; and the sign of the weights (necessity, step 5).</td></tr>
+    <tr><td>Nonempty interior of \(U\)</td><td>Rules out a degenerate \(U\) that lies inside a hyperplane, where "support" would be vacuous. With \(U\) defined by "\(\le\)" it holds automatically whenever a feasible allocation exists, since \(U\supseteq\bar u-\mathbb R^I_+\). (Compare Lesson 6, where \(\operatorname{Int}B\ne\emptyset\) was a genuine restriction.)</td></tr>
+    <tr><td>\(u^i\) strictly increasing</td><td>Not used in either argument. It keeps the frontier downward-sloping and matters for the zero-weight discussion and the first-order conditions of Lessons 22–23.</td></tr>
+  </table>
+
+  <div class="intuition">
+    <div class="box-title">Intuition: the same move as the Second Welfare Theorem, one level up</div>
+    <p>In Lesson 6 we separated the "better than" set from the production set in commodity space; the normal was a price vector. Here we support the utility possibility set in utility space; the normal is a vector of Pareto weights. In both cases convexity is what guarantees that a linear functional (prices, or weights) can "see" the optimum. In both cases the sign of the normal comes from free disposal or comprehensiveness: you can always throw goods (or utility) away.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>5. See it: frontiers, weights, and unsupported optima</h2>
+
+  <p>Two households share an aggregate endowment \(\bar e=(1,1)\) of two goods and have identical preferences \(u^i(x_1,x_2)=(x_1x_2)^k\), \(k>0\). The preferences are Cobb–Douglas for every \(k\), so they are strictly quasi-concave and every Pareto optimum lies on the diagonal of the Edgeworth box: agent 1 gets \(s\bar e\) and agent 2 gets \((1-s)\bar e\) (Exercise 21.5 proves this). Utilities are then \(u_1=s^{2k}\) and \(u_2=(1-s)^{2k}\), so the Pareto frontier is
+  $$u_1^{1/(2k)}+u_2^{1/(2k)}=1 .$$
+  \(u^i\) is concave exactly when \(2k\le1\), and that is also exactly when \(U\) is convex.</p>
+
+  <div class="figure">
+    <div id="ups-ctrl"></div>
+    <div id="ups-fig"></div>
+    <div id="ups-read"></div>
+    <div class="verdict" id="ups-verdict"></div>
+    <div class="caption"><b>Interactive.</b> The shaded area is the part of \(U\) in the positive quadrant (it also extends down and left forever); its <span style="color:#2a78d6">blue</span> edge is the Pareto frontier. The <span style="color:#eb6834">orange</span> line is the highest iso-welfare line \(\lambda_1u_1+\lambda_2u_2=\text{const}\) that touches \(U\), and the orange dot is the solution of \(W(\lambda)\) with \(\lambda=(\lambda_1,1-\lambda_1)\). Drag the dark point \(\bar u\) along the frontier; the dashed <span style="color:#4a3aa7">violet</span> line is the tangent there and the arrow its normal. <b>Try:</b> (1) with \(k=0.3\), press "Set λ to ū's normal": the orange dot jumps to \(\bar u\). Every frontier point is reachable. (2) Raise \(k\) above 0.5 and press the button again. The tangent line now cuts through \(U\), and the planner jumps to a corner. Interior Pareto optima are never chosen, for any \(\lambda\). (3) Set \(k=0.5\) and \(\lambda_1=0.5\): the whole frontier ties.</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const P = EconPlot.create('#ups-fig', { x: [0, 1.15], y: [0, 1.15], width: 480, height: 460, equal: true,
+      xlabel: 'u_1  (household 1)', ylabel: 'u_2  (household 2)', xticks: [0, 0.25, 0.5, 0.75, 1], yticks: [0, 0.25, 0.5, 0.75, 1] });
+    let s = 0.3, S;
+    const fr = (n, t) => [Math.pow(t, n), Math.pow(1 - t, n)];
+    function maximizers(n, w) {           // agent-1 shares s that solve W(w, 1-w)
+      if (Math.abs(n - 1) < 1e-6) return Math.abs(w - 0.5) < 1e-6 ? 'all' : [w > 0.5 ? 1 : 0];
+      if (n < 1) { const r = Math.pow(w / (1 - w), 1 / (1 - n)); return [r / (1 + r)]; }
+      return Math.abs(w - 0.5) < 1e-6 ? [0, 1] : [w > 0.5 ? 1 : 0];
+    }
+    function normalAt(n, t) {             // supporting weights implied by the tangent at share t
+      const a = Math.pow(1 - t, n - 1), b = Math.pow(t, n - 1);
+      return [a / (a + b), b / (a + b)];
+    }
+    function draw(v) {
+      const k = v.k, w = v.w, n = 2 * k;
+      P.clear();
+      P.region((a, b) => Math.pow(a, 1 / n) + Math.pow(b, 1 / n) <= 1, { fill: C.fillBlue, res: 110 });
+      P.param(t => fr(n, t)[0], t => fr(n, t)[1], [0, 1], { color: C.blue, width: 2.2, n: 300 });
+      P.text(0.05, 0.06, 'U', { italic: true, size: 18, color: C.blue });
+      P.text(0, 1, 'Pareto frontier', { dx: 10, dy: -8, sans: true, size: 12, color: '#1a3a5c' });
+      // planner's choice
+      const M = maximizers(n, w);
+      let Wstar;
+      if (M === 'all') {
+        P.param(t => fr(n, t)[0], t => fr(n, t)[1], [0, 1], { color: C.orange, width: 4, opacity: 0.6 });
+        Wstar = 0.5;
+      } else {
+        Wstar = Math.max(...M.map(t => { const q = fr(n, t); return w * q[0] + (1 - w) * q[1]; }));
+      }
+      P.segment(0, Wstar / (1 - w), Wstar / w, 0, { color: C.orange, width: 1.8 });
+      if (M !== 'all') M.forEach(t => { const q = fr(n, t); P.point(q[0], q[1], { color: C.orange, r: 6, label: 'solves W(λ)', labelDx: q[0] > 0.5 ? -92 : 10, labelDy: q[1] > 0.5 ? 18 : -10 }); });
+      // the dragged point and its tangent / normal
+      const u = fr(n, s), lam = normalAt(n, s);
+      const dir = [Math.pow(s, n - 1), -Math.pow(1 - s, n - 1)], L = Math.hypot(dir[0], dir[1]);
+      const d = [dir[0] / L, dir[1] / L];
+      P.segment(u[0] - 2 * d[0], u[1] - 2 * d[1], u[0] + 2 * d[0], u[1] + 2 * d[1], { color: C.violet, dash: '6 4', width: 1.6 });
+      const nl = Math.hypot(lam[0], lam[1]);
+      P.arrow(u[0], u[1], u[0] + 0.16 * lam[0] / nl, u[1] + 0.16 * lam[1] / nl, { color: C.violet, width: 1.8 });
+      P.text(u[0], u[1], 'ū', { dx: -18, dy: -10, italic: true, size: 15 });
+      handle.move(u[0], u[1]);
+      const concave = n <= 1 + 1e-9;
+      EconPlot.readout('#ups-read', [
+        ['weights λ = (λ₁, λ₂):', '(' + w.toFixed(2) + ', ' + (1 - w).toFixed(2) + ')'],
+        ['uⁱ = (x₁x₂)^k concave?', concave ? 'yes (2k ≤ 1)' : 'no (2k > 1)', concave ? 'good' : 'bad'],
+        ['U convex?', concave ? 'yes' : 'no', concave ? 'good' : 'bad'],
+        ['ū from share s = ' + s.toFixed(2) + ':', '(' + u[0].toFixed(3) + ', ' + u[1].toFixed(3) + ')'],
+        ['normal at ū, scaled to sum 1:', '(' + lam[0].toFixed(2) + ', ' + lam[1].toFixed(2) + ')']
+      ]);
+      let msg;
+      if (Math.abs(n - 1) < 1e-6) msg = 'Linear frontier (2k = 1). Only λ = (0.5, 0.5) supports interior points, and then every frontier point solves W: the planner is indifferent.';
+      else if (n < 1) msg = 'U is convex. The normal at ū is a strictly positive weight vector, and W with exactly those weights picks ū. Every Pareto optimum is a planner solution.';
+      else msg = 'U is not convex. ū is Pareto optimal, but the tangent line at ū has parts of U on both sides: ū minimizes λ·u along the frontier for its own normal λ. For every λ, W picks a corner (one household gets everything).';
+      document.getElementById('ups-verdict').textContent = msg;
+    }
+    const handle = P.drag(fr(0.6, s)[0], fr(0.6, s)[1], (x, y) => {
+      const n = 2 * S.values.k; let best = s, bd = Infinity;
+      for (let i = 0; i <= 400; i++) { const t = 0.03 + 0.94 * i / 400, q = fr(n, t), dd = (q[0] - x) ** 2 + (q[1] - y) ** 2; if (dd < bd) { bd = dd; best = t; } }
+      s = best; draw(S.values); return fr(n, s);
+    });
+    S = EconPlot.sliders('#ups-ctrl', [
+      { id: 'k', label: 'k', min: 0.2, max: 1.5, step: 0.01, value: 0.3 },
+      { id: 'w', label: 'λ₁', min: 0.02, max: 0.98, step: 0.01, value: 0.5 }
+    ], draw);
+    S.button("Set λ to ū's normal", () => S.set('w', Math.min(0.98, Math.max(0.02, Math.round(normalAt(2 * S.values.k, s)[0] * 100) / 100))));
+  })();
+  </script>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>6. Zero weights: necessary sometimes, dangerous always</h2>
+
+  <p>The theorem's two halves use different weight sets, and the slides warn that this is not cosmetic <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=9">N3 s.9</a>. Two examples make both points.</p>
+
+  <h3>(a) A maximizer of \(W\) that is not Pareto optimal</h3>
+  <p>One good, aggregate endowment \(\bar e\), two households with \(u^i(x)=x\). Household 1 can consume at most \(a\lt\bar e\): \(X^1=[0,a]\), \(X^2=\mathbb R_+\). Feasibility is \(x^1+x^2\le\bar e\). All assumptions of the theorem hold (the \(X^i\) are convex intervals, the \(u^i\) linear, hence concave and strictly increasing).</p>
+  <ul>
+    <li>\(U\) in the positive quadrant is \(\{u_1\le a,\ u_1+u_2\le\bar e\}\): a slope \(-1\) edge from \((0,\bar e)\) to \((a,\bar e-a)\), then a <em>vertical</em> edge down from \((a,\bar e-a)\).</li>
+    <li>Take \(\lambda=(1,0)\). \(W\) maximizes \(x^1\) alone, so every allocation with \(x^1=a\) and \(x^2\in[0,\bar e-a]\) solves it.</li>
+    <li>Only \(x^2=\bar e-a\) is Pareto optimal. Every other maximizer throws away goods that household 2 would like, which a Pareto improvement can give to 2 at no cost to 1.</li>
+  </ul>
+
+  <div class="figure">
+    <div id="zw-fig"></div>
+    <div class="caption">The vertical edge of \(U\) (orange) is the set of solutions of \(W\) with \(\lambda=(1,0)\), drawn for \(\bar e=1\), \(a=0.6\). Only its top end is Pareto optimal. With a zero weight, the planner simply does not care whether household 2's goods are thrown away.</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const P = EconPlot.create('#zw-fig', { x: [0, 1.6], y: [0, 1.1], width: 520, height: 360, equal: true,
+      xlabel: 'u_1', ylabel: 'u_2', xticks: [0, 0.6, 1], yticks: [0, 0.4, 1] });
+    P.region((a, b) => a <= 0.6 && a + b <= 1, { fill: C.fillBlue });
+    P.path([[0, 1], [0.6, 0.4]], { color: C.blue, width: 2.2 });
+    P.segment(0.6, 0.4, 0.6, 0, { color: C.orange, width: 4 });
+    P.point(0.6, 0.4, { color: C.blue, r: 6, label: 'the only PO maximizer', labelDx: 10, labelDy: -8 });
+    P.point(0.6, 0.12, { color: C.orange, r: 5, hollow: true, label: 'maximizes W(1,0), not PO', labelDx: 10, labelDy: 4 });
+    P.text(0.08, 0.1, 'U', { italic: true, size: 18, color: C.blue });
+  })();
+  </script>
+
+  <p><strong>A rescue.</strong> If the solution of \(W(\lambda)\), \(\lambda\ge0\), is <em>unique</em>, it is Pareto optimal. Proof: a Pareto-dominating \(\hat x\) would satisfy \(\sum_i\lambda_iu^i(\hat x^i)\ge\sum_i\lambda_iu^i(\bar x^i)\) (weights are non-negative), so \(\hat x\) would be another maximizer. And \(\hat x\ne\bar x\), since someone is strictly better off under \(\hat x\). That contradicts uniqueness.</p>
+
+  <h3>(b) A Pareto optimum that needs a zero weight</h3>
+  <p>One good, \(\bar e=1\), \(u^1(x)=\sqrt x\), \(u^2(x)=\sqrt x\). The frontier is the quarter circle \(u_1^2+u_2^2=1\). The allocation "household 1 gets everything", \(\bar u=(1,0)\), is Pareto optimal. But the circle is vertical there, so its only supporting normal is \(\lambda\propto(1,0)\). With \(\lambda_2>0\) the planner always gives household 2 something, because \(u^{2\prime}(0)=\infty\). So in the necessity half, \(\mathbb R^I_+\) cannot be replaced by \(\mathbb R^I_{++}\).</p>
+
+  <div class="intuition">
+    <div class="box-title">The qualification, in one sentence <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=9">N3 s.9</a></div>
+    <p>Every Pareto optimum is a planner solution, but some need zero weights; and once zero weights are allowed, a planner solution need not be Pareto optimal. For the smooth interior allocations of Lessons 22–25 neither problem arises, so from now on we work with \(\lambda\gg0\).</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>7. The slide 10 questions, answered</h2>
+
+  <p><a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=10">N3 s.10</a> asks three drawing questions. The figure in §5 lets you do all of them.</p>
+
+  <div class="box exercise">
+    <div class="box-title">(i) Convex \(U\): how to find the \(\lambda\) that picks \(\bar u\)</div>
+    <ol class="steps">
+      <li><strong>Draw the supporting line.</strong> Pick \(\bar u\) on the frontier and draw a line through \(\bar u\) with all of \(U\) on one side. Convexity guarantees one exists; at a smooth point it is the tangent line.</li>
+      <li><strong>Take its outward normal.</strong> That normal is \(\lambda\). Because the frontier slopes down (strictly increasing \(u^i\), so \(U\) is comprehensive), the normal points north-east: \(\lambda\ge0\).</li>
+      <li><strong>Read off the weights from the slope.</strong> The iso-welfare lines \(\lambda_1u_1+\lambda_2u_2=c\) have slope \(-\lambda_1/\lambda_2\). At a smooth interior solution, the frontier's slope equals \(-\lambda_1/\lambda_2\). Steep frontier at \(\bar u\) means a large \(\lambda_1/\lambda_2\): to justify giving household 1 a lot, the planner must care a lot about household 1.</li>
+    </ol>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">(ii) Non-convex \(U\): a Pareto optimum that solves \(W\) for no \(\lambda\)</div>
+    <p>Draw a frontier that bows <em>inward</em> (towards the origin), like the §5 figure with \(k>\tfrac12\), and pick an interior point \(\bar u\). Any line through \(\bar u\) with non-negative normal either crosses into \(U\) on one side or is the tangent. In the tangent case, the frontier lies <em>above</em> the line on both sides, so \(\bar u\) is a local <em>minimum</em> of \(\lambda\cdot u\) along the frontier. For every \(\lambda\ge0\), some other point of \(U\), a corner here, gives a higher \(\lambda\cdot u\). So \(\bar u\) is Pareto optimal but is not the solution to any planner problem.</p>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">(iii) Can this happen with strictly quasi-concave (but not concave) \(u^i\)?</div>
+    <p><strong>Yes.</strong> The §5 economy is the example: \(u^i=(x_1x_2)^k\) is strictly quasi-concave for every \(k>0\) (its upper contour sets are those of Cobb–Douglas), but for \(k>\tfrac12\) it is not concave and the frontier \(u_1^{1/(2k)}+u_2^{1/(2k)}=1\) bows inward. An even simpler example: one good, \(u^i(x)=x^2\). With one good, any strictly increasing function is strictly quasi-concave, and the frontier \(\sqrt{u_1}+\sqrt{u_2}=\bar e\) bows inward.</p>
+    <p><strong>The deeper point.</strong> The <em>set</em> of Pareto-optimal allocations is ordinal: it depends only on preferences. In the §5 economy it is the diagonal of the box for every \(k\). Whether every Pareto optimum is reachable as a solution of \(W\) depends on which utility <em>numbers</em> we use. Replace \(u^i=(x_1x_2)^k\) by the equivalent \(v^i=(u^i)^{1/(2k)}=\sqrt{x_1x_2}\), which is concave. The new frontier is the straight line \(v_1+v_2=1\), and every Pareto optimum solves \(W\) (with equal weights; the planner is indifferent along the line). So when preferences admit a concave representation, the planner approach can trace out every Pareto optimum: choose that representation. This is why the theorem assumes CC, a cardinal assumption, even though everything it describes is ordinal.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>8. Where this goes next: the representative agent</h2>
+  <p>Fix \(\lambda\gg0\) and suppose there is no production. Then \(W(\lambda)\) is a problem of splitting a given aggregate bundle \(x\) among households. Its value,
+  $$u(x;\lambda)=\max_{\{x^i\}}\ \sum_i\lambda_iu^i(x^i)\quad\text{s.t.}\quad\sum_ix^i=x,$$
+  is the utility function of a single <strong>representative agent</strong> <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=11">N3 s.11</a>. By this lesson's theorem and the welfare theorems, every CE corresponds to some \(\lambda\). Lesson 22 studies \(u(\cdot;\lambda)\) and the planner's first-order conditions. Lesson 23 finds the CE's \(\lambda\). Lessons 24–25 ask when the representative agent's prices do not depend on \(\lambda\) at all (aggregation).</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>9. Check your understanding</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">1. Which feature of the setup makes the supporting weights \(\lambda^*\) non-negative?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">U contains every vector below any of its points</li>
+        <li class="quiz-option" data-option="b">Every utility function is concave in its own consumption</li>
+        <li class="quiz-option" data-option="c">Every utility function is strictly increasing in each good</li>
+        <li class="quiz-option" data-option="d">The utility possibility set U has a nonempty interior</li>
+      </ul>
+      <div class="quiz-explain">The "\(\le\)" in the definition of \(U\) makes it downward comprehensive. If \(\lambda^*_i\lt0\), lowering agent \(i\)'s utility would stay inside \(U\) and <em>raise</em> \(\lambda^*\cdot u\), contradicting the support inequality. Concavity gives convexity of \(U\) (existence of some \(\lambda^*\)), not its sign.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">2. Which direction of the theorem needs convexity of \(U\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Sufficiency: planner solutions with strictly positive weights are optimal</li>
+        <li class="quiz-option" data-option="b">Both directions, because both of them use a hyperplane</li>
+        <li class="quiz-option" data-option="c">Necessity: every Pareto optimum solves some weighted planner problem</li>
+        <li class="quiz-option" data-option="d">Neither direction, because the weights carry all the information</li>
+      </ul>
+      <div class="quiz-explain">Sufficiency is a three-line contradiction that only uses \(\lambda\gg0\). Necessity needs a supporting hyperplane at \(\bar u\), which exists at every boundary point only if \(U\) is convex.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">3. Replace every \(u^i\) by \(e^{u^i}\). Which statement is right?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The Pareto set changes, and so does the convexity of U</li>
+        <li class="quiz-option" data-option="b">The Pareto set stays, but the convexity of U may change</li>
+        <li class="quiz-option" data-option="c">The Pareto set changes, but the convexity of U is unchanged</li>
+        <li class="quiz-option" data-option="d">The Pareto set stays, and the convexity of U is unchanged</li>
+      </ul>
+      <div class="quiz-explain">A strictly increasing transformation preserves preferences, hence the set of PO allocations. But it reshapes \(U\): concavity is cardinal, and a convex \(U\) can become non-convex (and vice versa).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">4. With \(\lambda=(1,0,\dots,0)\), when is a solution of \(W(\lambda)\) guaranteed to be Pareto optimal?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Always, since the weight vector is non-negative and nonzero</li>
+        <li class="quiz-option" data-option="b">Never, since the other households receive zero planner weight</li>
+        <li class="quiz-option" data-option="c">Whenever every utility function is both concave and strictly increasing</li>
+        <li class="quiz-option" data-option="d">Whenever it is the unique solution of that planner problem</li>
+      </ul>
+      <div class="quiz-explain">A Pareto-dominating allocation would tie in the weighted sum, so it would be a second maximizer. Uniqueness rules that out. Concavity and monotonicity are not enough: in §6(a) all assumptions hold, yet most maximizers are not PO.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">5. At a smooth interior solution of \(W(\lambda)\) with \(I=2\), the slope \(du_2/du_1\) of the frontier equals:</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">\(-\lambda_1/\lambda_2\), the slope of the planner's iso-welfare lines</li>
+        <li class="quiz-option" data-option="b">\(-\lambda_2/\lambda_1\), the reciprocal slope of the iso-welfare lines</li>
+        <li class="quiz-option" data-option="c">\(-1\), whatever weights the planner happens to choose</li>
+        <li class="quiz-option" data-option="d">\(-p_1/p_2\), the ratio of the two goods' prices</li>
+      </ul>
+      <div class="quiz-explain">The planner moves along \(U\)'s edge until the frontier is tangent to \(\lambda_1u_1+\lambda_2u_2=c\), whose slope is \(-\lambda_1/\lambda_2\). Price ratios are slopes in <em>commodity</em> space, not utility space.</div>
+    </div>
+    <div class="quiz-score"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>10. Exercises</h2>
+
+  <p>No past exam has asked directly about \(U\) or this theorem; the exam questions on Class Note 3 start from the planner's first-order conditions (Lessons 22–25). These exercises cover the in-slide questions and use Alvarez's formats: true/false with short justifications, and proofs broken into small graded steps. Knowing exactly which assumption does what is how Midterm 1 true/false items about the welfare theorems are won.</p>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 21.1 True or false? Justify. <span class="tag exam">Exam-inspired</span></div>
+    <p>Answer True or False and justify in at most four lines. Unless stated otherwise, HH, FF and CC hold and the \(u^i\) are strictly increasing.</p>
+    <ol class="tf-list">
+      <li>Every Pareto-optimal allocation solves \(W(\lambda)\) for some \(\lambda\in\mathbb R^I_{++}\). <span class="tf-src">exam-inspired (N3 s.5)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The theorem only delivers \(\lambda\in\mathbb R^I_+\setminus\{0\}\). Counterexample (§6b): one good, \(u^i=\sqrt x\). The corner allocation giving everything to household 1 is PO, but the frontier \(u_1^2+u_2^2=1\) is vertical there, so the only supporting weights are \(\lambda\propto(1,0)\).</p></div></details></li>
+      <li>If \(\lambda\in\mathbb R^I_{++}\) and \(\bar x\) solves \(W(\lambda)\), then \(\bar x\) is Pareto optimal, even if the \(u^i\) are not concave and the \(X^i\) are not convex. <span class="tf-src">exam-inspired (N3 s.6)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> The sufficiency proof uses only \(\lambda\gg0\): a Pareto-dominating feasible allocation would raise \(\sum_i\lambda_iu^i\) strictly, since the agent who gains has positive weight. No convexity is involved.</p></div></details></li>
+      <li>If \(\lambda\in\mathbb R^I_+\), \(\lambda\ne0\), and \(\bar x\) solves \(W(\lambda)\), then \(\bar x\) is Pareto optimal. <span class="tf-src">exam-inspired (N3 s.9)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> With \(\lambda_k=0\), a Pareto improvement that only helps agent \(k\) leaves \(W\) unchanged, so a non-PO allocation can tie for the maximum. Example (§6a): \(X^1=[0,a]\), \(u^i=x\), disposal allowed, \(\lambda=(1,0)\): every allocation with \(x^1=a\) maximizes \(W\), but only \(x^2=\bar e-a\) is PO. It becomes true if the maximizer is unique.</p></div></details></li>
+      <li>In the theorem, concavity of the \(u^i\) (CC) can be replaced by strict quasi-concavity. <span class="tf-src">exam-inspired (N3 s.10)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> Two households, \(\bar e=(1,1)\), \(u^i=(x_1x_2)^k\) with \(k>\tfrac12\): strictly quasi-concave, not concave. The frontier \(u_1^{1/(2k)}+u_2^{1/(2k)}=1\) bows inward, so \(U\) is not convex and interior PO points solve \(W(\lambda)\) for no \(\lambda\): \(W\) always picks a corner.</p></div></details></li>
+      <li>Concavity of \(u^i\) is an ordinal property of preferences. <span class="tf-src">N3 s.4, Question</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> \(\log x\) is concave, but the equivalent representation \(e^{2\log x}=x^2\) is convex. Concavity is cardinal; its ordinal counterpart is quasi-concavity (convex upper contour sets are preserved by increasing transformations).</p></div></details></li>
+      <li>The set of Pareto-optimal allocations depends on the utility representation chosen for each household. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> "Some agent strictly better off and nobody worse off" only compares bundles, so it is invariant to strictly increasing transformations. What <em>does</em> depend on the representation is the shape of \(U\), and hence whether every PO allocation can be obtained from \(W\) (§7(iii)).</p></div></details></li>
+      <li>If \(\bar x\) is Pareto optimal, then \(\bar u=(u^i(\bar x^i))_i\) lies in the interior of \(U\). <span class="tf-src">exam-inspired (N3 s.7)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> It lies on the boundary. If \(\bar u\) were interior, \(\bar u+\varepsilon\mathbf 1\in U\) for small \(\varepsilon>0\), so a feasible allocation would make <em>everyone</em> strictly better off.</p></div></details></li>
+      <li>The Pareto weights that support a given Pareto optimum are unique up to a positive scalar. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> At a kink of the frontier, many supporting lines exist. In §6(a) the point \((a,\bar e-a)\) is supported by every \(\lambda=(\lambda_1,\lambda_2)\) with \(\lambda_1\ge\lambda_2\ge0\). Weights are unique up to scale where the frontier is smooth.</p></div></details></li>
+      <li>If each \(Y^j\) and each \(X^i\) is convex, the set of feasible allocations is convex. <span class="tf-src">N3 s.3, Question</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> The sum \(Y=\sum_jY^j\) of convex sets is convex. Convex combinations of feasible allocations keep each \(x^i\in X^i\) and \(y\in Y\), and the resource constraint is linear (Step A).</p></div></details></li>
+    </ol>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 21.2 <span class="tag slides">N3 s.3–4, Questions</span> <span class="tag proof">Proof</span> (convexity of \(U\))</div>
+    <ol class="parts" type="a">
+      <li>Show that if \(Y\) and all \(X^i\) are convex, the set of feasible allocations is convex. <span class="pts">(10 pts)</span></li>
+      <li>Is concavity of \(u^i\) cardinal or ordinal? Give a counterexample to the wrong answer in one line. <span class="pts">(5 pts)</span></li>
+      <li>Show that HH, FF and CC imply \(U\) is convex. <span class="pts">(15 pts)</span></li>
+      <li>Point to the step in (c) that uses the "\(\le\)" in the definition of \(U\). Would \(U'=\{(u^i(x^i))_i: x\text{ feasible}\}\) (with "\(=\)") be convex under the same assumptions? <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint for (d)</summary><div class="body"><p>Try one good, two households, \(\bar e=1\), \(u^i(x)=\sqrt x\), and no disposal (\(x^1+x^2=1\)). What shape is \(U'\)?</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Step A in §3: averaging keeps each piece in its convex set, and adding \(t\times\) and \((1-t)\times\) the two resource constraints gives the resource constraint for the average.<br>
+      (b) Cardinal. \(\log x\) is concave, \(x^2=e^{2\log x}\) represents the same preferences and is convex.<br>
+      (c) Step B in §3: \(u^i(x^i_t)\ge tu^i(x^i)+(1-t)u^i(\hat x^i)\ge tu_i+(1-t)\hat u_i\), and \(x_t\) is feasible.<br>
+      (d) Step 4: the averaged vector is only <em>weakly below</em> the utilities of \(x_t\), and "\(\le\)" is what puts it in \(U\). \(U'\) need not be convex. In the hint's example, \(U'=\{(\sqrt t,\sqrt{1-t}):t\in[0,1]\}\) is a quarter circle (a curve), and the midpoint of \((1,0)\) and \((0,1)\), namely \((\tfrac12,\tfrac12)\), is not on it.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 21.3 <span class="tag slides">N3 s.5–8</span> <span class="tag proof">Proof</span> (the theorem, assumption by assumption)</div>
+    <ol class="parts" type="a">
+      <li>Prove: if \(\lambda\gg0\) and \(\bar x\) solves \(W(\lambda)\), then \(\bar x\) is PO. Which step fails if \(\lambda_k=0\) for some \(k\)? <span class="pts">(10 pts)</span></li>
+      <li>Let \(\bar x\) be PO. Show that \(\bar u\) is not in the interior of \(U\). <span class="pts">(5 pts)</span></li>
+      <li>State the supporting hyperplane theorem you need, and use it to show that \(\bar x\) solves \(W(\lambda^*)\) for some \(\lambda^*\ne0\). Which assumptions does this step use, and how? <span class="pts">(15 pts)</span></li>
+      <li>Show that \(\lambda^*\ge0\). <span class="pts">(10 pts)</span></li>
+      <li>The theorem assumes \(U\) has a nonempty interior. Show that this holds automatically when at least one feasible allocation exists. <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) §4, sufficiency. With \(\lambda_k=0\), step 3 fails: a dominating \(\hat x\) that is strictly better only for \(k\) gives the same weighted sum.<br>
+      (b) §4, necessity step 2.<br>
+      (c) If \(C\subset\mathbb R^I\) is convex and \(\bar u\) is not in its interior, there is \(\lambda^*\ne0\) with \(\lambda^*\cdot\bar u\ge\lambda^*\cdot u\) for all \(u\in C\). Apply it to \(C=U\), which is convex by HH (convex \(X^i\)), FF (convex \(Y\)) and CC (concave \(u^i\)). For any feasible \(x\), \((u^i(x^i))_i\in U\), so \(\sum\lambda^*_iu^i(x^i)\le\sum\lambda^*_iu^i(\bar x^i)\).<br>
+      (d) §4, necessity step 5: if \(\lambda^*_i\lt0\), then \(\bar u-\varepsilon e_i\in U\) and \(\lambda^*\cdot(\bar u-\varepsilon e_i)>\lambda^*\cdot\bar u\), a contradiction.<br>
+      (e) If \(x\) is feasible, \(u(x)\in U\), so the whole orthant \(u(x)-\mathbb R^I_+\subseteq U\). It contains the open set \(\{u: u_i\lt u^i(x^i)\ \forall i\}\).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 21.4 <span class="tag exam">Exam-inspired</span> (power utility: when does the planner reach every optimum?)</div>
+    <p>One good with aggregate endowment \(\bar e>0\), two households, \(u^i(x)=x^a\) with \(a>0\), \(x^i\ge0\), \(x^1+x^2=\bar e\).</p>
+    <ol class="parts" type="a">
+      <li>Show that every feasible allocation is Pareto optimal, and that the frontier is \(u_1^{1/a}+u_2^{1/a}=\bar e\). <span class="pts">(5 pts)</span></li>
+      <li>For which \(a\) is \(U\) convex? Relate your answer to CC. <span class="pts">(10 pts)</span></li>
+      <li>Let \(a\lt1\) and \(\lambda\gg0\). Solve \(W(\lambda)\) and show that household 1's share is \(\dfrac{x^1}{\bar e}=\dfrac{\lambda_1^{1/(1-a)}}{\lambda_1^{1/(1-a)}+\lambda_2^{1/(1-a)}}\). Is \(x^1\) increasing in \(\lambda_1\)? <span class="pts">(10 pts)</span></li>
+      <li>Still with \(a\lt1\): given any target share \(s\in(0,1)\), find the weights \(\lambda_1/\lambda_2\) that implement it. Conclude that every interior Pareto optimum is supported by strictly positive weights. <span class="pts">(10 pts)</span></li>
+      <li>Let \(a>1\). Show that for every \(\lambda\ge0\), \(\lambda\ne0\), \(W(\lambda)\) is solved only at corners. Which Pareto optima are planner solutions? <span class="pts">(10 pts)</span></li>
+      <li>Is the household's behaviour different for \(a\lt1\) and \(a>1\)? What does that tell you about CC? <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (e), the objective \(\lambda_1x^a+\lambda_2(\bar e-x)^a\) is strictly convex in \(x\) when \(a>1\). Where does a strictly convex function on an interval attain its maximum?</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) One good and strictly increasing utilities: any reallocation that helps one household hurts the other, and nothing is wasted under \(x^1+x^2=\bar e\). With \(u_i=(x^i)^a\), \(x^i=u_i^{1/a}\), and the resource constraint gives the frontier.<br>
+      (b) The frontier is \(u_2=(\bar e-u_1^{1/a})^a\). \(U\) is convex iff this is a concave function of \(u_1\). That holds iff \(a\le1\), which is exactly when \(x^a\) is concave (CC). For \(a>1\) it bows inward. (For \(a=1\) it is the line \(u_1+u_2=\bar e\).)<br>
+      (c) FOC: \(\lambda_1a(x^1)^{a-1}=\lambda_2a(x^2)^{a-1}\), so \((x^1/x^2)^{1-a}=\lambda_1/\lambda_2\), i.e. \(x^1/x^2=(\lambda_1/\lambda_2)^{1/(1-a)}\). The objective is strictly concave, so the FOC characterizes the maximum; combine with \(x^1+x^2=\bar e\). Yes, since \(1/(1-a)>0\): more weight, more consumption.<br>
+      (d) Invert: \(\lambda_1/\lambda_2=\big(s/(1-s)\big)^{1-a}\in(0,\infty)\). Every interior share is reached by some \(\lambda\gg0\). (The corners \(s\in\{0,1\}\) need \(\lambda_2=0\) or \(\lambda_1=0\), because \(u^{i\prime}(0)=\infty\).)<br>
+      (e) A strictly convex function on \([0,\bar e]\) attains its maximum only at endpoints. So the planner gives everything to household 1 if \(\lambda_1\bar e^a>\lambda_2\bar e^a\), i.e. \(\lambda_1>\lambda_2\), to household 2 if \(\lambda_1\lt\lambda_2\), and either corner if they are equal. Only the two corner allocations are planner solutions, though every allocation is PO.<br>
+      (f) No: with one good, every \(a>0\) represents "more is better". Preferences, and hence the PO set, are identical for all \(a\). CC is a restriction on the utility numbers, and with \(a>1\) the planner approach fails purely because of the representation. Use \(v^i=(u^i)^{1/a}=x\) instead and every PO point is a planner solution.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 21.5 <span class="tag slides">N3 s.10, Questions</span> <span class="tag exam">Exam-inspired</span> (strictly quasi-concave is not enough)</div>
+    <p>Two households, two goods, \(\bar e=(1,1)\), identical utilities \(u^i(x_1,x_2)=(x_1x_2)^k\), \(k>0\). No disposal.</p>
+    <ol class="parts" type="a">
+      <li>Show that \(u^i\) is strictly quasi-concave for every \(k>0\), and concave if and only if \(k\le\tfrac12\). <span class="pts">(10 pts)</span></li>
+      <li>Show that at an interior Pareto optimum the two households' MRSs are equal, and deduce that the contract curve is the diagonal \(x^1=s\bar e\), \(s\in[0,1]\). <span class="pts">(10 pts)</span></li>
+      <li>Derive the Pareto frontier \(u_1^{1/(2k)}+u_2^{1/(2k)}=1\). For which \(k\) does it bow inward? <span class="pts">(5 pts)</span></li>
+      <li>Let \(k>\tfrac12\). Show that no interior Pareto optimum solves \(W(\lambda)\) for any \(\lambda\ge0\), \(\lambda\ne0\). <span class="pts">(10 pts)</span></li>
+      <li>Find a utility representation of the same preferences under which every Pareto optimum solves \(W(\lambda)\) for some \(\lambda\). What are the weights? <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>(a) \(k\log x_1+k\log x_2\) is an increasing transformation of \(u^i\). A Cobb–Douglas function \(x_1^{b}x_2^{c}\) is concave iff \(b+c\le1\). (d) Along the frontier the weighted sum is \(\lambda_1s^{2k}+\lambda_2(1-s)^{2k}\); look at its second derivative in \(s\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(\log u^i=k(\log x_1+\log x_2)\) is strictly concave, so its upper contour sets are strictly convex. Upper contour sets are ordinal, so \(u^i\) is strictly quasi-concave. \(x_1^kx_2^k\) is Cobb–Douglas with exponent sum \(2k\): concave iff \(2k\le1\). (Along the diagonal, \(u^i(t,t)=t^{2k}\), which is convex for \(2k>1\), so concavity fails.)<br>
+      (b) At an interior PO, if MRSs differed, a small trade would make both better off. \(MRS^i=x^i_2/x^i_1\) (the \(k\) cancels). Equality: \(\frac{x^1_2}{x^1_1}=\frac{1-x^1_2}{1-x^1_1}\Rightarrow x^1_2=x^1_1\). So \(x^1=(s,s)\) and \(x^2=(1-s,1-s)\).<br>
+      (c) \(u_1=s^{2k}\), \(u_2=(1-s)^{2k}\), so \(u_1^{1/(2k)}+u_2^{1/(2k)}=s+(1-s)=1\). It bows inward iff \(2k>1\).<br>
+      (d) Suppose an interior PO allocation \(x^1=(s,s)\), \(s\in(0,1)\), solved \(W(\lambda)\). Then in particular it would beat every other diagonal allocation, i.e. \(s\) would maximize \(f(s)=\lambda_1s^{2k}+\lambda_2(1-s)^{2k}\) on \([0,1]\). For \(2k>1\) and \(\lambda\ge0\), \(\lambda\ne0\), \(f''(s)=2k(2k-1)[\lambda_1s^{2k-2}+\lambda_2(1-s)^{2k-2}]>0\) on \((0,1)\), so \(f\) is strictly convex and \(f(s)\lt\max\{f(0),f(1)\}\): a contradiction. Interior PO points are never chosen; only the two corners are.<br>
+      (e) \(v^i=(u^i)^{1/(2k)}=\sqrt{x_1x_2}\), which is concave (exponents sum to 1). The frontier becomes \(v_1+v_2=1\), and with \(\lambda=(1,1)\) every point on it, i.e. every PO allocation, solves \(W\). The PO set never changed; only the utility numbers did.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 21.6 <span class="tag exam">Exam-inspired</span> (zero weights)</div>
+    <p>One good, aggregate endowment \(\bar e\), \(u^1(x)=u^2(x)=x\), \(X^1=[0,a]\) with \(0\lt a\lt\bar e\), \(X^2=\mathbb R_+\), and feasibility \(x^1+x^2\le\bar e\).</p>
+    <ol class="parts" type="a">
+      <li>Verify that HH, FF and CC hold and that the \(u^i\) are strictly increasing. Draw \(U\). <span class="pts">(5 pts)</span></li>
+      <li>Find all solutions of \(W(\lambda)\) for \(\lambda=(1,0)\). Which are Pareto optimal? <span class="pts">(10 pts)</span></li>
+      <li>Find all solutions for \(\lambda=(\lambda_1,\lambda_2)\gg0\). Distinguish \(\lambda_1>\lambda_2\), \(\lambda_1=\lambda_2\), \(\lambda_1\lt\lambda_2\). <span class="pts">(10 pts)</span></li>
+      <li>Which weights support the allocation \((a,\bar e-a)\)? Are they unique up to scale? <span class="pts">(5 pts)</span></li>
+      <li>Prove that if \(W(\lambda)\) with \(\lambda\ge0\), \(\lambda\ne0\), has a unique solution, that solution is Pareto optimal. <span class="pts">(10 pts)</span></li>
+      <li>How would (b) change without free disposal, i.e. with \(x^1+x^2=\bar e\)? <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(X^1,X^2\) are intervals (convex); there is no production, so the aggregate set \(-\mathbb R_+\) (disposal) is convex; linear \(u^i\) are concave and strictly increasing. \(U\cap\mathbb R^2_+=\{u_1\le a,\ u_1+u_2\le\bar e\}\) (figure in §6).<br>
+      (b) Maximize \(x^1\): \(x^1=a\), and any \(x^2\in[0,\bar e-a]\). Only \(x^2=\bar e-a\) is PO.<br>
+      (c) The objective is \(\lambda_1x^1+\lambda_2x^2\); at an optimum nothing is disposed (\(\lambda_2>0\)), so \(x^2=\bar e-x^1\) and the objective is \(\lambda_2\bar e+(\lambda_1-\lambda_2)x^1\). If \(\lambda_1>\lambda_2\): \(x^1=a\). If \(\lambda_1\lt\lambda_2\): \(x^1=0\). If equal: any \(x^1\in[0,a]\). All of these are PO, as the theorem's sufficiency half promises.<br>
+      (d) From (c), it is a solution whenever \(\lambda_1\ge\lambda_2\ge0\) (with \(\lambda\ne0\)). Not unique: the frontier has a kink there.<br>
+      (e) §6, "a rescue".<br>
+      (f) Then \(x^2=\bar e-x^1\) is forced; \(\lambda=(1,0)\) has the unique solution \((a,\bar e-a)\), which is PO, consistent with (e). The non-PO maximizers in (b) exist only because the planner can waste goods it gives zero weight to.</p>
+    </div></details>
+  </div>
+
+  <div class="takeaways">
+    <h2>Key takeaways</h2>
+    <ul>
+      <li>\(U=\{u: u_i\le u^i(x^i)\text{ for some feasible }x\}\) lives in utility space and is downward comprehensive. Pareto optima map to its boundary.</li>
+      <li>Convex \(X^i\) and \(Y\) make feasible allocations convex; adding <strong>concave</strong> \(u^i\) (CC) makes \(U\) convex. Concavity is cardinal; quasi-concavity is not enough.</li>
+      <li><strong>Sufficiency:</strong> \(\lambda\gg0\) and \(\bar x\) solves \(W(\lambda)\) \(\Rightarrow\) \(\bar x\) is PO (no convexity needed). <strong>Necessity:</strong> PO \(\Rightarrow\) \(\bar x\) solves \(W(\lambda)\) for some \(\lambda\ge0\), \(\lambda\ne0\) (supporting hyperplane; the sign comes from comprehensiveness).</li>
+      <li>Zero weights may be needed to support corner optima, and they let non-PO allocations solve \(W\). A unique maximizer is always PO.</li>
+      <li>\(\lambda\) is the normal to the frontier; at a smooth point the frontier's slope is \(-\lambda_1/\lambda_2\). Choosing \(\lambda\) means choosing a distribution of welfare.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "why can't the supporting hyperplane theorem be applied to a non-convex \(U\)?" or "does every strictly quasi-concave utility have a concave representation?"</div>
+
+  <div class="lesson-nav">
+    <a href="0020-perpetual-youth-fiscal-policy.html">← Lesson 20: Perpetual youth: fiscal policy</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0022-representative-agent-and-planner-focs.html">Lesson 22: The representative agent →</a>
+  </div>
+
+</div>
+</body>
+</html>

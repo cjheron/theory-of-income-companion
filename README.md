@@ -1,11 +1,12 @@
 # Theory of Income: Companion Course
 
-Unofficial study companion for UChicago's first-year macro sequence (*Theory of Income*, Fall 2026), covering lecture folders 1–2:
+Unofficial study companion for UChicago's first-year macro sequence (*Theory of Income*, Fall 2026), covering lecture folders 1–3:
 
 - **Part I: Welfare Theorems** (Lessons 1–7): the GE economy, competitive equilibrium, Pareto optimality, the First and Second Welfare Theorems, Arrow's remark
 - **Part II: Overlapping Generations** (Lessons 8–13): the endowment OLG economy, failure of the 1WT, pay-as-you-go social security, growth
 - **Part III: OLG Extensions** (Lessons 14–16): privatizing social security, capital, heterogeneity
 - **Part IV: Perpetual Youth** (Lessons 17–20): Blanchard–Yaari households, aggregation, capital, fiscal policy
+- **Part V: Aggregation and the Social Planner** (Lessons 21–25): Pareto weights, the representative agent, Negishi weights, Gorman aggregation and its limits
 
 Each lesson has step-by-step proofs, interactive figures, a quiz, and exercises with hints and full solutions. Cheatsheets and a glossary are in `reference/`.
 

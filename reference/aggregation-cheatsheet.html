@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aggregation &amp; Planner Cheatsheet — Theory of Income</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <style>
+    .sheet { font-size: 0.9rem; line-height: 1.55; }
+    .sheet h2 { font-size: 1.05rem; margin-top: 1.4rem; }
+    .sheet .box { padding: 0.6rem 0.9rem; margin: 0.6rem 0; }
+    .sheet ol, .sheet ul { margin-top: 0.2rem; margin-bottom: 0.2rem; }
+    .sheet li { margin: 0.15rem 0; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.2rem; }
+    @media (max-width: 700px) { .two { grid-template-columns: 1fr; } }
+    .sheet table.simple { font-size: 0.82rem; margin: 0.5rem 0; width: 100%; }
+    .sheet table.simple td, .sheet table.simple th { padding: 0.25rem 0.5rem; vertical-align: top; }
+    .see { font-family: var(--font-sans); font-size: 0.72rem; color: var(--muted); }
+    .see a { color: var(--accent); }
+  </style>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page sheet">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Reference · Class Note 3</div>
+    <h1>Aggregation &amp; the Social Planner: Cheatsheet</h1>
+    <div class="meta">Planner weights, the representative agent, the welfare theorems via first-order conditions, Gorman aggregation and its limits. Lessons <a href="../lessons/0021-utility-possibility-set-and-planner-weights.html">21</a>–<a href="../lessons/0025-limits-of-aggregation.html">25</a> · <a href="../sources/slides4-aggregation-planner.pdf">Slides</a> · <a href="ge-glossary.html">Glossary</a> · <a href="../index.html">Index</a></div>
+  </div>
+
+  <h2>Utility possibility set <span class="see"><a href="../lessons/0021-utility-possibility-set-and-planner-weights.html">L21</a> · <a href="../sources/slides4-aggregation-planner.pdf#page=3">slides 3–4</a></span></h2>
+  <div class="two">
+    <div>
+      <ul>
+        <li>\(U=\{u\in\mathbb{R}^I:\ u_i\le u^i(x^i)\ \forall i\ \text{for some feasible}\ \{x^i,y^j\}\}\).</li>
+        <li>It is <b>downward comprehensive</b> by construction (the "\(\le\)"): \(u\in U,\ u'\le u\Rightarrow u'\in U\).</li>
+        <li>PO allocation ⇒ \(\bar u=(u^i(\bar x^i))_i\) is on the (upper) boundary of \(U\).</li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li>\(X^i\) and \(Y\) convex ⇒ the set of feasible allocations is convex (the constraint is linear).</li>
+        <li>Add <b>CC</b> (every \(u^i\) concave) ⇒ \(U\) convex: \(u^i(tx^i+(1-t)x'^i)\ge tu^i(x^i)+(1-t)u^i(x'^i)\).</li>
+        <li>Concavity is <b>cardinal</b> (\(e^{u}\) can destroy it). Quasi-concavity is ordinal, and it is <em>not</em> enough: one good, \(u^i=(x^i)^2\), \(\bar e=1\) gives the frontier \(\sqrt{u_1}+\sqrt{u_2}=1\), which bows inward.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Planner-weight theorem <span class="see"><a href="../lessons/0021-utility-possibility-set-and-planner-weights.html">L21</a> · <a href="../sources/slides4-aggregation-planner.pdf#page=5">slides 5–10</a></span></h2>
+  <div class="box theorem">
+    <p>Assume \(u^i\) strictly increasing, HH, CC, FF, and \(\operatorname{Int}U\ne\emptyset\). Let \(W(\lambda)\): \(\max_{\{x^i,y^j\}}\sum_i\lambda_iu^i(x^i)\) s.t. feasibility.</p>
+    <ol>
+      <li><b>Sufficiency.</b> \(\lambda\in\mathbb{R}^I_{++}\) and \(\{\bar x,\bar y\}\) solves \(W(\lambda)\) ⇒ PO.</li>
+      <li><b>Necessity.</b> \(\{\bar x,\bar y\}\) PO ⇒ it solves \(W(\lambda)\) for some \(\lambda\in\mathbb{R}^I_+\), \(\lambda\ne0\).</li>
+    </ol>
+  </div>
+  <div class="two">
+    <div class="box proof">
+      <p><b>Sufficiency.</b> A Pareto improvement \(\hat x\) has \(u^i(\hat x^i)\ge u^i(\bar x^i)\) for all \(i\), strictly for some. With every \(\lambda_i>0\), \(\sum\lambda_iu^i(\hat x^i)>\sum\lambda_iu^i(\bar x^i)\). This contradicts optimality. No convexity is used.</p>
+    </div>
+    <div class="box proof">
+      <p><b>Necessity.</b> \(U\) is convex and \(\bar u\in\partial U\), so a supporting hyperplane exists: \(\lambda^*\ne0\) with \(\lambda^*\bar u\ge\lambda^*u\) for all \(u\in U\). <b>Sign:</b> if \(\lambda^*_i\lt 0\), then \(\bar u-\varepsilon e_i\in U\) (comprehensive) and \(\lambda^*(\bar u-\varepsilon e_i)>\lambda^*\bar u\). Contradiction, so \(\lambda^*\ge0\).</p>
+    </div>
+  </div>
+  <div class="box warning">
+    <div class="box-title">Zero weights</div>
+    <p>A PO point may need some \(\lambda_i=0\) (e.g. at a corner of the frontier). Then \(W(\lambda)\) can have other maximizers that are <em>not</em> PO: they give agent \(i\) less without changing anyone else's utility. "Solves \(W\) for some \(\lambda\ge0\)" ⇏ PO. Picture: \(\lambda\) is the normal to a supporting line of \(U\) at \(\bar u\); if \(U\) is non-convex, inward-bowed frontier points are PO but are supported by no \(\lambda\).</p>
+  </div>
+
+  <h2>Representative agent <span class="see"><a href="../lessons/0022-representative-agent-and-planner-focs.html">L22</a> · <a href="../sources/slides4-aggregation-planner.pdf#page=11">slides 11–14</a></span></h2>
+  <ul>
+    <li>\(u(x;\lambda)=\max_{\{x^i\in X^i\}}\sum_i\lambda_iu^i(x^i)\) s.t. \(\sum_ix^i=x\), defined on \(\sum_iX^i\times\mathbb{R}^I_+\). It involves no technology, so the production side can be handled by one "Crusoe" facing \(Y\).</li>
+    <li><b>Concave in \(x\)</b> if every \(X^i\) is convex and every \(u^i\) concave: mix the two optimal allocations, which is feasible at the mixed aggregate. It is HD1 in \(\lambda\).</li>
+    <li>CE ⇒ PO (1WT) ⇒ some \(\lambda\) whose single agent reproduces the CE. PO ⇒ CE for some ownership (2WT) ⇒ the same.</li>
+    <li><b>Exchange economy:</b> \(Y=-\mathbb{R}^m_+\) (free disposal only); feasibility is \(\sum_ix^i\le\sum_ie^i\equiv\bar e\).</li>
+    <li>Envelope theorem: \(\partial u(\bar e;\lambda)/\partial x_l=\gamma_l\), the shadow value of good \(l\).</li>
+  </ul>
+
+  <h2>Planner FOCs vs CE FOCs (interior, exchange economy) <span class="see"><a href="../lessons/0022-representative-agent-and-planner-focs.html">L22</a>, <a href="../lessons/0023-negishi-weights-and-welfare-theorems.html">L23</a> · <a href="../sources/slides4-aggregation-planner.pdf#page=16">slides 16–19</a></span></h2>
+  <table class="simple">
+    <tr><th></th><th>Planner \(W(\lambda)\)</th><th>Competitive equilibrium</th></tr>
+    <tr><td>FOC for \(x^i_l\)</td><td>\(\lambda_i\,u^i_l(\bar x^i)=\gamma_l\)</td><td>\(u^i_l(\bar x^i)=\mu_i\,p_l\)</td></tr>
+    <tr><td>Multiplier</td><td>\(\gamma_l\ge0\): shadow value of one more unit of \(\bar e_l\) (depends on \(\lambda\) and all \(u^i\))</td><td>\(\mu_i\ge0\): marginal utility of income of \(i\) (envelope theorem)</td></tr>
+    <tr><td>MRS (allocation is efficient)</td><td>\(u^i_l/u^i_k=\gamma_l/\gamma_k\), the same for every \(i\); no \(\lambda\)</td><td>\(u^i_l/u^i_k=p_l/p_k\), the same for every \(i\); no \(\mu\)</td></tr>
+    <tr><td>Levels across agents</td><td>\(u^i_l/u^j_l=\lambda_j/\lambda_i\)</td><td>\(u^i_l/u^j_l=\mu_i/\mu_j\)</td></tr>
+    <tr><td>Necessary and sufficient when</td><td>HH + CC, interior, \(\lambda\gg0\)</td><td>HH + CC, interior (linear budget)</td></tr>
+  </table>
+
+  <h2>Welfare theorems via FOCs: Negishi weights <span class="see"><a href="../lessons/0023-negishi-weights-and-welfare-theorems.html">L23</a> · <a href="../sources/slides4-aggregation-planner.pdf#page=20">slides 20–25</a></span></h2>
+  <div class="box theorem">
+    <p>$$\lambda_i=\frac{\kappa}{\mu_i},\qquad \gamma_l=\kappa\,p_l,\qquad \kappa>0\ \text{arbitrary (normalization).}$$</p>
+  </div>
+  <div class="two">
+    <div class="box proof">
+      <p><b>1WT (CE ⇒ PO).</b> Use <em>necessity</em> of the household FOC at the CE. Divide by \(\mu_i\): \(\frac1{\mu_i}u^i_l=p_l\), which is the planner FOC with \(\lambda_i=1/\mu_i\), \(\gamma=p\). Then use <em>sufficiency</em> of the planner FOC, plus feasibility, ⇒ solves \(W\) ⇒ PO.</p>
+    </div>
+    <div class="box proof">
+      <p><b>2WT (PO ⇒ CE).</b> Use <em>necessity</em> of the planner FOC at \(\bar x\) with \(\lambda\gg0\). Set \(p=\gamma\), \(\mu_i=1/\lambda_i\), and \(e^i=\bar x^i\) (so \(\bar x^i\) is affordable). Then use <em>sufficiency</em> of the household FOC ⇒ \(\bar x^i\) is optimal; it is feasible ⇒ CE.</p>
+    </div>
+  </div>
+  <ul>
+    <li><b>Distribution:</b> rich agents consume a lot ⇒ low \(\mu_i\) (concavity) ⇒ <b>high</b> \(\lambda_i\). Goods with high \(p_l\) have high social value \(\gamma_l\).</li>
+    <li>Prices are a weighted average of marginal utilities with good-independent weights: \(p_l\propto\sum_i\frac1{\mu_i}u^i_l(\bar x^i)\) (Fall 2025 MT1 T/F: <b>True</b>, needs interiority).</li>
+    <li>In general \(p\) and \(\bar x\) depend on the endowment distribution \(\{e^i\}\), and \(\gamma\) and \(\bar x\) depend on \(\lambda\).</li>
+  </ul>
+
+  <h2>Gorman aggregation <span class="see"><a href="../lessons/0024-gorman-aggregation.html">L24</a> · <a href="../sources/slides4-aggregation-planner.pdf#page=26">slides 26–30</a></span></h2>
+  <div class="box theorem">
+    <p><b>Assume</b> \(u^i(x)=g^i(h(x))\), with \(g^i\) strictly increasing and concave and \(h\) <b>common</b> and HD1. Endowments are proportional, \(e^i=\delta^i\bar e\) with \(\sum_i\delta^i=1\). <b>Then</b> \(\bar x^i=\delta^i\bar e\) (no trade), and</p>
+    <p>$$p_l=\kappa\,\frac{\partial h(\bar e)}{\partial x_l},\qquad \mu_i=\frac{g^{i\prime}\big(h(\delta^i\bar e)\big)}{\kappa},\qquad \lambda_i=\frac{\kappa}{g^{i\prime}\big(h(\delta^i\bar e)\big)},\qquad \gamma_l=\kappa\,\frac{\partial h(\bar e)}{\partial x_l}.$$</p>
+  </div>
+  <ul>
+    <li><b>Key step:</b> \(h\) HD1 ⇒ \(h_l\) HD0 ⇒ \(h_l(\delta^i\bar e)=h_l(\bar e)\). The household FOC \(g^{i\prime}h_l(\delta^i\bar e)=\mu_ip_l\) then holds with the \(\mu_i\) above.</li>
+    <li>Relative prices are independent of \(\{\delta^i\}\), and \(\gamma_l/\gamma_k\) is independent of \(\lambda\). The <em>level</em> of \(\gamma\) depends on the normalization; \(\lambda\) depends on \(\delta\).</li>
+    <li>With common \(g\): larger \(\delta^i\) ⇒ larger \(\lambda_i\) (\(g'\) decreasing, \(h\) increasing). With different \(g^i\), this need not hold.</li>
+    <li><b>Arbitrary endowments:</b> all that is needed is \(p\cdot e^i=\delta^i\,p\cdot\bar e\), i.e. define \(\delta^i=p\cdot e^i/p\cdot\bar e\) at \(p\propto\nabla h(\bar e)\). Then \(\bar x^i=\delta^i\bar e\), and there is trade.</li>
+  </ul>
+
+  <h2>Which preference families aggregate? <span class="see"><a href="../lessons/0025-limits-of-aggregation.html">L25</a> · <a href="../sources/slides4-aggregation-planner.pdf#page=31">slides 31–37</a></span></h2>
+  <p>Method: planner FOC \(\lambda_iu^i_l=\gamma_l\) → solve for \(x^i_l\) → sum using \(\sum_ix^i_l=\bar e_l\) → solve for \(\gamma_l(\lambda)\) → test whether \(\gamma_l/\gamma_k\) depends on \(\lambda\). Notation: \(\bar\theta=\sum_i\theta^i\).</p>
+  <table class="simple">
+    <tr><th>Family</th><th>\(\gamma_l\)</th><th>Aggregation?</th></tr>
+    <tr><td>Identical homothetic \(g^i(h(x))\)</td><td>\(\kappa\,h_l(\bar e)\)</td><td><b>Yes</b></td></tr>
+    <tr><td>Non-identical Cobb–Douglas \(\sum_l\beta^i_l\log x_l\)</td><td>\(\dfrac{\sum_i\lambda_i\beta^i_l}{\bar e_l}\)</td><td><b>No</b>, unless \(\beta^i=\beta\) for all \(i\). Homotheticity alone is not enough.</td></tr>
+    <tr><td>Identical non-homothetic \(\frac{x_1^{1-\rho}}{1-\rho}+\frac{x_2^{1-\beta}}{1-\beta}\)</td><td>\(\gamma_1=\dfrac{(\sum_i\lambda_i^{1/\rho})^{\rho}}{\bar e_1^{\rho}}\), \(\gamma_2=\dfrac{(\sum_i\lambda_i^{1/\beta})^{\beta}}{\bar e_2^{\beta}}\)</td><td><b>No</b> if \(\rho\ne\beta\). The ratio is HD0 in \(\lambda\) but depends on its distribution.</td></tr>
+    <tr><td>Stone–Geary, common \(\beta\): \(\sum_l\beta_l\log(x_l-\theta^i_l)\)</td><td>\(\dfrac{\beta_l\sum_i\lambda_i}{\bar e_l-\bar\theta_l}\)</td><td><b>Yes</b>; needs \(\bar e>\bar\theta\); \(\theta^i\) may differ</td></tr>
+    <tr><td>Translated CES: \(\sum_l\beta_l\frac{(x_l-\theta^i_l)^{1-\sigma}}{1-\sigma}\)</td><td>\(\beta_l\Big(\dfrac{\sum_i\lambda_i^{1/\sigma}}{\bar e_l-\bar\theta_l}\Big)^{\sigma}\)</td><td><b>Yes</b>; \(\frac{\gamma_l}{\gamma_k}=\frac{\beta_l}{\beta_k}\big(\frac{\bar e_k-\bar\theta_k}{\bar e_l-\bar\theta_l}\big)^{\sigma}\). Stone–Geary is \(\sigma=1\).</td></tr>
+    <tr><td>Satiation power: \(-\sum_l\pi_l\frac{(\theta^i_l-x_l)^{1+\sigma}}{1+\sigma}\), \(x\le\theta^i\)</td><td>\(\pi_l\dfrac{(\bar\theta_l-\bar e_l)^{\sigma}}{\big(\sum_j\lambda_j^{-1/\sigma}\big)^{\sigma}}\)</td><td><b>Yes</b>; needs \(\bar e\lt\bar\theta\). \(\sigma=1\) is quadratic. \(x^i_l=\theta^i_l+\delta^i(\bar e_l-\bar\theta_l)\) with \(\delta^i=\frac{\lambda_i^{-1/\sigma}}{\sum_j\lambda_j^{-1/\sigma}}\), so \(x^i_l\) rises with \(\lambda_i\).</td></tr>
+    <tr><td>Quasi-linear: \(x_1+v(x_2,\dots,x_m)\), \(v\) strictly concave</td><td>CE: \(\mu_i=1/p_1\) for all \(i\); \(\frac{\gamma_l}{\gamma_1}=v_l(\bar e_{-1}/I)\)</td><td><b>Yes</b> in CE, while every \(x^i_1\) is interior (wealth effects fall only on \(x_1\)). The planner with unequal \(\lambda\) puts all \(x_1\) at a corner.</td></tr>
+  </table>
+  <div class="box intuition">
+    <div class="box-title">Unifying idea</div>
+    <p>Every family marked "Yes" is \(u^i=g\big(H(x-\theta^i)\big)\), with \(g\) and HD1 \(H\) common across agents: <b>identical homothetic preferences after an agent-specific shift of the origin</b> (slide 37). Let \(\hat x^i=x^i-\theta^i\), so feasibility becomes \(\sum_i\hat x^i=\bar e-\bar\theta\), and \(\gamma\propto\nabla H(\bar e-\bar\theta)\). Equivalently, Engel curves are linear with a common slope (Gorman polar form).</p>
+  </div>
+
+  <h2>Representative agent with translations (Fall 2025 Final Q2) <span class="see"><a href="../lessons/0025-limits-of-aggregation.html">L25</a></span></h2>
+  <ul>
+    <li>Problem: \(U(\bar e;\lambda)=\max\sum_i\lambda_iH(c^i-\theta^i)\) s.t. \(\sum_ic^i=\bar e\), with \(H\) HD1, increasing and quasi-concave (hence concave and superadditive on its positive cone).</li>
+    <li><b>Equal weights</b> (the CE weights, since \(\mu_i=1/b(p)\) is common under HD1 \(H\)): \(U(\bar e;\lambda)=\lambda\,H(\bar e-\bar\theta)\).</li>
+    <li>Unequal weights with \(c^i\ge\theta^i\): \(U=(\max_i\lambda_i)\,H(\bar e-\bar\theta)\), with all the surplus going to the top-weight agent. In every case \(\nabla_{\bar e}U\propto\nabla H(\bar e-\bar\theta)\), independent of \(\lambda\).</li>
+  </ul>
+  <div class="box warning">
+    <div class="box-title">Circulating answer is wrong</div>
+    <p>\(U(\bar e;\lambda)=H\big(\bar e-\sum_i\lambda_i\theta^i\big)\) fails two checks. With \(I=1\) it should be \(\lambda_1H(\bar e-\theta^1)\). And any such value function is HD1 in \(\lambda\), which this formula is not. The right transformation is the <b>sum</b> \(\bar\theta=\sum_i\theta^i\), not a \(\lambda\)-weighted sum.</p>
+  </div>
+
+  <h2>Exam traps</h2>
+  <table class="simple">
+    <tr><th>Statement</th><th>Verdict</th><th>Why</th></tr>
+    <tr><td>Setting \(\mu_i=\lambda_i\), \(p=\gamma\) makes the CE and planner allocations coincide (Fall 2005).</td><td>False</td><td>The match is \(\mu_i=1/\lambda_i\). High weight means low \(\mu_i\) and high consumption.</td></tr>
+    <tr><td>The CE with equal endowments \(e^i=\bar e/I\) is envy-free (Fall 2025 MT1).</td><td>True</td><td>Every \(x^j\) costs \(\le p\bar e/I\), so it is in \(i\)'s budget set. No convexity or identical preferences needed.</td></tr>
+    <tr><td>Envy-freeness requires equal endowments.</td><td>False</td><td>\(u^1=x_1\), \(u^2=x_2\), \(e^1=(1,0)\), \(e^2=(0,1)\): no trade is a CE, envy-free at any \(p\gg0\).</td></tr>
+    <tr><td>If all agents have the same preferences, aggregation holds.</td><td>False</td><td>Identical CRRA with \(\rho\ne\beta\) (slide 33).</td></tr>
+    <tr><td>If all agents have homothetic preferences, aggregation holds.</td><td>False</td><td>Non-identical Cobb–Douglas (slides 31–32): the same \(h\) is needed.</td></tr>
+    <tr><td>Translated CRRA / Stone–Geary is homothetic.</td><td>False</td><td>It is homothetic around \(\theta^i\), not the origin (quasi-homothetic). Aggregation still holds.</td></tr>
+    <tr><td>Satiation power utility \(-\sum_l\frac{(\theta^i_l-x_l)^{1+\sigma}}{1+\sigma}\) gives Gorman aggregation (Fall 2025 MT1).</td><td>True</td><td>\(\gamma_l/\gamma_k=\big(\frac{\bar\theta_l-\bar e_l}{\bar\theta_k-\bar e_k}\big)^{\sigma}\).</td></tr>
+    <tr><td>Different subjective probabilities, all risk averse ⇒ consumption depends only on \(\bar e_s\) (Fall 2005).</td><td>False</td><td>\(\lambda_i\pi^i_sv^{i\prime}(x^i_s)=\gamma_s\): the belief ratio \(\pi^2_s/\pi^1_s\) enters.</td></tr>
+    <tr><td>Planner table: \(u^i_l/u^j_l=\lambda_i/\lambda_j\) (a circulating review).</td><td>False</td><td>Inverted: it is \(\lambda_j/\lambda_i\).</td></tr>
+  </table>
+
+  <div class="box notation">
+    <div class="box-title">Notation clashes in Class Note 3</div>
+    <ul>
+      <li>The footer says "<b>Class Notes III</b>", but this is the folder-3 deck (aggregation), <em>not</em> Class Note III on OLG extensions (privatization, capital).</li>
+      <li>\(\theta^i\): translation vector (subsistence if \(x\ge\theta^i\), satiation if \(x\le\theta^i\)). Elsewhere \(\theta\) is the ownership share \(\theta^i_j\) (Slides 1), the PAYG tax (Note III), or the discount rate (BY).</li>
+      <li>\(\delta^i\): agent \(i\)'s share of the aggregate endowment. In Note III, \(\delta\) is depreciation.</li>
+      <li>\(\lambda_i\): Pareto weight. \(\gamma_l\): shadow value of good \(l\). \(\mu_i\): marginal utility of income. \(\kappa\): free normalization.</li>
+      <li>\(\beta\) on slide 33 is a curvature parameter, not a discount factor. \(h\) is an HD1 aggregator here; in BY it is human wealth. In the Fall 2025 MT1 statement, "\(p\)" is an exponent, not a price.</li>
+    </ul>
+  </div>
+
+  <div class="lesson-nav">
+    <a href="../index.html">Course index</a>
+    <a href="welfare-theorems-cheatsheet.html">Welfare theorems cheatsheet</a>
+    <a href="ge-glossary.html">Glossary</a>
+  </div>
+
+</div>
+</body>
+</html>

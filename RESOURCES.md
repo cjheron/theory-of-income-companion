@@ -1,7 +1,7 @@
 # Resources
 
 ## Course materials (primary)
-- **Alvarez lecture slides, Fall 2026**: class Dropbox folder "class notes pdf files for students" (https://www.dropbox.com/scl/fo/fn9xoskx6ud23pimgo82p/ALVspsCuMymaBs2MzSqeOwQ?rlkey=vg06spyn2hsedldeyyaenifrn&dl=0). Folders 1–2 are copied to `./sources/`.
+- **Alvarez lecture slides, Fall 2026**: class Dropbox folder "class notes pdf files for students" (https://www.dropbox.com/scl/fo/fn9xoskx6ud23pimgo82p/ALVspsCuMymaBs2MzSqeOwQ?rlkey=vg06spyn2hsedldeyyaenifrn&dl=0). Folders 1–3 are copied to `./sources/`.
 - **First-Year Notes** (past exams): shared among the cohort. The link is kept in private notes, not published here.
 
 ## General Equilibrium & Welfare Theorems
@@ -19,6 +19,12 @@
 ## Perpetual Youth
 - **Blanchard (1985)**, "Debt, Deficits, and Finite Horizons", JPE 93(2): 223–247. https://ideas.repec.org/a/ucp/jpolec/v93y1985i2p223-47.html (NBER WP: https://www.nber.org/papers/w1389). The source of the BY slides and their Figs. 2 and 4.
 - **Yaari (1965)**, "Uncertain Lifetime, Life Insurance, and the Theory of the Consumer", REStud 32(2): 137–150. https://academic.oup.com/restud/article-abstract/32/2/137/1555438. Annuities with uncertain lifetimes.
+
+## Aggregation & the Social Planner
+- **Mas-Colell, Whinston & Green**, §4.B–4.D (aggregate demand, Gorman form, representative consumer) and §16.E–16.F (Pareto optimality and social welfare optima; first-order conditions).
+- **Negishi (1960)**, "Welfare Economics and Existence of an Equilibrium for a Competitive Economy", *Metroeconomica* 12(2–3): 92–97. The weights λ_i = 1/μ_i and Negishi's method.
+- **Gorman (1953)**, "Community Preference Fields", *Econometrica* 21(1): 63–80. Linear Engel curves with a common slope.
+- **Acemoglu, *Introduction to Modern Economic Growth*** (2009), §5.2: the representative household and Gorman aggregation, in a macro setting.
 
 ## Community
 - **Classmates / TA sessions**: the best place to test proofs aloud; consider a weekly prelim study group.

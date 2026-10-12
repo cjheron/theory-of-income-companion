@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 25 — When Aggregation Fails, and How to Rescue It</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part V: Aggregation &amp; the Social Planner · Lesson 25 of 25</div>
+    <h1>When Aggregation Fails, and How to Rescue It</h1>
+    <div class="meta">Covers <a href="../sources/slides4-aggregation-planner.pdf#page=31">Class Note 3, slides 31–37</a> · About 45 min · Prerequisites: <a href="0022-representative-agent-and-planner-focs.html">Lesson 22</a> (planner FOCs), <a href="0023-negishi-weights-and-welfare-theorems.html">Lesson 23</a> (\(\gamma=p\)), <a href="0024-gorman-aggregation.html">Lesson 24</a> (the aggregation theorem)</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>run the <em>aggregation test</em> on any utility family: solve the planner's FOCs for \(\gamma(\lambda)\) and check whether \(\gamma_l/\gamma_k\) depends on the Pareto weights;</li>
+      <li>derive the two counterexamples from memory: non-identical homothetic (Cobb–Douglas) preferences and identical non-homothetic (good-specific CRRA) preferences, and say which hypothesis each breaks;</li>
+      <li>rescue aggregation by <em>translating the origin</em>: Stone–Geary, translated CES, and satiation-point utilities. Derive the sharing rule \(x^i-\theta^i=\delta^i(\bar e-\bar\theta)\) and the prices \(p\propto\nabla h(\bar e-\bar\theta)\);</li>
+      <li>connect all of this to the Gorman polar form (linear Engel curves with a common slope), and use it to pin down interest rates inside heterogeneous OLG cohorts. This is the most-tested pattern for this note.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides4-aggregation-planner.pdf#page=31">Class Note 3, slides 31–37</a>. For the demand-side view: Mas-Colell, Whinston &amp; Green, <em>Microeconomic Theory</em>, §4.B (aggregate demand depends only on aggregate wealth iff indirect utilities have the Gorman form) and §4.D (the representative consumer). For the planner side: MWG §16.E–16.F. In growth theory: Acemoglu, <em>Introduction to Modern Economic Growth</em>, §5.2 (Gorman's theorem and the representative household). The original paper is Gorman, W. M. (1953), "Community Preference Fields," <em>Econometrica</em> 21(1): 63–80.
+  </div>
+
+  <div class="box notation">
+    <div class="box-title">Notation alert</div>
+    <p>The slide footer says "Class Notes III", but this is <strong>folder 3</strong> (Aggregation, Social Planner), not Class Note III on OLG extensions (<a href="0014-privatizing-social-security.html">Lessons 14–16</a>). In this lesson:</p>
+    <ul>
+      <li>\(\theta^i\in\mathbb R^m\) is a household-specific <strong>translation vector</strong>: a subsistence point (Stone–Geary) or a satiation point. In Class Note III, \(\theta\) was the PAYG tax, and in Blanchard–Yaari it was the discount rate. Here \(\bar\theta\equiv\sum_i\theta^i\).</li>
+      <li>\(\lambda_i\) are <strong>Pareto weights</strong>, \(\gamma_l\) is the planner's multiplier on good \(l\), and \(\mu_i\) is agent \(i\)'s marginal utility of income. From <a href="0023-negishi-weights-and-welfare-theorems.html">Lesson 23</a>, \(\lambda_i=\kappa/\mu_i\) and \(\gamma=\kappa p\).</li>
+      <li>\(\delta^i\) is a <strong>share</strong> (of the endowment, or of the translated aggregate). \(\beta^i_l\) are taste weights, not discount factors. On slide 33, \(\rho\) and \(\beta\) are curvature parameters.</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>1. The aggregation test</h2>
+
+  <p><a href="0024-gorman-aggregation.html">Lesson 24</a> proved that if every household has \(u^i=g^i(h(x))\) with a <em>common</em> HD1 function \(h\), then relative prices are \(p_l/p_k=h_l(\bar e)/h_k(\bar e)\), whatever the distribution of wealth. Both hypotheses in that sentence, <em>identical</em> and <em>homothetic</em>, do real work. This lesson shows what happens when each one is dropped, and how a change of origin rescues a large class of non-homothetic, non-identical preferences.</p>
+
+  <p>All examples use the same recipe. It is the skeleton of every past exam question on this note.</p>
+
+  <div class="definition">
+    <div class="box-title">Recipe: is there aggregation? <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=31">N3 p.31</a></div>
+    <ol class="steps">
+      <li><strong>Planner FOC.</strong> For an interior optimum with \(\lambda\gg0\): \(\lambda_i\,\partial u^i(x^i)/\partial x_l=\gamma_l\) for every \(i,l\).</li>
+      <li><strong>Invert.</strong> Solve each FOC for \(x^i_l\) as a function of \(\lambda_i\) and \(\gamma_l\).</li>
+      <li><strong>Aggregate.</strong> Sum over \(i\) and impose feasibility \(\sum_ix^i_l=\bar e_l\). Solve for \(\gamma_l(\lambda)\).</li>
+      <li><strong>Test.</strong> If \(\gamma_l/\gamma_k\) does not depend on \(\lambda\), there is aggregation: the shadow prices depend only on aggregates. Since CE prices equal \(\gamma\) for the weights \(\lambda_i=1/\mu_i\) (<a href="0023-negishi-weights-and-welfare-theorems.html">Lesson 23</a>), equilibrium relative prices are then independent of the distribution of endowments. If \(\gamma_l/\gamma_k\) does depend on \(\lambda\), the CE relative prices generally move with the wealth distribution.</li>
+    </ol>
+  </div>
+
+  <p>The logic of step 4 deserves a sentence. Every CE is a planner optimum for <em>some</em> weights, and redistributing endowments moves the supporting weights. If the planner's relative shadow values are the same for all weights, redistribution cannot move relative prices. If they differ across weights, it generically does. Section 2 shows this directly from the CE in one case.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>2. Counterexample 1: homothetic, but not identical</h2>
+
+  <p>Let household \(i\) have Cobb–Douglas preferences with its own taste weights <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=31">N3 p.31</a>:</p>
+  $$u^i(x^i)=\sum_{l=1}^m\beta^i_l\log x^i_l,\qquad \beta^i_l>0,\quad\sum_l\beta^i_l=1 .$$
+  <p>Each \(u^i\) is homothetic: it is a strictly increasing transformation of the HD1 function \(\prod_l x_l^{\beta^i_l}\). But the HD1 function differs across households.</p>
+
+  <div class="proof">
+    <div class="box-title">Derivation (planner side)</div>
+    <ol class="steps">
+      <li><strong>FOC.</strong> \(\lambda_i\,\beta^i_l/x^i_l=\gamma_l\).</li>
+      <li><strong>Invert.</strong> \(x^i_l=\lambda_i\beta^i_l/\gamma_l\).</li>
+      <li><strong>Aggregate.</strong> \(\bar e_l=\sum_ix^i_l=\frac{1}{\gamma_l}\sum_i\lambda_i\beta^i_l\), so
+      $$\gamma_l=\frac{\sum_i\lambda_i\beta^i_l}{\bar e_l},\qquad x^i_l=\frac{\lambda_i\beta^i_l}{\sum_j\lambda_j\beta^j_l}\,\bar e_l .$$</li>
+      <li><strong>Test.</strong>
+      $$\frac{\gamma_l}{\gamma_k}=\frac{\bar e_k}{\bar e_l}\cdot\frac{\sum_i\lambda_i\beta^i_l}{\sum_i\lambda_i\beta^i_k}.$$
+      The second factor is a ratio of two \(\lambda\)-weighted averages of tastes. It is independent of \(\lambda\) iff \(\beta^i_l/\beta^i_k\) is the same for every \(i\). Since each \(\beta^i\) sums to one, that means \(\beta^i=\beta\) for all \(i\): identical preferences. In that case \(\gamma_l/\gamma_k=\beta_l\bar e_k/(\beta_k\bar e_l)\), as in Lesson 24.</li>
+    </ol>
+  </div>
+
+  <h3>The same failure, seen in the competitive equilibrium</h3>
+  <p>Let agent \(i\) have wealth \(w^i=p\cdot e^i\). Cobb–Douglas demand is \(x^i_l=\beta^i_lw^i/p_l\). Market clearing for good \(l\) gives</p>
+  $$p_l\bar e_l=\sum_i\beta^i_l\,w^i .$$
+  <p>The value of good \(l\) equals the total spending on it, and that is a wealth-weighted average of the taste weights. Take even <em>proportional</em> endowments \(e^i=\delta^i\bar e\), so that \(w^i=\delta^i\,p\cdot\bar e\). Then</p>
+  $$\frac{p_l\bar e_l}{p_k\bar e_k}=\frac{\sum_i\delta^i\beta^i_l}{\sum_i\delta^i\beta^i_k},$$
+  <p>which moves with the distribution \(\delta\). Moving wealth toward households that like good \(l\) raises its relative price. The two formulas match exactly. With log utility and \(\sum_l\beta^i_l=1\), the marginal utility of income is \(\mu_i=1/w^i\), so the Negishi weight is \(\lambda_i=1/\mu_i=w^i\propto\delta^i\).</p>
+
+  <div class="intuition">
+    <div class="box-title">Lesson: homotheticity alone is not enough <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=32">N3 p.32</a></div>
+    <p>Each household's Engel curves are rays from the origin, so each spends a fixed share of a marginal dollar on each good. But the shares <em>differ</em> across households. A transfer from \(j\) to \(i\) therefore changes the composition of aggregate demand, and relative prices must adjust. What exact aggregation needs is a single preference ordering \(h\) shared by everyone, up to individual increasing transformations \(g^i\).</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>3. Counterexample 2: identical, but not homothetic</h2>
+
+  <p>Now give everyone the <em>same</em> preferences, \(I=m=2\) <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=33">N3 p.33</a>:</p>
+  $$u^i(x_1,x_2)=\frac{x_1^{1-\rho}}{1-\rho}+\frac{x_2^{1-\beta}}{1-\beta},\qquad\rho,\beta>0,\quad\rho\ne\beta .$$
+  <p>(Read \(\frac{x^{1-1}}{1-1}\) as \(\log x\).) Good 1 has curvature \(\rho\) and good 2 has curvature \(\beta\). These preferences are not homothetic: along a ray \(x=t\bar x\), the MRS \(\frac{x_1^{-\rho}}{x_2^{-\beta}}\) scales like \(t^{\beta-\rho}\), so it changes with \(t\) unless \(\rho=\beta\).</p>
+
+  <div class="proof">
+    <div class="box-title">Derivation</div>
+    <ol class="steps">
+      <li><strong>FOCs.</strong> \(\lambda_i(x^i_1)^{-\rho}=\gamma_1\) and \(\lambda_i(x^i_2)^{-\beta}=\gamma_2\).</li>
+      <li><strong>Invert.</strong> \(x^i_1=(\lambda_i/\gamma_1)^{1/\rho}\) and \(x^i_2=(\lambda_i/\gamma_2)^{1/\beta}\).</li>
+      <li><strong>Aggregate good 1.</strong> \(\bar e_1=\gamma_1^{-1/\rho}\sum_i\lambda_i^{1/\rho}\), so \(\gamma_1=\Big(\frac{\sum_i\lambda_i^{1/\rho}}{\bar e_1}\Big)^{\rho}\). Likewise \(\gamma_2=\Big(\frac{\sum_i\lambda_i^{1/\beta}}{\bar e_2}\Big)^{\beta}\).</li>
+      <li><strong>Sharing rules.</strong> Substituting back,
+      $$x^i_1=\frac{\lambda_i^{1/\rho}}{\sum_j\lambda_j^{1/\rho}}\,\bar e_1,\qquad x^i_2=\frac{\lambda_i^{1/\beta}}{\sum_j\lambda_j^{1/\beta}}\,\bar e_2 .$$
+      Each agent gets a constant share of each good, but the shares <em>differ across goods</em>. A high-\(\lambda\) agent's share is more extreme in the good with lower curvature.</li>
+      <li><strong>Test.</strong>
+      $$\frac{\gamma_1}{\gamma_2}=\frac{\big(\sum_i\lambda_i^{1/\rho}\big)^{\rho}}{\big(\sum_i\lambda_i^{1/\beta}\big)^{\beta}}\cdot\frac{\bar e_2^{\,\beta}}{\bar e_1^{\,\rho}} .$$
+      Scaling every \(\lambda_i\) by \(k\) multiplies both the numerator and the denominator by \(k\), so the ratio is <strong>HD0 in \(\lambda\)</strong>: the <em>level</em> of the weights is irrelevant, as it must be. But it depends on their <em>distribution</em>. With \(\rho=1\), \(\beta=2\), \(\bar e=(1,1)\), the ratio is \(1/2\) at \(\lambda=(1,1)\) and \(5/9\) at \(\lambda=(1,4)\).</li>
+      <li><strong>When it works.</strong> If \(\rho=\beta\), the numerator and denominator are the same power mean and cancel: \(\gamma_1/\gamma_2=(\bar e_2/\bar e_1)^{\rho}\). Now preferences are identical <em>and</em> homothetic, since additively separable CRRA with a common curvature is homothetic of degree \(1-\rho\).</li>
+    </ol>
+  </div>
+
+  <div class="intuition">
+    <div class="box-title">Why non-homotheticity breaks aggregation</div>
+    <p>With identical non-homothetic preferences, rich and poor households spend a marginal dollar differently: Engel curves bend. Suppose \(\rho>\beta\). Good 1 is then more of a necessity, because its marginal utility falls off faster. A rich agent's extra dollar goes disproportionately to good 2. Shifting wealth from poor to rich raises aggregate demand for good 2 and lowers it for good 1, so \(p_1/p_2\) falls. Identical preferences do not help when the slope of the Engel curve depends on the level of wealth.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>4. See it: flat lines mean aggregation</h2>
+
+  <p>Two agents, two goods, \(\bar e=(1,1)\). Let \(s\equiv\lambda_1/(\lambda_1+\lambda_2)\) be agent 1's share of the Pareto weight. Since every \(\gamma_1/\gamma_2\) above is HD0 in \(\lambda\), it is a function of \(s\) alone. A family has aggregation exactly when its curve is <strong>flat</strong>.</p>
+
+  <div class="figure">
+    <div id="agg-ctrl" class="controls"></div>
+    <div id="agg-fig"></div>
+    <div id="agg-read"></div>
+    <div class="verdict" id="agg-verdict"></div>
+    <div class="caption"><b>Interactive: relative shadow value \(\gamma_1/\gamma_2\) against agent 1's Pareto-weight share \(s\).</b>
+      <span style="color:#2a78d6">Blue:</span> identical Cobb–Douglas, \(\beta=(\tfrac12,\tfrac12)\).
+      <span style="color:#eb6834">Orange:</span> non-identical Cobb–Douglas, \(\beta^1=(0.8,0.2)\), \(\beta^2=(0.2,0.8)\).
+      <span style="color:#4a3aa7">Violet:</span> identical non-homothetic, \(\rho=3\) on good 1 and \(\beta=1\) (log) on good 2.
+      <span style="color:#1baf7a">Aqua:</span> Stone–Geary with common \(\beta=(\tfrac12,\tfrac12)\) and different subsistence points, \(\theta^1=(0.3,0.05)\), \(\theta^2=(0.2,0.05)\).
+      <b>Try:</b> drag \(s\) and watch agent 1's bundle in the readout. In the two flat families the bundle moves along a straight line, and in Stone–Geary that line starts from \(\theta^1\), not from the origin. Use the buttons to focus a family. Notice that the orange and violet curves move for different reasons: one because tastes differ, the other because Engel curves bend.</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const th1 = [0.3, 0.05], th2 = [0.2, 0.05], thb = [0.5, 0.1];
+    const fam = {
+      cd:  { name: 'identical Cobb–Douglas', color: C.blue, flat: true,
+             ratio: s => 1,
+             x1: s => [s, s], label: 'identical CD', at: 0.13, dy: 14 },
+      ncd: { name: 'non-identical Cobb–Douglas', color: C.orange, flat: false,
+             ratio: s => (0.2 + 0.6 * s) / (0.8 - 0.6 * s),
+             x1: s => [0.8 * s / (0.8 * s + 0.2 * (1 - s)), 0.2 * s / (0.2 * s + 0.8 * (1 - s))],
+             label: 'non-identical CD', at: 0.40, dy: 22, dx: 4 },
+      nh:  { name: 'identical non-homothetic (ρ = 3, β = 1)', color: C.violet, flat: false,
+             ratio: s => Math.pow(Math.cbrt(s) + Math.cbrt(1 - s), 3),
+             x1: s => [Math.cbrt(s) / (Math.cbrt(s) + Math.cbrt(1 - s)), s],
+             label: 'identical, non-homothetic', at: 0.50, dy: 24, dx: -80 },
+      sg:  { name: 'Stone–Geary, common β', color: C.aqua, flat: true,
+             ratio: s => (0.5 * (1 - thb[1])) / (0.5 * (1 - thb[0])),
+             x1: s => [th1[0] + s * (1 - thb[0]), th1[1] + s * (1 - thb[1])],
+             label: 'Stone–Geary (common β)', at: 0.13, dy: -10 }
+    };
+    let focus = 'ncd';
+    const P = EconPlot.create('#agg-fig', { x: [0, 1], y: [0, 4.4], width: 560, height: 360,
+      xlabel: 's = λ_1/(λ_1+λ_2)', ylabel: 'γ_1/γ_2', xticks: 5, yticks: [0, 1, 2, 3, 4] });
+    let S;
+    function draw(v) {
+      const s = v.s;
+      P.clear();
+      for (const k of ['cd', 'sg', 'nh', 'ncd']) {
+        const f = fam[k], on = k === focus;
+        P.fn(f.ratio, { color: f.color, width: on ? 2.6 : 1.4, opacity: on ? 1 : 0.4, domain: [0.02, 0.98], n: 200,
+          label: f.label, labelAt: f.at, labelDy: f.dy, labelDx: f.dx || 0 });
+      }
+      P.vline(s, { color: C.muted, dash: '4 4', width: 1 });
+      for (const k of ['cd', 'sg', 'nh', 'ncd']) {
+        const f = fam[k];
+        P.point(s, f.ratio(s), { color: f.color, r: k === focus ? 5 : 3.5 });
+      }
+      const f = fam[focus], x = f.x1(s), mid = f.ratio(0.5), now = f.ratio(s);
+      EconPlot.readout('#agg-read', [
+        ['focused family:', f.name],
+        ['γ₁/γ₂ at this s:', now.toFixed(3)],
+        ['γ₁/γ₂ at s = 0.5:', mid.toFixed(3)],
+        ['change vs s = 0.5:', ((now / mid - 1) * 100).toFixed(1) + '%', f.flat ? 'good' : (Math.abs(now / mid - 1) < 0.005 ? '' : 'bad')],
+        ['agent 1 gets (x₁, x₂):', '(' + x[0].toFixed(3) + ', ' + x[1].toFixed(3) + ')'],
+        ['agent 2 gets (x₁, x₂):', '(' + (1 - x[0]).toFixed(3) + ', ' + (1 - x[1]).toFixed(3) + ')']
+      ]);
+      document.getElementById('agg-verdict').textContent = f.flat
+        ? 'Flat: relative shadow prices do not depend on the Pareto weights, so CE relative prices do not depend on the wealth distribution. Aggregation holds.'
+        : (focus === 'ncd'
+          ? 'Not flat: giving weight to agent 1, who likes good 1, raises the shadow value of good 1. Preferences are homothetic but not identical.'
+          : 'Not flat, and not monotone: the ratio is HD0 in λ but depends on how unequal the weights are. Preferences are identical but not homothetic.');
+    }
+    S = EconPlot.sliders('#agg-ctrl', [
+      { id: 's', label: 's', min: 0.02, max: 0.98, step: 0.01, value: 0.75, fmt: v => v.toFixed(2) }
+    ], v => draw(v));
+    S.button('Identical CD', () => { focus = 'cd'; draw(S.values); });
+    S.button('Non-identical CD', () => { focus = 'ncd'; draw(S.values); });
+    S.button('Non-homothetic', () => { focus = 'nh'; draw(S.values); });
+    S.button('Stone–Geary', () => { focus = 'sg'; draw(S.values); });
+  })();
+  </script>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>5. The rescue: Stone–Geary and translation</h2>
+
+  <p>Now let preferences be neither identical nor homothetic <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=34">N3 p.34</a>:</p>
+  $$u^i(x^i)=\sum_{l=1}^m\beta^i_l\log\big(x^i_l-\theta^i_l\big),\qquad x^i_l>\theta^i_l .$$
+  <p>\(\theta^i_l\) is a subsistence level. Agent \(i\) needs at least \(\theta^i_l\) of good \(l\) before it gets any utility from the good, and marginal utility explodes as \(x^i_l\downarrow\theta^i_l\). The quantity \(x^i_l-\theta^i_l\) is <em>supernumerary</em> consumption, the consumption above subsistence.</p>
+
+  <div class="proof">
+    <div class="box-title">Derivation</div>
+    <ol class="steps">
+      <li><strong>FOC.</strong> \(\lambda_i\,\dfrac{\beta^i_l}{x^i_l-\theta^i_l}=\gamma_l\).</li>
+      <li><strong>Invert.</strong> \(x^i_l-\theta^i_l=\lambda_i\beta^i_l/\gamma_l\).</li>
+      <li><strong>Aggregate.</strong> Sum over \(i\) and write \(\bar\theta_l=\sum_i\theta^i_l\): \(\bar e_l-\bar\theta_l=\frac1{\gamma_l}\sum_i\lambda_i\beta^i_l\), so
+      $$\gamma_l=\frac{\sum_i\lambda_i\beta^i_l}{\bar e_l-\bar\theta_l}.$$
+      This requires \(\bar e_l>\bar\theta_l\): the economy must be able to feed everyone's subsistence.</li>
+      <li><strong>Test with common tastes \(\beta^i_l=\beta_l\).</strong> \(\gamma_l=\beta_l\frac{\sum_i\lambda_i}{\bar e_l-\bar\theta_l}\), and
+      $$\frac{\gamma_l}{\gamma_k}=\frac{\beta_l}{\beta_k}\cdot\frac{\bar e_k-\bar\theta_k}{\bar e_l-\bar\theta_l},$$
+      which is <strong>independent of \(\lambda\)</strong> even though the \(\theta^i\) differ across households.</li>
+      <li><strong>Sharing rule.</strong> \(x^i_l=\theta^i_l+\dfrac{\lambda_i}{\sum_j\lambda_j}\big(\bar e_l-\bar\theta_l\big)\). Each agent gets its own subsistence bundle plus a common share \(\delta^i=\lambda_i/\sum_j\lambda_j\) of the aggregate supernumerary endowment \(\bar e-\bar\theta\).</li>
+    </ol>
+  </div>
+
+  <h3>Why it works: shift each household's origin <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=35">N3 p.35</a></h3>
+  <p>Define translated consumption \(\hat x^i\equiv x^i-\theta^i\). In these coordinates, \(u^i=\sum_l\beta_l\log\hat x^i_l\) is the <em>same</em> homothetic function for everyone. The feasibility constraint becomes</p>
+  $$\sum_i\hat x^i=\bar e-\bar\theta,$$
+  <p>an exchange economy with identical homothetic preferences and aggregate endowment \(\bar e-\bar\theta\). Lesson 24 applies verbatim with \(\bar e\) replaced by \(\bar e-\bar\theta\). In the original coordinates the preferences are not homothetic (Engel curves start at \(\theta^i\), not at 0) and not identical (the \(\theta^i\) differ). They are <em>homothetic around a household-specific point</em>, which is what economists call <strong>quasi-homothetic</strong>.</p>
+
+  <div class="warning">
+    <div class="box-title">Two traps</div>
+    <ul>
+      <li><strong>The taste weights must be common.</strong> With \(\beta^i_l\) varying across \(i\), step 3 gives \(\gamma_l/\gamma_k=\frac{\sum_i\lambda_i\beta^i_l}{\sum_i\lambda_i\beta^i_k}\cdot\frac{\bar e_k-\bar\theta_k}{\bar e_l-\bar\theta_l}\), and the first factor depends on \(\lambda\), exactly as in §2. Translation can absorb different <em>origins</em>, but not different <em>shapes</em>.</li>
+      <li><strong>Translated preferences are not homothetic.</strong> A commonly circulated review sheet labels translated CRRA "non-identical and homothetic". The right description is non-identical, non-homothetic, and <em>quasi-homothetic</em>. Doubling wealth does not double every good, because the subsistence part stays fixed.</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>6. The CES generalization</h2>
+
+  <p>Replace the logs by power functions <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=36">N3 p.36</a>:</p>
+  $$u^i(x^i)=\sum_{l=1}^m\beta_l\,\frac{\big(x^i_l-\theta^i_l\big)^{1-\sigma}}{1-\sigma},\qquad\sigma>0 .$$
+  <ol class="steps">
+    <li><strong>FOC.</strong> \(\lambda_i\beta_l\big(x^i_l-\theta^i_l\big)^{-\sigma}=\gamma_l\).</li>
+    <li><strong>Invert.</strong> \(x^i_l-\theta^i_l=\Big(\dfrac{\lambda_i\beta_l}{\gamma_l}\Big)^{1/\sigma}=\lambda_i^{1/\sigma}\Big(\dfrac{\beta_l}{\gamma_l}\Big)^{1/\sigma}\).</li>
+    <li><strong>Aggregate.</strong> \(\bar e_l-\bar\theta_l=\big(\beta_l/\gamma_l\big)^{1/\sigma}\sum_i\lambda_i^{1/\sigma}\). Solving,
+    $$\gamma_l=\beta_l\left(\frac{\sum_i\lambda_i^{1/\sigma}}{\bar e_l-\bar\theta_l}\right)^{\sigma}.$$</li>
+    <li><strong>Test.</strong> The \(\lambda\) term \(\big(\sum_i\lambda_i^{1/\sigma}\big)^\sigma\) is common to every good, so it cancels:
+    $$\frac{\gamma_l}{\gamma_k}=\frac{\beta_l}{\beta_k}\left(\frac{\bar e_k-\bar\theta_k}{\bar e_l-\bar\theta_l}\right)^{\sigma}.$$</li>
+    <li><strong>Sharing rule.</strong> Substituting \(\gamma_l\) back:
+    $$x^i_l=\theta^i_l+\delta^i\big(\bar e_l-\bar\theta_l\big),\qquad\delta^i=\frac{\lambda_i^{1/\sigma}}{\sum_j\lambda_j^{1/\sigma}},\quad\sum_i\delta^i=1 .$$
+    The share \(\delta^i\) is the same for every good. That is the hallmark of aggregation: the planner hands out slices of one aggregate "pie" \(\bar e-\bar\theta\). \(\sigma=1\) recovers Stone–Geary.</li>
+  </ol>
+  <p>Compare §3: there the exponent was <em>good-specific</em> (\(\rho\) versus \(\beta\)), so the shares \(\lambda_i^{1/\rho}/\sum\lambda^{1/\rho}\) and \(\lambda_i^{1/\beta}/\sum\lambda^{1/\beta}\) differed across goods, and the \(\lambda\) terms did not cancel. A common curvature \(\sigma\) across goods is what makes \(u\) homothetic in \(\hat x\).</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>7. The general statement, completed</h2>
+
+  <p>Slide 37 sets up the general case and stops. Let \(\theta^i\in\mathbb R^m\) for every \(i\), and <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=37">N3 p.37</a></p>
+  $$u^i(x)=g^i\big(h(x-\theta^i)\big),$$
+  <p>with \(h\) common, HD1, increasing and concave, and \(g^i\) strictly increasing and concave. If \(\theta^i_l>0\), good \(l\) is a <strong>necessity</strong> for household \(i\). Redefine consumption as \(\hat x^i=x^i-\theta^i\), so feasibility reads \(\sum_i\hat x^i=\bar e-\bar\theta\). Here is the conclusion the slide leaves implicit.</p>
+
+  <div class="theorem">
+    <div class="box-title">Proposition: aggregation with translated homothetic preferences</div>
+    <p>Suppose \(\bar e-\bar\theta\gg0\). In any interior competitive equilibrium, whatever the endowments \(\{e^i\}\) (provided each agent can afford its translation point, \(p\cdot e^i>p\cdot\theta^i\)),
+    $$p=\kappa\,\nabla h\big(\bar e-\bar\theta\big)\quad\text{for some }\kappa>0,\qquad x^i=\theta^i+\delta^i(\bar e-\bar\theta),\quad\delta^i=\frac{p\cdot(e^i-\theta^i)}{p\cdot(\bar e-\bar\theta)} .$$
+    On the planner side (with strictly concave \(g^i\)), \(\gamma_l/\gamma_k=h_l(\bar e-\bar\theta)/h_k(\bar e-\bar\theta)\) for every \(\lambda\gg0\).</p>
+  </div>
+  <div class="proof">
+    <div class="box-title">Proof (competitive-equilibrium route)</div>
+    <ol class="steps">
+      <li><strong>Translate the budget.</strong> \(p\cdot x^i\le p\cdot e^i\iff p\cdot\hat x^i\le\hat w^i\), where \(\hat w^i\equiv p\cdot(e^i-\theta^i)\) is <em>supernumerary wealth</em>: what is left after buying the translation bundle.</li>
+      <li><strong>Demand is linear in \(\hat w^i\) with a common direction.</strong> Since \(g^i\) is increasing, agent \(i\) maximizes \(h(\hat x)\) subject to \(p\cdot\hat x\le\hat w^i\). Because \(h\) is HD1, if \(d(p)\) solves the problem with wealth 1, then \(\hat w^i d(p)\) solves it with wealth \(\hat w^i\). So \(\hat x^i=\hat w^i\,d(p)\), with the same \(d(p)\) for every \(i\). The \(g^i\) play no role in demand.</li>
+      <li><strong>Aggregate.</strong> \(\sum_i\hat x^i=\big(\sum_i\hat w^i\big)d(p)=p\cdot(\bar e-\bar\theta)\,d(p)\). Market clearing requires this to equal \(\bar e-\bar\theta\). So the equilibrium \(p\) must make \(\bar e-\bar\theta\) the optimal translated bundle at wealth \(p\cdot(\bar e-\bar\theta)\).</li>
+      <li><strong>Read off prices.</strong> The FOC for the translated problem at \(\hat x=\bar e-\bar\theta\) is \(\nabla h(\bar e-\bar\theta)=\nu\,p\) for a multiplier \(\nu>0\). So \(p=\kappa\nabla h(\bar e-\bar\theta)\) with \(\kappa=1/\nu\). Concavity of \(h\) makes this FOC sufficient. This does not depend on how \(\bar e\) is split, nor on how \(\bar\theta\) is split.</li>
+      <li><strong>Allocation.</strong> \(\hat x^i=\hat w^i d(p)\) and \(\sum_i\hat x^i=\bar e-\bar\theta\) give \(\hat x^i=\frac{\hat w^i}{\sum_j\hat w^j}(\bar e-\bar\theta)\), which is the stated \(\delta^i\).</li>
+    </ol>
+    <div class="qed">∎</div>
+  </div>
+  <div class="proof">
+    <div class="box-title">Proof (planner route, for strictly concave \(g^i\))</div>
+    <ol class="steps">
+      <li><strong>Guess</strong> that every \(\hat x^i\) lies on the ray through \(Z\equiv\bar e-\bar\theta\): \(\hat x^i=s_iZ\) with \(s_i>0\) and \(\sum_is_i=1\).</li>
+      <li><strong>FOC.</strong> \(\lambda_i\,g^{i\prime}\big(h(\hat x^i)\big)\nabla h(\hat x^i)=\gamma\). Since \(\nabla h\) is HD0, \(\nabla h(s_iZ)=\nabla h(Z)\), and the FOC becomes \(\lambda_i\,g^{i\prime}\big(s_ih(Z)\big)\nabla h(Z)=\gamma\).</li>
+      <li><strong>Choose the shares</strong> so that \(\lambda_ig^{i\prime}(s_ih(Z))\) equals a common constant \(\kappa\). Each left side is strictly decreasing in \(s_i\), so there is a unique such \(s\) with \(\sum_is_i=1\) (under Inada-type conditions on \(g^i\)). Then \(\gamma=\kappa\nabla h(Z)\).</li>
+      <li><strong>Verify.</strong> The objective is concave and the constraints are linear, so FOCs are sufficient: the guess is optimal. \(\gamma_l/\gamma_k=h_l(Z)/h_k(Z)\) for every \(\lambda\). The weights move <em>who gets how much</em> (\(s_i\)), but not <em>relative shadow values</em>.</li>
+    </ol>
+    <div class="qed">∎</div>
+  </div>
+
+  <div class="warning">
+    <div class="box-title">"We can dispense with \(g^i\)": harmless for the CE, degenerate for the planner</div>
+    <p>The slide notes that one can take \(g^i\) to be the identity. For the CE that is fine (step 2 above never used \(g^i\)). For the planner it changes the problem: with \(u^i=h(x-\theta^i)\) linear along rays, utility is <em>transferable</em>, and with unequal weights the planner hands the whole surplus \(Z\) to a top-weight agent. With equal weights every split on the ray is optimal. This is the source of a wrong answer to a recent final (Exercise 25.3).</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>8. Satiation points: the mirror image</h2>
+
+  <p>Two past exams use a translation in the other direction. Let</p>
+  $$u^i(x^i)=-\sum_{l=1}^m\pi_l\,\frac{\big(\theta^i_l-x^i_l\big)^{1+\sigma}}{1+\sigma},\qquad x^i_l\le\theta^i_l,\quad\pi_l,\sigma>0 .$$
+  <p>Now \(\theta^i_l\) is a <strong>satiation (bliss) point</strong>, and \(\theta^i_l-x^i_l\ge0\) is the agent's <em>shortfall</em>. Utility is a common homothetic function of the shortfall, decreasing in each shortfall. With \(\sigma=1\) it is quadratic utility.</p>
+  <ol class="steps">
+    <li><strong>FOC.</strong> \(\lambda_i\pi_l\big(\theta^i_l-x^i_l\big)^{\sigma}=\gamma_l\).</li>
+    <li><strong>Invert.</strong> \(\theta^i_l-x^i_l=\big(\gamma_l/\pi_l\big)^{1/\sigma}\lambda_i^{-1/\sigma}\).</li>
+    <li><strong>Aggregate.</strong> \(\bar\theta_l-\bar e_l=\big(\gamma_l/\pi_l\big)^{1/\sigma}\sum_j\lambda_j^{-1/\sigma}\), so
+    $$\gamma_l=\pi_l\,\frac{\big(\bar\theta_l-\bar e_l\big)^{\sigma}}{\big(\sum_j\lambda_j^{-1/\sigma}\big)^{\sigma}},\qquad\frac{\gamma_l}{\gamma_k}=\frac{\pi_l}{\pi_k}\left(\frac{\bar\theta_l-\bar e_l}{\bar\theta_k-\bar e_k}\right)^{\sigma}.$$</li>
+    <li><strong>Sharing rule.</strong> \(x^i_l-\theta^i_l=\delta^i\big(\bar e_l-\bar\theta_l\big)\) with \(\delta^i=\lambda_i^{-1/\sigma}\big/\sum_j\lambda_j^{-1/\sigma}\). A higher \(\lambda_i\) <em>lowers</em> \(\delta^i\), i.e. lowers \(i\)'s share of the aggregate shortfall, so \(i\) consumes closer to its bliss point.</li>
+  </ol>
+  <p><strong>The condition \(\bar e\lt\bar\theta\) is essential, and the exam leaves it unstated.</strong> Since \(x^i\le\theta^i\), feasibility with equality needs \(\bar e_l\le\bar\theta_l\). If \(\bar e_l=\bar\theta_l\), everyone is satiated in good \(l\) and \(\gamma_l=0\). With free disposal and \(\bar e_l>\bar\theta_l\), good \(l\) is free. Interior, positive prices need \(\bar e\ll\bar\theta\). Relative prices \(p_l/p_k\) then <em>fall</em> with \(\bar e_l\) and <em>rise</em> with \(\bar e_k\): the less scarce good \(l\) is relative to satiation, the cheaper it is.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>9. The unifying principle: the Gorman polar form</h2>
+
+  <p>Why do translations work while §2 and §3 fail? Look at demand. Gorman (1953) showed that aggregate demand depends only on aggregate wealth, for every wealth distribution, iff each household's indirect utility has the form (MWG Prop. 4.B.1)</p>
+  $$v^i(p,w)=a^i(p)+b(p)\,w ,$$
+  <p>with \(b(p)\) <strong>common</strong> to all households. By Roy's identity, demand is then \(x^i_l(p,w)=-\frac{a^i_l(p)}{b(p)}-\frac{b_l(p)}{b(p)}\,w\): <strong>linear Engel curves with the same slope for everyone</strong>. A dollar moved from \(j\) to \(i\) changes \(i\)'s demand by exactly as much as it changes \(j\)'s, so aggregate demand cannot move.</p>
+
+  <table class="simple">
+    <tr><th>Family</th><th>Identical?</th><th>Homothetic?</th><th>Engel curves</th><th>Aggregation?</th></tr>
+    <tr><td>\(g^i(h(x))\), common \(h\)</td><td>ordinally yes</td><td>yes</td><td>rays from 0, common slope</td><td>yes (Lesson 24)</td></tr>
+    <tr><td>\(\sum_l\beta^i_l\log x_l\)</td><td>no</td><td>yes</td><td>rays, slopes differ by \(i\)</td><td><strong>no</strong> (§2)</td></tr>
+    <tr><td>\(\frac{x_1^{1-\rho}}{1-\rho}+\frac{x_2^{1-\beta}}{1-\beta}\), \(\rho\ne\beta\)</td><td>yes</td><td>no</td><td>curved</td><td><strong>no</strong> (§3)</td></tr>
+    <tr><td>\(\sum_l\beta_l\log(x_l-\theta^i_l)\)</td><td>no</td><td>no (quasi-homothetic)</td><td>straight, from \(\theta^i\), common slope</td><td>yes (§5)</td></tr>
+    <tr><td>\(\sum_l\beta_l\frac{(x_l-\theta^i_l)^{1-\sigma}}{1-\sigma}\)</td><td>no</td><td>no (quasi-homothetic)</td><td>straight, common slope</td><td>yes (§6)</td></tr>
+    <tr><td>\(-\sum_l\pi_l\frac{(\theta^i_l-x_l)^{1+\sigma}}{1+\sigma}\)</td><td>no</td><td>no</td><td>straight, toward \(\theta^i\), common slope</td><td>yes (§8)</td></tr>
+  </table>
+
+  <p>For \(u^i=h(x-\theta^i)\) with \(h\) HD1, let \(P(p)=\min\{p\cdot z:h(z)\ge1\}\) be the unit cost of \(h\)-utility. Then \(v^i(p,w)=\frac{w-p\cdot\theta^i}{P(p)}\), which is the Gorman form with \(a^i(p)=-p\cdot\theta^i/P(p)\) and \(b(p)=1/P(p)\). Translation is therefore one example of the Gorman polar form, not the whole of it. Exercise 25.7 shows another: CARA utilities with <em>different</em> risk aversions, which aggregate even though preferences are not identical.</p>
+
+  <div class="intuition">
+    <div class="box-title">Two versions of the result</div>
+    <p>Gorman's condition delivers aggregation for <em>every</em> wealth distribution (with interior demands). The course's version (slides 26–30) assumed identical homothetic preferences and proportional endowments, then noted that proportionality is not needed: <em>sufficient</em> is \(p\cdot e^i=\delta^ip\cdot\bar e\), and with identical homothetic preferences any distribution satisfies this for \(\delta^i\equiv p\cdot e^i/p\cdot\bar e\). One widely shared review sheet calls this condition "necessary". It is sufficient, not necessary: Stone–Geary aggregates without it.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>10. Where exams use this: inside an OLG cohort</h2>
+
+  <p>Put heterogeneous types inside each generation of a two-period OLG economy (<a href="0016-olg-heterogeneity-and-long-lives.html">Lesson 16</a>). Each cohort's "goods" are consumption at \(t\) and at \(t+1\). Two facts combine:</p>
+  <ol class="steps">
+    <li><strong>No trade across generations</strong> (<a href="0008-olg-environment.html">Lesson 8</a>'s induction, applied to cohort totals). Each cohort consumes its aggregate endowment \((\bar\alpha_y,\bar\alpha_o)\), although types trade with each other.</li>
+    <li><strong>Within the cohort,</strong> the equilibrium is a CE of a finite two-good exchange economy, so the aggregation result applies. If preferences are of the translated-homothetic form, the intertemporal price \(p_{t+1}/p_t\) equals the MRS of a representative agent with translation \(\bar\theta\), evaluated at \((\bar\alpha_y,\bar\alpha_o)\).</li>
+  </ol>
+  <p>With the satiation utility of §8 and weights \((\pi_y,\pi_o)\), this gives the Spring 2023 answer:</p>
+  $$\frac{1}{1+r}=\frac{p_{t+1}}{p_t}=\frac{\pi_o}{\pi_y}\left(\frac{\bar\theta_o-\bar\alpha_o}{\bar\theta_y-\bar\alpha_y}\right)^{\sigma}.$$
+  <p>The interest rate depends only on cohort aggregates. Whether \(r\) is positive then decides efficiency, exactly as in the homogeneous model (<a href="0010-olg-efficiency.html">Lesson 10</a>). With log utility and heterogeneous endowments (the 2025 problem set), the same logic gave \(\bar r=\frac{\bar\alpha-\beta}{\beta(1-\bar\alpha)}\): only the mean \(\bar\alpha\) matters.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>11. Check your understanding</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">1. In the slide 31 example \(u^i=\sum_l\beta^i_l\log x_l\), which hypothesis of the aggregation theorem fails?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Preferences are not identical across households</li>
+        <li class="quiz-option" data-option="b">Each household's preferences are not homothetic</li>
+        <li class="quiz-option" data-option="c">Endowments are not proportional across households</li>
+        <li class="quiz-option" data-option="d">Utility functions are not concave here</li>
+      </ul>
+      <div class="quiz-explain">Each \(u^i\) is homothetic and concave, and the planner result does not involve endowments at all. The \(\lambda\)-weighted taste averages \(\sum_i\lambda_i\beta^i_l\) move with \(\lambda\) because the \(\beta^i\) differ.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">2. In the identical non-homothetic example (slide 33), what happens to \(\gamma_1/\gamma_2\) if every \(\lambda_i\) is multiplied by \(k>0\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Nothing, since the ratio is HD0 in λ</li>
+        <li class="quiz-option" data-option="b">It rises, since good 1 gets more weight</li>
+        <li class="quiz-option" data-option="c">It falls, since good 2 gets more weight</li>
+        <li class="quiz-option" data-option="d">It depends on whether ρ exceeds β here</li>
+      </ul>
+      <div class="quiz-explain">\(\big(\sum(k\lambda_i)^{1/\rho}\big)^\rho=k\big(\sum\lambda_i^{1/\rho}\big)^\rho\), and the same for \(\beta\), so \(k\) cancels. Only the <em>distribution</em> of the weights matters, which is why the figure can use the share \(s\) alone.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">3. With Stone–Geary utilities \(\sum_l\beta^i_l\log(x_l-\theta^i_l)\), what must be common across households for aggregation?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The subsistence points θ</li>
+        <li class="quiz-option" data-option="b">The taste weights β</li>
+        <li class="quiz-option" data-option="c">The endowment vectors e</li>
+        <li class="quiz-option" data-option="d">The Pareto weights λ</li>
+      </ul>
+      <div class="quiz-explain">The \(\theta^i\) only shift each household's origin, and they sum into \(\bar\theta\). Different \(\beta^i\) bring back the §2 failure. Endowments and weights can be anything.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">4. With the satiation-point utility \(-\sum_l\pi_l(\theta^i_l-x_l)^{1+\sigma}/(1+\sigma)\), raising \(\lambda_i\) (others fixed) means:</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Agent i's satiation point shifts upward</li>
+        <li class="quiz-option" data-option="b">Agent i consumes further from satiation</li>
+        <li class="quiz-option" data-option="c">Agent i consumes closer to satiation</li>
+        <li class="quiz-option" data-option="d">Agent i's consumption does not change</li>
+      </ul>
+      <div class="quiz-explain">\(\theta^i_l-x^i_l=\delta^i(\bar\theta_l-\bar e_l)\) with \(\delta^i\propto\lambda_i^{-1/\sigma}\). A higher weight means a smaller share of the aggregate shortfall. The preference parameter \(\theta^i\) does not depend on \(\lambda\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">5. Gorman's condition for aggregate demand to depend only on aggregate wealth is:</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Identical preferences for all the households</li>
+        <li class="quiz-option" data-option="b">Homothetic preferences for each single household</li>
+        <li class="quiz-option" data-option="c">Equal endowments across all the households</li>
+        <li class="quiz-option" data-option="d">Linear Engel curves with a common slope</li>
+      </ul>
+      <div class="quiz-explain">\(v^i=a^i(p)+b(p)w\) means every household spends a marginal dollar in the same way. Identical preferences fail it (§3), homothetic preferences fail it (§2), and the endowment distribution is exactly what the condition makes irrelevant.</div>
+    </div>
+    <div class="quiz-score"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2>12. Exercises</h2>
+
+  <p>Aggregation questions on Alvarez's exams have two shapes. One is a long guided derivation on translated utilities (FOC, invert, aggregate, test, representative agent, prices). The other is a set of one-line true/false items. Exercises 25.2, 25.3 and 25.5 are reworded past exam questions. Attempt each part before opening the solution.</p>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 25.1 True or false? Justify. <span class="tag exam">Exam format</span></div>
+    <p>For each statement, say whether it is true or false and justify in one to four lines.</p>
+    <ol class="tf-list">
+      <li>Suppose each of \(I\) households has \(u^i(x)=-\sum_{l=1}^m\frac{1}{1+\sigma}(\theta^i_l-x_l)^{1+\sigma}\) on \(x\le\theta^i\), with \(\theta^i_l>0\) and \(\sigma>0\). These utility functions imply Gorman (strong) aggregation. <span class="tf-src">(Past exam: Fall 2025 Midterm 1 I.5, reworded)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body">
+          <p><strong>True.</strong> This is §8 with \(\pi_l=1\). The planner FOC \(\lambda_i(\theta^i_l-x^i_l)^\sigma=\gamma_l\) aggregates to \(\gamma_l\propto(\bar\theta_l-\bar e_l)^\sigma\), with a \(\lambda\) factor common to all goods. So \(\gamma_l/\gamma_k=\big(\frac{\bar\theta_l-\bar e_l}{\bar\theta_k-\bar e_k}\big)^\sigma\) is independent of \(\lambda\). On the demand side, \(x^i_l=\theta^i_l-\frac{p_l^{1/\sigma}}{\sum_kp_k^{1+1/\sigma}}(p\cdot\theta^i-w^i)\) is linear in \(w^i\) with a common slope. (This assumes an interior solution, \(w^i\lt p\cdot\theta^i\).)</p>
+        </div></details></li>
+      <li>If all households have the same preferences, Gorman aggregation always holds. <span class="tf-src">(Exam-inspired; review drill)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body">
+          <p><strong>False.</strong> Slide 33: identical \(\frac{x_1^{1-\rho}}{1-\rho}+\frac{x_2^{1-\beta}}{1-\beta}\) with \(\rho\ne\beta\) gives \(\gamma_1/\gamma_2\propto\big(\sum\lambda_i^{1/\rho}\big)^\rho/\big(\sum\lambda_i^{1/\beta}\big)^\beta\), which depends on the distribution of \(\lambda\). Engel curves are non-linear, so a transfer from rich to poor changes aggregate demand.</p>
+        </div></details></li>
+      <li>If every household has homothetic preferences, equilibrium relative prices do not depend on the distribution of endowments. <span class="tf-src">(Slides N3 p.32)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body">
+          <p><strong>False.</strong> Non-identical Cobb–Douglas: \(p_l\bar e_l=\sum_i\beta^i_lw^i\), so moving wealth toward households with high \(\beta^i_l\) raises \(p_l\). Exact aggregation needs a <em>common</em> homothetic ordering \(h\).</p>
+        </div></details></li>
+      <li>The translated CRRA utility \(\sum_l\beta_l\frac{(x_l-\theta^i_l)^{1-\sigma}}{1-\sigma}\) with \(\theta^i\ne0\) is homothetic, and that is why it aggregates. <span class="tf-src">(Exam-inspired; corrects a review-sheet label)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body">
+          <p><strong>False.</strong> It is not homothetic: the MRS at \(tx\) differs from the MRS at \(x\) because \(\theta^i\) does not scale. It is homothetic <em>in \(x-\theta^i\)</em> (quasi-homothetic). It aggregates because, after translating each origin, everyone shares the same homothetic preferences over \(\hat x^i\) and feasibility becomes \(\sum\hat x^i=\bar e-\bar\theta\).</p>
+        </div></details></li>
+      <li>With identical homothetic preferences, proportional endowments \(e^i=\delta^i\bar e\) are necessary for equilibrium prices to be independent of the wealth distribution. <span class="tf-src">(Slides N3 p.30; corrects a review sheet)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body">
+          <p><strong>False.</strong> Proportionality is sufficient. Demand is \(x^i=w^id(p)\), so aggregate demand is \(\big(\sum_iw^i\big)d(p)\) for <em>any</em> endowments, and clearing gives \(p\propto\nabla h(\bar e)\). Slide 30 notes that all that is needed is \(p\cdot e^i=\delta^ip\cdot\bar e\), which holds with \(\delta^i\equiv p\cdot e^i/p\cdot\bar e\).</p>
+        </div></details></li>
+      <li>Aggregation requires that all households have identical preferences, up to increasing transformations. <span class="tf-src">(Exam-inspired)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body">
+          <p><strong>False.</strong> Stone–Geary with common \(\beta\) and different \(\theta^i\) aggregates (§5). So do CARA expected utilities \(\sum_s\pi_s(-e^{-\rho_ix_s}/\rho_i)\) with different \(\rho_i\) and common beliefs, whose wealth slope \(1/\sum_sp_s\) is common (Exercise 25.7). What is needed is the Gorman form: linear Engel curves with a common slope.</p>
+        </div></details></li>
+      <li>In the Stone–Geary economy \(u^i=\sum_l\beta^i_l\log(x_l-\theta^i_l)\), aggregation holds as long as the subsistence vectors \(\theta^i\) are identical across households, even if the \(\beta^i\) differ. <span class="tf-src">(Exam-inspired)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body">
+          <p><strong>False.</strong> \(\gamma_l=\sum_i\lambda_i\beta^i_l/(\bar e_l-\bar\theta_l)\), so \(\gamma_l/\gamma_k\) contains \(\sum_i\lambda_i\beta^i_l/\sum_i\lambda_i\beta^i_k\), which depends on \(\lambda\) when the \(\beta^i\) differ. Common \(\theta\) does not help. It is the \(\beta\)'s (the shape) that must be common, while the \(\theta\)'s (the origins) may differ.</p>
+        </div></details></li>
+      <li>With satiation-point utilities and free disposal, if \(\bar e_l>\bar\theta_l\) for some good \(l\), then good \(l\) has a zero equilibrium price. <span class="tf-src">(Exam-inspired)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body">
+          <p><strong>True.</strong> Every household can be given its bliss level \(\theta^i_l\), and the remaining \(\bar e_l-\bar\theta_l\) is disposed of. Nobody's marginal utility of good \(l\) is positive there, so the planner's multiplier is \(\gamma_l=0\), and so is \(p_l=\gamma_l/\kappa\). This is why the exam's formulas need \(\bar e\ll\bar\theta\).</p>
+        </div></details></li>
+    </ol>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 25.2 Aggregation with satiation points <span class="tag past">Past exam: Spring 2023 Midterm 1 Q1</span></div>
+    <p>A pure endowment economy has \(m\) goods and \(I\) consumers with</p>
+    $$u^i(x^i)=-\sum_{l=1}^m\pi_l\frac{(\theta^i_l-x^i_l)^{1+\sigma}}{1+\sigma}\quad\text{on }X^i=\{x\in\mathbb R^m:x_l\le\theta^i_l\},\qquad\pi_l,\sigma,\theta^i_l>0 .$$
+    <p>The planner maximizes \(\sum_i\lambda_iu^i(x^i)\) with \(\lambda_i>0\), subject to \(\sum_ix^i_l=\bar e_l\) for each \(l\). Let \(\bar\theta_l=\sum_i\theta^i_l\), and assume \(\bar e_l\lt\bar\theta_l\) for every \(l\) (the exam uses this without stating it).</p>
+    <ol class="parts" type="a">
+      <li><span class="pts">[4 lines]</span> Show that on \(X^i\), \(u^i\) is strictly increasing and strictly concave.</li>
+      <li><span class="pts">[1 line]</span> What value of \(\sigma\) makes \(u^i\) quadratic?</li>
+      <li><span class="pts">[1 line]</span> Interpret \(\theta^i_l\).</li>
+      <li><span class="pts">[1 line]</span> Write the planner's FOC for \(x^i_l\), with multiplier \(\gamma_l\) on feasibility of good \(l\).</li>
+      <li><span class="pts">[1 line]</span> Solve for \(x^i_l\) in terms of \(\theta^i_l,\lambda_i,\gamma_l/\pi_l,\sigma\).</li>
+      <li><span class="pts">[1 line]</span> Using feasibility, find \(\gamma_l\) as a function of \(\pi_l\), \(\bar\theta_l-\bar e_l\), \(\sigma\) and \(\{\lambda_j\}\).</li>
+      <li><span class="pts">[1 line]</span> Substitute to express \(x^i_l-\theta^i_l\) in terms of \(\bar e_l-\bar\theta_l\), \(\sigma\) and \(\lambda_i\) relative to a function of \(\{\lambda_j\}\).</li>
+      <li><span class="pts">[2 lines]</span> Write the answer as \(x^i_l-\theta^i_l=\delta^i(\bar e_l-\bar\theta_l)\). Give \(\delta^i>0\), show \(\sum_i\delta^i=1\), and show that \(x^i_l\) increases with \(\lambda_i\) holding the other weights fixed.</li>
+      <li><span class="pts">[2 lines]</span> Consider a one-consumer economy whose satiation point is \(\bar\theta\), with utility \(\bar u\). Compute its marginal utilities at \(x=\bar e\).</li>
+      <li><span class="pts">[3 lines]</span> Compare \(\bar u_l(\bar e)/\bar u_k(\bar e)\) with \(\gamma_l/\gamma_k\). What does the comparison imply for aggregation?</li>
+      <li><span class="pts">[3 lines]</span> Find the equilibrium relative price \(p_l/p_k\) in terms of \(\bar e,\bar\theta,\pi,\sigma\). Is it increasing or decreasing in \(\bar e_l\)? In \(\bar e_k\)?</li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>Work with the shortfall \(z^i_l=\theta^i_l-x^i_l\ge0\). For (h), write \(\delta^i=a_i/(a_i+A_{-i})\) with \(a_i=\lambda_i^{-1/\sigma}\), and remember that \(\bar e_l-\bar\theta_l\lt0\). For (k), use \(p=\gamma/\kappa\) from Lesson 23.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Each term is \(v(c)=-\pi_l(\theta-c)^{1+\sigma}/(1+\sigma)\), with \(v'(c)=\pi_l(\theta-c)^\sigma>0\) for \(c\lt\theta\) and \(v''(c)=-\sigma\pi_l(\theta-c)^{\sigma-1}\lt0\). The Hessian of \(u^i\) is diagonal with negative entries, so \(u^i\) is strictly concave, and it is strictly increasing in each argument below satiation. (The derivative vanishes only at the boundary \(x_l=\theta^i_l\).) <em>Note:</em> the official answer key writes \(v''=\sigma(\theta-c)^{\sigma-1}\lt0\), dropping the minus sign and \(\pi_l\). The expression above is the correct one.</p>
+      <p>(b) \(\sigma=1\).</p>
+      <p>(c) \(\theta^i_l\) is consumer \(i\)'s satiation (bliss) level of good \(l\).</p>
+      <p>(d) \(\lambda_i\pi_l(\theta^i_l-x^i_l)^\sigma=\gamma_l\).</p>
+      <p>(e) \(x^i_l=\theta^i_l-(\gamma_l/\pi_l)^{1/\sigma}(1/\lambda_i)^{1/\sigma}\).</p>
+      <p>(f) Summing over \(i\): \(\bar\theta_l-\bar e_l=(\gamma_l/\pi_l)^{1/\sigma}\sum_j\lambda_j^{-1/\sigma}\), so \(\gamma_l=\pi_l\dfrac{(\bar\theta_l-\bar e_l)^\sigma}{\big(\sum_j\lambda_j^{-1/\sigma}\big)^\sigma}\).</p>
+      <p>(g) \(x^i_l-\theta^i_l=(\bar e_l-\bar\theta_l)\dfrac{\lambda_i^{-1/\sigma}}{\sum_j\lambda_j^{-1/\sigma}}\).</p>
+      <p>(h) \(\delta^i=\lambda_i^{-1/\sigma}/\sum_j\lambda_j^{-1/\sigma}>0\), and the \(\delta^i\) sum to one by construction. With \(a_i=\lambda_i^{-1/\sigma}\), \(\delta^i=a_i/(a_i+A_{-i})\) is increasing in \(a_i\), and \(a_i\) is decreasing in \(\lambda_i\). So \(\delta^i\) falls as \(\lambda_i\) rises. Since \(\bar e_l-\bar\theta_l\lt0\), \(x^i_l=\theta^i_l+\delta^i(\bar e_l-\bar\theta_l)\) rises: a higher weight means a smaller share of the aggregate shortfall.</p>
+      <p>(i) \(\bar u(x)=-\sum_l\pi_l(\bar\theta_l-x_l)^{1+\sigma}/(1+\sigma)\), so \(\bar u_l(\bar e)=\pi_l(\bar\theta_l-\bar e_l)^\sigma\).</p>
+      <p>(j) From (f), the factor \(\big(\sum_j\lambda_j^{-1/\sigma}\big)^{-\sigma}\) is common to all goods and cancels:
+      $$\frac{\gamma_l}{\gamma_k}=\frac{\pi_l(\bar\theta_l-\bar e_l)^\sigma}{\pi_k(\bar\theta_k-\bar e_k)^\sigma}=\frac{\bar u_l(\bar e)}{\bar u_k(\bar e)}.$$
+      They are equal for every \(\lambda\). This is strong (Gorman) aggregation: a representative agent whose satiation point is the sum \(\bar\theta\) reproduces the shadow prices, which depend only on aggregates.</p>
+      <p>(k) Every CE is a planner optimum for some \(\lambda\), with \(p=\gamma/\kappa\). So, whatever the endowment distribution,
+      $$\frac{p_l}{p_k}=\frac{\pi_l}{\pi_k}\left(\frac{\bar\theta_l-\bar e_l}{\bar\theta_k-\bar e_k}\right)^{\sigma},$$
+      which is <strong>decreasing in \(\bar e_l\)</strong> (good \(l\) becomes less scarce relative to satiation) and <strong>increasing in \(\bar e_k\)</strong>.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 25.3 The representative agent with translated preferences <span class="tag past">Past exam: Fall 2025 Final Q2</span> <span class="pts">[20 points]</span></div>
+    <p>There are \(m\) goods and \(I\) agents with \(u^i(c)=H(c-\theta^i)\), where \(\theta^i\in\mathbb R^m\) and \(H\) is HD1, strictly increasing and strictly quasi-concave. Assume \(H\) is defined on \(\mathbb R^m_+\) (consumption at or above \(\theta^i\)) and \(\bar e-\bar\theta\gg0\), where \(\bar\theta=\sum_i\theta^i\).</p>
+    <ol class="parts" type="a">
+      <li><span class="pts">[10]</span> Fix \(\lambda\in\mathbb R^I_+\) and \(\bar e\in\mathbb R^m_+\). Write the problem that defines the representative agent's utility \(U(\bar e;\lambda)\). Do not solve it.</li>
+      <li><span class="pts">[10]</span> Write \(U(\bar e;\lambda)\) using \(H\) and a simple transformation of the \(\theta^i\).</li>
+      <li><span class="pts">[extension]</span> A commonly circulated answer to (b) is \(U(\bar e;\lambda)=H\big(\bar e-\sum_i\lambda_i\theta^i\big)\). Give two quick checks showing it cannot be right.</li>
+      <li><span class="pts">[extension]</span> Show that the weights supporting <em>any</em> competitive equilibrium of this economy are equal across agents, and find the equilibrium prices.</li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>Change variables to \(z^i=c^i-\theta^i\). An HD1 quasi-concave function that is positive on the cone is concave, hence superadditive: \(H(a+b)\ge H(a)+H(b)\). For (d), compute the indirect utility \(v^i(p,w)\) and differentiate in \(w\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(U(\bar e;\lambda)=\max_{\{c^i\}}\sum_i\lambda_iH(c^i-\theta^i)\) subject to \(\sum_ic^i=\bar e\).</p>
+      <p>(b) Let \(z^i=c^i-\theta^i\ge0\), so the constraint becomes \(\sum_iz^i=Z\equiv\bar e-\bar\theta\). By superadditivity, \(\sum_i\lambda_iH(z^i)\le(\max_i\lambda_i)\sum_iH(z^i)\le(\max_i\lambda_i)H(Z)\), and giving all of \(Z\) to a top-weight agent attains this. So
+      $$U(\bar e;\lambda)=\Big(\max_i\lambda_i\Big)\,H\big(\bar e-\bar\theta\big).$$
+      With equal weights \(\lambda_i=\lambda\), the case that matters for equilibria (see (d)), \(U=\lambda H(\bar e-\bar\theta)\), attained by any split along the ray \(z^i=s_iZ\). The "simple transformation" is the <strong>sum</strong> \(\bar\theta=\sum_i\theta^i\). Either way, \(\nabla_{\bar e}U\propto\nabla H(\bar e-\bar\theta)\), independent of \(\lambda\), which is aggregation.</p>
+      <p>(c) <em>One agent:</em> with \(I=1\), the constraint forces \(c^1=\bar e\), so \(U=\lambda_1H(\bar e-\theta^1)\). The proposed formula gives \(H(\bar e-\lambda_1\theta^1)\), which differs whenever \(\lambda_1\ne1\). <em>Homogeneity:</em> any value of the form \(\max\sum_i\lambda_iu^i\) is HD1 in \(\lambda\), i.e. \(U(\bar e;k\lambda)=kU(\bar e;\lambda)\), but \(H(\bar e-\sum_ik\lambda_i\theta^i)\) is not. The underlying mistake is to write \(\lambda_iH(z^i)=H(\lambda_iz^i)\) and then act as if the constraint were on \(\sum_i\lambda_iz^i\). It is on \(\sum_iz^i\).</p>
+      <p>(d) Let \(P(p)=\min\{p\cdot z:H(z)\ge1\}\). By homogeneity, agent \(i\)'s indirect utility is \(v^i(p,w^i)=(w^i-p\cdot\theta^i)/P(p)\), so its marginal utility of income is \(\mu_i=1/P(p)\), the <em>same</em> for every agent. The Negishi weights \(\lambda_i=1/\mu_i=P(p)\) are therefore equal. With linear \(H\)-utility, utility is transferable at the same rate for everyone. By §7, prices are \(p=\kappa\nabla H(\bar e-\bar\theta)\) for any endowment distribution with \(p\cdot e^i\ge p\cdot\theta^i\).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 25.4 Classification drill: does aggregation hold? <span class="tag pset">Problem set (aggregation) P1.1–1.5</span></div>
+    <p>For each family, (i) say whether preferences are identical and whether they are homothetic, (ii) derive \(\gamma_l/\gamma_k\) from the planner's FOCs, and (iii) decide whether aggregation holds. Assume interior solutions, and \(\bar e\gg\bar\theta\) or \(\bar e\ll\bar\theta\) as appropriate.</p>
+    <ol class="parts" type="a">
+      <li>\(u^i=\sum_l\beta^i_l\log x_l\), with \(\sum_l\beta^i_l=1\).</li>
+      <li>\(u^i=\sum_l\beta_l\log(x_l-\theta^i_l)\).</li>
+      <li>\(u^i=-\frac12\sum_l\beta_l(x_l-\theta^i_l)^2\), on \(x_l\lt\theta^i_l\).</li>
+      <li>\(u^i=\frac{x_1^{1-\rho}}{1-\rho}+\frac{x_2^{1-\beta}}{1-\beta}\), with \(\rho\ne\beta\).</li>
+      <li>\(u^i=\sum_l\beta_l\frac{(x_l-\theta^i_l)^{1-\sigma}}{1-\sigma}\).</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Not identical; homothetic. \(\gamma_l=\sum_i\lambda_i\beta^i_l/\bar e_l\), so \(\frac{\gamma_l}{\gamma_k}=\frac{\sum_i\lambda_i\beta^i_l}{\sum_i\lambda_i\beta^i_k}\frac{\bar e_k}{\bar e_l}\). <strong>No aggregation</strong> unless \(\beta^i\equiv\beta\).</p>
+      <p>(b) Not identical; not homothetic (quasi-homothetic). \(\gamma_l=\beta_l\sum_i\lambda_i/(\bar e_l-\bar\theta_l)\), so \(\frac{\gamma_l}{\gamma_k}=\frac{\beta_l(\bar e_k-\bar\theta_k)}{\beta_k(\bar e_l-\bar\theta_l)}\). <strong>Aggregation</strong>, provided \(\bar e\gg\bar\theta\).</p>
+      <p>(c) Not identical; not homothetic. FOC \(\lambda_i\beta_l(\theta^i_l-x^i_l)=\gamma_l\), so \(\bar\theta_l-\bar e_l=\frac{\gamma_l}{\beta_l}\sum_i\lambda_i^{-1}\) and \(\frac{\gamma_l}{\gamma_k}=\frac{\beta_l(\bar\theta_l-\bar e_l)}{\beta_k(\bar\theta_k-\bar e_k)}\). <strong>Aggregation</strong>, provided \(\bar e\ll\bar\theta\). This is Exercise 25.2 with \(\sigma=1\).</p>
+      <p>(d) Identical; not homothetic. \(\frac{\gamma_1}{\gamma_2}=\frac{(\sum_i\lambda_i^{1/\rho})^\rho}{(\sum_i\lambda_i^{1/\beta})^\beta}\frac{\bar e_2^{\,\beta}}{\bar e_1^{\,\rho}}\): HD0 in \(\lambda\) but dependent on its distribution. <strong>No aggregation.</strong></p>
+      <p>(e) Not identical; not homothetic (quasi-homothetic). \(\gamma_l=\beta_l\big(\sum_i\lambda_i^{1/\sigma}\big)^\sigma(\bar e_l-\bar\theta_l)^{-\sigma}\), so \(\frac{\gamma_l}{\gamma_k}=\frac{\beta_l}{\beta_k}\big(\frac{\bar e_k-\bar\theta_k}{\bar e_l-\bar\theta_l}\big)^\sigma\). <strong>Aggregation.</strong> The sharing rule is \(x^i_l=\theta^i_l+\frac{\lambda_i^{1/\sigma}}{\sum_j\lambda_j^{1/\sigma}}(\bar e_l-\bar\theta_l)\).</p>
+      <p><em>Pattern:</em> (b), (c) and (e), like Exercise 25.2, are all \(g(H(\pm(x-\theta^i)))\) with \(g\) and the HD1 \(H\) common. (a) breaks "identical" and (d) breaks "homothetic".</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 25.5 Aggregation inside an OLG cohort <span class="tag past">Past exam: Spring 2023 Midterm 1 Q2</span></div>
+    <p>Periods \(t=1,2,\dots\). Each generation lives two periods and contains types \(i=1,\dots,I\), with preferences as in Exercise 25.2 over \((x^{t,i}_t,x^{t,i}_{t+1})\), weights \((\pi_y,\pi_o)\) and type-specific satiation points \((\theta^i_y,\theta^i_o)\). Type \(i\) is endowed with \(\alpha^i_y\) when young and \(\alpha^i_o\) when old. The initial old have \(\alpha^i_o\) and utility \(x^{0,i}_1\). Let \(\bar\alpha_y,\bar\alpha_o,\bar\theta_y,\bar\theta_o\) be the cohort sums, with \(\bar\alpha\ll\bar\theta\).</p>
+    <ol class="parts" type="a">
+      <li>Is the equilibrium autarky? Is each cohort's total consumption when young equal to \(\bar\alpha_y\)? Is the interest rate constant? (Yes or no each.)</li>
+      <li>Using the young as a representative agent, find \(\frac{1}{1+r}=\frac{p_{t+1}}{p_t}\).</li>
+      <li>If \(\pi_o\lt\pi_y\), \(\bar\alpha_y=\bar\alpha_o\) and \(\bar\theta_y=\bar\theta_o\), sign \(r\) and decide whether the equilibrium is Pareto optimal.</li>
+      <li><span class="pts">[variant]</span> Replace the preferences by subsistence utilities \(\beta_y\frac{(x_t-\theta^i_y)^{1-\sigma}}{1-\sigma}+\beta_o\frac{(x_{t+1}-\theta^i_o)^{1-\sigma}}{1-\sigma}\), with \(\bar\alpha\gg\bar\theta\). Find \(1+r\), and give a condition on the primitives under which the equilibrium is <em>not</em> Pareto optimal.</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) <strong>No / Yes / Yes.</strong> Types trade within the cohort because their autarky MRSs differ. The initial old eat their endowment, and induction on cohort totals rules out trade across generations, so each cohort consumes \((\bar\alpha_y,\bar\alpha_o)\). Every cohort is the same two-good economy, so \(r\) is constant. (The exam text prints "\(I-\bar\alpha\)" in the second question. That is a leftover from the problem-set version, where young endowments were \(1-\alpha_n\). The intended quantity is \(\bar\alpha_y\).) Full solutions are in <a href="0016-olg-heterogeneity-and-long-lives.html">Exercise 16.2</a> and <a href="0010-olg-efficiency.html">Exercise 10.5</a>.</p>
+      <p>(b) By Exercise 25.2(k) with goods \((y,o)\) and aggregate \((\bar\alpha_y,\bar\alpha_o)\): \(\dfrac{1}{1+r}=\dfrac{\pi_o}{\pi_y}\Big(\dfrac{\bar\theta_o-\bar\alpha_o}{\bar\theta_y-\bar\alpha_y}\Big)^\sigma\).</p>
+      <p>(c) \(1/(1+r)=\pi_o/\pi_y\lt1\), so \(r>0\). The value of the aggregate endowment is finite, so the OLG version of the First Welfare Theorem applies and the equilibrium is <strong>Pareto optimal</strong>.</p>
+      <p>(d) By §6, \(\frac{p_t}{p_{t+1}}=\frac{\gamma_y}{\gamma_o}=\frac{\beta_y}{\beta_o}\Big(\frac{\bar\alpha_o-\bar\theta_o}{\bar\alpha_y-\bar\theta_y}\Big)^\sigma\), so
+      $$1+r=\frac{\beta_y}{\beta_o}\left(\frac{\bar\alpha_o-\bar\theta_o}{\bar\alpha_y-\bar\theta_y}\right)^{\sigma}.$$
+      The equilibrium is not Pareto optimal when \(r\lt0\), i.e. when \(\beta_y(\bar\alpha_o-\bar\theta_o)^\sigma\lt\beta_o(\bar\alpha_y-\bar\theta_y)^\sigma\): the cohort is relatively rich in supernumerary terms when young, or values old age highly. Then the value of the aggregate endowment is infinite, and a small transfer from every young to every old at every date improves everyone (<a href="0011-pay-as-you-go-social-security.html">Lesson 11</a>).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 25.6 Complete slide 37 <span class="tag slides">Slides N3 p.37</span> <span class="tag proof">Proof</span></div>
+    <p>Let \(u^i(x)=g^i(h(x-\theta^i))\) with \(h\) HD1, increasing and concave, and \(g^i\) strictly increasing.</p>
+    <ol class="parts" type="a">
+      <li><span class="pts">[10]</span> Show that household \(i\)'s demand has the form \(x^i(p,w)=\theta^i+\big(w-p\cdot\theta^i\big)d(p)\) for a function \(d(p)\) common to all households.</li>
+      <li><span class="pts">[10]</span> Conclude that in an interior CE, \(p\propto\nabla h(\bar e-\bar\theta)\), whatever the distribution of endowments.</li>
+      <li><span class="pts">[5]</span> Which household-level condition on endowments do you need, and why?</li>
+      <li><span class="pts">[5]</span> If \(\theta^i_l>0\), in what sense is good \(l\) a necessity for \(i\)? Compute \(i\)'s wealth elasticity of demand for good \(l\) and show that it is below one.</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) The budget is \(p\cdot\hat x\le w-p\cdot\theta^i\equiv\hat w\) with \(\hat x=x-\theta^i\). Since \(g^i\) is increasing, \(i\) maximizes \(h(\hat x)\) subject to it. If \(d(p)\) solves this at \(\hat w=1\), then for \(\hat w>0\) the bundle \(\hat w\,d(p)\) is affordable, and any affordable \(\hat x\) satisfies \(h(\hat x)=\hat w\,h(\hat x/\hat w)\le\hat w\,h(d(p))=h(\hat w\,d(p))\). So \(\hat x^i=\hat w\,d(p)\).</p>
+      <p>(b) Summing, \(\sum_i\hat x^i=\big(\sum_i\hat w^i\big)d(p)=p\cdot(\bar e-\bar\theta)\,d(p)\). Clearing requires this to equal \(\bar e-\bar\theta\), so \(\bar e-\bar\theta\) must be the optimal translated bundle at prices \(p\). Its FOC is \(\nabla h(\bar e-\bar\theta)=\nu p\). Hence \(p\propto\nabla h(\bar e-\bar\theta)\), which involves only aggregates.</p>
+      <p>(c) \(\hat w^i=p\cdot(e^i-\theta^i)>0\): each household must be able to afford its own translation bundle at the equilibrium prices. Otherwise its problem has no interior solution (Stone–Geary utility is \(-\infty\) below subsistence), the linear demand formula fails, and aggregation can break. Gorman aggregation is always "for interior demands".</p>
+      <p>(d) \(x^i_l=\theta^i_l+(w-p\cdot\theta^i)d_l(p)\) contains a fixed component \(\theta^i_l\) that is bought regardless of wealth. The elasticity is \(\frac{\partial x^i_l}{\partial w}\frac{w}{x^i_l}=\frac{d_l w}{\theta^i_l+(w-p\cdot\theta^i)d_l}\), which is below 1 iff \(\theta^i_l>p\cdot\theta^i\,d_l\). With a single translated good this holds automatically, since then \(p\cdot\theta^i=p_l\theta^i_l\) and \(p_ld_l\lt1\). Generally, goods with relatively large subsistence requirements have wealth elasticities below one: they are necessities.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 25.7 Gorman form: who passes, who fails <span class="tag exam">Exam-inspired</span></div>
+    <ol class="parts" type="a">
+      <li><span class="pts">[10]</span> For \(u^i=h(x-\theta^i)\) with \(h\) HD1, let \(P(p)=\min\{p\cdot z:h(z)\ge1\}\). Show that \(v^i(p,w)=\frac{w-p\cdot\theta^i}{P(p)}\). Use Roy's identity to find demand, and verify that \(\partial x^i_l/\partial w\) is common to all \(i\).</li>
+      <li><span class="pts">[5]</span> For non-identical Cobb–Douglas \(u^i=\sum_l\beta^i_l\log x_l\), compute \(\partial x^i_l/\partial w\) and explain why aggregation fails.</li>
+      <li><span class="pts">[10]</span> Two states, common beliefs \(\pi_s\), and expected utility with CARA \(v^i(x)=-e^{-\rho_ix}/\rho_i\), where risk aversion \(\rho_i\) differs across agents. Show that \(\partial x^i_s/\partial w=1/\sum_{s'}p_{s'}\) for every \(i\). Conclude that relative state prices do not depend on the distribution of wealth, even though preferences are not identical.</li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (c), solve \(\pi_se^{-\rho_ix_s}=\mu_ip_s\) for \(x_s\), substitute into the budget to find \(\log\mu_i\), and substitute back. (This is inspired by a 2022 problem set on risk sharing.)</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Optimal translated consumption is \(\hat x=\hat w\,d(p)\) with \(h(d(p))=1/P(p)\): the cheapest unit of \(h\) costs \(P\), so a dollar buys \(1/P\) units. Hence \(v^i=h(\hat w\,d)=\hat w/P=(w-p\cdot\theta^i)/P(p)\). Roy's identity: \(\partial v/\partial w=1/P\) and \(\partial v/\partial p_l=-\theta^i_l/P-(w-p\cdot\theta^i)P_l/P^2\), so
+      $$x^i_l=-\frac{\partial v/\partial p_l}{\partial v/\partial w}=\theta^i_l+(w-p\cdot\theta^i)\frac{P_l(p)}{P(p)},\qquad\frac{\partial x^i_l}{\partial w}=\frac{P_l(p)}{P(p)},$$
+      which is common to all \(i\) (the Gorman form with \(b=1/P\)).</p>
+      <p>(b) \(x^i_l=\beta^i_lw/p_l\), so \(\partial x^i_l/\partial w=\beta^i_l/p_l\), which differs across \(i\). A dollar moved from \(j\) to \(i\) changes aggregate demand for \(l\) by \((\beta^i_l-\beta^j_l)/p_l\ne0\), so prices must adjust.</p>
+      <p>(c) The FOC gives \(x^i_s=-\frac{1}{\rho_i}\log\frac{\mu_ip_s}{\pi_s}\). The budget \(\sum_sp_sx^i_s=w\) gives \(\log\mu_i=-\frac{\rho_iw+\sum_sp_s\log(p_s/\pi_s)}{\sum_sp_s}\). Substituting back,
+      $$x^i_s=\frac{w}{\sum_{s'}p_{s'}}+\frac{1}{\rho_i}\Big[\frac{\sum_{s'}p_{s'}\log(p_{s'}/\pi_{s'})}{\sum_{s'}p_{s'}}-\log\frac{p_s}{\pi_s}\Big].$$
+      The wealth slope \(1/\sum_{s'}p_{s'}\) is the same for everyone: the Gorman form. So aggregate demand depends only on aggregate wealth, and so do equilibrium prices. On the planner side, \(\gamma_s/\gamma_{s'}=\frac{\pi_s}{\pi_{s'}}\exp\big(-(\bar e_s-\bar e_{s'})/\sum_j\rho_j^{-1}\big)\), independent of \(\lambda\). The representative agent is CARA with risk tolerance \(\sum_j1/\rho_j\). (The domain must allow negative consumption, which CARA does.)</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 25.8 Negishi weights when aggregation fails <span class="tag exam">Exam-inspired</span></div>
+    <p>Two goods, households with \(u^i=\beta^i\log x_1+(1-\beta^i)\log x_2\) and proportional endowments \(e^i=\delta^i\bar e\), with \(\sum_i\delta^i=1\).</p>
+    <ol class="parts" type="a">
+      <li><span class="pts">[10]</span> Find the CE relative price \(p_1/p_2\). Show that it depends on \(\delta\) unless all \(\beta^i\) are equal.</li>
+      <li><span class="pts">[5]</span> Find \(\mu_i\) and the supporting Pareto weights \(\lambda_i=1/\mu_i\).</li>
+      <li><span class="pts">[10]</span> Plug those weights into the planner's \(\gamma_1/\gamma_2\) from §2 and verify that it equals your \(p_1/p_2\).</li>
+      <li><span class="pts">[5]</span> Is the CE allocation equal to the endowment, as in Lesson 24? Explain.</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Let \(W=p\cdot\bar e\), so \(w^i=\delta^iW\). Clearing good 1: \(p_1\bar e_1=\sum_i\beta^iw^i=\bar\beta_\delta W\), where \(\bar\beta_\delta\equiv\sum_i\delta^i\beta^i\). Similarly \(p_2\bar e_2=(1-\bar\beta_\delta)W\). So
+      $$\frac{p_1}{p_2}=\frac{\bar\beta_\delta}{1-\bar\beta_\delta}\cdot\frac{\bar e_2}{\bar e_1},$$
+      which depends on the distribution \(\delta\) through the wealth-weighted taste \(\bar\beta_\delta\), unless \(\beta^i\equiv\beta\).</p>
+      <p>(b) With log utility and taste weights summing to one, \(V^i=\log w^i+\text{terms in }p\), so \(\mu_i=\partial V^i/\partial w=1/w^i\) and \(\lambda_i=w^i=\delta^iW\). Richer households get larger weights, as in Lesson 23.</p>
+      <p>(c) From §2, \(\frac{\gamma_1}{\gamma_2}=\frac{\sum_i\lambda_i\beta^i}{\sum_i\lambda_i(1-\beta^i)}\frac{\bar e_2}{\bar e_1}=\frac{W\bar\beta_\delta}{W(1-\bar\beta_\delta)}\frac{\bar e_2}{\bar e_1}\), which matches (a).</p>
+      <p>(d) No. Household \(i\) consumes \(x^i_1=\beta^iw^i/p_1=\frac{\beta^i}{\bar\beta_\delta}\delta^i\bar e_1\), which is not \(\delta^i\bar e_1\) unless \(\beta^i=\bar\beta_\delta\). Households with a stronger taste for good 1 trade good 2 for it. With identical tastes, nobody wants to trade away from a proportional endowment, which is why the Lesson 24 CE is autarky.</p>
+    </div></details>
+  </div>
+
+  <div class="takeaways">
+    <h2>Key takeaways</h2>
+    <ul>
+      <li><strong>Test:</strong> solve \(\lambda_iu^i_l=\gamma_l\) for \(x^i_l\), sum to get \(\gamma_l(\lambda)\), and check whether \(\gamma_l/\gamma_k\) depends on \(\lambda\). If it does not, CE relative prices do not depend on the wealth distribution.</li>
+      <li><strong>Homothetic but not identical fails</strong> (non-identical Cobb–Douglas: \(\gamma_l\propto\sum_i\lambda_i\beta^i_l/\bar e_l\)). <strong>Identical but not homothetic fails</strong> (curvatures \(\rho\ne\beta\): the shares \(\lambda_i^{1/\rho}\) and \(\lambda_i^{1/\beta}\) differ across goods).</li>
+      <li><strong>Translation rescues aggregation:</strong> with \(u^i=g^i(h(x-\theta^i))\) and common \(h\), \(x^i=\theta^i+\delta^i(\bar e-\bar\theta)\) and \(p\propto\nabla h(\bar e-\bar\theta)\). Stone–Geary, translated CES, and satiation-point utilities are all instances. Origins may differ, shapes may not.</li>
+      <li>Satiation versions need \(\bar e\ll\bar\theta\), and subsistence versions need \(\bar e\gg\bar\theta\) and \(p\cdot e^i>p\cdot\theta^i\).</li>
+      <li>The deep condition is Gorman's: \(v^i=a^i(p)+b(p)w\), i.e. linear Engel curves with a common slope. Translated preferences are quasi-homothetic, not homothetic.</li>
+      <li>In OLG cohorts, aggregation plus "no trade across generations" pins \(1+r\) to cohort aggregates. Then the sign of \(r\) decides efficiency.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "why is an HD1 quasi-concave function concave?" or "show me the Edgeworth box for the non-homothetic example, with the contract curve moving."</div>
+
+  <div class="lesson-nav">
+    <a href="0024-gorman-aggregation.html">← Lesson 24: Gorman aggregation</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="../reference/aggregation-cheatsheet.html">Aggregation cheatsheet →</a>
+  </div>
+
+</div>
+</body>
+</html>

@@ -100,14 +100,59 @@
     <dd>Net output \(F(K,1)-\delta K\), so \(r=F'(K)\) and \(Y=F(K)-F'(K)K\).</dd>
   </dl>
 
+  <h2>Part V: Aggregation and the social planner (Class Note 3)</h2>
+  <dl class="gloss">
+    <dt>Cardinal vs ordinal property</dt>
+    <dd>An ordinal property survives every strictly increasing transformation of \(u^i\), so it depends only on preferences (and demand). Quasi-concavity is ordinal; <strong>concavity is cardinal</strong>: \(e^{u}\) of a concave \(u\) need not be concave. <span class="see"><a href="../lessons/0021-utility-possibility-set-and-planner-weights.html">L21</a></span></dd>
+    <dt>Utility possibility set \(U\)</dt>
+    <dd>\(\{u\in\mathbb{R}^I: u_i\le u^i(x^i)\ \forall i\) for some feasible allocation\(\}\). It is convex under HH, FF and concave \(u^i\) (assumption CC). PO utility vectors lie on its upper boundary. <span class="see"><a href="../lessons/0021-utility-possibility-set-and-planner-weights.html">L21</a></span></dd>
+    <dt>Downward comprehensive</dt>
+    <dd>\(u\in U\) and \(u'\le u\) (component by component) imply \(u'\in U\). This is what forces supporting weights to be non-negative.</dd>
+    <dt>Pareto (welfare) weights \(\lambda\)</dt>
+    <dd>Non-negative, nonzero \(\lambda\in\mathbb{R}^I_+\) in the planner objective \(\sum_i\lambda_iu^i\). Every PO allocation solves the planner problem for some \(\lambda\) (under HH, CC, FF). With \(\lambda\gg0\), every solution is PO; with zero weights, a solution need not be PO. <span class="see"><a href="../lessons/0021-utility-possibility-set-and-planner-weights.html">L21</a></span></dd>
+    <dt>Planner problem \(W\)</dt>
+    <dd>\(\max_{\{x^i,y^j\}}\sum_i\lambda_iu^i(x^i)\) subject to feasibility.</dd>
+    <dt>Representative agent / representative utility \(u(x;\lambda)\)</dt>
+    <dd>\(\max_{\{x^i\in X^i\}}\sum_i\lambda_iu^i(x^i)\) s.t. \(\sum_ix^i=x\). It is concave in \(x\) when the \(X^i\) are convex and the \(u^i\) concave, and HD1 in \(\lambda\). The weights that reproduce a CE are the Negishi weights. <span class="see"><a href="../lessons/0022-representative-agent-and-planner-focs.html">L22</a></span></dd>
+    <dt>Pure exchange economy</dt>
+    <dd>No production: \(Y=-\mathbb{R}^m_+\) (free disposal only), so feasibility is \(\sum_ix^i\le\sum_ie^i\equiv\bar e\).</dd>
+    <dt>Shadow value \(\gamma_l\)</dt>
+    <dd>The multiplier on feasibility of good \(l\) in the planner problem. It equals the marginal value of one more unit of \(\bar e_l\) to the planner, \(\partial u(\bar e;\lambda)/\partial x_l\). Planner FOC: \(\lambda_iu^i_l=\gamma_l\). It depends on \(\lambda\) in general.</dd>
+    <dt>Marginal utility of income \(\mu_i\)</dt>
+    <dd>The multiplier on \(i\)'s budget constraint. CE FOC: \(u^i_l=\mu_ip_l\). By the envelope theorem it is the utility gain from one more unit of numeraire income. Richer agents have lower \(\mu_i\). <span class="see"><a href="../lessons/0023-negishi-weights-and-welfare-theorems.html">L23</a></span></dd>
+    <dt>Negishi weights / Negishi method</dt>
+    <dd>The planner weights that reproduce a CE: \(\lambda_i=\kappa/\mu_i\), with \(\gamma=\kappa p\). Matching the planner and household FOCs this way proves both welfare theorems (interior, differentiable case). <strong>Not</strong> \(\lambda_i=\mu_i\). <span class="see"><a href="../lessons/0023-negishi-weights-and-welfare-theorems.html">L23</a></span></dd>
+    <dt>Envy-free allocation</dt>
+    <dd>Feasible \(\{x^i\}\) with \(u^i(x^i)\ge u^i(x^j)\) for all \(i,j\). The CE from equal endowments \(e^i=\bar e/I\) is envy-free (identical budget sets); equal endowments are sufficient, not necessary.</dd>
+    <dt>Homogeneous of degree \(k\) (HD\(k\))</dt>
+    <dd>\(h(\eta x)=\eta^kh(x)\) for all \(\eta>0\). If \(h\) is HD1, its partial derivatives are HD0: \(h_l(\eta x)=h_l(x)\). <span class="see"><a href="../lessons/0024-gorman-aggregation.html">L24</a></span></dd>
+    <dt>Euler's theorem</dt>
+    <dd>If \(h\) is differentiable and HD1, then \(h(x)=\sum_lx_l\,h_l(x)=\nabla h(x)\cdot x\).</dd>
+    <dt>Homothetic</dt>
+    <dd>Preferences representable as \(g(h(x))\) with \(g\) strictly increasing and \(h\) HD1. Indifference curves are radial blow-ups of each other, MRS is constant along rays, and Engel curves are rays through the origin.</dd>
+    <dt>Gorman aggregation / Gorman form</dt>
+    <dd>Equilibrium relative prices (equivalently \(\gamma_l/\gamma_k\)) do not depend on the distribution of wealth or Pareto weights, so a representative agent evaluated at \(\bar e\) prices the economy. It holds for \(u^i=g^i(h(x))\) with common HD1 \(h\): \(p\propto\nabla h(\bar e)\). More generally (Gorman polar form) Engel curves are linear with a slope common to all agents. <span class="see"><a href="../lessons/0024-gorman-aggregation.html">L24</a>, <a href="../lessons/0025-limits-of-aggregation.html">L25</a></span></dd>
+    <dt>Subsistence / translation vector \(\theta^i\)</dt>
+    <dd>An agent-specific shift of the origin: \(u^i(x)=g(H(x-\theta^i))\). If \(\theta^i_l>0\), good \(l\) is a necessity for \(i\). Aggregation then works on net aggregate endowment \(\bar e-\bar\theta\), with \(\bar\theta=\sum_i\theta^i\). <span class="see"><a href="../lessons/0025-limits-of-aggregation.html">L25</a></span></dd>
+    <dt>Stone–Geary</dt>
+    <dd>\(u^i=\sum_l\beta_l\log(x_l-\theta^i_l)\). It is non-homothetic and non-identical when the \(\theta^i\) differ, yet it aggregates if \(\beta\) is common: \(\gamma_l/\gamma_k=\frac{\beta_l(\bar e_k-\bar\theta_k)}{\beta_k(\bar e_l-\bar\theta_l)}\). It is the \(\sigma=1\) case of translated CES.</dd>
+    <dt>Satiation (bliss) point</dt>
+    <dd>A bundle beyond which more is not better, e.g. \(\theta^i\) in \(-\sum_l\pi_l(\theta^i_l-x_l)^{1+\sigma}/(1+\sigma)\) on \(x\le\theta^i\). It violates LNS at \(\theta^i\). That family still aggregates (needs \(\bar e\lt\bar\theta\)).</dd>
+  </dl>
+
   <h2 id="traps">Notation traps across slide decks</h2>
   <table class="simple">
-    <tr><th>Symbol</th><th>Class Note II</th><th>Class Note III</th><th>Blanchard–Yaari</th></tr>
-    <tr><td>\(\alpha\)</td><td>old-age endowment (young get \(1-\alpha\))</td><td>privatization slides: <em>young</em> endowment; Cobb–Douglas: capital share; heterogeneity/population slides: as in Note II</td><td>decline rate of labour income with age</td></tr>
-    <tr><td>\(\theta\)</td><td>ownership share \(\theta^i_j\) (Slides 1)</td><td>PAYG tax per young</td><td>discount rate</td></tr>
-    <tr><td>\(\tau\)</td><td>PAYG tax per young</td><td>generic tax \(\tau^t_s\) (positive = tax)</td><td>(unused; taxes are \(T\))</td></tr>
-    <tr><td>\(p\)</td><td>prices \(p_t\)</td><td>prices</td><td>death rate</td></tr>
-    <tr><td>\(B\)</td><td>(unused)</td><td>government <em>assets</em></td><td>government <em>debt</em></td></tr>
+    <tr><th>Symbol</th><th>Class Note II</th><th>Class Note III</th><th>Blanchard–Yaari</th><th>Class Note 3 (aggregation)</th></tr>
+    <tr><td>\(\alpha\)</td><td>old-age endowment (young get \(1-\alpha\))</td><td>privatization slides: <em>young</em> endowment; Cobb–Douglas: capital share; heterogeneity/population slides: as in Note II</td><td>decline rate of labour income with age</td><td>(unused)</td></tr>
+    <tr><td>\(\theta\)</td><td>ownership share \(\theta^i_j\) (Slides 1)</td><td>PAYG tax per young</td><td>discount rate</td><td>translation vector \(\theta^i\): subsistence (\(x\ge\theta^i\)) or satiation (\(x\le\theta^i\)) point</td></tr>
+    <tr><td>\(\tau\)</td><td>PAYG tax per young</td><td>generic tax \(\tau^t_s\) (positive = tax)</td><td>(unused; taxes are \(T\))</td><td>(unused)</td></tr>
+    <tr><td>\(p\)</td><td>prices \(p_t\)</td><td>prices</td><td>death rate</td><td>prices (but an <em>exponent</em> in one Fall 2025 MT1 T/F statement)</td></tr>
+    <tr><td>\(B\)</td><td>(unused)</td><td>government <em>assets</em></td><td>government <em>debt</em></td><td>(unused)</td></tr>
+    <tr><td>\(\delta\)</td><td>(unused)</td><td>depreciation (capital slides)</td><td>depreciation (inside \(F\))</td><td>endowment share \(\delta^i\): \(e^i=\delta^i\bar e\)</td></tr>
+    <tr><td>\(\lambda\)</td><td>(unused)</td><td>(unused)</td><td>(unused)</td><td>Pareto weight \(\lambda_i\); Negishi weight \(=\kappa/\mu_i\)</td></tr>
+    <tr><td>\(\beta\)</td><td>weight on old-age consumption (log example)</td><td>as in Note II</td><td>(unused)</td><td>Cobb–Douglas / Stone–Geary shares \(\beta_l\); on slide 33 a curvature parameter</td></tr>
+    <tr><td>\(h\), \(H\)</td><td>(unused)</td><td>(unused)</td><td>human wealth (individual, aggregate)</td><td>HD1 aggregator \(h\) (slides); \(H\) in the Fall 2025 Final</td></tr>
+    <tr><td>Footer "Class Notes III"</td><td colspan="4">The folder-3 aggregation deck's footer reads "Class Notes III", but it is a different deck from Class Note III (OLG extensions). This course calls it <strong>Class Note 3</strong>.</td></tr>
   </table>
 
   <div class="lesson-nav">
@@ -115,6 +160,7 @@
     <a href="welfare-theorems-cheatsheet.html">Welfare theorems cheatsheet</a>
     <a href="olg-cheatsheet.html">OLG cheatsheet</a>
     <a href="perpetual-youth-cheatsheet.html">Perpetual youth cheatsheet</a>
+    <a href="aggregation-cheatsheet.html">Aggregation cheatsheet</a>
   </div>
 </div>
 </body>
