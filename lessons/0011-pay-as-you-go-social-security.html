@@ -209,73 +209,143 @@
 
   <h2>5. Exercises</h2>
 
+  <p>Social security in OLG shows up on exams as true/false items ("does PAYG make everyone better off?") and in the 2025 problem set, which extends this lesson to population growth and to heterogeneous types (Exercises 11.7–11.8). Answer with general parameters.</p>
+
   <div class="box exercise">
-    <div class="box-title">Exercise 11.1 <span class="tag slides">Slides p.20</span></div>
-    <p>Answer the slide question in full: (a) under what parameter values does the PAYG policy produce a CE that Pareto-dominates the CE without the policy? (b) What interest rate must the CE without policy have? (c) Does it matter whether the tax is \(\tau^*\) or some other positive number?</p>
-    <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) \(\beta>\alpha\) (Case 1 of Lesson 10). (b) \(\bar r<0\). (c) Yes: \(\tau\) must lie in \((0,\bar\tau]\). Any such \(\tau\) works, and \(\tau^*=\beta-\alpha\) is the best one for generations \(i\ge1\). Too large a tax (\(\tau>\bar\tau\)) over-saves on the young's behalf and makes them worse off than in autarky, even though the initial old still gain. See the analysis in §3 for the proof.</p>
-    </div></details>
+    <div class="box-title">Exercise 11.1 <span class="tag exam">Exam-inspired</span> True or false? Justify in 1–4 lines.</div>
+    <ol class="tf-list">
+      <li>If the no-policy CE has \(\bar r<0\), introducing a PAYG system with any tax \(\tau>0\) is a Pareto improvement.
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> The young's utility \(W(\tau)\) rises up to \(\tau^*=\beta-\alpha\) and then falls. It drops below its CE level once \(\tau>\bar\tau\). The Pareto-improving set is \((0,\bar\tau]\), not \((0,\infty)\).</p></div></details></li>
+      <li>If \(\bar r>0\), a small PAYG system (\(\tau>0\)) makes every generation born at \(t\ge1\) worse off.
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True.</strong> \(W'(0)=\frac{1-\beta}{1-\alpha}\big[\frac1{1+\bar r}-1\big]<0\). The system is a "bond" with gross return 1, and the young value it at \(1/(1+\bar r)<1\). (Only the initial old gain.)</p></div></details></li>
+      <li>In the pure-endowment economy, introducing PAYG raises the equilibrium interest rate.
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True.</strong> The after-tax endowment \((1-\alpha-\tau,\alpha+\tau)\) is again autarkic, and \(1+r(\tau)=\frac{(1-\beta)(\alpha+\tau)}{\beta(1-\alpha-\tau)}\) is increasing in \(\tau\). With more old-age resources, the young want to save less, so the rate that makes them content not to trade rises.</p></div></details></li>
+      <li>Under PAYG with \(\tau=\beta-\alpha\), the equilibrium interest rate is zero and the allocation is the best symmetric allocation.
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True.</strong> After-tax endowments become \((1-\beta,\beta)\), and \(1+r(\tau^*)=\frac{(1-\beta)\beta}{\beta(1-\beta)}=1\). This is the "golden rule": the implicit return on PAYG (zero without growth) equals the market rate.</p></div></details></li>
+      <li>With heterogeneous endowments within each generation and \(\bar r<0\), a small uniform PAYG tax makes every young type better off. <span class="tf-src">(cf. Problem set 2025, P4 Q8)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> Everyone gains from the transfer itself, but the policy raises \(r\), and that hurts types who <em>borrow</em> when young. Heavy borrowers can lose on net (Exercise 11.8).</p></div></details></li>
+      <li>With population growth \(n\), the PAYG tax that implements the best symmetric allocation is positive if and only if \(n>\bar r\). <span class="tf-src">(cf. Problem set 2025, P6 Q5)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True.</strong> The required tax equals the young's desired saving at \(r=n\): \(\tau^*=s(n)\). Since \(s\) is increasing with \(s(\bar r)=0\), \(\tau^*>0\iff n>\bar r\) (Exercise 11.7).</p></div></details></li>
+      <li>Abolishing an existing PAYG system cannot be a Pareto improvement.
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True.</strong> The generation that is old when the system ends paid \(\tau\) when young and now receives nothing. Compared with keeping the system, it strictly loses (Exercise 11.4).</p></div></details></li>
+      <li>Valued fiat money can implement the same allocation as the optimal PAYG system.
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True when \(\bar r<0\).</strong> A stationary monetary equilibrium has return 1 on money, and real balances equal \(s(0)=\beta-\alpha\). So consumption is \((1-\beta,\beta)\), exactly as under \(\tau^*\) (Exercise 11.6). If \(\bar r\ge0\), no valued stationary monetary equilibrium exists.</p></div></details></li>
+    </ol>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 11.2 <span class="tag exam">Exam-style</span></div>
-    <p>Let \(\alpha=0.2\), \(\beta=0.4\).</p>
+    <div class="box-title">Exercise 11.2 <span class="tag slides">Slides II pp.19–20</span> <span class="tag exam">Exam-inspired</span> When does PAYG Pareto-improve?</div>
+    <p>Endowments \((1-\alpha,\alpha)\), preferences \((1-\beta)\log c_y+\beta\log c_o\), and the PAYG policy \(\tau\) of §1. Answer without looking back at §3.</p>
     <ol class="parts" type="a">
-      <li>Compute the no-policy interest rate \(\bar r\).
-        <div class="numcheck" data-answer="(0.2-0.4)/(0.4*0.8)" data-tol="0.002" data-prompt="r̄ ="></div></li>
-      <li>Compute the interest rate in the CE with \(\tau = 0.1\).
-        <div class="numcheck" data-answer="0.6*0.3/(0.4*0.7)-1" data-tol="0.002" data-prompt="r(0.1) ="></div></li>
-      <li>Compute \(\bar\tau\) numerically (you may use the figure).
-        <div class="numcheck" data-answer="0.42621" data-tol="0.003" data-prompt="τ̄ ="></div></li>
+      <li><span class="pts">[5 pts]</span> Show that the CE with policy \(\tau\) is autarky at the after-tax endowments, and find \(r(\tau)\).</li>
+      <li><span class="pts">[10 pts]</span> Write the utility \(W(\tau)\) of a generation \(t\ge1\). Show that \(W'(0)>0\iff\bar r<0\), and interpret.</li>
+      <li><span class="pts">[10 pts]</span> Show that \(W\) is strictly concave. Find the \(\tau\) that maximizes it and the interest rate there.</li>
+      <li><span class="pts">[10 pts]</span> Characterize the full set of \(\tau\) that produce a CE Pareto-dominating the no-policy CE. Answer the slide's two questions: for which parameters, and at what no-policy interest rate?</li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) \(\bar r = -0.2/0.32 = -0.625\). (b) \(1+r = \frac{0.6\cdot0.3}{0.4\cdot0.7} = 0.643\), so \(r\approx-0.357\). The rate rises toward 0 as \(\tau\to\tau^*=0.2\). (c) Solve \(0.6\log\frac{0.8-\tau}{0.8} + 0.4\log\frac{0.2+\tau}{0.2}=0\) on \((0.2,0.8)\): \(\bar\tau\approx0.426\), slightly above \(2(\beta-\alpha)=0.4\).</p>
+      <p>(a) Taxes and transfers just relabel endowments, so the Lesson 8 proposition applies: the CE is no trade at \((1-\alpha-\tau,\alpha+\tau)\), with \(1+r(\tau)=\frac{(1-\beta)(\alpha+\tau)}{\beta(1-\alpha-\tau)}\).</p>
+      <p>(b) \(W(\tau)=(1-\beta)\log(1-\alpha-\tau)+\beta\log(\alpha+\tau)\), so \(W'(0)=\frac{\beta}{\alpha}-\frac{1-\beta}{1-\alpha}=\frac{1-\beta}{1-\alpha}\Big[\frac{1}{1+\bar r}-1\Big]\). This is positive iff \(\bar r<0\). Each unit given up when young returns one unit when old, which the young value at \(1/(1+\bar r)\).</p>
+      <p>(c) \(W''<0\) (a sum of logs of affine functions). The FOC \(\frac{\beta}{\alpha+\tau}=\frac{1-\beta}{1-\alpha-\tau}\) gives \(\tau^*=\beta-\alpha\), where \(r(\tau^*)=0\).</p>
+      <p>(d) The initial old gain iff \(\tau>0\). If \(\beta>\alpha\), \(W\) rises on \([0,\tau^*]\) and then falls to \(-\infty\) as \(\tau\uparrow1-\alpha\). So there is a unique \(\bar\tau\in(\tau^*,1-\alpha)\) with \(W(\bar\tau)=W(0)\), and the improving set is \((0,\bar\tau]\). If \(\beta\le\alpha\), \(W\) is decreasing on \(\tau\ge0\), and no \(\tau\ne0\) works. <strong>Answer:</strong> PAYG Pareto-improves iff \(\beta>\alpha\), i.e. iff the no-policy CE has \(\bar r<0\), and then only for \(\tau\in(0,\bar\tau]\).</p>
     </div></details>
   </div>
 
   <div class="box exercise">
     <div class="box-title">Exercise 11.3 <span class="tag proof">Proof</span></div>
-    <p>Show that when \(\beta=\tfrac12\), \(\bar\tau = 2(\beta-\alpha) = 1-2\alpha\). Then show that, more generally, \(\bar\tau>2(\beta-\alpha)\) if \(\beta<\tfrac12\) and \(\bar\tau<2(\beta-\alpha)\) if \(\beta>\tfrac12\).</p>
-    <details class="hint"><summary>Hint</summary><div class="body"><p>Write young utility as a function of old-age consumption \(c\): \(f(c) = (1-\beta)\log(1-c) + \beta\log c\), with peak at \(c=\beta\). With \(d\equiv\beta-\alpha>0\), the CE is at \(c = \beta-d\), and \(\tau=2d\) puts the young at \(c=\beta+d\). Study \(g(d)\equiv f(\beta+d)-f(\beta-d)\).</p></div></details>
+    <p>Show that when \(\beta=\tfrac12\), \(\bar\tau = 2(\beta-\alpha) = 1-2\alpha\). Then show that, more generally, \(\bar\tau>2(\beta-\alpha)\) if \(\beta\lt \tfrac12\) and \(\bar\tau<2(\beta-\alpha)\) if \(\beta>\tfrac12\).</p>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>Write young utility as a function of old-age consumption \(c\): \(f(c) = (1-\beta)\log(1-c) + \beta\log c\), which peaks at \(c=\beta\). With \(d\equiv\beta-\alpha>0\), the CE is at \(c = \beta-d\), and \(\tau=2d\) puts the young at \(c=\beta+d\). Study \(g(d)\equiv f(\beta+d)-f(\beta-d)\).</p></div></details>
     <details class="solution"><summary>Show solution</summary><div class="body">
       <ol class="steps">
         <li><strong>Reduction.</strong> \(\bar\tau\) is where \(f\) returns to its CE level \(f(\beta-d)\) on the far side of the peak. Since \(f\) is strictly decreasing to the right of \(\beta\): \(\bar\tau > 2d \iff f(\beta+d) > f(\beta-d) \iff g(d) > 0\), and \(\bar\tau = 2d\iff g(d)=0\).</li>
         <li><strong>Derivative.</strong> \(g(0)=0\) and \(g'(d) = f'(\beta+d)+f'(\beta-d)\). Using \(f'(c) = \frac{\beta}{c}-\frac{1-\beta}{1-c}\):
-          $$g'(d) = \beta\Big[\tfrac{1}{\beta+d}+\tfrac{1}{\beta-d}\Big] - (1-\beta)\Big[\tfrac{1}{1-\beta-d}+\tfrac{1}{1-\beta+d}\Big] = \frac{2\beta^2}{\beta^2-d^2} - \frac{2(1-\beta)^2}{(1-\beta)^2-d^2}.$$</li>
-        <li><strong>Sign.</strong> \(h(x) = \frac{x^2}{x^2-d^2} = 1 + \frac{d^2}{x^2-d^2}\) is strictly decreasing in \(x>d\). So \(g'(d)>0\iff h(\beta)>h(1-\beta)\iff\beta<1-\beta\iff\beta<\tfrac12\). For \(\beta=\tfrac12\), \(g'\equiv0\).</li>
-        <li><strong>Conclusion.</strong> Integrating from \(g(0)=0\): if \(\beta=\tfrac12\), \(g\equiv0\) and \(\bar\tau = 2d = 1-2\alpha\) (indeed \(f(c)=\tfrac12\log(c(1-c))\) is symmetric about \(\tfrac12\)). If \(\beta<\tfrac12\), \(g(d)>0\) and \(\bar\tau>2(\beta-\alpha)\). If \(\beta>\tfrac12\), \(g(d)<0\) and \(\bar\tau<2(\beta-\alpha)\). (Here \(d\) ranges over values with \(\beta+d<1\), which holds whenever \(\beta<\tfrac12\). If \(\beta+d\ge1\), then \(\tau=2d\) is infeasible and \(\bar\tau<2d\) trivially.)</li>
+          $$g'(d) = \frac{2\beta^2}{\beta^2-d^2} - \frac{2(1-\beta)^2}{(1-\beta)^2-d^2}.$$</li>
+        <li><strong>Sign.</strong> \(h(x) = \frac{x^2}{x^2-d^2} = 1 + \frac{d^2}{x^2-d^2}\) is strictly decreasing in \(x>d\). So \(g'(d)>0\iff h(\beta)>h(1-\beta)\iff\beta\lt \tfrac12\). For \(\beta=\tfrac12\), \(g'\equiv0\).</li>
+        <li><strong>Conclusion.</strong> Integrate from \(g(0)=0\). If \(\beta=\tfrac12\), \(g\equiv0\) and \(\bar\tau = 2d = 1-2\alpha\) (indeed \(f(c)=\tfrac12\log(c(1-c))\) is symmetric about \(\tfrac12\)). If \(\beta\lt \tfrac12\), \(g(d)>0\) and \(\bar\tau>2(\beta-\alpha)\). If \(\beta>\tfrac12\), \(g(d)<0\) and \(\bar\tau<2(\beta-\alpha)\). (If \(\beta+d\ge1\), \(\tau=2d\) is infeasible and \(\bar\tau<2d\) trivially.)</li>
       </ol>
-      <p>Numerical check: \((\alpha,\beta) = (0.2,0.4)\) gives \(\bar\tau = 0.426 > 0.4\); \((0.3,0.5)\) gives exactly \(0.4\); \((0.5,0.7)\) gives \(0.358<0.4\). Try them in the figure.</p>
+      <p>Move the sliders in the figure of §3 to see all three cases.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 11.4 <span class="tag exam">Exam-style</span> (transitions)</div>
-    <p>Suppose \(\beta>\alpha\). (a) The government introduces PAYG with \(\tau^*\) at date \(T>1\), not date 1. Rank every generation's welfare relative to the no-policy CE. (b) It instead introduces it at date 1 and abolishes it at date \(T\). Rank again. (c) What does this say about the political economy of PAYG systems?</p>
+    <div class="box-title">Exercise 11.4 <span class="tag exam">Exam-inspired</span> Transitions</div>
+    <p>Suppose \(\beta>\alpha\).</p>
+    <ol class="parts" type="a">
+      <li>The government introduces PAYG with \(\tau^*\) at date \(T>1\), not at date 1. Rank every generation's welfare relative to the no-policy CE.</li>
+      <li>Instead it introduces the system at date 1 and abolishes it at date \(T\). Rank again.</li>
+      <li>What does this say about the political economy of PAYG systems?</li>
+    </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) Generations \(0,\dots,T-2\) are unaffected (autarky). Generation \(T-1\) is the "initial old" of the new system: it gets \(\tau^*\) for free when old and strictly gains. Generations \(\ge T\) pay and receive \(\tau^*\) and strictly gain. Pareto improvement.</p>
-      <p>(b) Generations \(0,\dots,T-2\) strictly gain. Generation \(T-1\) pays \(\tau^*\) when young and receives nothing when old: it consumes \((1-\beta,\alpha)\) and strictly loses relative to the CE. Generations \(\ge T\) are back to autarky and unaffected. Not a Pareto improvement.</p>
-      <p>(c) Introducing PAYG creates a windfall for the generation that is old at introduction, and abolishing it imposes a loss on the generation that is old at abolition. Every generation has an incentive to keep the system going. In the inefficient case, PAYG is a self-sustaining "social compact" (Samuelson's phrase).</p>
+      <p>(a) Generations \(0,\dots,T-2\) are unaffected. Generation \(T-1\) is the "initial old" of the new system: it gets \(\tau^*\) for free and strictly gains. Generations \(\ge T\) pay and receive \(\tau^*\) and strictly gain. This is a Pareto improvement.</p>
+      <p>(b) Generations \(0,\dots,T-2\) strictly gain. Generation \(T-1\) pays when young and receives nothing when old, so it consumes \((1-\beta,\alpha)\) and strictly loses. Generations \(\ge T\) are unaffected. Not a Pareto improvement.</p>
+      <p>(c) Introducing PAYG creates a windfall for the generation that is old at introduction. Abolishing it imposes a loss on the generation that is old at abolition. Every generation therefore wants to keep the system going: a self-sustaining "social compact" (Samuelson).</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 11.5 <span class="tag exam">Exam-style</span></div>
-    <p>Now take \(\beta<\alpha\) (so \(\bar r>0\)). (a) Show that a negative \(\tau\) (old-to-young transfers) raises the utility of every generation \(i\ge1\) for small \(|\tau|\). (b) Why is this nevertheless not a Pareto improvement? (c) Would it be one if the economy started at date \(-\infty\), with no initial old?</p>
+    <div class="box-title">Exercise 11.5 <span class="tag exam">Exam-inspired</span> Negative taxes in Case 3</div>
+    <p>Now take \(\beta\lt \alpha\) (so \(\bar r>0\)).</p>
+    <ol class="parts" type="a">
+      <li>Show that a negative \(\tau\) (old-to-young transfers) raises the utility of every generation \(i\ge1\) for small \(|\tau|\).</li>
+      <li>Why is this nevertheless not a Pareto improvement?</li>
+      <li>Would it be one if the economy started at date \(-\infty\), with no initial old?</li>
+    </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
       <p>(a) \(W'(0) = \frac{1-\beta}{1-\alpha}\big[\frac1{1+\bar r}-1\big]<0\) when \(\bar r>0\), so lowering \(\tau\) below 0 raises \(W\).</p>
-      <p>(b) The initial old's consumption falls to \(\alpha+\tau<\alpha\). Someone loses.</p>
-      <p>(c) With a doubly-infinite time line \(t\in\mathbb{Z}\), there is no initial old. Every generation is both a payer and a receiver, so \(\tau<0\) would make everyone better off when \(\bar r>0\) (and \(\tau>0\) when \(\bar r<0\)). The asymmetry between Cases 1 and 3 comes entirely from having a <em>beginning</em> without an end. (Shell 1971 discusses such "doubly infinite" economies.)</p>
+      <p>(b) The initial old's consumption falls to \(\alpha+\tau\lt \alpha\), so someone loses.</p>
+      <p>(c) With a doubly infinite time line there is no initial old. Every generation is both a payer and a receiver, so \(\tau<0\) would make everyone better off when \(\bar r>0\). The asymmetry between Cases 1 and 3 comes entirely from having a <em>beginning</em> without an end (Shell 1971).</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 11.6 <span class="tag exam">Exam-style</span> (fiat money)</div>
-    <p>Remove social security. Instead, at date 1 the initial old hold \(M>0\) units of intrinsically useless fiat money. Each period the young may buy money from the old at price \(1/P_t\) (goods per unit of money) and sell it when old. (a) Write generation \(t\)'s budget constraints and show that the gross real return on money is \(P_t/P_{t+1}\). (b) Look for a stationary monetary equilibrium with \(P_t = P\). Find real balances \(M/P\) and consumption. (c) When does such an equilibrium exist? Compare with the PAYG system.</p>
+    <div class="box-title">Exercise 11.6 <span class="tag exam">Exam-inspired</span> Fiat money</div>
+    <p>Remove social security. At date 1 the initial old instead hold \(M>0\) units of intrinsically useless fiat money. Each period the young may buy money from the old at price \(1/P_t\) (goods per unit of money) and sell it when old.</p>
+    <ol class="parts" type="a">
+      <li>Write generation \(t\)'s budget constraints and show that the gross real return on money is \(P_t/P_{t+1}\).</li>
+      <li>Look for a stationary monetary equilibrium with \(P_t = P\). Find real balances \(M/P\) and consumption.</li>
+      <li>When does such an equilibrium exist? Compare it with the PAYG system.</li>
+    </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) Young: \(c_y + m_t/P_t = 1-\alpha\). Old: \(c_o = \alpha + m_t/P_{t+1}\). Real savings \(s_t = m_t/P_t\) earn gross return \(P_t/P_{t+1}\).</p>
-      <p>(b) With constant \(P\) the return is 1, i.e. \(r=0\). Money-market clearing requires the young to hold all money, \(m_t=M\), so \(M/P = s(0) = \beta(1-\alpha)-(1-\beta)\alpha = \beta-\alpha\). Consumption is \(c_y = 1-\alpha-(\beta-\alpha) = 1-\beta\) and \(c_o = \beta\), with the initial old consuming \(\alpha + M/P = \beta\).</p>
-      <p>(c) It requires \(M/P>0\), i.e. \(\beta>\alpha\), exactly when \(\bar r<0\). The allocation is identical to PAYG with \(\tau^*\). Valued fiat money is a privately-sustained version of social security: each young generation "pays" the old for money and is "repaid" by the next young. This is Samuelson's "social contrivance of money".</p>
+      <p>(a) Young: \(c_y + m_t/P_t = 1-\alpha\). Old: \(c_o = \alpha + m_t/P_{t+1}\). Real savings \(m_t/P_t\) earn gross return \(P_t/P_{t+1}\).</p>
+      <p>(b) With constant \(P\) the return is 1, i.e. \(r=0\). The young must hold all the money, so \(M/P = s(0) = \beta(1-\alpha)-(1-\beta)\alpha = \beta-\alpha\). Consumption is \((1-\beta,\beta)\), and the initial old consume \(\alpha + M/P = \beta\).</p>
+      <p>(c) It requires \(M/P>0\), i.e. \(\beta>\alpha\), exactly when \(\bar r<0\). The allocation is identical to PAYG with \(\tau^*\): valued fiat money is a privately sustained version of social security. This is Samuelson's "social contrivance of money".</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 11.7 <span class="tag pset">Problem set 2025, P6 Q3–Q6</span> PAYG with population growth</div>
+    <p>Keep log preferences and endowments \((1-\alpha,\alpha)\), but let cohorts grow: \(N_{t+1}=(1+n)N_t\), \(n>0\). Under PAYG each young pays \(\tau\), and each old receives \(N_t\tau/N_{t-1}=(1+n)\tau\).</p>
+    <ol class="parts" type="a">
+      <li><span class="pts">[5 pts]</span> Show that the no-policy interest rate \(\bar r\) does not depend on \(n\). Why?</li>
+      <li><span class="pts">[10 pts]</span> Using feasibility per young person, \(c_y+\frac{c_o}{1+n}=(1-\alpha)+\frac{\alpha}{1+n}\), find the best symmetric allocation \((c^*_y,c^*_o)\).</li>
+      <li><span class="pts">[15 pts]</span> Find the tax \(\tau^*\) that implements it. Show that \(\tau^*=s(n)\), the young's desired saving at \(r=n\). Conclude that \(\tau^*>0\iff n>\bar r\), and sign \(\partial\tau^*/\partial n\). Give the intuition.</li>
+      <li><span class="pts">[15 pts]</span> The system with \(\tau^*\) is in place when population growth falls permanently to \(n'=0\), with the tax per young held fixed. What happens to the welfare of the generation that is old at the change, and of every later generation? Show that \(\tau^*\) is now larger than the optimal tax for \(n'=0\), and sign the new equilibrium interest rate.</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) There is still no trade (Exercise 8.7(a)), so \(1/(1+\bar r)\) is each generation's MRS at its endowment, \(\frac{\beta(1-\alpha)}{(1-\beta)\alpha}\). Population size never enters.</p>
+      <p>(b) The FOC is \(\frac{\beta}{1-\beta}\frac{c_y}{c_o}=\frac1{1+n}\). With wealth \(W=(1-\alpha)+\frac{\alpha}{1+n}\): \(c^*_y=(1-\beta)W\) and \(c^*_o=(1+n)\beta W=\beta[(1+n)(1-\alpha)+\alpha]\).</p>
+      <p>(c) Set \(1-\alpha-\tau^*=c^*_y\): \(\tau^*=\beta(1-\alpha)-\frac{(1-\beta)\alpha}{1+n}\). Old-age consumption checks: \(\alpha+(1+n)\tau^*=c^*_o\). Comparing with Exercise 9.3, \(\tau^*=s(n)\). Since \(s\) is strictly increasing with \(s(\bar r)=0\), \(\tau^*>0\iff n>\bar r\). Also \(\partial\tau^*/\partial n=\frac{(1-\beta)\alpha}{(1+n)^2}>0\). <em>Intuition:</em> \(n\) is the implicit return on PAYG. Social security is worth having exactly when it beats the market rate \(\bar r\), and a higher \(n\) makes it a better deal. (Talk of "substitution effects" in circulated solutions misses the point. The clean channel is that a higher \(n\) lowers the present value of the old-age endowment.)</p>
+      <p>(d) The old at the change paid \(\tau^*\) but receive \(\tau^*\) instead of \((1+n)\tau^*\), so they lose. Every later generation has the same \(c_y=c^*_y\) but old-age consumption \(\alpha+\tau^*\lt c^*_o\), so they lose too. Also \(\tau^*-(\beta-\alpha)=\frac{\alpha(1-\beta)n}{1+n}>0\), so the fixed tax overshoots the \(n'=0\) optimum \(\beta-\alpha\). Since \(\alpha+\tau^*>\beta\), the new no-trade rate satisfies \(1+r'=\frac{(1-\beta)(\alpha+\tau^*)}{\beta(1-\alpha-\tau^*)}>1\), so \(r'>0=n'\): the system is now too big. Graphically, the resource line rotates down around the endowment point (Lesson 13).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 11.8 <span class="tag pset">Problem set 2025, P4 Q8</span> Uniform PAYG with heterogeneous types</div>
+    <p>Each cohort has types \(n=1,\dots,N\) with endowments \((1-\alpha_n,\alpha_n)\), log preferences with weight \(\beta\), and \(\bar\alpha\equiv\frac1N\sum_n\alpha_n\lt \beta\), so \(\bar r=\frac{\bar\alpha-\beta}{\beta(1-\bar\alpha)}<0\) (Lesson 16). A uniform PAYG tax \(\tau\) is introduced, so type \(n\)'s endowments become \((1-\alpha_n-\tau,\alpha_n+\tau)\).</p>
+    <ol class="parts" type="a">
+      <li><span class="pts">[10 pts]</span> How does the equilibrium interest rate change? <em>Hint: compute the new \(\bar\alpha\).</em></li>
+      <li><span class="pts">[15 pts]</span> Show that type \(n\)'s indirect utility is \(U_n=\log W_n+\beta\log(1+r)+\text{const}\), where \(W_n\) is lifetime wealth. Then show that, at \(\tau=0\),
+      $$\frac{dU_n}{d\tau}=\frac{-\bar r+s_n\,r'(0)}{(1+\bar r)W_n},$$
+      where \(s_n\) is type \(n\)'s saving at \(\bar r\).</li>
+      <li><span class="pts">[10 pts]</span> Which types gain and which may lose? Is the new equilibrium necessarily Pareto superior?</li>
+      <li><span class="pts">[5 pts]</span> What does this imply for the design of social security?</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) The equilibrium rate depends only on the average old-age endowment (Lesson 16), which becomes \(\bar\alpha+\tau\). So \(1+r(\tau)=\frac{(1-\beta)(\bar\alpha+\tau)}{\beta(1-\bar\alpha-\tau)}\) <strong>rises</strong>, with \(r'(0)=\frac{1-\beta}{\beta(1-\bar\alpha)^2}>0\).</p>
+      <p>(b) With \(W_n=(1-\alpha_n-\tau)+\frac{\alpha_n+\tau}{1+r}\), log utility gives \(c_y=(1-\beta)W_n\) and \(c_o=\beta(1+r)W_n\), so \(U_n=\log W_n+\beta\log(1+r)+\text{const}\). Differentiate:
+      $$\frac{dU_n}{d\tau}=\frac1{W_n}\Big[-\frac{r}{1+r}-\frac{e_{o,n}}{(1+r)^2}r'\Big]+\frac{\beta}{1+r}r'.$$
+      Since \(\beta/(1+r)=c_{o,n}/((1+r)^2W_n)\), the \(r'\) terms combine to \(\frac{(c_{o,n}-e_{o,n})}{(1+r)^2W_n}r'=\frac{s_n}{(1+r)W_n}r'\), using \(c_o-e_o=(1+r)s_n\). This gives the formula.</p>
+      <p>(c) The transfer term \(-\bar r>0\) helps everyone. The rate term helps savers (\(s_n>0\), low \(\alpha_n\)) and hurts borrowers (\(s_n<0\), high \(\alpha_n\)). Type \(n\) loses iff \(s_n\lt \bar r/r'(0)=\frac{\bar r\,\beta(1-\bar\alpha)^2}{1-\beta}\). Since \(\sum_ns_n=0\), borrowers exist whenever types differ. With enough dispersion some type loses, so the new equilibrium is <strong>not necessarily</strong> Pareto superior. Lesson 16 works through an example where it fails. Both circulated solutions state this verbally; neither derives it.</p>
+      <p>(d) Fixing <em>aggregate</em> dynamic inefficiency doesn't settle the distribution. A uniform system can hurt heavy borrowers, and a Pareto improvement needs type-specific transfers (Lesson 16).</p>
     </div></details>
   </div>
 

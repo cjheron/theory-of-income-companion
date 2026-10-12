@@ -241,44 +241,72 @@
 
   <h2>6. Exercises</h2>
 
+  <p>Exams on this material come in two formats: rapid <strong>true/false questions with a short justification</strong>, and <strong>long guided derivations</strong> that walk you through one economy step by step (see the past exams cited below). Attempt each part before opening its solution.</p>
+
   <div class="box exercise">
-    <div class="box-title">Exercise 8.1 <span class="tag slides">Slides p.4–6</span></div>
-    <p>Write the OLG economy's objects in the notation of Lesson 1: \(L\), \(I\), \(X^i\), \(u^i\), \(e^i\), \(J\), \(Y^j\), \(\theta\). Then write the material balance condition \(\sum_i x^i = \sum_i e^i\) as a "matrix" in the style of <a href="../sources/slides1-welfare-theorems.pdf#page=7">Slides 1, p.7</a>: columns are generations, rows are dates. Which entries are nonzero?</p>
+    <div class="box-title">Exercise 8.1 <span class="tag exam">Exam-inspired</span> True or false? Justify in 1–4 lines.</div>
+    <ol class="tf-list">
+      <li>In the stationary two-period endowment OLG economy (no money, no outside asset), there is a competitive equilibrium in which the young lend to the old.
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> Every agent in a cohort is identical and the only other agents alive are the old, who will be dead when the loan is repaid. Loan-market clearing at \(t\) involves generation \(t\) alone, so \(s_t=0\): the unique CE is autarky (the proposition in §4).</p></div></details></li>
+      <li>The no-trade result relies on log utility.
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> The induction uses only that the initial old value only date-1 goods, that budgets bind at positive prices (strictly increasing \(v^i\)), and that just two generations overlap. Preferences matter for the <em>prices</em> that support autarky (Lesson 9), not for the allocation.</p></div></details></li>
+      <li>If agents within each generation differ in endowments and preferences, the CE of the pure-endowment OLG economy is autarky. <span class="tf-src">(cf. Past exam: Spring 2023 Midterm 1, Q2.1)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> Types within a cohort have different MRSs at their endowments, so they borrow from and lend to <em>each other</em>. What survives is <em>aggregate</em> no trade across generations: each cohort's total consumption equals its total endowment in each period of life (Exercise 8.7). Beware: one circulated problem-set solution says "each agent consumes its endowment". That is wrong.</p></div></details></li>
+      <li>The initial old hold one tree paying dividends \(d_t\ge0\), which they may sell. In equilibrium the young buy the whole tree and their net bond holdings are zero. <span class="tf-src">(Past exam: 2017/18 Midterm 1, parts 1–2)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True.</strong> The old will not be alive next period, so they sell the tree. The young must hold it for the tree market to clear, \(a_t=1\). Bonds are in zero net supply and only the young can be on either side, so \(s_t=0\). See Exercise 8.2.</p></div></details></li>
+      <li>Because the CE allocation is autarky, the equilibrium price sequence is not pinned down, even up to normalization (assume differentiable utility and interior endowments).
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> Generation \(t\) must <em>choose</em> its endowment. With differentiable \(v^t\) and an interior optimum this requires \(p_{t+1}/p_t = v^t_2/v^t_1\) evaluated at \((e^t_t,e^t_{t+1})\). With \(p_1=1\), that determines every \(p_t\) (Lesson 9). Prices would be indeterminate only at kinks, e.g. Leontief preferences.</p></div></details></li>
+      <li>In an OLG economy where agents live three periods, the competitive equilibrium is again autarky.
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False in general.</strong> The young and the middle-aged are both alive next period, so one can lend to the other and be repaid. Market clearing at \(t=1\) now has two unknowns, and the induction does not start (Exercise 8.3). This is the setting of the Fall 2025 true/false item on agents who live \(k\ge2\) periods (Lesson 10).</p></div></details></li>
+    </ol>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 8.2 <span class="tag past">Past exam: 2017/18 Midterm 1, "OLG and trees", parts 1–3</span></div>
+    <p>Time is discrete, \(t=1,2,\dots\). A measure one of agents is born each period and lives two periods. Generation \(t\) has endowment \(e^t_t>0\) when young and nothing when old, with strictly increasing, concave utility \(u^t(c^t_t,c^t_{t+1})\). There is one tree that pays a dividend \(d_t\ge0\) of the good each period, and at \(t=1\) each initial old agent owns one tree. Feasibility is \(c^{t-1}_t+c^t_t = d_t + e^t_t\). Whoever owns the tree collects the dividend and may sell the tree at the <em>ex-dividend</em> price \(q_t\). Agents may also borrow or lend for one period at net rate \(r_t\). Generation \(t\) buys \(a_t\) trees and saves \(s_t\) in bonds:
+    $$c^t_t + a_tq_t + s_t = e^t_t,\qquad c^t_{t+1} = a_t(q_{t+1}+d_{t+1}) + s_t(1+r_t),$$
+    and the initial old consume \(c^0_1 = d_1+q_1\).</p>
+    <ol class="parts" type="a">
+      <li>What is the equilibrium value of \(a_t\) for \(t\ge1\)? Why?</li>
+      <li>What is the equilibrium value of \(s_t\) for \(t\ge1\)? Why? Give both the one-line economic argument and an induction proof.</li>
+      <li>What must the relationship between \(1+r_t\) and \((q_{t+1}+d_{t+1})/q_t\) be for the young's problem to have an interior solution consistent with (a)–(b)? Why?</li>
+    </ol>
+    <p>The problem continues in Lesson 9 (Exercise 9.2), where you derive the equilibrium price of the tree.</p>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (b), start with the initial old: what do they consume? Then use market clearing at \(t=1\) and generation 1's first budget constraint with \(a_1=1\).</p></div></details>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>\(L=\mathbb{R}^\infty\); \(I=\{0,1,2,\dots\}\); \(X^i=\mathbb{R}^\infty_+\); \(u^0(x)=x_1\) and \(u^i(x) = v^i(x_i,x_{i+1})\); \(e^0 = (e^0_1,0,0,\dots)\) and \(e^i = (0,\dots,0,e^i_i,e^i_{i+1},0,\dots)\); \(J=\emptyset\), so there are no \(Y^j\) and no \(\theta\).</p>
-      <p>The "matrix" \([x^0\;x^1\;x^2\;\cdots]\) has row \(t\) nonzero only in columns \(t-1\) and \(t\). It is <em>bidiagonal</em>:</p>
-      $$\begin{pmatrix} x^0_1 & x^1_1 & 0 & 0 & \cdots\\ 0 & x^1_2 & x^2_2 & 0 & \cdots\\ 0 & 0 & x^2_3 & x^3_3 & \cdots\\ \vdots &&&\ddots \end{pmatrix}\!\begin{pmatrix}1\\1\\1\\\vdots\end{pmatrix} = \begin{pmatrix}\bar e_1\\ \bar e_2\\ \bar e_3\\ \vdots\end{pmatrix}$$
-      <p>The bidiagonal structure is the algebraic face of "only two generations overlap", and it is what makes the induction work: each row links exactly two neighbouring columns.</p>
+      <p>(a) \(a_t = 1\). The supply of trees is one. An old agent values the tree only for what it sells for today, so the old sell everything and the young must hold the entire stock.</p>
+      <p>(b) \(s_t = 0\). <em>Economics:</em> all young are identical, and the only other agents are the old, who cannot repay. So aggregate lending must be zero. <em>Induction:</em> the initial old consume \(d_1+q_1\). Market clearing at \(t=1\) gives \(c^1_1 = e^1_1 - q_1\). Generation 1's budget with \(a_1=1\) then gives \(s_1 = e^1_1 - c^1_1 - q_1 = 0\). If \(s_t=0\), generation \(t\) consumes \(q_{t+1}+d_{t+1}\) when old, so market clearing gives \(c^{t+1}_{t+1} = e^{t+1}_{t+1}-q_{t+1}\), and the budget gives \(s_{t+1}=0\).</p>
+      <p>(c) No arbitrage: \(1+r_t = (q_{t+1}+d_{t+1})/q_t\). Trees and bonds are both ways to carry resources forward. If the tree paid more, the young would borrow without limit to buy trees. If it paid less, they would sell trees short. Either way \(a_t=1\), \(s_t=0\) could not be an optimum.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 8.2 <span class="tag proof">Proof</span></div>
-    <p>Suppose the initial old instead had preferences \(u^0(x)=w(x_1)\) for some strictly increasing \(w\). Does the proposition still hold? What if the initial old also held an endowment \(e^0_2>0\) of the date-2 good (perhaps to bequeath)? Prove or give a counterexample.</p>
-    <details class="hint"><summary>Hint</summary><div class="body"><p>Step 1 of the proof is the only place where generation 0's preferences enter. In the second case, ask whether generation 0 can now <em>sell</em> something.</p></div></details>
-    <details class="solution"><summary>Show solution</summary><div class="body">
-      <p><strong>Strictly increasing \(w\):</strong> the proposition still holds. Generation 0's budget still has only good 1 on the left (goods at \(t\ge2\) are worthless to them, and at positive prices they won't buy any). So \(p_1x_1 = p_1 e^0_1\) still forces \(x_1^0=e^0_1\), and the rest of the proof is unchanged.</p>
-      <p><strong>With \(e^0_2>0\):</strong> now generation 0 owns a claim on date-2 goods that it does not value. It sells it, and its budget becomes \(p_1 x_1 = p_1 e^0_1 + p_2 e^0_2\). So \(x^0_1 = e^0_1 + (p_2/p_1)e^0_2 > e^0_1\). The induction no longer starts and trade occurs: generation 1 gives up date-1 goods in exchange for date-2 goods. The young now have a counterparty from whom they can buy future goods, because the old hold an asset that pays off after they die. (This is the logic of money and of government debt in Lessons 11 and 14.)</p>
-    </div></details>
-  </div>
-
-  <div class="box exercise">
-    <div class="box-title">Exercise 8.3 <span class="tag exam">Exam-style</span></div>
-    <p>Suppose instead that each generation lives three periods (young, middle-aged, old), with \(u^i = v(x_i,x_{i+1},x_{i+2})\) and strictly positive endowments in all three periods. At \(t=1\) there are an initial old (alive only at \(t=1\)) and an initial middle-aged (alive at \(t=1,2\)). (a) Write the market-clearing condition at date \(t\). (b) Explain why the induction argument fails. (c) Give an example of a mutually beneficial trade that the two-period model rules out.</p>
+    <div class="box-title">Exercise 8.3 <span class="tag exam">Exam-inspired</span> Three-period lives</div>
+    <p>Suppose each generation lives three periods (young, middle-aged, old), with \(u^i = v(x_i,x_{i+1},x_{i+2})\) and strictly positive endowments in all three periods. At \(t=1\) there are an initial old (alive only at \(t=1\)) and an initial middle-aged (alive at \(t=1,2\)).</p>
+    <ol class="parts" type="a">
+      <li>Write the market-clearing condition at date \(t\).</li>
+      <li>Explain exactly which step of the no-trade induction fails.</li>
+      <li>Describe a mutually beneficial trade that the two-period model rules out.</li>
+    </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
       <p>(a) \(x^{t-2}_t + x^{t-1}_t + x^t_t = e^{t-2}_t + e^{t-1}_t + e^t_t\). Three generations are alive.</p>
-      <p>(b) The initial old are still stuck with their endowment. But market clearing at \(t=1\) is now one equation in <em>two</em> unknowns (the consumption of the initial middle-aged and of generation 1), so it no longer pins down anyone's consumption. The chain of single-unknown equations is broken.</p>
-      <p>(c) At date \(t\), the young (born \(t\)) and the middle-aged (born \(t-1\)) are both alive at \(t+1\). The young can lend to the middle-aged at \(t\) and be repaid at \(t+1\), when the borrower is old and the lender is middle-aged. Both counterparties are alive at both ends of the loan, so the "dead or unborn" problem disappears for this trade. Equilibrium interest rates now reflect actual borrowing and lending. (Inefficiency is still possible with a long-lived economy; see the \(N\)-period argument in Lesson 16.)</p>
+      <p>(b) The initial old are still stuck with their endowment. But market clearing at \(t=1\) is now one equation in <em>two</em> unknowns, the consumption of the initial middle-aged and of generation 1. So it no longer pins down anyone's consumption, and the chain of single-unknown equations breaks.</p>
+      <p>(c) At date \(t\) the young (born \(t\)) and the middle-aged (born \(t-1\)) are both alive at \(t+1\). The young can lend to the middle-aged at \(t\) and be repaid at \(t+1\), when the borrower is old and the lender middle-aged. Both counterparties are alive at both ends of the loan, so equilibrium interest rates now reflect actual borrowing and lending. Inefficiency is still possible; see the \(N\)-period argument in Lesson 16.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 8.4 <span class="tag exam">Exam-style</span> (sequential markets)</div>
-    <p>Instead of one Arrow–Debreu market at the beginning of time, suppose that at each date \(t\) there is a spot market for the date-\(t\) good and a market for one-period loans at net interest rate \(r_t\). Generation \(t\) chooses savings \(s_t\): \(x^t_t + s_t = e^t_t\) and \(x^t_{t+1} = e^t_{t+1} + (1+r_t)s_t\). (a) Show that the two constraints combine to the Arrow–Debreu budget with \(p_{t+1}/p_t = 1/(1+r_t)\). (b) What is the loan-market clearing condition at date \(t\)? (c) Re-derive the no-trade result in one line.</p>
+    <div class="box-title">Exercise 8.4 <span class="tag exam">Exam-inspired</span> Sequential markets</div>
+    <p>Instead of one Arrow–Debreu market at the beginning of time, suppose that at each date \(t\) there is a spot market for the date-\(t\) good and a market for one-period loans at net interest rate \(r_t\). Generation \(t\) chooses savings \(s_t\): \(x^t_t + s_t = e^t_t\) and \(x^t_{t+1} = e^t_{t+1} + (1+r_t)s_t\).</p>
+    <ol class="parts" type="a">
+      <li>Show that the two constraints combine to the Arrow–Debreu budget with \(p_{t+1}/p_t = 1/(1+r_t)\).</li>
+      <li>What is the loan-market clearing condition at date \(t\)?</li>
+      <li>Re-derive the no-trade result in one line.</li>
+    </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
       <p>(a) Eliminate \(s_t\): \(x^t_t + x^t_{t+1}/(1+r_t) = e^t_t + e^t_{t+1}/(1+r_t)\). Multiply by \(p_t\) and set \(p_{t+1} = p_t/(1+r_t)\) to get \(p_tx^t_t + p_{t+1}x^t_{t+1} = p_te^t_t + p_{t+1}e^t_{t+1}\).</p>
-      <p>(b) Only generation \(t\) can be in the loan market at \(t\), because the old will not be around to repay or collect. So loan-market clearing is \(s_t = 0\). With a single active participant, net lending must be zero.</p>
-      <p>(c) \(s_t = 0\) for all \(t\) gives \(x^t_t=e^t_t\) and \(x^t_{t+1}=e^t_{t+1}\). The equilibrium interest rate is then whatever rate makes generation \(t\) <em>choose</em> \(s_t=0\). That is the subject of Lesson 9.</p>
+      <p>(b) Only generation \(t\) can be in the loan market at \(t\), because the old will not be around to repay or collect. So loan-market clearing is \(s_t = 0\).</p>
+      <p>(c) \(s_t = 0\) for all \(t\) gives \(x^t_t=e^t_t\) and \(x^t_{t+1}=e^t_{t+1}\). The interest rate is whatever rate makes generation \(t\) <em>choose</em> \(s_t=0\). That is the subject of Lesson 9.</p>
     </div></details>
   </div>
 
@@ -286,7 +314,35 @@
     <div class="box-title">Exercise 8.5 <span class="tag proof">Proof</span></div>
     <p>Prove that in any CE of the OLG economy with strictly increasing \(v^i\), \(p_t>0\) for all \(t\). Where exactly did the proof of the proposition need this?</p>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>Suppose \(p_{t}\le0\) for some \(t\ge1\). Consider generation \(t\) (alive at \(t\)), or generation \(0\) if \(t=1\). Raising \(x_t\) by any amount weakly <em>lowers</em> expenditure \(p_tx_t\), so the budget set contains bundles with arbitrarily large \(x_t\) and unchanged other components. Since \(v\) is strictly increasing in \(x_t\), no maximizer exists: for any candidate there is a better affordable bundle. That contradicts \(\bar x^t\) solving the problem. So \(p_t>0\). The proposition used this when dividing by \(p_1\) (step 1) and by \(p_{t+1}\) (the budget steps).</p>
+      <p>Suppose \(p_{t}\le0\) for some \(t\ge1\). Consider generation \(t\), or generation \(0\) if \(t=1\). Raising \(x_t\) by any amount weakly <em>lowers</em> expenditure \(p_tx_t\). So the budget set contains bundles with arbitrarily large \(x_t\) and the other components unchanged. Since utility is strictly increasing in \(x_t\), no maximizer exists, which contradicts \(\bar x^t\) solving the problem. So \(p_t>0\). The proposition used this when dividing by \(p_1\) (step 1) and by \(p_{t+1}\) (the budget steps).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 8.6 <span class="tag proof">Proof</span> An endowment the old don't value</div>
+    <p>Suppose the initial old have preferences \(u^0(x)=w(x_1)\) for some strictly increasing \(w\). Does the proposition still hold? What if the initial old also held an endowment \(e^0_2>0\) of the date-2 good? Prove it, or give a counterexample.</p>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>Step 1 of the proof is the only place where generation 0's preferences enter. In the second case, ask whether generation 0 can now <em>sell</em> something.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p><strong>Strictly increasing \(w\):</strong> the proposition still holds. At positive prices, generation 0 never buys goods dated \(t\ge2\), so \(p_1x_1 = p_1 e^0_1\) still forces \(x_1^0=e^0_1\).</p>
+      <p><strong>With \(e^0_2>0\):</strong> generation 0 sells its date-2 claim, so its budget becomes \(p_1 x_1 = p_1 e^0_1 + p_2 e^0_2\) and \(x^0_1 > e^0_1\). The induction no longer starts and trade occurs: generation 1 gives up date-1 goods for date-2 goods. The old now hold an asset that pays off after they die. This is the logic of the tree in Exercise 8.2, and of money and government debt in Lessons 11 and 14.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 8.7 <span class="tag pset">Problem set 2025, P4 Q1–2 and P6 Q1–2</span> No trade across generations, generalized</div>
+    <p>Keep two-period lives and one good per period.</p>
+    <ol class="parts" type="a">
+      <li><strong>Population growth.</strong> Cohort sizes are \(N_{t+1}=(1+n)N_t\) and all agents in a cohort are identical. Write market clearing at \(t\) per young person and show the CE is autarky.</li>
+      <li><strong>Heterogeneity.</strong> Each cohort contains types \(n=1,\dots,N\) with endowments \((e^{t,n}_t,e^{t,n}_{t+1})\) and strictly increasing utility; the initial old of type \(n\) value only date-1 goods. Show that there is <em>no aggregate trade across generations</em>: \(\sum_n c^{t,n}_t = \sum_n e^{t,n}_t\) and \(\sum_n c^{t,n}_{t+1}=\sum_n e^{t,n}_{t+1}\) for every \(t\).</li>
+      <li>Does (b) imply that each type consumes its own endowment? Explain.</li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (b), sum generation \(t\)'s Arrow–Debreu budgets across types. If you know the cohort's total young-age consumption, the summed budget pins its total old-age consumption.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(N_tc^t_t + N_{t-1}c^{t-1}_t = N_te^t_t+N_{t-1}e^{t-1}_t\), or per young, \(c^t_t + c^{t-1}_t/(1+n) = e^t_t + e^{t-1}_t/(1+n)\). The initial old eat their endowment. Market clearing at \(t=1\) then gives \(c^1_1 = e^1_1\), generation 1's budget gives \(c^1_2=e^1_2\), and so on by induction. Population size only rescales the equations.</p>
+      <p>(b) Each initial old type consumes \(e^{0,n}_1\). Market clearing at \(t=1\) gives \(\sum_n c^{1,n}_1 = \sum_n e^{1,n}_1\). Summing generation 1's budgets over types,
+      $$p_1\textstyle\sum_n c^{1,n}_1 + p_2\sum_n c^{1,n}_2 = p_1\sum_n e^{1,n}_1 + p_2\sum_n e^{1,n}_2,$$
+      so with \(p_2>0\), \(\sum_n c^{1,n}_2=\sum_n e^{1,n}_2\). Market clearing at \(t=2\) then gives \(\sum_n c^{2,n}_2=\sum_n e^{2,n}_2\), and induction finishes the proof.</p>
+      <p>(c) No. Types with high old-age endowments borrow from types with low ones, within the cohort. Only the cohort's <em>net</em> position against other cohorts is zero. Lesson 16 solves this economy.</p>
     </div></details>
   </div>
 

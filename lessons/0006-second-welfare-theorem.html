@@ -131,9 +131,9 @@
         Then \(p\,\hat z = p\,\bar z + (p\,\hat y-p\,\bar y^j) > p\,\bar z \overset{(7)}{=} p\,\bar x\). But \(\bar x\in A\), so (6) requires \(p\,\bar x\ge p\,\hat z\). Contradiction. Hence \(p\,\bar y^j\ge p\,y\) for all \(y\in Y^j\).
       </li>
       <li>
-        <strong>Households minimize expenditure</strong> (the slides' "one can construct an \(x\)"). Suppose some \(i\) has \(\hat x\in X^i\) with \(u^i(\hat x)\ge u^i(\bar x^i)\) and \(p\,\hat x<p\,\bar x^i\). Replace only household \(i\)'s bundle:
+        <strong>Households minimize expenditure</strong> (the slides' "one can construct an \(x\)"). Suppose some \(i\) has \(\hat x\in X^i\) with \(u^i(\hat x)\ge u^i(\bar x^i)\) and \(p\,\hat x\lt p\,\bar x^i\). Replace only household \(i\)'s bundle:
         $$\hat a\ \equiv\ \hat x+\sum_{k\neq i}\bar x^k\ \in A .$$
-        Then \(p\,\hat a = p\,\bar x-(p\,\bar x^i-p\,\hat x)<p\,\bar x\overset{(7)}{=}p\,\bar z\). But \(\bar z\in B\), so (6) requires \(p\,\hat a\ge p\,\bar z\). Contradiction. Hence \(\bar x^i\) minimizes \(p\,x\) over \(\{x\in X^i: u^i(x)\ge u^i(\bar x^i)\}\).
+        Then \(p\,\hat a = p\,\bar x-(p\,\bar x^i-p\,\hat x)\lt p\,\bar x\overset{(7)}{=}p\,\bar z\). But \(\bar z\in B\), so (6) requires \(p\,\hat a\ge p\,\bar z\). Contradiction. Hence \(\bar x^i\) minimizes \(p\,x\) over \(\{x\in X^i: u^i(x)\ge u^i(\bar x^i)\}\).
       </li>
     </ol>
     <div class="qed">∎</div>
@@ -204,7 +204,7 @@
   <h2>7. What each hypothesis buys</h2>
   <table class="simple">
     <tr><th>Hypothesis</th><th>Used in</th><th>If it fails…</th></tr>
-    <tr><td>Some \(h\) not satiated (\(\tilde x^h\))</td><td>Step 3</td><td>If everyone is at a bliss point with resources to spare, \(A\) can sit <em>inside</em> \(B\). Then no hyperplane separates them, and only \(p=0\) "supports" the allocation (Exercise 6.2).</td></tr>
+    <tr><td>Some \(h\) not satiated (\(\tilde x^h\))</td><td>Step 3</td><td>If everyone is at a bliss point with resources to spare, \(A\) can sit <em>inside</em> \(B\). Then no hyperplane separates them, and only \(p=0\) "supports" the allocation (Exercise 6.3).</td></tr>
     <tr><td>Convex upper contour sets (HH)</td><td>Steps 2–3</td><td>\(A\) is non-convex. The PO tangency may not be a household optimum at the tangency price (Lesson 7, Edgeworth box).</td></tr>
     <tr><td>\(X^i\) convex, \(u^i\) continuous</td><td>Step 3</td><td>The mixture \(x^{h,\theta}\) may not be consumable, or may not beat \(\bar x^h\).</td></tr>
     <tr><td>Aggregate \(Y\) convex (FF)</td><td>Steps 2, 6</td><td>Increasing returns or fixed costs: firms don't maximize profit at the supporting price (figure above; Lesson 7).</td></tr>
@@ -269,49 +269,66 @@
   <!-- ─────────────────────────────────────────── -->
   <h2>9. Exercises</h2>
 
+  <p>These follow the format of Alvarez's exams. The true/false items mirror the assumption-checking traps on past first midterms. The derivations show how the 2WT gets used on exams: through planner weights and first-order conditions, and through "which step fails".</p>
+
   <div class="box exercise">
-    <div class="box-title">Exercise 6.1 <span class="tag proof">Proof</span></div>
+    <div class="box-title">Exercise 6.1 <span class="tag past">Past exams</span> True or false? Justify.</div>
+    <p>One to four lines each. Name the hypothesis or the step of the proof (§5) that settles it.</p>
+    <ol class="tf-list">
+      <li>"If there are increasing returns to scale, some Pareto-optimal allocations may not be supportable as competitive equilibria." <span class="tf-src">the flip side of Fall 2025 Midterm 1, I.2</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True.</strong> IRS makes \(Y\) non-convex, which violates Assumption FF. Then \(B\) need not be convex and the separating hyperplane can fail to exist, so at the tangency price the firm prefers another plan (§6 with \(\gamma>1\); Exercise 6.6). Contrast with the 1WT, which IRS does not affect.</p></div></details></li>
+      <li>"The Second Welfare Theorem requires convex preferences." <span class="tf-src">student review drill bank</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True</strong> (in our version). HH asks for convex \(X^i\) and continuous, strictly quasi-concave \(u^i\), so that each upper contour set and their sum \(A\) are convex. Without it, a PO point can sit where \(A\) curves around the price line (Lesson 7, §5a). It also needs a convex aggregate \(Y\) (FF) and one non-satiated household.</p></div></details></li>
+      <li>"If a production function is convex, the corresponding production set is convex." <span class="tf-src">student review drill bank</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> The language flips. A <em>concave</em> \(f\) gives a convex set \(\{(-n,c):c\le f(n)\}\). A convex \(f\) (e.g. \(n^\gamma\), \(\gamma>1\)) gives a non-convex set.</p></div></details></li>
+      <li>"Let \(\mu_i\) be agent \(i\)'s marginal utility of income and \(p_s\) the price of good \(s\). If we set the planner's weights equal to \(\mu_i\), and the multipliers on the resource constraints equal to \(p_s\), the planner's allocation coincides with the CE allocation." <span class="tf-src">Fall 2005 Midterm, Ex. 1 Q5</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> The CE FOC is \(u^i_s=\mu_ip_s\) and the planner FOC is \(\alpha_iu^i_s=\gamma_s\). They coincide when \(\gamma=p\) and \(\alpha_i=1/\mu_i\): the weights are the <em>inverse</em> of the marginal utility of income (Negishi weights). Rich agents (low \(\mu_i\)) get high weight.</p></div></details></li>
+      <li>"Assume all utility functions are strictly concave, strictly increasing, differentiable and satisfy Inada conditions, in a pure endowment economy. Then in a CE, the price of each good is proportional to a weighted average across agents of the marginal utility of that good, with the same weights for all goods." <span class="tf-src">Fall 2025 Midterm 1, I.4</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True.</strong> Inada conditions give interior demands, so \(u^i_\ell=\mu_ip_\ell\) for every \(i,\ell\). Hence \(p_\ell=\frac1I\sum_i\frac{1}{\mu_i}u^i_\ell\). The weight \(1/\mu_i\) is agent-specific but the same for every good, because each agent has one budget constraint and so one multiplier. Exercise 6.4 develops this.</p></div></details></li>
+      <li>"Under the 2WT assumptions, any PO allocation is a CE for the original endowments." <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> It is a quasi-equilibrium <em>with transfers</em>: wealth must be redistributed so that each \(i\) can afford exactly \(p\cdot\bar x^i\) (Lesson 7). Even then, utility maximization needs Arrow's condition.</p></div></details></li>
+      <li>"The 2WT requires every firm's production set to be convex." <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> Assumption FF is on the aggregate \(Y=\sum_jY^j\). (In practice one usually assumes each \(Y^j\) is convex, which is sufficient.)</p></div></details></li>
+      <li>"The supporting prices in the 2WT are unique." <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False</strong> in general. At kinks (Leontief preferences, linear technologies with corners), many hyperplanes separate \(A\) and \(B\). With smooth indifference curves at an interior point, relative prices are pinned down by the common MRS.</p></div></details></li>
+      <li>"In a pure exchange economy, the slides' argument goes through as written: \(B=\{\sum_ie^i\}\) and we separate \(A\) from \(\operatorname{Int}B\)." <span class="tf-src">exam-inspired (a gap in the slides)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> Without production, \(B\) is a single point, so \(\operatorname{Int}B=\emptyset\). Separating \(A\) from the empty set says nothing. Fixes (§5): assume free disposal, so \(B=\sum_ie^i-\mathbb{R}^m_+\) has an interior; or separate the strictly preferred set from \(B\), as in MWG.</p></div></details></li>
+    </ol>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 6.2 <span class="tag proof">Proof</span> The proof from a blank page</div>
     <p>Reproduce the 2WT proof from a blank page, in this order: (i) define \(A\) and \(B\); (ii) prove convexity; (iii) prove \(A\cap\operatorname{Int}B=\emptyset\); (iv) separate; (v) derive (7); (vi) profit maximization; (vii) expenditure minimization. Then check yourself against §5. For each step, name the hypothesis it uses.</p>
     <details class="solution"><summary>Show checklist</summary><div class="body"><p>(ii) HH gives convex \(U^i\); \(A\) is their set-sum; FF makes \(B\) convex. (iii) Non-satiated \(h\), convex \(X^h\), HH or continuity, \(x\) interior to \(B\), and PO. (iv) Minkowski with \(\operatorname{Int}B\ne\emptyset\). (v) Feasibility of the PO allocation. (vi) Build \(\hat z\) by changing only firm \(j\). (vii) Build \(\hat a\) by changing only household \(i\).</p></div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 6.2 <span class="tag proof">Proof</span> Why we need \(h\)</div>
-    <p>One household, two goods, no firms but free disposal: \(Y=-\mathbb{R}^2_+\). The endowment is \(e=(2,2)\) and \(u(x)=-\|x-(1,1)\|^2\) (bliss at \((1,1)\)). Show that \(\bar x=(1,1)\) (with \(\bar y=(-1,-1)\), i.e. disposing of the excess) is PO, that no household satisfies the non-satiation hypothesis, and that no \(p\neq0\) satisfies the 2WT's conclusions.</p>
+    <div class="box-title">Exercise 6.3 <span class="tag proof">Proof</span> Why we need \(h\)</div>
+    <p>One household, two goods, no firms but free disposal: \(Y=-\mathbb{R}^2_+\). The endowment is \(e\gg(1,1)\) and \(u(x)=-\|x-(1,1)\|^2\) (bliss at \((1,1)\)). Show that \(\bar x=(1,1)\), with \(\bar y=(1,1)-e\) (disposing of the excess), is PO; that no household satisfies the non-satiation hypothesis; and that no \(p\neq0\) satisfies the 2WT's conclusions.</p>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>Nothing beats the bliss point, so \(\bar x\) is PO and no \(\tilde x\) exists. \(A=\{(1,1)\}\) and \(B=(2,2)-\mathbb{R}^2_+\). Since \((1,1)\in\operatorname{Int}B\), Step 3's conclusion fails. Suppose \(p\neq0\) supported it. Profit maximization over \(Y=-\mathbb{R}^2_+\) at \(\bar y=(-1,-1)\) requires \(p\cdot\bar y\ge p\cdot0=0\), i.e. \(p_1+p_2\le0\), and also \(p\ge 0\) (otherwise disposing of more of a negatively priced good would raise profit beyond any bound). These force \(p=0\). Contradiction. Only \(p=0\) works: a satiated economy has zero shadow prices.</p>
+      <p>Nothing beats the bliss point, so \(\bar x\) is PO and no \(\tilde x\) exists. \(A=\{(1,1)\}\) and \(B=e-\mathbb{R}^2_+\). Since \((1,1)\in\operatorname{Int}B\), Step 3's conclusion fails. Suppose \(p\neq0\) supported it. Profit maximization over \(Y=-\mathbb{R}^2_+\) requires \(p\ge0\) (otherwise disposing of more of a negatively priced good raises profit without bound). It also requires \(p\cdot\bar y\ge p\cdot0=0\), i.e. \(p\cdot(e-(1,1))\le0\). With \(e-(1,1)\gg0\), these force \(p=0\). Contradiction: a satiated economy has only zero shadow prices.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 6.3 <span class="tag exam">Exam-style</span> Crusoe by hand</div>
-    <p>In the figure's economy take \(\gamma=\tfrac12\) and \(b=1\) (this is <a href="0002-competitive-equilibrium.html">Exercise 2.3</a> again, approached from the planner's side).</p>
+    <div class="box-title">Exercise 6.4 <span class="tag past">Past exam: Fall 2025 Midterm 1, I.4</span> <span class="tag pset">Problem set 2022 (PS3 P3)</span> Planner weights and prices</div>
+    <p>A pure endowment economy with \(I\) agents and \(m\) goods, aggregate endowment \(\bar e\gg0\). Each \(u^i\) is strictly increasing, strictly concave, differentiable, and satisfies Inada conditions.</p>
     <ol class="parts" type="a">
-      <li>Find the PO labour input \(\bar n\).
-        <div class="numcheck" data-answer="1/3" data-tol="0.002" data-prompt="n̄ ="></div></li>
-      <li>Find the supporting wage (price of leisure in units of \(c\)).
-        <div class="numcheck" data-answer="Math.sqrt(3)/2" data-tol="0.002" data-prompt="w ="></div></li>
-      <li>Find the firm's profit at that price, and check that the household can afford \((\bar\ell,\bar c)\) with income \(w\cdot1+\pi\).</li>
-      <li>Now take \(\gamma=2\), \(b=1\). Find \(\bar n\) and \(w\), and show that at \(w\) the firm's profit at \(\bar n\) is negative while \(n=1\) earns more.</li>
+      <li>Write agent \(i\)'s FOC for good \(\ell\) in a CE, with budget multiplier \(\mu_i\). Why does it hold with equality? <span class="pts">(5 points)</span></li>
+      <li>Write the planner's problem \(\max\sum_i\lambda_iu^i(x^i)\) subject to \(\sum_ix^i_\ell\le\bar e_\ell\) (multipliers \(\gamma_\ell\)) and its FOC. <span class="pts">(5 points)</span></li>
+      <li>Show that the CE allocation solves the planner's problem with \(\lambda_i=1/\mu_i\) and \(\gamma=p\). Which welfare theorem is this a proof of, under these assumptions? <span class="pts">(10 points)</span></li>
+      <li>Deduce the statement of Exercise 6.1, item 5. Which agents get a high weight? <span class="pts">(10 points)</span></li>
+      <li>Conversely, take any weights \(\lambda\gg0\) and the planner's solution \(\bar x(\lambda)\). Show that it is a CE once endowments are redistributed, and give the lump-sum transfer \(T^i\) in terms of \(p\), \(\bar x^i\) and \(e^i\). Show that \(\sum_iT^i=0\). <span class="pts">(10 points)</span></li>
+      <li>Let \(u^i(x)=\sum_\ell\pi_\ell\frac{x_\ell^{1-\sigma}}{1-\sigma}\) for all \(i\), with \(\sigma>0\). Show that \(\bar x^i_\ell(\lambda)=\dfrac{\lambda_i^{1/\sigma}}{\sum_j\lambda_j^{1/\sigma}}\,\bar e_\ell\). Interpret: what do the weights control, and what don't they control? <span class="pts">(10 points)</span></li>
     </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (c), the planner's problem is concave, so its FOCs are sufficient. For (f), use the planner FOC to write \(x^i_\ell\) in terms of \(\lambda_i\) and \(\gamma_\ell\), then sum over \(i\) to eliminate \(\gamma_\ell\).</p></div></details>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) \(\bar n=\gamma/(\gamma+b)=1/3\). (b) \(w=\tfrac12\bar n^{-1/2}=\tfrac{\sqrt3}{2}\approx0.866\), matching the CE wage of Exercise 2.3, as the 1WT and 2WT together predict. (c) \(\bar c=\sqrt{1/3}\approx0.577\), so \(\pi=\bar c-w\bar n=0.577-0.289=0.289\). Income is \(w+\pi=1.155\), and the cost of the bundle is \(\bar c+w\bar\ell=0.577+0.866\cdot\tfrac23=1.155\). ✓ (d) \(\bar n=2/3\), \(w=2\bar n=4/3\), and \(\pi(\bar n)=\tfrac49-\tfrac43\cdot\tfrac23=-\tfrac49<0\), while \(\pi(1)=1-\tfrac43=-\tfrac13>-\tfrac49\) and \(\pi(0)=0\). The firm shuts down, so the PO allocation is not decentralizable.</p>
-    </div></details>
-  </div>
-
-  <div class="box exercise">
-    <div class="box-title">Exercise 6.4 <span class="tag exam">Exam-style</span> Decentralizing with transfers</div>
-    <p>The Edgeworth box of <a href="0002-competitive-equilibrium.html">Exercise 2.2</a>: \(u^A=\tfrac13\log x_1+\tfrac23\log x_2\), \(u^B=\tfrac12\log x_1+\tfrac12\log x_2\), total endowment \((1,1)\), initial endowments \(e^A=(1,0)\) and \(e^B=(0,1)\). A planner wants the PO allocation with \(\bar x^A_1=\tfrac12\).</p>
-    <ol class="parts" type="a">
-      <li>Find \(\bar x^A_2\) (use the contract curve).
-        <div class="numcheck" data-answer="2/3" data-tol="0.002" data-prompt="x̄₂ᴬ ="></div></li>
-      <li>Find the supporting relative price \(p_1/p_2\).
-        <div class="numcheck" data-answer="2/3" data-tol="0.002" data-prompt="p₁/p₂ ="></div></li>
-      <li>Find the lump-sum transfer to A (in units of good 2) that decentralizes it, with \(p_2=1\).
-        <div class="numcheck" data-answer="1/3" data-tol="0.002" data-prompt="T^A ="></div></li>
-    </ol>
-    <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) Equal MRS: \(\tfrac{1}{2}\tfrac{x_2}{x_1}=\tfrac{1-x_2}{1-x_1}\). At \(x_1=\tfrac12\) this gives \(x_2/2 = 1-x_2\), so \(x_2=\tfrac23\). (b) \(MRS^A=\tfrac12\cdot\tfrac{2/3}{1/2}=\tfrac23\), and for B, \((1/3)/(1/2)=\tfrac23\). ✓ (c) \(p\cdot\bar x^A=\tfrac23\cdot\tfrac12+\tfrac23=1\) and \(p\cdot e^A=\tfrac23\), so \(T^A=\tfrac13\) and \(T^B=-\tfrac13\). Check: with wealth 1, A demands \(x_1=\tfrac13\cdot1/\tfrac23=\tfrac12\) and \(x_2=\tfrac23\). ✓</p>
+      <p>(a) \(u^i_\ell(\bar x^i)=\mu_ip_\ell\). Inada conditions make \(u^i_\ell\to\infty\) at \(x_\ell=0\), so demands are interior and the non-negativity constraints are slack. LNS makes the budget bind, so \(\mu_i>0\).<br>
+      (b) FOC: \(\lambda_iu^i_\ell(x^i)=\gamma_\ell\) for all \(i,\ell\).<br>
+      (c) With \(\lambda_i=1/\mu_i\) and \(\gamma=p\), the planner FOC becomes \(u^i_\ell/\mu_i=p_\ell\), which is the CE FOC. Feasibility holds because CE allocations are feasible. The planner's objective is strictly concave and the constraints are linear, so the FOCs are sufficient and \(\bar x\) is the planner's solution. Every solution of a weighted planner with positive weights is PO, so this proves the <strong>1WT</strong> by duality (under smoothness and concavity, which the general proof does not need).<br>
+      (d) From (a), \(p_\ell=u^i_\ell/\mu_i\) for every \(i\). Averaging, \(p_\ell=\frac1I\sum_i\frac{1}{\mu_i}u^i_\ell\). The weights \(1/\mu_i\) do not depend on \(\ell\). Agents with a low marginal utility of income, i.e. the rich, get high weight.<br>
+      (e) Set \(p=\gamma\) and \(\mu_i=1/\lambda_i\). Then each agent's FOC holds at \(\bar x^i\). With strictly concave \(u^i\) and a budget \(p\cdot x\le p\cdot\bar x^i\), the FOC is sufficient, so \(\bar x^i\) is demanded. This is the <strong>2WT</strong>. The transfer is \(T^i=p\cdot\bar x^i-p\cdot e^i\), and \(\sum_iT^i=p\cdot(\sum_i\bar x^i-\bar e)=0\) by feasibility (binding, since \(u\) is increasing).<br>
+      (f) FOC: \(\lambda_i\pi_\ell(x^i_\ell)^{-\sigma}=\gamma_\ell\), so \(x^i_\ell=(\lambda_i\pi_\ell/\gamma_\ell)^{1/\sigma}\). Summing over \(i\): \(\bar e_\ell=(\pi_\ell/\gamma_\ell)^{1/\sigma}\sum_j\lambda_j^{1/\sigma}\). Dividing gives the share formula. The weights control <em>how big a slice</em> each agent gets: the same share of every good. They do not affect relative prices, \(\gamma_\ell/\gamma_k=(\pi_\ell/\pi_k)(\bar e_k/\bar e_\ell)^{\sigma}\), which depend only on aggregates.</p>
     </div></details>
   </div>
 
@@ -323,13 +340,39 @@
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 6.6 <span class="tag exam">Exam-style</span> True / False / Uncertain</div>
+    <div class="box-title">Exercise 6.6 <span class="tag exam">Exam-inspired</span> Robinson Crusoe: when do supporting prices exist?</div>
+    <p>The economy of §6 with general \(\gamma>0\) and \(b>0\): one unit of time, technology \(c\le n^\gamma\), utility \(\log c+b\log\ell\).</p>
     <ol class="parts" type="a">
-      <li>"Under the 2WT assumptions, any PO allocation is a CE for the original endowments."</li>
-      <li>"The 2WT requires that every firm's production set be convex."</li>
-      <li>"In the 2WT, the supporting prices are unique."</li>
+      <li>Find the PO labour input \(\bar n\). Your answer should be one equation. <span class="pts">(5 points)</span></li>
+      <li>Find the candidate supporting wage \(w\) (price of leisure in units of \(c\)) as the slope of the frontier at \(\bar n\). <span class="pts">(5 points)</span></li>
+      <li>Show that the firm's profit at \(\bar n\) is \(\pi=(1-\gamma)\bar n^\gamma\). <span class="pts">(5 points)</span></li>
+      <li>Let \(\gamma\le1\). Show that at \(w\) the firm maximizes profit at \(\bar n\), and that the household with income \(w+\pi\) demands exactly \((\bar\ell,\bar c)\). <span class="pts">(15 points)</span></li>
+      <li>Let \(\gamma>1\). Show that at \(w\), \(\bar n\) is a profit <em>minimum</em> on \([0,1]\) and the firm prefers \(n=0\). Which step of the 2WT proof fails, and which assumption is violated? <span class="pts">(10 points)</span></li>
     </ol>
-    <details class="solution"><summary>Show solution</summary><div class="body"><p>(a) <strong>False.</strong> It is a quasi-equilibrium <em>with transfers</em>: wealth must be redistributed so that each \(i\) can afford exactly \(p\bar x^i\) (Lesson 7). Even then, utility maximization needs Arrow's condition. (b) <strong>False.</strong> Only the aggregate \(Y\) must be convex. (c) <strong>False in general.</strong> At kinks (Leontief preferences, linear technologies with corners) many hyperplanes separate \(A\) and \(B\). With smooth indifference curves at an interior point, relative prices are pinned down by the common MRS.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Maximize \(\gamma\log n+b\log(1-n)\): \(\gamma/n=b/(1-n)\), so \(\bar n=\gamma/(\gamma+b)\).<br>
+      (b) \(w=\gamma\bar n^{\gamma-1}\).<br>
+      (c) \(\pi=\bar n^\gamma-w\bar n=\bar n^\gamma-\gamma\bar n^\gamma=(1-\gamma)\bar n^\gamma\).<br>
+      (d) For \(\gamma\le1\), \(n^\gamma-wn\) is concave, so the FOC \(\gamma n^{\gamma-1}=w\) identifies the maximum, at \(\bar n\). The household maximizes \(\log c+b\log\ell\) subject to \(c+w\ell=w+\pi\), so \(c=\frac{w+\pi}{1+b}\). Now \(w+\pi=\bar n^{\gamma-1}\big(\gamma+(1-\gamma)\bar n\big)\) and \(\gamma+(1-\gamma)\bar n=\frac{\gamma(1+b)}{\gamma+b}=(1+b)\bar n\). So \(w+\pi=(1+b)\bar n^\gamma\) and \(c=\bar n^\gamma=\bar c\). Then \(w\ell=b\bar n^\gamma\) gives \(\ell=b\bar n/\gamma=1-\bar n=\bar\ell\). ✓<br>
+      (e) For \(\gamma>1\), \(n^\gamma-wn\) is strictly convex, so the point where the FOC holds is a minimum. Indeed \(\pi(\bar n)=(1-\gamma)\bar n^\gamma<0=\pi(0)\). Step 6 (firms maximize profits at \(p\)) fails, because Assumption FF (convex \(Y\)) is violated: part of \(B\) lies above the price line through the PO point.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 6.7 <span class="tag exam">Exam-inspired</span> Decentralizing an Edgeworth-box optimum</div>
+    <p>Two agents with \(u^A=a\log x_1+(1-a)\log x_2\) and \(u^B=b\log x_1+(1-b)\log x_2\), total endowment \((1,1)\), initial endowments \(e^A\) and \(e^B=(1,1)-e^A\). Write \(k_A=a/(1-a)\) and \(k_B=b/(1-b)\).</p>
+    <ol class="parts" type="a">
+      <li>Derive the contract curve \(x^A_2=\phi(x^A_1)\). <span class="pts">(10 points)</span></li>
+      <li>For the PO allocation with \(x^A_1=t\in(0,1)\), find the supporting relative price \(p_1/p_2\) in terms of \(t\). <span class="pts">(5 points)</span></li>
+      <li>With \(p_2=1\), find the lump-sum transfer \(T^A\) that decentralizes it. Show that \(T^B=-T^A\). <span class="pts">(10 points)</span></li>
+      <li>Verify that with wealth \(p\cdot e^A+T^A\), agent A demands \((t,\phi(t))\). <span class="pts">(5 points)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Equal MRS: \(k_A\,x_2/x_1=k_B\,(1-x_2)/(1-x_1)\). Solving, \(\phi(x_1)=\dfrac{k_Bx_1}{k_A(1-x_1)+k_Bx_1}\).<br>
+      (b) \(p_1/p_2=MRS^A=k_A\,\phi(t)/t=\dfrac{k_Ak_B}{k_A(1-t)+k_Bt}\).<br>
+      (c) \(T^A=p\cdot\bar x^A-p\cdot e^A=p_1t+\phi(t)-p_1e^A_1-e^A_2\). Feasibility gives \(\bar x^B=(1,1)-\bar x^A\) and \(e^B=(1,1)-e^A\), so \(T^B=p\cdot(\bar x^B-e^B)=-p\cdot(\bar x^A-e^A)=-T^A\).<br>
+      (d) With wealth \(M=p\cdot\bar x^A=p_1t+\phi(t)\), Cobb–Douglas demand is \(x_1=aM/p_1\). Now \(p_1t=k_A\phi(t)\), so \(M=(1+k_A)\phi(t)=\phi(t)/(1-a)\). Then \(x_1=a\phi(t)/((1-a)p_1)=k_A\phi(t)/p_1=t\) and \(x_2=(1-a)M=\phi(t)\). ✓</p>
+    </div></details>
   </div>
 
   <div class="takeaways">

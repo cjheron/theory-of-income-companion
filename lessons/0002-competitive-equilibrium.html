@@ -237,8 +237,31 @@
   <!-- ─────────────────────────────────────────── -->
   <h2>7. Exercises</h2>
 
+  <p>Alvarez's Midterm 1 opens with true/false statements worth about half the points; two of the Fall 2025 statements are about this lesson. The longer exercises below are derivations in the exam's format: small steps, each worth a few points, with general parameters rather than numbers.</p>
+
   <div class="box exercise">
-    <div class="box-title">Exercise 2.1 <span class="tag slides">Slides p.11</span></div>
+    <div class="box-title">True or false? Justify. <span class="tag past">Past exam</span> <span class="tag exam">Exam-inspired</span></div>
+    <p>For each statement, answer True or False and justify in at most four lines.</p>
+    <ol class="tf-list">
+      <li>Assume all agents have strictly concave, strictly increasing, differentiable utility functions satisfying Inada conditions, in a pure endowment economy. In a competitive equilibrium, the price of each commodity is proportional to a weighted average across agents of the marginal utility of that commodity, with the same weights for every commodity. <span class="tf-src">Fall 2025 MT1 I.4</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> Inada conditions make every optimum interior, so each FOC holds with equality: \(u^i_\ell(\bar x^i)=\mu^ip_\ell\), where \(\mu^i>0\) is \(i\)'s budget multiplier. Hence \(p_\ell=\frac1{\mu^i}u^i_\ell\) for every \(i\), and averaging, \(p_\ell=\frac1I\sum_i\frac{1}{\mu^i}u^i_\ell\). The weight \(1/\mu^i\) is agent-specific but the same for all goods, because each agent has one budget constraint. (Exercise 2.5.)</p></div></details></li>
+      <li>Consider a pure endowment economy in which every agent is endowed with \(e^i=\bar e/I\), an equal share of the aggregate endowment. The competitive-equilibrium allocation is envy-free: no agent prefers another agent's bundle to her own. <span class="tf-src">Fall 2025 MT1 I.6</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> All agents face the same budget set \(\{x: p\cdot x\le p\cdot\bar e/I\}\), and every equilibrium bundle \(\bar x^j\) is in it. If \(u^i(\bar x^j)>u^i(\bar x^i)\), agent \(i\) could have afforded \(\bar x^j\), contradicting optimality of \(\bar x^i\).</p></div></details></li>
+      <li>The result in statement 2 requires all agents to have identical preferences. <span class="tf-src">exam-inspired (review-note trap)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The revealed-preference argument uses only that budget <em>sets</em> are identical. Each agent compares bundles with her own utility function; preferences can be arbitrary.</p></div></details></li>
+      <li>Walras' law, \(p\cdot z(p)=0\), holds only at equilibrium prices. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> It holds at <em>every</em> price vector at which budgets bind: sum the binding budgets and use \(\sum_i\theta^i_j=1\). That is why it can be used to drop one market-clearing condition when <em>searching</em> for equilibrium prices.</p></div></details></li>
+      <li>If preferences satisfy local non-satiation, every household's budget constraint binds at its optimum. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> If \(p\cdot\bar x\lt M\), the budget set contains a ball around \(\bar x\) (intersected with \(X\)). LNS gives a strictly better \(\hat x\) in that ball, and it is affordable: contradiction.</p></div></details></li>
+      <li>With binding budgets, if \(m-1\) of the \(m\) markets clear, the remaining market also clears. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False in general.</strong> Walras' law then gives \(p_mz_m=0\), which forces \(z_m=0\) only if \(p_m\neq0\). A free good (\(p_m=0\)) can be in excess supply in equilibrium. The statement is true when \(p_m>0\).</p></div></details></li>
+      <li>Doubling every price doubles each firm's profit, so households' equilibrium consumption must change. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> Profits double, but so do the values of all bundles and endowments. Each budget set \(\{x: 2p\cdot x\le 2p\cdot e^i+\sum_j\theta^i_j2\pi^j\}\) is unchanged, as is each firm's argmax. Only relative prices matter.</p></div></details></li>
+    </ol>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 2.1 <span class="tag slides">Slides p.11</span> (what price ratios mean)</div>
     <p>For each commodity space from <a href="0001-the-economy.html">Lesson 1</a>, interpret a <em>ratio</em> of two prices as a familiar economic object:</p>
     <ol class="parts" type="a">
       <li>\(m=2\): consumption and leisure.</li>
@@ -252,46 +275,92 @@
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 2.2 <span class="tag exam">Exam-style</span></div>
-    <p>Two consumers, two goods. \(u^A = \tfrac13\log x_1 + \tfrac23\log x_2\) with \(e^A=(1,0)\), and \(u^B = \tfrac12\log x_1+\tfrac12\log x_2\) with \(e^B=(0,1)\). Normalize \(p_2=1\).</p>
+    <div class="box-title">Exercise 2.2 <span class="tag exam">Exam-inspired</span> (the two-good box, solved in general)</div>
+    <p>Two consumers, two goods. \(u^A = a\log x_1 + (1-a)\log x_2\) with \(e^A=(1,0)\), and \(u^B = b\log x_1+(1-b)\log x_2\) with \(e^B=(0,1)\), where \(a,b\in(0,1)\). Normalize \(p_2=1\) and write \(p\equiv p_1\).</p>
     <ol class="parts" type="a">
-      <li>Find the equilibrium relative price \(p_1\).
-        <div class="numcheck" data-answer="0.75" data-tol="0.002" data-prompt="p₁ ="></div></li>
-      <li>Find A's equilibrium consumption of good 1.
-        <div class="numcheck" data-answer="1/3" data-tol="0.002" data-prompt="x₁ᴬ ="></div></li>
-      <li>Verify directly that the good-2 market clears, without invoking Walras' law.</li>
+      <li>Write each consumer's wealth and demand for good 1 as functions of \(p\). <span class="pts">(10 pts)</span></li>
+      <li>Clear the market for good 1 and solve for \(p\). Your answer is one expression in \(a\) and \(b\). <span class="pts">(10 pts)</span></li>
+      <li>Show that the equilibrium allocation is \(\bar x^A=(a,b)\) and \(\bar x^B=(1-a,1-b)\). <span class="pts">(10 pts)</span></li>
+      <li>How does \(p\) change with \(a\) and with \(b\)? Give a one-line intuition for each. <span class="pts">(10 pts)</span></li>
+      <li>Check the good-2 market directly, without Walras' law. <span class="pts">(5 pts)</span></li>
     </ol>
-    <details class="hint"><summary>Hint</summary><div class="body">
-      <p>Use the formula from the worked example with \(a=1/3\), \(b=1/2\), \(e_1=1\), \(e_2=0\). Or start from scratch: A's wealth is \(p_1\) and B's wealth is \(1\).</p>
-    </div></details>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>Cobb–Douglas spends a constant share of wealth on each good. A's wealth is \(p\), B's is \(1\).</p></div></details>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) Wealths: \(m^A = p_1\), \(m^B = 1\). Good-1 demands: \(x_1^A = \tfrac13 p_1/p_1 = \tfrac13\) and \(x_1^B = \tfrac12\cdot 1/p_1\). Clearing: \(\tfrac13 + \tfrac{1}{2p_1} = 1\) gives \(p_1 = \tfrac34\).<br>
-      (b) \(x_1^A = 1/3\). A always spends a third of its wealth on good 1, and its wealth is \(p_1\), so it keeps a third of its own endowment.<br>
-      (c) \(x_2^A = \tfrac23 m^A = \tfrac23\cdot\tfrac34 = \tfrac12\) and \(x_2^B = \tfrac12 m^B = \tfrac12\). The total is \(1 = \) the endowment of good 2. ✓</p>
+      <p>(a) \(m^A=p\), \(m^B=1\). \(x_1^A=a\,m^A/p=a\) and \(x_1^B=b/p\).<br>
+      (b) \(a+b/p=1\), so \(p=\dfrac{b}{1-a}\).<br>
+      (c) \(x_2^A=(1-a)m^A=(1-a)\frac{b}{1-a}=b\); \(x_1^B=b/p=1-a\); \(x_2^B=(1-b)m^B=1-b\).<br>
+      (d) \(p\) rises with \(b\): B, who owns good 2, wants more good 1 and bids its price up. \(p\) rises with \(a\): A, the owner of good 1, wants to keep more of it, so less is supplied to B.<br>
+      (e) \(x_2^A+x_2^B=b+(1-b)=1\) ✓.</p>
+      <p>Later lessons use the special case \(a=\tfrac13\), \(b=\tfrac12\): \(p=(\tfrac34,1)\), \(\bar x^A=(\tfrac13,\tfrac12)\), \(\bar x^B=(\tfrac23,\tfrac12)\).</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 2.3 <span class="tag exam">Exam-style</span> (Robinson Crusoe with a firm)</div>
-    <p>One household with endowment \(e=(0,1)\) (no consumption good, one unit of time) and utility \(u(c,\ell) = \log c + \log \ell\) over consumption and leisure. One firm with technology \(Y=\{(c,-n): 0\le c\le \sqrt{n},\ n\ge 0\}\), owned entirely by the household. Normalize the price of consumption to 1 and let \(w\) be the price of time.</p>
+    <div class="box-title">Exercise 2.3 <span class="tag exam">Exam-inspired</span> (Robinson Crusoe with a firm)</div>
+    <p>One household with endowment \(e=(0,1)\) (no consumption good, one unit of time) and utility \(u(c,\ell)=\log c+b\log\ell\), \(b>0\). One firm with technology \(Y=\{(c,-n): 0\le c\le An^\gamma,\ n\ge0\}\), \(A>0\), \(\gamma\in(0,1)\), owned entirely by the household. Normalize the price of consumption to 1 and let \(w\) be the price of time.</p>
     <ol class="parts" type="a">
-      <li>Solve the firm's problem: labour demand \(n(w)\), output and profit \(\pi(w)\).</li>
-      <li>Write the household budget constraint in the general form \(p\cdot x\le p\cdot e+\theta\pi\), being careful with signs, and solve for \(c(w)\) and \(\ell(w)\).</li>
-      <li>Find the equilibrium \(w\), \(n\) and \(c\). Which market did you <em>not</em> need to clear?</li>
+      <li>Solve the firm's problem. Show that profit is \(\pi=(1-\gamma)Y\), where \(Y\) is output. <span class="pts">(10 pts)</span></li>
+      <li>Write the household budget in the form \(p\cdot x\le p\cdot e+\theta\pi\), with signs, and give \(c\) and \(\ell\) as functions of full income \(M=w+\pi\). <span class="pts">(10 pts)</span></li>
+      <li>Clear the goods market and show that \(n=\dfrac{\gamma}{\gamma+b}\). Which market did you not need to clear? <span class="pts">(15 pts)</span></li>
+      <li>Solve the planner's problem \(\max_n \log(An^\gamma)+b\log(1-n)\) and compare. <span class="pts">(5 pts)</span></li>
+      <li>Hours do not depend on productivity \(A\). Explain why in one line. <span class="pts">(5 pts)</span></li>
     </ol>
-    <details class="hint"><summary>Hint</summary><div class="body"><p>The household's bundle is \(x=(c,\ell)\) with \(\ell\in[0,1]\). The time market clears when \(\ell + n = 1\). The firm's \(y=(\sqrt n,-n)\) uses time as an input.</p></div></details>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>The household's bundle is \(x=(c,\ell)\) with \(\ell\in[0,1]\). The time market clears when \(\ell+n=1\). The firm's \(y=(An^\gamma,-n)\) uses time as an input. For (c), use \(wn=\gamma Y\) from (a).</p></div></details>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) The firm maximizes \(\sqrt n - wn\). The FOC \(\tfrac{1}{2\sqrt n} = w\) gives \(n = 1/(4w^2)\), output \(1/(2w)\) and profit \(\pi = \tfrac1{2w} - \tfrac1{4w} = \tfrac{1}{4w}\).<br>
-      (b) \(c + w\ell \le w\cdot 1 + \pi\). Log utility splits full income \(M = w + \pi\) equally: \(c = M/2\) and \(\ell = M/(2w)\).<br>
-      (c) Clear the goods market: \(c = 1/(2w)\), so \((w + \tfrac{1}{4w})/2 = \tfrac{1}{2w}\). This gives \(w^2 + \tfrac14 = 1\), so \(w = \sqrt3/2\). Then \(n = 1/(4w^2) = 1/3\), \(\ell = 2/3\) and \(c = \sqrt{1/3} = 1/\sqrt3\). The time market (\(\ell + n = 1\)) then clears automatically by Walras' law: \(\tfrac23 + \tfrac13 = 1\). ✓</p>
-      <p>Sanity check against the planner: \(\max \log\sqrt n + \log(1-n)\) gives \(\tfrac{1}{2n} = \tfrac1{1-n}\), so \(n = 1/3\). The CE allocation equals the planner's allocation, which is what the welfare theorems predict.</p>
+      <p>(a) \(\max_n An^\gamma-wn\). FOC: \(\gamma An^{\gamma-1}=w\), so \(wn=\gamma Y\) and \(\pi=Y-wn=(1-\gamma)Y\).<br>
+      (b) \(c+w\ell\le w\cdot1+\pi\). Log utility with weights \(1\) and \(b\) spends shares \(\frac1{1+b}\) and \(\frac{b}{1+b}\) of \(M\): \(c=\frac{M}{1+b}\), \(\ell=\frac{bM}{(1+b)w}\).<br>
+      (c) Goods market: \(c=Y\), so \((1+b)Y=w+(1-\gamma)Y\), i.e. \(w=(b+\gamma)Y\). With \(wn=\gamma Y\): \(n=\frac{\gamma}{\gamma+b}\). The time market then clears by Walras' law: \(\ell=\frac{bc}{w}=\frac{b}{b+\gamma}=1-n\) ✓.<br>
+      (d) FOC: \(\frac{\gamma}{n}=\frac{b}{1-n}\), so \(n=\frac{\gamma}{\gamma+b}\): the CE allocation equals the planner's, as the welfare theorems predict.<br>
+      (e) Under log utility, the income effect of higher \(A\) (richer, so more leisure) exactly offsets the substitution effect (a higher wage, so less leisure).</p>
+      <p>Special case used in Lesson 6: \(A=1\), \(\gamma=\tfrac12\), \(b=1\) gives \(n=\tfrac13\) and \(w=\tfrac32\cdot\tfrac{1}{\sqrt3}=\tfrac{\sqrt3}{2}\).</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 2.4 <span class="tag proof">Proof</span></div>
+    <div class="box-title">Exercise 2.4 <span class="tag proof">Proof</span> (when Walras' law fails)</div>
     <p>Show that if some household has a <em>slack</em> budget constraint at its optimum, Walras' law can fail, i.e. \(p\cdot z(p) < 0\). Construct a one-line example and say which assumption it violates.</p>
     <details class="solution"><summary>Show solution</summary><div class="body"><p>Let one household have a bliss point \(x^b\) with \(p\cdot x^b < p\cdot e\), and let every bundle be weakly worse than \(x^b\). For example, \(u(x) = -\|x - x^b\|^2\). It chooses \(x^b\) and leaves money unspent, so \(p\cdot z = p\cdot(x^b - e) < 0\). This violates <strong>local non-satiation</strong>: at \(x^b\) there is no better bundle nearby. In <a href="0003-pareto-optimality-and-lns.html">Lesson 3</a> we'll see that LNS is exactly what forces budgets to bind.</p></div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 2.5 <span class="tag past">Past exam: Fall 2025 MT1 I.4, extended</span> (prices are weighted marginal utilities)</div>
+    <p>Pure exchange, \(I\) agents, \(m\) goods. Each \(u^i\) is strictly concave, strictly increasing, differentiable and satisfies Inada conditions. Let \((p,\bar x)\) be a competitive equilibrium.</p>
+    <ol class="parts" type="a">
+      <li>Write agent \(i\)'s first-order condition for good \(\ell\). Why does it hold with equality? <span class="pts">(10 pts)</span></li>
+      <li>Show that \(p_\ell\propto\sum_i\frac{1}{\mu^i}\,u^i_\ell(\bar x^i)\), where \(\mu^i\) is \(i\)'s budget multiplier. <span class="pts">(10 pts)</span></li>
+      <li>Why must the weight on agent \(i\) be the same for every good? One line. <span class="pts">(5 pts)</span></li>
+      <li>Let \(u^i=\sum_\ell a^i_\ell\log x_\ell\) with \(\sum_\ell a^i_\ell=1\). Show that \(1/\mu^i=p\cdot e^i\): the weight on each agent is her wealth. <span class="pts">(10 pts)</span></li>
+      <li>Show that \(\bar x\) satisfies the first-order conditions of the planner's problem \(\max\sum_i\lambda^iu^i(x^i)\) subject to \(\sum_ix^i=\sum_ie^i\), with \(\lambda^i=1/\mu^i\) and the multiplier on good \(\ell\) equal to \(p_\ell\). Which agents get a high welfare weight? <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(u^i_\ell(\bar x^i)=\mu^ip_\ell\). Inada conditions rule out corners (\(u^i_\ell\to\infty\) as \(x_\ell\to0\)), so the non-negativity constraints are slack and the Kuhn–Tucker condition holds with equality. \(\mu^i>0\) because \(u^i\) is strictly increasing.<br>
+      (b) From (a), \(p_\ell=\frac{1}{\mu^i}u^i_\ell\) for <em>each</em> \(i\). Sum over \(i\) and divide by \(I\): \(p_\ell=\frac1I\sum_i\frac1{\mu^i}u^i_\ell\).<br>
+      (c) Each agent has a single budget constraint, so a single multiplier \(\mu^i\) prices all of her goods.<br>
+      (d) FOC: \(a^i_\ell/x^i_\ell=\mu^ip_\ell\), so \(p_\ell x^i_\ell=a^i_\ell/\mu^i\). Summing over \(\ell\): \(p\cdot\bar x^i=1/\mu^i\). The budget binds, so \(1/\mu^i=p\cdot e^i\).<br>
+      (e) Planner's FOC: \(\lambda^iu^i_\ell(x^i)=\gamma_\ell\). Setting \(\lambda^i=1/\mu^i\) and \(\gamma_\ell=p_\ell\) turns it into (a). Agents with a low marginal utility of income, i.e. rich agents, get a high weight. Because the planner's problem is concave, these FOCs are also sufficient; Exercise 4.2 uses this to prove the First Welfare Theorem a second way.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 2.6 <span class="tag pset">Problem set 2025 P1 Q1</span> (Walras' law in an OLG economy with a government)</div>
+    <p>Generation \(t\ge1\) lives two periods; the initial old (generation 0) live only at \(t=1\). A unit mass is born each period. Taxes are \(\tau^t_t\) (when young) and \(\tau^t_{t+1}\) (when old); \(s_t\) is the saving of the young; \(B_t\) is the government's <em>assets</em> (\(B_t<0\) is debt); \(g_t\) is government spending. The constraints are:</p>
+    <p>$$\text{(1) } s_t+c^t_t=e^t_t-\tau^t_t,\qquad c^t_{t+1}=s_t(1+r_t)+e^t_{t+1}-\tau^t_{t+1},$$
+    $$\text{(2) } c^0_1=s_0(1+r_0)+e^0_1-\tau^0_1,\qquad \text{(3) } B_t+g_t=(1+r_{t-1})B_{t-1}+\tau^t_t+\tau^{t-1}_t,$$
+    $$\text{(4) } g_t+c^t_t+c^{t-1}_t=e^t_t+e^{t-1}_t .$$</p>
+    <ol class="parts" type="a">
+      <li>Add the budget constraint of the young at \(t\) to that of the old at \(t\), and use (4) to eliminate consumption. <span class="pts">(10 pts)</span></li>
+      <li>Combine your answer with (3) to show \(B_t+s_t=(1+r_{t-1})(B_{t-1}+s_{t-1})\). <span class="pts">(10 pts)</span></li>
+      <li>Conclude that \(B_0+s_0=0\) implies the asset market clears, \(B_t+s_t=0\), at every date. <span class="pts">(5 pts)</span></li>
+      <li>In what sense is this "Walras' law"? One line. <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Young: \(s_t+c^t_t=e^t_t-\tau^t_t\). Old: \(c^{t-1}_t=(1+r_{t-1})s_{t-1}+e^{t-1}_t-\tau^{t-1}_t\). Adding and using (4) to replace \(c^t_t+c^{t-1}_t\) by \(e^t_t+e^{t-1}_t-g_t\):
+      $$s_t+\tau^t_t+\tau^{t-1}_t=(1+r_{t-1})s_{t-1}+g_t .$$
+      (At \(t=1\) the old constraint is (2).)<br>
+      (b) <em>Add</em> this to (3): the taxes and \(g_t\) appear on both sides and cancel, leaving \(B_t+s_t=(1+r_{t-1})(B_{t-1}+s_{t-1})\). (Class Note III p.4 says "subtracting"; with the equations as written, you add them.)<br>
+      (c) Induction: if \(B_{t-1}+s_{t-1}=0\) then \(B_t+s_t=0\); start from \(B_0+s_0=0\).<br>
+      (d) If all budgets hold and every goods market clears, the one remaining market, for assets, clears automatically, just as \(p\cdot z(p)=0\) lets you drop one market in the static economy. Lesson 14 uses this result.</p>
+    </div></details>
   </div>
 
   <div class="takeaways">
@@ -304,7 +373,7 @@
     </ul>
   </div>
 
-  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "why does the firm take prices as given if it's the only firm?" or "walk me through Exercise 2.3 with a general Cobb–Douglas technology."</div>
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "why does the firm take prices as given if it's the only firm?" or "walk me through Exercise 2.3 when the technology has a fixed cost."</div>
 
   <div class="lesson-nav">
     <a href="0001-the-economy.html">← Lesson 1: The economy</a>

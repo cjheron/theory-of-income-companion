@@ -434,3 +434,12 @@ dl.gloss dd { padding: 0.4rem 0; border-bottom: 1px dotted #ccc; }
 dl.gloss dd .see { font-family: var(--font-sans); font-size: 0.72rem; margin-left: 0.4rem; }
 dl.gloss dd .see a { color: var(--accent); }
 @media print { dl.gloss { font-size: 0.82rem; } }
+
+/* ── Exam-prep exercise tags (v3) ── */
+.exercise .tag.past { background: #7a3a10; color: #fff; }
+.exercise .tag.pset { background: #e6e0f3; color: #3d2a7a; }
+.exercise .pts { font-family: var(--font-sans); font-size: 0.72rem; color: var(--muted); margin-left: 0.3rem; }
+.tf-list { list-style: none; margin: 0.4rem 0 0; counter-reset: tf; }
+.tf-list > li { counter-increment: tf; margin: 0.7rem 0; padding-left: 1.8rem; position: relative; }
+.tf-list > li::before { content: counter(tf) "."; position: absolute; left: 0; font-family: var(--font-sans); font-weight: bold; font-size: 0.85rem; color: var(--muted); top: 0.05rem; }
+.tf-list > li .tf-src { font-family: var(--font-sans); font-size: 0.7rem; color: var(--muted); margin-left: 0.3rem; }

@@ -126,11 +126,11 @@
 
   <div class="intuition">
     <div class="box-title">Intuition: two rates of return</div>
-    <p>A young person can save in two ways. The <strong>market</strong> pays gross return \(1+\bar r\). An <strong>intergenerational transfer scheme</strong> pays \(G\): give one unit (in your cohort's productivity units) when young, and when old you receive what the next cohort gives. There are \(1+n\) of them per old person, each \(1+g\) times as productive. If the scheme pays more than the market, everyone, the initial old included, can be made better off. With small rates, the condition is roughly \(\bar r<n+g\): <strong>the interest rate is below the growth rate of the economy.</strong> This is the growing-economy version of "\(\bar r<0\)", and it is the same condition under which the economy is <em>dynamically inefficient</em> in the production OLG model (<a href="0015-olg-with-capital.html">Lesson 15</a>).</p>
+    <p>A young person can save in two ways. The <strong>market</strong> pays gross return \(1+\bar r\). An <strong>intergenerational transfer scheme</strong> pays \(G\): give one unit (in your cohort's productivity units) when young, and when old you receive what the next cohort gives. There are \(1+n\) of them per old person, each \(1+g\) times as productive. If the scheme pays more than the market, everyone, the initial old included, can be made better off. With small rates, the condition is roughly \(\bar r\lt n+g\): <strong>the interest rate is below the growth rate of the economy.</strong> This is the growing-economy version of "\(\bar r<0\)", and it is the same condition under which the economy is <em>dynamically inefficient</em> in the production OLG model (<a href="0015-olg-with-capital.html">Lesson 15</a>).</p>
   </div>
 
   <p><strong>Consistency with Lesson 12.</strong> Aggregate endowment at date \(t\) is \(N_{t-1}(1+g)^{t-1}W=G^{t-1}W\), and \(p_t=(1+\bar r)^{-(t-1)}\). So
-  $$p\cdot\sum_i\bar x^i=W\sum_{t\ge1}\Big(\frac{G}{1+\bar r}\Big)^{t-1}<\infty\iff 1+\bar r>G .$$
+  $$p\cdot\sum_i\bar x^i=W\sum_{t\ge1}\Big(\frac{G}{1+\bar r}\Big)^{t-1}\lt \infty\iff 1+\bar r>G .$$
   The 1WT applies exactly when the best symmetric allocation fails to dominate. The two analyses agree.</p>
 
   <!-- ─────────────────────────────────────────── -->
@@ -294,102 +294,127 @@
   <!-- ─────────────────────────────────────────── -->
   <h2>9. Exercises</h2>
 
+  <p>These follow the format of Alvarez's exams. The midterms open with true/false statements whose points are for the justification. Longer questions come as guided derivations in short steps. Class Note III's population-growth slides are Problem 6 of the 2025 problem set, so Exercises 13.4–13.5 are that problem. Write your answer before you open the solution.</p>
+
   <div class="box exercise">
-    <div class="box-title">Exercise 13.1 <span class="tag slides">Slides N2 p.29</span></div>
-    <p>Let \(\alpha=0.5\), \(\beta=0.3\), \(g=0.4\), \(n=1\).</p>
+    <div class="box-title">Exercise 13.1 True or false? Justify. <span class="tag past">Past materials</span> <span class="tag exam">Exam-inspired</span></div>
+    <p>Answer each in one to four lines. State the condition you are using.</p>
+    <ol class="tf-list">
+      <li>"In an OLG model with positive interest rates in all periods, the competitive equilibrium may still be inefficient." <span class="tf-src">Trap: a 2025 study guide's answer key marks this False</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True</strong> (so the answer key is wrong). With growth, the CE is dominated by a stationary reallocation iff \(1+\bar r&lt;(1+g)(1+n)\), so a positive but low rate can come with inefficiency. Even without growth, rates \(r_t>0\) that converge to 0 fast enough can make \(\sum_tp_t\) diverge (item 8). The answer would be "False" only for a stationary no-growth economy with \(r\) bounded away from 0.</p></div></details></li>
+      <li>"In the growing OLG endowment economy, faster population growth \(n\) raises the equilibrium interest rate." <span class="tf-src">Class Note II p.29 / Problem set 2025, P6</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> The equilibrium has no trade, so \(1+\bar r\) is the MRS at the endowment point, \(\frac{(1-\beta)\alpha}{\beta(1-\alpha)}\). It does not depend on \(n\) or \(g\). Population growth multiplies zero saving by \(N_t\), and productivity growth scales the endowment along a ray, where the MRS of homothetic preferences is constant.</p></div></details></li>
+      <li>"In the growing economy, the best symmetric allocation Pareto-dominates the CE if and only if \(1+\bar r&lt;(1+g)(1+n)\)." <span class="tf-src">Class Note II p.32 / 2025 review notes</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True.</strong> Every generation \(t\ge1\) weakly prefers the best symmetric allocation, which is chosen to maximize its utility on a constraint that contains the CE point, and strictly prefers it unless the two coincide. The initial old prefer it iff \(\hat c^*_o>\alpha\), and \(\hat c^*_o=\beta[(1-\alpha)G+\alpha]>\alpha\iff G>\frac{\alpha(1-\beta)}{\beta(1-\alpha)}=1+\bar r\) (Exercise 13.2).</p></div></details></li>
+      <li>"An economy with a positive real interest rate cannot have a Pareto-improving PAYG system." <span class="tf-src">Exam-inspired</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False</strong> once the economy grows. The comparison is \(1+\bar r\) against \(G=(1+g)(1+n)\), PAYG's implicit gross return, not \(\bar r\) against 0. For example, \(\bar r>0\) with \(G>1+\bar r\) has an inefficient CE, and the PAYG system with \(\hat\tau>0\) of Exercise 13.2 improves on it.</p></div></details></li>
+      <li>"If the risk-free interest rate is below the growth rate of the economy, a PAYG social security system can make every generation better off." <span class="tf-src">Problem set 3 (2022), P4</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> What matters is whether the value of aggregate consumption is finite, i.e. the return on a claim to aggregate consumption relative to growth. Under uncertainty that return includes a risk premium. Exercise 13.6 builds an OLG economy where \(R^b&lt;e^g\), yet the value of aggregate consumption is finite, so the CE is PO and no PAYG scheme can help everyone.</p></div></details></li>
+      <li>"After the PAYG reform that implements the best symmetric allocation, the equilibrium gross interest rate equals \((1+g)(1+n)\)." <span class="tf-src">Class Note II p.33</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True.</strong> At the new allocation, \(1+r=\frac{(1-\beta)\hat c^*_o}{\beta\hat c^*_y}=G\). This is Samuelson's "biological" interest rate, the golden rule: the market return now equals PAYG's implicit return.</p></div></details></li>
+      <li>"A permanent fall in population growth, with the tax per young held fixed, hurts the current old but leaves the welfare of future generations unchanged." <span class="tf-src">Problem set 2025, P6 Q6</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> Future generations pay the same tax when young but receive \(\tau\) instead of \((1+n)\tau\) when old, so they are also worse off. Fewer young per old lowers PAYG's implicit return from \(n\) to 0 (Exercise 13.5).</p></div></details></li>
+      <li>"With no population or productivity growth, an OLG endowment economy can have a constant, strictly positive interest rate and still be dynamically inefficient, because \(r&lt;n\)." <span class="tf-src">Trap: a warning box in 2025 final-review notes</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> With \(n=0\), "\(r&lt;n\)" means \(r&lt;0\), which contradicts \(r>0\). A constant \(\bar r>0\) gives \(\sum_tp_t=(1+\bar r)/\bar r&lt;\infty\), so the CE is PO. The general point in those notes (positive rates do not rule out inefficiency) is right only with growth, or with rates that converge to zero (e.g. \(r_t=1/t\) gives \(p_t=1/t\) and \(\sum_tp_t=\infty\)).</p></div></details></li>
+      <li>"Faster productivity growth makes a given PAYG system (fixed \(\hat\tau\)) more attractive to every generation." <span class="tf-src">Exam-inspired</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True</strong> in this model. Holding \(\hat\tau\) fixed, each generation's normalized tax is \(\hat\tau\), while its normalized benefit \(\hat\tau(1+g)(1+n)\) rises with \(g\). The initial old also receive more. (The welfare-maximizing \(\hat\tau\) also changes with \(g\).)</p></div></details></li>
+    </ol>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 13.2 <span class="tag slides">Slides N2 pp.29–33</span> <span class="tag exam">Exam-inspired</span> (the growing economy, start to finish)</div>
+    <p>Class Note II's growing economy: \(N_{t+1}=(1+n)N_t\), endowments \(e^t_t=(1+g)^t(1-\alpha)\) and \(e^t_{t+1}=(1+g)^t\alpha\), preferences \((1-\beta)\log c^t_t+\beta\log c^t_{t+1}\). Let \(G\equiv(1+g)(1+n)\) and \(W\equiv(1-\alpha)G+\alpha\).</p>
     <ol class="parts" type="a">
-      <li>Compute the equilibrium \(\bar r\).
-        <div class="numcheck" data-answer="4/3" data-tol="0.003" data-prompt="r̄ ="></div></li>
-      <li>Compute generation 2's saving \(s_2\) at \(r=0\), i.e. off-equilibrium.
-        <div class="numcheck" data-answer="(0.15-0.35)*1.96" data-tol="0.003" data-prompt="s₂(0) ="></div></li>
-      <li>Is there any difference with the no-growth case \(g=n=0\)? Why or why not?</li>
+      <li><span class="pts">(10 pts)</span> Show that \(s_t(\bar r;\alpha,\beta,g)=s(\bar r;\alpha,\beta)(1+g)^t\), where \(s(\cdot)\) is the no-growth savings function. <em>Hint: substitute \(s=(1+g)^t\tilde s\).</em></li>
+      <li><span class="pts">(5 pts)</span> Argue that the only CE has no trade. <em>Repeat the no-growth induction; three lines.</em></li>
+      <li><span class="pts">(10 pts)</span> Find \(\bar r\) as a function of \(\alpha,\beta,g,n\). Is there any difference from the case \(g=n=0\)? Why or why not?</li>
+      <li><span class="pts">(10 pts)</span> Write the feasibility constraint for symmetric allocations \(c^t_t=\hat c_y(1+g)^t\), \(c^{t-1}_t=\hat c_o(1+g)^{t-1}\) in normalized form, and derive the best symmetric \((\hat c^*_y,\hat c^*_o)\).</li>
+      <li><span class="pts">(10 pts)</span> For which parameters does the best symmetric allocation Pareto-dominate the CE? Express your answer as a comparison of \(1+\bar r\) with \(G\). <em>Make sure the initial old prefer it too.</em></li>
+      <li><span class="pts">(10 pts)</span> Implement it with PAYG: tax \(\tau_t=\hat\tau(1+g)^t\) on each young, with all revenue paid to the current old. Show that each old person receives \(\hat\tau G\) in normalized units, and derive \(\hat\tau\).</li>
+      <li><span class="pts">(5 pts)</span> Show that after the reform \(1+r=G\).</li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) \(\bar r=(0.5-0.3)/(0.3\cdot0.5)=0.2/0.15=4/3\), the same as with no growth.<br>
-      (b) \(s(0)=\beta(1-\alpha)-(1-\beta)\alpha=0.15-0.35=-0.2\), and \(s_2=(1.4)^2(-0.2)=-0.392\). At \(r=0\) the young would like to <em>borrow</em>: the market rate must be high (\(\bar r=4/3\)) to persuade them not to.<br>
-      (c) No difference for \(\bar r\): productivity growth scales the cohort's endowment ray, and homothetic preferences have the same MRS along a ray. Population growth multiplies zero saving by \(N_t\).</p>
+      <ol class="steps">
+        <li><strong>(a)</strong> The objective is \((1-\beta)\log((1+g)^t(1-\alpha)-s)+\beta\log((1+g)^t\alpha+s(1+\bar r))\). With \(s=(1+g)^t\tilde s\), it becomes \(\log(1+g)^t\) plus the no-growth objective in \(\tilde s\). So the optimal \(\tilde s\) is \(s(\bar r;\alpha,\beta)\).</li>
+        <li><strong>(b)</strong> The initial old eat \(e^0_1\) whatever the prices. Market clearing at \(t=1\) then forces the young to eat \(e^1_1\), so they save zero and eat \(e^1_2\) when old. Market clearing at \(t=2\) forces the next young to eat \(e^2_2\), and so on by induction.</li>
+        <li><strong>(c)</strong> No trade means \(N_ts_t=0\), i.e. \(s(\bar r)=0\). This gives \(1+\bar r=\frac{(1-\beta)\alpha}{\beta(1-\alpha)}\), the same as without growth. Population growth only multiplies zero saving by \(N_t\). Productivity growth scales the endowment along a ray, and homothetic (log) preferences have the same MRS everywhere on a ray.</li>
+        <li><strong>(d)</strong> \(N_t\hat c_y(1+g)^t+N_{t-1}\hat c_o(1+g)^{t-1}=N_t(1-\alpha)(1+g)^t+N_{t-1}\alpha(1+g)^{t-1}\). Divide by \(N_{t-1}(1+g)^{t-1}\): \(\hat c_yG+\hat c_o=W\). Maximizing \((1-\beta)\log\hat c_y+\beta\log\hat c_o\) on this line gives expenditure shares \(1-\beta\) and \(\beta\): \(\hat c^*_y=(1-\beta)W/G\) and \(\hat c^*_o=\beta W\).</li>
+        <li><strong>(e)</strong> Generations \(t\ge1\): the CE point \((1-\alpha,\alpha)\) is on the same line, so they weakly prefer \(\hat c^*\), strictly unless the two coincide. Initial old: they consume \(\alpha\) in the CE and \(\hat c^*_o\) under the alternative, so they gain iff \(\beta[(1-\alpha)G+\alpha]>\alpha\iff G>\frac{\alpha(1-\beta)}{\beta(1-\alpha)}=1+\bar r\). So dominance holds iff \(1+\bar r&lt;(1+g)(1+n)\).</li>
+        <li><strong>(f)</strong> Revenue at \(t\) is \(N_t\hat\tau(1+g)^t\), shared among \(N_{t-1}\) old. Each receives \(\hat\tau(1+n)(1+g)^t\), or \(\hat\tau G\) in units of \((1+g)^{t-1}\). Set the young's consumption \(1-\alpha-\hat\tau=\hat c^*_y\). This gives \(\hat\tau=\beta(1-\alpha)-\frac{\alpha(1-\beta)}{G}\). Check the old: \(\alpha+\hat\tau G=\beta(1-\alpha)G+\beta\alpha=\hat c^*_o\) ✓. \(\hat\tau>0\) iff \(G>1+\bar r\), as in (e).</li>
+        <li><strong>(g)</strong> The new equilibrium again has no private trade at the after-tax endowments, so \(1+r\) is the MRS at \(\hat c^*\): \(\frac{(1-\beta)\hat c^*_o}{\beta\hat c^*_y}=\frac{(1-\beta)\beta W}{\beta(1-\beta)W/G}=G\).</li>
+      </ol>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 13.2 <span class="tag slides">Slides N2 pp.31–32</span></div>
-    <p>Same parameters (\(\alpha=0.5,\beta=0.3,g=0.4,n=1\)).</p>
+    <div class="box-title">Exercise 13.3 <span class="tag exam">Exam-inspired</span> <span class="tag proof">Proof</span></div>
+    <p>Show that in the growing economy the value of the aggregate endowment at CE prices is finite iff \(1+\bar r>(1+g)(1+n)\). Use this to give a <em>one-line</em> proof that the CE is Pareto optimal when \(1+\bar r>G\). Then explain why it does not contradict Exercise 13.2(e) when \(1+\bar r&lt;G\).</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>The aggregate endowment at \(t\) is \(N_t(1-\alpha)(1+g)^t+N_{t-1}\alpha(1+g)^{t-1}=N_{t-1}(1+g)^{t-1}W\). With \(N_0=1\) this equals \(G^{t-1}W\), and \(p_t=(1+\bar r)^{-(t-1)}\). So the value is \(W\sum_{t\ge1}(G/(1+\bar r))^{t-1}\), a geometric series that is finite iff \(G&lt;1+\bar r\). One-line proof: LNS holds and the value is finite, so the 1WT of <a href="0012-why-the-1wt-fails-in-olg.html">Lesson 12</a> (Exercise 12.2) applies. When \(1+\bar r&lt;G\) the value is infinite, the theorem is silent, and Exercise 13.2(e) exhibits a Pareto improvement. No contradiction.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 13.4 <span class="tag pset">Problem set 2025, P6 (Q1–Q5)</span> <span class="tag slides">Slides N3 pp.25–26</span></div>
+    <p>Population growth only: \(N_{t+1}=(1+n)N_t\) with \(N_0=1\), endowments \((1-\alpha,\alpha)\) for every generation and \(e^0_1=\alpha\), preferences \((1-\beta)\log c_y+\beta\log c_o\). (This problem uses Note II's convention: the young get \(1-\alpha\).)</p>
     <ol class="parts" type="a">
-      <li>Compute \(\hat c_o^*\).
-        <div class="numcheck" data-answer="0.57" data-tol="0.002" data-prompt="ĉ_o* ="></div></li>
-      <li>Does the best symmetric allocation Pareto-dominate the CE? Verify both with the initial-old test and with \(1+\bar r\) vs \(G\).</li>
-      <li>Keep \(g=0.4\). What is the smallest \(n\) for which it dominates?
-        <div class="numcheck" data-answer="2/3" data-tol="0.003" data-prompt="n >"></div></li>
+      <li><span class="pts">(5 pts)</span> Write market clearing at date \(t\), in aggregate and per young person.</li>
+      <li><span class="pts">(5 pts)</span> Argue that there is no trade in equilibrium.</li>
+      <li><span class="pts">(10 pts)</span> Derive per-capita savings \(s(r)\) and the equilibrium \(\bar r\). Does \(\bar r\) depend on \(n\)?</li>
+      <li><span class="pts">(10 pts)</span> Find the best symmetric allocation \((c^*_y,c^*_o)\) subject to \(c_y+\frac{c_o}{1+n}=(1-\alpha)+\frac{\alpha}{1+n}\).</li>
+      <li><span class="pts">(15 pts)</span> Find the PAYG tax per young \(\tau^*\) that implements it, given that each old person receives \((1+n)\tau\). Sign \(\partial\tau^*/\partial n\), and show that \(\tau^*>0\iff n>\bar r\). Explain the dependence on \(n\) in two lines.</li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) \(G=2.8\), \(W=0.5\cdot2.8+0.5=1.9\), \(\hat c_o^*=0.3\cdot1.9=0.57\), and \(\hat c_y^*=0.7\cdot1.9/2.8=0.475\).<br>
-      (b) Yes. \(\hat c_o^*=0.57>\alpha=0.5\), and equivalently \(G=2.8>1+\bar r=7/3\approx2.333\). This is an economy with a <em>positive</em> interest rate (133% per generation) whose CE is still inefficient, because the economy grows faster (180% per generation).<br>
-      (c) We need \((1.4)(1+n)>7/3\), i.e. \(1+n>5/3\), so \(n>2/3\).</p>
+      <ol class="steps">
+        <li><strong>(a)</strong> \(N_tc^t_t+N_{t-1}c^{t-1}_t=N_t(1-\alpha)+N_{t-1}\alpha\). Dividing by \(N_t\): \(c^t_t+\frac{c^{t-1}_t}{1+n}=(1-\alpha)+\frac{\alpha}{1+n}\).</li>
+        <li><strong>(b)</strong> Within a generation agents are identical, so they cannot trade with each other. Across generations, the initial old eat their endowment, and the forward induction of <a href="0008-olg-environment.html">Lesson 8</a> does the rest.</li>
+        <li><strong>(c)</strong> \(s(r)=\beta(1-\alpha)-\frac{(1-\beta)\alpha}{1+r}\), and aggregate saving is \(N_ts(r)\). Setting it to zero gives \(\bar r=\frac{\alpha-\beta}{\beta(1-\alpha)}\), which is independent of \(n\).</li>
+        <li><strong>(d)</strong> On the line, the price of \(c_o\) is \(1/(1+n)\). The FOC is \(\frac{\beta}{1-\beta}\frac{c_y}{c_o}=\frac{1}{1+n}\). Log shares give \(c^*_y=(1-\beta)\big[(1-\alpha)+\frac{\alpha}{1+n}\big]\) and \(c^*_o=\beta[(1+n)(1-\alpha)+\alpha]\).</li>
+        <li><strong>(e)</strong> Set \(1-\alpha-\tau=c^*_y\). Then \(\tau^*=\beta(1-\alpha)-\frac{(1-\beta)\alpha}{1+n}\). Check: \(\alpha+(1+n)\tau^*=\beta(1+n)(1-\alpha)+\beta\alpha=c^*_o\) ✓. \(\partial\tau^*/\partial n=\frac{(1-\beta)\alpha}{(1+n)^2}>0\). And \(\tau^*>0\iff1+n>\frac{(1-\beta)\alpha}{\beta(1-\alpha)}=1+\bar r\iff n>\bar r\): social security is needed exactly when the economy is dynamically inefficient relative to \(n\). <em>Why it rises with \(n\):</em> \(n\) is PAYG's implicit return. Higher \(n\) lowers the present value (at rate \(n\)) of the old-age endowment \(\alpha/(1+n)\). With log utility the young consume a fixed share \(1-\beta\) of that smaller wealth, so the tax that gets them there must be larger. (The circulating solutions' "substitution beats income" story is loose; this wealth channel is the clean reason.)</li>
+      </ol>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 13.3 <span class="tag slides">Slides N2 p.33</span></div>
-    <p>Same parameters. Compute the PAYG parameter \(\hat\tau\) that implements the best symmetric allocation, and verify that the post-reform interest rate is \(G-1\).</p>
-    <div class="numcheck" data-answer="0.025" data-tol="0.002" data-prompt="τ̂ ="></div>
-    <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>\(\hat\tau=\beta(1-\alpha)-\alpha(1-\beta)/G=0.15-0.35/2.8=0.15-0.125=0.025\). Check: old get \(\alpha+\hat\tau G=0.5+0.07=0.57=\hat c^*_o\) ✓, and young keep \(0.475=\hat c^*_y\) ✓. Post-reform, \(1+r=\frac{(1-\beta)\hat c_o^*}{\beta\hat c_y^*}=\frac{0.7\cdot0.57}{0.3\cdot0.475}=\frac{0.399}{0.1425}=2.8=G\) ✓.</p>
-    </div></details>
-  </div>
-
-  <div class="box exercise">
-    <div class="box-title">Exercise 13.4 <span class="tag slides">Slides N3 pp.25–26</span></div>
-    <p>Population growth only: \(g=0\), \(\alpha=0.2\), \(\beta=0.4\), \(n=0.5\).</p>
+    <div class="box-title">Exercise 13.5 <span class="tag pset">Problem set 2025, P6 Q6</span> <span class="tag slides">Slides N3 p.27</span></div>
+    <p>Continue Exercise 13.4 and assume \(\beta>\alpha\), so the no-transfer CE has \(\bar r&lt;0\). The system with \(\tau^*\) is in place when, at date \(T\), population growth falls permanently to \(n'=0\). The tax per young stays at \(\tau^*\).</p>
     <ol class="parts" type="a">
-      <li>Using Note III's form of the constraint, \(c_y+c_o/(1+n)=(1-\alpha)+\alpha/(1+n)\), and the FOC \(\frac{\beta}{1-\beta}\frac{c_y}{c_o}=\frac{1}{1+n}\), find the best symmetric \(c_o\).
-        <div class="numcheck" data-answer="0.56" data-tol="0.002" data-prompt="c_o* ="></div></li>
-      <li>Find the PAYG tax per young \(\tau\) that implements it.
-        <div class="numcheck" data-answer="0.24" data-tol="0.002" data-prompt="τ ="></div></li>
-      <li>Show that your answers coincide with the Note II formulas at \(g=0\).</li>
+      <li><span class="pts">(10 pts)</span> In \((c_y,c_o)\) space, draw the two feasible symmetric-allocation lines (for \(n\) and for \(n'=0\)), the no-social-security equilibrium, the best symmetric allocation for \(n\), and the new allocation at \(n'=0\). <em>Which point lies on both lines?</em></li>
+      <li><span class="pts">(10 pts)</span> What happens to the welfare of the old at \(T\) and of current and future young?</li>
+      <li><span class="pts">(10 pts)</span> Show that \(\tau^*-(\beta-\alpha)=\frac{\alpha(1-\beta)n}{1+n}>0\). Interpret this relative to the best tax for the new regime. Would cutting the tax to \(\beta-\alpha\) at \(T+1\) be a Pareto improvement?</li>
+      <li><span class="pts">(5 pts)</span> Suppose instead \(\beta&lt;\alpha\), but \(n\) was large enough that \(\tau^*>0\). After the fall, is PAYG still worth having for generations born after \(T\)? Who would lose if it were abolished?</li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) The RHS is \(0.8+0.2/1.5=0.9\overline{3}\). The FOC gives \(c_y=\frac{1-\beta}{\beta}\frac{c_o}{1+n}=c_o\) here (since \(\tfrac{0.6}{0.4\cdot1.5}=1\)). Then \(c_o(1+1/1.5)=0.9\overline 3\), so \(c_o=0.56\) and \(c_y=0.56\).<br>
-      (b) \(\alpha+(1+n)\tau=0.56\Rightarrow\tau=0.36/1.5=0.24\). Check: \(c_y=0.8-0.24=0.56\) ✓.<br>
-      (c) With \(G=1.5\), \(W=0.8\cdot1.5+0.2=1.4\): \(\hat c_o^*=\beta W=0.56\) ✓ and \(\hat\tau=0.32-0.12/1.5=0.24\) ✓.</p>
+      <ol class="steps">
+        <li><strong>(a)</strong> The \(n\) line is \(c_o=(1+n)(1-\alpha)+\alpha-(1+n)c_y\), with slope \(-(1+n)\). The \(n'=0\) line is \(c_y+c_o=1\), with slope \(-1\). Both pass through the endowment point \((1-\alpha,\alpha)\), which is the no-social-security CE. The best allocation for \(n\) is the tangency \((c^*_y,c^*_o)\) on the steeper line, to the left of the endowment. The new allocation is \((c^*_y,\alpha+\tau^*)\), which lies on \(c_y+c_o=1\) because \(c^*_y=1-\alpha-\tau^*\). It sits directly <em>below</em> the old optimum.</li>
+        <li><strong>(b)</strong> The old at \(T\) receive \(\tau^*\) instead of \((1+n)\tau^*\), so they are worse off. Every current and future young pays the same tax and gets a lower benefit, so they are worse off too: same \(c_y\), lower \(c_o\).</li>
+        <li><strong>(c)</strong> \(\tau^*-(\beta-\alpha)=\alpha-\alpha\beta-\frac{(1-\beta)\alpha}{1+n}=\alpha(1-\beta)\big(1-\frac{1}{1+n}\big)=\frac{\alpha(1-\beta)n}{1+n}\). With \(n'=0\), the best PAYG tax is \(\beta-\alpha\) (Lesson 11), so the inherited tax overshoots: \(c_y=1-\alpha-\tau^*&lt;1-\beta\). Cutting it to \(\beta-\alpha\) raises the welfare of generations born from \(T+1\) on. It is not a Pareto improvement, though, because the generation that is old at \(T+1\) paid \(\tau^*\) when young and would now receive only \(\beta-\alpha\). The cut redistributes across generations.</li>
+        <li><strong>(d)</strong> With \(\beta&lt;\alpha\) the no-growth economy has \(\bar r>0=n'\), so it is efficient without PAYG. Any \(\tau>0\) now lowers every future generation's welfare relative to \(\tau=0\), because it moves them along \(c_y+c_o=1\) away from their preferred point. Abolishing would still hurt the generation that is old when it happens, since they paid in. Once \(G\le1+\bar r\), PAYG is a pure transfer from future generations to the current old.</li>
+      </ol>
+      <p><em>Ambiguity in the problem set:</em> the question also mentions a "constant transfer to the old". Holding the old's transfer at \((1+n)\tau^*\) instead would force a higher tax on the young, who would then bear the loss. The circulating solutions use the fixed-tax reading, as here.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 13.5 <span class="tag slides">Slides N3 p.27</span> <span class="tag exam">Exam-style</span></div>
-    <p>Continue Exercise 13.4. The PAYG system with \(\tau=0.24\) is in place when, at date \(T\), population growth falls permanently to \(n'=0\). The tax per young stays at 0.24.</p>
+    <div class="box-title">Exercise 13.6 <span class="tag pset">Problem set 3 (2022), P4</span> (stochastic OLG: \(r&lt;g\) but efficient)</div>
+    <p>Two-period lives, mass one per cohort. The young have labour income \(w_t=(1-\delta)Y_t\). One tree, owned by the initial old, pays \(d_t=\delta Y_t\). Output grows randomly: \(Y_{t+1}=Y_tz_{t+1}\), \(Y_1=1\), with \(z\) i.i.d. and positive. Preferences are \((1-\beta)\log c^t_t+\beta E_t\log c^t_{t+1}\). The young can buy shares of the tree at ex-dividend price \(q^e_t\), and one-period riskless discount bonds at price \(q^b_t\).</p>
     <ol class="parts" type="a">
-      <li>What does each old person receive at \(T\)? Compare with what they expected.</li>
-      <li>Compute the utility of a generation born after \(T\) and compare it with the pre-fall utility \(0.6\log0.56+0.4\log0.56\).</li>
-      <li>Should the government abolish the system for generations born after \(T\)? Compare with \(\tau=0\), and find the best \(\tau\) for the new regime. Who would lose from moving to it?</li>
-      <li>Redo (c) with \(\alpha=0.5\), \(\beta=0.3\). What changes, and why?</li>
+      <li><span class="pts">(5 pts)</span> What are the equilibrium holdings of trees and bonds? <em>One line each.</em></li>
+      <li><span class="pts">(10 pts)</span> Write the young's two FOCs. Guess \(q^e_t=Q^eY_t\) and show that \(Q^e=\beta(1-\delta)\). <em>Hint: with log utility the young consume a share \(1-\beta\) of income.</em></li>
+      <li><span class="pts">(10 pts)</span> Let \(K\equiv1+\frac{\delta}{\beta(1-\delta)}\). Show that the expected gross return on the tree is \(R^e=K\,E[z]\) and the riskless gross rate is \(R^b=K/E[1/z]\).</li>
+      <li><span class="pts">(5 pts)</span> Let \(\log z\sim N(\mu,\sigma^2)\) and define growth by \(e^g\equiv E[z]=e^{\mu+\sigma^2/2}\). Show that \(R^b/e^g=Ke^{-\sigma^2}\), so the riskless rate is below growth when \(\sigma^2\) is large.</li>
+      <li><span class="pts">(10 pts)</span> Is the value of aggregate consumption finite? <em>Hint: aggregate consumption is \(Y_t=d_t/\delta\), so its value is \(1/\delta\) times the value of the tree's dividends.</em></li>
+      <li><span class="pts">(10 pts)</span> Is the CE Pareto optimal? Can social security make every generation better off? Does the comparison of the riskless rate with \(g\) matter? <em>Three lines.</em></li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) Revenue per old is \(\tau N_T/N_{T-1}=0.24\), against the expected \(1.5\cdot0.24=0.36\). They consume \(0.2+0.24=0.44\) instead of \(0.56\).<br>
-      (b) New lifetime consumption is \((0.56,0.44)\), with \(u=0.6\log0.56+0.4\log0.44\approx-0.676\), against \(\log0.56\approx-0.580\) before. Lower, as the slide says.<br>
-      (c) With \(n'=0\) we are back in the Lesson 11 economy with \(\beta=0.4>\alpha=0.2\), i.e. \(\bar r<0\), so PAYG is still worth having. Abolishing gives \(u(0.8,0.2)=0.6\log0.8+0.4\log0.2\approx-0.778\), below \(-0.676\). The best tax in the new regime is \(\tau=\beta-\alpha=0.2\), giving \((0.6,0.4)\) and \(u=0.6\log0.6+0.4\log0.4\approx-0.673\), only slightly above \(-0.676\). Cutting the tax from 0.24 to 0.2 at \(T+1\) would hurt the generation that is old at \(T+1\): it paid 0.24 and would receive 0.2. So the cut is an intergenerational redistribution, not a Pareto improvement.<br>
-      (d) With \(\alpha=0.5,\beta=0.3\) and \(n'=0\), \(\bar r=4/3>0\), so the post-fall economy is efficient without PAYG. Any \(\tau>0\) now lowers the welfare of all future generations relative to \(\tau=0\). Abolishing, however, would hurt the current old, who paid in. Once \(G\le1+\bar r\), PAYG is a pure transfer from future generations to the initial old.</p>
-    </div></details>
-  </div>
-
-  <div class="box exercise">
-    <div class="box-title">Exercise 13.6 <span class="tag exam">Exam-style</span></div>
-    <p>Show that in the growing economy the value of the aggregate endowment at CE prices is finite iff \(1+\bar r>(1+g)(1+n)\). Use this to give a <em>one-line</em> proof that the CE is Pareto optimal when \(1+\bar r>G\), and explain why it does not contradict Section 5 when \(1+\bar r<G\).</p>
-    <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>Aggregate endowment at \(t\) is \(N_t(1-\alpha)(1+g)^t+N_{t-1}\alpha(1+g)^{t-1}=G^{t-1}W\), and \(p_t=(1+\bar r)^{-(t-1)}\). So the value is \(W\sum_{t\ge1}(G/(1+\bar r))^{t-1}\), a geometric series that is finite iff \(G<1+\bar r\). One-line proof: LNS holds and the value is finite, so the 1WT of <a href="0012-why-the-1wt-fails-in-olg.html">Lesson 12</a> applies. When \(1+\bar r<G\) the value is infinite, the theorem is silent, and Section 5 exhibits a Pareto improvement. No contradiction.</p>
-    </div></details>
-  </div>
-
-  <div class="box exercise">
-    <div class="box-title">Exercise 13.7 <span class="tag exam">Exam-style</span> True or false?</div>
-    <ol class="parts" type="a">
-      <li>"An economy with a positive real interest rate cannot have a Pareto-improving PAYG system."</li>
-      <li>"Faster productivity growth makes a given PAYG system more attractive to every generation."</li>
-      <li>"After the optimal PAYG reform, the equilibrium interest rate equals the growth rate of the economy."</li>
-    </ol>
-    <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) <strong>False</strong> once the economy grows: the condition is \(1+\bar r<(1+g)(1+n)\), not \(\bar r<0\). Exercise 13.2 has \(\bar r=4/3\) and an inefficient CE.<br>
-      (b) <strong>True</strong> for generations \(t\ge1\) in this model, holding \(\hat\tau\) fixed: the normalized old-age benefit \(\hat\tau(1+g)(1+n)\) rises while the normalized tax \(\hat\tau\) is fixed. The initial old also gain. (The welfare-<em>maximizing</em> \(\hat\tau\) changes too.)<br>
-      (c) <strong>True:</strong> \(1+r=(1-\beta)\hat c^*_o/(\beta\hat c^*_y)=G\). This is Samuelson's biological interest rate, the golden rule.</p>
+      <ol class="steps">
+        <li><strong>(a)</strong> Trees: the young hold the one tree (the old sell it). Bonds: zero, because members of a cohort are identical and the old cannot be counterparties.</li>
+        <li><strong>(b)</strong> Tree: \((1-\beta)\frac{q^e_t}{c^t_t}=\beta E_t\big[\frac{q^e_{t+1}+d_{t+1}}{c^t_{t+1}}\big]\). Bond: \((1-\beta)\frac{q^b_t}{c^t_t}=\beta E_t\big[\frac{1}{c^t_{t+1}}\big]\). In equilibrium \(c^t_{t+1}=q^e_{t+1}+d_{t+1}\), so the tree FOC's right side is \(\beta\), and \(c^t_t=w_t-q^e_t\). Hence \((1-\beta)q^e_t=\beta(w_t-q^e_t)\), so \(q^e_t=\beta w_t=\beta(1-\delta)Y_t\).</li>
+        <li><strong>(c)</strong> \(q^e_{t+1}+d_{t+1}=Y_{t+1}[\beta(1-\delta)+\delta]\), so \(R^e=E\big[\frac{Y_{t+1}(\beta(1-\delta)+\delta)}{\beta(1-\delta)Y_t}\big]=K\,E[z]\). From the bond FOC with \(c^t_t=(1-\beta)(1-\delta)Y_t\): \(q^b_t=\frac{\beta(1-\delta)}{\beta(1-\delta)+\delta}E[1/z]=E[1/z]/K\). So \(R^b=1/q^b=K/E[1/z]\).</li>
+        <li><strong>(d)</strong> \(E[1/z]=e^{-\mu+\sigma^2/2}=e^{-g+\sigma^2}\), so \(R^b=Ke^{g-\sigma^2}\) and \(R^b/e^g=Ke^{-\sigma^2}\), which is below 1 for large \(\sigma^2\). The equity premium is \(R^e/R^b=e^{\sigma^2}\).</li>
+        <li><strong>(e)</strong> Yes. The value of the dividend stream is the tree's cum-dividend value at \(t=1\), \(d_1+q^e_1=[\delta+\beta(1-\delta)]Y_1\). The bubble term vanishes, because the expected discounted resale value shrinks by the factor \(\frac{\beta(1-\delta)}{\beta(1-\delta)+\delta}&lt;1\) each period. So the value of aggregate consumption is \(\frac{1}{\delta}[\delta+\beta(1-\delta)]Y_1=\big[1+\frac{\beta(1-\delta)}{\delta}\big]Y_1&lt;\infty\). <em>Error in the circulating solution:</em> it writes the tree's value as \(Y_1+q^e_1\) instead of \(d_1+q^e_1=\delta Y_1+q^e_1\). The conclusion (finite) is unaffected.</li>
+        <li><strong>(f)</strong> Finite value plus LNS means the 1WT applies, so the CE is PO and no social security scheme can improve every generation. The riskless rate being below \(g\) is irrelevant. What matters is the return on the claim to aggregate consumption, the tree, with \(R^e=Ke^g>e^g\). The policy lesson: "\(r&lt;g\)" for safe assets is not, by itself, evidence of dynamic inefficiency. With US numbers (riskless ≈ growth ≈ 3%, equity premium ≈ 5%), the relevant return comfortably exceeds growth.</li>
+      </ol>
     </div></details>
   </div>
 
@@ -404,7 +429,7 @@
     </ul>
   </div>
 
-  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "how would the analysis change if only the old-age endowment grew?" or "connect \(r<g\) here to the recent debate on government debt when \(r<g\) (Blanchard 2019)."</div>
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "how would the analysis change if only the old-age endowment grew?" or "connect \(r\lt g\) here to the recent debate on government debt when \(r\lt g\) (Blanchard 2019)."</div>
 
   <div class="lesson-nav">
     <a href="0012-why-the-1wt-fails-in-olg.html">← Lesson 12: Why the 1WT fails in OLG</a>

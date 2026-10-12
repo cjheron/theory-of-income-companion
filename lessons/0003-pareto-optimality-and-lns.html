@@ -132,7 +132,7 @@
   <div class="definition">
     <div class="box-title">Definition: Local non-satiation (LNS) <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=15">S1 p.15</a></div>
     <p>\((u^i,X^i)\) satisfies <strong>local non-satiation</strong> if for every \(x\in X^i\) and every \(\varepsilon>0\) there is an \(\hat x\in B_\varepsilon(x)\cap X^i\) with \(u^i(\hat x)>u^i(x)\), where
-    $$B_\varepsilon(x)=\{x'\in X^i:\ \|x-x'\|<\varepsilon\},\qquad \|x\|^2=\sum_{k=1}^m x_k^2 .$$</p>
+    $$B_\varepsilon(x)=\{x'\in X^i:\ \|x-x'\|\lt \varepsilon\},\qquad \|x\|^2=\sum_{k=1}^m x_k^2 .$$</p>
   </div>
 
   <p>In words: <em>however close you insist on staying, there is always something slightly better nearby.</em> Note that LNS is a joint property of \(u^i\) <strong>and</strong> \(X^i\): the better bundle must be <em>consumable</em>. Two pictures show how it fails:</p>
@@ -181,8 +181,8 @@
     <div class="box-title">Proof</div>
     <ol class="steps">
       <li><strong>A tool.</strong> By Cauchy–Schwarz, \(|p\cdot\hat x-p\cdot x|=|p\cdot(\hat x-x)|\le\|p\|\,\|\hat x-x\|\). So moving less than \(\varepsilon\) changes cost by less than \(\|p\|\varepsilon\).</li>
-      <li><strong>Part 2.</strong> Suppose \(u^i(x)\ge u^i(\bar x)\) but \(p\cdot x<p\cdot\bar x\). Let \(\delta=p\cdot\bar x-p\cdot x>0\) and pick \(\varepsilon>0\) with \(\|p\|\varepsilon<\delta\) (any \(\varepsilon\) works if \(p=0\)). LNS gives \(\hat x\in X^i\), \(\|\hat x-x\|<\varepsilon\), with \(u^i(\hat x)>u^i(x)\ge u^i(\bar x)\). By Step 1, \(p\cdot\hat x<p\cdot x+\delta=p\cdot\bar x\le M\). So \(\hat x\) is affordable and strictly better than \(\bar x\), contradicting optimality.</li>
-      <li><strong>Part 1.</strong> If \(p\cdot\bar x<M\), apply the same perturbation to \(x=\bar x\) itself, with \(\|p\|\varepsilon<M-p\cdot\bar x\): there is an affordable \(\hat x\) better than \(\bar x\). Contradiction.</li>
+      <li><strong>Part 2.</strong> Suppose \(u^i(x)\ge u^i(\bar x)\) but \(p\cdot x\lt p\cdot\bar x\). Let \(\delta=p\cdot\bar x-p\cdot x>0\) and pick \(\varepsilon>0\) with \(\|p\|\varepsilon\lt \delta\) (any \(\varepsilon\) works if \(p=0\)). LNS gives \(\hat x\in X^i\), \(\|\hat x-x\|\lt \varepsilon\), with \(u^i(\hat x)>u^i(x)\ge u^i(\bar x)\). By Step 1, \(p\cdot\hat x\lt p\cdot x+\delta=p\cdot\bar x\le M\). So \(\hat x\) is affordable and strictly better than \(\bar x\), contradicting optimality.</li>
+      <li><strong>Part 1.</strong> If \(p\cdot\bar x\lt M\), apply the same perturbation to \(x=\bar x\) itself, with \(\|p\|\varepsilon\lt M-p\cdot\bar x\): there is an affordable \(\hat x\) better than \(\bar x\). Contradiction.</li>
       <li><strong>Part 3.</strong> If \(u^i(x)>u^i(\bar x)\) and \(p\cdot x\le p\cdot\bar x\le M\), then \(x\) is affordable and strictly better. Contradiction. No LNS is needed.</li>
     </ol>
     <div class="qed">∎</div>
@@ -260,6 +260,29 @@
   <!-- ─────────────────────────────────────────── -->
   <h2>6. Exercises</h2>
 
+  <p>On exams, Pareto optimality and LNS show up in two ways: as true/false traps about exact hypotheses, and inside longer questions that ask you to characterize the PO allocations of a specific economy, usually with Pareto weights. The exercises below practise both.</p>
+
+  <div class="box exercise">
+    <div class="box-title">True or false? Justify. <span class="tag past">Past exam</span> <span class="tag exam">Exam-inspired</span></div>
+    <p>For each statement, answer True or False and justify in at most four lines.</p>
+    <ol class="tf-list">
+      <li>Consider an economy with one good, where commodities are indexed by the state of nature. All agents have expected utility and are risk averse, but their subjective probabilities differ. Then at a Pareto optimal allocation each agent's consumption depends only on the aggregate endowment. <span class="tf-src">Fall 2005 MT, Ex. 1 Q2</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> Interior PO allocations satisfy \(\lambda^i\pi^i(s)v^{i\prime}(c^i(s))=\gamma(s)\), so \(\frac{v^{i\prime}(c^i(s))}{v^{j\prime}(c^j(s))}=\frac{\lambda^j\pi^j(s)}{\lambda^i\pi^i(s)}\). With different beliefs the likelihood ratio \(\pi^j(s)/\pi^i(s)\) varies across states, so two states with the same aggregate endowment can give \(i\) different consumption: agents bet on their beliefs. (Exercise 3.6.)</p></div></details></li>
+      <li>Same economy, but now all agents share the same probabilities. Then at an interior Pareto optimal allocation each agent's consumption depends only on the aggregate endowment. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> The probabilities cancel from the ratio above, so \(v^{i\prime}(c^i(s))/v^{j\prime}(c^j(s))=\lambda^j/\lambda^i\) is the same in every state. Together with \(\sum_ic^i(s)=Y(s)\), this pins down each \(c^i(s)\) as an increasing function of \(Y(s)\) alone: perfect risk sharing.</p></div></details></li>
+      <li>Every Pareto optimal allocation treats agents fairly. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> With strictly increasing utilities, giving the whole aggregate endowment to one agent is PO: any other feasible allocation takes something from her and makes her strictly worse off (Exercise 3.4). PO is about waste, not distribution.</p></div></details></li>
+      <li>In an Edgeworth box with differentiable utilities, any interior allocation at which the two agents' MRSs are equal is Pareto optimal. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False</strong> without convexity. Tangency is necessary for an interior PO, but sufficient only with quasi-concave utilities. Counterexample: total endowment \((1,1)\), \(u^A=u^B=x_1^2+x_2^2\). At \(x^A=x^B=(\frac12,\frac12)\) both MRSs equal 1, yet giving A \((1,0)\) and B \((0,1)\) raises each utility from \(\frac12\) to 1.</p></div></details></li>
+      <li>If \(u\) is continuous and strictly increasing on \(\mathbb{R}^m_+\), it satisfies local non-satiation. <span class="tf-src">Slides p.19 / exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True</strong>, and continuity is not even needed. Given \(x\) and \(\varepsilon\), the bundle \(x+\frac\varepsilon2\mathbf e_1\) is within \(\varepsilon\) of \(x\) and strictly preferred by strict monotonicity (Exercise 3.1).</p></div></details></li>
+      <li>Local non-satiation implies that more of every good is better. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> \(u(x_1,x_2)=x_1-x_2\) treats good 2 as a bad but satisfies LNS: from any \(x\), increase \(x_1\) slightly. LNS only requires <em>some</em> better bundle nearby, in any direction.</p></div></details></li>
+      <li>Preferences with a "thick" indifference set (an indifference region with non-empty interior) violate local non-satiation. <span class="tf-src">exam-inspired (review-note example)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> At an interior point \(x\) of the thick set, a small enough ball around \(x\) lies inside the set, so every nearby bundle is indifferent to \(x\) and none is strictly better.</p></div></details></li>
+    </ol>
+  </div>
+
   <div class="box exercise">
     <div class="box-title">Exercise 3.1 <span class="tag slides">Slides p.19</span> (the three LNS questions)</div>
     <ol class="parts" type="a">
@@ -269,28 +292,33 @@
     </ol>
     <details class="hint"><summary>Hint</summary><div class="body"><p>For (a), construct \(\hat x\) explicitly and check its distance from \(x\). Then ask which hypotheses your construction actually used. For (b), think about the most boring increasing function there is.</p></div></details>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p><strong>(a) Yes.</strong> Fix \(x\in X\) and \(\varepsilon>0\). Let \(\hat x = x+\tfrac{\varepsilon}{2}\mathbf e_1\). Then \(\hat x\in X\) (we may increase a coordinate), \(\|\hat x-x\|=\varepsilon/2<\varepsilon\), and \(\hat x\ge x\) with \(\hat x\ne x\), so strict monotonicity gives \(u(\hat x)>u(x)\). ∎</p>
+      <p><strong>(a) Yes.</strong> Fix \(x\in X\) and \(\varepsilon>0\). Let \(\hat x = x+\tfrac{\varepsilon}{2}\mathbf e_1\). Then \(\hat x\in X\) (we may increase a coordinate), \(\|\hat x-x\|=\varepsilon/2\lt \varepsilon\), and \(\hat x\ge x\) with \(\hat x\ne x\), so strict monotonicity gives \(u(\hat x)>u(x)\). ∎</p>
       <p><strong>(b) Not in general.</strong> A constant function \(u\equiv 0\) is continuous and (weakly) increasing but nothing is ever strictly better. A less trivial example is the thick-band utility in the figure: continuous, increasing, and violating LNS inside the band. <em>Caveat:</em> if "increasing" is read as MWG's "monotone" (\(x'\gg x\Rightarrow u(x')>u(x)\)), then the answer is <strong>yes</strong>: take \(\hat x=x+\frac{\varepsilon}{2\sqrt m}\mathbf 1\), which has \(\|\hat x-x\|=\varepsilon/2\) and \(\hat x\gg x\). On an exam, state which definition you use.</p>
       <p><strong>(c) Yes.</strong> The proof of (a) never used continuity. Continuity is irrelevant for LNS; it matters for <em>existence</em> of optima and for the Second Welfare Theorem (Arrow's remark, <a href="0007-arrows-remark-and-decentralization.html">Lesson 7</a>). The slide pairs (a) with (c) to make exactly this point.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 3.2 <span class="tag exam">Exam-style</span></div>
-    <p>In the Edgeworth box with \(a=1/3\), \(b=1/2\) (Exercise 2.2), find the contract curve \(x_2=\phi(x_1)\). Then verify that the CE allocation \(x^A=(1/3,1/2)\) lies on it.</p>
+    <div class="box-title">Exercise 3.2 <span class="tag exam">Exam-inspired</span> (the contract curve in general)</div>
+    <p>Use the Edgeworth box of Exercise 2.2: \(u^A=a\log x_1+(1-a)\log x_2\), \(u^B=b\log x_1+(1-b)\log x_2\), total endowment \((1,1)\). Write \(k_a=\frac{a}{1-a}\) and \(k_b=\frac{b}{1-b}\).</p>
     <ol class="parts" type="a">
-      <li>Compute \(\phi(1/3)\).
-        <div class="numcheck" data-answer="0.5" data-tol="0.002" data-prompt="φ(1/3) ="></div></li>
-      <li>Explain, without the welfare theorem, why landing on the contract curve was guaranteed.</li>
+      <li>Write both MRSs at an interior allocation, with B's bundle expressed as \((1-x_1,1-x_2)\). <span class="pts">(5 pts)</span></li>
+      <li>Derive the contract curve \(x_2=\phi(x_1)\). <span class="pts">(10 pts)</span></li>
+      <li>Show that the CE allocation of Exercise 2.2, \(\bar x^A=(a,b)\), lies on it. <span class="pts">(10 pts)</span></li>
+      <li>Explain, without invoking the welfare theorem, why the CE was guaranteed to land on the contract curve. Two lines. <span class="pts">(5 pts)</span></li>
+      <li>When is the contract curve the diagonal? Interpret. <span class="pts">(5 pts)</span></li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>\(k_a=\frac{1/3}{2/3}=\tfrac12\), \(k_b=1\), so \(\phi(x_1)=\frac{x_1}{\frac12(1-x_1)+x_1}=\frac{2x_1}{1+x_1}\). Then \(\phi(1/3)=\frac{2/3}{4/3}=\tfrac12\) ✓.</p>
-      <p>(b) In a CE, each consumer's interior optimum sets \(MRS^i=p_1/p_2\). Both face the <em>same</em> price ratio, so \(MRS^A=MRS^B\): tangency, hence the contract curve. This is the calculus version of the First Welfare Theorem.</p>
+      <p>(a) \(MRS^A=k_a\frac{x_2}{x_1}\), \(MRS^B=k_b\frac{1-x_2}{1-x_1}\).<br>
+      (b) Setting them equal: \(k_ax_2(1-x_1)=k_b(1-x_2)x_1\), so \(\phi(x_1)=\dfrac{k_bx_1}{k_a(1-x_1)+k_bx_1}\).<br>
+      (c) \(k_a(1-a)=a\), so \(\phi(a)=\frac{k_ba}{a+k_ba}=\frac{k_b}{1+k_b}=b\) ✓.<br>
+      (d) In a CE each consumer's interior optimum sets \(MRS^i=p_1/p_2\). Both face the <em>same</em> price ratio, so \(MRS^A=MRS^B\): tangency, which (with these convex preferences) is the contract curve.<br>
+      (e) When \(a=b\): then \(\phi(x_1)=x_1\). Identical homothetic preferences give both agents the same expenditure shares, so efficiency requires the same ratio \(x_2/x_1\) as the aggregate endowment.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 3.3 <span class="tag exam">Exam-style</span> (PO without calculus)</div>
+    <div class="box-title">Exercise 3.3 <span class="tag exam">Exam-inspired</span> (PO without calculus)</div>
     <p>Total endowment \((1,1)\). \(u^A=x_1+x_2\) (perfect substitutes) and \(u^B=\min\{x_1,x_2\}\) (Leontief). Characterize the set of all PO allocations.</p>
     <details class="hint"><summary>Hint</summary><div class="body"><p>If B's bundle is off its diagonal, B has some "useless" units. What happens if you give those to A? Then write A's utility in terms of B's bundle: \(u^A=2-(x_1^B+x_2^B)\).</p></div></details>
     <details class="solution"><summary>Show solution</summary><div class="body">
@@ -304,7 +332,7 @@
     <div class="box-title">Exercise 3.4 <span class="tag proof">Proof</span> (efficiency ≠ equity)</div>
     <p>Pure exchange, \(I\) agents, each \(u^i\) strictly increasing on \(\mathbb{R}^m_+\). Show that the allocation giving the <em>entire</em> aggregate endowment to agent 1 is PO.</p>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>Let \(\bar x^1=\sum_i e^i\) and \(\bar x^i=0\) for \(i\ne1\). Take any feasible \(x\ne\bar x\). By feasibility \(x^1=\sum_i e^i-\sum_{i\ne1}x^i\le\bar x^1\), and since \(x\ne\bar x\), some \(x^i\ne0\) for \(i\ne1\), so \(x^1\le\bar x^1\) with \(x^1\ne\bar x^1\). Strict monotonicity gives \(u^1(x^1)<u^1(\bar x^1)\): agent 1 is strictly worse. Hence no Pareto improvement exists. ∎</p>
+      <p>Let \(\bar x^1=\sum_i e^i\) and \(\bar x^i=0\) for \(i\ne1\). Take any feasible \(x\ne\bar x\). By feasibility \(x^1=\sum_i e^i-\sum_{i\ne1}x^i\le\bar x^1\), and since \(x\ne\bar x\), some \(x^i\ne0\) for \(i\ne1\), so \(x^1\le\bar x^1\) with \(x^1\ne\bar x^1\). Strict monotonicity gives \(u^1(x^1)\lt u^1(\bar x^1)\): agent 1 is strictly worse. Hence no Pareto improvement exists. ∎</p>
     </div></details>
   </div>
 
@@ -315,6 +343,26 @@
       <p>At \(p=(1,1)\), A's budget is \(x_1+x_2\le 2\). Every bundle with \(x_1+x_2\ge1\) gives the maximum utility 1, so \(x^A=(1,1)\) is optimal. B maximizes \(x_1+x_2\) subject to \(x_1+x_2\le2\), so \(x^B=(1,1)\) is optimal. Markets clear: this is a CE.<br>
       Not PO: give A \((\tfrac12,\tfrac12)\) and B \((\tfrac32,\tfrac32)\). A still gets 1; B gets 3 instead of 2.<br>
       For A, \((\tfrac12,\tfrac12)\) is weakly preferred to \((1,1)\) yet strictly <em>cheaper</em>. That is a failure of Part 2 of the Lemma, which is equation (1) in the 1WT proof. Notice that A's chosen bundle does exhaust its budget; what fails is Part 2, not Part 1. A <em>could</em> have spent less and been just as happy, and that wasted value is what B could have used.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 3.6 <span class="tag past">Past exam: Fall 2005 MT Q2</span> <span class="tag pset">Problem set 3 (2022) P3</span> (Pareto optima with uncertainty)</div>
+    <p>One good, \(S\) states of nature, so a bundle is \(c^i=(c^i(1),\dots,c^i(S))\). Agent \(i\) has expected utility \(u^i(c^i)=\sum_s\pi^i(s)v^i(c^i(s))\), with \(v^i\) strictly increasing, strictly concave and satisfying Inada conditions, and beliefs \(\pi^i(s)>0\). The aggregate endowment in state \(s\) is \(Y(s)>0\).</p>
+    <ol class="parts" type="a">
+      <li>Write the planner's problem with Pareto weights \(\lambda^i>0\), and its first-order conditions with multipliers \(\gamma(s)\) on the state-\(s\) resource constraints. <span class="pts">(10 pts)</span></li>
+      <li>Assume common beliefs, \(\pi^i=\pi\). Show that \(c^i(s)=g^i(Y(s))\) for some increasing function \(g^i\). <span class="pts">(15 pts)</span></li>
+      <li>Let \(v^i(c)=\frac{c^{1-\sigma}}{1-\sigma}\) for all \(i\) (common \(\sigma>0\)). Show that \(c^i(s)=\omega^iY(s)\) with \(\omega^i=\dfrac{(\lambda^i)^{1/\sigma}}{\sum_j(\lambda^j)^{1/\sigma}}\). <span class="pts">(10 pts)</span></li>
+      <li>Now let beliefs differ. Show that if two states have the same aggregate endowment but different likelihood ratios \(\pi^1(s)/\pi^2(s)\), agent 1 consumes more in the state she considers relatively more likely. <span class="pts">(10 pts)</span></li>
+      <li>Use the First Welfare Theorem to say what every complete-markets competitive equilibrium of this economy looks like when beliefs are common. One line. <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint for (b)</summary><div class="body"><p>Divide the FOC by \(\pi(s)\) and define \(\tilde\gamma(s)=\gamma(s)/\pi(s)\). Then each \(c^i(s)\) is a decreasing function of \(\tilde\gamma(s)\) alone. What pins down \(\tilde\gamma(s)\)?</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(\max\sum_i\lambda^i\sum_s\pi^i(s)v^i(c^i(s))\) s.t. \(\sum_ic^i(s)=Y(s)\) for each \(s\). FOC (interior by Inada): \(\lambda^i\pi^i(s)v^{i\prime}(c^i(s))=\gamma(s)\).<br>
+      (b) With \(\pi^i=\pi\): \(v^{i\prime}(c^i(s))=\tilde\gamma(s)/\lambda^i\), so \(c^i(s)=h^i(\tilde\gamma(s))\) with \(h^i=(v^{i\prime})^{-1}(\cdot/\lambda^i)\) strictly decreasing. Resource balance \(\sum_ih^i(\tilde\gamma)=Y(s)\) has a left side strictly decreasing in \(\tilde\gamma\), so it defines \(\tilde\gamma=\Gamma(Y(s))\) with \(\Gamma\) decreasing. Hence \(c^i(s)=h^i(\Gamma(Y(s)))\equiv g^i(Y(s))\), increasing in \(Y\).<br>
+      (c) \(c^{-\sigma}=\tilde\gamma/\lambda^i\) gives \(c^i=(\lambda^i/\tilde\gamma)^{1/\sigma}\). Summing: \(\tilde\gamma^{-1/\sigma}\sum_j(\lambda^j)^{1/\sigma}=Y\). Substituting back, \(c^i=\omega^iY\).<br>
+      (d) From the FOCs of agents 1 and 2: \(\frac{v^{1\prime}(c^1(s))}{v^{2\prime}(c^2(s))}=\frac{\lambda^2}{\lambda^1}\cdot\frac{\pi^2(s)}{\pi^1(s)}\). Take states \(s,s'\) with \(Y(s)=Y(s')\) and \(\frac{\pi^1(s)}{\pi^2(s)}>\frac{\pi^1(s')}{\pi^2(s')}\). If \(c^1(s)\le c^1(s')\), then \(c^2(s)\ge c^2(s')\) by feasibility (with two agents), so the left side would be weakly larger in \(s\) than in \(s'\), while the right side is strictly smaller: contradiction. So \(c^1(s)>c^1(s')\).<br>
+      (e) By the 1WT, every complete-markets CE is Pareto optimal, so it is one of the allocations in (a), with weights \(\lambda^i=1/\mu^i\) (Exercise 2.5). With common beliefs it therefore features perfect risk sharing: \(c^i(s)=g^i(Y(s))\), and individual endowment risk is fully insured.</p>
     </div></details>
   </div>
 

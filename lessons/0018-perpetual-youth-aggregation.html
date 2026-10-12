@@ -241,99 +241,130 @@
   </script>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>7. The slide p.21 questions</h2>
-  <p>These are the questions on <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=32">BY slide 21</a>. Try each before opening the solution. They are classic exam material.</p>
+  <h2>7. Exercises</h2>
+  <p>The slide questions on <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=32">BY slide 21</a> are Exercises 18.4–18.5. No past exam has asked about Blanchard–Yaari directly, so the rest follow the formats Alvarez does use: true/false with a short justification, and guided derivations with hints and point weights. Work with general parameters throughout.</p>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 18.1 <span class="tag slides">Slides p.21</span> What did we assume about wealth at \(t=0\)?</div>
+    <div class="box-title">Exercise 18.1 <span class="tag exam">Exam-inspired</span> True or false? Justify. <span class="pts">(7 × 10 points)</span></div>
+    <ol class="tf-list">
+      <li>In the pure-endowment perpetual-youth economy (with no initial financial wealth), the competitive equilibrium has no trade. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>True.</strong> The equilibrium rate is \(r=\theta-\alpha\). Then every agent's desired consumption grows at \(r-\theta=-\alpha\), the same rate at which its income declines. Together with the budget constraint and \(v(s,0)=0\), this gives \(c(s,t)=y(s,t)\) and \(v(s,t)=0\). This mirrors the no-trade result of Note II (<a href="0008-olg-environment.html">Lesson 8</a>).</p></div></details></li>
+      <li>In the endowment economy with flat income profiles (\(\alpha=0\)), finite lives push the interest rate below the rate of time preference. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>False.</strong> \(r=\theta-\alpha=\theta\) for every \(p\). Finite horizons alone create no motive to trade when income is flat. The higher impatience \(\theta+p\) is exactly offset by the annuity return \(r+p\).</p></div></details></li>
+      <li>Aggregate financial wealth \(V\) accumulates at the annuity rate \(r+p\). <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>False.</strong> \(\dot V = rV+Y-C\). The extra \(pV\) that survivors earn is a transfer from the wealth of those who die, so it nets out across the population. Newborns enter with \(v(t,t)=0\).</p></div></details></li>
+      <li>Aggregate consumption depends on how financial and human wealth are distributed across cohorts. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>False.</strong> With log utility every agent has the same MPC \(\theta+p\), independent of age and prices. So \(C=(\theta+p)(H+V)\) depends only on aggregate wealth. This linearity with a common slope is the Gorman-type condition that makes aggregation exact.</p></div></details></li>
+      <li>The aggregate consumption Euler equation is \(\dot C=(r-\theta)C\), as in the representative-agent model. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>False</strong> unless \(p=\alpha=0\). In fact \(\dot C=(r+\alpha-\theta)C-(p+\alpha)(p+\theta)V\). The last term is generational turnover: dying agents hold wealth, and newborns who replace them hold none. The \(+\alpha\) arises because newborns earn more than the average, so aggregate consumption of the alive is propped up relative to the individual Euler equation.</p></div></details></li>
+      <li>The equilibrium interest rate in the endowment economy can be negative, and when it is, there is a feasible allocation that makes every generation better off. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>True.</strong> \(r=\theta-\alpha&lt;0\) iff \(\alpha&gt;\theta\), allowed because the bound is \(r&gt;-(p+\alpha)\). Then slightly flattening every age profile of consumption raises the utility of every cohort, both those alive at 0 and those yet to be born (Exercise 18.5(d)). This is the continuous-time counterpart of "negative \(r\) ⇒ not Pareto optimal" in the two-period OLG.</p></div></details></li>
+      <li>\(r=\theta\) can be an equilibrium of the endowment economy only if labour income does not decline with age. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>True.</strong> With \(C=Y\) and \(V=0\), \(\dot C=0\) forces \(r=\theta-\alpha\), so \(r=\theta\) requires \(\alpha=0\). With \(\alpha&gt;0\), at \(r=\theta\) everyone wants to save while young (\(V^d&gt;0\)), but no asset is in positive net supply. It takes capital or government debt to support a higher rate.</p></div></details></li>
+    </ol>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 18.2 <span class="tag slides">Slides pp.12–14</span> Income profile and aggregate human wealth <span class="pts">(40 points)</span></div>
+    <p>Labour income is \(y(s,t)=aY(t)e^{-\alpha(t-s)}\), and \(R(t,z)=\exp(-\int_t^z[r(\mu)+p]d\mu)\).</p>
+    <ol class="parts" type="a">
+      <li>(10) Show that consistency with aggregate income requires \(a=(p+\alpha)/p\). At what age does an agent earn exactly the average \(Y(t)\)?</li>
+      <li>(15) Show that aggregate human wealth \(H(t)=\int_{-\infty}^t h(s,t)N(s,t)ds\) equals \(\int_t^\infty Y(z)\exp\big(-\int_t^z[r(\mu)+p+\alpha]d\mu\big)dz\). [Hint: write \(h(s,t)=a\big[\int_t^\infty Y(z)e^{-\alpha(z-t)}R(t,z)dz\big]e^{-\alpha(t-s)}\), then integrate over cohorts.]</li>
+      <li>(10) Differentiate to obtain \(\dot H=(r+p+\alpha)H-Y\), and state the boundary condition.</li>
+      <li>(5) Interpret the discount rate \(r+p+\alpha\).</li>
+    </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>For the <em>interest rate</em>, only \(V(0)=0\) was needed (aggregate financial wealth is zero), because \(\dot C\) depends on \(V\), not on how it is distributed. For <em>autarky at the individual level</em> we also assumed \(v(s,0)=0\) for every cohort alive at 0. If instead some cohorts start with debts and others with matching claims (\(V(0)=0\) but \(v(s,0)\ne0\)), the equilibrium \(r=\theta-\alpha\) is unchanged. Individual wealth then evolves as \(\dot v = (r+p)v + y - (\theta+p)(v+h) = -\alpha v\), because \((\theta+p)h(s,t)=y(s,t)\) at this \(r\). So positions shrink at rate α, and \(V\) stays 0.</p>
+      <p>(a) \(Y=\int_{-\infty}^tpe^{-p(t-s)}aYe^{-\alpha(t-s)}ds = aYp/(p+\alpha)\), so \(a=(p+\alpha)/p\). Income equals \(Y\) when \(ae^{-\alpha x}=1\): at age \(x=\ln(1+\alpha/p)/\alpha\).<br>
+      (b) The bracket is common to all cohorts. Integrating \(e^{-\alpha(t-s)}\) against \(pe^{-p(t-s)}\) gives \(p/(p+\alpha)\), which cancels \(a\). So \(H(t)=\int_t^\infty Y(z)e^{-\alpha(z-t)}R(t,z)dz\), which is the expression shown.<br>
+      (c) By Leibniz: \(\dot H = -Y(t)+(r(t)+p+\alpha)H(t)\). The boundary condition is \(\lim_{z\to\infty}H(z)e^{-\int_t^z(r+p+\alpha)}=0\).<br>
+      (d) \(H\) is the human wealth of <em>those alive now</em>. Their claim on future aggregate income shrinks at rate \(p\) (they die) plus α (their income falls relative to newborns'), on top of discounting at \(r\).</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 18.2 <span class="tag slides">Slides p.21</span> The case α = 0</div>
-    <p>What is the equilibrium interest rate when \(\alpha=0\)? What do individual consumption profiles look like?</p>
+    <div class="box-title">Exercise 18.3 <span class="tag slides">Slides pp.15–17</span> The aggregate system <span class="pts">(40 points)</span></div>
+    <ol class="parts" type="a">
+      <li>(15) Differentiate \(V(t)=\int_{-\infty}^tv(s,t)pe^{-p(t-s)}ds\) and use \(v(t,t)=0\) and the individual budget constraint to show \(\dot V=rV+Y-C\).</li>
+      <li>(20) Starting from \(C=(\theta+p)(H+V)\), show that \(\dot C=(r+\alpha-\theta)C-(p+\alpha)(p+\theta)V\). [Hint: substitute \(\dot H\) and \(\dot V\), then replace \(H\) by \(C/(\theta+p)-V\).]</li>
+      <li>(5) Which term disappears when \(p=\alpha=0\), and why does that make sense?</li>
+    </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>\(r=\theta\), whatever \(p\) is. Then \(a=1\), so every agent earns \(Y\) at every age. With \(r=\theta\), individual consumption is flat and equals \(Y\) for everyone. Finite lives alone (\(p&gt;0\)) do not move the endowment-economy interest rate away from θ. What generates a motive to trade is a <em>declining</em> income profile (\(\alpha&gt;0\)).</p>
+      <p>(a) \(\dot V = pv(t,t) - pV + \int_{-\infty}^t\dot v(s,t)pe^{-p(t-s)}ds\). Substituting \(\dot v=(r+p)v+y-c\) gives \(\dot V = 0 - pV + (r+p)V + Y - C = rV+Y-C\).<br>
+      (b) \(\dot C=(\theta+p)[(r+p+\alpha)H-Y+rV+Y-C] = (\theta+p)r(H+V)+(\theta+p)(p+\alpha)H-(\theta+p)C\). The first term is \(rC\). Replacing \(H=C/(\theta+p)-V\) in the second term gives \((p+\alpha)C-(p+\alpha)(p+\theta)V\). Collecting terms: \(\dot C=(r+\alpha-\theta)C-(p+\alpha)(p+\theta)V\).<br>
+      (c) The turnover term \(-(p+\alpha)(p+\theta)V\) and the \(+\alpha\) both vanish, leaving \(\dot C=(r-\theta)C\). With infinitely lived agents and flat income, there are no newborns to dilute wealth, so the aggregate behaves like one agent.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 18.3 <span class="tag slides">Slides p.21</span> What α makes sense if p = 0?</div>
+    <div class="box-title">Exercise 18.4 <span class="tag slides">Slides pp.20–21</span> The endowment equilibrium <span class="pts">(50 points)</span></div>
+    <p>In the pure endowment economy, \(C=Y\) is constant and assets are only claims between agents.</p>
+    <ol class="parts" type="a">
+      <li>(10) Argue that \(V(t)=0\), and derive the equilibrium interest rate.</li>
+      <li>(10) Show that if \(v(s,0)=0\) for every cohort, the equilibrium is autarky.</li>
+      <li>(10) What did we assume about the distribution of wealth at \(t=0\)? Suppose instead \(V(0)=0\) but \(v(s,0)\neq0\) for some cohorts. Is the interest rate the same? Show that individual positions shrink at rate α. [Hint: at this \(r\), \((\theta+p)h(s,t)=y(s,t)\).]</li>
+      <li>(10) Find the equilibrium interest rate and individual consumption when \(\alpha=0\), and when \(p=0\). Why must \(\alpha=0\) if \(p=0\)?</li>
+      <li>(10) Can \(r(t)=\theta\) be an equilibrium? Explain using the sign of desired aggregate saving at \(r=\theta\).</li>
+    </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>Only \(\alpha=0\). With \(p=0\) nobody dies and nobody is born, so no newcomers can absorb the share of income that existing agents lose as they age. Formally, \(a=(p+\alpha)/p\) is undefined (infinite) for \(\alpha&gt;0\), and \(Y(t)=\int Ny\) would decline at rate α instead of being stationary. So a stationary economy with \(p=0\) needs \(\alpha=0\) <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=45">BY slide 34</a>.</p>
+      <p>(a) There is no capital and no government, so every asset is someone's liability, and \(\int N v\,ds=0\). With \(C=Y\) constant, \(0=\dot C=(r+\alpha-\theta)Y\), so \(r=\theta-\alpha\).<br>
+      (b) At \(r=\theta-\alpha\), \(h(s,t)=y(s,t)/(r+p+\alpha)=y(s,t)/(\theta+p)\), so \(c=(\theta+p)(v+h)=(\theta+p)v+y\). Then \(\dot v=(r+p)v+y-c=(r-\theta)v=-\alpha v\). With \(v(s,0)=0\), \(v\equiv0\) and \(c=y\): autarky.<br>
+      (c) For the interest rate only \(V(0)=0\) matters, since the \(\dot C\) equation involves aggregates only. By (b), \(\dot v=-\alpha v\), so any initial positions decay at rate α and \(V\) stays 0.<br>
+      (d) \(\alpha=0\): \(r=\theta\), \(a=1\), and everyone consumes \(Y\) at every age. \(p=0\): no births or deaths. A declining income profile would make aggregate income fall at rate α, and \(a=(p+\alpha)/p\) is undefined, so stationarity requires \(\alpha=0\). Then \(r=\theta\), the Ramsey endowment economy.<br>
+      (e) Only if \(\alpha=0\). At \(r=\theta\), individual consumption is flat but income falls with age, so every agent saves when young and \(V^d&gt;0\) (Exercise 18.6). With no asset in positive net supply, that excess demand for saving pushes \(r\) down to \(\theta-\alpha\).</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 18.4 <span class="tag slides">Slides p.21</span> The case p = 0</div>
-    <p>What is the equilibrium interest rate when \(p=0\)? What do consumptions look like?</p>
-    <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>With \(p=0\) we need \(\alpha=0\), so \(r=\theta-0=\theta\). This is the representative-agent (Ramsey) endowment economy: the \(\dot C\) equation collapses to \(\dot C = (r-\theta)C\), and constant consumption requires \(r=\theta\). Every agent consumes its constant endowment.</p>
-    </div></details>
-  </div>
-
-  <div class="box exercise">
-    <div class="box-title">Exercise 18.5 <span class="tag slides">Slides p.21</span> <span class="tag exam">Exam-style</span> Is the flat allocation \(c(s,t)=Y\) Pareto superior?</div>
+    <div class="box-title">Exercise 18.5 <span class="tag slides">Slides p.21</span> <span class="tag exam">Exam-inspired</span> Is the flat allocation \(c(s,t)=Y\) Pareto superior? <span class="pts">(60 points)</span></div>
     <p>Consider the allocation in which everyone alive consumes \(Y\) at every date.</p>
     <ol class="parts" type="a">
-      <li>Show it is feasible.</li>
-      <li>Compute the lifetime utility of a cohort born at \(s\ge0\) under the equilibrium (\(c=aYe^{-\alpha x}\)) and under the flat allocation, and find the condition under which the newborns prefer the flat allocation.</li>
-      <li>Show that agents already alive at \(t=0\) gain <em>more</em> from switching the older they are. Conclude when the flat allocation Pareto-dominates the equilibrium.</li>
-      <li>Show that a <em>small</em> flattening of the profile, \(c = \frac{p+\gamma}{p}Ye^{-\gamma(t-s)}\) with \(\gamma\) slightly below \(\alpha\), Pareto-improves if and only if \(\alpha&gt;\theta\), i.e. \(r&lt;0\). Relate this to Note II's condition for inefficiency.</li>
-      <li>Numerical check: \(p=0.02\), \(\theta=0.01\), \(\alpha=0.05\). Compute \(\alpha/(\theta+p) - \log(1+\alpha/p)\) (positive means the flat allocation dominates).
-        <div class="numcheck" data-answer="0.05/0.03 - Math.log(3.5)" data-tol="0.003" data-prompt="value ="></div></li>
+      <li>(10) Show it is feasible.</li>
+      <li>(15) Compute the lifetime utility of a cohort born at \(s\ge0\) under the equilibrium (\(c=aYe^{-\alpha x}\)) and under the flat allocation. Find the condition under which newborns prefer the flat allocation.</li>
+      <li>(15) Show that agents already alive at \(t=0\) gain <em>more</em> from switching the older they are. Conclude when the flat allocation Pareto-dominates the equilibrium, and show this requires \(\alpha&gt;\theta\).</li>
+      <li>(20) Show that a <em>small</em> flattening of the profile, \(c = \frac{p+\gamma}{p}Ye^{-\gamma(t-s)}\) with \(\gamma\) slightly below \(\alpha\), Pareto-improves if and only if \(\alpha&gt;\theta\), i.e. \(r&lt;0\). Relate this to Note II's condition for inefficiency.</li>
     </ol>
     <details class="hint"><summary>Hint</summary><div class="body"><p>\(\int_0^\infty xe^{-(\theta+p)x}dx = 1/(\theta+p)^2\). For (d), differentiate the newborn's utility with respect to γ and evaluate at γ = α.</p></div></details>
     <details class="solution"><summary>Show solution</summary><div class="body">
       <p>(a) \(\int_{-\infty}^tN(s,t)\,Y\,ds = Y\). ✓</p>
       <p>(b) Equilibrium: \(U^{eq} = \int_0^\infty\log\big(aYe^{-\alpha x}\big)e^{-(\theta+p)x}dx = \dfrac{\log(aY)}{\theta+p} - \dfrac{\alpha}{(\theta+p)^2}\). Flat: \(U^{flat} = \dfrac{\log Y}{\theta+p}\). Newborns prefer flat iff \(\log a &lt; \dfrac{\alpha}{\theta+p}\), i.e.
       $$\log\Big(1+\frac{\alpha}{p}\Big) &lt; \frac{\alpha}{\theta+p}.$$</p>
-      <p>(c) An agent of age \(A\) at \(t=0\) has remaining equilibrium consumption \(aYe^{-\alpha A}e^{-\alpha x}\). The utility gap \(U^{flat}-U^{eq} = \big[\alpha A - \log a\big]/(\theta+p) + \alpha/(\theta+p)^2\) is increasing in \(A\). Older agents are poorer in equilibrium and gain more. So newborns are the binding group, and the flat allocation Pareto-dominates iff the inequality in (b) holds. Let \(f(\alpha) = \alpha/(\theta+p) - \log(1+\alpha/p)\). Then \(f(0)=0\) and \(f'(\alpha) = \frac1{\theta+p} - \frac1{p+\alpha}\), which is negative for \(\alpha&lt;\theta\) and positive for \(\alpha&gt;\theta\). So \(f&gt;0\) requires \(\alpha&gt;\theta\) (i.e. \(r&lt;0\)), and holds once α is large enough.</p>
-      <p>(d) Feasibility of the γ-family: \(\int pe^{-px}\frac{p+\gamma}{p}e^{-\gamma x}dx = 1\). ✓ The newborn's utility is \(\frac{\log((p+\gamma)Y/p)}{\theta+p} - \frac{\gamma}{(\theta+p)^2}\), with derivative \(\frac{1}{\theta+p}\big[\frac1{p+\gamma} - \frac1{\theta+p}\big]\). At \(\gamma=\alpha\) this is negative iff \(\alpha&gt;\theta\), so lowering γ slightly raises newborns' utility exactly when \(r=\theta-\alpha&lt;0\). For an agent of age \(A\), the derivative has an extra \(-A/(\theta+p)\), so older agents gain even more. Thus a small flattening Pareto-improves iff \(r&lt;0\). This is the same message as Note II (<a href="0010-olg-efficiency.html">Lesson 10</a>): with zero growth, a negative equilibrium interest rate signals that a "pay-as-you-go" transfer from young to old makes everyone better off. If \(\alpha\le\theta\), no allocation in this family dominates. Flattening (lower γ) hurts newborns, because their derivative at γ = α is ≥ 0. Steepening (higher γ) hurts sufficiently old agents, because of the \(-A/(\theta+p)\) term. When α = θ exactly, γ = α maximizes newborn utility, since the utility is strictly concave in γ.</p>
-      <p>(e) \(0.05/0.03 - \log 3.5 = 1.667 - 1.253 \approx 0.414 &gt; 0\). Here \(r = -0.04\), and the flat allocation dominates.</p>
+      <p>(c) An agent of age \(A\) at \(t=0\) has remaining equilibrium consumption \(aYe^{-\alpha A}e^{-\alpha x}\). The gap \(U^{flat}-U^{eq} = \big[\alpha A - \log a\big]/(\theta+p) + \alpha/(\theta+p)^2\) is increasing in \(A\), since older agents are poorer in equilibrium. So newborns are the binding group, and the flat allocation dominates iff the inequality in (b) holds. Let \(f(\alpha) = \alpha/(\theta+p) - \log(1+\alpha/p)\). Then \(f(0)=0\) and \(f'(\alpha) = \frac1{\theta+p} - \frac1{p+\alpha}\), negative for \(\alpha&lt;\theta\) and positive for \(\alpha&gt;\theta\). So \(f&gt;0\) requires \(\alpha&gt;\theta\) (i.e. \(r&lt;0\)), and holds once α is large enough.</p>
+      <p>(d) The γ-family is feasible: \(\int pe^{-px}\frac{p+\gamma}{p}e^{-\gamma x}dx = 1\). The newborn's utility is \(\frac{\log((p+\gamma)Y/p)}{\theta+p} - \frac{\gamma}{(\theta+p)^2}\), with derivative \(\frac{1}{\theta+p}\big[\frac1{p+\gamma} - \frac1{\theta+p}\big]\). At \(\gamma=\alpha\) this is negative iff \(\alpha&gt;\theta\), so lowering γ slightly raises newborns' utility exactly when \(r=\theta-\alpha&lt;0\). For an agent of age \(A\) the derivative has an extra \(-A/(\theta+p)\), so older agents gain even more. A small flattening therefore Pareto-improves iff \(r&lt;0\). This matches Note II (<a href="0010-olg-efficiency.html">Lesson 10</a>): with zero growth, a negative equilibrium interest rate means that transfers from young to old can make everyone better off. If \(\alpha\le\theta\), no member of the family dominates. Flattening hurts newborns, and steepening hurts sufficiently old agents.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 18.6 <span class="tag slides">Slides p.21</span> Can \(r(t)=\theta\) be an equilibrium?</div>
+    <div class="box-title">Exercise 18.6 <span class="tag proof">Proof</span> Desired wealth \(V^d(r)\) <span class="pts">(30 points)</span></div>
+    <p>Hold \(r\) constant and suppose every cohort follows the plan of a newborn facing that \(r\) forever.</p>
+    <ol class="parts" type="a">
+      <li>(15) Show that a newborn's wealth at age \(x\) is \(v(x) = \frac{c_0e^{(r-\theta)x}}{\theta+p} - \frac{ae^{-\alpha x}}{r+p+\alpha}Y\), with \(c_0 = \frac{(\theta+p)aY}{r+p+\alpha}\).</li>
+      <li>(10) Integrate over the age distribution to show \(\dfrac{V^d}{Y} = \dfrac{r+\alpha-\theta}{(r+p+\alpha)(p+\theta-r)}\) for \(r&lt;p+\theta\).</li>
+      <li>(5) Conclude that \(r=\theta-\alpha\) is the only rate at which the population wants zero net financial wealth, and that desired wealth is positive above it.</li>
+    </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>In the pure endowment economy, only if \(\alpha=0\). At \(r=\theta\), the \(\dot C\) equation with \(C=Y\), \(V=0\) reads \(0 = \alpha Y\), which is false for \(\alpha&gt;0\). Economically, at \(r=\theta\) everyone wants flat consumption, but income falls with age, so everyone wants to save while young: \(V^d&gt;0\) (see the figure). With no asset in positive net supply, the excess demand for saving drives \(r\) down to \(\theta-\alpha\). It takes an outside asset, such as capital (Lesson 19) or government debt (Lesson 20), to support a higher interest rate.</p>
-    </div></details>
-  </div>
-
-  <h2>8. More exercises</h2>
-
-  <div class="box exercise">
-    <div class="box-title">Exercise 18.7 <span class="tag slides">Slides p.12</span> The income profile</div>
-    <p>With \(p=0.02\) and \(\alpha=0.03\), how much more than average does a newborn earn (the factor \(a\))? At what age does an agent's income equal the average \(Y\)?</p>
-    <div class="numcheck" data-answer="2.5" data-tol="0.002" data-prompt="a ="></div>
-    <div class="numcheck" data-answer="Math.log(2.5)/0.03" data-tol="0.003" data-prompt="age ="></div>
-    <details class="solution"><summary>Show solution</summary><div class="body"><p>\(a = (0.02+0.03)/0.02 = 2.5\). Income equals \(Y\) when \(2.5e^{-0.03x}=1\), i.e. \(x = \ln 2.5/0.03\approx 30.5\) years.</p></div></details>
-  </div>
-
-  <div class="box exercise">
-    <div class="box-title">Exercise 18.8 <span class="tag proof">Proof</span> Desired wealth \(V^d(r)\)</div>
-    <p>Derive the formula for \(V^d(r)/Y\) used in the figure, starting from the newborn profile \(v(x)\), and show that its sign is the sign of \(r-(\theta-\alpha)\). Then evaluate it at \(r=0.03\), \(\theta=0.04\), \(p=0.02\), \(\alpha=0.02\).</p>
-    <div class="numcheck" data-answer="0.01/(0.07*0.03)" data-tol="0.003" data-prompt="Vᵈ/Y ="></div>
-    <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>In a steady state with constant \(r\), the cohort of age \(x\) holds the newborn plan's \(v(x) = \frac{c_0e^{(r-\theta)x}}{\theta+p} - \frac{ae^{-\alpha x}}{r+p+\alpha}\), with \(c_0 = \frac{(\theta+p)a}{r+p+\alpha}\). Then
-      $$\frac{V^d}{Y} = \int_0^\infty pe^{-px}v(x)dx = \frac{pa}{(r+p+\alpha)(p+\theta-r)} - \frac{pa}{(r+p+\alpha)(p+\alpha)} .$$
-      Using \(pa = p+\alpha\), this equals \(\frac{1}{r+p+\alpha}\Big[\frac{p+\alpha}{p+\theta-r} - 1\Big] = \frac{r+\alpha-\theta}{(r+p+\alpha)(p+\theta-r)}\). Both factors in the denominator are positive on the admissible range, so the sign is that of \(r-(\theta-\alpha)\). Numerically: \(0.01/(0.07\cdot0.03)\approx 4.76\).</p>
+      <p>(a) At age \(x\), \(h(x)=aYe^{-\alpha x}/(r+p+\alpha)\) and \(c(x)=c_0e^{(r-\theta)x}\), with \(c_0=(\theta+p)h(0)\) because \(v(0)=0\). Then \(v=c/(\theta+p)-h\).<br>
+      (b) \(\int_0^\infty pe^{-px}v(x)dx = \frac{paY}{(r+p+\alpha)(p+\theta-r)} - \frac{paY}{(r+p+\alpha)(p+\alpha)}\). Using \(pa=p+\alpha\), this is \(\frac{Y}{r+p+\alpha}\big[\frac{p+\alpha}{p+\theta-r}-1\big] = \frac{(r+\alpha-\theta)Y}{(r+p+\alpha)(p+\theta-r)}\).<br>
+      (c) The denominator is positive on \(-(p+\alpha)&lt;r&lt;p+\theta\), so \(V^d\) has the sign of \(r-(\theta-\alpha)\).</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 18.9 <span class="tag exam">Exam-style</span> Where do the \(p\)'s go?</div>
-    <p>Explain in words, with reference to the equations, why (i) individual wealth earns \(r+p\) while aggregate wealth earns \(r\); (ii) individual human wealth is discounted at \(r+p\) while aggregate human wealth is discounted at \(r+p+\alpha\); and (iii) \(p\) disappears from the individual Euler equation but appears in the aggregate one.</p>
+    <div class="box-title">Exercise 18.7 <span class="tag exam">Exam-inspired</span> Where do the \(p\)'s go? <span class="pts">(30 points)</span></div>
+    <p>Explain in words, with reference to the equations, why:</p>
+    <ol class="parts" type="i">
+      <li>(10) individual wealth earns \(r+p\), while aggregate wealth earns \(r\);</li>
+      <li>(10) individual human wealth is discounted at \(r+p\), while aggregate human wealth is discounted at \(r+p+\alpha\);</li>
+      <li>(10) \(p\) disappears from the individual Euler equation but appears in the aggregate one.</li>
+    </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(i) The extra \(p\) is a transfer from the dying to survivors via annuities. It nets out in the aggregate (§4). (ii) An individual's future income is discounted for interest and for its own death. The aggregate \(H\) is the human wealth of the current population, whose share of future aggregate income falls at \(p+\alpha\): they die, and their income falls relative to newborns' (§3). (iii) Individually, higher impatience and higher return cancel. In the aggregate, turnover matters: newborns arriving with zero financial wealth replace wealthy dying agents, which gives the \(-(p+\alpha)(p+\theta)V\) term (§5).</p>
+      <p>(i) The extra \(p\) is a transfer from the dying to survivors via annuities. It nets out in the aggregate (§4).<br>
+      (ii) An individual's future income is discounted for interest and for its own death. The aggregate \(H\) belongs to the current population, whose share of future aggregate income shrinks at \(p+\alpha\): they die, and their income falls relative to newborns' (§3).<br>
+      (iii) For an individual, higher impatience and higher return cancel. In the aggregate, turnover matters: newborns arriving with zero financial wealth replace wealthy dying agents, which gives the \(-(p+\alpha)(p+\theta)V\) term (§5).</p>
     </div></details>
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>9. Check your understanding</h2>
+  <h2>8. Check your understanding</h2>
 
   <div class="quiz-section">
     <div class="quiz-question" data-correct="c">

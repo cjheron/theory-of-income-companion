@@ -113,7 +113,7 @@
     <li>It shoots to \(+\infty\) as \(K\uparrow\hat K\) (the denominator goes to \(0^+\)).</li>
     <li>It is convex. Alvarez states this (<a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=37">slide 26</a>), and it holds for Cobb–Douglas; you can see it in the figure.</li>
   </ul>
-  <p><strong>Direction:</strong> for \(K<\hat K\), the coefficient on \(C\) in \(\dot C\) is positive. So \(\dot C>0\) <em>above</em> the locus and \(\dot C<0\) below it. For \(K\ge\hat K\), both terms of \(\dot C\) are \(\le 0\), so consumption falls everywhere there.</p>
+  <p><strong>Direction:</strong> for \(K\lt \hat K\), the coefficient on \(C\) in \(\dot C\) is positive. So \(\dot C>0\) <em>above</em> the locus and \(\dot C<0\) below it. For \(K\ge\hat K\), both terms of \(\dot C\) are \(\le 0\), so consumption falls everywhere there.</p>
 
   <h3>The steady state is unique</h3>
   <div class="theorem">
@@ -124,7 +124,7 @@
   <div class="proof">
     <div class="box-title">Proof</div>
     <ol class="steps">
-      <li>A steady state needs \(C = \mathcal F(K)\) and \(C\) on the \(\dot C=0\) locus. Divide by \(K>0\) to get the displayed equation. Since the right side is positive, we also need \(\mathcal F(K)>0\), i.e. \(K<K_{\max}\), and \(K<\hat K\).</li>
+      <li>A steady state needs \(C = \mathcal F(K)\) and \(C\) on the \(\dot C=0\) locus. Divide by \(K>0\) to get the displayed equation. Since the right side is positive, we also need \(\mathcal F(K)>0\), i.e. \(K\lt K_{\max}\), and \(K\lt \hat K\).</li>
       <li><strong>The left side \(\mathcal F(K)/K\) (average product) is strictly decreasing.</strong> Its derivative is \((\mathcal F'K - \mathcal F)/K^2 < 0\), because strict concavity with \(\mathcal F(0)=0\) gives \(\mathcal F(K) > \mathcal F'(K)K\). It tends to \(+\infty\) as \(K\to0\) (Inada) and to \(0\) at \(K_{\max}\).</li>
       <li><strong>The right side is strictly increasing in \(K\)</strong> (its denominator falls). It tends to \(0\) as \(K\to 0\) and to \(+\infty\) as \(K\to\hat K\).</li>
       <li>A strictly decreasing function that starts above a strictly increasing one and ends below it crosses it exactly once.</li>
@@ -193,7 +193,7 @@
       <li>Since \((p+\theta)\) does not involve \(\alpha\), it suffices to show \(\dfrac{p+\alpha}{\mathcal F'(\bar K)+\alpha-\theta}\) is decreasing in \(\alpha\) at the steady state.</li>
       <li>Differentiate, holding \(K\) fixed: \(\dfrac{\partial}{\partial\alpha}\dfrac{p+\alpha}{\mathcal F'+\alpha-\theta} = \dfrac{(\mathcal F'+\alpha-\theta)-(p+\alpha)}{(\mathcal F'+\alpha-\theta)^2} = \dfrac{\mathcal F'(\bar K)-\theta-p}{(\mathcal F'+\alpha-\theta)^2}.\) This is negative iff \(\mathcal F'(\bar K) < \theta+p\).</li>
       <li>At \(\alpha=0\) we have \(\mathcal F'(\bar K) < \theta + p\) (proved next). So at \(\alpha=0\), raising \(\alpha\) lowers the RHS and raises \(\bar K\).</li>
-      <li>A higher \(\bar K\) means an even lower \(\mathcal F'(\bar K)\), so \(\mathcal F'(\bar K)<\theta+p\) continues to hold as \(\alpha\) rises. Therefore the derivative stays negative and \(\bar K\) is increasing for all \(\alpha\ge0\).</li>
+      <li>A higher \(\bar K\) means an even lower \(\mathcal F'(\bar K)\), so \(\mathcal F'(\bar K)\lt \theta+p\) continues to hold as \(\alpha\) rises. Therefore the derivative stays negative and \(\bar K\) is increasing for all \(\alpha\ge0\).</li>
     </ol>
     <div class="qed">∎</div>
   </div>
@@ -202,10 +202,10 @@
     <div class="box-title">Proof that with \(\alpha = 0\): \(\theta < \mathcal F'(\bar K) < \theta + p\) <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=42">BY slide 31</a></div>
     <ol class="steps">
       <li>With \(\alpha=0\), the steady state is \(\mathcal F(\bar K)\,[\mathcal F'(\bar K)-\theta] = p(p+\theta)\bar K\). The right side is positive and \(\mathcal F(\bar K)>0\), so \(\mathcal F'(\bar K) > \theta\). <em>Lower bound done.</em></li>
-      <li>Define \(K^{**}\) by \(\mathcal F'(K^{**}) = \theta+p\) and \(K^*\) by \(\mathcal F'(K^*) = \theta\). Then \(K^{**}<K^* = \hat K\).</li>
+      <li>Define \(K^{**}\) by \(\mathcal F'(K^{**}) = \theta+p\) and \(K^*\) by \(\mathcal F'(K^*) = \theta\). Then \(K^{**}\lt K^* = \hat K\).</li>
       <li>Let \(g(K) \equiv \mathcal F(K)[\mathcal F'(K)-\theta] - p(p+\theta)K\). By the uniqueness argument, \(g>0\) to the left of \(\bar K\) and \(g<0\) between \(\bar K\) and \(\hat K\).</li>
       <li>Evaluate at \(K^{**}\): \(g(K^{**}) = p\,\mathcal F(K^{**}) - p(p+\theta)K^{**} = p\,[\mathcal F(K^{**}) - \mathcal F'(K^{**})K^{**}]\).</li>
-      <li>Concavity with \(\mathcal F(0)=0\) gives \(\mathcal F(K) > \mathcal F'(K)K\) (average product exceeds marginal product), so \(g(K^{**})>0\). Hence \(K^{**}<\bar K\), i.e. \(\mathcal F'(\bar K) < \mathcal F'(K^{**}) = \theta+p\). ∎</li>
+      <li>Concavity with \(\mathcal F(0)=0\) gives \(\mathcal F(K) > \mathcal F'(K)K\) (average product exceeds marginal product), so \(g(K^{**})>0\). Hence \(K^{**}\lt \bar K\), i.e. \(\mathcal F'(\bar K) < \mathcal F'(K^{**}) = \theta+p\). ∎</li>
     </ol>
   </div>
   <div class="warning">
@@ -239,7 +239,7 @@
   <ul>
     <li>The \(\dot C=0\) locus is the <strong>vertical line</strong> \(\mathcal F'(\bar K)=\theta\) (the modified golden rule). In the figure, the blue curve steepens towards this line as \(p,\alpha\to0\).</li>
     <li><strong>A slightly different argument</strong> rules out the non-saddle paths. Paths below the saddle path now have \(C\to0\) only <em>asymptotically</em>: \(\dot C/C = \mathcal F'-\theta\) is bounded once \(K>K^*\), so \(C\) never actually hits zero. These paths are feasible, so infeasibility cannot rule them out. Instead they violate the household's transversality condition: they converge to \(K_{\max}\) with \(r=\mathcal F'(K_{\max})<0\), so wealth discounted at \(r\) explodes. With \(p>0\), the extra term \(-(p+\alpha)(p+\theta)K\) makes \(C\) hit zero in <em>finite</em> time, which is simpler.</li>
-    <li>The adjustment from \(K(0)<\bar K\) looks the same: \(K, C, Y\) rise and \(r\) falls.</li>
+    <li>The adjustment from \(K(0)\lt \bar K\) looks the same: \(K, C, Y\) rise and \(r\) falls.</li>
   </ul>
 
   <!-- ─────────────────────────────────────────── -->
@@ -265,11 +265,11 @@
         <li class="quiz-option" data-option="c">Between zero and θ, below impatience</li>
         <li class="quiz-option" data-option="d">Strictly between θ and θ plus p</li>
       </ul>
-      <div class="quiz-explain">\(\theta<\mathcal F'(\bar K)<\theta+p\). The lower bound comes from the sign of the steady-state equation; the upper bound from concavity (\(\mathcal F > \mathcal F'K\)) evaluated at \(K^{**}\). So the economy is below the golden rule and dynamically efficient.</div>
+      <div class="quiz-explain">\(\theta\lt \mathcal F'(\bar K)\lt \theta+p\). The lower bound comes from the sign of the steady-state equation; the upper bound from concavity (\(\mathcal F > \mathcal F'K\)) evaluated at \(K^{**}\). So the economy is below the golden rule and dynamically efficient.</div>
     </div>
 
     <div class="quiz-question" data-correct="a">
-      <div class="question-text">3. Along the transition from \(K(0)<\bar K\), which variable <em>falls</em>?</div>
+      <div class="question-text">3. Along the transition from \(K(0)\lt \bar K\), which variable <em>falls</em>?</div>
       <ul class="quiz-options">
         <li class="quiz-option" data-option="a">The interest rate r</li>
         <li class="quiz-option" data-option="b">Human wealth H</li>
@@ -287,7 +287,7 @@
         <li class="quiz-option" data-option="c">A faster income decline α</li>
         <li class="quiz-option" data-option="d">A higher depreciation δ</li>
       </ul>
-      <div class="quiz-explain">Raising \(\alpha\) lowers the right side \((p+\alpha)(p+\theta)/(\mathcal F'+\alpha-\theta)\) whenever \(\mathcal F'(\bar K)<\theta+p\), which always holds. So the intersection with the falling average-product curve moves right. Higher \(p\) or \(\theta\) raise the right side. Higher \(\delta\) lowers net average product and \(\mathcal F'\), which shrinks \(\bar K\).</div>
+      <div class="quiz-explain">Raising \(\alpha\) lowers the right side \((p+\alpha)(p+\theta)/(\mathcal F'+\alpha-\theta)\) whenever \(\mathcal F'(\bar K)\lt \theta+p\), which always holds. So the intersection with the falling average-product curve moves right. Higher \(p\) or \(\theta\) raise the right side. Higher \(\delta\) lowers net average product and \(\mathcal F'\), which shrinks \(\bar K\).</div>
     </div>
 
     <div class="quiz-question" data-correct="b">
@@ -306,72 +306,113 @@
   <!-- ─────────────────────────────────────────── -->
   <h2>9. Exercises</h2>
 
+  <p>Problem Set 2 (2025) works with this system extended to include government debt; those parts are in <a href="0020-perpetual-youth-fiscal-policy.html">Lesson 20</a>. The exercises below follow Alvarez's formats: true/false with a short justification, and guided derivations with hints and point weights. Work with a general concave \(\mathcal F\) unless told otherwise.</p>
+
   <div class="box exercise">
-    <div class="box-title">Exercise 19.1 <span class="tag proof">Proof</span> (the steady state is a saddle)</div>
-    <p>Linearize the \((K,C)\) system around \((\bar K,\bar C)\). Show that the Jacobian has determinant \(<0\), so it has one negative and one positive eigenvalue. Then find the slope of the saddle path at the steady state.</p>
-    <details class="hint"><summary>Hint</summary><div class="body"><p>Use the steady-state condition to replace \((p+\alpha)(p+\theta)\) by \(\mathcal F(\bar K)(\mathcal F'(\bar K)+\alpha-\theta)/\bar K\).</p></div></details>
-    <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>\(J = \begin{pmatrix} \mathcal F' & -1 \\ \mathcal F''\bar C - (p+\alpha)(p+\theta) & \mathcal F'+\alpha-\theta \end{pmatrix}\), evaluated at \(\bar K\). Then
-      $$\det J = \mathcal F'(\mathcal F'+\alpha-\theta) + \mathcal F''\bar C - (p+\alpha)(p+\theta).$$
-      Substitute \((p+\alpha)(p+\theta) = \tfrac{\mathcal F}{\bar K}(\mathcal F'+\alpha-\theta)\):
-      $$\det J = (\mathcal F'+\alpha-\theta)\Big(\mathcal F' - \tfrac{\mathcal F}{\bar K}\Big) + \mathcal F''\bar C.$$
-      The first factor is \(>0\) (we are left of \(\hat K\)), the second is \(<0\) (marginal &lt; average product), and \(\mathcal F''\bar C<0\). So \(\det J<0\). The eigenvalues \(\lambda_s<0<\lambda_u\) are real with opposite signs: a saddle. The first row gives the eigenvector: \((\mathcal F'-\lambda)\,dK - dC = 0\), so the saddle path has slope \(dC/dK = \mathcal F'(\bar K) - \lambda_s\). This is positive whenever \(\mathcal F'(\bar K)\ge0\), and the figure uses exactly this direction to start its backward integration.</p>
-    </div></details>
+    <div class="box-title">Exercise 19.1 <span class="tag exam">Exam-inspired</span> True or false? Justify. <span class="pts">(7 × 10 points)</span></div>
+    <ol class="tf-list">
+      <li>In the perpetual-youth model with capital and flat income profiles (\(\alpha=0\)), the steady state is dynamically efficient. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>True.</strong> With \(\alpha=0\) the steady state satisfies \(\mathcal F(\bar K)[\mathcal F'(\bar K)-\theta]=p(p+\theta)\bar K&gt;0\), so \(\bar r=\mathcal F'(\bar K)&gt;\theta&gt;0\). Hence \(\bar K&lt;K_{GR}\) (where \(\mathcal F'=0\)): no overaccumulation.</p></div></details></li>
+      <li>In the same model, the steady-state interest rate equals the rate of time preference, as in the Ramsey model. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>False</strong> unless \(p=0\). With \(\alpha=0\), \(\theta&lt;\bar r&lt;\theta+p\). Generational turnover keeps transferring capital to wealthless newborns, so aggregate saving is lower than in Ramsey and \(\bar K\) is smaller. Individual consumption grows at \(\bar r-\theta&gt;0\) over the life cycle.</p></div></details></li>
+      <li>A higher death rate \(p\) raises the steady-state capital stock, because people save more against an uncertain lifetime. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>False.</strong> \(\bar K\) is decreasing in \(p\). At fixed \(K\), the right side of \(\mathcal F/K=(p+\alpha)(p+\theta)/(\mathcal F'+\alpha-\theta)\) rises with \(p\), shifting the intersection left. A higher \(p\) raises the MPC \(\theta+p\) and speeds up turnover. With fair annuities there is no precautionary motive against death.</p></div></details></li>
+      <li>If labour income declines with age fast enough, the perpetual-youth economy can accumulate capital beyond the golden rule. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>True.</strong> \(\bar r&lt;0\) iff \((\alpha-\theta)\,\mathcal F(K_{GR})/K_{GR}&gt;(p+\alpha)(p+\theta)\). This needs \(\alpha&gt;\theta\), and given \(\alpha&gt;\theta\) it holds when \(p\) is small enough (Exercise 19.4). Agents save heavily for the part of life when their earnings have decayed.</p></div></details></li>
+      <li>As \(p\downarrow0\) (with \(\alpha=0\)), the steady state converges to the modified golden rule \(\mathcal F'(K)=\theta\). <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>True.</strong> The bounds \(\theta&lt;\mathcal F'(\bar K)&lt;\theta+p\) squeeze \(\mathcal F'(\bar K)\) to θ. In the limit the \(\dot C=0\) locus becomes the vertical line \(\mathcal F'(K)=\theta\) of the Ramsey model.</p></div></details></li>
+      <li>Because \(C=(\theta+p)(K+H)\) holds at every date, the saddle path \(C=S(K)\) is a straight line in the \((K,C)\) plane. <span class="tf-src">exam-inspired (slide 27)</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>False.</strong> Along the equilibrium path, \(H\) is itself a function of the state, \(H=\mathcal H(K)\), because wages and interest rates depend on the future path of \(K\). So \(S(K)=(\theta+p)[K+\mathcal H(K)]\), which is generally nonlinear. It is linear only in special cases where \(\mathcal H\) is affine in \(K\).</p></div></details></li>
+      <li>Starting from \(K(0)&lt;\bar K\), the interest rate falls monotonically along the equilibrium path while consumption rises. <span class="tf-src">exam-inspired (slide 29)</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>True.</strong> On the upward-sloping saddle path below the steady state, \(K\) and \(C\) rise monotonically. Then \(r=\mathcal F'(K)\) falls monotonically and the wage \(Y=\mathcal F-\mathcal F'K\) rises.</p></div></details></li>
+    </ol>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 19.2 <span class="tag exam">Exam-style</span></div>
-    <p>Let \(\mathcal F(K) = \sqrt K - 0.05K\), \(\theta=0.03\), \(p=0.02\), \(\alpha=0\).</p>
+    <div class="box-title">Exercise 19.2 <span class="tag proof">Proof</span> The steady state is a saddle <span class="pts">(40 points)</span></div>
     <ol class="parts" type="a">
-      <li>Compute the golden-rule capital stock. <div class="numcheck" data-answer="100" data-tol="0.002" data-prompt="K_GR ="></div></li>
-      <li>Compute \(K^{**}\) (\(\mathcal F'=\theta+p\)) and \(K^*\) (\(\mathcal F'=\theta\)). These bracket \(\bar K\).
-        <div class="numcheck" data-answer="25" data-tol="0.002" data-prompt="K** ="></div>
-        <div class="numcheck" data-answer="39.0625" data-tol="0.002" data-prompt="K* ="></div></li>
-      <li>Solving the steady-state equation numerically gives \(\bar K\approx 32.3\). Find \(\bar r\) to three decimals and confirm it lies in \((\theta,\theta+p)\). <div class="numcheck" data-answer="0.0379" data-tol="0.02" data-prompt="r̄ ≈"></div></li>
-      <li>Is this economy dynamically efficient? Would the answer change if \(\alpha\) rose to \(0.02\)? Argue from the comparative statics, without solving.</li>
+      <li>(10) Linearize \(\dot C=(\mathcal F'(K)+\alpha-\theta)C-(p+\alpha)(p+\theta)K\), \(\dot K=\mathcal F(K)-C\) around \((\bar K,\bar C)\).</li>
+      <li>(20) Show that the Jacobian has a negative determinant. [Hint: use the steady-state condition to replace \((p+\alpha)(p+\theta)\) by \(\mathcal F(\bar K)(\mathcal F'(\bar K)+\alpha-\theta)/\bar K\), and use that average product exceeds marginal product.]</li>
+      <li>(10) Conclude that there is one stable and one unstable eigenvalue, and find the slope of the saddle path at the steady state.</li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) \(\tfrac{1}{2\sqrt K} = 0.05\), so \(\sqrt K = 10\) and \(K_{GR}=100\). (b) \(\tfrac{1}{2\sqrt K} = 0.10\) gives \(K^{**}=25\); \(\tfrac{1}{2\sqrt K} = 0.08\) gives \(\sqrt K=6.25\), \(K^*=39.0625\). (c) \(\bar r = \tfrac{1}{2\sqrt{32.32}} - 0.05 \approx 0.0879 - 0.05 = 0.038 \in(0.03,0.05)\). ✓ (d) Yes, since \(\bar r>0\) and \(\bar K<K_{GR}\). Raising \(\alpha\) to \(0.02\) raises \(\bar K\) and lowers \(\bar r\), but \(\alpha=0.02<\theta\) and the condition for \(\bar r<0\) needs \(\alpha>\theta\). So the economy stays dynamically efficient.</p>
+      <p>(a) In the order \((K,C)\): \(J = \begin{pmatrix} \mathcal F' & -1 \\ \mathcal F''\bar C - (p+\alpha)(p+\theta) & \mathcal F'+\alpha-\theta \end{pmatrix}\), evaluated at \(\bar K\).<br>
+      (b) \(\det J = \mathcal F'(\mathcal F'+\alpha-\theta) + \mathcal F''\bar C - (p+\alpha)(p+\theta)\). Substituting, \(\det J = (\mathcal F'+\alpha-\theta)\big(\mathcal F' - \tfrac{\mathcal F}{\bar K}\big) + \mathcal F''\bar C\). The first factor is positive (we are left of \(\hat K\)), the second is negative by concavity with \(\mathcal F(0)=0\), and \(\mathcal F''\bar C&lt;0\). So \(\det J&lt;0\).<br>
+      (c) The product of the eigenvalues is \(\det J&lt;0\), so they are real with opposite signs, \(\lambda_s&lt;0&lt;\lambda_u\): a saddle. The first row gives \((\mathcal F'-\lambda_s)dK-dC=0\), so the saddle path has slope \(dC/dK=\mathcal F'(\bar K)-\lambda_s\). This is positive when \(\mathcal F'(\bar K)\ge0\).</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 19.3 <span class="tag exam">Exam-style</span> (when is the economy dynamically inefficient?)</div>
-    <p>Let \(F(K,1)=K^{a}\) with \(a=1/3\) and \(\delta=0.1\). Let \(\theta=0.01\), \(\alpha=0.05\).</p>
+    <div class="box-title">Exercise 19.3 <span class="tag slides">Slides pp.30–32</span> Comparative statics of the steady state <span class="pts">(40 points)</span></div>
+    <p>The steady state solves \(\dfrac{\mathcal F(\bar K)}{\bar K}=\dfrac{(p+\alpha)(p+\theta)}{\mathcal F'(\bar K)+\alpha-\theta}\) with \(\bar K&lt;\hat K\), where \(\mathcal F'(\hat K)=\theta-\alpha\).</p>
     <ol class="parts" type="a">
-      <li>Show that net average product at the golden rule equals \(\delta(1-a)/a\), and compute it.</li>
-      <li>Find the threshold death rate \(\bar p\) such that \(\bar r<0\) iff \(p<\bar p\). <div class="numcheck" data-answer="0.0617" data-tol="0.01" data-prompt="p̄ ≈"></div></li>
-      <li>Interpret: why do <em>longer</em> expected lifetimes make overaccumulation possible here, while they make it <em>impossible</em> when \(\alpha=0\)?</li>
+      <li>(10) Show that the left side is decreasing and the right side increasing in \(K\) on \((0,\hat K)\), so the steady state is unique.</li>
+      <li>(10) Show that \(\bar K\) is decreasing in \(p\) and in \(\theta\).</li>
+      <li>(10) With \(\alpha=0\), show \(\theta&lt;\mathcal F'(\bar K)&lt;\theta+p\). [Hint: evaluate \(g(K)=\mathcal F(K)[\mathcal F'(K)-\theta]-p(p+\theta)K\) at \(K^{**}\), where \(\mathcal F'(K^{**})=\theta+p\). Watch the direction of the concavity inequality; see the note in §6.]</li>
+      <li>(10) Show that \(\bar K\) is increasing in α, first near \(\alpha=0\) and then for all \(\alpha\ge0\).</li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) The golden rule has \(aK^{a-1}=\delta\), so \(K_{GR}^{a-1} = \delta/a\) and \(\mathcal F/K = K^{a-1}-\delta = \delta/a-\delta = \delta(1-a)/a = 0.2\).<br>
-      (b) We need \((\alpha-\theta)\cdot0.2 > (p+\alpha)(p+\theta)\), i.e. \(0.008 > p^2+0.06p+0.0005\). The positive root of \(p^2+0.06p-0.0075=0\) is \(\bar p = (-0.06+\sqrt{0.0336})/2\approx0.0617\). So \(\bar r<0\) iff \(p<0.0617\) (expected lifetime above about 16 years).<br>
-      (c) With \(\alpha>\theta\), people want to save for the period when their earnings have decayed. The longer they expect to live, the more they save, and turnover (which redistributes capital to wealthless newborns) is slower. With \(\alpha=0\), saving comes only from the \(\bar r>\theta\) tilt, which requires \(\bar r>0\). As \(p\to0\), the economy converges to Ramsey's modified golden rule \(\bar r=\theta>0\), never above the golden rule.</p>
+      <p>(a) \(\frac{d}{dK}\frac{\mathcal F}{K}=\frac{\mathcal F'K-\mathcal F}{K^2}&lt;0\). The right side's numerator is constant, and its denominator \(\mathcal F'(K)+\alpha-\theta\) is positive and decreasing on \((0,\hat K)\), so the right side is increasing. It goes to \(+\infty\) as \(K\uparrow\hat K\). With Inada conditions, the left side exceeds the right side near 0, so there is exactly one crossing.<br>
+      (b) At fixed \(K\), raising \(p\) raises the numerator. Raising θ raises the numerator and lowers the denominator. Either way the right-side curve shifts up, so it crosses the decreasing left side at a smaller \(K\).<br>
+      (c) The right side is positive, so \(\mathcal F'(\bar K)&gt;\theta\). At \(K^{**}\), \(g(K^{**})=p[\mathcal F(K^{**})-\mathcal F'(K^{**})K^{**}]&gt;0\) by concavity. Since \(g&gt;0\) exactly to the left of \(\bar K\), we get \(K^{**}&lt;\bar K\), i.e. \(\mathcal F'(\bar K)&lt;\theta+p\).<br>
+      (d) It suffices that \((p+\alpha)/(\mathcal F'+\alpha-\theta)\) falls with α at fixed \(K\). Its derivative is \((\mathcal F'-\theta-p)/(\mathcal F'+\alpha-\theta)^2\), negative iff \(\mathcal F'(\bar K)&lt;\theta+p\). That holds at \(\alpha=0\) by (c). As α rises, \(\bar K\) rises and \(\mathcal F'(\bar K)\) falls, so the inequality keeps holding: \(\bar K\) is increasing for all \(\alpha\ge0\).</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 19.4 <span class="tag exam">Exam-style</span> (an unexpected rise in mortality)</div>
-    <p>The economy (\(\alpha=0\)) is in steady state. At \(t=0\) the death rate rises unexpectedly and permanently from \(p\) to \(p'>p\). Describe the paths of \(K\), \(C\) and \(r\) using the phase diagram. Does \(C\) jump up or down on impact? Check your answer with the interactive figure.</p>
+    <div class="box-title">Exercise 19.4 <span class="tag exam">Exam-inspired</span> When is the economy dynamically inefficient? <span class="pts">(40 points)</span></div>
+    <ol class="parts" type="a">
+      <li>(15) Show that \(\bar r&lt;0\) (equivalently \(\bar K&gt;K_{GR}\)) if and only if \((\alpha-\theta)\,\mathcal F(K_{GR})/K_{GR}&gt;(p+\alpha)(p+\theta)\). [Hint: \(\bar K&gt;K_{GR}\) iff the \(\dot C=0\) locus lies below \(C=\mathcal F(K)\) at \(K_{GR}\).]</li>
+      <li>(10) Let \(F(K,1)=K^a\) with depreciation δ, so \(\mathcal F(K)=K^a-\delta K\). Show that \(\mathcal F(K_{GR})/K_{GR}=\delta(1-a)/a\).</li>
+      <li>(10) For the Cobb–Douglas case with \(\alpha&gt;\theta\), find the threshold \(\bar p\) in closed form such that \(\bar r&lt;0\) iff \(p&lt;\bar p\).</li>
+      <li>(5) Why do <em>longer</em> expected lifetimes make overaccumulation possible when \(\alpha&gt;\theta\), but impossible when \(\alpha=0\)?</li>
+    </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>The \(\dot K=0\) locus does not depend on \(p\). The \(\dot C=0\) locus shifts up (bigger numerator), so the new steady state has \(\bar K'<\bar K\), and \(\bar C' = \mathcal F(\bar K')<\bar C\) since we are left of the golden rule. \(K\) cannot jump, so on impact \(C\) jumps onto the <em>new</em> saddle path at the old \(K=\bar K\). To the right of the new steady state, the new saddle path lies <em>above</em> \(C=\mathcal F(K)\) (that is where \(\dot K<0\)). So \(C(0^+) > \mathcal F(\bar K) = \bar C\): <strong>consumption jumps up</strong>. Then \(K\) and \(C\) fall monotonically to the new steady state, and \(r\) rises monotonically. Intuition: higher mortality raises everyone's marginal propensity to consume out of wealth, \(p+\theta\), so current consumption rises and saving falls.</p>
+      <p>(a) The \(\dot C=0\) locus \(C=(p+\alpha)(p+\theta)K/(\mathcal F'+\alpha-\theta)\) starts below \(\mathcal F\) near 0, is increasing and convex, and crosses \(\mathcal F\) once at \(\bar K\). So \(\bar K&gt;K_{GR}\) iff the locus is still below \(\mathcal F\) at \(K_{GR}\). For the locus to be defined at \(K_{GR}\) with \(\mathcal F'(K_{GR})=0\), we need \(\alpha&gt;\theta\). The condition is then \((p+\alpha)(p+\theta)K_{GR}/(\alpha-\theta)&lt;\mathcal F(K_{GR})\), which rearranges to the stated inequality. If \(\alpha\le\theta\), then \(\hat K\le K_{GR}\), so \(\bar K&lt;K_{GR}\) automatically.<br>
+      (b) \(aK_{GR}^{a-1}=\delta\), so \(\mathcal F/K=K_{GR}^{a-1}-\delta=\delta/a-\delta\).<br>
+      (c) We need \(p^2+(\alpha+\theta)p+\alpha\theta&lt;(\alpha-\theta)\delta(1-a)/a\equiv M\). The left side is increasing in \(p\ge0\) and equals \(\alpha\theta\) at \(p=0\). So \(\bar p=\tfrac12\big[-(\alpha+\theta)+\sqrt{(\alpha-\theta)^2+4M}\big]\), which is positive iff \(M&gt;\alpha\theta\).<br>
+      (d) With \(\alpha&gt;\theta\), agents save for the period when their earnings have decayed. The longer they expect to live, the more they save, and the slower turnover redistributes capital to newborns. With \(\alpha=0\), the only saving motive is the tilt \(\bar r&gt;\theta\), which requires \(\bar r&gt;0\). As \(p\to0\) the steady state approaches \(\bar r=\theta&gt;0\), never past the golden rule.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 19.5 <span class="tag slides">Slides p.27</span> <span class="tag proof">Proof</span></div>
-    <p>(a) Show that any path starting <em>below</em> the saddle path reaches \(C=0\) in finite time when \(p>0\). (b) Explain why this argument fails when \(p=\alpha=0\), and which condition replaces it.</p>
+    <div class="box-title">Exercise 19.5 <span class="tag exam">Exam-inspired</span> An unexpected rise in mortality <span class="pts">(30 points)</span></div>
+    <p>The economy (\(\alpha=0\)) is in steady state. At \(t=0\) the death rate rises unexpectedly and permanently from \(p\) to \(p'&gt;p\).</p>
+    <ol class="parts" type="a">
+      <li>(10) Which locus shifts, and in which direction? Compare the new steady state with the old.</li>
+      <li>(15) Does \(C\) jump up or down on impact? Describe the subsequent paths of \(K\), \(C\) and \(r\).</li>
+      <li>(5) Give the economic intuition for the impact effect.</li>
+    </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) Take a path below \(S\). It eventually enters the region \(\mathcal R = \{C < \mathcal F(K),\ C < \text{the } \dot C=0 \text{ locus}\}\), where \(\dot K>0\) and \(\dot C<0\). (If it starts left of \(\bar K\) above the \(\dot C=0\) locus, it moves up-right but passes <em>below</em> the steady state, so it crosses the locus.) <strong>\(\mathcal R\) is invariant.</strong> The path moves right and down, while the \(\dot C=0\) locus is increasing, so it cannot cross that locus again. At the \(\dot K=0\) boundary, \(\dot K=0\) and \(\dot C<0\), so the path moves straight down, away from the boundary. Inside \(\mathcal R\), \(K\) is increasing and bounded by \(K_{\max}\), and \(C\) is decreasing. If \(C\) stayed positive, \((K,C)\) would converge to a rest point of the system in the closure of \(\mathcal R\). The only candidates with \(K>0\) are \((\bar K,\bar C)\), which is not in that closure for a path strictly below \(S\), and points with \(C=0\). But at \(C=0\), \(\dot C = -(p+\alpha)(p+\theta)K<0\), so no such point is a rest point. Hence \(C\) reaches \(0\) in finite time with \(\dot C<0\), and the path becomes infeasible.<br>
-      (b) With \(p=\alpha=0\), \(\dot C = (\mathcal F'-\theta)C\) is proportional to \(C\), so \(C\) decays only exponentially and never reaches 0. The path converges to \((K_{\max},0)\), which is feasible but violates the transversality condition \(\lim_{T\to\infty}K(T)e^{-\int_0^T r}=0\), since \(r=\mathcal F'(K_{\max})<0\). That is the "slightly different argument" of slide 34.</p>
+      <p>(a) \(\dot K=0\) does not involve \(p\). The \(\dot C=0\) locus shifts up, because its numerator \(p(p+\theta)\) is bigger. So \(\bar K'&lt;\bar K\) and \(\bar C'=\mathcal F(\bar K')&lt;\bar C\), since we are left of the golden rule.<br>
+      (b) \(K\) is predetermined, so \(C\) jumps onto the new saddle path at the old \(\bar K\). To the right of the new steady state, the saddle path lies above \(C=\mathcal F(K)\), where \(\dot K&lt;0\). So \(C(0^+)&gt;\bar C\): consumption jumps <strong>up</strong>. Then \(K\) and \(C\) fall monotonically to the new steady state, and \(r\) rises monotonically.<br>
+      (c) Higher mortality raises everyone's MPC out of wealth, \(\theta+p\), so consumption rises and saving falls on impact.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 19.6 <span class="tag slides">Slides p.29</span></div>
-    <p>Starting from \(K(0) > \bar K\), describe the paths of \(C\), \(K\), \(Y\), \(r\), \(H\). Then explain why aggregate human wealth \(H\) can move even though nothing happens to any individual's labour endowment profile.</p>
+    <div class="box-title">Exercise 19.6 <span class="tag slides">Slides pp.27, 34</span> <span class="tag proof">Proof</span> Ruling out the other paths <span class="pts">(30 points)</span></div>
+    <ol class="parts" type="a">
+      <li>(20) Show that any path starting <em>below</em> the saddle path reaches \(C=0\) in finite time when \(p&gt;0\).</li>
+      <li>(10) Explain why this argument fails when \(p=\alpha=0\), and which condition replaces it.</li>
+    </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>Everything reverses: \(K\), \(C\), \(Y\) and \(H\) fall monotonically and \(r\) rises monotonically (set \(K(0)/\bar K>1\) in the transition figure). \(H\) is a <em>price-weighted</em> object: the present value of wages, which depend on \(K\), discounted at \(r+p+\alpha\), where \(r\) also depends on \(K\). It moves with general-equilibrium prices even though each person's labour <em>services</em> profile is fixed.</p>
+      <p>(a) A path below \(S\) eventually enters \(\mathcal R=\{C&lt;\mathcal F(K),\ C&lt;\text{the }\dot C=0\text{ locus}\}\), where \(\dot K&gt;0\) and \(\dot C&lt;0\). \(\mathcal R\) is invariant: the path moves right and down while the \(\dot C=0\) locus is increasing, and on the \(\dot K=0\) boundary the path moves straight down. Inside \(\mathcal R\), \(K\) is increasing and bounded and \(C\) is decreasing. If \(C\) stayed positive, the path would converge to a rest point in the closure of \(\mathcal R\). But \((\bar K,\bar C)\) is not in that closure, and at \(C=0\), \(\dot C=-(p+\alpha)(p+\theta)K&lt;0\), so no point with \(C=0\) is a rest point. Hence \(C\) hits 0 in finite time, which is infeasible.<br>
+      (b) With \(p=\alpha=0\), \(\dot C=(\mathcal F'-\theta)C\) is proportional to \(C\), so \(C\) decays only exponentially and never reaches 0. The path converges to \((K_{\max},0)\), which is feasible but violates the transversality condition \(\lim_{T\to\infty}K(T)e^{-\int_0^Tr}=0\), since \(r=\mathcal F'(K_{\max})&lt;0\). That is the "slightly different argument" of slide 34.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 19.7 <span class="tag slides">Slides pp.27, 29</span> Adjustment and the saddle path <span class="pts">(30 points)</span></div>
+    <ol class="parts" type="a">
+      <li>(15) Starting from \(K(0)&gt;\bar K\), describe the paths of \(C\), \(K\), \(Y\), \(r\) and \(H\). Are they monotone?</li>
+      <li>(10) What is the relationship between \(C=S(K)\) and \(C=(\theta+p)(K+H)\)? Is \(S\) necessarily linear?</li>
+      <li>(5) Explain why aggregate human wealth \(H\) can move even though no individual's labour-services profile changes.</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Everything reverses relative to \(K(0)&lt;\bar K\): \(K\), \(C\) and \(Y=\mathcal F-\mathcal F'K\) fall monotonically, and \(r=\mathcal F'(K)\) rises monotonically. \(H\), the PV of wages discounted at \(r+p+\alpha\), falls because wages fall and discount rates rise.<br>
+      (b) The consumption function holds on every equilibrium path. On the saddle path, \(H\) is a function of the state, \(H=\mathcal H(K)\), so \(S(K)=(\theta+p)[K+\mathcal H(K)]\). It is not linear in general, because \(\mathcal H\) inherits the curvature of \(\mathcal F\) through future wages and rates.<br>
+      (c) \(H\) is price-weighted: a present value of market wages at market interest rates. Both prices move with \(K\) in general equilibrium.</p>
     </div></details>
   </div>
 
@@ -380,8 +421,8 @@
     <ul>
       <li>With capital: \(\dot C = [\mathcal F'(K)+\alpha-\theta]C - (p+\alpha)(p+\theta)K\) and \(\dot K = \mathcal F(K)-C\). It is Ramsey plus a generational-turnover term.</li>
       <li>\(\dot K=0\): \(C=\mathcal F(K)\), hump-shaped with its peak at the golden rule. \(\dot C=0\): increasing and convex, with an asymptote at \(\mathcal F'(\hat K)=\theta-\alpha\). The steady state is unique (falling average product vs rising RHS), and it is a saddle.</li>
-      <li>From \(K(0)<\bar K\): \(K,C,Y,H\) rise and \(r\) falls, monotonically. \(S(K) = (\theta+p)(K+h(K))\) is nonlinear in general.</li>
-      <li>\(\bar K\) falls with \(p\) and \(\theta\) and rises with \(\alpha\). With \(\alpha=0\): \(\theta<\bar r<\theta+p\), so the economy is dynamically efficient. With \(\alpha>\theta\) and long enough lifetimes, \(\bar r<0\) is possible.</li>
+      <li>From \(K(0)\lt \bar K\): \(K,C,Y,H\) rise and \(r\) falls, monotonically. \(S(K) = (\theta+p)(K+h(K))\) is nonlinear in general.</li>
+      <li>\(\bar K\) falls with \(p\) and \(\theta\) and rises with \(\alpha\). With \(\alpha=0\): \(\theta\lt \bar r\lt \theta+p\), so the economy is dynamically efficient. With \(\alpha>\theta\) and long enough lifetimes, \(\bar r<0\) is possible.</li>
       <li>As \(p\to0\) (forcing \(\alpha=0\)), we get Ramsey: a vertical \(\dot C=0\) locus at \(\mathcal F'=\theta\), and the transversality condition rules out the bad paths.</li>
     </ul>
   </div>

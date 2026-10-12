@@ -54,7 +54,7 @@
     <div id="ucs-fig"></div>
     <div id="ucs-read"></div>
     <div class="verdict" id="ucs-verdict"></div>
-    <div class="caption"><b>Interactive.</b> One household with income \(M=1\) facing prices \((p,1)\). <span style="color:#2a78d6">Blue</span>: the upper contour set of the chosen bundle \(\bar x\). <span style="color:#52514e">Gray</span>: the strictly cheaper half-space \(\{x: p\cdot x<p\cdot\bar x\}\). <span style="color:#eb6834">Orange</span>: their overlap, i.e. bundles that are weakly preferred <em>and</em> cheaper. Under Cobb–Douglas (LNS holds) there is no orange: this is equation (1) of the proof. Press <b>"toggle satiation"</b> to switch to \(u=\min\{x_1x_2,\kappa\}\), which violates LNS. The orange region appears, and with it the gap through which a Pareto improvement slips (Exercise 3.5).</div>
+    <div class="caption"><b>Interactive.</b> One household with income \(M=1\) facing prices \((p,1)\). <span style="color:#2a78d6">Blue</span>: the upper contour set of the chosen bundle \(\bar x\). <span style="color:#52514e">Gray</span>: the strictly cheaper half-space \(\{x: p\cdot x\lt p\cdot\bar x\}\). <span style="color:#eb6834">Orange</span>: their overlap, i.e. bundles that are weakly preferred <em>and</em> cheaper. Under Cobb–Douglas (LNS holds) there is no orange: this is equation (1) of the proof. Press <b>"toggle satiation"</b> to switch to \(u=\min\{x_1x_2,\kappa\}\), which violates LNS. The orange region appears, and with it the gap through which a Pareto improvement slips (Exercise 3.5).</div>
   </div>
   <script>
   (function () {
@@ -109,7 +109,7 @@
       <li>
         <strong>Weakly better costs weakly more (uses LNS).</strong>
         $$p\cdot x^i\ \ge\ p\cdot\bar x^i\quad\text{for all } i\in I. \tag{1}$$
-        Suppose instead \(p\cdot x^i<p\cdot\bar x^i\) for some \(i\). Let \(\delta=p\cdot\bar x^i-p\cdot x^i>0\) and choose \(\varepsilon\) with \(\|p\|\varepsilon<\delta\). LNS gives \(\hat x\in X^i\) with \(\|\hat x-x^i\|<\varepsilon\) and \(u^i(\hat x)>u^i(x^i)\ge u^i(\bar x^i)\). By Cauchy–Schwarz, \(p\cdot\hat x<p\cdot x^i+\delta=p\cdot\bar x^i\), so \(\hat x\) is within \(i\)'s budget (\(\bar x^i\) was affordable). It is strictly better than \(\bar x^i\), contradicting the fact that \(\bar x^i\) maximizes utility on the budget set. The slides compress this to "by choosing the neighborhood small enough"; the ε–δ choice above is that sentence written out.
+        Suppose instead \(p\cdot x^i\lt p\cdot\bar x^i\) for some \(i\). Let \(\delta=p\cdot\bar x^i-p\cdot x^i>0\) and choose \(\varepsilon\) with \(\|p\|\varepsilon\lt \delta\). LNS gives \(\hat x\in X^i\) with \(\|\hat x-x^i\|\lt \varepsilon\) and \(u^i(\hat x)>u^i(x^i)\ge u^i(\bar x^i)\). By Cauchy–Schwarz, \(p\cdot\hat x\lt p\cdot x^i+\delta=p\cdot\bar x^i\), so \(\hat x\) is within \(i\)'s budget (\(\bar x^i\) was affordable). It is strictly better than \(\bar x^i\), contradicting the fact that \(\bar x^i\) maximizes utility on the budget set. The slides compress this to "by choosing the neighborhood small enough"; the ε–δ choice above is that sentence written out.
       </li>
       <li>
         <strong>Strictly better costs strictly more (uses only optimality).</strong>
@@ -209,6 +209,33 @@
   <!-- ─────────────────────────────────────────── -->
   <h2>5. Exercises</h2>
 
+  <p>The First Welfare Theorem is the single most tested result in this part of the course. On Alvarez's exams it appears as true/false statements that test its <em>exact</em> hypotheses (LNS, finitely many goods or a finite value of the aggregate endowment, and nothing about convexity), and as yes/no efficiency checks at the end of longer problems. The traps below come from past exams and from mistakes found in student review notes.</p>
+
+  <div class="box exercise">
+    <div class="box-title">True or false? Justify. <span class="tag past">Past exam</span> <span class="tag exam">Exam-inspired</span></div>
+    <p>For each statement, answer True or False and justify in at most four lines.</p>
+    <ol class="tf-list">
+      <li>If there are finitely many commodities and preferences satisfy local non-satiation, the allocation of a competitive equilibrium is Pareto efficient. <span class="tf-src">Fall 2025 MT1 I.1</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> These are exactly the hypotheses of the 1WT. Finitely many goods make every value \(p\cdot\sum_ix^i\) finite, so the inequalities from LNS and optimality can be summed across households and contradict feasibility.</p></div></details></li>
+      <li>The First Welfare Theorem requires all utility functions to be quasi-concave. <span class="tf-src">Fall 2005 MT, Ex. 1 Q1</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The proof uses only LNS (equation (1)), optimality (2), profit maximization (4) and feasibility. Quasi-concavity is a hypothesis of the <em>Second</em> Welfare Theorem and of existence. Exercise 4.1 gives a CE with strictly convex utilities that is PO.</p></div></details></li>
+      <li>The First Welfare Theorem requires convex production sets. <span class="tf-src">exam-inspired (review-note error)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> Profit maximization is used only as \(p\cdot\bar y^j\ge p\cdot y^j\) for feasible \(y^j\); no convexity is needed. With increasing returns a price-taking CE may fail to <em>exist</em>, but if one exists it is PO. (One set of student notes lists "convexity" as a 1WT requirement; it isn't.)</p></div></details></li>
+      <li>A competitive equilibrium is always Pareto efficient. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> It needs LNS (Exercise 3.5 is a counterexample with satiation), price-taking with complete markets and no externalities (Lesson 5), and a finite value of the aggregate endowment. The OLG model violates the last one (Lesson 12).</p></div></details></li>
+      <li>Under local non-satiation, the First Welfare Theorem holds whatever the number of agents and commodities. <span class="tf-src">exam-inspired (review-note error)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> With infinitely many agents <em>and</em> infinitely many goods, \(p\cdot\sum_i\bar x^i\) can be infinite, and the step "sum the inequalities across households" compares \(\infty\) with \(\infty\). The endowment OLG economy with \(\bar r<0\) is a CE that is not PO. Either finitely many goods (with a bounded aggregate endowment), or finitely many agents with strictly increasing utilities, is enough to keep that value finite.</p></div></details></li>
+      <li>Suppose every agent is endowed with the same bundle \(\bar e/I\), there are finitely many goods, and preferences satisfy LNS. Then the competitive-equilibrium allocation is both envy-free and Pareto optimal. <span class="tf-src">Fall 2025 MT1 I.6, extended</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> Envy-free: all agents have the same budget set, so nobody can prefer a bundle she could have bought. Pareto optimal: by the 1WT. So efficiency and this notion of fairness are compatible.</p></div></details></li>
+      <li>In the neoclassical growth model with an infinitely-lived representative agent, the initial capital stock can be so high that the real interest rate at \(t=0\) is negative. <span class="tf-src">Fall 2025 Final Q4.1</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> \(r(0)=f'(k_0)-\delta\), and \(f'(k_0)\to0\) as \(k_0\to\infty\) (Inada), so \(r(0)<0\) once \(f'(k_0)\lt \delta\).</p></div></details></li>
+      <li>In that same model, the initial capital stock can be so high that the equilibrium is not Pareto optimal. <span class="tf-src">Fall 2025 Final Q4.2</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> There is one agent. The equilibrium allocation maximizes her utility over everything that is feasible, so no feasible allocation makes her better off. A negative \(r\) is harmless here: it does not make the value of her endowment infinite, since \(r\) converges to \(\rho>0\). Negative rates signal inefficiency only in OLG-type economies (Exercise 4.6).</p></div></details></li>
+      <li>In the proof of the 1WT, local non-satiation is needed only for the households that are <em>indifferent</em> between their equilibrium bundle and the dominating one. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> For strictly better-off households, revealed preference alone gives \(p\cdot x^i>p\cdot\bar x^i\). LNS is needed to rule out a weakly-preferred bundle being strictly <em>cheaper</em>. That is why the 1WT for weak Pareto optimality needs no LNS at all (Exercise 4.3).</p></div></details></li>
+    </ol>
+  </div>
+
   <div class="box exercise">
     <div class="box-title">Exercise 4.1 <span class="tag slides">Slides p.19</span> (convex utility)</div>
     <p>"Suppose that all \(u\) are convex (instead of concave). Does the first welfare theorem hold?"</p>
@@ -226,19 +253,19 @@
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 4.2 <span class="tag exam">Exam-style</span> (the proof with numbers)</div>
-    <p>Take the CE of Exercise 2.2: \(p=(3/4,\,1)\), \(\bar x^A=(1/3,1/2)\), \(\bar x^B=(2/3,1/2)\), \(u^A=\frac13\log x_1+\frac23\log x_2\), \(u^B=\frac12\log x_1+\frac12\log x_2\). A planner proposes to give A the bundle \((0.25,\,0.6)\) and B the rest.</p>
+    <div class="box-title">Exercise 4.2 <span class="tag exam">Exam-inspired</span> (a second proof: CE solve a weighted planner problem)</div>
+    <p>Review notes for this course present the 1WT through first-order conditions, and the Fall 2025 midterm tested its key step (Exercise 2.5). Take a pure exchange economy with finitely many goods, and \(u^i\) strictly concave, strictly increasing, differentiable, with Inada conditions. Let \((p,\bar x)\) be a CE with budget multipliers \(\mu^i\).</p>
     <ol class="parts" type="a">
-      <li>Check that A is better off. What does this bundle cost at \(p\)?
-        <div class="numcheck" data-answer="0.7875" data-tol="0.001" data-prompt="p·xᴬ ="></div></li>
-      <li>What is the value of B's new bundle at \(p\)?
-        <div class="numcheck" data-answer="0.9625" data-tol="0.001" data-prompt="p·xᴮ ="></div></li>
-      <li>Explain, using Step 2 of the proof applied to B, why B must be worse off, and confirm numerically.</li>
+      <li>Show that \(\bar x\) satisfies the first-order conditions of \(\max\sum_i\lambda^iu^i(x^i)\) subject to \(\sum_ix^i=\sum_ie^i\), for \(\lambda^i=1/\mu^i\). <span class="pts">(10 pts)</span></li>
+      <li>Explain why those first-order conditions are also sufficient here. One line. <span class="pts">(5 pts)</span></li>
+      <li>Show that a solution of the weighted planner problem with all \(\lambda^i>0\) is Pareto optimal. <span class="pts">(10 pts)</span></li>
+      <li>Conclude the 1WT. Then list the assumptions this proof used that the proof in §3 (Steps 1–5) did not need. <span class="pts">(10 pts)</span></li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) \(u^A(0.25,0.6)=\tfrac13\ln0.25+\tfrac23\ln0.6\approx-0.803 > u^A(\bar x^A)=\tfrac13\ln\tfrac13+\tfrac23\ln\tfrac12\approx-0.828\). Cost: \(0.75\cdot0.25+0.6=0.7875>p\cdot\bar x^A=0.75\), as equation (2) predicts.<br>
-      (b) B gets \((0.75,0.4)\), worth \(0.75\cdot0.75+0.4=0.9625\).<br>
-      (c) Total value is fixed at \(p\cdot(1,1)=1.75\). A's bundle rose in value by 0.0375, so B's fell by the same amount: \(0.9625<p\cdot\bar x^B=1\). B's new bundle is therefore <em>cheaper</em> than \(\bar x^B\). If B weakly preferred it, equation (1) would be violated. So B must be strictly worse off. Check: \(u^B(0.75,0.4)=\tfrac12(\ln0.75+\ln0.4)\approx-0.602<u^B(\bar x^B)=\tfrac12(\ln\tfrac23+\ln\tfrac12)\approx-0.549\). ✓</p>
+      <p>(a) CE FOC: \(u^i_\ell(\bar x^i)=\mu^ip_\ell\). Planner FOC: \(\lambda^iu^i_\ell(x^i)=\gamma_\ell\). With \(\lambda^i=1/\mu^i\) and \(\gamma_\ell=p_\ell\), the CE FOCs are the planner FOCs, and \(\bar x\) is feasible.<br>
+      (b) The objective is a positively weighted sum of concave functions and the constraints are linear, so any point satisfying the FOCs (KKT) is a global maximum.<br>
+      (c) If a feasible \(x'\) Pareto-dominated the solution \(\bar x\), then \(u^i(x'^i)\ge u^i(\bar x^i)\) for all \(i\) with one strict, so \(\sum_i\lambda^iu^i(x'^i)>\sum_i\lambda^iu^i(\bar x^i)\) because every \(\lambda^i>0\). That contradicts optimality of \(\bar x\).<br>
+      (d) (a)–(c) give: every CE allocation is PO. This proof used differentiability, concavity of \(u^i\) (for sufficiency), interior solutions (Inada) and no production. The slides' proof needs only LNS and is therefore far more general; but this version is useful because it delivers the weights \(\lambda^i=1/\mu^i\) explicitly.</p>
     </div></details>
   </div>
 
@@ -251,7 +278,7 @@
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 4.4 <span class="tag exam">Exam-style</span> (locate the broken line)</div>
+    <div class="box-title">Exercise 4.4 <span class="tag exam">Exam-inspired</span> (locate the broken line)</div>
     <p>For each modification, say whether the 1WT can fail and identify the first equation of the proof, (1)–(4) or Step 5, that can no longer be established:</p>
     <ol class="parts" type="a">
       <li>One household's utility is \(\min\{x_1+x_2,\,1\}\).</li>
@@ -272,6 +299,21 @@
     <p>Show that in any CE where some household satisfies LNS, \(p\ne 0\). Where is this implicitly needed in Step 1?</p>
     <details class="solution"><summary>Show solution</summary><div class="body">
       <p>If \(p=0\), every bundle in \(X^i\) is affordable. LNS at \(\bar x^i\) gives a strictly better \(\hat x\in X^i\), which is affordable. This contradicts optimality, so \(p\ne0\). In the proof, \(p=0\) would make every valuation trivially zero, and (2) would read \(0>0\). The fact you just proved says this case never arises, so the price comparisons in Steps 1–5 are never vacuous. (Individual prices can still be zero, e.g. for a good nobody wants.)</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 4.6 <span class="tag past">Past exam: Fall 2025 Final Q4 (20 pts)</span> (negative interest rates without inefficiency)</div>
+    <p>Consider the continuous-time neoclassical growth model with fixed labour supply and an infinitely-lived representative agent. Utility and production functions are strictly increasing, strictly concave and satisfy Inada conditions; capital depreciates at rate \(\delta>0\), so \(r(t)=f'(k(t))-\delta\).</p>
+    <ol class="parts" type="a">
+      <li>Can the initial capital stock be so high that \(r(0)<0\)? <span class="pts">(10 pts)</span></li>
+      <li>Can there be an initial condition with capital so high that the equilibrium is <em>not</em> Pareto optimal? Answer yes or no. <span class="pts">(10 pts)</span></li>
+      <li>(Not on the exam.) In two or three lines, explain why a negative interest rate signals inefficiency in the endowment OLG model (Lesson 10) but not here. Name the hypothesis of the 1WT that differs. </li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) <strong>Yes.</strong> By Inada, \(f'(k_0)\to0\) as \(k_0\to\infty\), so for \(k_0\) large, \(f'(k_0)\lt \delta\) and \(r(0)<0\). Capital is so abundant that it earns less than it depreciates.<br>
+      (b) <strong>No.</strong> With a single (representative) agent and complete markets, the equilibrium allocation is the planner's solution: it maximizes her utility over the feasible set, so nothing feasible can make her better off. The high \(k_0\) is simply consumed or run down; \(r(t)\) rises toward \(\rho\) (the modified golden rule) as capital falls.<br>
+      (c) In OLG there are infinitely many agents <em>and</em> infinitely many goods, and with \(r<0\) forever the value of the aggregate endowment \(\sum_tp_t\bar e_t\) is infinite: the 1WT proof breaks at the summation step. Here there is one agent, and \(r(t)\to\rho>0\), so the value of her lifetime endowment is finite and the 1WT applies.</p>
     </div></details>
   </div>
 

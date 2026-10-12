@@ -56,7 +56,7 @@
     <tr><td>HH</td><td>\(X^i\) convex; \(u^i\) continuous; \(u^i(x')>u^i(x)\Rightarrow u^i(\theta x+(1-\theta)x')>u^i(x)\ \forall\theta\in(0,1)\)</td><td>2WT</td></tr>
     <tr><td>FF</td><td>Aggregate \(Y=\sum_jY^j\) convex</td><td>2WT</td></tr>
     <tr><td>Non-satiated \(h\)</td><td>\(\exists h,\tilde x^h:\ u^h(\tilde x^h)>u^h(\bar x^h)\)</td><td>2WT Step 3</td></tr>
-    <tr><td>Arrow</td><td>\(\forall i\ \exists\tilde x^i\in X^i:\ p\,\tilde x^i<p\,\bar x^i\) (not a cheapest point)</td><td>QE ⇒ CE</td></tr>
+    <tr><td>Arrow</td><td>\(\forall i\ \exists\tilde x^i\in X^i:\ p\,\tilde x^i\lt p\,\bar x^i\) (not a cheapest point)</td><td>QE ⇒ CE</td></tr>
   </table>
 
   <h2>1WT: CE ⇒ PO (under LNS) <span class="see"><a href="../lessons/0004-first-welfare-theorem.html">L4</a></span></h2>
@@ -96,7 +96,7 @@
       <li>Minkowski (needs \(\operatorname{Int}B\ne\emptyset\), e.g. free disposal): \(p\ne0\), \(p\,x\ge p\,z\ \forall x\in A,z\in B\). (6)</li>
       <li>\(\bar x=\sum\bar x^i\in A\), \(\bar z=\sum\bar y^j+\sum e^i\in B\), \(\bar x=\bar z\) ⇒ \(p\bar x=\min_Ap\,x=\max_Bp\,z\). (7)</li>
       <li>Firm \(j\) with \(p\hat y>p\bar y^j\): \(\hat z=\hat y+\sum_{k\ne j}\bar y^k+\sum e^i\in B\) has \(p\hat z>p\bar x\). Contradicts (6).</li>
-      <li>Household \(i\) with \(u^i(\hat x)\ge u^i(\bar x^i)\), \(p\hat x<p\bar x^i\): \(\hat a=\hat x+\sum_{k\ne i}\bar x^k\in A\) has \(p\hat a<p\bar z\). Contradicts (6). ∎</li>
+      <li>Household \(i\) with \(u^i(\hat x)\ge u^i(\bar x^i)\), \(p\hat x\lt p\bar x^i\): \(\hat a=\hat x+\sum_{k\ne i}\bar x^k\in A\) has \(p\hat a\lt p\bar z\). Contradicts (6). ∎</li>
     </ol>
   </div>
   <p>Monotone \(u^i\) ⇒ \(p\ge0\): otherwise \(\bar x+te_k\in A\) and \(p\cdot(\bar x+te_k)\to-\infty\).</p>
@@ -107,7 +107,7 @@
       <p>Suppose \(\hat x\) with \(p\hat x\le p\bar x^i\), \(u(\hat x)>u(\bar x^i)\). Let \(x^\theta=\theta\tilde x^i+(1-\theta)\hat x\).</p>
       <ol>
         <li>Continuity, \(\theta\) small: \(u(x^\theta)>u(\bar x^i)\).</li>
-        <li>\(p\,x^\theta<\theta p\bar x^i+(1-\theta)p\bar x^i=p\bar x^i\).</li>
+        <li>\(p\,x^\theta\lt \theta p\bar x^i+(1-\theta)p\bar x^i=p\bar x^i\).</li>
         <li>This contradicts expenditure minimization. ∎</li>
       </ol>
     </div>

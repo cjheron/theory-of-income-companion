@@ -131,7 +131,7 @@
   <ul>
     <li><strong>Two steady states:</strong> \(B^*=0\) and \(\bar B = \dfrac{(\alpha-\theta)\,Y}{(p+\alpha)(p+\theta)}\).</li>
     <li>\(\bar B > 0\) iff \(\alpha>\theta\), i.e. iff the autarky interest rate \(\bar r=\theta-\alpha\) is <strong>negative</strong>, which is the dynamically inefficient case.</li>
-    <li><strong>Stability.</strong> \(d\dot B/dB = 2kB/Y + \theta - \alpha\). At \(B=0\) it equals \(\theta-\alpha\); at \(\bar B\) it equals \(2(\alpha-\theta) + \theta - \alpha = \alpha-\theta\). With \(\bar r<0\): \(0\) is stable and \(\bar B\) is unstable. If \(B(0)<\bar B\), debt shrinks to 0. If \(B(0)>\bar B\), debt explodes (\(\dot B\sim kB^2\) blows up in finite time), so there is no equilibrium.</li>
+    <li><strong>Stability.</strong> \(d\dot B/dB = 2kB/Y + \theta - \alpha\). At \(B=0\) it equals \(\theta-\alpha\); at \(\bar B\) it equals \(2(\alpha-\theta) + \theta - \alpha = \alpha-\theta\). With \(\bar r<0\): \(0\) is stable and \(\bar B\) is unstable. If \(B(0)\lt \bar B\), debt shrinks to 0. If \(B(0)>\bar B\), debt explodes (\(\dot B\sim kB^2\) blows up in finite time), so there is no equilibrium.</li>
     <li><strong>At \(\bar B\) the interest rate is exactly zero:</strong> \(r(\bar B) = (\alpha-\theta) + (\theta-\alpha) = 0\). With no taxes, constant debt requires \(rB=0\). This is debt that is <em>never repaid</em>, only rolled over. It violates \(\lim B e^{-\int r}=0\), and it is feasible only because without it the economy has \(\bar r<0\). It is the continuous-time cousin of Samuelson's fiat money and of the PAYG system of <a href="0011-pay-as-you-go-social-security.html">Lesson 11</a>: debt moves the economy from \(r<0\) to the "golden rule" \(r=g+n=0\).</li>
   </ul>
 
@@ -174,7 +174,7 @@
     <ol class="steps">
       <li><strong>Does an increase in \(T\) increase the debt?</strong> In the steady state, <strong>yes</strong>: \(B^* = (T-G)/r^*\) with \(r^*>0\). A higher permanent surplus is consistent only with a larger debt whose interest it pays. Read this as "the debt level a given fiscal policy can support". Since the positive-debt steady state is unstable in \(B\) (as in §4), it is not a statement that raising taxes makes debt grow over time.</li>
       <li><strong>Uniqueness, and the signs of \(B\) and \(r\).</strong> In numerical examples there is a unique economically relevant steady state. (With \(G>0\) there is also a degenerate one with \(K\) tiny and \(C^*\approx0\), where \(\mathcal F(K)\) barely covers \(G\).) If private wealth \(B^*+K^*>0\), the first condition forces \(r^*>\theta>0\). Then \(\operatorname{sign}B^* = \operatorname{sign}(T-G)\): positive debt needs permanent primary surpluses. Compare the endowment economy with \(\alpha>\theta\), where positive debt could be sustained with no surplus at all because \(r\) could be \(\le0\).</li>
-      <li><strong>How \(K^*\), \(B^*\), \(r^*\) vary with \(T\) and \(G\).</strong> Raising \(T-G\) raises \(B^*\). More private wealth is held as bonds, so total private wealth \(B+K\) and hence desired consumption rise: bonds <strong>crowd out</strong> capital, \(K^*\) falls and \(r^*\) rises. A permanent primary deficit (\(T<G\)) means \(B^*<0\): the government holds assets, which crowds capital <em>in</em>.</li>
+      <li><strong>How \(K^*\), \(B^*\), \(r^*\) vary with \(T\) and \(G\).</strong> Raising \(T-G\) raises \(B^*\). More private wealth is held as bonds, so total private wealth \(B+K\) and hence desired consumption rise: bonds <strong>crowd out</strong> capital, \(K^*\) falls and \(r^*\) rises. A permanent primary deficit (\(T\lt G\)) means \(B^*<0\): the government holds assets, which crowds capital <em>in</em>.</li>
       <li><strong>Increase in \(G\) vs decrease in \(T\).</strong> Both lower \(T-G\) by the same amount and so lower \(B^*\) identically, crowding capital in. But \(G\) also uses up output (\(C^*=\mathcal F(K^*)-G\)), which the \(T\) cut does not. So an increase in \(G\) raises \(K^*\) by less than an equal tax cut, and lowers consumption.</li>
       <li><strong>Effect of \(p\).</strong> Higher \(p\) shrinks \(K^*\) for any fiscal policy (as in Lesson 19) and magnifies the crowding-out effects of \(B^*\). <strong>As \(p\downarrow0\):</strong> the first steady-state condition becomes \([\mathcal F'(K^*)-\theta]C^*=0\), so \(\mathcal F'(K^*) = \theta\) <em>regardless</em> of \(B\), \(T\), \(G\). Capital is at the modified golden rule, debt has no effect on \(K^*\) or \(r^*\) (Ricardian equivalence), and \(B^* = (T-G)/\theta\).</li>
     </ol>
@@ -255,61 +255,131 @@
   <!-- ─────────────────────────────────────────── -->
   <h2>7. Exercises</h2>
 
-  <div class="box exercise">
-    <div class="box-title">Exercise 20.1 <span class="tag slides">Slides p.37</span></div>
-    <p>(a) Re-derive \(dH(t) = -dT(t)[1-e^{-ps}]\) without looking. (b) With \(p=0.02\) (expected adult life of 50 years) and \(s=10\), how much does human wealth rise per dollar of tax cut? (c) What is \(dC(t)\) per dollar if \(\theta=0.03\)?</p>
-    <div class="numcheck" data-answer="1-Math.exp(-0.2)" data-tol="0.01" data-prompt="(b) dH per $ ="></div>
-    <div class="numcheck" data-answer="0.05*(1-Math.exp(-0.2))" data-tol="0.01" data-prompt="(c) dC per $ ="></div>
-    <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) See §3. (b) \(1-e^{-0.2}\approx0.181\). (c) \(dC = (p+\theta)dH = 0.05\times0.181\approx0.0091\): a flow of about 0.9 cents per year per dollar of tax cut. That is small, but not zero. Blanchard's point is that the size of the departure from Ricardian equivalence depends on horizons \(1/p\) relative to the repayment horizon \(s\).</p>
-    </div></details>
-  </div>
+  <p>Exercise 20.2 is Problem Set 2 (2025), which asks you to linearize the debt-and-capital system and count its eigenvalues. No past exam has asked about Blanchard–Yaari directly. The other exercises follow the formats Alvarez does use: true/false with a short justification, and guided derivations with hints and point weights. Use the notation of §4: \(k\equiv(p+\alpha)(p+\theta)\), \(b\equiv B/(Y-G)\), \(\sigma\equiv(T-G)/(Y-G)\).</p>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 20.2 <span class="tag slides">Slides p.39</span> (the two-period analogue)</div>
-    <p>In the Class Note II economy with government debt and no taxes, derive \(B_{t+1}=\phi(B_t)\), find both steady states, and determine their stability. Show that the positive steady state equals the PAYG tax that implements the best symmetric allocation, and explain why.</p>
-    <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>See the derivation in §4: \(\phi(B) = (1-\beta)\alpha B/(\beta(1-\alpha)-B)\), with steady states \(0\) and \(\bar B=\beta-\alpha\). The slopes are \(\phi'(0) = 1+\bar r\) and \(\phi'(\bar B) = 1/(1+\bar r)\). Why the same as PAYG: at \(\bar B\), \(r=0\), so each young person buys \(\beta-\alpha\) bonds and gets back \(\beta-\alpha\) when old. That is exactly the transfer pattern of a PAYG tax \(\tau=\beta-\alpha\). The initial old, who hold the initial debt, are the winners, just like the initial old under PAYG.</p>
-    </div></details>
-  </div>
-
-  <div class="box exercise">
-    <div class="box-title">Exercise 20.3 <span class="tag exam">Exam-style</span> (sustainable deficits)</div>
-    <p>Endowment economy with \(p=0.05\), \(\theta=0.02\), \(\alpha=0.04\). The government runs a permanent primary deficit equal to 1% of \(Y-G\) (\(\sigma=-0.01\)).</p>
-    <ol class="parts" type="a">
-      <li>What is the no-debt interest rate? Is the economy dynamically efficient?</li>
-      <li>Find the stable steady-state debt ratio \(b^*\). <div class="numcheck" data-answer="0.6217" data-tol="0.005" data-prompt="b* ≈"></div></li>
-      <li>What is \(r\) at that steady state? Verify \(r^*b^*=\sigma\). <div class="numcheck" data-answer="-0.01/0.6217" data-tol="0.01" data-prompt="r* ≈"></div></li>
-      <li>What is the largest permanent deficit ratio the government can run? <div class="numcheck" data-answer="0.0004/0.0252" data-tol="0.005" data-prompt="|σ|max ≈"></div></li>
-      <li>What happens if initial debt exceeds the larger root?</li>
+    <div class="box-title">Exercise 20.1 <span class="tag exam">Exam-inspired</span> True or false? Justify. <span class="pts">(8 × 10 points)</span></div>
+    <ol class="tf-list">
+      <li>In the perpetual-youth model, a lump-sum tax cut today, financed by debt and repaid with interest by a tax increase \(s\) years later, leaves the consumption of those alive today unchanged. <span class="tf-src">exam-inspired (slide 37)</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>False</strong> when \(p&gt;0\). Human wealth of those alive rises by \(dH=-dT(t)[1-e^{-ps}]&gt;0\) for a tax cut \(dT(t)&lt;0\), so \(C\) rises by \((\theta+p)dH\). Only the fraction \(e^{-ps}\) of today's population is still alive when the repayment comes; the rest of the bill falls on people not yet born. It is true when \(p=0\).</p></div></details></li>
+      <li>Ricardian equivalence fails in Blanchard–Yaari because agents face uncertain lifetimes. Giving them access to fair annuities would restore it. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>False.</strong> Fair annuities are already in the model. The failure comes from the <em>arrival of new agents</em> who will pay part of future taxes and are not linked to current agents by altruism. In the aggregate, the death rate \(p\) is the rate at which taxpayers are replaced by newcomers.</p></div></details></li>
+      <li>In the endowment economy with \(T=G=0\) and \(\alpha&gt;\theta\), the positive steady-state level of debt is stable. <span class="tf-src">exam-inspired (slide 39)</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>False.</strong> \(\dot B=kB^2/Y+(\theta-\alpha)B\) has slope \(\alpha-\theta&gt;0\) at \(\bar B\), so it is unstable. The stable steady state is \(B=0\), whose slope is \(\theta-\alpha&lt;0\). Starting below \(\bar B\), debt shrinks to zero; starting above, it explodes and no equilibrium exists.</p></div></details></li>
+      <li>At the positive steady state \(\bar B\) (with \(T=G=0\)), the interest rate is zero and the debt is rolled over forever without ever being repaid. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>True.</strong> With no primary surplus, a constant \(B&gt;0\) requires \(rB=0\), so \(r(\bar B)=k\bar B/Y+\theta-\alpha=0\). This is the continuous-time counterpart of Note II's steady state with valued debt, which reproduces the PAYG allocation (Exercise 20.4).</p></div></details></li>
+      <li>If the no-debt interest rate is positive (\(\theta&gt;\alpha\)), the government can sustain a small permanent primary deficit with positive debt. <span class="tf-src">exam-inspired (slide 39)</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>False.</strong> A steady state needs \(r^*b^*=\sigma&lt;0\), so \(b^*&gt;0\) requires \(r^*&lt;0\). But \(r(b)=kb+\theta-\alpha&gt;0\) for every \(b\ge0\) when \(\theta&gt;\alpha\). So the steady states (if any) have \(b^*&lt;0\): the government must own assets. Positive debt plus a deficit explodes.</p></div></details></li>
+      <li>In the capital economy (\(\alpha=0\), \(p&gt;0\)), a permanent rise in lump-sum taxes \(T\) (with \(G\) fixed) raises steady-state capital, because the government is saving. <span class="tf-src">exam-inspired (slide 41)</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>False.</strong> In the steady state \(B^*=(T-G)/r^*\) rises, so households hold more bonds. Bonds are net wealth for finite-lived households, which raises desired consumption. Bonds therefore crowd capital out: \(K^*\) falls and \(r^*\) rises. (The table in §5 shows \(K^*\) falling from 4.33 to 4.18.)</p></div></details></li>
+      <li>Under a balanced-budget rule (\(B\) fixed, \(T\) adjusting), a higher level of debt lowers steady-state capital, but the effect vanishes as \(p\downarrow0\). <span class="tf-src">exam-inspired (slide 42)</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>True.</strong> The steady state solves \([\mathcal F'(K)-\theta][\mathcal F(K)-G]=p(p+\theta)(B+K)\). A higher \(B\) raises the right side, lowering \(K^*\). As \(p\to0\) the right side vanishes, \(\mathcal F'(K^*)=\theta\), and debt is neutral (Ricardian).</p></div></details></li>
+      <li>In the model with capital and debt, with taxes that do not respond to debt, the steady state with \(T=G=0\) is locally determinate: for any small initial debt, there is a unique path converging to it. <span class="tf-src">Problem set 2022, PS2</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>False.</strong> The linearized system has two positive eigenvalues and one negative eigenvalue (Exercise 20.2). With two predetermined states \((K,B)\) and one jump variable \(C\), convergence would need two stable roots. Generically no path converges: \(b\) grows at rate \(r=\mathcal F'(\bar K)&gt;0\). Debt is explosive unless taxes respond to it.</p></div></details></li>
     </ol>
-    <details class="hint"><summary>Hint</summary><div class="body"><p>\(k=(p+\alpha)(p+\theta)=0.0063\). Solve \(0.0063b^2 - 0.02b + 0.01 = 0\).</p></div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 20.2 <span class="tag pset">Problem set 2022, PS2</span> Debt and capital: linearization and stability <span class="pts">(80 points)</span></div>
+    <p>Take \(\alpha=0\) and constant \(T,G\). \(B\) is government debt.
+    $$\dot C=(\mathcal F'(K)-\theta)C-p(p+\theta)(B+K),\qquad \dot K=\mathcal F(K)-C-G,\qquad \dot B=\mathcal F'(K)B+G-T.$$
+    \(K\) and \(B\) are predetermined; \(C\) can jump.</p>
+    <ol class="parts" type="a">
+      <li>(15) Linearize the system around a steady state \((C,K,B)\). Write it as \(\dot x=Jx\) for deviations \(x=(c,k,b)'\).</li>
+      <li>(10) With \(T=G=0\), show that the steady state has \(B=0\), and write the remaining steady-state conditions.</li>
+      <li>(20) With \(T=G=0\), show that the eigenvalues of \(J\) are \(\lambda=\mathcal F'\) together with the two roots of
+        $$g(\lambda)=(\mathcal F'-\theta-\lambda)(\mathcal F'-\lambda)+\mathcal F''C-p(p+\theta).$$
+        [Hint: expand \(\det(J-\lambda I)\) along the \(\dot b\) row.]</li>
+      <li>(15) Show that \(g(0)&lt;0\). Conclude that there are two positive eigenvalues and one negative eigenvalue. [Hint: use the steady-state condition to write \((\mathcal F'-\theta)\mathcal F'-p(p+\theta)=p(p+\theta)(\mathcal F'K-\mathcal F)/\mathcal F\).]</li>
+      <li>(10) Is there a unique convergent equilibrium for an arbitrary initial \((K(0),B(0))\) near the steady state? Interpret.</li>
+      <li>(10) Now let \(T&gt;0=G\) be small. Find the steady-state \(B\), write the characteristic equation, and argue by continuity that the eigenvalue count is unchanged. What do you conclude about fiscal policy?</li>
+    </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) \(\bar r = \theta-\alpha = -0.02<0\): dynamically inefficient. (b) The roots are \(b = (0.02\pm\sqrt{0.0004-0.000252})/0.0126 = (0.02\pm0.01217)/0.0126\), i.e. \(0.622\) and \(2.553\). The smaller root, \(b^*\approx0.622\), is stable. (c) \(r^* = kb^*+\theta-\alpha = 0.0063(0.622)-0.02\approx-0.0161\), and \(r^*b^*\approx-0.01=\sigma\). ✓ (d) Roots exist iff \((\theta-\alpha)^2\ge 4k|\sigma|\), i.e. \(|\sigma|\le 0.0004/0.0252\approx0.0159\), about 1.6% of income. (e) Debt explodes, \(r\) rises without bound, and no equilibrium exists. The government would need to raise taxes.</p>
+      <p>(a) $$J=\begin{pmatrix}\mathcal F'-\theta & \mathcal F''C-p(p+\theta) & -p(p+\theta)\\ -1 & \mathcal F' & 0\\ 0 & \mathcal F''B & \mathcal F'\end{pmatrix}.$$
+      (The official solution's text says the \((1,2)\) term multiplies \(c\); it multiplies \(k\). The matrix itself is right.)</p>
+      <p>(b) \(\dot B=0\) gives \(\mathcal F'(K)B=0\), and \(\mathcal F'&gt;0\), so \(B=0\). Then \(C=\mathcal F(K)\) and \([\mathcal F'(K)-\theta]\mathcal F(K)=p(p+\theta)K\): exactly the steady state of Lesson 19 with \(\alpha=0\).</p>
+      <p>(c) With \(B=0\), the \(\dot b\) row of \(J-\lambda I\) is \((0,0,\mathcal F'-\lambda)\). Expanding along it gives \(\det(J-\lambda I)=(\mathcal F'-\lambda)\,g(\lambda)\), where \(g\) is the characteristic polynomial of the \((C,K)\) block. So one root is \(\mathcal F'\) and the other two are the roots of \(g\).</p>
+      <p>(d) From the steady state, \(\mathcal F'-\theta=p(p+\theta)K/\mathcal F\). So \((\mathcal F'-\theta)\mathcal F'-p(p+\theta)=p(p+\theta)(\mathcal F'K-\mathcal F)/\mathcal F&lt;0\), by concavity with \(\mathcal F(0)=0\). Also \(\mathcal F''C&lt;0\), so \(g(0)&lt;0\). The roots of \(g\) multiply to \(g(0)&lt;0\): one positive, one negative (the familiar saddle of Lesson 19). Together with \(\lambda=\mathcal F'(\bar K)=\bar r&gt;0\), that makes two positive and one negative. (The official solution stops at "\(g\) has a positive root"; this completes the count.)</p>
+      <p>(e) No. With two predetermined variables and only one stable root, the stable manifold is one-dimensional, while the initial conditions span two dimensions. For generic \(B(0)\ne0\), no choice of \(C(0)\) puts the system on a convergent path. Linearized debt obeys \(\dot b=\bar r\,b\) and explodes at rate \(\bar r&gt;0\) when taxes don't respond. Only \(b(0)=0\) works, with \(C(0)\) on the \((C,K)\) saddle path.</p>
+      <p>(f) \(B=T/\mathcal F'(K)&gt;0\): positive debt serviced by the surplus. The \((3,2)\) entry \(\mathcal F''B\) is now nonzero. The characteristic equation is
+      $$(\mathcal F'-\lambda)\,g(\lambda)+\mathcal F''B\,p(p+\theta)=0,$$
+      since the cofactor of the \((3,2)\) entry is \((-1)^{3+2}\) times the minor \(-p(p+\theta)\), i.e. \(+p(p+\theta)\). (The official solution writes this term with a minus sign. That is a sign slip, but it is immaterial for the argument.) As \(T\downarrow0\), \(B\to0\) and the extra term vanishes. The roots are continuous in the coefficients, so for small \(T\) there are still two positive roots and one negative. Debt dynamics remain explosive: a stable debt path requires taxes that respond to the level of debt.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 20.4 <span class="tag exam">Exam-style</span> (debt and capital)</div>
-    <p>In the capital economy with \(\alpha=0\), the government permanently raises lump-sum taxes \(T\), holding \(G\) fixed, and lets debt adjust to its new steady-state level. Using the steady-state equations, sign the effects on \(B^*\), \(K^*\), \(r^*\) and \(C^*\). Explain the economics, and say what changes when \(p=0\).</p>
+    <div class="box-title">Exercise 20.3 <span class="tag slides">Slides p.37</span> <span class="tag exam">Exam-inspired</span> Ricardian equivalence, partial and general equilibrium <span class="pts">(50 points)</span></div>
+    <p>Set \(\alpha=0\). At date \(t\) the government cuts taxes by \(dT(t)&lt;0\) and raises them at \(t+s\) by enough to repay the extra debt with interest.</p>
+    <ol class="parts" type="a">
+      <li>(10) Use the government budget constraint to find \(dT(t+s)\) in terms of \(dT(t)\).</li>
+      <li>(15) Use the human-wealth formula to show that \(dH(t)=-dT(t)\,[1-e^{-ps}]\), and find \(dC(t)\).</li>
+      <li>(10) Find the limits of \(dC(t)\) as \(p\to0\), as \(s\to0\) and as \(s\to\infty\). Interpret each.</li>
+      <li>(15) Now take general equilibrium in the pure endowment economy. Can aggregate consumption rise? What adjusts instead? Is this a failure of Ricardian equivalence?</li>
+    </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>\(B^*=(T-G)/r^*\) rises. Private wealth \(B+K\) rises at given \(K\), so the right side of the \(K^*\) equation rises, which lowers \(K^*\) (the same falling-LHS vs rising-RHS argument as in Lesson 19). So \(r^*\) rises, and \(C^*=\mathcal F(K^*)-G\) falls (below the golden rule). Bonds are net wealth for finite-lived households and displace capital in their portfolios. With \(p=0\), \(\mathcal F'(K^*)=\theta\) fixes \(K^*\), \(r^*\) and \(C^*\), and only \(B^*=(T-G)/\theta\) changes. See the table in §5 for numbers.</p>
+      <p>(a) The extra debt accumulates at \(r\), so \(dT(t+s)=-e^{\int_t^{t+s}r}dT(t)&gt;0\).<br>
+      (b) \(H(t)=\int_t^\infty[Y-T]e^{-\int_t^z(r+p)}dz\), so \(dH(t)=-dT(t)-dT(t+s)e^{-\int_t^{t+s}(r+p)} = -dT(t)\big[1-e^{-ps}\big]\). Hence \(dC(t)=(\theta+p)dH(t)=-(\theta+p)(1-e^{-ps})dT(t)&gt;0\).<br>
+      (c) \(p\to0\): \(dC\to0\), Ricardian equivalence holds with infinitely lived agents. \(s\to0\): \(dC\to0\), because the same people repay almost immediately. \(s\to\infty\): \(dH\to-dT\) and \(dC\to-(\theta+p)dT\). Repayment falls entirely on the unborn, so the tax cut is pure net wealth for those alive.<br>
+      (d) No. Goods-market clearing forces \(C=Y-G\), so aggregate consumption cannot rise. The interest rate adjusts instead: with \(B&gt;0\), \(r=kB/(Y-G)+\theta-\alpha\) rises, enough that households willingly hold the new debt and keep \(C=Y-G\). The consumption profiles of different cohorts shift too. Prices and the distribution of consumption change, so Ricardian equivalence fails even though aggregate \(C\) cannot move.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 20.5 <span class="tag slides">Slides p.42</span></div>
-    <p>Under the balanced-budget rule (\(B\) fixed, \(T\) adjusts), compare the effect on \(K^*\) of (i) a higher \(B\) and (ii) a higher \(G\). Which effect survives as \(p\to0\)? Which survives in the Ramsey model for consumption?</p>
+    <div class="box-title">Exercise 20.4 <span class="tag slides">Slides p.39</span> The two-period analogue <span class="pts">(40 points)</span></div>
+    <p>Take the Class Note II economy (young endowment \(1-\alpha\), old \(\alpha\); utility \((1-\beta)\log c_y+\beta\log c_o\)) and add one-period government bonds, with no taxes and no spending. The young at \(t\) buy the whole debt \(B_t\), which is repaid with interest at \(t+1\) by issuing new debt.</p>
+    <ol class="parts" type="a">
+      <li>(15) Using \(s(r)=\beta(1-\alpha)-(1-\beta)\alpha/(1+r)\), show that \(B_{t+1}=\phi(B_t)\equiv\dfrac{(1-\beta)\alpha B_t}{\beta(1-\alpha)-B_t}\).</li>
+      <li>(10) Find the steady states. Show that the positive one exists iff \(\bar r&lt;0\), and that it equals the PAYG tax that implements the best symmetric allocation.</li>
+      <li>(10) Show that \(\phi'(0)=1+\bar r\) and \(\phi'(\bar B)=1/(1+\bar r)\). Determine stability, and compare with Blanchard–Yaari.</li>
+      <li>(5) Who gains from introducing the debt?</li>
+    </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>Both lower \(K^*\) and raise \(r^*\) when \(p>0\) (§5). As \(p\to0\), \(K^*\) is pinned by \(\mathcal F'(K^*)=\theta\), so neither affects capital. But \(G\) still crowds out consumption one-for-one, since \(C^*=\mathcal F(K^*)-G\), while \(B\) has no real effect at all. Debt matters only through finite horizons; government spending matters through resources in any model.</p>
+      <p>(a) Asset-market clearing gives \(B_t=s(r_t)\), so \(1+r_t=(1-\beta)\alpha/(\beta(1-\alpha)-B_t)\). The debt rolls over: \(B_{t+1}=(1+r_t)B_t\). Substituting gives \(\phi\).<br>
+      (b) The steady states are \(B=0\) and the solution of \(\beta(1-\alpha)-\bar B=(1-\beta)\alpha\), i.e. \(\bar B=\beta-\alpha\). This is positive iff \(\beta&gt;\alpha\), iff \(\bar r=(\alpha-\beta)/(\beta(1-\alpha))&lt;0\). At \(\bar B\) we have \(r=0\): each young agent lends \(\beta-\alpha\) and gets back \(\beta-\alpha\) when old, exactly the transfers of PAYG with \(\tau=\beta-\alpha\).<br>
+      (c) \(\phi'(B)=(1-\beta)\alpha\beta(1-\alpha)/(\beta(1-\alpha)-B)^2\). At 0 this is \((1-\beta)\alpha/(\beta(1-\alpha))=1+\bar r\). At \(\bar B\) it is \(\beta(1-\alpha)/((1-\beta)\alpha)=1/(1+\bar r)\). When \(\bar r&lt;0\), \(0\) is stable and \(\bar B\) is unstable: the same picture as Blanchard–Yaari with \(\alpha&gt;\theta\).<br>
+      (d) The initial old, who sell the first bonds and consume the proceeds. At \(\bar B\), every later generation also gains relative to autarky, as under PAYG.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 20.6 <span class="tag proof">Proof</span></div>
-    <p>Show that in the endowment economy with \(T=G=0\) and \(\alpha>\theta\), every path with \(0<B(0)<\bar B\) converges to \(B=0\). How does the interest rate move along such a path? Who gains from the initial debt?</p>
+    <div class="box-title">Exercise 20.5 <span class="tag exam">Exam-inspired</span> Sustainable deficits <span class="pts">(50 points)</span></div>
+    <p>In the endowment economy, \(\dot b=kb^2+(\theta-\alpha)b-\sigma\), with \(r(b)=kb+\theta-\alpha\).</p>
+    <ol class="parts" type="a">
+      <li>(10) Show that every steady state satisfies \(r^*b^*=\sigma\), and interpret this.</li>
+      <li>(15) Let the government run a permanent primary deficit, \(\sigma&lt;0\). Find the largest deficit \(|\sigma|\) for which a steady state exists.</li>
+      <li>(15) Show that when \(\alpha&gt;\theta\) and the deficit is small enough, there are two positive steady states. Show that the smaller is stable and the larger unstable, and that \(r^*&lt;0\) at both.</li>
+      <li>(10) What happens if initial debt exceeds the larger root? If \(\theta&gt;\alpha\) instead, can a deficit be sustained with positive debt?</li>
+    </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>On \((0,\bar B)\), \(\dot B = B\,(kB/Y+\theta-\alpha) = B\,r(B)\). Here \(r(B)<r(\bar B)=0\), so \(\dot B<0\). \(B\) falls monotonically and is bounded below by \(0\); its limit must be a steady state, hence \(0\). Since \(r(B)=kB/Y+\theta-\alpha\) is increasing in \(B\) and \(B\) falls, \(r\) <em>falls</em> monotonically. (Careful: it falls to \(\theta-\alpha<0\).) So "rises" in the question is a trap: the interest rate moves from below zero to the even lower autarky rate. The initial bond holders gain. They hold an asset the economy is willing to roll over at a negative interest rate that is still higher than autarky's \(\bar r\).</p>
+      <p>(a) \(\dot b=b\,r(b)-\sigma=0\iff r^*b^*=\sigma\). In a steady state the interest bill on the debt equals the primary surplus.<br>
+      (b) The roots are \(b_\pm=\big[(\alpha-\theta)\pm\sqrt{(\theta-\alpha)^2+4k\sigma}\big]/(2k)\). They are real iff \((\theta-\alpha)^2\ge-4k\sigma\), i.e. \(|\sigma|\le(\theta-\alpha)^2/(4k)\).<br>
+      (c) With \(\sigma&lt;0\), the product of the roots is \(-\sigma/k&gt;0\) and their sum is \((\alpha-\theta)/k&gt;0\), so both are positive. The slope \(d\dot b/db=2kb+\theta-\alpha\) equals \(\mp\sqrt{(\theta-\alpha)^2+4k\sigma}\) at \(b_\mp\), so \(b_-\) is stable and \(b_+\) unstable. From (a), \(r^*=\sigma/b^*&lt;0\) at both: the deficit is financed by rolling over debt at a negative interest rate.<br>
+      (d) Above \(b_+\), \(\dot b&gt;0\) and the gap grows: debt and \(r\) explode and no equilibrium exists without a fiscal adjustment. If \(\theta&gt;\alpha\), the sum of the roots \((\alpha-\theta)/k\) is negative, so any steady states are negative (government assets). A deficit with positive debt is unsustainable.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 20.6 <span class="tag slides">Slides pp.40–42</span> Debt and capital in the steady state <span class="pts">(50 points)</span></div>
+    <p>Take the capital economy of §5 (\(\alpha=0\)).</p>
+    <ol class="parts" type="a">
+      <li>(10) Derive the steady-state equation \(\mathcal F(K^*)-G=\dfrac{p(p+\theta)}{\mathcal F'(K^*)-\theta}\Big[\dfrac{T-G}{\mathcal F'(K^*)}+K^*\Big]\).</li>
+      <li>(15) Holding \(G\) fixed, permanently raise \(T\) and let debt adjust to its new steady state. Sign the effects on \(B^*\), \(K^*\), \(r^*\) and \(C^*\), and explain the economics.</li>
+      <li>(10) Compare an increase in \(G\) with an equal decrease in \(T\).</li>
+      <li>(15) Under a balanced-budget rule (\(B\) fixed, \(T=\mathcal F'(K)B+G\)), compare the effects on \(K^*\) of a higher \(B\) and a higher \(G\). Which effects survive as \(p\to0\)?</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) From \(\dot B=0\), \(B^*=(T-G)/\mathcal F'(K^*)\). From \(\dot K=0\), \(C^*=\mathcal F(K^*)-G\). Substitute both into \([\mathcal F'-\theta]C^*=p(p+\theta)(B^*+K^*)\).<br>
+      (b) \(B^*=(T-G)/r^*\) rises. More bonds mean more private wealth at a given \(K\), which raises the right side, so \(K^*\) falls (the same crossing argument as in Lesson 19). Then \(r^*\) rises and \(C^*=\mathcal F(K^*)-G\) falls, since we are below the golden rule. Bonds are net wealth for finite-lived households and displace capital in their portfolios.<br>
+      (c) Both lower \(T-G\) by the same amount, so \(B^*\) falls by about the same amount: the government owes less (or owns more assets), which crowds capital in. But \(G\) also absorbs output, so \(C^*=\mathcal F(K^*)-G\) is lower and the left side of the steady-state equation falls. As a result, \(K^*\) rises by less under the spending increase than under the equal tax cut (§5 table: 4.493 vs 4.515), and consumption falls with \(G\) but rises with the tax cut.<br>
+      (d) Both lower \(K^*\) and raise \(r^*\) when \(p&gt;0\). As \(p\to0\), \(\mathcal F'(K^*)=\theta\) pins down \(K^*\), so neither affects capital. \(G\) still crowds out consumption one-for-one, while \(B\) becomes neutral. Debt matters only through finite horizons; government spending matters through resources in any model.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 20.7 <span class="tag proof">Proof</span> Convergence to zero debt <span class="pts">(30 points)</span></div>
+    <p>In the endowment economy with \(T=G=0\) and \(\alpha&gt;\theta\), show that every path with \(0&lt;B(0)&lt;\bar B\) converges to \(B=0\). How does the interest rate move along such a path? Who gains from the initial debt?</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>On \((0,\bar B)\), \(\dot B=B\,r(B)\) with \(r(B)=kB/Y+\theta-\alpha&lt;r(\bar B)=0\), so \(\dot B&lt;0\). \(B\) is decreasing and bounded below by 0, so it converges to a steady state, which must be 0. Since \(r(B)\) is increasing in \(B\) and \(B\) falls, \(r\) falls monotonically, from below zero towards the autarky rate \(\theta-\alpha&lt;0\). The initial bondholders gain: they sell an asset that the economy rolls over at an interest rate that is negative but above autarky's.</p>
     </div></details>
   </div>
 

@@ -87,7 +87,7 @@
       <tr><th>Case</th><th>Parameters</th><th>\(\bar r\)</th><th>Initial old</th><th>Conclusion</th></tr>
       <tr><td>1</td><td>\(\beta>\alpha\)</td><td>\(<0\)</td><td>prefer best</td><td><strong>CE is Pareto-dominated</strong></td></tr>
       <tr><td>2</td><td>\(\beta=\alpha\)</td><td>\(=0\)</td><td>indifferent</td><td>CE = best symmetric</td></tr>
-      <tr><td>3</td><td>\(\beta<\alpha\)</td><td>\(>0\)</td><td>prefer CE</td><td>not comparable</td></tr>
+      <tr><td>3</td><td>\(\beta\lt \alpha\)</td><td>\(>0\)</td><td>prefer CE</td><td>not comparable</td></tr>
     </table>
     <p>Hence: <strong>the CE is Pareto-dominated by the best symmetric allocation if and only if \(\bar r<0\).</strong> (Recall \(\bar r = \frac{\alpha-\beta}{\beta(1-\alpha)}\).)</p>
   </div>
@@ -97,7 +97,7 @@
     <div id="ef-fig"></div>
     <div id="ef-read"></div>
     <div class="verdict" id="ef-verdict"></div>
-    <div class="caption"><b>Interactive.</b> The symmetric feasibility line \(c_y+c_o=1\), the CE \((1-\alpha,\alpha)\) (orange) and the best symmetric allocation \((1-\beta,\beta)\) (blue), each with the indifference curve of a generation \(i\ge1\). The dashed horizontal line at \(c_o=\alpha\) is the initial old's CE consumption; they gain at any point above it. The thick <span style="color:#1baf7a"><b>aqua segment</b></span> is the set of symmetric allocations that Pareto-dominate the CE: above the dashed line <em>and</em> on or inside the orange indifference curve. <b>Drag</b> the violet point along the line to test any candidate. <b>Try:</b> set \(\beta<\alpha\) and the aqua segment vanishes. The initial old and the young pull in opposite directions.</div>
+    <div class="caption"><b>Interactive.</b> The symmetric feasibility line \(c_y+c_o=1\), the CE \((1-\alpha,\alpha)\) (orange) and the best symmetric allocation \((1-\beta,\beta)\) (blue), each with the indifference curve of a generation \(i\ge1\). The dashed horizontal line at \(c_o=\alpha\) is the initial old's CE consumption; they gain at any point above it. The thick <span style="color:#1baf7a"><b>aqua segment</b></span> is the set of symmetric allocations that Pareto-dominate the CE: above the dashed line <em>and</em> on or inside the orange indifference curve. <b>Drag</b> the violet point along the line to test any candidate. <b>Try:</b> set \(\beta\lt \alpha\) and the aqua segment vanishes. The initial old and the young pull in opposite directions.</div>
   </div>
 
   <script>
@@ -171,7 +171,7 @@
 
   <div class="intuition">
     <div class="box-title">Case 3: why there's no free lunch when \(\bar r>0\)</div>
-    <p>When \(\bar r>0\), the young would rather <em>borrow</em> against their large old-age endowment. Moving toward \((1-\beta,\beta)\) means transferring from the old to the young. Generations \(i\ge1\) like it (they receive when young, repay when old at rate \(0<\bar r\)), but the initial old pay without being repaid. Someone always loses, so the CE is not dominated by any symmetric allocation (Exercise 10.3). In fact it is Pareto optimal among <em>all</em> allocations, as Lesson 12 will show using the finiteness of \(\sum_t p_t\).</p>
+    <p>When \(\bar r>0\), the young would rather <em>borrow</em> against their large old-age endowment. Moving toward \((1-\beta,\beta)\) means transferring from the old to the young. Generations \(i\ge1\) like it (they receive when young, repay when old at rate \(0\lt \bar r\)), but the initial old pay without being repaid. Someone always loses, so the CE is not dominated by any symmetric allocation (Exercise 10.3). In fact it is Pareto optimal among <em>all</em> allocations, as Lesson 12 will show using the finiteness of \(\sum_t p_t\).</p>
   </div>
 
   <h2>6. Check your understanding</h2>
@@ -189,14 +189,14 @@
     </div>
 
     <div class="quiz-question" data-correct="d">
-      <div class="question-text">2. In Case 3 (\(\beta<\alpha\)), why is the CE not Pareto-dominated by the best symmetric allocation?</div>
+      <div class="question-text">2. In Case 3 (\(\beta\lt \alpha\)), why is the CE not Pareto-dominated by the best symmetric allocation?</div>
       <ul class="quiz-options">
         <li class="quiz-option" data-option="a">The young prefer their endowment to every other symmetric bundle</li>
         <li class="quiz-option" data-option="b">The best symmetric allocation is infeasible once β falls below α</li>
         <li class="quiz-option" data-option="c">The interest rate is zero, so every allocation gives equal utility</li>
         <li class="quiz-option" data-option="d">The initial old would consume β instead of α, which is strictly less</li>
       </ul>
-      <div class="quiz-explain">Generations \(i\ge1\) still strictly prefer \((1-\beta,\beta)\). But the initial old get \(\beta<\alpha\), so they are strictly worse off. One agent losing is enough to rule out Pareto dominance.</div>
+      <div class="quiz-explain">Generations \(i\ge1\) still strictly prefer \((1-\beta,\beta)\). But the initial old get \(\beta\lt \alpha\), so they are strictly worse off. One agent losing is enough to rule out Pareto dominance.</div>
     </div>
 
     <div class="quiz-question" data-correct="a">
@@ -225,61 +225,111 @@
 
   <h2>7. Exercises</h2>
 
+  <p>"Is the OLG equilibrium Pareto optimal?" is one of the most frequently examined questions in this course. It has appeared as a true/false item on Fall 2005, Spring 2023 and Fall 2025 exams, and as the last part of the Fall 2025 final's Diamond question. The grade goes to the reasoning: name the condition you are using.</p>
+
   <div class="box exercise">
-    <div class="box-title">Exercise 10.1 <span class="tag slides">Slides p.16–18</span></div>
-    <p>Let \(\alpha = 0.2\), \(\beta = 0.5\).</p>
+    <div class="box-title">Exercise 10.1 True or false? Justify in 1–4 lines. <span class="tag past">Past exams + traps</span></div>
+    <ol class="tf-list">
+      <li>In an OLG model where agents live \(k\ge2\) periods, with one commodity per period and a finite aggregate endowment, if interest rates are strictly negative in all periods, the competitive equilibrium is NOT efficient. <span class="tf-src">(Past exam: Fall 2025 Midterm 1, Q I.3)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True.</strong> With \(r_t<0\), prices \(p_{t+1}=p_t/(1+r_t)>p_t\) never fall, so the value of the aggregate endowment is infinite and the 1WT proof breaks. An explicit improvement exists: transfer a small \(\varepsilon\) from young to old at every date, starting with the initial old. Each generation values the extra old-age unit at \(1/(1+r_t)>1\) young-age units (Exercise 10.4; Lesson 16 for \(k\) periods). Explain it by the infinite value of the endowment, not by "over-accumulation of capital": this economy has no capital.</p></div></details></li>
+      <li>Consider an equilibrium in the OLG model. If the value of aggregate consumption at market prices is finite, then the equilibrium allocation is Pareto optimal. <span class="tf-src">(Past exam: Fall 2005 Midterm, Ex. 1 Q4)</span> <span class="pts">[20 pts]</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True</strong> (with local non-satiation). Suppose a feasible allocation dominates. LNS and optimality give each generation's dominating bundle a weakly higher value, and strictly higher for someone. Because the sums are finite, they can be regrouped by date, which gives \(\sum_tp_t(\hat x^{t-1}_t+\hat x^t_t)>\sum_tp_t\bar e_t\). That contradicts feasibility. Lesson 12 proves this in full.</p></div></details></li>
+      <li>In an OLG model with strictly positive interest rates in all periods, the competitive equilibrium is Pareto optimal.
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False as stated.</strong> (A circulated study guide marks this "always true", but it isn't.) With growth, what matters is \(1+r\) versus \((1+g)(1+n)\) (Lesson 13): a positive but low \(r\) can be inefficient. Even without growth, \(r_t>0\) with \(r_t\to0\) fast enough (e.g. \(r_t\sim 1/t^2\)) keeps \(\sum_tp_t\) infinite. The safe claim is: <em>stationary</em> \(\bar r>0\) with constant aggregate endowment ⇒ PO.</p></div></details></li>
+      <li>In Case 3 (\(\beta\lt \alpha\)), every generation born at \(t\ge1\) strictly prefers the best symmetric allocation, so the CE is not Pareto optimal.
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> The first half is true but the conclusion does not follow: the initial old consume \(\beta\lt \alpha\) and lose. In fact the CE is PO, because \(\bar r>0\) makes \(\sum_tp_t\lt \infty\) (Lesson 12). For symmetric allocations, see Exercise 10.3.</p></div></details></li>
+      <li>In Case 2 (\(\alpha=\beta\), \(\bar r=0\)), the value of the aggregate endowment is infinite, so the CE is not Pareto optimal.
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> A finite value is <em>sufficient</em> for PO, not necessary. In Case 2 the CE equals the best symmetric allocation, which is PO among all allocations (Exercise 10.6).</p></div></details></li>
+      <li>In the two-period OLG economy of the Spring 2023 midterm (heterogeneous types, preferences with satiation points), suppose \(\pi_o\lt \pi_y\), \(\bar\alpha_y=\bar\alpha_o\) and \(\bar\theta_y=\bar\theta_o\). Then the interest rate is positive and the allocation is Pareto optimal. <span class="tf-src">(Past exam: Spring 2023 Midterm 1, Q2.5)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True.</strong> From Exercise 10.5(d), \(1/(1+r)=\pi_o/\pi_y<1\), so \(r>0\), constant. With a constant aggregate endowment, \(\sum_tp_t\bar e_t\lt \infty\), so the OLG version of the 1WT applies.</p></div></details></li>
+      <li>If the risk-free interest rate is below the growth rate of the economy, the OLG equilibrium is dynamically inefficient. <span class="tf-src">(cf. Problem set 3 (2022), P4)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> In a stochastic economy the relevant test is whether the value of aggregate consumption is finite, i.e. the return on a claim to <em>aggregate output</em> versus growth. In the problem set's tree economy the safe rate can be below growth, yet the tree's expected return exceeds growth and the equilibrium is PO.</p></div></details></li>
+      <li>In Case 1, a one-time transfer of \(\varepsilon\) from generation 1 to generation 0 at date 1 is a Pareto improvement.
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> Generation 1 pays when young and gets nothing back. The same is true of any scheme that stops at a finite date: the last payer loses. Every improvement over the Case-1 CE must transfer from young to old at every date, forever.</p></div></details></li>
+    </ol>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 10.2 <span class="tag exam">Exam-inspired</span> Beyond log utility</div>
+    <p>Let \(v\) be strictly increasing, strictly quasi-concave and differentiable, with stationary endowments \((1-\alpha,\alpha)\).</p>
     <ol class="parts" type="a">
-      <li>Compute the utility gain of each generation \(i\ge1\) from moving from the CE to the best symmetric allocation, \(v(1-\beta,\beta)-v(1-\alpha,\alpha)\).
-        <div class="numcheck" data-answer="0.5*Math.log(0.5/0.8)+0.5*Math.log(0.5/0.2)" data-tol="0.002" data-prompt="Δv ="></div></li>
-      <li>Compute the consumption gain of the initial old.
-        <div class="numcheck" data-answer="0.3" data-tol="0.002" data-prompt="Δx₁⁰ ="></div></li>
-      <li>Which case is this, and what is \(\bar r\)?
-        <div class="numcheck" data-answer="(0.2-0.5)/(0.5*0.8)" data-tol="0.002" data-prompt="r̄ ="></div></li>
+      <li><span class="pts">[10 pts]</span> Characterize the best symmetric allocation.</li>
+      <li><span class="pts">[15 pts]</span> Show that the CE is Pareto-dominated by a symmetric allocation whenever \(v_2/v_1>1\) at the endowment, i.e. whenever \(\bar r<0\).</li>
+      <li><span class="pts">[15 pts]</span> Is \(\bar r<0\) also necessary for <em>some</em> symmetric allocation to dominate the CE?</li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) \(\tfrac12\log\tfrac{0.5}{0.8} + \tfrac12\log\tfrac{0.5}{0.2} = \tfrac12\log(0.625\cdot2.5) = \tfrac12\log 1.5625 \approx 0.223\).<br>
-      (b) \(\beta - \alpha = 0.3\).<br>
-      (c) Case 1, since \(\beta>\alpha\). \(\bar r = -0.3/0.4 = -0.75\).</p>
+      <p>(a) \(\max v(c_y,1-c_y)\): the FOC is \(v_1 = v_2\), so the MRS is 1 and the implied rate is \(r=0\).</p>
+      <p>(b) Move along the line: \(c_o = \alpha+\tau\), \(c_y = 1-\alpha-\tau\). Then \(\frac{d}{d\tau}v = v_2-v_1 = v_1\big(\tfrac{1}{1+\bar r}-1\big) > 0\) at \(\tau=0\) iff \(\bar r<0\). So a small \(\tau>0\) raises the utility of every generation \(i\ge1\) and the initial old's consumption: a Pareto improvement.</p>
+      <p>(c) Yes. If \(\bar r\ge0\), the initial old need \(\tau\ge0\). Along the line, \(v\) is quasi-concave in \(\tau\) with \(dv/d\tau\le0\) at \(\tau=0\), so it is non-increasing for \(\tau\ge0\). Then no generation \(i\ge1\) gains, and in Case 2 nobody gains strictly.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 10.2 <span class="tag exam">Exam-style</span></div>
-    <p>Generalize the best symmetric allocation to arbitrary preferences: let \(v\) be strictly increasing, strictly quasi-concave and differentiable. (a) Characterize the best symmetric allocation. (b) Show that the CE is dominated by it whenever \(v_2/v_1>1\) at the endowment, i.e. whenever \(\bar r<0\). (c) Is \(\bar r<0\) also necessary for <em>some</em> symmetric allocation to dominate the CE?</p>
+    <div class="box-title">Exercise 10.3 <span class="tag proof">Proof</span> Case 3</div>
+    <p>Show that in Case 3 (\(\beta\lt \alpha\)) no feasible symmetric allocation Pareto-dominates the CE.</p>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) \(\max v(c_y,1-c_y)\): FOC \(v_1 = v_2\), i.e. MRS \(=1\), implied rate \(r=0\).</p>
-      <p>(b) Write \(c_o = \alpha+\tau\), \(c_y = 1-\alpha-\tau\) along the line. Then \(\frac{d}{d\tau}v = -v_1+v_2\), which at \(\tau=0\) is \(v_1(v_2/v_1-1) = v_1\cdot(\tfrac{1}{1+\bar r}-1) > 0\) iff \(\bar r<0\). So a small \(\tau>0\) raises the utility of generations \(i\ge1\) and raises the initial old's consumption: a Pareto improvement. The best symmetric allocation, which maximizes \(v\) along the line, has \(v\) at least as large, and \(c_o^*>\alpha\) because \(v\) is still increasing in \(\tau\) at \(\tau=0\) and is quasi-concave along the line.</p>
-      <p>(c) Yes. If \(\bar r\ge0\), then the initial old need \(\tau\ge0\), but along the line \(v\) is quasi-concave in \(\tau\) with \(dv/d\tau\le0\) at \(\tau=0\). So it is non-increasing for all \(\tau\ge0\) and strictly decreasing unless \(\bar r = 0\) and \(\tau=0\). Generations \(i\ge1\) lose (or, in Case 2, nobody gains), so no symmetric improvement exists.</p>
+      <p>Let \((c_y,c_o)\) be feasible (\(c_y+c_o\le1\)) and weakly preferred by everyone. The initial old need \(c_o\ge\alpha\), so \(c_y\le1-\alpha\). Since \(v\) is increasing, it suffices to check \(c_o = 1-c_y\). The function \(f(c_y) = v(c_y,1-c_y)\) is strictly concave with its maximum at \(1-\beta > 1-\alpha\), so it is strictly increasing on \((0,1-\alpha]\). Hence \(f(c_y)\le f(1-\alpha)\) for \(c_y\le1-\alpha\), with equality only at the CE. Nobody can be strictly better off.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 10.3 <span class="tag proof">Proof</span></div>
-    <p>Show that in Case 3 (\(\beta<\alpha\)) no feasible symmetric allocation Pareto-dominates the CE.</p>
+    <div class="box-title">Exercise 10.4 <span class="tag past">Past exam: Fall 2025 Midterm 1, Q I.3</span> <span class="tag proof">extended to a proof</span></div>
+    <p>The exam asked only for "true or false". Here you prove the two-period case without stationarity. Generation \(t\) has strictly increasing, strictly concave, twice continuously differentiable utility \(v\) and endowment \((e^t_t,e^t_{t+1})\) lying in a compact set \(E\) bounded away from zero. Suppose the CE interest rates satisfy \(r_t\le\underline r<0\) for all \(t\).</p>
+    <ol class="parts" type="a">
+      <li><span class="pts">[5 pts]</span> Show that \(\sum_tp_t\bar e_t=\infty\).</li>
+      <li><span class="pts">[5 pts]</span> Propose the allocation in which every young agent gives \(\varepsilon>0\) to the current old at every date. Show it is feasible for small \(\varepsilon\) and that the initial old strictly gain.</li>
+      <li><span class="pts">[10 pts]</span> Let \(\Delta_t(\varepsilon)=v(e^t_t-\varepsilon,e^t_{t+1}+\varepsilon)-v(e^t_t,e^t_{t+1})\). Show that \(\Delta_t'(0)=v_1\big(\tfrac1{1+r_t}-1\big)\) and that \(\Delta'_t(0)\ge c\) for some constant \(c>0\) independent of \(t\).</li>
+      <li><span class="pts">[10 pts]</span> Show that there is \(\bar\varepsilon>0\) such that \(\Delta_t(\varepsilon)>0\) for every \(t\) and every \(\varepsilon\in(0,\bar\varepsilon)\). Conclude.</li>
+      <li><span class="pts">[5 pts]</span> Why did we need \(r_t\le\underline r<0\) rather than just \(r_t<0\)?</li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>In the pure-endowment CE each generation consumes its endowment, so \(v_2/v_1\) at \(e^t\) equals \(1/(1+r_t)\). For (c)–(d), continuous functions are bounded on compact sets: bound \(v_1\) below and \(|\Delta''_t|\) above, uniformly in \(t\).</p></div></details>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>Let \((c_y,c_o)\) be feasible (\(c_y+c_o\le1\)) and weakly preferred by everyone. The initial old need \(c_o\ge\alpha\), so \(c_y\le1-\alpha\). Generations \(i\ge1\) need \(v(c_y,c_o)\ge v(1-\alpha,\alpha)\). Since \(v\) is increasing, it suffices to check \(c_o = 1-c_y\). The function \(f(c_y) = v(c_y,1-c_y)\) is strictly concave with maximum at \(1-\beta > 1-\alpha\), so it is strictly increasing on \((0,1-\alpha]\). Hence for \(c_y\le 1-\alpha\), \(f(c_y)\le f(1-\alpha)\), with equality only at \(c_y = 1-\alpha\). So the only weakly preferred feasible symmetric allocation is the CE itself, and nobody is strictly better off.</p>
+      <p>(a) \(p_{t+1}/p_t=1/(1+r_t)\ge1/(1+\underline r)>1\), so \(p_t\ge p_1\) for all \(t\). With \(\bar e_t\) bounded away from zero, the series diverges.</p>
+      <p>(b) At each date the young give \(\varepsilon\) and the old receive \(\varepsilon\), so totals are unchanged. Consumption stays positive for \(\varepsilon\) below the lower bound on endowments. The initial old consume \(e^0_1+\varepsilon>e^0_1\).</p>
+      <p>(c) \(\Delta_t'(0)=-v_1+v_2=v_1(v_2/v_1-1)=v_1\big(\frac{1}{1+r_t}-1\big)\), using the FOC at the endowment. On \(E\), \(v_1\ge m>0\), and \(\frac1{1+r_t}-1\ge\frac1{1+\underline r}-1>0\). So \(\Delta_t'(0)\ge c\equiv m\big(\frac{1}{1+\underline r}-1\big)>0\).</p>
+      <p>(d) \(\Delta''_t(\varepsilon)=v_{11}-2v_{12}+v_{22}\), evaluated along the segment. On a compact neighbourhood of \(E\) this is bounded: \(|\Delta''_t|\le K\). By Taylor's theorem, \(\Delta_t(\varepsilon)\ge\varepsilon c-\tfrac12K\varepsilon^2>0\) for \(0\lt \varepsilon\lt \bar\varepsilon\equiv\min\{2c/K,\ \underline e\}\). Every generation \(t\ge1\) strictly gains and so do the initial old, so the CE is not Pareto optimal.</p>
+      <p>(e) If \(r_t\uparrow0\), the first-order gain \(\Delta'_t(0)\) shrinks to zero along the sequence. Then no single \(\varepsilon\) need work for all generations: a constant transfer may hurt late generations, and you would need a transfer path that adapts. The general criterion (Cass; Balasko–Shell) is more delicate. On an exam, state the uniform bound or assume stationarity.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 10.4 <span class="tag exam">Exam-style</span></div>
-    <p>In Case 1, a planner proposes a <em>one-time</em> transfer: at date 1, generation 1 gives \(\varepsilon>0\) to generation 0, and nothing else changes. Is this a Pareto improvement? What about a transfer of \(\varepsilon\) from young to old at every date \(t=1,\dots,T\) and none after? Explain the general lesson.</p>
+    <div class="box-title">Exercise 10.5 <span class="tag past">Past exam: Spring 2023 Midterm 1, Q2</span> Heterogeneous agents in a two-period OLG model</div>
+    <p>Periods \(t=1,2,\dots\). Each cohort contains types \(i=1,\dots,I\). Type \(i\) of cohort \(t\) has endowment \(\alpha^i_y\) when young and \(\alpha^i_o\) when old, and preferences
+    $$-\pi_y\frac{(\theta^i_y-x^{i,t}_t)^{1+\sigma}}{1+\sigma}-\pi_o\frac{(\theta^i_o-x^{i,t}_{t+1})^{1+\sigma}}{1+\sigma},\qquad \sigma>0,$$
+    defined for consumption below the satiation points \(\theta^i\). The initial old of type \(i\) have endowment \(\alpha^i_o\) and utility \(x^{0,i}_1\). Let \(\bar\alpha_y=\sum_i\alpha^i_y\), \(\bar\alpha_o=\sum_i\alpha^i_o\), \(\bar\theta_y=\sum_i\theta^i_y\), \(\bar\theta_o=\sum_i\theta^i_o\).</p>
+    <p><em>You may use</em> the result of the exam's previous question (Gorman aggregation): in a pure-exchange economy with these preferences and aggregate endowment \(\bar e\), interior equilibrium relative prices are
+    $$\frac{p_\ell}{p_k}=\frac{\pi_\ell(\bar\theta_\ell-\bar e_\ell)^\sigma}{\pi_k(\bar\theta_k-\bar e_k)^\sigma},$$
+    whatever the distribution of endowments.</p>
+    <ol class="parts" type="a">
+      <li>Is the equilibrium equal to autarky? Yes or no.</li>
+      <li>Is the total consumption of each cohort when young equal to \(\bar\alpha_y\)? Yes or no.</li>
+      <li>Is the interest rate constant over time? Yes or no.</li>
+      <li>Using the aggregation result, solve for \(\frac1{1+r_t}=\frac{p_{t+1}}{p_t}\) as a function of \(\bar\theta_y,\bar\theta_o,\pi_y,\pi_o,\bar\alpha_y,\bar\alpha_o,\sigma\).</li>
+      <li>Suppose \(\pi_o\lt \pi_y\), \(\bar\alpha_y=\bar\alpha_o\) and \(\bar\theta_y=\bar\theta_o\). Is the interest rate positive or negative? Is the allocation Pareto optimal?</li>
+      <li><em>(Added.)</em> Give a condition on the primitives under which \(r<0\). Show that the equilibrium is then not Pareto optimal by constructing an improvement.</li>
+    </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>Neither is a Pareto improvement. In the one-time scheme, generation 1 loses \(\varepsilon\) when young and gets nothing back. In the \(T\)-period scheme, generations \(1,\dots,T-1\) gain (for \(\varepsilon\) small, since \(\bar r<0\)), but generation \(T\) pays when young and receives nothing when old, so it loses. <strong>Lesson:</strong> every Pareto improvement over the Case-1 CE must involve transfers from young to old at <em>every</em> date forever. In a finite-horizon OLG economy the CE would be PO, by the ordinary First Welfare Theorem.</p>
+      <p>(a) <strong>No.</strong> Types differ in MRS at their endowments, so they trade within the cohort.</p>
+      <p>(b) <strong>Yes.</strong> There is no aggregate trade across cohorts (Exercise 8.7(b)): the initial old just eat their endowment, and induction pins each cohort's totals.</p>
+      <p>(c) <strong>Yes.</strong> Each cohort is the same two-good exchange economy, with goods "young-date" and "old-date" and aggregate endowment \((\bar\alpha_y,\bar\alpha_o)\). So its relative price is the same for every \(t\).</p>
+      <p>(d) Apply the aggregation formula with \(\ell=o\), \(k=y\) and \(\bar e=(\bar\alpha_y,\bar\alpha_o)\):
+      $$\frac{1}{1+r}=\frac{\pi_o}{\pi_y}\left(\frac{\bar\theta_o-\bar\alpha_o}{\bar\theta_y-\bar\alpha_y}\right)^{\sigma}.$$</p>
+      <p>(e) The ratio in brackets is 1, so \(1/(1+r)=\pi_o/\pi_y<1\) and \(r>0\). <strong>PO:</strong> prices fall geometrically and the aggregate endowment is constant, so its value is finite and the OLG 1WT applies.</p>
+      <p>(f) \(r<0\iff\pi_o(\bar\theta_o-\bar\alpha_o)^\sigma>\pi_y(\bar\theta_y-\bar\alpha_y)^\sigma\): old-age consumption is weighted more heavily, or the cohort is further below its satiation point when old. In an interior equilibrium, every type's MRS equals \(1/(1+r)>1\). Take \(\varepsilon\) from every young agent of every type and give \(\varepsilon\) to every old agent, at every date. The initial old gain \(\varepsilon\), since their utility is linear. Each type of every cohort gains to first order \(u_y\,\varepsilon\,(\tfrac{1}{1+r}-1)>0\), and stationarity makes the second-order terms uniformly small (Exercise 10.4). So the CE is not PO.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 10.5 <span class="tag proof">Proof</span> (harder)</div>
-    <p>Show that the best symmetric allocation \((1-\beta,\beta)\) is Pareto optimal among <em>all</em> feasible allocations, not just symmetric ones.</p>
-    <details class="hint"><summary>Hint</summary><div class="body"><p>Write any feasible allocation that doesn't waste goods as \(x^t_t = 1-\beta-\delta_t\) and \(x^{t-1}_t = \beta+\delta_t\), where \(\delta_t\) is the extra amount given to the old at date \(t\). Use \(\log(1+z)\le z\) and \(\log(1-z)\le -z - z^2/2\) for \(z\in[0,1)\) to bound each generation's utility gain.</p></div></details>
+    <div class="box-title">Exercise 10.6 <span class="tag proof">Proof</span> (harder) Case 2 is efficient</div>
+    <p>Show that the best symmetric allocation \((1-\beta,\beta)\) is Pareto optimal among <em>all</em> feasible allocations, not just symmetric ones. In Case 2 this is the CE, even though its value is infinite.</p>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>Write any feasible allocation that doesn't waste goods as \(x^t_t = 1-\beta-\delta_t\) and \(x^{t-1}_t = \beta+\delta_t\), where \(\delta_t\) is the extra amount given to the old at date \(t\). Use \(\log(1+z)\le z\), and \(\log(1-z)\le -z - z^2/2\) for \(z\in[0,1)\), to bound each generation's utility gain.</p></div></details>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>Wasting goods never helps, so take feasibility with equality and parametrize as in the hint. The initial old need \(\delta_1\ge0\). Generation \(t\)'s utility change is
+      <p>Wasting goods never helps, so impose feasibility with equality and parametrize as in the hint. The initial old need \(\delta_1\ge0\). Generation \(t\)'s utility change is
       $$\Delta_t = (1-\beta)\log\Big(1-\tfrac{\delta_t}{1-\beta}\Big) + \beta\log\Big(1+\tfrac{\delta_{t+1}}{\beta}\Big).$$
-      Suppose \(\delta_t\ge0\) (true for \(t=1\)). Apply \(\log(1-z)\le -z-z^2/2\) with \(z=\delta_t/(1-\beta)\in[0,1)\), and \(\log(1+z)\le z\) (valid for every \(z>-1\)) with \(z = \delta_{t+1}/\beta\):
+      Suppose \(\delta_t\ge0\), which is true for \(t=1\). The two inequalities give
       $$\Delta_t \;\le\; -\delta_t - \kappa\,\delta_t^2 + \delta_{t+1},\qquad \kappa = \tfrac{1}{2(1-\beta)} > 0 .$$
-      So \(\Delta_t\ge0\) requires \(\delta_{t+1}\ge\delta_t + \kappa\delta_t^2\ge\delta_t\ge0\). By induction from \(\delta_1\ge0\), every \(\delta_t\ge0\) and the sequence is non-decreasing. If some \(\delta_k>0\), then for \(t\ge k\), \(\delta_{t+1}\ge\delta_t(1+\kappa\delta_k)\). The sequence grows geometrically and eventually exceeds \(1-\beta\), so young consumption becomes negative: infeasible. Hence all \(\delta_t = 0\), the allocation is the best symmetric one, and nobody is strictly better off. ∎</p>
-      <p><em>Remark:</em> this "transfers must grow geometrically to keep everyone happy" logic is the essence of the Balasko–Shell/Cass characterization of efficiency in OLG economies. It reappears in the many-period argument of Lesson 16.</p>
+      So \(\Delta_t\ge0\) requires \(\delta_{t+1}\ge\delta_t + \kappa\delta_t^2\ge\delta_t\ge0\). By induction every \(\delta_t\ge0\) and the sequence is non-decreasing. If some \(\delta_k>0\), then \(\delta_{t+1}\ge\delta_t(1+\kappa\delta_k)\) for \(t\ge k\). The sequence grows geometrically and eventually exceeds \(1-\beta\), which is infeasible. Hence all \(\delta_t = 0\). ∎</p>
+      <p><em>Remark:</em> "transfers must grow geometrically to keep everyone happy" is the essence of the Balasko–Shell/Cass characterization of OLG efficiency, and it reappears in Lesson 16.</p>
     </div></details>
   </div>
 

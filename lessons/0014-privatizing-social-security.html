@@ -197,7 +197,7 @@
 
   <div class="warning">
     <div class="box-title">The government never repays, and that's fine here</div>
-    <p>The debt \(\tilde B_t\) is constant forever and is never retired. That is sustainable because the OLG economy always has a new generation to buy it (compare the transfer chain of <a href="0012-why-the-1wt-fails-in-olg.html">Lesson 12</a>). When \(\bar r<0\), the debt even <em>shrinks</em> on its own, \((1+\bar r)\tilde B<\tilde B\) in absolute value. The government then has income to pay out, so the privatized "tax" on the young becomes a subsidy, \(\theta\bar r/(1+\bar r)<0\) (Exercise 14.4).</p>
+    <p>The debt \(\tilde B_t\) is constant forever and is never retired. That is sustainable because the OLG economy always has a new generation to buy it (compare the transfer chain of <a href="0012-why-the-1wt-fails-in-olg.html">Lesson 12</a>). When \(\bar r<0\), the debt even <em>shrinks</em> on its own, \((1+\bar r)\tilde B\lt \tilde B\) in absolute value. The government then has income to pay out, so the privatized "tax" on the young becomes a subsidy, \(\theta\bar r/(1+\bar r)<0\) (Exercise 14.4).</p>
   </div>
 
   <!-- ─────────────────────────────────────────── -->
@@ -265,82 +265,125 @@
   <!-- ─────────────────────────────────────────── -->
   <h2>7. Exercises</h2>
 
+  <p>Class Note III is a walk-through of Problem 1 of the 2025 problem set, so Exercise 14.2 is that problem in full. The rest follow Alvarez's exam formats: true/false with a justification, and derivations in short, hinted steps. Remember the convention here: the young are endowed with \(\alpha\), the old with \(1-\alpha\), and \(B_t\) is government <em>assets</em>.</p>
+
   <div class="box exercise">
-    <div class="box-title">Exercise 14.1 <span class="tag slides">Slides N3 p.4</span> <span class="tag proof">Proof</span></div>
-    <p>Without looking, derive \(B_t+s_t=(1+r_{t-1})(B_{t-1}+s_{t-1})\) from the household budgets, the government budget and goods-market clearing. Which equation did you never use?</p>
-    <details class="solution"><summary>Show solution</summary><div class="body"><p>See the proof in Section 1. You never used asset-market clearing \(B_t+s_t=0\) itself, except at \(t=0\) as the initial condition. That is the point: it is implied. Household <em>optimality</em> was not used either; the identity holds for any plans satisfying the budgets.</p></div></details>
+    <div class="box-title">Exercise 14.1 True or false? Justify. <span class="tag pset">Problem set 2025, P1</span> <span class="tag exam">Exam-inspired</span></div>
+    <p>Answer each in one to four lines.</p>
+    <ol class="tf-list">
+      <li>"In the OLG economy with taxes and government debt, the household budget constraints, the government budget constraint and goods-market clearing together imply asset-market clearing." <span class="tf-src">Class Note III p.4 / Problem set 2025, P1 Q1</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True</strong>, given the initial condition \(B_0+s_0=0\). Combining the budgets with goods-market clearing gives \(B_t+s_t=(1+r_{t-1})(B_{t-1}+s_{t-1})\), and induction does the rest. This is Walras' law. (The slide says "subtracting", but you actually add the household and government constraints.)</p></div></details></li>
+      <li>"Privatizing PAYG so that every generation's present value of taxes is unchanged leaves consumption and the interest rate unchanged." <span class="tf-src">Problem set 2025, P1 Q3–Q6</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True.</strong> At the old interest rate, every lifetime budget set is the same, so every choice is the same. Saving and government debt change one-for-one, so the asset market still clears at \(\bar r\). This confirms the guess.</p></div></details></li>
+      <li>"Under the privatized system, the government must eventually repay the debt it issued to pay the initial old." <span class="tf-src">Exam-inspired</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> \(\tilde B_t=-\theta/(1+\bar r)\) is constant forever. Each young generation's tax \(\theta\bar r/(1+\bar r)=-\bar r\tilde B\) pays exactly the interest, and the principal is rolled over to the next generation of buyers. That works because OLG never runs out of new generations.</p></div></details></li>
+      <li>"After privatization, private saving rises by exactly the amount of government debt issued." <span class="tf-src">Problem set 2025, P1 Q5–Q6</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True.</strong> \(\tilde s_t=\theta/(1+\bar r)=-\tilde B_t\). The young save their tax cut in government bonds, and at old age those bonds pay \(\theta\), exactly replacing the abolished transfer.</p></div></details></li>
+      <li>"If \(\bar r&lt;0\), the privatized system must tax the young more heavily than PAYG did." <span class="tf-src">Exam-inspired</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> The privatized tax is \(\tilde\tau^t_t=\theta\bar r/(1+\bar r)&lt;0\) when \(\bar r&lt;0\): the young receive a <em>subsidy</em>. The debt shrinks in real terms on its own, and the government passes that to the young (Exercise 14.4).</p></div></details></li>
+      <li>"Ricardian equivalence fails in OLG models because households ignore their own future taxes." <span class="tf-src">Exam-inspired</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> Households fully account for their <em>own</em> future taxes. That is why re-timing taxes within one generation's lifetime is neutral (privatization; Exercise 14.6a). Equivalence fails when debt shifts present value <em>across</em> generations, because households don't care about taxes on generations not yet born (Exercise 14.6b).</p></div></details></li>
+      <li>"In the endowment OLG economy, government debt that is rolled over forever, with no taxes, can make every generation better off." <span class="tf-src">2025 final-review notes: a welfare role for government debt</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True</strong>, when the no-debt equilibrium has \(\bar r&lt;0\). Debt then plays the role of PAYG (or of a valued bubble). It supplies the intergenerational asset the young want, and the equilibrium moves to \(r=0\) and the best symmetric allocation (Exercise 14.7). With \(\bar r>0\) no such debt can be sustained.</p></div></details></li>
+      <li>"Abolishing PAYG in an economy with a positive interest rate is a Pareto improvement, because PAYG's implicit return (zero) is below the market rate." <span class="tf-src">Exam-inspired</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> Every generation \(t\ge1\) gains, but the initial old lose their transfer \(\theta\). The PAYG equilibrium has \(\bar r>0\) and finite value, so by the 1WT it is Pareto optimal, and any change hurts someone (Exercise 14.5).</p></div></details></li>
+    </ol>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 14.2 <span class="tag slides">Slides N3 pp.5–11</span></div>
-    <p>Let \(\alpha=0.5\), \(\beta=0.5\), \(\theta=0.1\) (Note III endowments: \(\alpha\) young, \(1-\alpha\) old; log preferences).</p>
+    <div class="box-title">Exercise 14.2 <span class="tag pset">Problem set 2025, P1 (Q1–Q7)</span> <span class="tag slides">Slides N3 pp.3–14</span></div>
+    <p>Generation \(t\ge1\) faces \(s_t+c^t_t=e^t_t-\tau^t_t\) and \(c^t_{t+1}=s_t(1+r_t)+e^t_{t+1}-\tau^t_{t+1}\). The initial old have \(c^0_1=s_0(1+r_0)+e^0_1-\tau^0_1\). The government budget is \(B_t+g_t=B_{t-1}(1+r_{t-1})+\tau^t_t+\tau^{t-1}_t\), goods-market clearing is \(g_t+c^t_t+c^{t-1}_t=e^t_t+e^{t-1}_t\), and \(B_0+s_0=0\). PAYG: \(\tau^t_t=\theta\), \(\tau^t_{t+1}=-\theta\), with \(g_t=0\), \(e^t_t=\alpha\), \(e^{t-1}_t=1-\alpha\), \(s_0=B_0=0\) and a constant rate \(\bar r\). The privatized system is \(\tilde\tau^0_1=\tau^0_1\), \(\tilde\tau^t_t=\tau^t_t+\tau^t_{t+1}/(1+\tilde r_t)\), \(\tilde\tau^t_{t+1}=0\). Guess \(\tilde r_t=\bar r\).</p>
     <ol class="parts" type="a">
-      <li>Compute \(\bar r\) under PAYG.
-        <div class="numcheck" data-answer="0.5" data-tol="0.002" data-prompt="r̄ ="></div></li>
-      <li>Compute the PV of each generation's PAYG taxes (equivalently, the privatized young tax \(\tilde\tau^t_t\)).
-        <div class="numcheck" data-answer="1/30" data-tol="0.003" data-prompt="τ̃ ="></div></li>
-      <li>Compute the government's assets \(\tilde B_t\) after privatization.
-        <div class="numcheck" data-answer="-1/15" data-tol="0.003" data-prompt="B̃ ="></div></li>
-      <li>Verify that \(\tilde s_t+\tilde c^t_t=e^t_t-\tilde\tau^t_t\) and that old consumption equals \(1-\alpha+\theta\).</li>
+      <li><span class="pts">(15 pts)</span> Use the budgets and goods-market clearing to show that the asset market clears: \(B_t+s_t=0\) for all \(t\). <em>Which equations did you not use?</em></li>
+      <li><span class="pts">(5 pts)</span> Interpret \((\tilde\tau^t_t,\tilde\tau^t_{t+1})\). <em>Two lines.</em></li>
+      <li><span class="pts">(10 pts)</span> Show that \(\tilde c^t_t=c^t_t\), \(\tilde c^t_{t+1}=c^t_{t+1}\) and \(\tilde c^0_1=c^0_1\).</li>
+      <li><span class="pts">(10 pts)</span> Show that \(\tilde B_t=-\theta/(1+\bar r)\) for all \(t\ge1\). <em>Hint: solve the government budget at \(t=1\), then use induction.</em></li>
+      <li><span class="pts">(5 pts)</span> Show that \(\tilde s_t=\theta/(1+\bar r)\).</li>
+      <li><span class="pts">(5 pts)</span> Verify that the asset market clears, and say what this confirms.</li>
+      <li><span class="pts">(10 pts)</span> Interpret the asset market at \(t=1\) and at \(t\ge2\): who issues, who buys, and who pays the interest?</li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) After-tax endowments are \((0.4,0.6)\), so \(1+\bar r=\frac{0.5\cdot0.6}{0.5\cdot0.4}=1.5\) and \(\bar r=0.5\).<br>
-      (b) \(\theta\bar r/(1+\bar r)=0.05/1.5=1/30\approx0.0333\).<br>
-      (c) \(\tilde B=-\theta/(1+\bar r)=-0.1/1.5=-1/15\approx-0.0667\).<br>
-      (d) \(\tilde s=1/15\) and \(\tilde c^t_t=0.4\), so \(1/15+0.4=0.4667=0.5-1/30\) ✓. When old: \(1.5\cdot(1/15)+0.5=0.6=1-\alpha+\theta\) ✓.</p>
+      <ol class="steps">
+        <li><strong>(a)</strong> From the young's budget, \(\tau^t_t=e^t_t-s_t-c^t_t\). From the old's, \(\tau^{t-1}_t=e^{t-1}_t+s_{t-1}(1+r_{t-1})-c^{t-1}_t\). From goods-market clearing, \(g_t=e^t_t+e^{t-1}_t-c^t_t-c^{t-1}_t\). Substituting all three into the government budget, consumption and endowments cancel, leaving \(B_t+s_t=(1+r_{t-1})(B_{t-1}+s_{t-1})\). Induction from \(B_0+s_0=0\) gives \(B_t+s_t=0\). <em>Not used:</em> asset-market clearing itself (it is implied), and household <em>optimality</em> (the identity holds for any plans satisfying the budgets).</li>
+        <li><strong>(b)</strong> Each generation's present value of taxes is unchanged, \(\tilde\tau^t_t+\tilde\tau^t_{t+1}/(1+\bar r)=\theta-\theta/(1+\bar r)\), but nothing is paid or received when old. The young's tax falls from \(\theta\) to \(\theta\bar r/(1+\bar r)\), a cut equal to the PV of the abolished benefit. The initial old still receive \(\theta\).</li>
+        <li><strong>(c)</strong> The lifetime budget is \(c^t_t+\frac{c^t_{t+1}}{1+\bar r}=e^t_t+\frac{e^t_{t+1}}{1+\bar r}-\big(\tau^t_t+\frac{\tau^t_{t+1}}{1+\bar r}\big)\). The tax PV is the same under both systems, so the budget set is the same and so is the optimal choice. The initial old face the same tax and consume all their wealth. Hence \(\tilde c^t_t=\alpha-\theta\) and \(\tilde c^t_{t+1}=1-\alpha+\theta\).</li>
+        <li><strong>(d)</strong> At \(t=1\): \(\tilde B_1=\tilde\tau^0_1+\tilde\tau^1_1=-\theta+\theta\bar r/(1+\bar r)=-\theta/(1+\bar r)\). For \(t\ge2\): \(\tilde B_t=(1+\bar r)\tilde B_{t-1}+\theta\bar r/(1+\bar r)\). If \(\tilde B_{t-1}=-\theta/(1+\bar r)\), then \(\tilde B_t=-\theta+\theta\bar r/(1+\bar r)=-\theta/(1+\bar r)\). <em>Errors in a circulating solution:</em> it writes the government budget with \(\tilde\tau^{t-1}_t/(1+\bar r)\) and gets the sign of \(\tilde\tau^0_1\) wrong mid-derivation. The final answer is right.</li>
+        <li><strong>(e)</strong> Subtract the two young-age budgets, using \(\tilde c=c\): \(\tilde s_t=s_t+(\tau^t_t-\tilde\tau^t_t)=0+\theta-\theta\bar r/(1+\bar r)=\theta/(1+\bar r)\). When old, this pays \((1+\bar r)\tilde s=\theta\), exactly replacing the benefit.</li>
+        <li><strong>(f)</strong> \(\tilde B_t+\tilde s_t=0\) for every \(t\). Together with (a) and (c), this confirms that \(\tilde r=\bar r\) is an equilibrium of the privatized economy.</li>
+        <li><strong>(g)</strong> At \(t=1\), the government pays \(\theta\) to the initial old but collects only \(\theta\bar r/(1+\bar r)\) from the young. It covers the gap by issuing debt \(\theta/(1+\bar r)\), which the young buy with their tax cut. At \(t\ge2\), each young generation pays \(\theta\bar r/(1+\bar r)=-\bar r\tilde B\), exactly the interest on the debt, and buys the outstanding bonds from the old. The principal is rolled over forever. The implicit PAYG liability has become explicit debt, while consumption, welfare and \(r\) are unchanged.</li>
+      </ol>
     </div></details>
   </div>
 
   <div class="box exercise">
     <div class="box-title">Exercise 14.3 <span class="tag slides">Slides N3 p.6</span></div>
     <p>The definition of \(\tilde\tau^t_t\) uses \(\tilde r_t\), the interest rate <em>after</em> the reform, which we don't know in advance. Explain the logic of "guess \(\tilde r=\bar r\), then verify". What would go wrong if the government used the wrong interest rate in the formula?</p>
-    <details class="solution"><summary>Show solution</summary><div class="body"><p>The tax system is a function of the equilibrium price, so we look for a fixed point. Conjecture a price, compute the policy and the households' responses, and check that markets clear at the conjectured price. If they do, we have found an equilibrium. If the government computed \(\tilde\tau\) with some \(r'\ne\bar r\), each generation's lifetime budget at \(\bar r\) would change by \(\theta\big(\frac{1}{1+r'}-\frac{1}{1+\bar r}\big)\). Consumption would change and \(\bar r\) would no longer clear the market. The reform would then redistribute across generations rather than being neutral.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body"><p>The tax system depends on the equilibrium price, so we look for a fixed point. Conjecture a price, compute the policy and the households' responses, and check that markets clear at the conjectured price. If they do, we have found an equilibrium. Suppose the government computed \(\tilde\tau\) with some \(r'\ne\bar r\). Then each generation's lifetime budget at \(\bar r\) would change by \(\theta\big(\frac{1}{1+r'}-\frac{1}{1+\bar r}\big)\). Consumption would change, \(\bar r\) would no longer clear the market, and the reform would redistribute across generations instead of being neutral.</p></div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 14.4 <span class="tag exam">Exam-style</span> (privatizing in a dynamically inefficient economy)</div>
-    <p>Let \(\alpha=0.7\), \(\beta=0.5\), \(\theta=0.1\).</p>
+    <div class="box-title">Exercise 14.4 <span class="tag exam">Exam-inspired</span> (privatizing in a dynamically inefficient economy)</div>
+    <p>Same economy as Exercise 14.2.</p>
     <ol class="parts" type="a">
-      <li>Compute \(\bar r\).
-        <div class="numcheck" data-answer="-1/3" data-tol="0.003" data-prompt="r̄ ="></div></li>
-      <li>Compute the privatized young tax \(\tilde\tau^t_t\) and interpret its sign.
-        <div class="numcheck" data-answer="-0.05" data-tol="0.003" data-prompt="τ̃ ="></div></li>
-      <li>Compute \(\tilde B_t\) and verify the government budget at \(t\ge2\).</li>
-      <li>Under PAYG, is each generation \(t\ge1\) a net taxpayer or a net recipient in PV? Connect your answer to <a href="0011-pay-as-you-go-social-security.html">Lesson 11</a>.</li>
+      <li><span class="pts">(10 pts)</span> Show that the PAYG equilibrium has \(\bar r&lt;0\) iff \(1-\alpha+\theta&lt;\beta\). <em>Hint: no private trade, so \(1+\bar r\) is the MRS at the after-tax endowment.</em></li>
+      <li><span class="pts">(5 pts)</span> When \(\bar r&lt;0\), what is the sign of the privatized young tax \(\tilde\tau^t_t\)? Interpret.</li>
+      <li><span class="pts">(10 pts)</span> Verify that the government budget holds at \(t\ge2\) with \(\tilde B=-\theta/(1+\bar r)\). Explain where the government's "income" comes from when \(\bar r&lt;0\).</li>
+      <li><span class="pts">(5 pts)</span> Under PAYG, is each generation \(t\ge1\) a net taxpayer or a net recipient in present value? Connect your answer to <a href="0011-pay-as-you-go-social-security.html">Lesson 11</a>.</li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) After-tax endowments are \((0.6,0.4)\), so \(1+\bar r=\frac{0.5\cdot0.4}{0.5\cdot0.6}=2/3\) and \(\bar r=-1/3\).<br>
-      (b) \(\tilde\tau=\theta\bar r/(1+\bar r)=0.1(-1/3)/(2/3)=-0.05\). The young receive a <em>subsidy</em> of 0.05: the reform replaces a PAYG system with a negative PV of taxes.<br>
-      (c) \(\tilde B=-0.1/(2/3)=-0.15\). Check: \((1+\bar r)\tilde B+\tilde\tau=\tfrac23(-0.15)-0.05=-0.10-0.05=-0.15\) ✓. Because \(\bar r<0\), the debt shrinks by \(0.05\) each period on its own. The government hands this "negative interest" to the young.<br>
-      (d) The PV of PAYG taxes is \(\theta\bar r/(1+\bar r)=-0.05<0\), so each generation is a net <em>recipient</em>. PAYG's implicit return (0) beats the market return (\(\bar r<0\)), which is exactly the case where PAYG can be Pareto-improving.</p>
+      <p>(a) The after-tax endowments are \((\alpha-\theta,1-\alpha+\theta)\), so \(1+\bar r=\frac{(1-\beta)(1-\alpha+\theta)}{\beta(\alpha-\theta)}\). This is \(&lt;1\) iff \((1-\beta)(1-\alpha+\theta)&lt;\beta(\alpha-\theta)\). Expanding, that is \(1-\alpha+\theta&lt;\beta[(1-\alpha+\theta)+(\alpha-\theta)]=\beta\). So the after-tax old endowment must be below the share \(\beta\) the old would choose at \(r=0\).<br>
+      (b) \(\tilde\tau^t_t=\theta\bar r/(1+\bar r)&lt;0\): the young receive a <em>subsidy</em>. The reform replaces a system whose PV of taxes is negative.<br>
+      (c) \((1+\bar r)\tilde B+\tilde\tau^t_t=-\theta+\frac{\theta\bar r}{1+\bar r}=-\frac{\theta}{1+\bar r}=\tilde B\) ✓. With \(\bar r&lt;0\), the debt's real value shrinks by \(-\bar r\,|\tilde B|>0\) each period without any action. That "negative interest" is the resource the government hands to the young.<br>
+      (d) The PV of PAYG taxes is \(\theta\bar r/(1+\bar r)&lt;0\), so each generation is a net <em>recipient</em>. PAYG's implicit return (0) beats the market return (\(\bar r&lt;0\)), which is exactly when PAYG can be Pareto-improving.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 14.5 <span class="tag exam">Exam-style</span> (abolishing PAYG without compensation)</div>
-    <p>Suppose instead the government simply abolishes PAYG at date 1: no transfer to the initial old, no tax on anyone. Assume the economy without PAYG has a positive interest rate.</p>
+    <div class="box-title">Exercise 14.5 <span class="tag exam">Exam-inspired</span> (abolishing PAYG without compensation)</div>
+    <p>Suppose instead the government simply abolishes PAYG at date 1: no transfer to the initial old, and no tax on anyone. Assume the economy without PAYG has a positive interest rate.</p>
     <ol class="parts" type="a">
       <li>Who loses and who gains?</li>
       <li>Can the abolition be a Pareto improvement? Answer using the First Welfare Theorem.</li>
       <li>Contrast with privatization. Why is privatization "free" while abolition is not?</li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) The initial old lose \(\theta\). Generations \(t\ge1\) now consume their endowment \((\alpha,1-\alpha)\) instead of \((\alpha-\theta,1-\alpha+\theta)\). With a positive interest rate in the no-PAYG economy, each young person's MRS at the endowment exceeds 1, and moving toward more young consumption along \(c_y+c_o=1\) raises utility, so they gain.<br>
-      (b) No. With taxes, the PAYG equilibrium is a CE of an exchange economy with after-tax endowments. If its \(\bar r>0\) (which it is, since PAYG raises the old's endowment and hence \(\bar r\)), the value of the aggregate endowment is finite and the 1WT says it is Pareto optimal. So any change must hurt someone, here the initial old.<br>
+      <p>(a) The initial old lose \(\theta\). Generations \(t\ge1\) now consume their endowment \((\alpha,1-\alpha)\) instead of \((\alpha-\theta,1-\alpha+\theta)\). With a positive interest rate in the no-PAYG economy, each young person's MRS at the endowment exceeds 1. Moving toward more young consumption along \(c_y+c_o=1\) raises utility, so they gain.<br>
+      (b) No. The PAYG equilibrium is a CE of an exchange economy with after-tax endowments. Its \(\bar r\) is positive, because PAYG raises the old's endowment and hence \(\bar r\). So the value of the aggregate endowment is finite, and the 1WT says the PAYG equilibrium is Pareto optimal. Any change must hurt someone, here the initial old.<br>
       (c) Privatization keeps every generation's PV of taxes, including the initial old's, so it reallocates nothing. The cost of honouring the initial old's promise doesn't disappear; it becomes explicit debt that is rolled over forever. Abolition defaults on that implicit debt, which is why the initial old pay.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 14.6 <span class="tag exam">Exam-style</span> (when debt is not neutral)</div>
-    <p>Start from the economy with no taxes and no debt (\(\theta=0\)), endowments \((\alpha,1-\alpha)\), interest rate \(r^*\). At date 1 the government gives each young person \(\Delta\) and issues bonds \(\Delta\).</p>
+    <div class="box-title">Exercise 14.6 <span class="tag exam">Exam-inspired</span> (when debt is not neutral)</div>
+    <p>Start from the economy with no taxes and no debt (\(\theta=0\)), endowments \((\alpha,1-\alpha)\), and interest rate \(r^*\). At date 1 the government gives each young person \(\Delta\) and issues bonds worth \(\Delta\).</p>
     <ol class="parts" type="a">
       <li><strong>Policy A:</strong> the debt is repaid at date 2 by taxing <em>the same</em> generation (now old) \((1+r^*)\Delta\). Show that nothing real changes.</li>
       <li><strong>Policy B:</strong> the debt is repaid at date 2 by taxing <em>generation 2</em> (young) \((1+r^*)\Delta\). Who gains and who loses? Is the interest rate at date 1 unchanged?</li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
       <p>(a) Generation 1's lifetime budget changes by \(+\Delta-(1+r^*)\Delta/(1+r^*)=0\). It consumes as before and saves the extra \(\Delta\) in government bonds, so \(s_1=\Delta=-B_1\) and the asset market clears. This is the Ricardian experiment within a generation, and it is neutral.<br>
-      (b) Asset clearing at date 1 forces \(s_1=\Delta\), so generation 1 consumes \(c^1_1=\alpha+\Delta-\Delta=\alpha\) when young and \(c^1_2=1-\alpha+(1+r_1)\Delta\) when old: it <strong>gains</strong>. Generation 2 pays \((1+r_1)\Delta\) when young and holds no bonds, so it consumes \((\alpha-(1+r_1)\Delta,\ 1-\alpha)\): it <strong>loses</strong>. The interest rate is <em>not</em> unchanged. Generation 1 must be willing to hold \(\Delta\) of bonds even though it is richer when old, so \(1+r_1=v_1/v_2\) evaluated at \((\alpha,1-\alpha+(1+r_1)\Delta)\), which exceeds \(1+r^*\) because old-age consumption is higher. The allocation changes, so debt is <strong>not neutral</strong> when it moves PV across generations. This is the failure of Ricardian equivalence in OLG models, developed further in <a href="0020-perpetual-youth-fiscal-policy.html">Lesson 20</a>.</p>
+      (b) Asset clearing at date 1 forces \(s_1=\Delta\). So generation 1 consumes \(c^1_1=\alpha+\Delta-\Delta=\alpha\) when young and \(c^1_2=1-\alpha+(1+r_1)\Delta\) when old: it <strong>gains</strong>. Generation 2 pays \((1+r_1)\Delta\) when young and holds no bonds, so it consumes \((\alpha-(1+r_1)\Delta,\ 1-\alpha)\): it <strong>loses</strong>. The interest rate is <em>not</em> unchanged. Generation 1 must be willing to hold \(\Delta\) of bonds even though it is richer when old. So \(1+r_1=v_1/v_2\) evaluated at \((\alpha,1-\alpha+(1+r_1)\Delta)\), which exceeds \(1+r^*\) because old-age consumption is higher. The allocation changes: debt is <strong>not neutral</strong> when it moves PV across generations. This is the failure of Ricardian equivalence in OLG models, developed further in <a href="0020-perpetual-youth-fiscal-policy.html">Lesson 20</a>.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 14.7 <span class="tag exam">Exam-inspired</span> (rolled-over debt as a substitute for PAYG)</div>
+    <p>Same endowments \((\alpha,1-\alpha)\) and log preferences, no PAYG. At date 1 the government issues debt \(b\) per young person (so \(B_t=-b\)), hands the proceeds to the initial old, and rolls the debt over forever with no taxes: \(B_t=(1+r_{t-1})B_{t-1}\).</p>
+    <ol class="parts" type="a">
+      <li><span class="pts">(5 pts)</span> Write the no-policy equilibrium rate \(\bar r\).</li>
+      <li><span class="pts">(5 pts)</span> Show that a stationary equilibrium with \(b>0\) requires \(r=0\). <em>One line.</em></li>
+      <li><span class="pts">(10 pts)</span> Derive the young's saving \(s(r)\) and use asset-market clearing to find \(b\). Show that \(b>0\) iff \(\bar r&lt;0\).</li>
+      <li><span class="pts">(10 pts)</span> Find the allocation. Does it Pareto-dominate the no-policy equilibrium? Include the initial old.</li>
+      <li><span class="pts">(5 pts)</span> Which PAYG tax \(\theta\) gives the same allocation? What other "asset" in this course does the same job?</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <ol class="steps">
+        <li><strong>(a)</strong> No trade, so \(1+\bar r=\frac{(1-\beta)(1-\alpha)}{\beta\alpha}\). This is \(&lt;1\) iff \(1-\alpha&lt;\beta\), i.e. \(\alpha+\beta>1\).</li>
+        <li><strong>(b)</strong> Constant \(B_t=-b\ne0\) with \(B_t=(1+r)B_{t-1}\) requires \(1+r=1\).</li>
+        <li><strong>(c)</strong> Wealth is \(\alpha+(1-\alpha)/(1+r)\), and \(c_y=(1-\beta)\times\)wealth, so \(s(r)=\alpha-c_y=\beta\alpha-\frac{(1-\beta)(1-\alpha)}{1+r}\). Asset-market clearing \(s_t+B_t=0\) at \(r=0\) gives \(b=s(0)=\beta\alpha-(1-\beta)(1-\alpha)=\alpha+\beta-1\). This is positive iff \(\alpha+\beta>1\iff\bar r&lt;0\).</li>
+        <li><strong>(d)</strong> The young consume \(\alpha-b=1-\beta\), and the old consume \(1-\alpha+b=\beta\): the best symmetric allocation. Every generation \(t\ge1\) strictly prefers it to the endowment (unless \(b=0\)), and the initial old gain \(b>0\). So it Pareto-dominates the no-policy CE exactly when that CE has \(\bar r&lt;0\).</li>
+        <li><strong>(e)</strong> PAYG with \(\theta=b=\alpha+\beta-1\) gives \((\alpha-\theta,1-\alpha+\theta)=(1-\beta,\beta)\). The same job is done by a valued bubble (the zero-dividend tree of Exercise 12.6(f)) and by fiat money. In Blanchard–Yaari, the positive debt steady state \(\bar B\) exists iff the autarky rate \(\theta-\alpha\) (BY notation) is negative (<a href="0020-perpetual-youth-fiscal-policy.html">Lesson 20</a>). It is the same logic.</li>
+      </ol>
     </div></details>
   </div>
 

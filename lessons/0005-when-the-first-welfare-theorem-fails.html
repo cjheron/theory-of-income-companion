@@ -186,7 +186,7 @@
   <p>Three goods but markets for only two. Each agent consumes its endowment of the untraded good 3 and trades goods 1–2. <strong>Relative to the unconstrained notion of PO, the 1WT fails.</strong> Move (5) values feasibility using a price for every good, but good 3 has none, so agents' marginal rates of substitution involving good 3 are never equalized. <strong>Relative to constrained efficiency, it holds.</strong> Constrained efficiency is the planner who must also leave good 3 where it is. Fix \(x_3^i = e_3^i\) and define \(\tilde u^i(x_1,x_2)=u^i(x_1,x_2,e^i_3)\). The CE is then a CE of a complete-markets two-good economy, and the 1WT applies to it. So the answer to "what is the notion of efficiency?" is: <em>the benchmark must respect the same trading restrictions the agents face</em>. (Warning for later: with several goods per date or state, even constrained efficiency typically fails, because prices on the open markets change how valuable the incomplete trades are. That is Geanakoplos–Polemarchakis 1986.)</p>
 
   <h3>Beliefs</h3>
-  <p><strong>The 1WT does not require agents to agree, nor to be "right".</strong> With commodities indexed by states of nature, \(u^i(x)=\sum_s\pi^i_s\,v^i(x_s)\) can embed any subjective probabilities \(\pi^i\). The proof never looks inside \(u^i\). So a CE is PO <em>with respect to the agents' own beliefs</em>, which is ex ante efficiency. If beliefs differ, the CE involves betting (Exercise 5.5), and at most one person's beliefs can be correct. A planner who uses "true" probabilities might call the outcome excessively risky, but that is a different welfare criterion.</p>
+  <p><strong>The 1WT does not require agents to agree, nor to be "right".</strong> With commodities indexed by states of nature, \(u^i(x)=\sum_s\pi^i_s\,v^i(x_s)\) can embed any subjective probabilities \(\pi^i\). The proof never looks inside \(u^i\). So a CE is PO <em>with respect to the agents' own beliefs</em>, which is ex ante efficiency. If beliefs differ, the CE involves betting (Exercise 5.6), and at most one person's beliefs can be correct. A planner who uses "true" probabilities might call the outcome excessively risky, but that is a different welfare criterion.</p>
 
   <h3>What must agents agree on?</h3>
   <p>They must agree on the <strong>commodity space and the prices</strong>. Everyone has to recognise the same list of commodities: the same dates, the same set of possible states, and states that are publicly <em>verifiable</em>, so that a contract "deliver 1 unit if state \(s\)" can be enforced. And everyone faces the <em>same</em> price for each commodity. Agents need not agree on how likely the states are.</p>
@@ -255,105 +255,137 @@
   <!-- ─────────────────────────────────────────── -->
   <h2>8. Exercises</h2>
 
+  <p>These follow the format of Alvarez's exams. True/false items like these were about half the points on recent first midterms, and the derivations are broken into short sub-steps. Answer each sub-part in a few lines before opening the solution.</p>
+
   <div class="box exercise">
-    <div class="box-title">Exercise 5.1 <span class="tag slides">Slides p.19</span> <span class="tag proof">Proof</span></div>
-    <p>Let \(X=\mathbb{R}^m_+\). Prove or give a counterexample:</p>
-    <ol class="parts" type="a">
-      <li>Continuous and strictly increasing \(\Rightarrow\) LNS.</li>
-      <li>Continuous and increasing \(\Rightarrow\) LNS.</li>
-      <li>Strictly increasing (not necessarily continuous) \(\Rightarrow\) LNS.</li>
-      <li>If every \(u^i\) is convex rather than concave, any CE is still PO.</li>
+    <div class="box-title">Exercise 5.1 <span class="tag past">Past exams</span> True or false? Justify.</div>
+    <p>For each statement, say true or false and justify it in one to four lines. The quickest justification names the step of the 1WT proof (§1) that does or does not go through.</p>
+    <ol class="tf-list">
+      <li>"If there are increasing returns to scale, a competitive equilibrium cannot be efficient." <span class="tf-src">Fall 2025 Midterm 1, I.2</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> Increasing returns make the production set non-convex. The 1WT never uses convexity: its moves need only LNS, profit maximization at \(p\), and feasibility. So if a CE exists, it is PO. Non-convexity breaks the <em>2WT</em> (Lesson 7), and it can make a price-taking CE fail to exist, but neither of those is inefficiency of a CE. This is the classic Midterm 1 trap.</p></div></details></li>
+      <li>"The First Welfare Theorem requires as an assumption that all utility functions be quasi-concave." <span class="tf-src">Fall 2005 Midterm, Ex. 1 Q1</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> The only assumption on preferences is local non-satiation (moves 1–2). Quasi-concavity (convex upper contour sets) is a hypothesis of the 2WT and of existence theorems.</p></div></details></li>
+      <li>"To apply the FWT, check four things: complete markets, no externalities, LNS, and convex preferences and technologies." <span class="tf-src">a checklist from a student review sheet; it contains an error</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False</strong> as a list of requirements: convexity does not belong on it (see item 2). The correct list is: a CE with complete markets (a price for every commodity), no externalities, LNS, and a finite value of aggregate consumption \(p\cdot\sum_i\bar x^i\lt \infty\). The last condition is automatic with finitely many goods and agents. It is exactly what fails in OLG (Lesson 12).</p></div></details></li>
+      <li>"In a security-market economy, if the number of securities is smaller than the number of states, the equilibrium allocation is necessarily inefficient." <span class="tf-src">Fall 2005 Midterm, Ex. 1 Q3</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> Incomplete markets make inefficiency <em>possible</em>, not necessary. Counterexample: endowments that are already PO (e.g. no aggregate risk, constant individual endowments, common beliefs). No trade is needed, so the no-trade equilibrium is PO even with zero securities. More generally, the outcome is efficient whenever the available securities happen to span the trades needed.</p></div></details></li>
+      <li>"Consider one good indexed by the state of nature. If all agents have expected utility and are risk averse, but their subjective probabilities differ, then in a complete-markets CE each agent's consumption is a function only of the aggregate endowment." <span class="tf-src">Fall 2005 Midterm, Ex. 1 Q2</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> Efficiency requires \(\dfrac{u_i'(c_i(s))}{u_j'(c_j(s))}=\dfrac{\alpha_j\pi_j(s)}{\alpha_i\pi_i(s)}\). With common beliefs the right side is constant across states, so \(c_i\) depends on \(s\) only through \(Y(s)\). With different beliefs the likelihood ratio varies across states, so two states with the same \(Y\) give different \(c_i\): agents bet on their beliefs. Exercise 5.6 derives this.</p></div></details></li>
+      <li>"If every household satisfies LNS, a CE allocation is PO even when one household's utility depends on another household's consumption." <span class="tf-src">exam-inspired (S1 p.21)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> With a consumption externality, move 1 compares \(u^{i'}(x^{i'},x^i)\) with \(u^{i'}(\bar x^{i'},\bar x^i)\). The household optimized only over its own \(x^{i'}\) holding \(\bar x^i\) fixed. A dominating allocation can make \(i'\) happier by changing \(x^i\) while \(x^{i'}\) stays cheap, so "weakly better ⇒ weakly more expensive" fails.</p></div></details></li>
+      <li>"If a CE allocation is Pareto optimal, preferences must satisfy LNS." <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> LNS is sufficient, not necessary. For example, two agents who are both at their bliss points at the endowment form a no-trade CE that is trivially PO.</p></div></details></li>
+      <li>"Lump-sum taxes in a CE break the 1WT, because they change agents' budget sets." <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> A lump-sum transfer changes the right-hand side \(p\cdot e^i\) of the budget but not the prices anyone faces. Moves 1–2 use only that each agent optimizes on <em>its own</em> budget set at the common \(p\). Summing still gives the contradiction, because the transfers sum to zero. That is why the 2WT pairs prices with lump-sum transfers.</p></div></details></li>
+      <li>"A proportional tax on labour income, with the revenue rebated lump-sum, breaks the 1WT." <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True</strong> (generically). Households face the wage \((1-t)w\) while firms face \(w\). So there is no single price vector at which everyone optimizes, and move 5 has no common valuation. Concretely, the MRS between leisure and consumption equals \((1-t)w\) while the MRT equals \(w\), and shifting a little time toward work is a Pareto improvement.</p></div></details></li>
+      <li>"If good \(k\) is produced by only one firm, the 1WT does not apply." <span class="tf-src">S1 p.20</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False</strong> as stated. The proof sums over \(j\in J\) and never uses \(|J|\). What it needs is that the firm takes \(p\) as given and maximizes \(p\cdot y\). A monopolist that internalizes its price impact is not behaving as in a CE, so the theorem says nothing about that outcome. But a single price-taking firm is fine.</p></div></details></li>
     </ol>
-    <details class="hint"><summary>Hint</summary><div class="body"><p>For (a) and (c) try \(\hat x = x+\delta\mathbf{1}\). What is \(\|\hat x - x\|\)? For (b), look for the laziest possible weakly increasing function.</p></div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 5.2 <span class="tag slides">Slides p.19</span> <span class="tag proof">Proof</span> Which properties imply LNS?</div>
+    <p>Let \(X=\mathbb{R}^m_+\). Prove or give a counterexample.</p>
+    <ol class="parts" type="a">
+      <li>Continuous and strictly increasing \(\Rightarrow\) LNS. <span class="pts">(10 points)</span></li>
+      <li>Continuous and (weakly) increasing \(\Rightarrow\) LNS. <span class="pts">(10 points)</span></li>
+      <li>Strictly increasing, not necessarily continuous \(\Rightarrow\) LNS. <span class="pts">(10 points)</span></li>
+      <li>If every \(u^i\) is convex rather than concave, a CE (if one exists) is still PO. <span class="pts">(10 points)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (a) and (c), try \(\hat x = x+\delta\mathbf{1}\). What is \(\|\hat x - x\|\)? For (b), look for the laziest possible weakly increasing function. On an exam, state which definition of "increasing" you are using.</p></div></details>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) Fix \(x\) and \(\varepsilon>0\), and let \(\hat x = x + \delta\mathbf 1\) with \(\delta=\varepsilon/(2\sqrt m)\). Then \(\|\hat x - x\| = \delta\sqrt m = \varepsilon/2<\varepsilon\), \(\hat x\in\mathbb{R}^m_+\), and \(\hat x\gg x\), so strict monotonicity gives \(u(\hat x)>u(x)\). ✓<br>
-      (b) False. \(u\equiv 0\) is continuous and increasing, and no bundle is ever strictly better. Less trivially, \(u=\min\{x_1+x_2,1\}\) is satiated on \(\{x_1+x_2\ge1\}\).<br>
+      <p>(a) True. Fix \(x\) and \(\varepsilon>0\), and let \(\hat x = x + \delta\mathbf 1\) with \(\delta=\varepsilon/(2\sqrt m)\). Then \(\|\hat x - x\| = \delta\sqrt m = \varepsilon/2\lt \varepsilon\), \(\hat x\in\mathbb{R}^m_+\), and \(\hat x\gg x\), so strict monotonicity gives \(u(\hat x)>u(x)\).<br>
+      (b) False. \(u\equiv 0\) is continuous and weakly increasing, and no bundle is ever strictly better. Less trivially, \(u=\min\{x_1+x_2,1\}\) is satiated on \(\{x_1+x_2\ge1\}\). (If "increasing" means \(x\gg x'\Rightarrow u(x)>u(x')\), the argument of (a) applies and the answer is true.)<br>
       (c) True. The proof of (a) never used continuity.<br>
-      (d) True whenever the convex \(u^i\) satisfy LNS (e.g. \(u=x_1^2+x_2^2\), which is strictly increasing on \(\mathbb{R}^2_+\)). The 1WT uses only LNS. Caveat: with convex \(u\), utility maximization pushes demand to corners, so a CE is less likely to exist. And the <em>2WT</em> fails (Lesson 7).</p>
+      (d) True, provided the convex \(u^i\) satisfy LNS (e.g. \(u=x_1^2+x_2^2\), which is strictly increasing on \(\mathbb{R}^2_+\)), because the 1WT uses only LNS. Caveat: with convex \(u\), demands jump to corners, so a CE is less likely to exist, and the <em>2WT</em> fails (Lesson 7).</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 5.2 <span class="tag slides">Slides p.20</span></div>
-    <p>(a) A firm has \(Y=\{(-n,c): c\le n^2,\ n\ge 0\}\). Show that at any \(w>0\) (price of \(c\) normalized to 1) the firm has no profit-maximizing plan if \(n\) is unbounded. If instead \(n\le 1\) (one unit of time), what are the possible profit-maximizing plans? (b) Explain in two sentences why "there is only one firm producing good \(k\)" is not, by itself, a reason for the 1WT to fail.</p>
-    <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) \(\pi(n)=n^2 - wn\to\infty\) as \(n\to\infty\), so there is no maximizer. With \(n\in[0,1]\), \(\pi\) is convex, so the maximum is at a corner: \(n=0\) (profit 0) or \(n=1\) (profit \(1-w\)). The firm picks \(n=1\) iff \(w\le 1\). Supply jumps from 0 to 1, so it is never interior. Market clearing for time then typically fails, and a CE may not exist. If a CE does exist, it is PO.<br>
-      (b) The proof indexes firms by \(j\in J\) and never uses \(|J|\). What matters is that the firm takes \(p\) as given. A monopolist who internalizes its effect on prices is not part of a CE, so the theorem doesn't speak to its outcome.</p>
-    </div></details>
-  </div>
-
-  <div class="box exercise">
-    <div class="box-title">Exercise 5.3 <span class="tag slides">Slides p.21</span> <span class="tag exam">Exam-style</span></div>
-    <p>In the smoking example of §4, let \(\gamma = 1\).</p>
+    <div class="box-title">Exercise 5.3 <span class="tag exam">Exam-inspired</span> Increasing returns: existence, not efficiency</div>
+    <p>This is the derivation behind statement 1 of Exercise 5.1. One consumption good \(c\) and labour \(n\) (price of \(c\) normalized to 1, wage \(w>0\)). A single price-taking firm has \(Y=\{(-n,c): 0\le c\le n^\gamma,\ n\ge0\}\) with \(\gamma>1\).</p>
     <ol class="parts" type="a">
-      <li>Compute the efficient quantity of cigarettes.
-        <div class="numcheck" data-answer="0.5" data-tol="0.002" data-prompt="s^PO ="></div></li>
-      <li>Compute the gain in total surplus from moving CE → PO.
-        <div class="numcheck" data-answer="1 - Math.log(2)" data-tol="0.002" data-prompt="ΔW ="></div></li>
-      <li>Propose explicit transfers of money such that <em>both</em> agents are strictly better off at \(s^{PO}\) than at the CE.</li>
-      <li>Rewrite the problem with a production externality instead: a factory produces \(q\) at cost \(q^2/2\) and sells at price 1, and each unit lowers a fishery's catch by \(\gamma\) units (also worth 1 each). Which line of the 1WT proof fails? Compute the CE and efficient \(q\).</li>
+      <li>Show that \(Y\) is not convex. <span class="pts">(5 points)</span></li>
+      <li>Show that if \(n\) is unbounded, the firm has no profit-maximizing plan at any \(w>0\). <span class="pts">(5 points)</span></li>
+      <li>Now let \(n\in[0,1]\) (one unit of time). Show that profit \(\pi(n)=n^\gamma-wn\) is maximized only at a corner, and find the firm's supply correspondence as a function of \(w\). <span class="pts">(10 points)</span></li>
+      <li>Explain in one line why market clearing for labour is then hard to achieve, so a CE may not exist. <span class="pts">(5 points)</span></li>
+      <li>Suppose nevertheless that a CE exists. Which lines of the 1WT proof use convexity of \(Y\)? Conclude. <span class="pts">(5 points)</span></li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) \(s^{PO} = 1/(1+\gamma) = 1/2\).<br>
-      (b) \(\Delta W=\gamma - \log(1+\gamma) = 1-\log 2\approx 0.307\).<br>
-      (c) The smoker's private surplus \(\log s - s\) falls from \(-1\) to \(\log\tfrac12-\tfrac12\approx-1.193\), a loss of \(\approx 0.193\). Agent 2 gains \(\gamma(1-\tfrac12)=0.5\) from less smoke. Any transfer \(T\in(0.193, 0.5)\) from agent 2 to agent 1, e.g. \(T=0.35\), makes both strictly better off.<br>
-      (d) The factory maximizes \(q - q^2/2\), so \(q^{CE}=1\). The efficient \(q\) maximizes \(q - q^2/2 - \gamma q\), so \(q^{PO}=1-\gamma\). In the proof, move (4) fails: the fishery's production set depends on \(q\), and in a dominating allocation the fishery operates on a different set than the one it optimized over at the CE.</p>
+      <p>(a) \((-1,1)\in Y\) and \((0,0)\in Y\), but their midpoint \((-\tfrac12,\tfrac12)\) requires \(\tfrac12\le(\tfrac12)^\gamma\), which fails for \(\gamma>1\).<br>
+      (b) \(\pi(n)=n^\gamma-wn\to\infty\) as \(n\to\infty\) because \(\gamma>1\). There is no maximizer.<br>
+      (c) \(\pi''(n)=\gamma(\gamma-1)n^{\gamma-2}>0\), so \(\pi\) is strictly convex on \([0,1]\). Its maximum is at an endpoint: \(\pi(0)=0\) or \(\pi(1)=1-w\). Supply is \(n=1\) if \(w<1\), \(n\in\{0,1\}\) if \(w=1\), and \(n=0\) if \(w>1\). The interior FOC point \(n=(w/\gamma)^{1/(\gamma-1)}\) is a profit <em>minimum</em>.<br>
+      (d) Labour demand jumps between 0 and 1. If households want to supply some interior amount, no wage clears the market.<br>
+      (e) None. Moves 4–5 use only \(p\cdot\bar y^j\ge p\cdot y^j\) for all \(y^j\in Y^j\) and feasibility. So any CE that exists is PO. IRS is a problem for existence and for the 2WT, not for the 1WT.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 5.4 <span class="tag slides">Slides p.22</span> <span class="tag exam">Exam-style</span></div>
-    <p>Two agents with \(u^i=\log x_1+\log x_2+\log x_3\), endowments \(e^A=(1,1,2)\) and \(e^B=(1,1,\tfrac12)\). Only goods 1 and 2 can be traded.</p>
+    <div class="box-title">Exercise 5.4 <span class="tag slides">Slides p.21</span> <span class="tag exam">Exam-inspired</span> A consumption externality</div>
+    <p>Use the smoking economy of §4 with a general \(\gamma>0\): \(u^1=\log s+m^1\), \(u^2=m^2-\gamma s\), and one unit of money makes one cigarette.</p>
     <ol class="parts" type="a">
-      <li>Find the CE (prices and allocation).</li>
-      <li>Show the CE is not PO by finding a Pareto improvement.</li>
-      <li>Show the CE <em>is</em> constrained PO, with respect to allocations that leave good 3 untouched.</li>
+      <li>Find \(s^{CE}\) and the Pareto-optimal \(s^{PO}\). Explain why PO allocations maximize total surplus here. <span class="pts">(10 points)</span></li>
+      <li>Show that moving from \(s^{CE}\) to \(s^{PO}\) raises total surplus by \(\Delta(\gamma)=\gamma-\log(1+\gamma)\), and prove \(\Delta(\gamma)>0\) for every \(\gamma>0\). <span class="pts">(10 points)</span></li>
+      <li>Find the interval of money transfers \(T\) from agent 2 to agent 1 under which both are strictly better off at \(s^{PO}\) than at the CE. <span class="pts">(10 points)</span></li>
+      <li>Show that a per-unit tax \(t\) on cigarettes, rebated lump-sum, implements \(s^{PO}\) iff \(t=\gamma\). Which "missing price" does the tax create? <span class="pts">(5 points)</span></li>
+      <li>Rewrite the economy with a <em>production</em> externality: a factory produces \(q\) at cost \(q^2/2\) and sells at price 1, and each unit lowers a fishery's catch by \(\gamma\in(0,1)\) units worth 1 each. Find \(q^{CE}\) and \(q^{PO}\), and name the line of the 1WT proof that fails. <span class="pts">(10 points)</span></li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) By symmetry in goods 1–2, \(p_1=p_2\). Each agent demands half its wealth in each good: wealth \(=2p_1\), so \(x_1=x_2=1\). No trade: \(x^A=(1,1,2)\), \(x^B=(1,1,\tfrac12)\).<br>
-      (b) \(MRS^A_{31}=x_1/x_3 = 1/2\) and \(MRS^B_{31}=1/(1/2)=2\). B values good 3 more. Let A give B \(\delta\) of good 3 in exchange for \(\delta\) of good 1. For A, \(\Delta u\approx \delta(1/x^A_1) - \delta(1/x^A_3) = \delta(1-\tfrac12)>0\). For B, \(\Delta u\approx \delta(1/x^B_3) - \delta(1/x^B_1)= \delta(2-1)>0\). For small \(\delta\) both gain.<br>
-      (c) Holding \(x_3^i=e_3^i\), each agent's utility over goods 1–2 is \(\log x_1+\log x_2+\text{const}\). The CE of the two-good economy with these preferences is a CE in the sense of Lesson 2, and these preferences satisfy LNS. By the 1WT, no reallocation of goods 1–2 alone is a Pareto improvement.</p>
+      <p>(a) Agent 1 maximizes \(\log s-s\), so \(s^{CE}=1\). With quasi-linear utility, transferring money moves utility one-for-one between agents. So the utility possibility frontier is a line, and every PO allocation (with interior money) maximizes the sum \(\log s - s-\gamma s\). The FOC \(1/s=1+\gamma\) gives \(s^{PO}=1/(1+\gamma)\).<br>
+      (b) Surplus \(W(s)=\log s-(1+\gamma)s\). Then \(W(s^{PO})-W(1)=-\log(1+\gamma)-1+(1+\gamma)=\gamma-\log(1+\gamma)\). Since \(\Delta(0)=0\) and \(\Delta'(\gamma)=1-\tfrac{1}{1+\gamma}>0\) for \(\gamma>0\), we get \(\Delta>0\).<br>
+      (c) Agent 1's private surplus \(\log s-s\) falls by \(L=(0-1)-\big(-\log(1+\gamma)-\tfrac{1}{1+\gamma}\big)=\log(1+\gamma)+\tfrac{1}{1+\gamma}-1\ge0\). Agent 2 gains \(G=\gamma(1-\tfrac1{1+\gamma})=\tfrac{\gamma^2}{1+\gamma}\). Both strictly gain iff \(L\lt T\lt G\). The interval is non-empty because \(G-L=\Delta(\gamma)>0\).<br>
+      (d) With tax \(t\), agent 1 solves \(\max\log s-(1+t)s\), so \(s=1/(1+t)\). This equals \(s^{PO}\) iff \(t=\gamma\). The tax is the price of smoke that the market was missing: agent 1 now pays the marginal damage \(\gamma\).<br>
+      (e) The factory maximizes \(q-q^2/2\), so \(q^{CE}=1\). Efficiency maximizes \(q-q^2/2-\gamma q\), so \(q^{PO}=1-\gamma\). Move 4 fails: the fishery's production set depends on \(q\). At the CE it optimized over \(Y^{\text{fish}}(\bar q)\), but in the dominating allocation it operates on \(Y^{\text{fish}}(q)\), a different set, so \(p\cdot\bar y^{\text{fish}}\ge p\cdot y^{\text{fish}}\) need not hold.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 5.5 <span class="tag slides">Slides p.22</span> <span class="tag exam">Exam-style</span></div>
-    <p>Two states. Agent \(i\in\{A,B\}\) has \(u^i = \pi^i\log x_1 + (1-\pi^i)\log x_2\), where \(x_s\) is consumption in state \(s\), with \(\pi^A=0.7\) and \(\pi^B=0.3\). Each agent has endowment \((1,1)\).</p>
+    <div class="box-title">Exercise 5.5 <span class="tag slides">Slides p.22</span> <span class="tag pset">Problem set 2022 (PS3 P1, Ex. 9 &amp; 11)</span> Incomplete markets</div>
+    <p>Two agents with \(u^i=\log x_1+\log x_2+\log x_3\). Endowments are \(e^A=(1,1,a)\) and \(e^B=(1,1,b)\) with \(a\ne b\), \(a,b>0\). Only goods 1 and 2 can be traded.</p>
     <ol class="parts" type="a">
-      <li>Find the CE. How much does A consume in state 1?
-        <div class="numcheck" data-answer="1.4" data-tol="0.002" data-prompt="x₁ᴬ ="></div></li>
-      <li>Is the CE PO? Is the no-trade allocation PO?</li>
-      <li>Suppose the true probability of state 1 is 0.5 and a planner evaluates welfare with it. Does the planner see a Pareto improvement over the CE? What does this say about the slide's question "does the 1WT require the agents' view of the world to be reasonable?"</li>
+      <li>Find the CE prices of goods 1–2 and the allocation. <span class="pts">(10 points)</span></li>
+      <li>Compute each agent's MRS between goods 3 and 1 at the CE. Use them to construct an explicit Pareto improvement. <span class="pts">(10 points)</span></li>
+      <li>Show that the CE <em>is</em> constrained PO: no reallocation that leaves good 3 where it is can be a Pareto improvement. <span class="pts">(10 points)</span></li>
+      <li>General principle (problem set): with the FOC \(q_k=\sum_s d_{ks}\eta^i_s\), where \(\eta^i_s=\frac1{\mu^i}\partial u^i/\partial x_s\), show that a PO interior allocation must have \(\eta^i\) equal across agents. Conclude that if the \(\eta^i\) differ, the allocation is not PO. <span class="pts">(10 points)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (d), use the weighted planner with weights \(\lambda^i=1/\mu^i\) and multipliers \(\gamma_s\) on each resource constraint.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Goods 1 and 2 enter symmetrically, so \(p_1=p_2\). Each agent spends half its tradeable wealth \(2p_1\) on each, giving \(x_1=x_2=1\). No trade: \(x^A=(1,1,a)\) and \(x^B=(1,1,b)\).<br>
+      (b) \(MRS^i_{31}=x^i_1/x^i_3\), so \(MRS^A_{31}=1/a\) and \(MRS^B_{31}=1/b\). Say \(a>b\): then B values good 3 more. Let A give B \(\delta\) units of good 3 for \(\kappa\delta\) units of good 1, with \(1/a\lt \kappa<1/b\). To first order, A's utility changes by \(\delta(\kappa-1/a)>0\) and B's by \(\delta(1/b-\kappa)>0\). For small \(\delta\) both gain.<br>
+      (c) Fix \(x^i_3=e^i_3\). Each agent's utility over goods 1–2 is \(\log x_1+\log x_2+\text{const}\), which satisfies LNS, and the CE is a CE of this complete two-good economy. By the 1WT it is PO in that economy, i.e. constrained PO.<br>
+      (d) An interior PO allocation solves \(\max\sum_i\lambda^iu^i\) subject to resource constraints for some weights. FOC: \(\lambda^i\,\partial u^i/\partial x_s=\gamma_s\) for every \(i\). With \(\lambda^i=1/\mu^i\), this says \(\eta^i_s=\gamma_s\), the same for all \(i\). If the \(\eta^i\) differ, two agents value state-\(s\) goods differently at the margin. Moving goods from the low-\(\eta\) to the high-\(\eta\) agent and compensating with another good makes both better off. In (b), \(\eta\) for good 3 differs across A and B exactly because no market equalizes it.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 5.6 <span class="tag past">Past exam: Fall 2005 Midterm, Ex. 1 Q2</span> Beliefs and betting</div>
+    <p>One good, \(S\) states, aggregate endowment \(Y(s)>0\). Agent \(i\) has expected utility \(\sum_s\pi_i(s)\log c_i(s)\) with <em>subjective</em> probabilities \(\pi_i\). Markets are complete.</p>
+    <ol class="parts" type="a">
+      <li>Write the planner's problem with weights \(\alpha_i>0\) and its FOCs. <span class="pts">(5 points)</span></li>
+      <li>Solve for \(c_i(s)\) in closed form. <span class="pts">(10 points)</span></li>
+      <li>Show that if \(\pi_i=\pi\) for all \(i\), each \(c_i(s)\) depends on \(s\) only through \(Y(s)\). Show by example that this fails when beliefs differ. <span class="pts">(10 points)</span></li>
+      <li>Is the CE Pareto optimal? With respect to whose probabilities? <span class="pts">(5 points)</span></li>
+      <li>A planner evaluates welfare using the "true" probabilities \(\pi^*\). Can the CE be dominated under that criterion? What does this say about the slide's question "does the 1WT require that agents' view of the world be reasonable?" <span class="pts">(10 points)</span></li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) By symmetry \(p_1=p_2=1\), so wealth is 2. Then \(x^A=(2\cdot0.7, 2\cdot0.3)=(1.4,0.6)\) and \(x^B=(0.6,1.4)\). Markets clear: \(1.4+0.6=2\). ✓<br>
-      (b) The CE is PO by the 1WT (LNS holds). No trade is not PO: there \(MRS^A=\tfrac{0.7}{0.3}\ne MRS^B=\tfrac{0.3}{0.7}\).<br>
-      (c) Under the common measure \(\tfrac12\), both evaluate \(\tfrac12\log x_1+\tfrac12\log x_2\), and the no-trade allocation \((1,1)\) gives both higher "true" expected utility than the CE: \(\tfrac12(\log1.4+\log0.6)<0\). So relative to <em>that</em> criterion the CE is dominated. The 1WT doesn't need beliefs to be reasonable; the efficiency it delivers is relative to the agents' own beliefs.</p>
+      <p>(a) \(\max\sum_i\alpha_i\sum_s\pi_i(s)\log c_i(s)\) subject to \(\sum_ic_i(s)\le Y(s)\) for each \(s\). FOC: \(\alpha_i\pi_i(s)/c_i(s)=\mu(s)\).<br>
+      (b) \(c_i(s)=\alpha_i\pi_i(s)/\mu(s)\). Summing over \(i\) gives \(\mu(s)=\sum_j\alpha_j\pi_j(s)/Y(s)\), so
+      $$c_i(s)=\frac{\alpha_i\pi_i(s)}{\sum_j\alpha_j\pi_j(s)}\,Y(s).$$
+      (c) With common \(\pi\), the share \(\alpha_i/\sum_j\alpha_j\) is the same in every state, so \(c_i(s)=\text{share}_i\cdot Y(s)\). With two agents, \(\alpha_A=\alpha_B\), \(Y(1)=Y(2)=2\), \(\pi_A(1)=\pi_A\) and \(\pi_B(1)=1-\pi_A\ne\pi_A\), agent A gets \(c_A(1)=2\pi_A\ne c_A(2)=2(1-\pi_A)\) even though \(Y\) is the same in both states. The agents bet.<br>
+      (d) Yes. Each \(u^i\) satisfies LNS and markets are complete, so the 1WT applies. Efficiency is with respect to each agent's own \(u^i\), which embeds \(\pi_i\).<br>
+      (e) Yes, it can be. In the example of (c) with \(\pi^*(1)=\tfrac12\), the no-trade allocation \((1,1)\) gives both agents \(\tfrac12\log1+\tfrac12\log1=0\) under \(\pi^*\). The CE gives \(\tfrac12[\log2\pi_A+\log2(1-\pi_A)]<0\) whenever \(\pi_A\ne\tfrac12\), since \(4\pi_A(1-\pi_A)<1\). So under \(\pi^*\) the CE is dominated. The 1WT does not require beliefs to be correct; the efficiency it delivers is relative to the agents' own beliefs. Agents need only agree on the commodity space (which states exist and are verifiable) and face the same prices.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 5.6 <span class="tag exam">Exam-style</span> True / False / Uncertain</div>
-    <p>Justify each in two or three lines, pointing to a step of the proof.</p>
-    <ol class="parts" type="a">
-      <li>"If a CE allocation is PO, preferences must satisfy LNS."</li>
-      <li>"The 1WT requires that all agents have the same information about the probability of each state."</li>
-      <li>"Lump-sum taxes in a CE break the 1WT, because agents' budgets change."</li>
-      <li>"A proportional tax on labour income, with revenue rebated lump-sum, breaks the 1WT."</li>
-    </ol>
+    <div class="box-title">Exercise 5.7 <span class="tag slides">Slides pp.22–23</span> Short answers</div>
+    <p>Answer each in at most three lines. (a) What must agents agree about in a classical CE? (b) Interpret the single intertemporal budget constraint. (c) Why can't intrinsically useless money have positive value in a finite Arrow–Debreu economy? (d) Give one friction that leads to inefficiency and one that need not.</p>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) <strong>False.</strong> LNS is sufficient, not necessary. Plenty of CE are PO without LNS (e.g. no-trade between two agents who both happen to be at their bliss points).<br>
-      (b) <strong>False.</strong> Beliefs live inside \(u^i\) (Exercise 5.5). Agents must agree on the commodity space (which states exist and are verifiable) and on prices.<br>
-      (c) <strong>False.</strong> Lump-sum transfers change \(p\cdot e^i\) on the right-hand side but leave every agent's MRS equal to relative prices. The proof goes through: its moves (1)–(2) use only that each agent optimizes on <em>its</em> budget set. This is precisely why the 2WT pairs prices with lump-sum transfers.<br>
-      (d) <strong>True (generally).</strong> The household faces after-tax wage \((1-t)w\) while firms face \(w\). Then MRS = \((1-t)w \neq w\) = MRT, and a small reallocation of time toward work is a Pareto improvement. Formally, the household and firm face <em>different</em> prices, so move (5)'s single valuation \(p\) is unavailable.</p>
-    </div></details>
-  </div>
-
-  <div class="box exercise">
-    <div class="box-title">Exercise 5.7 <span class="tag slides">Slides pp.22–23</span></div>
-    <p>Short answers. (a) What must agents agree about in a classical CE? (b) Interpret the single intertemporal budget constraint. (c) Why can't intrinsically useless money have positive value in a finite Arrow–Debreu economy? (d) Give one friction that leads to inefficiency and one that need not.</p>
-    <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) The list of commodities (dates, locations, verifiable states) and the prices of each. (b) All trades are contracted at date 0 at present-value prices \(p_t\). It is equivalent to sequential budget constraints with borrowing and lending at \(1+r_t=p_t/p_{t+1}\) plus a no-Ponzi limit. (c) At the final date, money buys nothing in the future, so nobody gives up goods for it: its price is 0. At the date before, it can buy only something worth 0 later, so it is worth 0 then as well, and by induction at every date. (d) Random matching with bargaining generates congestion externalities and is inefficient except under the Hosios condition. A frictional technology with competitive prices for every margin (competitive search) can be efficient.</p>
+      <p>(a) The list of commodities (dates, locations, verifiable states) and the price of each. They need not agree on probabilities.<br>
+      (b) All trades are contracted at date 0 at present-value prices \(p_t\). This is equivalent to sequential budget constraints with borrowing and lending at \(1+r_t=p_t/p_{t+1}\), plus a no-Ponzi limit.<br>
+      (c) At the final date, money buys nothing in the future, so nobody gives up goods for it and its price is 0. At the date before, it can only buy something worth 0 later, so it is worth 0 then too. By induction it is worth 0 at every date.<br>
+      (d) Random matching with bargaining generates congestion externalities and is inefficient except under the Hosios condition. Competitive (directed) search, with a price for every margin, can be efficient.</p>
     </div></details>
   </div>
 

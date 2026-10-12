@@ -147,7 +147,7 @@
   <div class="theorem">
     <div class="box-title">Steady-state comparative statics <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=17">III p.17</a></div>
     <ul>
-      <li>If \(0<\partial s^*/\partial K<1\), the steady state is <strong>stable</strong>: the map crosses the 45° line from above. Then \(dK^*/d\tau<0\): social security lowers steady-state capital.</li>
+      <li>If \(0\lt \partial s^*/\partial K<1\), the steady state is <strong>stable</strong>: the map crosses the 45° line from above. Then \(dK^*/d\tau<0\): social security lowers steady-state capital.</li>
       <li>If \(\partial s^*/\partial K > 1\), the steady state is <strong>unstable</strong>: the map crosses from below. Then \(dK^*/d\tau>0\). The sign flips, but this steady state is never reached from nearby initial conditions.</li>
     </ul>
   </div>
@@ -356,80 +356,151 @@
   <!-- ─────────────────────────────────────────── -->
   <h2>9. Exercises</h2>
 
+  <p>These follow the format of Alvarez's exams: true/false items with short justifications, then long derivations broken into small steps. Attempt each part before opening the solution.</p>
+
   <div class="box exercise">
-    <div class="box-title">Exercise 15.1 <span class="tag slides">Slides III p.15</span></div>
-    <p>Suppose instead that households own capital directly, rent it to firms, and sell the undepreciated stock to the next young generation. Show that the return on this strategy equals \(F_K(K_{t+1},1)+1-\delta\). Conclude that if the government also issued bonds paying \(1+r_t > F_K(K_{t+1},1)+1-\delta\), no one would hold capital. What would that imply for \(K_{t+1}\) and for \(F_K\)?</p>
+    <div class="box-title">Exercise 15.1 True or false? Justify. <span class="tag exam">Exam format</span></div>
+    <p>For each statement, say whether it is true or false and give a justification of one to four lines.</p>
+    <ol class="tf-list">
+      <li>In the two-period Diamond OLG model with log utility and Cobb–Douglas technology, the competitive equilibrium path is necessarily Pareto optimal. Capital gives every generation a way to save without trading with other generations. <span class="tf-src">(Past exam: Fall 2025 Final Q1.7, reworded)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body">
+          <p><strong>False.</strong> It depends on parameters. The steady-state interest rate is \(\bar r = \frac{\alpha}{\beta(1-\alpha)}-\delta\) (Exercise 15.2). If \(\bar r<0\), capital is above the golden rule, and permanently cutting \(K\) raises consumption at every date: a Pareto improvement. Capital does not open the missing markets between living and unborn generations. When \(\bar r<0\), the value of the aggregate endowment is again infinite (<a href="0012-why-the-1wt-fails-in-olg.html">Lesson 12</a>).</p>
+        </div></details></li>
+      <li>In the Diamond model with \((1-\beta)\log c^t_t+\beta\log c^t_{t+1}\) and no government, a rise in the interest rate raises the saving of the young. <span class="tf-src">(Past exam: Fall 2025 Final Q1.3, reworded)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body">
+          <p><strong>False.</strong> Saving is \(s_t=\beta w_t\), independent of \(r_t\). With log utility and no income when old, the income and substitution effects of \(r\) cancel exactly. This fails as soon as there is old-age income: with PAYG, \(s_t=\beta(w_t-\tau)-(1-\beta)\tau/(1+r_t)\), which <em>does</em> rise with \(r_t\) (Exercise 15.2(i)).</p>
+        </div></details></li>
+      <li>In the same model, a higher level of TFP \(A\) raises steady-state capital and therefore lowers the steady-state interest rate. <span class="tf-src">(Exam-inspired, Fall 2025 Final Q1)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body">
+          <p><strong>False.</strong> \(\bar K=[\beta(1-\alpha)A]^{1/(1-\alpha)}\) does rise with \(A\), but \(F_K(\bar K,1)=\alpha A\bar K^{\alpha-1}=\frac{\alpha}{\beta(1-\alpha)}\). Capital rises exactly enough to keep the marginal product unchanged, so \(\bar r\) does not depend on \(A\). Only preferences (\(\beta\)), the capital share (\(\alpha\)) and depreciation (\(\delta\)) decide whether the economy is dynamically inefficient.</p>
+        </div></details></li>
+      <li>In the neoclassical growth model with an infinitely lived representative agent, if initial capital is so large that \(r(0)<0\), the equilibrium is not Pareto optimal. <span class="tf-src">(Past exam: Fall 2025 Final Q4)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body">
+          <p><strong>False.</strong> The first part can happen: \(r(0)=f'(k_0)-\delta<0\) when \(k_0\) is large. But there is a single agent with finite wealth, so the value of aggregate consumption is finite, and the First Welfare Theorem applies. The agent simply runs capital down. A negative interest rate signals inefficiency only in combination with infinitely many agents and goods, as in OLG.</p>
+        </div></details></li>
+      <li>Suppose the steady state without social security has \(\bar r>0\) and no population growth. Introducing PAYG cannot make every generation better off, but it can make both the initial old and generation 1 better off. <span class="tf-src">(Problem set 2025 P3 Q6)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body">
+          <p><strong>True.</strong> With \(\bar r>0\) the equilibrium is Pareto optimal, so nobody can gain without someone losing. In the Cobb–Douglas example of §7, the initial old gain \(\tau\), and generation 1 gains whenever \(\delta>\alpha^2/(1-\alpha)\), through a higher return on scarcer capital. Steady-state generations lose: \(c_{ss}'(0)=-\bar r/(1-\alpha)<0\).</p>
+        </div></details></li>
+      <li>Introducing PAYG social security always lowers steady-state capital. <span class="tf-src">(Problem set 2025 P2 Q9–10)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body">
+          <p><strong>False.</strong> \(dK^*/d\tau = s^*_\tau/(1-s^*_K)\), with \(s^*_\tau<0\). At a stable steady state (\(0&lt;s^*_K&lt;1\)) capital falls. At an unstable one (\(s^*_K>1\)) the denominator is negative and the steady state <em>rises</em>. That case is never reached from nearby initial conditions, but the word "always" is wrong.</p>
+        </div></details></li>
+      <li>In the OLG economy with capital, the condition \(B_t+s_t=K_{t+1}\) must be imposed as a separate equilibrium condition, in addition to goods-market clearing. <span class="tf-src">(Exam-inspired, Problem set 2025 P2 Q4)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body">
+          <p><strong>False.</strong> It is implied by Walras' law. Add the young and old budgets and the government budget, then use goods-market clearing and \(F=w+vK\) (constant returns, or profits paid out). This gives \(B_t+s_t-K_{t+1}=(1+r_{t-1})(B_{t-1}+s_{t-1}-K_t)\), which is zero for all \(t\) once it is zero at the start (§4).</p>
+        </div></details></li>
+    </ol>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 15.2 The Diamond model <span class="tag past">Past exam: Fall 2025 Final Q1</span> <span class="pts">(70 points + extensions)</span></div>
+    <p>Consider a two-period OLG economy with no heterogeneity. Generation \(t\) has utility \((1-\beta)\log c^t_t+\beta\log c^t_{t+1}\). Each generation has one unit of labour, supplied inelastically when young, and each cohort has size one. The initial old own the capital stock \(K_1>0\). Capital evolves as \(K_{t+1}=I_t+(1-\delta)K_t\), and feasibility is \(I_t+c^t_t+c^{t-1}_t=F(K_t,L_t)\) with \(F(K,L)=AK^\alpha L^{1-\alpha}\), \(A>0\), \(\alpha\in(0,1)\). Firms hire labour at wage \(w_t\) and rent capital at rental rate \(v_t\). Young agents face \(c^t_t+s_t=w_t\) and, when old, \(c^t_{t+1}=s_t(1+r_t)\).</p>
+    <ol class="parts" type="a">
+      <li><span class="pts">[10]</span> What are the first-order conditions of the firm's problem? Your answer should be two equations.</li>
+      <li><span class="pts">[10]</span> What is the equilibrium value of \(L_t\)? Your answer is one number.</li>
+      <li><span class="pts">[10]</span> Find the young's optimal saving as a function of \(w_t\) and \(\beta\). You should get an explicit, simple expression.</li>
+      <li><span class="pts">[10]</span> In equilibrium, what is the relationship between \(r_t\), \(v_{t+1}\) and \(\delta\)? One line.</li>
+      <li><span class="pts">[10]</span> By Walras' law, what is the relationship between \(s_t\) and \(K_{t+1}\)? One line.</li>
+      <li><span class="pts">[10]</span> Combine your answers into a first-order difference equation for capital. One equation.</li>
+      <li><span class="pts">[10]</span> Is the equilibrium path necessarily Pareto optimal, or does it depend on parameters? (On the exam, no justification was required. Here, find the condition on parameters.)</li>
+      <li><span class="pts">[extension]</span> Let the cohort born at \(t\) have size \((1+n)^t\). Writing \(k\) for capital per young worker, find the steady-state \(\bar r\) and the condition for dynamic inefficiency. Show that with \(\delta=1\) the condition does not depend on \(n\).</li>
+      <li><span class="pts">[extension]</span> Back to \(n=0\). Introduce PAYG: each young pays \(\tau\), each old receives \(\tau\). Show that saving now depends on \(r_t\), and write the (implicit) law of motion for capital.</li>
+    </ol>
+    <details class="hint"><summary>Hint for (g)</summary><div class="body"><p>Compute \(F_K\) at the steady state from (f). With no population growth, steady-state consumption is \(F(K,1)-\delta K\). Ask what happens to it if \(K\) is permanently reduced.</p></div></details>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>Buy one unit of capital at \(t\). At \(t+1\), rent it for \(v_{t+1}=F_K(K_{t+1},1)\), then sell the \(1-\delta\) that remains (one-for-one with goods, since installed capital and goods trade at par). The gross return is \(F_K(K_{t+1},1)+1-\delta\). If bonds paid strictly more, every saver would hold only bonds and \(K_{t+1}=0\). But then \(F_K(0,1) = \infty\) under Inada conditions, which contradicts the inequality. So in equilibrium with \(K_{t+1}>0\), the returns must be equal. This is the content of \(v_{t+1}=r_t+\delta\).</p>
+      <p>(a) The firm maximizes \(F(K,L)-v_tK-w_tL\): \(\;v_t=\alpha AK_t^{\alpha-1}L_t^{1-\alpha}\) and \(w_t=(1-\alpha)AK_t^{\alpha}L_t^{-\alpha}\).</p>
+      <p>(b) \(L_t=1\): one cohort of size one supplies one unit each.</p>
+      <p>(c) Maximize \((1-\beta)\log(w_t-s_t)+\beta\log[s_t(1+r_t)]\). The FOC \(\frac{1-\beta}{w_t-s_t}=\frac{\beta}{s_t}\) gives \(s_t=\beta w_t\). The \(1+r_t\) term drops out because it enters \(\log c^t_{t+1}\) additively.</p>
+      <p>(d) No arbitrage between bonds and capital: \(1+r_t=v_{t+1}+1-\delta\). Note the date: the rental rate is earned at \(t+1\), when the capital saved at \(t\) is used.</p>
+      <p>(e) \(s_t=K_{t+1}\). The young are the only savers and there are no government bonds, so their saving is next period's capital (§4 with \(B\equiv0\)).</p>
+      <p>(f) \(K_{t+1}=\beta w_t=\beta(1-\alpha)AK_t^{\alpha}\). The map is concave, infinitely steep at 0, and crosses the 45° line once, at \(\bar K=[\beta(1-\alpha)A]^{1/(1-\alpha)}\). Its slope there is \(\alpha<1\), so the path converges monotonically from any \(K_1>0\).</p>
+      <p>(g) <strong>It depends on parameters.</strong> At the steady state, \(A\bar K^{\alpha-1}=1/(\beta(1-\alpha))\), so
+      $$\bar r=F_K(\bar K,1)-\delta=\frac{\alpha}{\beta(1-\alpha)}-\delta .$$
+      If \(\bar r\ge0\), the steady state is efficient. If \(\bar r<0\), i.e. \(\alpha\lt \delta\beta(1-\alpha)\), it is dynamically inefficient. To see this, at some date \(T\) cut \(K_{T+1}\) permanently by a small \(\varepsilon\). Consumption at \(T\) rises by \(\varepsilon\). At every later date, steady-state consumption \(F(K,1)-\delta K\) changes by \(-(F_K-\delta)\varepsilon=-\bar r\varepsilon>0\). Total consumption is higher at every date from \(T\) on. Hand the extra to the old at each date, so every generation from \(T-1\) on gains and no one loses.</p>
+      <p><em>On the official solution.</em> The official answer explains the failure of the First Welfare Theorem by "missing markets between generations". The sharper statement, as in <a href="0012-why-the-1wt-fails-in-olg.html">Lesson 12</a>, is that when \(\bar r<0\) the prices \(p_t\) do not fall, so the value of the aggregate endowment is infinite. Some student review notes describe the <em>endowment</em> OLG inefficiency as "over-accumulation of capital". That language is right only here, where there is capital.</p>
+      <p>(h) Let cohort size be \(N_t=(1+n)^t\). Then \(K_{t+1}=N_ts_t\), so per-worker capital satisfies \((1+n)k_{t+1}=\beta(1-\alpha)Ak_t^\alpha\). At the steady state \(A\bar k^{\alpha-1}=\frac{1+n}{\beta(1-\alpha)}\), so \(\bar r=\frac{\alpha(1+n)}{\beta(1-\alpha)}-\delta\). The golden rule maximizes \(f(k)-(n+\delta)k\), i.e. \(r=n\). So the economy is inefficient iff \(\bar r&lt;n\), i.e. \(\frac{\alpha(1+n)}{\beta(1-\alpha)}<1+n-(1-\delta)\). With \(\delta=1\), this is \(\alpha(1+n)\lt \beta(1-\alpha)(1+n)\), i.e. \(\alpha\lt \beta(1-\alpha)\), whatever \(n\) is.</p>
+      <p>(i) Lifetime wealth is \(W_t=w_t-\tau+\frac{\tau}{1+r_t}\), and log utility gives \(c^t_t=(1-\beta)W_t\). So
+      $$s_t=(w_t-\tau)-c^t_t=\beta(w_t-\tau)-\frac{(1-\beta)\tau}{1+r_t},$$
+      which is increasing in \(r_t\): a higher \(r\) lowers the present value of the transfer, so the young must save more. Using \(1+r_t=\alpha AK_{t+1}^{\alpha-1}+1-\delta\) and \(s_t=K_{t+1}\),
+      $$K_{t+1}=\beta\big[(1-\alpha)AK_t^\alpha-\tau\big]-\frac{(1-\beta)\tau}{1-\delta+\alpha AK_{t+1}^{\alpha-1}} .$$
+      \(K_{t+1}\) appears on both sides: this is the implicit law of motion of §5.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 15.2 <span class="tag proof">Proof</span></div>
-    <p>Redo the Walras' law argument of §4 when \(F\) has <em>decreasing</em> returns, with profits \(\pi_t = F(K_t,1)-w_t - v_tK_t>0\) paid to the young. Show that the conclusion \(B_t+s_t=K_{t+1}\) survives once household budgets include \(\pi_t\).</p>
+    <div class="box-title">Exercise 15.3 Social security and capital accumulation <span class="tag pset">Problem set 2025 P2</span></div>
+    <p>Generation \(t\) has a general utility \(u(c^t_t,c^t_{t+1})\), works one unit when young, and faces \(c^t_t+s_t=w_t-\tau^t_t\) and \(c^t_{t+1}=s_t(1+r_t)-\tau^t_{t+1}\). Technology \(F\) has constant returns with \(F_{KK}<0\), and capital depreciates at rate \(\delta\). There is no government spending or debt (\(g_t=0\), \(B_t=0\)). PAYG is \(\tau^t_t=\tau\), \(\tau^t_{t+1}=-\tau\), and assume \(r_t>0\).</p>
+    <ol class="parts" type="a">
+      <li><span class="pts">[10]</span> Argue that no arbitrage implies \(r_t=F_K(K_{t+1},1)-\delta\). Be careful with the date at which \(F_K\) is evaluated.</li>
+      <li><span class="pts">[10]</span> Argue that optimal saving can be written \(s_t=s\big(r_t,\;w_t-\tau^t_t,\;w_t-\tau^t_t-\tau^t_{t+1}/(1+r_t)\big)\).</li>
+      <li><span class="pts">[15]</span> Show, <em>without using derivatives</em>, that if old-age consumption is not inferior then saving is strictly decreasing in \(\tau\) at fixed \(r_t,w_t\). <em>Hint:</em> compare \(\tau'>\tau\). In the worst case the income effect on \(c^t_t\) is bounded by \(-(\tau'-\tau)\frac{r_t}{1+r_t}\).</li>
+      <li><span class="pts">[15]</span> Suppose \(\partial s/\partial r>0\) at \(\tau=0\). Use the implicit function theorem to show that there is a function \(s^*\) with \(K_{t+1}=s^*(K_t,\tau)\) near \(\tau=0\).</li>
+      <li><span class="pts">[15]</span> Show that \(\partial s^*/\partial\tau<0\) at \(\tau=0\). <em>Hint:</em> use (c) for the direct effect, then sign the indirect effect through the interest rate.</li>
+      <li><span class="pts">[10]</span> Assume \(0\lt \partial s^*/\partial K<1\) near the no-social-security steady state \(K^*>0\). Show that a small \(\tau>0\) lowers steady-state capital. A graph suffices.</li>
+      <li><span class="pts">[10]</span> If instead \(\partial s^*/\partial K>1\) near \(K^*\), show that steady-state capital is <em>higher</em> with social security. Is that steady state stable?</li>
+    </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>The young budget becomes \(s_t+c^t_t = w_t+\pi_t-\tau^t_t\). In step 3, \(F(K_t,1) = w_t + \pi_t + (r_{t-1}+\delta)K_t\). The extra \(\pi_t\) appears on both sides and cancels. Everything else is unchanged, so the same recursion and the same induction apply. The point: Walras' law needs every unit of output to be <em>someone's</em> income, which is the role of \(\sum_i\theta^i_j=1\) in <a href="0002-competitive-equilibrium.html">Lesson 2</a>.</p>
+      <p>(a) A unit saved at \(t\) can buy a bond paying \(1+r_t\) at \(t+1\), or a unit of capital that is used at \(t+1\). The capital earns the rental \(v_{t+1}=F_K(K_{t+1},1)\) plus the undepreciated \(1-\delta\). If both are held, the payoffs must be equal: \(r_t=F_K(K_{t+1},1)-\delta\). The capital stock is \(K_{t+1}\), not \(K_t\). Both 2025 solution sets slip on this index.</p>
+      <p>(b) The FOC is \(u_1/u_2=1+r_t\). Together with the lifetime budget \(c^t_t+\frac{c^t_{t+1}}{1+r_t}=W_t\equiv w_t-\tau^t_t-\frac{\tau^t_{t+1}}{1+r_t}\), it determines \(c^t_t=c_y(r_t,W_t)\). Then \(s_t=(w_t-\tau^t_t)-c_y(r_t,W_t)\), a function of the three listed arguments.</p>
+      <p>(c) With \(\tau^t_{t+1}=-\tau\), \(W=w-\frac{r}{1+r}\tau\). Raising the tax from \(\tau\) to \(\tau'\) changes wealth by \(\Delta W=-\frac{r}{1+r}(\tau'-\tau)<0\), using \(r>0\). Differencing the lifetime budget, \(\Delta c_y+\frac{\Delta c_o}{1+r}=\Delta W\). Since \(c_o\) is not inferior and \(\Delta W<0\), \(\Delta c_o\le0\), so \(\Delta c_y\ge\Delta W\). Then
+      $$\Delta s=-(\tau'-\tau)-\Delta c_y\le-(\tau'-\tau)+\tfrac{r}{1+r}(\tau'-\tau)=-\tfrac{\tau'-\tau}{1+r}<0 .$$
+      Each unit of tax lowers saving by at least \(1/(1+r)\).</p>
+      <p>(d) Define \(\phi(K',K,\tau)=K'-s\big(F_K(K',1)-\delta,\;F_L(K,1)-\tau,\;F_L(K,1)-\tau+\tfrac{\tau}{1+F_K(K',1)-\delta}\big)\). An equilibrium has \(\phi=0\). At \(\tau=0\), \(\partial\phi/\partial K'=1-s_1F_{KK}\), where \(s_1\) is the derivative with respect to \(r\). This is strictly positive because \(s_1>0\) and \(F_{KK}<0\). By the implicit function theorem, \(\phi=0\) defines \(K'=s^*(K,\tau)\) locally. <em>Wording note:</em> the problem set says this assumption means "the substitution effect is not strong enough". In fact \(\partial s/\partial r>0\) means the substitution effect <em>dominates</em> the income effect.</p>
+      <p>(e) Differentiate \(\phi=0\) with respect to \(\tau\) at \(\tau=0\). The terms in \(\tau\,dr/d\tau\) vanish, leaving
+      $$\frac{\partial s^*}{\partial\tau}=\frac{-s_2-s_3\frac{r}{1+r}}{1-s_1F_{KK}}=\frac{\partial s/\partial\tau\big|_{r\text{ fixed}}}{1-s_1F_{KK}}<0 .$$
+      The numerator is negative by (c), the denominator positive by (d). The indirect effect works through the interest rate: lower \(K_{t+1}\) raises \(r_t\), which raises saving since \(s_1>0\). That dampens the fall but cannot reverse it. <em>Watch the sign of the \(s_3\) term:</em> \(\frac{\partial}{\partial\tau}\big(-\tau+\frac{\tau}{1+r}\big)=-\frac{r}{1+r}\). One 2025 solution set writes \(+s_3\frac{r}{1+r}\).</p>
+      <p>(f) Differentiate \(K^*=s^*(K^*,\tau)\): \(\frac{dK^*}{d\tau}=\frac{s^*_\tau}{1-s^*_K}<0\). Graphically, the map shifts down, and since it crosses the 45° line from above, the crossing moves left.</p>
+      <p>(g) Now \(1-s^*_K<0\), so \(dK^*/d\tau>0\): the map crosses from below and shifting it down moves the crossing right. But a steady state with slope above one is unstable, since deviations grow. The perverse comparative static applies only at a steady state the economy would never settle in. You can see both cases in the first figure of this lesson.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 15.3 <span class="tag slides">Slides III p.17</span></div>
+    <div class="box-title">Exercise 15.4 Generation 1 can gain from social security <span class="tag pset">Problem set 2025 P3</span></div>
+    <p>Modify the model of Exercise 15.3: \(F(K,L)=K^\alpha L^{1-\alpha}\), utility is \(c^t_{t+1}\) (only old-age consumption matters), and \(g_t=B_t=0\). The economy starts at the no-social-security steady state \(K_1=K^*\). At date 1, PAYG \((\tau,-\tau)\) is announced.</p>
+    <ol class="parts" type="a">
+      <li><span class="pts">[5]</span> Show that \(s_t=w_t-\tau^t_t\) and that \(K_{t+1}=(1-\alpha)K_t^\alpha-\tau^t_t\).</li>
+      <li><span class="pts">[5]</span> Find the steady state \(K^*\) without social security, and show \(K^{*\,\alpha-1}=1/(1-\alpha)\) and \(r^*=\frac{\alpha}{1-\alpha}-\delta\).</li>
+      <li><span class="pts">[10]</span> Show that \(c^1_2(\tau)=(K^*-\tau)\big[1-\delta+\alpha(K^*-\tau)^{\alpha-1}\big]+\tau\). Why doesn't generation 1's wage depend on \(\tau\)?</li>
+      <li><span class="pts">[10]</span> Show that \(\frac{dc^1_2}{d\tau}\big|_{\tau=0}=\delta-\frac{\alpha^2}{1-\alpha}\), and find the range of \(\alpha\) for which generation 1 gains.</li>
+      <li><span class="pts">[10]</span> The point of the example is that generation 1 can gain <em>even though the interest rate is positive</em>. Show that this requires \(\frac{\alpha^2}{1-\alpha}\lt \delta\lt \frac{\alpha}{1-\alpha}\), and that such a \(\delta\) exists for every \(\alpha\in(0,1)\).</li>
+      <li><span class="pts">[10]</span> Is it possible that <em>every</em> generation is made better off? <em>Hint:</em> the First Welfare Theorem holds in equilibria with positive interest rates. Then confirm it directly by showing \(c_{ss}'(0)=-r^*/(1-\alpha)\) for steady-state generations.</li>
+      <li><span class="pts">[10]</span> Explain the economics: why can generation 1 gain here, when in the endowment economy every generation after the initial old loses whenever \(r>0\)?</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Young-age consumption is worthless to the agent, so it saves everything after tax: \(s_t=w_t-\tau^t_t\). With \(B_t=0\), \(K_{t+1}=s_t\), and \(w_t=F_L(K_t,1)=(1-\alpha)K_t^\alpha\).</p>
+      <p>(b) \(K^*=(1-\alpha)K^{*\alpha}\) gives \(K^*=(1-\alpha)^{1/(1-\alpha)}\) and \(K^{*\,\alpha-1}=1/(1-\alpha)\). Then \(r^*=\alpha K^{*\,\alpha-1}-\delta=\frac{\alpha}{1-\alpha}-\delta\).</p>
+      <p>(c) \(K_1=K^*\) is predetermined, so \(w_1=(1-\alpha)K^{*\alpha}=K^*\) regardless of \(\tau\). Generation 1 saves \(K_2=K^*-\tau\), earns \(1+r_1=1-\delta+\alpha K_2^{\alpha-1}\) on it, and receives \(\tau\) from generation 2.</p>
+      <p>(d) Write \(c^1_2=(1-\delta)K_2+\alpha K_2^\alpha+\tau\) with \(dK_2/d\tau=-1\). Then \(\frac{dc^1_2}{d\tau}=-(1-\delta)-\alpha^2K_2^{\alpha-1}+1=\delta-\alpha^2K_2^{\alpha-1}\). At \(\tau=0\) this is \(\delta-\frac{\alpha^2}{1-\alpha}\). It is positive iff \(\alpha^2+\delta\alpha-\delta<0\), i.e. \(\alpha\lt \hat\alpha=\frac{-\delta+\sqrt{\delta^2+4\delta}}{2}\).</p>
+      <p>(e) We need \(\delta>\alpha^2/(1-\alpha)\) for the gain and \(r^*>0\iff\delta\lt \alpha/(1-\alpha)\). The interval is non-empty because \(\alpha^2\lt \alpha\). <em>Note:</em> neither 2025 solution set checks this. "Small enough \(\alpha\)" alone is not sufficient: as \(\alpha\to0\), \(r^*\to-\delta<0\), and the example slides into the dynamically inefficient case, where a gain is no surprise.</p>
+      <p>(f) No. With \(r^*>0\) the pre-reform equilibrium is Pareto optimal, so a gain for some generations must be paid for by losses elsewhere. Directly, differentiate the steady state \(K=(1-\alpha)K^\alpha-\tau\): \(K'(0)=-1/(1-\alpha)\). Steady-state consumption is \(c_{ss}=K(1-\delta)+\alpha K^\alpha+\tau\), so
+      $$c_{ss}'(0)=\big[1-\delta+\alpha^2K^{*\,\alpha-1}\big]K'(0)+1=1-\frac{1-\delta+\alpha^2/(1-\alpha)}{1-\alpha}=\frac{\delta-\alpha/(1-\alpha)}{1-\alpha}=-\frac{r^*}{1-\alpha}<0 .$$</p>
+      <p>(g) Generation 1's principal is returned exactly by the transfer, so only the <em>return</em> on its smaller saving changes. Taxing the young lowers \(K_2\), which raises \(F_K\). Generation 1's wage is already fixed, so it captures the higher return without bearing the lower wage. The cost falls on generation 2, whose wage \((1-\alpha)K_2^\alpha\) is lower. This is a general-equilibrium price effect. It cannot arise in the endowment economy, where social security moves goods but changes no productive opportunity.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 15.5 Owning capital directly <span class="tag slides">Slides III p.15</span></div>
+    <p>Suppose households own capital directly, rent it to firms, and sell the undepreciated stock to the next young generation. Show that the return on this strategy equals \(F_K(K_{t+1},1)+1-\delta\). Conclude that if the government also issued bonds paying \(1+r_t>F_K(K_{t+1},1)+1-\delta\), no one would hold capital. What would that imply for \(K_{t+1}\) and for \(F_K\)?</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>Buy one unit of capital at \(t\). At \(t+1\), rent it for \(v_{t+1}=F_K(K_{t+1},1)\), then sell the \(1-\delta\) that remains. Installed capital and goods trade one for one. The gross return is \(F_K(K_{t+1},1)+1-\delta\). If bonds paid strictly more, every saver would hold only bonds and \(K_{t+1}=0\). But then \(F_K(0,1)=\infty\) under Inada conditions, which contradicts the inequality. So in an equilibrium with \(K_{t+1}>0\) the returns must be equal, which is the content of \(v_{t+1}=r_t+\delta\).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 15.6 Walras' law without constant returns <span class="tag proof">Proof</span></div>
+    <p>Redo the Walras' law argument of §4 when \(F\) has <em>decreasing</em> returns, with profits \(\pi_t=F(K_t,1)-w_t-v_tK_t>0\) paid to the young. Show that the conclusion \(B_t+s_t=K_{t+1}\) survives once household budgets include \(\pi_t\).</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>The young budget becomes \(s_t+c^t_t=w_t+\pi_t-\tau^t_t\). In step 3, \(F(K_t,1)=w_t+\pi_t+(r_{t-1}+\delta)K_t\). The extra \(\pi_t\) appears on both sides and cancels. Everything else is unchanged, so the same recursion and induction apply. Walras' law needs every unit of output to be <em>someone's</em> income, which is the role of \(\sum_i\theta^i_j=1\) in <a href="0002-competitive-equilibrium.html">Lesson 2</a>.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 15.7 Saving and PAYG when \(r&lt;0\) <span class="tag slides">Slides III p.17</span></div>
     <p>The claim in §6 assumed \(r_t>0\). Suppose instead \(r_t<0\), so PAYG <em>raises</em> lifetime wealth. Show that if both \(c_y\) and \(c_o\) are normal, saving still falls with \(\tau\) at fixed prices.</p>
-    <details class="hint"><summary>Hint</summary><div class="body"><p>From the lifetime budget \(c_y + c_o/(1+r) = W\), normality of \(c_y\) gives \(\partial c_o/\partial W \le 1+r\).</p></div></details>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>From the lifetime budget \(c_y+c_o/(1+r)=W\), normality of \(c_y\) gives \(\partial c_o/\partial W\le1+r\).</p></div></details>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>Again \(\partial s/\partial\tau = \frac{1}{1+r}\big(c_{o,W}\cdot(-\tfrac{r}{1+r}) - 1\big)\). With \(r<0\), the first term is positive, but \(c_{o,W}\le 1+r\) implies \(c_{o,W}\cdot\frac{-r}{1+r} \le -r\). So the bracket is at most \(-r-1 = -(1+r) < 0\). Saving falls. Intuitively, the transfer received when old directly substitutes for private saving one-for-one. The wealth effect can offset at most a fraction of that.</p>
-    </div></details>
-  </div>
-
-  <div class="box exercise">
-    <div class="box-title">Exercise 15.4 <span class="tag exam">Exam-style</span> (Diamond model with log utility)</div>
-    <p>Generation \(t\) has utility \((1-\beta)\log c^t_t + \beta\log c^t_{t+1}\), supplies one unit of labour when young, and \(F(K,L)=K^\alpha L^{1-\alpha}\) with full depreciation (\(\delta=1\)). There is no government.</p>
-    <ol class="parts" type="a">
-      <li>Show that \(s_t = \beta w_t\), independent of \(r_t\), and that \(K_{t+1} = \beta(1-\alpha)K_t^\alpha\).</li>
-      <li>Find the positive steady state \(\bar K\) and the steady-state interest rate \(\bar r\). For \(\beta = 0.5\), \(\alpha = 0.3\):
-        <div class="numcheck" data-answer="0.22319" data-tol="0.002" data-prompt="K̄ ="></div>
-        <div class="numcheck" data-answer="-1/7" data-tol="0.002" data-prompt="r̄ ="></div></li>
-      <li>Is this steady state dynamically inefficient? Give the condition on \((\alpha,\beta)\) in general.</li>
-      <li>Now let the population of young grow at rate \(n\), so that per-young capital satisfies \((1+n)k_{t+1} = s_t\). Find \(1+\bar r\) and show that \(\bar r < n\) if and only if \(\alpha<\beta(1-\alpha)\), whatever \(n\) is.</li>
-      <li>Introduce PAYG with tax \(\tau\) per young (and \(n=0\)). Write the new law of motion. (You may leave it implicit.)</li>
-    </ol>
-    <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) Lifetime wealth is \(w_t\); log utility gives \(c^t_t = (1-\beta)w_t\), so \(s_t = \beta w_t\). With \(\delta=1\) and \(s_t = K_{t+1}\), \(K_{t+1} = \beta(1-\alpha)K_t^\alpha\).<br>
-      (b) \(\bar K = (\beta(1-\alpha))^{1/(1-\alpha)} = 0.35^{1/0.7}\approx 0.2232\). \(\bar r = \alpha\bar K^{\alpha-1} - 1 = \dfrac{\alpha}{\beta(1-\alpha)} - 1 = 0.3/0.35 - 1 = -1/7\).<br>
-      (c) With \(n=0\), the golden rule is \(F_K - \delta = 0\), i.e. \(r=0\). Here \(\bar r<0\), so capital exceeds the golden rule: the steady state is dynamically inefficient. In general, \(\bar r<0 \iff \alpha < \beta(1-\alpha)\).<br>
-      (d) \(\bar k = \big(\beta(1-\alpha)/(1+n)\big)^{1/(1-\alpha)}\), so \(1+\bar r = \alpha\bar k^{\alpha-1} = \dfrac{\alpha(1+n)}{\beta(1-\alpha)}\). Hence \(1+\bar r<1+n \iff \alpha<\beta(1-\alpha)\). With full depreciation the condition is independent of \(n\). (For \(\beta=0.5\), \(\alpha=0.3\), \(n=0.2\): \(\bar r\approx 0.029 < 0.2\).)<br>
-      (e) Lifetime wealth is \(w_t - \tau + \tau/(1+r_t)\), so \(c_y = (1-\beta)W_t\) and \(s_t = w_t-\tau-c_y = \beta(w_t-\tau) - (1-\beta)\tau/(1+r_t)\). Then
-      $$K_{t+1} = \beta\big((1-\alpha)K_t^\alpha - \tau\big) - \frac{(1-\beta)\tau}{\alpha K_{t+1}^{\alpha-1}} .$$
-      Saving is lower for every \(K_t\). This is the implicit law of motion of §5.</p>
-    </div></details>
-  </div>
-
-  <div class="box exercise">
-    <div class="box-title">Exercise 15.5 <span class="tag exam">Exam-style</span> (Cobb–Douglas example)</div>
-    <p>In the example of §7, let \(\alpha = 0.2\) and \(\delta=0.1\).</p>
-    <ol class="parts" type="a">
-      <li>Compute \(K^*\) and \(r^*\).
-        <div class="numcheck" data-answer="0.75659" data-tol="0.002" data-prompt="K* ="></div>
-        <div class="numcheck" data-answer="0.15" data-tol="0.002" data-prompt="r* ="></div></li>
-      <li>Compute \(dc^1_2/d\tau\) at \(\tau=0\). Does generation 1 gain?
-        <div class="numcheck" data-answer="0.05" data-tol="0.002" data-prompt="slope ="></div></li>
-      <li>Compute \(c_{ss}'(0)\) for the steady-state generations.
-        <div class="numcheck" data-answer="-0.1875" data-tol="0.002" data-prompt="slope ="></div></li>
-      <li>Who, besides generation 1, gains? Explain in one sentence why this does not contradict the First Welfare Theorem.</li>
-    </ol>
-    <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) \(K^* = 0.8^{1.25}\approx 0.7566\) and \(r^* = 0.2/0.8 - 0.1 = 0.15\).<br>
-      (b) \(\delta - \alpha^2/(1-\alpha) = 0.1 - 0.04/0.8 = 0.05 > 0\): generation 1 gains.<br>
-      (c) \(-r^*/(1-\alpha) = -0.15/0.8 = -0.1875\): steady-state generations lose.<br>
-      (d) Generation 0 gains \(\tau\). Because \(r^*>0\), the value of the aggregate endowment is finite and the First Welfare Theorem applies. The pre-reform equilibrium is Pareto optimal, so gains for early generations must be paid for by losses for later ones.</p>
-    </div></details>
-  </div>
-
-  <div class="box exercise">
-    <div class="box-title">Exercise 15.6 <span class="tag slides">Slides III p.18</span></div>
-    <p>In the same example, explain why generation 1's gain is <em>larger</em> when \(\alpha\) is <em>smaller</em>, even though a smaller \(\alpha\) makes capital less important in production. Which term in \(dc^1_2/d\tau\) does \(\alpha\) control?</p>
-    <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>\(dc^1_2/d\tau = \underbrace{-(1+r^*)}_{\text{lost return}} + \underbrace{\alpha(1-\alpha)K^{*\,\alpha-1}}_{\text{price effect}} + \underbrace{1}_{\text{transfer}} = \delta - \alpha^2/(1-\alpha)\). The price effect equals \(\alpha\), but the lost return \(1+r^*=1-\delta+\alpha/(1-\alpha)\) also rises with \(\alpha\). The net cost \(\alpha/(1-\alpha) - \alpha = \alpha^2/(1-\alpha)\) is increasing in \(\alpha\). With a small capital share, the steady-state return to saving is low, so giving up saving costs little, and a zero-return PAYG system competes well. When \(\delta > \alpha/(1-\alpha)\), so that \(r^*<0\), PAYG beats saving outright.</p>
+      <p>Again \(\partial s/\partial\tau=\frac{1}{1+r}\big(c_{o,W}\cdot(-\tfrac{r}{1+r})-1\big)\). With \(r<0\) the first term is positive, but \(c_{o,W}\le1+r\) implies \(c_{o,W}\cdot\frac{-r}{1+r}\le-r\). So the bracket is at most \(-r-1=-(1+r)<0\), and saving falls. The transfer received when old replaces private saving one for one; the wealth effect can offset only part of that.</p>
     </div></details>
   </div>
 

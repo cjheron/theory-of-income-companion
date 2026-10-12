@@ -45,7 +45,7 @@
   <h2>2. Competitive equilibrium <a class="slide-ref" href="../sources/slides2-olg.pdf#page=7">N2 pp.7–10</a> · <a href="../lessons/0008-olg-environment.html">L8</a>, <a href="../lessons/0009-olg-prices-and-interest-rates.html">L9</a></h2>
   <div class="card">
     <p><strong>Budget:</strong> \(p_ix_i+p_{i+1}x_{i+1}=p_ie^i_i+p_{i+1}e^i_{i+1}\). <strong>Unique CE = no trade</strong> \(x^i=e^i\), by forward induction from the initial old.</p>
-    <p><strong>Prices:</strong> \(\dfrac{p_{t+1}}{p_t}=\dfrac{1}{1+r_t}=\dfrac{v^t_2(e^t_t,e^t_{t+1})}{v^t_1(e^t_t,e^t_{t+1})}\), and \(p_t=\prod_{s<t}(1+r_s)^{-1}\) with \(p_1=1\).</p>
+    <p><strong>Prices:</strong> \(\dfrac{p_{t+1}}{p_t}=\dfrac{1}{1+r_t}=\dfrac{v^t_2(e^t_t,e^t_{t+1})}{v^t_1(e^t_t,e^t_{t+1})}\), and \(p_t=\prod_{s\lt t}(1+r_s)^{-1}\) with \(p_1=1\).</p>
     <p><strong>Log example</strong> \(v=(1-\beta)\log c_y+\beta\log c_o\), endowments \((1-\alpha,\alpha)\):
     \(\displaystyle 1+\bar r=\frac{(1-\beta)\alpha}{\beta(1-\alpha)},\quad \bar r=\frac{\alpha-\beta}{\beta(1-\alpha)}\).
     Savings: \(s(r)=\beta(1-\alpha)-\dfrac{(1-\beta)\alpha}{1+r}\), increasing in \(r\) and \(\beta\), decreasing in \(\alpha\).</p>
@@ -58,7 +58,7 @@
       <tr><th>Case</th><th>Parameters</th><th>\(\bar r\)</th><th>\(p\cdot\sum\bar x^i\)</th><th>Conclusion</th></tr>
       <tr><td>1</td><td>\(\beta>\alpha\)</td><td>\(<0\)</td><td>\(\infty\)</td><td>CE Pareto-dominated by \(c^*\)</td></tr>
       <tr><td>2</td><td>\(\beta=\alpha\)</td><td>\(0\)</td><td>\(\infty\)</td><td>CE \(=c^*\), PO</td></tr>
-      <tr><td>3</td><td>\(\beta<\alpha\)</td><td>\(>0\)</td><td>\((1+\bar r)/\bar r\)</td><td>Not ranked; CE is PO (1WT)</td></tr>
+      <tr><td>3</td><td>\(\beta\lt \alpha\)</td><td>\(>0\)</td><td>\((1+\bar r)/\bar r\)</td><td>Not ranked; CE is PO (1WT)</td></tr>
     </table>
   </div>
 
@@ -69,8 +69,8 @@
 
   <h2>5. Why the 1WT fails <a class="slide-ref" href="../sources/slides2-olg.pdf#page=21">N2 pp.21–27</a> · <a href="../lessons/0012-why-the-1wt-fails-in-olg.html">L12</a></h2>
   <div class="card">
-    <p><strong>Theorem.</strong> LNS + \(p\cdot\sum_i\bar x^i<\infty\) ⇒ the CE is PO. The proof needs finiteness to sum \(p\cdot x^i\ge p\cdot\bar x^i\) (strict for one \(i'\)) into \(\sum p\cdot x^i>\sum p\cdot\bar x^i\). Otherwise it reads "\(\infty>\infty\)".</p>
-    <p><strong>Double infinity</strong> (Shell 1971): finitely many goods ⇒ value \(=\sum_\ell p_\ell\bar e_\ell<\infty\); finitely many agents (monotone \(u\)) ⇒ \(p\cdot\bar x^i\le p\cdot e^i<\infty\), finite sum. Only infinitely many agents <em>and</em> goods can break it.</p>
+    <p><strong>Theorem.</strong> LNS + \(p\cdot\sum_i\bar x^i\lt \infty\) ⇒ the CE is PO. The proof needs finiteness to sum \(p\cdot x^i\ge p\cdot\bar x^i\) (strict for one \(i'\)) into \(\sum p\cdot x^i>\sum p\cdot\bar x^i\). Otherwise it reads "\(\infty>\infty\)".</p>
+    <p><strong>Double infinity</strong> (Shell 1971): finitely many goods ⇒ value \(=\sum_\ell p_\ell\bar e_\ell\lt \infty\); finitely many agents (monotone \(u\)) ⇒ \(p\cdot\bar x^i\le p\cdot e^i\lt \infty\), finite sum. Only infinitely many agents <em>and</em> goods can break it.</p>
     <p>Finite value is <em>sufficient</em>, not necessary (Case 2). In Case 1, every agent's improved bundle costs <em>more</em> at CE prices, by \(p_t(\beta-\alpha)\big(\tfrac{1}{1+\bar r}-1\big)\).</p>
   </div>
 
@@ -78,7 +78,7 @@
   <div class="card">
     <p>\(N_t=(1+n)^t\); \(e^t_t=(1+g)^t(1-\alpha)\), \(e^t_{t+1}=(1+g)^t\alpha\). Savings \(s_t=(1+g)^ts(r)\). Still no trade, and <strong>\(\bar r\) is unchanged</strong> by \(g\) and \(n\).</p>
     <p>Let \(G\equiv(1+g)(1+n)\) and \(W\equiv(1-\alpha)G+\alpha\). Normalized feasibility: \(G\hat c_y+\hat c_o=W\). Best: \(\hat c_y^*=(1-\beta)W/G\), \(\hat c_o^*=\beta W\).</p>
-    <p><strong>Inefficiency condition:</strong> \(c^*\) Pareto-dominates the CE \(\iff\hat c^*_o>\alpha\iff \boxed{1+\bar r<(1+g)(1+n)}\) (roughly \(\bar r<n+g\)). This holds \(\iff\) the value of the aggregate endowment \(W\sum_t(G/(1+\bar r))^{t-1}\) is infinite.</p>
+    <p><strong>Inefficiency condition:</strong> \(c^*\) Pareto-dominates the CE \(\iff\hat c^*_o>\alpha\iff \boxed{1+\bar r<(1+g)(1+n)}\) (roughly \(\bar r\lt n+g\)). This holds \(\iff\) the value of the aggregate endowment \(W\sum_t(G/(1+\bar r))^{t-1}\) is infinite.</p>
     <p><strong>PAYG:</strong> \(\tau_t=\hat\tau(1+g)^t\); each old person gets \(\hat\tau G\) (normalized). Optimal \(\hat\tau=\beta(1-\alpha)-\dfrac{\alpha(1-\beta)}{G}\), which is positive iff \(G>1+\bar r\). Post-reform \(1+r=G\) (golden rule / biological interest rate).</p>
     <p><strong>Note III form</strong> (\(g=0\)): \(c_y+\dfrac{c_o}{1+n}=(1-\alpha)+\dfrac{\alpha}{1+n}\); PAYG gives \(c_o=\alpha+(1+n)\tau\). <strong>A permanent fall in \(n\)</strong> with fixed \(\tau\) rotates the line around autarky. The current old and all future generations lose.</p>
   </div>
@@ -93,9 +93,9 @@
 
   <h2>8. Extensions in one line each <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=15">N3 pp.15–24</a> · <a href="../lessons/0015-olg-with-capital.html">L15</a>, <a href="../lessons/0016-olg-heterogeneity-and-long-lives.html">L16</a></h2>
   <div class="card">
-    <p><strong>Capital (Diamond):</strong> \(w_t=F_L(K_t,1)\), \(r_t=F_K(K_{t+1},1)-\delta\), asset clearing \(B_t+s_t=K_{t+1}\); with no government, \(K_{t+1}=s\big(F_K(K_{t+1},1)-\delta,\,F_L(K_t,1),\dots\big)\). PAYG lowers saving (\(\partial s^*/\partial\tau<0\)) and, if \(0<\partial s^*/\partial K<1\), lowers the stable steady-state \(K\).</p>
+    <p><strong>Capital (Diamond):</strong> \(w_t=F_L(K_t,1)\), \(r_t=F_K(K_{t+1},1)-\delta\), asset clearing \(B_t+s_t=K_{t+1}\); with no government, \(K_{t+1}=s\big(F_K(K_{t+1},1)-\delta,\,F_L(K_t,1),\dots\big)\). PAYG lowers saving (\(\partial s^*/\partial\tau<0\)) and, if \(0\lt \partial s^*/\partial K<1\), lowers the stable steady-state \(K\).</p>
     <p><strong>Cobb–Douglas, only old-age consumption:</strong> \(K_{t+1}=(1-\alpha)K_t^\alpha-\tau\), \(K^*=(1-\alpha)^{1/(1-\alpha)}\); generation 1: \(\left.\dfrac{dc^1_2}{d\tau}\right|_{0}=\delta-\dfrac{\alpha^2}{1-\alpha}\). It can gain via a higher return on capital, but that does not mean all generations can gain when \(r>0\).</p>
-    <p><strong>Heterogeneity</strong> (types \(\alpha_n\), log): \(c_y(\alpha,r)/c_y(\bar\alpha,r)=\dfrac{1+(1-\alpha)r}{1+(1-\bar\alpha)r}\); \(\bar r=\dfrac{\bar\alpha-\beta}{\beta(1-\bar\alpha)}\), so \(\bar r<0\iff\bar\alpha<\beta\). A uniform PAYG tax need not help every type.</p>
+    <p><strong>Heterogeneity</strong> (types \(\alpha_n\), log): \(c_y(\alpha,r)/c_y(\bar\alpha,r)=\dfrac{1+(1-\alpha)r}{1+(1-\bar\alpha)r}\); \(\bar r=\dfrac{\bar\alpha-\beta}{\beta(1-\bar\alpha)}\), so \(\bar r<0\iff\bar\alpha\lt \beta\). A uniform PAYG tax need not help every type.</p>
     <p><strong>\(N\)-period lives:</strong> if all \(r_t<0\), so that \(p_t\) is increasing, then shifting \(\tau\) from ages \(1..Y\) to \(Y\tau/(N-Y)\) at ages \(Y{+}1..N\) has positive value \(P^t(\tau,Y)>0\) for all generations ⇒ Pareto improvement (pure exchange only).</p>
   </div>
 

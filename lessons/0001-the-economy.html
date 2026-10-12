@@ -293,34 +293,60 @@
   <!-- ─────────────────────────────────────────── -->
   <h2>7. Exercises</h2>
 
+  <p>Alvarez's midterms use two formats: true/false statements with a short justification (about half the points on Midterm 1), and long derivations broken into small, hinted steps. The exercises below follow both. Lesson 1 is mostly vocabulary, so the exam questions that touch it test whether you can <em>write an economy down</em> correctly before solving anything.</p>
+
   <div class="box exercise">
-    <div class="box-title">Exercise 1.1 <span class="tag slides">Slides pp.8–9</span></div>
-    <p>Count the commodities, and describe what one coordinate means, for each economy:</p>
+    <div class="box-title">True or false? Justify. <span class="tag exam">Exam format</span></div>
+    <p>For each statement, answer True or False and justify in at most four lines.</p>
+    <ol class="tf-list">
+      <li>An apple delivered today and an identical apple delivered tomorrow are the same commodity. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> Commodities are distinguished by physical characteristics, location, <em>date</em> and state of nature. Each date gets its own coordinate in \(L\) and its own price; the ratio \(p_t/p_{t+1}=1+r_t\) is precisely the interest rate. Merging them would make intertemporal trade impossible to describe.</p></div></details></li>
+      <li>Whether an allocation is feasible depends on the equilibrium prices. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> Feasibility is \(x^i\in X^i\), \(y^j\in Y^j\) and \(\sum_i x^i=\sum_j y^j+\sum_i e^i\): purely physical. Prices enter only the <em>budget</em> and profit problems, i.e. the definition of a competitive equilibrium.</p></div></details></li>
+      <li>Changing the ownership shares \(\theta^i_j\) changes the set of feasible allocations. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The shares appear nowhere in feasibility. They only redistribute profit income across budget constraints, so they change <em>which</em> feasible allocation is a CE, never what is feasible. (This is the lever the Second Welfare Theorem uses, Lesson 7.)</p></div></details></li>
+      <li>In the standard sign convention, a household that sells labour has a negative entry for labour in \(x^i\), and a firm that hires labour has a negative entry for labour in \(y^j\). <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> For households, positive = purchases, negative = sales; for firms, positive = outputs, negative = inputs. Material balance then reads \(\sum_i x^i_{\text{lab}} = \sum_j y^j_{\text{lab}} + \sum_i e^i_{\text{lab}}\): both sides negative when there is no labour endowment entry, i.e. sales by households equal purchases by firms.</p></div></details></li>
+      <li>If every \(X^i\) and every \(Y^j\) is convex, the set of feasible allocations is convex. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> Convex combinations stay in each \(X^i\) and \(Y^j\), and material balance is linear, so a convex combination of two feasible allocations is feasible (Exercise 1.4 writes it out).</p></div></details></li>
+      <li>With one good per node, a date-event tree with \(|Z|\ge2\) branches per period and dates \(t=0,\dots,T\) (with \(z_0\) known) has \(|Z|^{T}\) commodities. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> \(|Z|^T\) counts only the terminal nodes. Every node is a commodity: \(\sum_{t=0}^{T}|Z|^t=\frac{|Z|^{T+1}-1}{|Z|-1}\). (Exercise 1.1.)</p></div></details></li>
+    </ol>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 1.1 <span class="tag slides">Slides pp.8–9</span> (dimension of the commodity space)</div>
+    <p>Give \(\dim L\) as a formula, and say what a single coordinate means, in each case.</p>
     <ol class="parts" type="a">
-      <li>Two final goods and two inputs, static.</li>
-      <li>\(T=10\) periods, one consumption good and one investment good per period.</li>
-      <li>Two periods; today one good; tomorrow one good in each of \(k=3\) states.
-        <div class="numcheck" data-answer="4" data-tol="0.001" data-prompt="# commodities ="></div></li>
-      <li>An event tree with \(|Z|=3\), dates \(t=0,\dots,3\), \(z_0\) known, and \(k=2\) goods at each node.
-        <div class="numcheck" data-answer="80" data-tol="0.001" data-prompt="# commodities ="></div></li>
+      <li>A static economy with \(k\) final goods and \(n\) primary inputs. <span class="pts">(5 pts)</span></li>
+      <li>\(T\) periods, with one consumption good and one investment good per period. <span class="pts">(5 pts)</span></li>
+      <li>Two periods: \(k\) goods today, and \(k\) goods tomorrow in each of \(S\) states of nature ("now and then"). <span class="pts">(5 pts)</span></li>
+      <li>A date-event tree: dates \(t=0,\dots,T\), \(z_0\) known, \(|Z|\ge2\) branches per period, \(k\) goods at each node. <span class="pts">(10 pts)</span></li>
+      <li>What happens to your answer in (d) as \(T\to\infty\), and which result in this course needs extra care because of that? One line. <span class="pts">(5 pts)</span></li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) \(m=4\): e.g. \(x=(c_1,c_2,k,n)\). A household typically has positive entries for the two final goods and negative ones for capital and labour; a firm the reverse. (b) \(m=2T=20\); the coordinate \(x_{2t-1}\) is consumption at date \(t\) and \(x_{2t}\) is investment at date \(t\). (c) \(m=k+1=4\): \((x_0, x_1(s_1),x_1(s_2),x_1(s_3))\), where \(x_1(s)\) is a claim to the good tomorrow <em>delivered only if</em> state \(s\) occurs. (d) Nodes: \(1+3+9+27=40\), times \(k=2\) gives \(80\).</p>
+      <p>(a) \(k+n\). A household has positive entries for final goods and negative entries for inputs it sells; a firm the reverse.<br>
+      (b) \(2T\); coordinate \((c_t, i_t)\) at each date.<br>
+      (c) \(k(1+S)\): \(k\) spot goods today plus \(kS\) contingent claims \(x_{1\ell}(s)\), each delivering good \(\ell\) tomorrow <em>only if</em> state \(s\) occurs.<br>
+      (d) There are \(|Z|^t\) histories \(z^t\) at date \(t\), so \(\dim L = k\sum_{t=0}^T|Z|^t = k\,\dfrac{|Z|^{T+1}-1}{|Z|-1}\).<br>
+      (e) It becomes infinite. With infinitely many commodities, values such as \(p\cdot\sum_i\bar x^i\) can be infinite, and the First Welfare Theorem proof needs that value to be finite (Lesson 12).</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 1.2 <span class="tag exam">Exam-style</span> (write the economy down)</div>
-    <p>A two-period economy has one consumption good per period. There are two households. Household 1 is endowed with 1 unit of the good at \(t=0\) and nothing at \(t=1\); household 2 has nothing at \(t=0\) and 1 unit at \(t=1\). A single firm has a <em>storage</em> technology: one unit stored at \(t=0\) returns \(R\) units at \(t=1\). Household 1 owns 30% of the firm and household 2 owns 70%. Utility is \(\log c_0+\beta\log c_1\) for both.</p>
+    <div class="box-title">Exercise 1.2 <span class="tag exam">Exam-inspired</span> (write the economy down)</div>
+    <p>A two-period economy has one consumption good per period. Household 1 is endowed with one unit of the good at \(t=0\) and nothing at \(t=1\); household 2 has nothing at \(t=0\) and one unit at \(t=1\). A single firm has a storage technology: storing \(s\ge0\) units at \(t=0\) yields up to \(Rs\) units at \(t=1\), with \(R>0\). Household 1 owns a share \(\theta\in[0,1]\) of the firm and household 2 owns the rest.</p>
     <ol class="parts" type="a">
-      <li>Write \(L\), \(X^i\), \(e^i\), \(\theta^i\) and \(Y\), using the sign conventions.</li>
-      <li>Write the material balance conditions, one per commodity.</li>
-      <li>Is the allocation "household 1 consumes \((0.5,0.5R)\), household 2 consumes \((0,1)\), the firm stores 0.5" feasible?</li>
+      <li>Write \(L\), \(X^i\), \(e^i\), \(\theta^i\) and \(Y\), using the sign conventions. <span class="pts">(10 pts)</span></li>
+      <li>Write material balance, one equation per commodity. <span class="pts">(5 pts)</span></li>
+      <li>Characterize the set of feasible consumption allocations \((x^1,x^2)\) in terms of \(s\). Show that the aggregate consumption possibilities form a line segment, and give its slope. <span class="pts">(10 pts)</span></li>
+      <li>Where would \(\theta\) enter if you were asked for a competitive equilibrium? One line. <span class="pts">(5 pts)</span></li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) \(L=\mathbb{R}^2\), \(X^i=\mathbb{R}^2_+\), \(e^1=(1,0)\), \(e^2=(0,1)\), \(\theta^1=0.3\), \(\theta^2=0.7\). The storage set is \(Y=\{(y_0,y_1): y_0\le 0,\ y_1\le -R\,y_0\}\): the date-0 good is an input (negative) and the date-1 good an output.<br>
-      (b) Date 0: \(x^1_0+x^2_0 = y_0 + 1\). Date 1: \(x^1_1+x^2_1 = y_1+1\).<br>
-      (c) The firm's plan is \(y=(-0.5,0.5R)\in Y\). Date 0: \(0.5+0=-0.5+1\) ✓. Date 1: \(0.5R+1 = 0.5R+1\) ✓. Both bundles are non-negative, so the allocation is feasible. Notice that we never needed prices.</p>
+      <p>(a) \(L=\mathbb{R}^2\); \(X^i=\mathbb{R}^2_+\); \(e^1=(1,0)\), \(e^2=(0,1)\); \(\theta^1=\theta\), \(\theta^2=1-\theta\); \(Y=\{(y_0,y_1): y_0\le0,\ y_1\le -Ry_0\}\). The date-0 good is an input (negative) and the date-1 good an output.<br>
+      (b) Date 0: \(x^1_0+x^2_0=y_0+1\). Date 1: \(x^1_1+x^2_1=y_1+1\).<br>
+      (c) With \(y=(-s,y_1)\), \(y_1\le Rs\), and \(s\in[0,1]\) (non-negative consumption at date 0): aggregate consumption is \((C_0,C_1)\) with \(C_0=1-s\) and \(C_1\le 1+Rs\). The efficient frontier \(C_1 = 1+R(1-C_0)\), \(C_0\in[0,1]\), is a segment of slope \(-R\): giving up one unit today buys \(R\) tomorrow. Any split of \((C_0,C_1)\) between the two households with non-negative entries is feasible.<br>
+      (d) Only in the budget constraints: household 1's income is \(p\cdot e^1+\theta\pi\) and household 2's is \(p\cdot e^2+(1-\theta)\pi\). (With constant returns, \(\pi=0\) in equilibrium, so \(\theta\) would not even matter there.)</p>
     </div></details>
   </div>
 
@@ -339,6 +365,26 @@
     <p>Let every \(X^i\) and \(Y^j\) be convex. Show that the set of feasible allocations is convex. (We will use convexity heavily in the Second Welfare Theorem, <a href="0006-second-welfare-theorem.html">Lesson 6</a>.)</p>
     <details class="solution"><summary>Show solution</summary><div class="body">
       <p>Take feasible \(\{x^i,y^j\}\) and \(\{x'^i,y'^j\}\), and \(\lambda\in[0,1]\). Let \(x^i_\lambda=\lambda x^i+(1-\lambda)x'^i\) and similarly \(y^j_\lambda\). By convexity, \(x^i_\lambda\in X^i\) and \(y^j_\lambda\in Y^j\). Material balance is linear: \(\sum_i x^i_\lambda = \lambda\sum_i x^i+(1-\lambda)\sum_i x'^i = \lambda(\sum_j y^j+\sum_i e^i)+(1-\lambda)(\sum_j y'^j+\sum_i e^i) = \sum_j y^j_\lambda+\sum_i e^i\). ∎</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 1.5 <span class="tag exam">Exam-inspired</span> (an OLG economy with a tree, written as a GE economy)</div>
+    <p>This is the setup of the 2017/18 Midterm 1 ("OLG and trees"), here only <em>written down</em>; Lessons 8–12 solve economies like it. Time is \(t=1,2,\dots\). A measure one of agents is born each period and lives two periods. Generation \(t\ge1\) is endowed with \(e^t_t>0\) when young and nothing when old, and has strictly increasing utility \(u^t(c^t_t,c^t_{t+1})\). The initial old (generation 0) care only about \(c^0_1\). A tree produces \(d_t\ge0\) units of the good at each date; at \(t=1\) the initial old own the tree.</p>
+    <ol class="parts" type="a">
+      <li>What is the commodity space? <span class="pts">(5 pts)</span></li>
+      <li>Model the tree as a firm: write its production set \(Y\subset L\) and say who holds the ownership share. <span class="pts">(10 pts)</span></li>
+      <li>Write material balance for date \(t\). Your answer is one equation. <span class="pts">(5 pts)</span></li>
+      <li>In the Arrow–Debreu formulation (all trades at date 0 prices \(p_t>0\)), what is the tree's profit, and what is the initial old's budget constraint? <span class="pts">(10 pts)</span></li>
+      <li>Suppose \(d_t=d>0\) for all \(t\). Show that in any competitive equilibrium \(\sum_{t\ge1}p_t\lt \infty\). <span class="pts">(15 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint for (e)</summary><div class="body"><p>What would the initial old demand at date 1 if the value of their firm were infinite? Compare with what is physically available at date 1.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(L=\mathbb{R}^\infty\): one good per date.<br>
+      (b) \(Y=\{y\in\mathbb{R}^\infty: 0\le y_t\le d_t \ \forall t\}\) (fruit can be discarded but not created). The initial old hold \(\theta^0=1\); everyone else holds 0. (In the sequential-markets version, the tree is <em>sold</em> each period; in Arrow–Debreu, ownership at date 0 is all that matters.)<br>
+      (c) \(c^{t-1}_t+c^t_t = d_t+e^t_t\).<br>
+      (d) With \(p_t>0\), profit maximization sets \(y_t=d_t\), so \(\pi=\sum_{t\ge1}p_td_t\). Initial old: \(p_1c^0_1\le \pi\).<br>
+      (e) If \(\sum_tp_t=\infty\) then \(\pi=d\sum_tp_t=\infty\). Then the initial old's budget set contains every \(c^0_1\ge0\); with strictly increasing utility their problem has no solution (demand is unbounded), which contradicts the existence of an optimal \(\bar x^0\) with \(\bar c^0_1\le d_1+e^1_1\). Hence \(\sum_tp_t\lt \infty\). Interpretation: a positive-dividend asset forces the value of the aggregate endowment to be finite, i.e. interest rates that are positive on average. Lesson 12 shows that this is exactly the condition under which the First Welfare Theorem survives in OLG.</p>
     </div></details>
   </div>
 

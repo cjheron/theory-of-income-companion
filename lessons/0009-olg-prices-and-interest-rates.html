@@ -81,7 +81,7 @@
   $$\frac{1}{1+r_t} = \frac{p_{t+1}}{p_t} = \frac{\beta/\alpha}{(1-\beta)/(1-\alpha)} = \frac{\beta}{1-\beta}\cdot\frac{1-\alpha}{\alpha}.$$
   <p>This is the same for every \(t\), so \(r_t\equiv\bar r\) with</p>
   $$\boxed{\;1+\bar r = \frac{(1-\beta)\,\alpha}{\beta\,(1-\alpha)},\qquad \bar r = \frac{\alpha-\beta}{\beta(1-\alpha)},\qquad p_t = \left(\frac{\beta}{1-\beta}\cdot\frac{1-\alpha}{\alpha}\right)^{t-1} = (1+\bar r)^{-(t-1)}.\;}$$
-  <p>Check the algebra of \(\bar r\): \(\frac{(1-\beta)\alpha - \beta(1-\alpha)}{\beta(1-\alpha)} = \frac{\alpha - \beta}{\beta(1-\alpha)}\). So <strong>\(\bar r>0 \iff \alpha>\beta\)</strong>, <strong>\(\bar r=0\iff\alpha=\beta\)</strong> and <strong>\(\bar r<0\iff\alpha<\beta\)</strong> <a class="slide-ref" href="../sources/slides2-olg.pdf#page=14">II p.14</a>.</p>
+  <p>Check the algebra of \(\bar r\): \(\frac{(1-\beta)\alpha - \beta(1-\alpha)}{\beta(1-\alpha)} = \frac{\alpha - \beta}{\beta(1-\alpha)}\). So <strong>\(\bar r>0 \iff \alpha>\beta\)</strong>, <strong>\(\bar r=0\iff\alpha=\beta\)</strong> and <strong>\(\bar r<0\iff\alpha\lt \beta\)</strong> <a class="slide-ref" href="../sources/slides2-olg.pdf#page=14">II p.14</a>.</p>
 
   <h2>3. The savings function</h2>
 
@@ -255,56 +255,130 @@
 
   <h2>7. Exercises</h2>
 
+  <p>Past exams test this material through short true/false justifications and through one long guided problem on an OLG economy with an asset (Exercise 9.2). Work with general parameters: the exams never ask you to plug in numbers.</p>
+
   <div class="box exercise">
-    <div class="box-title">Exercise 9.1 <span class="tag slides">Slides p.13</span></div>
-    <p>Using the formula for \(s(r;\alpha,\beta)\), take \(\alpha = 0.4\), \(\beta = 0.6\).</p>
+    <div class="box-title">Exercise 9.1 <span class="tag exam">Exam-inspired</span> True or false? Justify in 1–4 lines.</div>
+    <ol class="tf-list">
+      <li>With preferences \((1-\beta)\log c_y+\beta\log c_o\) and endowments \((1-\alpha,\alpha)\), the equilibrium interest rate is negative if and only if \(\alpha\lt \beta\).
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>True.</strong> \(1+\bar r = \frac{(1-\beta)\alpha}{\beta(1-\alpha)}<1 \iff (1-\beta)\alpha\lt \beta(1-\alpha)\iff\alpha\lt \beta\). The young want old-age consumption share \(\beta\) but are endowed with only \(\alpha\). Choking off their desire to save requires a negative rate.</p></div></details></li>
+      <li>With log utility, the savings of the young do not depend on the interest rate.
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False in general.</strong> Log utility fixes the <em>expenditure</em> share: \(c_y=(1-\beta)W\) with \(W=(1-\alpha)+\alpha/(1+r)\). The present value of the old-age endowment falls with \(r\), so \(s=(1-\alpha)-c_y\) rises with \(r\). Savings are independent of \(r\) only when there is no old-age endowment, e.g. \(s_t=\beta w_t\) in the Diamond question on the Fall 2025 final (Lesson 15).</p></div></details></li>
+      <li>Since nobody trades in equilibrium, the OLG interest rate has no economic meaning.
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> \(\bar r\) is the shadow price at which the young are just willing not to trade: \(1/(1+\bar r)=v_2/v_1\) at the endowment. Its sign decides welfare: \(\bar r<0\) is exactly when transfers from young to old (social security, money, debt) can make everyone better off (Lessons 10–11).</p></div></details></li>
+      <li>In the OLG economy with a tree paying a constant dividend \(\bar d>0\) (Exercise 8.2), the steady-state interest rate may be negative. <span class="tf-src">(cf. Past exam: 2017/18 Midterm 1, part 6)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> In a steady state, no arbitrage gives \(1+\bar r=(\bar q+\bar d)/\bar q\), so \(\bar r=\bar d/\bar q>0\) for any positive price. An asset with a positive dividend can't be priced at \(r\le0\), because its price would be infinite.</p></div></details></li>
+      <li>In the same economy, a permanent increase in the dividend raises the price of the tree and lowers the interest rate. <span class="tf-src">(cf. 2017/18 Midterm 1, part 8)</span>
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> If savings \(\bar\sigma\) increase strictly with the return, \(\bar q\) rises, and so does \(\bar r\): the young will absorb the more valuable tree only at a higher return. With log utility, \(\bar q=\beta\bar e\) does not move at all and \(\bar r=\bar d/(\beta\bar e)\) rises. Either way \(\bar r\) rises.</p></div></details></li>
+      <li>The equilibrium interest rate between \(t\) and \(t+1\) depends on the endowments of all generations.
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False</strong> (pure endowment economy). Generation \(t\) alone trades between \(t\) and \(t+1\), and it consumes its endowment. So \(1/(1+r_t)\) is generation \(t\)'s MRS at \((e^t_t,e^t_{t+1})\) and nothing else (Exercise 9.5).</p></div></details></li>
+      <li>A more patient population (higher \(\beta\)) has a higher equilibrium interest rate.
+        <details class="solution"><summary>Show answer</summary><div class="body"><p><strong>False.</strong> At the old rate, more patient young want to save more (\(s_\beta>0\)), but saving must stay at zero, so the rate must fall: \(d\bar r/d\beta=-s_\beta/s_r<0\) (Exercise 9.3).</p></div></details></li>
+    </ol>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 9.2 <span class="tag past">Past exam: 2017/18 Midterm 1, "OLG and trees", parts 4–12</span></div>
+    <p>Continue the economy of Exercise 8.2, where you showed \(a_t=1\), \(s_t=0\) and \(1+r_t=(q_{t+1}+d_{t+1})/q_t\). Define the savings function
+    $$\sigma_t(R)\equiv\arg\max_x\; u^t\big(e^t_t-x,\;xR\big),$$
+    the amount a young agent saves at gross return \(R\).</p>
     <ol class="parts" type="a">
-      <li>Compute the equilibrium interest rate \(\bar r\).
-        <div class="numcheck" data-answer="-5/9" data-tol="0.002" data-prompt="r̄ ="></div></li>
-      <li>Compute the savings the young would choose at \(r=0\).
-        <div class="numcheck" data-answer="0.6*0.6-0.4*0.4" data-tol="0.002" data-prompt="s(0) ="></div></li>
-      <li>Compute \(p_4\) (with \(p_1=1\)).
-        <div class="numcheck" data-answer="Math.pow(9/4,3)" data-tol="0.002" data-prompt="p₄ ="></div></li>
+      <li>Using market clearing and the young's optimality, write an implicit difference equation in \(q_t\), \(q_{t+1}\) and \(d_{t+1}\) that the equilibrium price sequence must satisfy.</li>
+      <li>From now on \(e^t_t=\bar e\), \(u^t=\bar u\) and \(d_t=\bar d\ge0\) are constant; let \(\bar\sigma(R)\) be the corresponding savings function. Write an implicit equation for a constant price \(\bar q\). <em>Hint: one side is \(\bar q\); the other is a function of \(\bar d/\bar q\).</em></li>
+      <li>Assume \(\bar u\) satisfies Inada conditions and \(\bar d>0\). Is the implied interest rate \(\bar r\) strictly positive? Is the equilibrium allocation Pareto optimal?</li>
+      <li>Assume \(\bar\sigma\) is strictly increasing. Is the steady state unique? Argue with a graph.</li>
+      <li>\(\bar d\) increases. What happens to \(\bar q\) and \(\bar r\)?</li>
+      <li>Preferences shift so that, at any return, the young want to save more. What happens to \(\bar q\) and \(\bar r\)?</li>
+      <li>Consumption when young and when old are both normal goods, and \(\bar e\) increases. What happens to \(\bar q\) and \(\bar r\)?</li>
+      <li>\(\bar u\) is homothetic, and \(\bar e\) and \(\bar d\) both scale up by \(\lambda>0\). What happens to \(\bar q\) and \(\bar r\)?</li>
+      <li>Let \(\bar u=(1-\beta)\log c^t_t+\beta\log c^t_{t+1}\). Solve for \(\bar q\) and \(\bar r\), and check your answers to (e)–(h).</li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>Total saving of the young is \(a_tq_t+s_t=q_t\). For (d)–(h), plot the 45° line \(y=q\) against \(y=\bar\sigma(1+\bar d/q)\) and ask which curve shifts.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) The young save \(q_t\) in total, at gross return \((q_{t+1}+d_{t+1})/q_t\). So
+      $$q_t=\sigma_t\!\left(\frac{q_{t+1}+d_{t+1}}{q_t}\right).$$</p>
+      <p>(b) \(\bar q=\bar\sigma\big(1+\bar d/\bar q\big)\), with \(\bar r=\bar d/\bar q\).</p>
+      <p>(c) <strong>Yes and yes.</strong> Inada conditions make the young save a positive amount, so \(\bar q>0\) and \(\bar r=\bar d/\bar q>0\). With \(p_t=(1+\bar r)^{-(t-1)}\), the value of the aggregate endowment is \(\sum_t p_t(\bar e+\bar d)=(\bar e+\bar d)(1+\bar r)/\bar r\lt \infty\). By the First Welfare Theorem for OLG economies (Lesson 12), the equilibrium is PO. <em>Exam warning:</em> writing "\(\bar r>0\), so the 1WT applies" is not enough. The theorem needs a finite value of the aggregate endowment, and you must say so.</p>
+      <p>(d) <strong>Yes.</strong> The left side \(y=q\) is strictly increasing. The right side \(y=\bar\sigma(1+\bar d/q)\) is strictly decreasing in \(q\), because the return \(1+\bar d/q\) falls with \(q\) and \(\bar\sigma\) is increasing. So the curves cross at most once. They do cross: near \(q=0\) the right side is positive while the left side is near zero, and at \(q=\bar e\) the right side is below \(\bar e\), because Inada keeps \(c_y>0\).</p>
+      <p>(e) The right-hand curve shifts up at every \(q\), so \(\bar q\) <strong>rises</strong>. Since \(\bar q=\bar\sigma(1+\bar r)\) and \(\bar\sigma\) is strictly increasing, a higher \(\bar q\) needs a higher return: \(\bar r\) <strong>rises</strong> too, so \(\bar q\) rises less than proportionally to \(\bar d\).</p>
+      <p>(f) The new savings function \(\tilde\sigma\ge\bar\sigma\) shifts the curve up, so \(\bar q\) <strong>rises</strong>, and with \(\bar d\) fixed, \(\bar r=\bar d/\bar q\) <strong>falls</strong>. (Write the inequality as \(\tilde\sigma(R)\ge\bar\sigma(R)\). A circulated answer key has it backwards.)</p>
+      <p>(g) If \(c_o=xR\) is normal, savings at any \(R\) increase with \(\bar e\). This is the same shift as (f): \(\bar q\) rises and \(\bar r\) falls.</p>
+      <p>(h) Homotheticity gives \(\bar\sigma(R;\lambda\bar e)=\lambda\bar\sigma(R;\bar e)\). Try \(\lambda\bar q\): the return \(1+\lambda\bar d/(\lambda\bar q)\) is unchanged and saving scales by \(\lambda\), so it solves the equation. By uniqueness, \(\bar q\) scales by \(\lambda\) and \(\bar r\) is <strong>unchanged</strong>.</p>
+      <p>(i) The FOC \((1-\beta)/(\bar e-x)=\beta/x\) gives \(x=\beta\bar e\) at every \(R\). So \(\bar q=\beta\bar e\) and \(\bar r=\bar d/(\beta\bar e)\). Then \(\bar r\) rises with \(\bar d\), falls with \(\beta\) and with \(\bar e\), and is invariant to scaling \(\bar e,\bar d\) together. \(\bar q\) does not respond to \(\bar d\): log savings are flat in \(R\), the boundary case of (e).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 9.3 <span class="tag slides">Slides II p.13</span> <span class="tag exam">Exam-inspired</span> The savings function</div>
+    <p>Let \(s(r;\alpha,\beta)=\arg\max_s (1-\beta)\log(1-\alpha-s)+\beta\log(\alpha+s(1+r))\).</p>
+    <ol class="parts" type="a">
+      <li><span class="pts">[10 pts]</span> Show that \(s(r;\alpha,\beta)=\beta(1-\alpha)-(1-\beta)\dfrac{\alpha}{1+r}\), and that this equals the slide's form \((1-\alpha)-(1-\beta)\big[(1-\alpha)+\frac{\alpha}{1+r}\big]\).</li>
+      <li><span class="pts">[10 pts]</span> Show that \(s\) is increasing in \(r\) and \(\beta\) and decreasing in \(\alpha\). Interpret each sign in one line.</li>
+      <li><span class="pts">[10 pts]</span> <em>Without</em> using the closed form for \(\bar r\), use \(s(\bar r;\alpha,\beta)=0\) and the implicit function theorem to sign \(d\bar r/d\alpha\) and \(d\bar r/d\beta\).</li>
+      <li><span class="pts">[10 pts]</span> Now let the young have <em>no</em> old-age endowment, so \(e=(w,0)\). Show that savings no longer depend on \(r\). Which effect has disappeared?</li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) \(\bar r = (0.4-0.6)/(0.6\cdot0.6) = -0.2/0.36 = -5/9 \approx -0.556\).<br>
-      (b) \(s(0) = \beta(1-\alpha) - (1-\beta)\alpha = 0.36 - 0.16 = 0.20\). At a zero rate the young want to save; hence the equilibrium rate must be below zero.<br>
-      (c) \(1/(1+\bar r) = 9/4\), so \(p_4 = (9/4)^3 \approx 11.39\).</p>
+      <p>(a) The FOC is \(\frac{1-\beta}{1-\alpha-s}=\frac{\beta(1+r)}{\alpha+s(1+r)}\), so \((1-\beta)(\alpha+s(1+r))=\beta(1+r)(1-\alpha-s)\). Collecting \(s\): \(s(1+r)=\beta(1+r)(1-\alpha)-(1-\beta)\alpha\), which is the stated formula. Expanding the slide's form gives \((1-\alpha)\beta-(1-\beta)\alpha/(1+r)\), the same thing.</p>
+      <p>(b) \(s_r=\frac{(1-\beta)\alpha}{(1+r)^2}>0\): a higher rate lowers the present value of the old-age endowment, so the young are poorer and consume less today. \(s_\beta=(1-\alpha)+\frac{\alpha}{1+r}>0\): more patience moves consumption toward old age. \(s_\alpha=-\beta-\frac{1-\beta}{1+r}<0\): more old-age endowment means less need to save.</p>
+      <p>(c) \(d\bar r/d\alpha=-s_\alpha/s_r>0\) and \(d\bar r/d\beta=-s_\beta/s_r<0\). A higher \(\alpha\) lowers desired saving at the old rate, so the rate must rise to restore \(s=0\). A higher \(\beta\) works the other way. Check against \(\bar r=\frac{\alpha-\beta}{\beta(1-\alpha)}\): \(\partial\bar r/\partial\alpha=\frac{1-\beta}{\beta(1-\alpha)^2}>0\) and \(\partial\bar r/\partial\beta=-\frac{\alpha}{\beta^2(1-\alpha)}<0\).</p>
+      <p>(d) With \(e=(w,0)\) the FOC is \(\frac{1-\beta}{w-s}=\frac{\beta}{s}\), so \(s=\beta w\). The term in \(r\) came only from the present value of the old-age endowment (a wealth effect); with log utility, the income and substitution effects of \(r\) on a pure saver cancel exactly.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 9.2 <span class="tag exam">Exam-style</span> (CRRA)</div>
-    <p>Replace log utility with \(v(c_y,c_o) = (1-\beta)\frac{c_y^{1-\sigma}}{1-\sigma} + \beta\frac{c_o^{1-\sigma}}{1-\sigma}\), \(\sigma>0\), keeping the endowments \((1-\alpha,\alpha)\). (a) Find \(1+\bar r\). (b) For which parameters is \(\bar r<0\)? Does this depend on \(\sigma\)? (c) How does \(\bar r\) respond to \(\sigma\) when \(\alpha<1/2\)? Interpret.</p>
+    <div class="box-title">Exercise 9.4 <span class="tag exam">Exam-inspired</span> CRRA preferences</div>
+    <p>Replace log utility with \(v(c_y,c_o) = (1-\beta)\frac{c_y^{1-\sigma}}{1-\sigma} + \beta\frac{c_o^{1-\sigma}}{1-\sigma}\), \(\sigma>0\), keeping endowments \((1-\alpha,\alpha)\).</p>
+    <ol class="parts" type="a">
+      <li>Find \(1+\bar r\).</li>
+      <li>For which parameters is \(\bar r<0\)? Does the condition depend on \(\sigma\)?</li>
+      <li>How does \(\bar r\) respond to \(\sigma\) when \(\alpha<1/2\)? Interpret.</li>
+    </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) \(1+\bar r = \dfrac{v_1}{v_2}\Big|_e = \dfrac{1-\beta}{\beta}\Big(\dfrac{\alpha}{1-\alpha}\Big)^{\sigma}\).<br>
-      (b) \(\bar r<0 \iff (1-\beta)\alpha^\sigma < \beta(1-\alpha)^\sigma\). For \(\sigma = 1\) this is \(\alpha<\beta\). In general it depends on \(\sigma\).<br>
-      (c) If \(\alpha<1/2\), then \(\alpha/(1-\alpha)<1\) and \(1+\bar r\) is <em>decreasing</em> in \(\sigma\). A more curved utility (stronger desire to smooth) makes the young more eager to move resources toward their poor old age. The rate must fall further to stop them from saving.</p>
+      <p>(a) \(1+\bar r = \dfrac{v_1}{v_2}\Big|_e = \dfrac{1-\beta}{\beta}\Big(\dfrac{\alpha}{1-\alpha}\Big)^{\sigma}\).</p>
+      <p>(b) \(\bar r<0 \iff (1-\beta)\alpha^\sigma < \beta(1-\alpha)^\sigma\). For \(\sigma = 1\) this is \(\alpha\lt \beta\). In general it depends on \(\sigma\), unless \(\alpha=\tfrac12\).</p>
+      <p>(c) If \(\alpha<1/2\), then \(\alpha/(1-\alpha)<1\) and \(1+\bar r\) is <em>decreasing</em> in \(\sigma\). With more curvature the young care more about smoothing toward their poor old age, so the rate must fall further to stop them saving.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 9.3 <span class="tag exam">Exam-style</span> (non-stationary endowments)</div>
-    <p>Keep log preferences with weight \(\beta\), but let generation \(t\)'s endowments be \(e^t_t = w_t\) and \(e^t_{t+1}=a_t\), where \(\{w_t,a_t\}\) are arbitrary positive sequences. (a) Find \(r_t\) and \(p_t\). (b) Suppose \(w_t = 1\) for all \(t\), and \(a_t = 1/2\) for \(t\) odd and \(a_t=2\) for \(t\) even, with \(\beta = 1/2\). Compute \(r_1,r_2\) and \(p_2,p_3,p_5\).</p>
+    <div class="box-title">Exercise 9.5 <span class="tag exam">Exam-inspired</span> Non-stationary endowments</div>
+    <p>Keep log preferences with weight \(\beta\), but let generation \(t\)'s endowments be \(e^t_t = w_t\) and \(e^t_{t+1}=a_t\), where \(\{w_t,a_t\}\) are positive sequences bounded above and away from zero.</p>
+    <ol class="parts" type="a">
+      <li>Find \(r_t\) and \(p_t\) (with \(p_1=1\)).</li>
+      <li>Explain in one line why nothing links \(r_t\) to \(r_{t+1}\).</li>
+      <li>Suppose the ratio \(a_t/w_t\) alternates between two values, \(\rho_1\) at odd dates and \(\rho_2\) at even dates. Give a necessary and sufficient condition, in terms of the two interest rates, for the value of the aggregate endowment \(\sum_tp_t\bar e_t\) to be finite. Can it be finite even if \(r_t<0\) at every odd date?</li>
+    </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) \(1+r_t = \dfrac{(1-\beta)/w_t}{\beta/a_t} = \dfrac{1-\beta}{\beta}\cdot\dfrac{a_t}{w_t}\), and \(p_t = \prod_{s=1}^{t-1}\dfrac{\beta w_s}{(1-\beta)a_s}\).<br>
-      (b) \(1+r_1 = a_1/w_1 = 1/2\), so \(r_1=-1/2\); \(1+r_2 = 2\), so \(r_2 = 1\). Then \(p_2 = 1/(1+r_1) = 2\), \(p_3 = p_2/(1+r_2) = 1\), and \(p_5 = 1\) (the two-period cycle repeats). Note that the <em>generation</em> born at \(t\) alone determines \(r_t\). Nothing links rates across generations, because nobody trades across them.</p>
+      <p>(a) \(1+r_t = \dfrac{(1-\beta)/w_t}{\beta/a_t} = \dfrac{1-\beta}{\beta}\cdot\dfrac{a_t}{w_t}\) and \(p_t = \prod_{s=1}^{t-1}\dfrac{1}{1+r_s}\).</p>
+      <p>(b) Each \(r_t\) is generation \(t\)'s MRS at its own endowment, and no one trades across generations.</p>
+      <p>(c) Over each two-period cycle prices are multiplied by \(\kappa\equiv\frac{1}{(1+r_{\text{odd}})(1+r_{\text{even}})}\). Since \(\bar e_t\) is bounded above and away from zero, \(\sum_tp_t\bar e_t\) behaves like a geometric series in \(\kappa\). So it is finite iff \(\kappa<1\), i.e. \((1+r_{\text{odd}})(1+r_{\text{even}})>1\). <strong>Yes:</strong> a negative rate at odd dates is fine if it is outweighed by a high enough rate at even dates. Efficiency depends on the <em>cumulative</em> discounting, not on the sign of any single rate (Lesson 12).</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 9.4 <span class="tag proof">Proof</span></div>
-    <p>Show directly (without FOCs) that at the prices \(p_t = (1+\bar r)^{-(t-1)}\), the young of generation \(t\) find their endowment optimal. Specifically, show that the optimal \(c_y\) at rate \(\bar r\) equals \(1-\alpha\).</p>
+    <div class="box-title">Exercise 9.6 <span class="tag proof">Proof</span></div>
+    <p>Show directly, without FOCs, that at the prices \(p_t = (1+\bar r)^{-(t-1)}\) the young of generation \(t\) find their endowment optimal: the optimal \(c_y\) at rate \(\bar r\) equals \(1-\alpha\).</p>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>Log utility spends a share \(1-\beta\) of lifetime wealth on youth: \(c_y = (1-\beta)\big[(1-\alpha) + \alpha/(1+\bar r)\big]\). Substitute \(1/(1+\bar r) = \beta(1-\alpha)/((1-\beta)\alpha)\): \(\alpha/(1+\bar r) = \beta(1-\alpha)/(1-\beta)\). So \(c_y = (1-\beta)(1-\alpha) + \beta(1-\alpha) = 1-\alpha\). ✓ Equivalently, \(s(\bar r) = 0\).</p>
+      <p>Log utility spends a share \(1-\beta\) of lifetime wealth on youth: \(c_y = (1-\beta)\big[(1-\alpha) + \alpha/(1+\bar r)\big]\). Since \(1/(1+\bar r) = \beta(1-\alpha)/((1-\beta)\alpha)\), we get \(\alpha/(1+\bar r) = \beta(1-\alpha)/(1-\beta)\). So \(c_y = (1-\beta)(1-\alpha) + \beta(1-\alpha) = 1-\alpha\). ✓ Equivalently, \(s(\bar r) = 0\).</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 9.5 <span class="tag exam">Exam-style</span></div>
-    <p>True or false, with an explanation: "Because nobody trades in the OLG equilibrium, the equilibrium interest rate has no economic meaning."</p>
+    <div class="box-title">Exercise 9.7 <span class="tag pset">Problem set 3 (2022), P4 Q1–Q7</span> A growing tree under uncertainty (harder)</div>
+    <p>Two-period lives, a mass one per cohort, labour income only when young. Output is \(Y_t\), with \(Y_{t+1}=Y_tz_{t+1}\), where \(z>0\) is i.i.d. The young earn \(w_t=(1-\delta)Y_t\), and one tree, owned initially by the old, pays fruit \(d_t=\delta Y_t\). Preferences are \((1-\beta)\log c^t_t+\beta E_t\log c^t_{t+1}\). The young buy \(s_t\) trees at price \(q^e_t\) and \(b_t\) one-period discount bonds at price \(q^b_t\), each paying one unit next period:
+    $$c^t_t+s_tq^e_t+b_tq^b_t=w_t,\qquad c^t_{t+1}=s_t(q^e_{t+1}+d_{t+1})+b_t .$$</p>
+    <ol class="parts" type="a">
+      <li>Write the first-order conditions for \(s_t\) and \(b_t\).</li>
+      <li>What are the equilibrium \(s_t\) and \(b_t\)? Why?</li>
+      <li>Guess \(q^e_t=Q^eY_t\) and \(q^b_t=Q^b\). Show that \(Q^e=\beta(1-\delta)\). Explain in one line why \(Q^e\) rises with \(\beta\) and falls with \(\delta\).</li>
+      <li>Find the expected gross return on the tree and the gross return on the bond, \(R^b=1/Q^b\).</li>
+    </ol>
+    <p>The efficiency half of this problem (is the equilibrium PO even though the safe rate can be below growth?) appears in Lessons 12–13.</p>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p><strong>False.</strong> \(\bar r\) is the rate at which a young agent would be indifferent at the margin to lending or borrowing a little. It summarizes the marginal value of transferring resources across time. Its sign determines welfare properties: \(\bar r<0\) means the young value an extra unit of old-age consumption more than a unit of youth consumption, \(v_2/v_1>1\). That is exactly when a transfer scheme from young to old (social security, money, debt) can make everyone better off (Lessons 10–11). It is a <em>shadow price</em> with real content, even without trade.</p>
+      <p>(a) Tree: \(\frac{(1-\beta)q^e_t}{c^t_t}=\beta E_t\Big[\frac{q^e_{t+1}+d_{t+1}}{c^t_{t+1}}\Big]\). Bond: \(\frac{(1-\beta)q^b_t}{c^t_t}=\beta E_t\Big[\frac{1}{c^t_{t+1}}\Big]\).</p>
+      <p>(b) \(s_t=1\): the old sell the tree and the young must hold it. \(b_t=0\): bonds are in zero net supply and all young are identical.</p>
+      <p>(c) In equilibrium \(c^t_{t+1}=q^e_{t+1}+d_{t+1}\), so the right side of the tree FOC is \(\beta\), and \((1-\beta)q^e_t=\beta c^t_t=\beta(w_t-q^e_t)\). Hence \(q^e_t=\beta w_t=\beta(1-\delta)Y_t\). (Log utility: the young save a fraction \(\beta\) of income, and the tree is the only thing to save in.) A higher \(\beta\) means more saving chasing one tree; a higher \(\delta\) means less labour income to save.</p>
+      <p>(d) Old consumption is \(c^t_{t+1}=[\beta(1-\delta)+\delta]Y_tz_{t+1}\). The tree return is \(R^e=c^t_{t+1}/q^e_t\), so \(E_tR^e=\Big(1+\frac{\delta}{\beta(1-\delta)}\Big)E[z]\). The bond FOC gives \(Q^b=\frac{\beta(1-\delta)}{\beta(1-\delta)+\delta}E[1/z]\), so \(R^b=\Big(1+\frac{\delta}{\beta(1-\delta)}\Big)\big/E[1/z]\). Since \(E[1/z]\ge1/E[z]\) (Jensen), \(R^b\le E R^e\): the gap is a risk premium.</p>
     </div></details>
   </div>
 

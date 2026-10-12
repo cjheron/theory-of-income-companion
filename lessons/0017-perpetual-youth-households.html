@@ -366,82 +366,111 @@
   <!-- ─────────────────────────────────────────── -->
   <h2>9. Exercises</h2>
 
+  <p>No past exam has asked about Blanchard–Yaari directly, so these exercises follow the formats Alvarez does use: true/false with a short justification, and guided derivations with hints and point weights. Answer every part with general parameters before opening the solutions.</p>
+
   <div class="box exercise">
-    <div class="box-title">Exercise 17.1 <span class="tag slides">Slides p.2</span> Demographics</div>
+    <div class="box-title">Exercise 17.1 <span class="tag exam">Exam-inspired</span> True or false? Justify. <span class="pts">(7 × 10 points)</span></div>
+    <p>Give a verdict and a justification of one to four lines for each statement.</p>
+    <ol class="tf-list">
+      <li>In the perpetual-youth model, a higher death rate \(p\) makes individual consumption profiles flatter, because agents become more impatient. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>False.</strong> The Euler equation is \(\dot c/c = r-\theta\), and \(p\) cancels. Death raises the effective discount rate to \(\theta+p\), but fair annuities raise the return to \(r+p\) by exactly the same amount. A higher \(p\) does raise the MPC, \(\theta+p\), so the <em>level</em> of consumption out of a given wealth changes, but not its growth rate.</p></div></details></li>
+      <li>A 60-year-old has a shorter expected remaining lifetime than a newborn. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>False.</strong> Death arrives at a constant hazard \(p\), so remaining lifetime is exponential with mean \(1/p\) at every age (memorylessness). That is exactly why the model has "no young and old": everyone alive has the same horizon and the same MPC.</p></div></details></li>
+      <li>If fair annuities are available and agents have no bequest motive, they hold all their financial wealth as annuities. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>True</strong> (Yaari 1965). In every state the agent cares about (being alive), an annuity pays \(r+p\), while a plain bond pays only \(r\). The bond's only advantage is a payout at death, which the agent doesn't value. Borrowers likewise borrow through annuity-type contracts, which builds life insurance into their debt.</p></div></details></li>
+      <li>With log utility, an agent alive at \(t\) consumes a fraction \(\theta\) of total wealth \(v(t)+h(t)\). <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>False.</strong> The fraction is \(\theta+p\). The utility weights \(e^{-(\theta+p)(z-t)}\) integrate to \(1/(\theta+p)\), and with log utility the share of wealth spent on date-\(t\) consumption equals date \(t\)'s share of total weight. The death rate enters the MPC even though it drops out of the Euler equation.</p></div></details></li>
+      <li>For the household problem to have a solution with constant labour income, the interest rate must be positive. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>False.</strong> The requirement is that human wealth be finite: \(h=\int_t^\infty y\,e^{-(r+p)(z-t)}dz&lt;\infty\), i.e. \(r+p&gt;0\). So \(r\in(-p,0)\) is allowed. With income declining at rate α, the bound loosens to \(r&gt;-(p+\alpha)\).</p></div></details></li>
+      <li>If an agent's plan has \(\lim_{T\to\infty}R(t,T)v(T)&gt;0\), the plan is not budget-feasible. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>False.</strong> A strictly positive limit means wealth is left unspent "at infinity". The plan is feasible but not optimal, because consuming that wealth earlier raises utility. A strictly <em>negative</em> limit is the infeasible case: debt is rolled over forever, a Ponzi scheme.</p></div></details></li>
+      <li>With CRRA utility \(c^{1-\sigma}/(1-\sigma)\), \(\sigma\ne1\), the consumption rule \(c=(\theta+p)(v+h)\) still holds. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Show solution</summary><div class="body"><p><strong>False.</strong> With a constant \(r\), the MPC becomes \((r+p)-(r-\theta)/\sigma\), and with a time-varying \(r\) it depends on the whole future rate path (Exercise 17.7). Only log utility makes the MPC independent of prices, which is what makes aggregation trivial in Lesson 18.</p></div></details></li>
+    </ol>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 17.2 <span class="tag slides">Slides p.2</span> Demographics <span class="pts">(30 points)</span></div>
     <ol class="parts" type="a">
-      <li>Derive \(N(s,t)=pe^{-p(t-s)}\) from \(N(s,t+\Delta)=N(s,t)(1-p\Delta)\) and \(N(s,s)=p\), and show the population is constant at 1.</li>
-      <li>Show that the share of the population older than \(A\) is \(e^{-pA}\), and that the mean age of the population is \(1/p\).</li>
-      <li>With \(p=0.02\), what share of the population is older than 50?
-        <div class="numcheck" data-answer="Math.exp(-1)" data-tol="0.003" data-prompt="share ="></div></li>
+      <li>(10) From \(N(s,t+\Delta)=N(s,t)(1-p\Delta)\) and \(N(s,s)=p\), derive \(N(s,t)=pe^{-p(t-s)}\). [Hint: subtract \(N(s,t)\), divide by Δ and let \(\Delta\downarrow0\).]</li>
+      <li>(10) Show that total population is constant at 1, and that the share of the population older than \(A\) is \(e^{-pA}\).</li>
+      <li>(10) Show that the mean age of the population is \(1/p\). Then explain why this equals the expected remaining lifetime of any agent alive.</li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) See §2. (b) People older than \(A\) were born before \(t-A\): \(\int_{-\infty}^{t-A}pe^{-p(t-s)}ds = e^{-pA}\). The mean age is \(\int_0^\infty x\,pe^{-px}dx = 1/p\). (c) \(e^{-0.02\cdot 50} = e^{-1}\approx 0.368\).</p>
+      <p>(a) \([N(s,t+\Delta)-N(s,t)]/\Delta = -pN(s,t)\), so as \(\Delta\downarrow 0\), \(\partial_tN = -pN\). Therefore \(N(s,t)=N(s,s)e^{-p(t-s)} = pe^{-p(t-s)}\).<br>
+      (b) \(\int_{-\infty}^t pe^{-p(t-s)}ds = 1\). People older than \(A\) were born before \(t-A\): \(\int_{-\infty}^{t-A}pe^{-p(t-s)}ds = e^{-pA}\).<br>
+      (c) Age \(x=t-s\) has density \(pe^{-px}\), so the mean age is \(\int_0^\infty xpe^{-px}dx = 1/p\). Remaining lifetime is exponential with rate \(p\) at every age, so its mean is also \(1/p\). The age distribution in a stationary population with constant hazard mirrors the remaining-lifetime distribution.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 17.2 <span class="tag slides">Slides p.3</span> Annuities and life insurance</div>
+    <div class="box-title">Exercise 17.3 <span class="tag slides">Slides p.3</span> Annuities and life insurance <span class="pts">(30 points)</span></div>
     <ol class="parts" type="a">
-      <li>Show that an insurer paying survivors \(v(1+\Delta r)/(1-p\Delta)\) breaks even, and expand to first order in Δ.</li>
-      <li>Interpret the same contract when \(v&lt;0\). Who pays whom, and what happens at death?</li>
-      <li>Why does an agent with no bequest motive put <em>all</em> wealth into annuities? (Hint: compare the return conditional on survival.)</li>
+      <li>(10) An insurer takes \(v\) from each of many agents at \(t\) and pays each survivor \(v(1+\Delta r)/(1-p\Delta)\) at \(t+\Delta\). Show that it breaks even, and expand the payout to first order in Δ.</li>
+      <li>(10) Interpret the same contract when \(v&lt;0\). Who pays whom, and what happens to the debt at death?</li>
+      <li>(10) Why does an agent with no bequest motive put <em>all</em> wealth into annuities? [Hint: compare returns conditional on survival.]</li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) See §3. (b) With \(v&lt;0\) the agent is a borrower. Debt grows at \(r+p\): the agent pays interest \(r\) plus a premium \(p\) to an insurer, who repays the lender if the agent dies. At death the debt is cancelled, which is life insurance, so lenders bear no default risk. (c) A plain bond pays \(r\) and leaves wealth at death, which the agent doesn't value. An annuity pays \(r+p&gt;r\) in every state the agent cares about (alive). It dominates, so a utility maximizer holds wealth only as annuities (Yaari's result).</p>
+      <p>(a) Per unit of agents, the insurer invests \(v\) and receives \(v(1+\Delta r)\). It pays the fraction \(1-p\Delta\) that survive, each \(v(1+\Delta r)/(1-p\Delta)\), so total payouts equal total receipts. Expanding, \(\frac{1+\Delta r}{1-p\Delta} = 1+(r+p)\Delta+o(\Delta)\).<br>
+      (b) With \(v&lt;0\) the agent is a borrower whose debt grows at \(r+p\). It pays interest \(r\) plus a premium \(p\), and the premium funds repayment to lenders for those who die. At death the debt is cancelled: built-in life insurance, so lenders face no default risk.<br>
+      (c) A bond pays \(r\) and leaves wealth at death, which the agent doesn't value. An annuity pays \(r+p&gt;r\) in every state the agent cares about. It dominates, so wealth is held only as annuities.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 17.3 <span class="tag slides">Slides p.6</span> The log lemma</div>
-    <p>Let \(a=(1/2,1/3,1/6)\), \(R=(1,\,0.5,\,0.25)\) and \(W=12\).</p>
+    <div class="box-title">Exercise 17.4 <span class="tag slides">Slides p.6</span> <span class="tag proof">Proof</span> The log lemma <span class="pts">(30 points)</span></div>
     <ol class="parts" type="a">
-      <li>Compute \(c_1\), \(c_2\) and \(c_3\).
-        <div class="numcheck" data-answer="8" data-tol="0.002" data-prompt="c₃ ="></div></li>
-      <li>Double every \(a_i\). What changes? What does that imply for normalizing the continuous-time weights \(e^{-(\theta+p)(z-t)}\)?</li>
+      <li>(15) Show that the solution to \(\max\sum_{i=1}^n a_i\log c_i\) subject to \(\sum_i R_ic_i = W\), with \(a_i&gt;0\), is \(R_ic_i = W\,a_i/\sum_k a_k\).</li>
+      <li>(5) Show that multiplying every \(a_i\) by the same constant leaves the solution unchanged.</li>
+      <li>(10) Use the continuous-time analogue, with weights \(e^{-(\theta+p)(z-t)}\) and prices \(R(t,z)\), to derive \(c(t)=(\theta+p)\,[v(t)+h(t)]\). [Hint: what is \(R(t,t)\), and what do the weights integrate to?]</li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) The shares sum to one, so \(R_ic_i = a_iW\): \(c_1 = 6\), \(c_2 = 4/0.5 = 8\), \(c_3 = 2/0.25 = 8\). (b) Nothing: only \(a_i/\sum a_k\) matters. In continuous time the weights integrate to \(1/(\theta+p)\), which is why \(c(t) = (\theta+p)(v+h)\). Dividing by the total weight is the same as multiplying by \(\theta+p\).</p>
+      <p>(a) The FOC is \(a_i/c_i = \lambda R_i\), so \(R_ic_i = a_i/\lambda\). Summing gives \(W=\sum_k a_k/\lambda\), so \(\lambda=\sum_ka_k/W\) and \(R_ic_i = Wa_i/\sum_ka_k\).<br>
+      (b) Only the ratios \(a_i/\sum_ka_k\) appear.<br>
+      (c) The budget is \(\int_t^\infty c(z)R(t,z)dz = v(t)+h(t)\equiv W\). The weights integrate to \(\int_t^\infty e^{-(\theta+p)(z-t)}dz = 1/(\theta+p)\). Date \(t\) has weight density 1 and \(R(t,t)=1\), so expenditure on \(c(t)\) per unit of time is \(W\cdot 1/(1/(\theta+p))\). That gives \(c(t) = (\theta+p)W\).</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 17.4 <span class="tag proof">Proof</span> PV budget ⇔ ODE + boundary</div>
-    <p>Show that if \(v(\cdot)\) satisfies \(\dot v = (r+p)v + y - c\) and \(\lim_{T\to\infty}R(t,T)v(T)=0\), then \(\int_t^\infty[c-y]R(t,z)dz = v(t)\). (Hint: compute \(\frac{d}{dz}\big[R(t,z)v(z)\big]\).)</p>
+    <div class="box-title">Exercise 17.5 <span class="tag proof">Proof</span> PV budget ⇔ ODE + boundary <span class="pts">(20 points)</span></div>
+    <p>Show that if \(v(\cdot)\) satisfies \(\dot v = (r+p)v + y - c\) and \(\lim_{T\to\infty}R(t,T)v(T)=0\), then \(\int_t^\infty[c-y]R(t,z)dz = v(t)\). [Hint: compute \(\frac{d}{dz}\big[R(t,z)v(z)\big]\).]</p>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>\(\partial_zR(t,z) = -(r(z)+p)R(t,z)\), so \(\frac{d}{dz}[R(t,z)v(z)] = R(t,z)[\dot v - (r+p)v] = R(t,z)[y(z)-c(z)]\). Integrating from \(t\) to \(T\): \(R(t,T)v(T) - v(t) = \int_t^T[y-c]R\,dz\). Letting \(T\to\infty\) and using the boundary condition gives \(v(t) = \int_t^\infty[c-y]R\,dz\). ∎ The converse direction is §6.2.</p>
+      <p>\(\partial_zR(t,z) = -(r(z)+p)R(t,z)\), so \(\frac{d}{dz}[R(t,z)v(z)] = R(t,z)[\dot v - (r+p)v] = R(t,z)[y(z)-c(z)]\). Integrating from \(t\) to \(T\), \(R(t,T)v(T) - v(t) = \int_t^T[y-c]R\,dz\). Letting \(T\to\infty\) and using the boundary condition gives \(v(t) = \int_t^\infty[c-y]R\,dz\). ∎ The converse is §6.</p>
     </div></details>
   </div>
 
   <div class="box exercise">
-    <div class="box-title">Exercise 17.5 <span class="tag exam">Exam-style</span> A life-cycle calculation</div>
-    <p>An agent is born with \(v=0\) and earns constant \(y=1\). The interest rate is constant at \(r=0.03\), \(\theta=0.04\) and \(p=0.02\).</p>
+    <div class="box-title">Exercise 17.6 <span class="tag exam">Exam-inspired</span> A life cycle with constant income <span class="pts">(50 points)</span></div>
+    <p>An agent is born at age 0 with \(v=0\) and earns a constant \(y&gt;0\) for life. The interest rate is constant at \(r&gt;-p\). Answer in terms of \(y,r,\theta,p\).</p>
     <ol class="parts" type="a">
-      <li>Compute human wealth and consumption at birth.
-        <div class="numcheck" data-answer="1.2" data-tol="0.002" data-prompt="c at birth ="></div></li>
-      <li>Find financial wealth at age 50 (closed form, then a number).
-        <div class="numcheck" data-answer="20*(Math.exp(-0.5)-1)" data-tol="0.003" data-prompt="v(50) ="></div></li>
-      <li>Verify the boundary condition \(\lim_{x\to\infty}e^{-(r+p)x}v(x)=0\). Is this agent a saver or a borrower, and how do lenders get repaid?</li>
+      <li>(10) Show that human wealth is \(h=y/(r+p)\) at every age, and find consumption at birth, \(c_0\).</li>
+      <li>(15) Using the Euler equation and \(c=(\theta+p)(v+h)\), show that financial wealth at age \(x\) is \(v(x)=h\big(e^{(r-\theta)x}-1\big)\).</li>
+      <li>(10) Characterize who saves and who borrows. Show that the age at which consumption equals income is \(x^*=\ln\!\big[(r+p)/(\theta+p)\big]/(r-\theta)\). Is \(x^*\) positive for every \(r\ne\theta\)?</li>
+      <li>(10) Verify the boundary condition \(\lim_{x\to\infty}e^{-(r+p)x}v(x)=0\).</li>
+      <li>(5) When \(r&lt;\theta\), debt converges to \(-h\). Explain who repays the lenders of an agent who dies in debt.</li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (b), \(c(x) = c_0e^{(r-\theta)x}\) and \(h\) is constant, so \(v(x) = c(x)/(\theta+p) - h\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(h(x)=\int_x^\infty ye^{-(r+p)(z-x)}dz = y/(r+p)\), independent of age because income and rates are constant. Then \(c_0=(\theta+p)h=y(\theta+p)/(r+p)\).<br>
+      (b) \(c(x)=c_0e^{(r-\theta)x}=(\theta+p)he^{(r-\theta)x}\), so \(v(x)=c(x)/(\theta+p)-h = h(e^{(r-\theta)x}-1)\).<br>
+      (c) If \(r&gt;\theta\), \(v(x)&gt;0\) for \(x&gt;0\): a saver whose consumption starts below income (\(c_0&lt;y\)) and rises. If \(r&lt;\theta\), the agent is a borrower whose consumption starts above income and falls. Solving \(c_0e^{(r-\theta)x^*}=y\) gives \(x^* = \ln(y/c_0)/(r-\theta) = \ln[(r+p)/(\theta+p)]/(r-\theta)\). Numerator and denominator always have the same sign, so \(x^*&gt;0\) for every \(r\ne\theta\).<br>
+      (d) \(e^{-(r+p)x}h(e^{(r-\theta)x}-1) = h(e^{-(\theta+p)x}-e^{-(r+p)x})\to0\), since \(\theta+p&gt;0\) and \(r+p&gt;0\).<br>
+      (e) The life-insurance component. While alive, the borrower pays the premium \(p\) on its debt, and the insurer uses the pooled premiums to repay the lenders of those who die.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise">
+    <div class="box-title">Exercise 17.7 <span class="tag exam">Exam-inspired</span> CRRA instead of log <span class="pts">(30 points)</span></div>
+    <p>Replace \(\log c\) with \(c^{1-\sigma}/(1-\sigma)\), \(\sigma&gt;0\).</p>
+    <ol class="parts" type="a">
+      <li>(10) Derive the Euler equation. Does \(p\) still cancel?</li>
+      <li>(15) With a constant \(r\), show that \(c(t) = \big[(r+p)-(r-\theta)/\sigma\big](v+h)\). What condition guarantees that this MPC is positive?</li>
+      <li>(5) Why does Blanchard assume log utility?</li>
     </ol>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) \(h = 1/(r+p) = 20\) and \(c_0 = (\theta+p)h = 0.06\cdot 20 = 1.2\). (b) \(v(x) = h\big(e^{(r-\theta)x}-1\big)\), so \(v(50) = 20(e^{-0.5}-1)\approx -7.87\). (c) \(e^{-0.05x}\cdot 20(e^{-0.01x}-1)\to 0\). Since \(r&lt;\theta\) the agent is a borrower, and debt tends to \(-20 = -h\). Consumption exceeds income until age \(\ln(1.2)/0.01\approx 18\), so debt builds up. After that \(c&lt;y\), and the surplus services part of the interest-plus-premium \((r+p)|v|\), so debt keeps growing but converges to \(-h\). Debt outstanding at death is extinguished by the life-insurance component, which the premium \(p\) pays for.</p>
-    </div></details>
-  </div>
-
-  <div class="box exercise">
-    <div class="box-title">Exercise 17.6 <span class="tag exam">Exam-style</span> Unbounded human wealth</div>
-    <p>Suppose \(y\) is constant and \(r+p\le0\). Show that \(h=\infty\) and explain why the household problem has no solution. Can the equilibrium interest rate in this model be negative? What bound must it respect?</p>
-    <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>\(h = \int_t^\infty y\,e^{-(r+p)(z-t)}dz\) diverges when \(r+p\le0\). With infinite human wealth, any consumption plan can be raised further while remaining "affordable," so the supremum is not attained. Negative \(r\) is allowed, but it must satisfy \(r&gt;-p\) with flat income. With income declining at rate α (Lesson 18) the bound becomes \(r&gt;-(p+\alpha)\) <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=26">BY slide 18</a>.</p>
-    </div></details>
-  </div>
-
-  <div class="box exercise">
-    <div class="box-title">Exercise 17.7 <span class="tag proof">Proof</span> CRRA instead of log</div>
-    <p>Replace \(\log c\) with \(c^{1-\sigma}/(1-\sigma)\). Derive the Euler equation. Does \(p\) still cancel? Is the MPC still independent of the interest-rate path?</p>
-    <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>The FOC is \(e^{-(\theta+p)(z-t)}c(z)^{-\sigma} = \lambda R(t,z)\). Taking logs and differentiating, \(\dot c/c = (r-\theta)/\sigma\), so \(p\) still cancels. But the MPC is no longer independent of interest rates. With constant \(r\), \(c(z)=c(t)e^{(r-\theta)(z-t)/\sigma}\). Substituting into \(\int_t^\infty c(z)e^{-(r+p)(z-t)}dz = v+h\) gives
-      $$c(t) = \Big[(r+p) - \tfrac{r-\theta}{\sigma}\Big](v+h),$$
-      which equals \((\theta+p)(v+h)\) only when \(\sigma=1\). With time-varying \(r\), the MPC depends on the whole future path of rates. This is why Blanchard uses log utility: it keeps the MPC common and constant, so individual consumption functions aggregate.</p>
+      <p>(a) The FOC is \(e^{-(\theta+p)(z-t)}c(z)^{-\sigma}=\lambda R(t,z)\). Taking logs and differentiating in \(z\): \(-(\theta+p)-\sigma\dot c/c = -(r+p)\), so \(\dot c/c=(r-\theta)/\sigma\). Yes, \(p\) cancels.<br>
+      (b) \(c(z)=c(t)e^{(r-\theta)(z-t)/\sigma}\). Substituting into \(\int_t^\infty c(z)e^{-(r+p)(z-t)}dz=v+h\) gives \(c(t)/[(r+p)-(r-\theta)/\sigma] = v+h\). The MPC is positive iff \((r+p)&gt;(r-\theta)/\sigma\), i.e. the PV of consumption converges. At \(\sigma=1\) it reduces to \(\theta+p\).<br>
+      (c) With log utility the MPC is \(\theta+p\) for everyone, independent of prices. So individual consumption functions add up to \(C=(\theta+p)(H+V)\) (Lesson 18). With σ≠1 the MPC depends on the future rate path, so the aggregate equation would involve those paths too.</p>
     </div></details>
   </div>
 
