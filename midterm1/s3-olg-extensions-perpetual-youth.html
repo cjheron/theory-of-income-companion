@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Midterm 1 · Session 3: OLG Extensions and Perpetual Youth — Theory of Income</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/exam.js" defer></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Midterm 1 Study Guide · Session 3 of 6 · Sunday</div>
+    <h1>Session 3: OLG Extensions and Perpetual Youth</h1>
+    <div class="meta">Lessons <a href="../lessons/0014-privatizing-social-security.html">14</a>–<a href="../lessons/0020-perpetual-youth-fiscal-policy.html">20</a> · About 90 minutes · 18 true/false items + 4 guided derivations · <a href="index.html">Study-guide hub</a> · Cheatsheets: <a href="../reference/olg-cheatsheet.html">OLG</a>, <a href="../reference/perpetual-youth-cheatsheet.html">perpetual youth</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>What this session drills.</strong> The Fall 2025 final opened with a 70-point Diamond OLG question, and Problem Set 1 (which Class Note III walks through) is the template for long questions on privatization, capital, heterogeneity and \(N\)-period lives. Blanchard–Yaari has no past midterm item, but it is in scope: expect T/F on what \(p\) changes (annuities, the \(\dot C\) equation, Ricardian equivalence). By the end you should be able to:
+    <ol>
+      <li>run the Diamond model: factor prices, the dating \(r_t=F_K(K_{t+1},1)-\delta\), \(s_t=K_{t+1}\), the law of motion and the efficiency test;</li>
+      <li>show that privatizing PAYG with debt changes nothing real when each generation's PV of taxes is kept;</li>
+      <li>derive \(\dot C=(r+\alpha-\theta)C-(p+\alpha)(p+\theta)V\) and say why aggregate wealth grows at \(r\), not \(r+p\).</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides3-olg-extensions.pdf#page=3">Class Note III</a> (privatization, capital, heterogeneity, \(N\)-period lives) and the <a href="../sources/slides-blanchard-yaari.pdf">perpetual-youth slides</a>. Original papers: Diamond (1965), <a href="https://www.jstor.org/stable/1809231">"National Debt in a Neoclassical Growth Model"</a>; Blanchard (1985), <a href="https://ideas.repec.org/a/ucp/jpolec/v93y1985i2p223-47.html">"Debt, Deficits, and Finite Horizons"</a>.
+  </div>
+
+  <div class="box notation">
+    <div class="box-title">Notation traps that cost points</div>
+    <ul>
+      <li>Class Note III's privatization slides flip Note II: young endowment \(\alpha\), old \(1-\alpha\), PAYG tax \(\theta\), and \(B_t\) = government <em>assets</em>.</li>
+      <li>In the Diamond Cobb–Douglas example \(\alpha\) is the capital share. In Blanchard–Yaari \(\theta\) is the discount rate, \(p\) the death rate, \(\alpha\) the rate at which labour income declines with age, and \(B\) is government <em>debt</em>.</li>
+    </ul>
+  </div>
+
+  <div class="xq-score"></div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="recall">1. Warm-up: blank-page recall (6 min)</h2>
+  <p>Spaced repetition from yesterday first (2 min): the three cases of the log OLG example, and the growth condition. Then:</p>
+  <ol class="recall">
+    <li>Diamond: write \(w_t\), \(r_t\), the asset-market condition, and the law of motion.
+      <div class="recall-a">\(w_t=F_L(K_t,1)\), \(r_t=F_K(K_{t+1},1)-\delta\) (capital saved at \(t\) is rented at \(t+1\)), \(s_t=K_{t+1}\) (Walras, no government debt), so \(K_{t+1}=s\big(F_K(K_{t+1},1)-\delta,\ F_L(K_t,1)\big)\). <a href="../lessons/0015-olg-with-capital.html#thm-interest-rate-capital">L15 §2</a>, <a href="../lessons/0015-olg-with-capital.html#s5">§5</a></div></li>
+    <li>Privatization (Note III notation): the new taxes, and the debt.
+      <div class="recall-a">\(\tilde\tau^0_1=-\theta\) (initial old still paid), \(\tilde\tau^t_t=\theta\bar r/(1+\bar r)\) (same PV as \(\theta-\theta/(1+\bar r)\)), \(\tilde\tau^t_{t+1}=0\). Then \(\tilde s_t=\theta/(1+\bar r)\), \(\tilde B_t=-\theta/(1+\bar r)\), constant and rolled over. <a href="../lessons/0014-privatizing-social-security.html#def-privatized-tax-system">L14 §3</a></div></li>
+    <li>BY household: consumption function and the Euler equation.
+      <div class="recall-a">\(c=(\theta+p)(v+h)\); \(\dot c=(r-\theta)c\) (annuities pay \(r+p\), death adds \(p\) to impatience, the two cancel); \(\dot v=(r+p)v+y-c\). <a href="../lessons/0017-perpetual-youth-households.html#thm-result-log-consumption-function">L17 §5</a></div></li>
+    <li>BY aggregates: the \(\dot V\) and \(\dot C\) equations, and the endowment interest rate.
+      <div class="recall-a">\(\dot V=rV+Y-C\); \(\dot C=(r+\alpha-\theta)C-(p+\alpha)(p+\theta)V\); with \(V=0\), \(C=Y\): \(r=\theta-\alpha\), and the equilibrium is autarky. <a href="../lessons/0018-perpetual-youth-aggregation.html#pf-algebra">L18 §5</a>, <a href="../lessons/0018-perpetual-youth-aggregation.html#thm-result-endowment-equilibrium-autarky-at">§6</a></div></li>
+    <li>BY Ricardian experiment: the change in human wealth from a tax cut \(dT\) at \(t\) repaid at \(t+s\).
+      <div class="recall-a">\(dH(t)=-dT(t)\,[1-e^{-ps}]>0\) (for \(dT<0\)), so \(dC=(p+\theta)dH>0\). Equivalence holds iff \(p=0\). <a href="../lessons/0020-perpetual-youth-fiscal-policy.html#s3">L20 §3</a></div></li>
+  </ol>
+
+  <h2 id="readfirst">2. Read first: only what you could not reproduce</h2>
+  <ul class="readfirst">
+    <li><a href="../lessons/0014-privatizing-social-security.html#thm-walras-law-asset-market-clearing">L14 §1 · Walras' law with debt</a> and <a href="../lessons/0014-privatizing-social-security.html#thm-what-example-shows">§5 · Ricardian equivalence, OLG style</a></li>
+    <li><a href="../lessons/0015-olg-with-capital.html#s6">L15 §6 · Social security lowers saving and capital</a> and <a href="../lessons/0015-olg-with-capital.html#s7">§7 · the Cobb–Douglas example</a></li>
+    <li><a href="../lessons/0016-olg-heterogeneity-and-long-lives.html#s4">L16 §4 · \(N\)-period lives</a> <span class="why">(source of a Fall 2025 midterm item)</span></li>
+    <li><a href="../lessons/0018-perpetual-youth-aggregation.html#s4">L18 §4–5 · Aggregation in BY</a></li>
+    <li><a href="../lessons/0020-perpetual-youth-fiscal-policy.html#s4">L20 §4 · Debt in the endowment economy</a></li>
+  </ul>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="tf">3. True or false? Justify in 1–4 lines</h2>
+
+  <h3 id="tf-olg">Class Note III and the Diamond model</h3>
+
+  <div class="xq" id="s3-01" data-kind="tf" data-answer="T"
+       data-study="../lessons/0016-olg-heterogeneity-and-long-lives.html#def-young-old-transfer|L16 §4 · The young-to-old transfer (τ, Y) ;; ../lessons/0016-olg-heterogeneity-and-long-lives.html#pf-proof-2|L16 §4 · Proof that it Pareto-improves">
+    <div class="xq-src"><span class="tag past">Past exam · Fall 2025 MT1 I.3</span> <span class="tag pset">PSET 1 P5</span></div>
+    <div class="xq-stem">"In an OLG model where agents live \(k\ge2\) periods (write \(N=k\) below), there is only one commodity per period, and the aggregate endowment is finite, if interest rates are strictly negative in all periods, the competitive equilibrium is NOT efficient."</div>
+    <div class="xq-solution"><p><b>True</b> (the Class Note III result). Take each agent's ages \(1,\dots,Y\) to give \(\tau\) and ages \(Y+1,\dots,N\) to receive \(Y\tau/(N-Y)\). This is feasible date by date, because each date has one cohort of each age. With \(r_t<0\), \(p_t\) is increasing, so the late (receiving) dates are worth more than the early (paying) ones: \(P^t(\tau,Y)>0\). By the FOCs, \(dU^t/d\tau|_0=\lambda^tp_tP^t(1,Y)>0\) for every generation, including those alive at date 1. Small \(\tau\) is a Pareto improvement.</p>
+    <div class="rubric">Fine print (worth a line if you have time): one \(\tau\) must work for all cohorts, which is automatic in a stationary equilibrium or if \(r_t\le\bar r<0\).</div></div>
+  </div>
+
+  <div class="xq" id="s3-02" data-kind="tf" data-answer="F"
+       data-study="../lessons/0016-olg-heterogeneity-and-long-lives.html#warn-why-this-needs-pure-exchange|L16 §4 · Why this needs pure exchange (and what feasibility requires)">
+    <div class="xq-src"><span class="tag pset">PSET 1 P5 Q5</span></div>
+    <div class="xq-stem">"The result of the previous item fails once there is production, because reallocating consumption among agents alive at the same date is no longer feasible."</div>
+    <div class="xq-solution"><p><b>False.</b> Keep the equilibrium production and capital plan fixed. The \((\tau,Y)\) scheme only reshuffles consumption across agents alive at the same date, leaving aggregate consumption at each date unchanged, so it is still feasible. The households' FOCs still give \(dU^t/d\tau=\lambda^tp_tP^t>0\) when prices rise over time. The slides' caveat is only that feasibility must be checked, and holding production fixed checks it.</p></div>
+  </div>
+
+  <div class="xq" id="s3-03" data-kind="tf" data-answer="T"
+       data-study="../lessons/0014-privatizing-social-security.html#pf-verification-that|L14 §3 · Verification that r̃ = r̄ and c̃ = c ;; ../lessons/0014-privatizing-social-security.html#thm-what-example-shows|L14 §5 · What the example shows">
+    <div class="xq-src"><span class="tag pset">PSET 1 P1</span> <span class="tag slides">Note III pp.3–14</span></div>
+    <div class="xq-stem">"Replacing a PAYG system (tax \(\theta\) when young, benefit \(\theta\) when old) by one in which each generation pays, when young, a tax with the same present value, and the government borrows to pay the current old, leaves every household's consumption unchanged."</div>
+    <div class="xq-solution"><p><b>True.</b> Each generation's lifetime budget \(c_y+\frac{c_o}{1+\bar r}=e_y+\frac{e_o}{1+\bar r}-\big[\tau_y+\frac{\tau_o}{1+\bar r}\big]\) is unchanged at \(\bar r\), so choices are unchanged. The initial old still receive \(\theta\). Markets clear at the old \(\bar r\): the young now save \(\theta/(1+\bar r)\), exactly the debt the government issues (Walras' law makes asset clearing automatic). The implicit PAYG liability becomes explicit debt.</p></div>
+  </div>
+
+  <div class="xq" id="s3-04" data-kind="tf" data-answer="F"
+       data-study="../lessons/0014-privatizing-social-security.html#s4-dates|L14 §4 · Dates t ≥ 2: rolling the debt over ;; ../lessons/0014-privatizing-social-security.html#warn-government-never-repays-that-s|L14 §4 · The government never repays">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"In the privatized system of the previous item, government debt grows without bound, because the government never repays it."</div>
+    <div class="xq-solution"><p><b>False.</b> The debt is constant: \(\tilde B_t=-\theta/(1+\bar r)\) (assets) for all \(t\ge1\). At \(t=1\) the government borrows \(\theta/(1+\bar r)\) from the young. From then on it rolls the debt over, and each young generation's tax \(\theta\bar r/(1+\bar r)=-\bar r\tilde B\) pays exactly the interest. The principal is never repaid and does not need to be. (If \(\bar r<0\), the "tax" is a subsidy and the debt is still constant.)</p></div>
+  </div>
+
+  <div class="xq" id="s3-05" data-kind="tf" data-answer="F"
+       data-study="../lessons/0014-privatizing-social-security.html#thm-what-example-shows|L14 §5 · Ricardian equivalence, OLG style">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"In the OLG model, any change in the timing of taxes that leaves the present value of <em>total</em> tax revenue unchanged leaves the equilibrium allocation unchanged."</div>
+    <div class="xq-solution"><p><b>False.</b> Ricardian equivalence in OLG holds generation by generation: a reform is neutral iff it leaves <em>each generation's</em> PV of taxes unchanged. Moving taxes from one generation to another (e.g. cutting taxes on the current old, paid for by future young) redistributes across cohorts and changes the allocation, even if the aggregate PV is the same.</p></div>
+  </div>
+
+  <div class="xq" id="s3-06" data-kind="tf" data-answer="F"
+       data-study="../lessons/0015-olg-with-capital.html#thm-interest-rate-capital|L15 §2 · Interest rate with capital (the timing)">
+    <div class="xq-src"><span class="tag pset">PSET 1 P2 Q2</span> <span class="tag past">cf. Fall 2025 Final Q1.4</span></div>
+    <div class="xq-stem">"In the Diamond model, the interest rate earned by the savings of the young at date \(t\) is \(r_t=F_K(K_t,1)-\delta\)."</div>
+    <div class="xq-solution"><p><b>False:</b> the date is wrong. Savings at \(t\) become capital \(K_{t+1}\), rented at \(t+1\) for \(v_{t+1}=F_K(K_{t+1},1)\) and then sold undepreciated. No arbitrage with bonds gives \(1+r_t=v_{t+1}+1-\delta\), so \(r_t=F_K(K_{t+1},1)-\delta\). This is why the law of motion is implicit in \(K_{t+1}\).</p></div>
+  </div>
+
+  <div class="xq" id="s3-07" data-kind="tf" data-answer="T"
+       data-study="../lessons/0015-olg-with-capital.html#s3|L15 §3 · Households ;; ../lessons/0009-olg-prices-and-interest-rates.html#warn-why-savings-rise-here-not|L9 §3 · Why savings rise with r (not always)">
+    <div class="xq-src"><span class="tag past">cf. Fall 2025 Final Q1.3</span></div>
+    <div class="xq-stem">"With utility \((1-\beta)\log c_y+\beta\log c_o\) and labour income only when young, the saving of the young does not depend on the interest rate."</div>
+    <div class="xq-solution"><p><b>True.</b> The problem is \(\max(1-\beta)\log(w-s)+\beta\log[s(1+r)]\). Since \(\log(1+r)\) enters additively, the FOC is \(\frac{1-\beta}{w-s}=\frac{\beta}{s}\), so \(s=\beta w\). Income and substitution effects cancel, and there is no human wealth in old age for \(r\) to discount.</p></div>
+  </div>
+
+  <div class="xq" id="s3-08" data-kind="tf" data-answer="T"
+       data-study="../lessons/0015-olg-with-capital.html#thm-claim-saving-falls|L15 §6 · Saving falls with τ ;; ../lessons/0015-olg-with-capital.html#thm-steady-state-comparative-statics|L15 §6 · Steady-state comparative statics">
+    <div class="xq-src"><span class="tag pset">PSET 1 P2 Q6–Q9</span></div>
+    <div class="xq-stem">"In the Diamond model, if old-age consumption is a normal good and the steady state is stable (\(0<\partial s^*/\partial K<1\)), introducing PAYG social security lowers the steady-state capital stock."</div>
+    <div class="xq-solution"><p><b>True.</b> PAYG lowers lifetime wealth by \(\tau r/(1+r)\) (when \(r>0\)). With \(c_o\) normal, \(c_y\) falls by less than \(\tau\), so saving \(s=w-\tau-c_y\) falls: \(\partial s^*/\partial\tau<0\). At a steady state \(dK^*/d\tau=\frac{s^*_\tau}{1-s^*_K}<0\) when \(s^*_K<1\). (If \(s^*_K>1\) the sign flips, but that steady state is unstable, so the comparative static is meaningless.)</p></div>
+  </div>
+
+  <div class="xq" id="s3-09" data-kind="tf" data-answer="F"
+       data-study="../lessons/0015-olg-with-capital.html#s7-introducing-payg-at-who|L15 §7 · Introducing PAYG: who gains? ;; ../lessons/0015-olg-with-capital.html#int-why-can-generation-1-gain|L15 §7 · Why can generation 1 gain?">
+    <div class="xq-src"><span class="tag pset">PSET 1 P3</span></div>
+    <div class="xq-stem">"In a Diamond economy at a steady state with \(r^*>0\), PAYG (\(\tau^t_t=\tau\), \(\tau^t_{t+1}=-\tau\)) is introduced at date 1. Generation 1, young at date 1, pays \(\tau\) when young and receives \(\tau\) when old. It cannot gain from PAYG."</div>
+    <div class="xq-solution"><p><b>False.</b> Generation 1 pays \(\tau\) and gets \(\tau\) back (return 0 instead of \(r^*\)), but the fall in capital <em>raises</em> the return on the capital it still holds. In the Cobb–Douglas example \(\frac{dc^1_2}{d\tau}\big|_0=\delta-\frac{\alpha^2}{1-\alpha}=-r^*+\alpha\), which can be positive with \(r^*>0\) (e.g. \(\delta=0.05\), \(0.048<\alpha<0.2\)). (Generation 0, old at date 1, gains \(\tau\) trivially.) What cannot happen is that <em>every</em> generation gains: with \(r^*>0\) the CE is PO, and later generations lose through lower wages.</p></div>
+  </div>
+
+  <div class="xq" id="s3-10" data-kind="tf" data-answer="F"
+       data-study="../lessons/0015-olg-with-capital.html#s7-but-steady-state-generations|L15 §7 · Steady-state generations lose whenever r* > 0 ;; ../lessons/0013-growing-olg-economy.html#s5|L13 §5 · The growth condition">
+    <div class="xq-src"><span class="tag past">cf. Fall 2025 Final Q1.7</span></div>
+    <div class="xq-stem">"In the Diamond model with log utility, \(F=AK^\alpha L^{1-\alpha}\) and no population growth, the competitive equilibrium path is necessarily Pareto optimal."</div>
+    <div class="xq-solution"><p><b>False</b>: it depends on parameters. The law of motion is \(K_{t+1}=\beta(1-\alpha)AK_t^\alpha\), and at the steady state \(A\bar K^{\alpha-1}=\frac{1}{\beta(1-\alpha)}\), so \(\bar r=\frac{\alpha}{\beta(1-\alpha)}-\delta\). If \(\bar r<0\) (capital above the golden rule \(F_K=\delta\)), cutting capital permanently raises consumption at every date: inefficient. If \(\bar r>0\), the value of the aggregate endowment is finite and the CE is PO.</p>
+    <div class="rubric">Avoid "markets are incomplete" as the reason (some circulating solutions say this). The course's reason is the infinite value when \(r<0\).</div></div>
+  </div>
+
+  <div class="xq" id="s3-11" data-kind="tf" data-answer="T"
+       data-study="../lessons/0016-olg-heterogeneity-and-long-lives.html#s1-aggregation-interest-rate|L16 §1 · Aggregation and the interest rate">
+    <div class="xq-src"><span class="tag pset">PSET 1 P4 Q5</span></div>
+    <div class="xq-stem">"With \(N\) types per generation differing in endowments \((1-\alpha_n,\alpha_n)\) and common log utility with weight \(\beta\), the equilibrium interest rate depends on the endowments only through their average \(\bar\alpha\)."</div>
+    <div class="xq-solution"><p><b>True.</b> Each type's young consumption \(c_y=(1-\beta)\big[(1-\alpha_n)+\frac{\alpha_n}{1+r}\big]\) is affine in \(\alpha_n\) with a common slope, so aggregate saving depends only on \(\bar\alpha\). It is zero at \(\bar r=\frac{\bar\alpha-\beta}{\beta(1-\bar\alpha)}\). (Cohort aggregates do not trade across generations, but types trade within the cohort.)</p></div>
+  </div>
+
+  <div class="xq" id="s3-12" data-kind="tf" data-answer="F"
+       data-study="../lessons/0016-olg-heterogeneity-and-long-lives.html#s3|L16 §3 · A uniform PAYG system is not enough ;; ../lessons/0016-olg-heterogeneity-and-long-lives.html#def-rescaled-allocation|L16 §2 · The rescaled allocation that does work">
+    <div class="xq-src"><span class="tag pset">PSET 1 P4 Q8</span> <span class="tag slides">Note III p.22</span></div>
+    <div class="xq-stem">"With heterogeneous types and \(\bar\alpha<\beta\), a uniform PAYG tax \(\tau\) (the same for every type) necessarily makes every type better off."</div>
+    <div class="xq-solution"><p><b>False:</b> not necessarily. The tax raises \(r\). For type \(n\), \(W_n(1+\bar r)\,dU_n=-\bar r\,d\tau+s_n\,dr\). The transfer term helps everyone (\(\bar r<0\)), but the rate term hurts borrowers (\(s_n<0\), high \(\alpha_n\)), and the net can be negative (e.g. \(\beta=0.5\), types \(0.05\) and \(0.55\): the 0.55 type loses). A Pareto improvement needs type-specific transfers, such as the rescaled allocation \(\lambda_n(1-\beta,\beta)\).</p>
+    <div class="rubric">Also false the other way: "borrowers are always strictly worse off" (as some solution sets say) is too strong. With some parameters, every type gains.</div></div>
+  </div>
+
+  <h3 id="tf-by">Blanchard–Yaari</h3>
+
+  <div class="xq" id="s3-13" data-kind="tf" data-answer="F"
+       data-study="../lessons/0018-perpetual-youth-aggregation.html#s4|L18 §4 · Aggregate wealth grows at r, not r+p ;; ../lessons/0017-perpetual-youth-households.html#s3|L17 §3 · Annuities: why wealth earns r+p">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"In Blanchard–Yaari, each individual's financial wealth earns \(r+p\), so aggregate financial wealth satisfies \(\dot V=(r+p)V+Y-C\)."</div>
+    <div class="xq-solution"><p><b>False.</b> \(\dot V=rV+Y-C\). The extra \(p\) is an annuity payment from the insurer, financed by the wealth of those who die (a flow \(pV\)). In the aggregate it is a transfer from the dead to the living and nets out. Newborns enter with zero financial wealth.</p></div>
+  </div>
+
+  <div class="xq" id="s3-14" data-kind="tf" data-answer="T"
+       data-study="../lessons/0018-perpetual-youth-aggregation.html#int-reading-equation|L18 §5 · Reading the Ċ equation ;; ../lessons/0017-perpetual-youth-households.html#s7|L17 §7 · The Euler equation: p cancels">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"In Blanchard–Yaari with \(\alpha=0\) and positive aggregate wealth, each individual's consumption grows at \(r-\theta\), but aggregate consumption grows more slowly."</div>
+    <div class="xq-solution"><p><b>True.</b> Individually, the annuity premium \(p\) and the extra impatience \(p\) cancel: \(\dot c=(r-\theta)c\). In the aggregate, \(\dot C=(r-\theta)C-p(p+\theta)V\). Each instant, a fraction \(p\) of people (with average consumption) die and are replaced by newborns with no financial wealth, who consume less. That turnover term lowers aggregate growth when \(V>0\).</p></div>
+  </div>
+
+  <div class="xq" id="s3-15" data-kind="tf" data-answer="T"
+       data-study="../lessons/0018-perpetual-youth-aggregation.html#thm-result-endowment-equilibrium-autarky-at|L18 §6 · The endowment equilibrium is autarky at r = θ − α">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">BY slide 21</span></div>
+    <div class="xq-stem">"In the pure-endowment Blanchard–Yaari economy (no government), the equilibrium interest rate is \(r=\theta-\alpha\) and every household consumes its own labour income at every age."</div>
+    <div class="xq-solution"><p><b>True.</b> With no capital or debt, \(V=0\) and \(C=Y\) constant, so \(\dot C=0\) gives \(0=(r+\alpha-\theta)Y\), i.e. \(r=\theta-\alpha\). Then each individual's consumption grows at \(r-\theta=-\alpha\), which is exactly the rate at which their labour income \(y(s,t)\propto e^{-\alpha(t-s)}\) falls. Consuming income is optimal, so there is no trade (autarky).</p></div>
+  </div>
+
+  <div class="xq" id="s3-16" data-kind="tf" data-answer="T"
+       data-study="../lessons/0019-perpetual-youth-capital.html#pf-proof-that|L19 §6 · With α = 0: θ < F′(K̄) < θ + p ;; ../lessons/0019-perpetual-youth-capital.html#s6-golden-rule-dynamic-efficiency|L19 §6 · Golden rule and dynamic (in)efficiency">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"In Blanchard–Yaari with capital and \(\alpha=0\), the steady state is dynamically efficient: \(\bar K\) is below the golden rule."</div>
+    <div class="xq-solution"><p><b>True.</b> At the steady state \([\mathcal F'(\bar K)-\theta]\,\mathcal F(\bar K)=p(p+\theta)\bar K>0\), so \(\mathcal F'(\bar K)>\theta>0=\mathcal F'(K_{GR})\) (net output, so the golden rule is \(\mathcal F'=0\)). Hence \(\bar K\lt K_{GR}\). In fact \(\theta<\mathcal F'(\bar K)<\theta+p\): capital is even below the Ramsey level \(\mathcal F'=\theta\). With \(\alpha>0\), \(\bar r<0\) becomes possible (people want to save for old age when income declines).</p></div>
+  </div>
+
+  <div class="xq" id="s3-17" data-kind="tf" data-answer="T"
+       data-study="../lessons/0020-perpetual-youth-fiscal-policy.html#s3|L20 §3 · Ricardian equivalence fails ;; ../lessons/0020-perpetual-youth-fiscal-policy.html#int-key-asymmetry-people-discount-at|L20 §2 · People discount at r+p, the government at r">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"In Blanchard–Yaari with \(p>0\), a lump-sum tax cut today, financed by debt repaid with interest at a later date, raises aggregate consumption today (holding \(r\) fixed)."</div>
+    <div class="xq-solution"><p><b>True.</b> The government discounts at \(r\), households at \(r+p\). A cut \(dT<0\) at \(t\), repaid at \(t+s\) with \(-dT\,e^{rs}\), changes human wealth by \(dH=-dT[1-e^{-ps}]>0\): part of the repayment falls on people not yet born. So \(dC=(p+\theta)dH>0\). Ricardian equivalence holds iff \(p=0\).</p></div>
+  </div>
+
+  <div class="xq" id="s3-18" data-kind="tf" data-answer="F"
+       data-study="../lessons/0020-perpetual-youth-fiscal-policy.html#s4-case|L20 §4 · Debt in the endowment economy, case T = G = 0">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag pset">cf. PSET 2</span></div>
+    <div class="xq-stem">"In the Blanchard–Yaari endowment economy with \(T=G=0\) and \(\alpha>\theta\), the steady state with positive debt \(\bar B=\frac{(\alpha-\theta)Y}{(p+\alpha)(p+\theta)}\) is stable."</div>
+    <div class="xq-solution"><p><b>False.</b> Debt follows \(\dot B=rB\) with \(r=\theta-\alpha+(p+\alpha)(p+\theta)B/Y\), so \(\dot B=(p+\alpha)(p+\theta)B^2/Y+(\theta-\alpha)B\). Its slope at \(\bar B\) is \(\alpha-\theta>0\): unstable. (At \(\bar B\), \(r=0\): debt is rolled over forever, the continuous-time analogue of the two-period PAYG/bubble steady state \(\bar B=\beta-\alpha\).)</p></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="derive">4. Guided derivations</h2>
+
+  <div class="xq" id="s3-d1" data-kind="derive"
+       data-study="../lessons/0015-olg-with-capital.html#s2|L15 §2 · Factor prices and timing ;; ../lessons/0015-olg-with-capital.html#pf-proof-slides-only-assert-this|L15 §4 · Walras' law with capital ;; ../lessons/0015-olg-with-capital.html#s5|L15 §5 · The law of motion">
+    <div class="xq-src"><span class="tag past">Past exam · Fall 2025 Final Q1</span> <span class="pts">70 pts</span></div>
+    <div class="xq-stem"><p>Two-period OLG, one household per cohort with one unit of labour supplied inelastically when young. Utility \((1-\beta)\log c^t_t+\beta\log c^t_{t+1}\). The initial old own the capital. \(K_{t+1}=I_t+(1-\delta)K_t\); feasibility \(I_t+c^t_t+c^{t-1}_t=F(K_t,L_t)\), \(F=AK^\alpha L^{1-\alpha}\). Wage \(w_t\), rental rate \(v_t\). Budgets \(c^t_t+s_t=w_t\), \(c^t_{t+1}=s_t(1+r_t)\).</p>
+    <ol>
+      <li>(10 pts, two equations) The firm's FOCs.</li>
+      <li>(10 pts, one number) The equilibrium \(L_t\).</li>
+      <li>(10 pts, explicit) The young's optimal saving as a function of \(w_t\) and \(\beta\).</li>
+      <li>(10 pts, one line) The relation between \(r_t\), \(v_{t+1}\) and \(\delta\).</li>
+      <li>(10 pts, one line) By Walras' law, the relation between \(s_t\) and \(K_{t+1}\).</li>
+      <li>(10 pts, one equation) A first-order difference equation for \(K\).</li>
+      <li>(10 pts) Is the equilibrium path necessarily Pareto optimal, or does it depend on parameters? (The exam did not ask for a justification. Give the condition anyway.)</li>
+    </ol></div>
+    <div class="xq-solution">
+      <p>1. \(v_t=F_K=\alpha AK_t^{\alpha-1}L_t^{1-\alpha}\), \(w_t=F_L=(1-\alpha)AK_t^\alpha L_t^{-\alpha}\).<br>
+      2. \(L_t=1\).<br>
+      3. \(s_t=\beta w_t\) (log utility, no old-age income).<br>
+      4. \(1+r_t=v_{t+1}+1-\delta\), i.e. \(r_t=v_{t+1}-\delta\). Note the \(t+1\).<br>
+      5. \(s_t=K_{t+1}\). (Derivation: with CRS \(F=w_t+v_tK_t\), so feasibility and the budgets give \(K_{t+1}-s_t=(v_t+1-\delta)(K_t-s_{t-1})\), which is zero by the initial condition.)<br>
+      6. \(K_{t+1}=\beta(1-\alpha)AK_t^\alpha\). Concave, steeper than 45° at 0: unique steady state \(\bar K=[\beta(1-\alpha)A]^{1/(1-\alpha)}\), with monotone convergence.<br>
+      7. It depends on parameters. \(\bar r=\frac{\alpha}{\beta(1-\alpha)}-\delta\). If \(\bar r<0\), \(\bar K\) exceeds the golden rule (\(F_K=\delta\)) and the path is inefficient (permanently cut capital, give the extra to the old). If \(\bar r\ge0\) it is efficient. High \(\beta\) (thrift) and low \(\alpha\) push toward inefficiency.</p>
+    </div>
+  </div>
+
+  <div class="xq" id="s3-d2" data-kind="derive"
+       data-study="../lessons/0014-privatizing-social-security.html#pf-proof|L14 §1 · Walras' law with debt: the proof ;; ../lessons/0014-privatizing-social-security.html#s4|L14 §4 · Reading the reform">
+    <div class="xq-src"><span class="tag pset">PSET 1 P1</span> <span class="tag slides">Note III pp.3–14</span> <span class="pts">60 pts</span></div>
+    <div class="xq-stem"><p>Note III notation. Unit mass per cohort; endowments \(\alpha\) young, \(1-\alpha\) old. Household: \(s_t+c^t_t=e^t_t-\tau^t_t\), \(c^t_{t+1}=s_t(1+r_t)+e^t_{t+1}-\tau^t_{t+1}\). Government assets: \(B_t+g_t=(1+r_{t-1})B_{t-1}+\tau^t_t+\tau^{t-1}_t\). Goods: \(g_t+c^t_t+c^{t-1}_t=e^t_t+e^{t-1}_t\). Status quo PAYG: \(\tau^t_t=\theta\), \(\tau^t_{t+1}=-\theta\), \(g=0\), \(s_0=B_0=0\), interest rate \(\bar r\).</p>
+    <ol type="a">
+      <li>(15 pts, 3 lines) Show \(B_t+s_t=(1+r_{t-1})(B_{t-1}+s_{t-1})\), so \(B_t+s_t=0\) for all \(t\).</li>
+      <li>(10 pts, 1 line) Under PAYG, what are \(B_t\) and \(s_t\)?</li>
+      <li>(10 pts, 2 lines) The reform keeps \(\tilde\tau^0_1=-\theta\), sets \(\tilde\tau^t_{t+1}=0\) and \(\tilde\tau^t_t=\tau^t_t+\tau^t_{t+1}/(1+\bar r)\). Compute \(\tilde\tau^t_t\) and explain why \(\tilde c=c\), \(\tilde r=\bar r\).</li>
+      <li>(15 pts, 2 lines) Compute \(\tilde B_1\) and \(\tilde B_t\) for \(t\ge2\).</li>
+      <li>(10 pts, 1 line) Compute \(\tilde s_t\), and check asset-market clearing.</li>
+    </ol></div>
+    <div class="xq-solution">
+      <p>(a) At date \(t\) add the young's budget, the old's budget and the government's: \(B_t+s_t+g_t+c^t_t+c^{t-1}_t=(1+r_{t-1})(B_{t-1}+s_{t-1})+e^t_t+e^{t-1}_t\) (the taxes cancel). Goods-market clearing removes \(g+c\) against \(e\). Induct from \(B_0+s_0=0\).<br>
+      (b) \(B_t=0\): each date the government collects \(\theta\) and pays \(\theta\). Then \(s_t=0\).<br>
+      (c) \(\tilde\tau^t_t=\theta-\frac{\theta}{1+\bar r}=\frac{\theta\bar r}{1+\bar r}\). Each generation's lifetime budget at \(\bar r\) is unchanged (same PV of taxes), and the initial old get the same \(\theta\). So the same consumption is optimal, and goods markets clear at \(\bar r\).<br>
+      (d) \(\tilde B_1=(1+r_0)\cdot0+\tilde\tau^1_1+\tilde\tau^0_1=\frac{\theta\bar r}{1+\bar r}-\theta=-\frac{\theta}{1+\bar r}\). For \(t\ge2\): \(\tilde B_t=(1+\bar r)\big(-\frac{\theta}{1+\bar r}\big)+\frac{\theta\bar r}{1+\bar r}=-\frac{\theta}{1+\bar r}\). Constant debt, rolled over.<br>
+      (e) \(\tilde s_t=\alpha-\frac{\theta\bar r}{1+\bar r}-(\alpha-\theta)=\frac{\theta}{1+\bar r}\). So \(\tilde B_t+\tilde s_t=0\), as (a) guarantees.</p>
+    </div>
+  </div>
+
+  <div class="xq" id="s3-d3" data-kind="derive"
+       data-study="../lessons/0015-olg-with-capital.html#s7|L15 §7 · A Cobb–Douglas example ;; ../lessons/0015-olg-with-capital.html#int-why-can-generation-1-gain|L15 §7 · Why can generation 1 gain?">
+    <div class="xq-src"><span class="tag pset">PSET 1 P3</span> <span class="tag slides">Note III pp.18–19</span> <span class="pts">50 pts</span></div>
+    <div class="xq-stem"><p>Diamond with \(F=K^\alpha L^{1-\alpha}\), \(L=1\), utility \(u=c^t_{t+1}\) (only old-age consumption), no government debt. The economy is at the no-social-security steady state at date 1, when PAYG \(\tau\) is introduced (\(\tau^t_t=\tau\), \(\tau^t_{t+1}=-\tau\)).</p>
+    <ol type="a">
+      <li>(10 pts, 1 line) Show \(K_{t+1}=(1-\alpha)K_t^\alpha-\tau\).</li>
+      <li>(5 pts, 1 line) Find \(K^*\) with \(\tau=0\).</li>
+      <li>(15 pts, 2 lines) Show \(c^1_2(\tau)=(K^*-\tau)\big[1-\delta+\alpha(K^*-\tau)^{\alpha-1}\big]+\tau\).</li>
+      <li>(10 pts, 2 lines) Show \(\frac{dc^1_2}{d\tau}\big|_{0}=\delta-\frac{\alpha^2}{1-\alpha}\).</li>
+      <li>(10 pts, 2 lines) If \(r^*>0\), can every generation be made better off? Why might generation 1 gain?</li>
+    </ol></div>
+    <div class="xq-solution">
+      <p>(a) The young save everything: \(s_t=w_t-\tau=(1-\alpha)K_t^\alpha-\tau=K_{t+1}\).<br>
+      (b) \(K^*=(1-\alpha)K^{*\alpha}\Rightarrow K^*=(1-\alpha)^{1/(1-\alpha)}\).<br>
+      (c) Generation 1 earns \(w_1=(1-\alpha)K^{*\alpha}=K^*\), saves \(K^*-\tau=K_2\), earns \(1+r_1=1-\delta+\alpha K_2^{\alpha-1}\) on it, and receives \(\tau\).<br>
+      (d) Differentiate: \(-(1-\delta)-\alpha^2(K^*-\tau)^{\alpha-1}+1\). At \(\tau=0\), use \(K^{*\alpha-1}=1/(1-\alpha)\).<br>
+      (e) No. With \(r^*>0\) the CE is PO (finite value), so someone must lose: later generations, through lower wages. Generation 1 gains (if \(\delta>\alpha^2/(1-\alpha)\)) because the lower \(K_2\) raises the return on its remaining capital: \(\frac{dc}{d\tau}=-r^*+\alpha\). That is a direct cost \(r^*\) plus a pecuniary gain \(\alpha\). The premise \(r^*=\frac{\alpha}{1-\alpha}-\delta>0\) needs \(\alpha>\frac{\delta}{1+\delta}\), and the window \(\frac{\delta}{1+\delta}<\alpha<\frac{\sqrt{\delta^2+4\delta}-\delta}{2}\) is always non-empty.</p>
+    </div>
+  </div>
+
+  <div class="xq" id="s3-d4" data-kind="derive"
+       data-study="../lessons/0018-perpetual-youth-aggregation.html#pf-derivation-3|L18 §4 · Derivation: V̇ = rV + Y − C ;; ../lessons/0018-perpetual-youth-aggregation.html#pf-algebra|L18 §5 · The Ċ equation, algebra ;; ../lessons/0018-perpetual-youth-aggregation.html#pf-proof|L18 §6 · Endowment equilibrium">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="pts">50 pts</span></div>
+    <div class="xq-stem"><p>Blanchard–Yaari with log utility: \(c=(\theta+p)(v+h)\); aggregates \(C=(\theta+p)(V+H)\), \(\dot V=rV+Y-C\), \(\dot H=(r+p+\alpha)H-Y\).</p>
+    <ol type="a">
+      <li>(10 pts, 2 lines) Explain why \(\dot V\) has \(r\), not \(r+p\).</li>
+      <li>(10 pts, 2 lines) Explain why \(\dot H\) has \(r+p+\alpha\).</li>
+      <li>(15 pts, 3 lines) Derive \(\dot C=(r+\alpha-\theta)C-(p+\alpha)(p+\theta)V\).</li>
+      <li>(15 pts, 3 lines) In the endowment economy, find \(r\) and show the equilibrium is autarky.</li>
+    </ol></div>
+    <details class="hint"><summary>Hint for (c)</summary><div class="body"><p>\(\dot C=(\theta+p)(\dot V+\dot H)\). Substitute both ODEs, then eliminate \(H\) with \(H=C/(\theta+p)-V\).</p></div></details>
+    <div class="xq-solution">
+      <p>(a) Survivors' wealth earns \(r+p\), but the extra \(pV\) is paid out of the wealth of those who die. In the aggregate it is a transfer and nets out, and newborns hold no wealth.<br>
+      (b) Future labour income of the <em>currently alive</em> is discounted at \(r\), at \(p\) because they may die, and at \(\alpha\) because their share of aggregate income \(Y\) shrinks as they age (newcomers get a growing share).<br>
+      (c) \(\dot C=(\theta+p)[rV+Y-C+(r+p+\alpha)H-Y]=(\theta+p)[rV+(r+p+\alpha)H]-(\theta+p)C\). With \((\theta+p)H=C-(\theta+p)V\): \(\dot C=(\theta+p)rV+(r+p+\alpha)[C-(\theta+p)V]-(\theta+p)C=(r+\alpha-\theta)C-(p+\alpha)(\theta+p)V\).<br>
+      (d) No capital or debt: \(V=0\), \(C=Y\) constant, so \(0=(r+\alpha-\theta)Y\) gives \(r=\theta-\alpha\). Each household's consumption then grows at \(r-\theta=-\alpha\), the growth rate of its own income, so consuming its income satisfies the Euler equation and the budget: no trade.</p>
+    </div>
+  </div>
+
+  <div class="xq-score"></div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me. Try "walk me through why the PAYG asset return is population growth", "derive the BY debt dynamics with T ≠ G", or "give me a Diamond question with population growth".</div>
+
+  <div class="lesson-nav">
+    <a href="s2-olg-endowment.html">← Session 2: OLG endowment economy</a>
+    <a href="index.html">Study-guide hub</a>
+    <a href="../reference/perpetual-youth-cheatsheet.html">Perpetual-youth cheatsheet</a>
+    <a href="s4-planner-negishi.html">Session 4: Planner and Negishi →</a>
+  </div>
+
+</div>
+</body>
+</html>

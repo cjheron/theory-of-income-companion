@@ -34,12 +34,12 @@
     Alvarez, <a href="../sources/slides2-olg.pdf#page=15">Class Note II, pp. 15–18</a>. Samuelson's <a href="https://ideas.repec.org/a/ucp/jpolec/v66y1958p467.html">1958 paper</a>, §§III–IV, is where this "consumption-loan paradox" was first spotted. Shell, <a href="https://ideas.repec.org/a/ucp/jpolec/v79y1971i5p1002-11.html">"Notes on the Economics of Infinity"</a>, <em>JPE</em> (1971), distils why it happens. We'll come back to it in Lesson 12.
   </div>
 
-  <h2>1. The question</h2>
+  <h2 id="s1">1. The question</h2>
   <p>Lesson 4 proved that every CE with locally non-satiated preferences is Pareto optimal. Log utility is strictly increasing, hence LNS. So the First Welfare Theorem <em>seems</em> to say the autarky equilibrium of Lessons 8–9 is PO. Here we test that claim directly, by searching for a feasible allocation that everybody weakly prefers. To keep the search tractable, we restrict attention to allocations that treat every generation the same way.</p>
 
-  <h2>2. Symmetric allocations</h2>
+  <h2 id="s2">2. Symmetric allocations</h2>
 
-  <div class="definition">
+  <div class="definition" id="def-definition-symmetric-allocation">
     <div class="box-title">Definition: symmetric allocation <a class="slide-ref" href="../sources/slides2-olg.pdf#page=15">II p.15</a></div>
     <p>An allocation is <strong>symmetric</strong> if consumption depends only on age, not on the generation. It is described by two numbers \((c_y,c_o)\):
     $$x^i_i = c_y\ \ (i\ge1),\qquad x^i_{i+1} = c_o\ \ (i\ge0).$$
@@ -48,11 +48,11 @@
 
   <p>The CE \((1-\alpha,\alpha)\) is itself a feasible symmetric allocation, since \(1-\alpha+\alpha = 1\). So the set we are searching contains the equilibrium, which is what makes the comparison clean.</p>
 
-  <h2>3. The best symmetric allocation</h2>
+  <h2 id="s3">3. The best symmetric allocation</h2>
   <p>"Best" here means best from the point of view of a generation \(i\ge1\), all of whom have the same \(v\) <a class="slide-ref" href="../sources/slides2-olg.pdf#page=16">II p.16</a>:</p>
   $$\max_{c_y,c_o}\;(1-\beta)\log c_y + \beta\log c_o\quad\text{s.t.}\quad c_y + c_o = 1 .$$
 
-  <div class="proof">
+  <div class="proof" id="pf-derivation">
     <div class="box-title">Derivation</div>
     <ol class="steps">
       <li><strong>Substitute the constraint.</strong> Maximize \(f(c_y) = (1-\beta)\log c_y + \beta\log(1-c_y)\) over \(c_y\in(0,1)\). \(f\) is strictly concave, so the FOC is necessary and sufficient.</li>
@@ -63,12 +63,12 @@
     <div class="qed">∎</div>
   </div>
 
-  <div class="intuition">
+  <div class="intuition" id="int-intuition-golden-rule-endowment-economy">
     <div class="box-title">Intuition: the "golden rule" of the endowment economy</div>
     <p>Along the symmetric frontier, giving the old one more unit costs the young exactly one unit, because there is one old person per young person and no growth. The best allocation equates the MRS to this <strong>biological rate of return</strong> of 1. Equivalently, the implied interest rate at \((1-\beta,\beta)\) is \(r = v_1/v_2 - 1 = 0\), the population growth rate. In Lesson 13, with growth, the biological rate becomes \((1+n)(1+g)\).</p>
   </div>
 
-  <h2>4. Comparing the CE with the best symmetric allocation</h2>
+  <h2 id="s4">4. Comparing the CE with the best symmetric allocation</h2>
 
   <p>There are two kinds of agent to check <a class="slide-ref" href="../sources/slides2-olg.pdf#page=17">II p.17</a>:</p>
   <table class="simple">
@@ -81,7 +81,7 @@
     <li><strong>The initial old</strong> only care about their consumption: \(\beta\) vs \(\alpha\). Everything hinges on them.</li>
   </ul>
 
-  <div class="theorem">
+  <div class="theorem" id="thm-three-cases">
     <div class="box-title">The three cases <a class="slide-ref" href="../sources/slides2-olg.pdf#page=18">II p.18</a></div>
     <table class="simple">
       <tr><th>Case</th><th>Parameters</th><th>\(\bar r\)</th><th>Initial old</th><th>Conclusion</th></tr>
@@ -156,7 +156,7 @@
   })();
   </script>
 
-  <h2>5. Why Case 1 is a genuine Pareto improvement: the chain of transfers</h2>
+  <h2 id="s5">5. Why Case 1 is a genuine Pareto improvement: the chain of transfers</h2>
   <p>Read the move from CE to best symmetric in Case 1 as a transfer. Each young person hands \(\beta-\alpha>0\) units to the contemporaneous old person:</p>
   <ul>
     <li>The <strong>initial old</strong> receive \(\beta-\alpha\) and give nothing. They gain.</li>
@@ -164,17 +164,17 @@
     <li>The scheme is feasible at every date because aggregate consumption is still \(1\), and it never has to be "repaid", because <strong>there is no last generation</strong>.</li>
   </ul>
 
-  <div class="warning">
+  <div class="warning" id="warn-chain-must-never-end">
     <div class="box-title">The chain must never end</div>
     <p>If the transfers stopped at some date \(T\), generation \(T-1\) would give when young and receive nothing when old. They would be worse off, so the scheme would no longer be a Pareto improvement. The gain to the initial old is financed by an infinite sequence of future generations, each passing the bill forward. This is possible <em>only</em> because the economy has infinitely many agents and dates. That double infinity is the heart of Lesson 12.</p>
   </div>
 
-  <div class="intuition">
+  <div class="intuition" id="int-case-3-why-there-s">
     <div class="box-title">Case 3: why there's no free lunch when \(\bar r>0\)</div>
     <p>When \(\bar r>0\), the young would rather <em>borrow</em> against their large old-age endowment. Moving toward \((1-\beta,\beta)\) means transferring from the old to the young. Generations \(i\ge1\) like it (they receive when young, repay when old at rate \(0\lt \bar r\)), but the initial old pay without being repaid. Someone always loses, so the CE is not dominated by any symmetric allocation (Exercise 10.3). In fact it is Pareto optimal among <em>all</em> allocations, as Lesson 12 will show using the finiteness of \(\sum_t p_t\).</p>
   </div>
 
-  <h2>6. Check your understanding</h2>
+  <h2 id="s6">6. Check your understanding</h2>
 
   <div class="quiz-section">
     <div class="quiz-question" data-correct="b">
@@ -223,11 +223,11 @@
     <div class="quiz-score"></div>
   </div>
 
-  <h2>7. Exercises</h2>
+  <h2 id="s7">7. Exercises</h2>
 
   <p>"Is the OLG equilibrium Pareto optimal?" is one of the most frequently examined questions in this course. It has appeared as a true/false item on Fall 2005, Spring 2023 and Fall 2025 exams, and as the last part of the Fall 2025 final's Diamond question. The grade goes to the reasoning: name the condition you are using.</p>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-10-1">
     <div class="box-title">Exercise 10.1 True or false? Justify in 1–4 lines. <span class="tag past">Past exams + traps</span></div>
     <ol class="tf-list">
       <li>In an OLG model where agents live \(k\ge2\) periods, with one commodity per period and a finite aggregate endowment, if interest rates are strictly negative in all periods, the competitive equilibrium is NOT efficient. <span class="tf-src">(Past exam: Fall 2025 Midterm 1, Q I.3)</span>
@@ -249,7 +249,7 @@
     </ol>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-10-2">
     <div class="box-title">Exercise 10.2 <span class="tag exam">Exam-inspired</span> Beyond log utility</div>
     <p>Let \(v\) be strictly increasing, strictly quasi-concave and differentiable, with stationary endowments \((1-\alpha,\alpha)\).</p>
     <ol class="parts" type="a">
@@ -264,7 +264,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-10-3">
     <div class="box-title">Exercise 10.3 <span class="tag proof">Proof</span> Case 3</div>
     <p>Show that in Case 3 (\(\beta\lt \alpha\)) no feasible symmetric allocation Pareto-dominates the CE.</p>
     <details class="solution"><summary>Show solution</summary><div class="body">
@@ -272,7 +272,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-10-4">
     <div class="box-title">Exercise 10.4 <span class="tag past">Past exam: Fall 2025 Midterm 1, Q I.3</span> <span class="tag proof">extended to a proof</span></div>
     <p>The exam asked only for "true or false". Here you prove the two-period case without stationarity. Generation \(t\) has strictly increasing, strictly concave, twice continuously differentiable utility \(v\) and endowment \((e^t_t,e^t_{t+1})\) lying in a compact set \(E\) bounded away from zero. Suppose the CE interest rates satisfy \(r_t\le\underline r<0\) for all \(t\).</p>
     <ol class="parts" type="a">
@@ -292,7 +292,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-10-5">
     <div class="box-title">Exercise 10.5 <span class="tag past">Past exam: Spring 2023 Midterm 1, Q2</span> Heterogeneous agents in a two-period OLG model</div>
     <p>Periods \(t=1,2,\dots\). Each cohort contains types \(i=1,\dots,I\). Type \(i\) of cohort \(t\) has endowment \(\alpha^i_y\) when young and \(\alpha^i_o\) when old, and preferences
     $$-\pi_y\frac{(\theta^i_y-x^{i,t}_t)^{1+\sigma}}{1+\sigma}-\pi_o\frac{(\theta^i_o-x^{i,t}_{t+1})^{1+\sigma}}{1+\sigma},\qquad \sigma>0,$$
@@ -319,7 +319,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-10-6">
     <div class="box-title">Exercise 10.6 <span class="tag proof">Proof</span> (harder) Case 2 is efficient</div>
     <p>Show that the best symmetric allocation \((1-\beta,\beta)\) is Pareto optimal among <em>all</em> feasible allocations, not just symmetric ones. In Case 2 this is the CE, even though its value is infinite.</p>
     <details class="hint"><summary>Hint</summary><div class="body"><p>Write any feasible allocation that doesn't waste goods as \(x^t_t = 1-\beta-\delta_t\) and \(x^{t-1}_t = \beta+\delta_t\), where \(\delta_t\) is the extra amount given to the old at date \(t\). Use \(\log(1+z)\le z\), and \(\log(1-z)\le -z - z^2/2\) for \(z\in[0,1)\), to bound each generation's utility gain.</p></div></details>
@@ -334,7 +334,7 @@
   </div>
 
   <div class="takeaways">
-    <h2>Key takeaways</h2>
+    <h2 id="takeaways">Key takeaways</h2>
     <ul>
       <li>Symmetric allocations: \((c_y,c_o)\) with \(c_y+c_o=1\). The CE \((1-\alpha,\alpha)\) is one of them.</li>
       <li>Best symmetric: \((1-\beta,\beta)\). The MRS equals the biological return of 1, so the implied interest rate is 0.</li>

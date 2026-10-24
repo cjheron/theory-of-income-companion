@@ -37,9 +37,9 @@
   <p>This whole course rests on one template. An <em>economy</em> is a short list of mathematical objects. A <em>competitive equilibrium</em> (<a href="0002-competitive-equilibrium.html">Lesson 2</a>) and a <em>Pareto optimum</em> (<a href="0003-pareto-optimality-and-lns.html">Lesson 3</a>) are properties of allocations in that economy. Later models (OLG, Blanchard–Yaari, growth) are this same template with a particular commodity space and set of agents plugged in, so it pays to be fluent in it now.</p>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>1. The commodity space</h2>
+  <h2 id="s1">1. The commodity space</h2>
 
-  <div class="definition">
+  <div class="definition" id="def-definition-commodity-space">
     <div class="box-title">Definition: Commodity space <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=2">S1 p.2</a></div>
     <p>The <strong>commodity space</strong> \(L\) is a vector space whose elements are bundles of commodities. Typically \(L=\mathbb{R}^m\): there are \(m\) goods, and a bundle \(x=(x_1,\dots,x_m)\) lists a quantity of each. Sometimes \(m=\infty\), e.g. \(L=\mathbb{R}^\infty\) in the overlapping-generations model (<a href="0008-olg-environment.html">Lesson 8</a>).</p>
   </div>
@@ -54,7 +54,7 @@
   </table>
   <p>Because "time" and "uncertainty" are just more coordinates, every theorem we prove for \(\mathbb{R}^m\) automatically covers dynamic and stochastic economies, as long as \(m\) stays finite. Whether it survives \(m=\infty\) is precisely the OLG question of <a href="0012-why-the-1wt-fails-in-olg.html">Lesson 12</a>.</p>
 
-  <h3>The catalogue of commodity spaces <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=8">S1 pp.8–9</a></h3>
+  <h3 id="s1-catalogue-commodity-spaces">The catalogue of commodity spaces <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=8">S1 pp.8–9</a></h3>
   <table class="simple">
     <tr><th>Space</th><th>What the coordinates are</th></tr>
     <tr><td>\(m=2\)</td><td>static consumption and leisure (labour–leisure choice)</td></tr>
@@ -125,9 +125,9 @@
   </script>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>2. Households</h2>
+  <h2 id="s2">2. Households</h2>
 
-  <div class="definition">
+  <div class="definition" id="def-definition-households">
     <div class="box-title">Definition: Households <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=2">S1 pp.2–3</a></div>
     <p>Households are indexed by \(i=1,\dots,I\). Abusing notation, \(I\) also denotes the <em>set</em> of households. Each household has</p>
     <ul>
@@ -139,15 +139,15 @@
 
   <p>\(X^i\) is where physical constraints live: non-negativity of consumption, or a cap on hours (with 24 hours a day, labour supply cannot exceed 24). It is <em>not</em> the budget set. \(X^i\) contains what is possible, the budget set contains what is affordable, and the budget only appears once we have prices.</p>
 
-  <div class="warning">
+  <div class="warning" id="warn-sign-convention-households">
     <div class="box-title">Sign convention for households <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=3">S1 p.3</a></div>
     <p><strong>Positive entries of \(x^i\) are quantities demanded (purchases); negative entries are quantities offered (sales).</strong> If labour is a commodity and the household supplies 8 hours, then \(x^i_{\text{labour}}=-8\). An equivalent and common alternative is to make <em>leisure</em> the commodity, endow the household with 24 hours of time, and keep \(x\ge 0\). Both conventions describe the same economy; just keep track of which one you are using.</p>
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>3. Firms</h2>
+  <h2 id="s3">3. Firms</h2>
 
-  <div class="definition">
+  <div class="definition" id="def-definition-firms">
     <div class="box-title">Definition: Firms <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=4">S1 p.4</a></div>
     <p>Firms are indexed by \(j=1,\dots,J\) (and \(J\) also denotes the set). Firm \(j\)'s technology is a <strong>production possibility set</strong> \(Y^j\subset L\): the firm can carry out any plan \(y\in Y^j\). <strong>Positive entries of \(y\) are outputs (offered); negative entries are inputs (demanded).</strong></p>
   </div>
@@ -192,9 +192,9 @@
   </script>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>4. Ownership and endowments</h2>
+  <h2 id="s4">4. Ownership and endowments</h2>
 
-  <div class="definition">
+  <div class="definition" id="def-definition-ownership-structure">
     <div class="box-title">Definition: Ownership structure <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=5">S1 p.5</a></div>
     <ul>
       <li>Household \(i\) owns a share \(\theta^i_j\ge 0\) of firm \(j\). Every firm is entirely owned by households:
@@ -205,15 +205,15 @@
 
   <p>Ownership is what routes firm profits back to people, so that no value "leaks out" of the economy. The condition \(\sum_i\theta^i_j=1\) is used in exactly two places: in Walras' law (<a href="0002-competitive-equilibrium.html">Lesson 2</a>) and in the First Welfare Theorem (<a href="0004-first-welfare-theorem.html">Lesson 4</a>). The pair \((e^i,\theta^i)\) is a household's <em>wealth endowment</em>. In the Second Welfare Theorem it is the policy instrument: redistributing \(e\) and \(\theta\) lets us reach different Pareto optima (<a href="0007-arrows-remark-and-decentralization.html">Lesson 7</a>).</p>
 
-  <div class="definition">
+  <div class="definition" id="def-summary-economy-list">
     <div class="box-title">Summary: an economy is the list</div>
     $$\mathcal{E}=\Big(L,\ \{X^i,u^i,e^i,(\theta^i_j)_{j\in J}\}_{i\in I},\ \{Y^j\}_{j\in J}\Big).$$
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>5. Feasible allocations</h2>
+  <h2 id="s5">5. Feasible allocations</h2>
 
-  <div class="definition">
+  <div class="definition" id="def-definition-feasible-allocation">
     <div class="box-title">Definition: Feasible allocation <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=6">S1 p.6</a></div>
     <p>An <strong>allocation</strong> \(\{x^i,y^j\}\) is a consumption bundle for every household and a production plan for every firm. It is <strong>feasible</strong> if</p>
     <ol>
@@ -230,18 +230,18 @@
   +\begin{pmatrix}e^1_1\\ \vdots\\ e^1_m\end{pmatrix}+\cdots+\begin{pmatrix}e^I_1\\ \vdots\\ e^I_m\end{pmatrix}.$$
   Read row \(s\): <em>total use of good \(s\) by households = total net output of good \(s\) by firms + total endowment of good \(s\)</em>. Because inputs are negative, a firm's use of good \(s\) as an input is netted out on the right-hand side automatically.</p>
 
-  <div class="intuition">
+  <div class="intuition" id="int-intuition-feasibility-needs-no-prices">
     <div class="box-title">Intuition: feasibility needs no prices</div>
     <p>Feasibility is a purely physical, planner's-eye notion: is this allocation <em>possible</em> with the resources and technologies available? Nothing about prices, budgets or ownership enters it. That is why Pareto optimality, which is defined over feasible allocations, is also price-free. The welfare theorems are bridges between this price-free world and the price-based world of competitive equilibrium.</p>
   </div>
 
-  <div class="warning">
+  <div class="warning" id="warn-feasibility-vs-budget-feasibility">
     <div class="box-title">Feasibility vs. budget feasibility</div>
     <p>An allocation can be feasible without each bundle being affordable at some prices, and every household can be on its budget without markets clearing. A CE requires both. Keep the words straight: <em>feasible</em> refers to the aggregate resource constraint, <em>budget-feasible</em> to an individual's budget set.</p>
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>6. Check your understanding</h2>
+  <h2 id="s6">6. Check your understanding</h2>
 
   <div class="quiz-section">
     <div class="quiz-question" data-correct="b">
@@ -291,11 +291,11 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>7. Exercises</h2>
+  <h2 id="s7">7. Exercises</h2>
 
   <p>Alvarez's midterms use two formats: true/false statements with a short justification (about half the points on Midterm 1), and long derivations broken into small, hinted steps. The exercises below follow both. Lesson 1 is mostly vocabulary, so the exam questions that touch it test whether you can <em>write an economy down</em> correctly before solving anything.</p>
 
-  <div class="box exercise">
+  <div class="box exercise" id="tf">
     <div class="box-title">True or false? Justify. <span class="tag exam">Exam format</span></div>
     <p>For each statement, answer True or False and justify in at most four lines.</p>
     <ol class="tf-list">
@@ -314,7 +314,7 @@
     </ol>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-1-1">
     <div class="box-title">Exercise 1.1 <span class="tag slides">Slides pp.8–9</span> (dimension of the commodity space)</div>
     <p>Give \(\dim L\) as a formula, and say what a single coordinate means, in each case.</p>
     <ol class="parts" type="a">
@@ -333,7 +333,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-1-2">
     <div class="box-title">Exercise 1.2 <span class="tag exam">Exam-inspired</span> (write the economy down)</div>
     <p>A two-period economy has one consumption good per period. Household 1 is endowed with one unit of the good at \(t=0\) and nothing at \(t=1\); household 2 has nothing at \(t=0\) and one unit at \(t=1\). A single firm has a storage technology: storing \(s\ge0\) units at \(t=0\) yields up to \(Rs\) units at \(t=1\), with \(R>0\). Household 1 owns a share \(\theta\in[0,1]\) of the firm and household 2 owns the rest.</p>
     <ol class="parts" type="a">
@@ -350,7 +350,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-1-3">
     <div class="box-title">Exercise 1.3 <span class="tag slides">Slides p.3</span> (time endowment vs. labour sales)</div>
     <p>A household has 1 unit of time, values consumption \(c\) and leisure \(\ell\), and works \(n=1-\ell\) hours. Describe its \(X^i\) and \(e^i\) in two ways: (i) with commodities (consumption, leisure) and a time endowment; (ii) with commodities (consumption, labour) and no time endowment. Show that the household's net trade with the market is identical in both.</p>
     <details class="solution"><summary>Show solution</summary><div class="body">
@@ -360,7 +360,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-1-4">
     <div class="box-title">Exercise 1.4 <span class="tag proof">Proof</span></div>
     <p>Let every \(X^i\) and \(Y^j\) be convex. Show that the set of feasible allocations is convex. (We will use convexity heavily in the Second Welfare Theorem, <a href="0006-second-welfare-theorem.html">Lesson 6</a>.)</p>
     <details class="solution"><summary>Show solution</summary><div class="body">
@@ -368,7 +368,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-1-5">
     <div class="box-title">Exercise 1.5 <span class="tag exam">Exam-inspired</span> (an OLG economy with a tree, written as a GE economy)</div>
     <p>This is the setup of the 2017/18 Midterm 1 ("OLG and trees"), here only <em>written down</em>; Lessons 8–12 solve economies like it. Time is \(t=1,2,\dots\). A measure one of agents is born each period and lives two periods. Generation \(t\ge1\) is endowed with \(e^t_t>0\) when young and nothing when old, and has strictly increasing utility \(u^t(c^t_t,c^t_{t+1})\). The initial old (generation 0) care only about \(c^0_1\). A tree produces \(d_t\ge0\) units of the good at each date; at \(t=1\) the initial old own the tree.</p>
     <ol class="parts" type="a">
@@ -389,7 +389,7 @@
   </div>
 
   <div class="takeaways">
-    <h2>Key takeaways</h2>
+    <h2 id="takeaways">Key takeaways</h2>
     <ul>
       <li>An economy is \((L,\{X^i,u^i,e^i,\theta^i\},\{Y^j\})\). Commodities are distinguished by characteristics, location, date and state.</li>
       <li>Signs: for a household, + is a purchase and − a sale; for a firm, + is an output and − an input. Profit is just \(p\cdot y\).</li>

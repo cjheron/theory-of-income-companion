@@ -34,7 +34,7 @@
     Alvarez, <a href="../sources/slides2-olg.pdf#page=9">Class Note II, pp. 9–14</a>. Samuelson's <a href="https://ideas.repec.org/a/ucp/jpolec/v66y1958p467.html">1958 paper</a> §II derives the same "biological" interest rate. Ljungqvist &amp; Sargent, <em>Recursive Macroeconomic Theory</em>, ch. "Overlapping Generations", treat the same endowment economy with "Samuelson" and "classical" cases.
   </div>
 
-  <h2>1. Prices that support autarky</h2>
+  <h2 id="s1">1. Prices that support autarky</h2>
 
   <p>Lesson 8 told us the allocation, \(x^i = e^i\). It did not tell us the prices. The proposition held <em>for any</em> positive prices at each step, so prices must be pinned down by something else: each generation must <em>choose</em> its endowment when facing them. In equilibrium, autarky is not imposed. It is optimal at the equilibrium prices.</p>
 
@@ -45,7 +45,7 @@
 
   <p>Equilibrium relative prices equal each generation's <strong>marginal rate of substitution evaluated at its endowment</strong>. Geometrically, the budget line through the endowment is tangent to the indifference curve there.</p>
 
-  <div class="definition">
+  <div class="definition" id="def-definition-interest-rates-from-arrow">
     <div class="box-title">Definition: interest rates from Arrow–Debreu prices <a class="slide-ref" href="../sources/slides2-olg.pdf#page=10">II p.10</a></div>
     <p>The net interest rate between \(t\) and \(t+1\) is defined by
     $$\frac{1}{1+r_t} = \frac{p_{t+1}}{p_t}.$$
@@ -55,14 +55,14 @@
 
   <p>Interpretation: \(p_t/p_{t+1} = 1+r_t\) is how many date-\(t+1\) goods one date-\(t\) good buys. That is exactly the gross return on a one-period loan (Exercise 8.4 makes the sequential-markets equivalence precise). The formula for \(p_t\) chains the one-period rates. Each \(r_t\) is determined by generation \(t\) alone, the only generation with access to both dates \(t\) and \(t+1\).</p>
 
-  <div class="intuition">
+  <div class="intuition" id="int-intuition-autarky-interest-rate">
     <div class="box-title">Intuition: an "autarky interest rate"</div>
     <p>\(r_t\) is the interest rate at which generation \(t\) is exactly content to neither borrow nor lend. If the young are impatient relative to their endowment profile, so that they would like to borrow against a large old-age endowment, the rate must be high enough to talk them out of it. If they would like to save, the rate must be low (possibly negative) enough to discourage saving. Since nobody can actually trade, it is the price that must adjust.</p>
   </div>
 
-  <h2>2. The log example</h2>
+  <h2 id="s2">2. The log example</h2>
 
-  <div class="definition">
+  <div class="definition" id="def-baseline-parametrization">
     <div class="box-title">The baseline parametrization <a class="slide-ref" href="../sources/slides2-olg.pdf#page=11">II p.11</a></div>
     <p>All generations \(i\ge1\) have
     $$v(c_y,c_o) = (1-\beta)\log c_y + \beta\log c_o,\qquad \beta\in(0,1),$$
@@ -76,19 +76,19 @@
     <p>Class Note II puts \(1-\alpha\) in youth and \(\alpha\) in old age. Class Note III's privatization slides flip this (young \(\alpha\), old \(1-\alpha\)); see <a href="0014-privatizing-social-security.html">Lesson 14</a>. Here, and in Lessons 10–13, we follow Note II.</p>
   </div>
 
-  <h3>Equilibrium prices</h3>
+  <h3 id="s2-equilibrium-prices">Equilibrium prices</h3>
   <p>With log utility, \(v_1 = (1-\beta)/c_y\) and \(v_2 = \beta/c_o\). Evaluating at the endowment \((1-\alpha,\alpha)\) <a class="slide-ref" href="../sources/slides2-olg.pdf#page=12">II p.12</a>:</p>
   $$\frac{1}{1+r_t} = \frac{p_{t+1}}{p_t} = \frac{\beta/\alpha}{(1-\beta)/(1-\alpha)} = \frac{\beta}{1-\beta}\cdot\frac{1-\alpha}{\alpha}.$$
   <p>This is the same for every \(t\), so \(r_t\equiv\bar r\) with</p>
   $$\boxed{\;1+\bar r = \frac{(1-\beta)\,\alpha}{\beta\,(1-\alpha)},\qquad \bar r = \frac{\alpha-\beta}{\beta(1-\alpha)},\qquad p_t = \left(\frac{\beta}{1-\beta}\cdot\frac{1-\alpha}{\alpha}\right)^{t-1} = (1+\bar r)^{-(t-1)}.\;}$$
   <p>Check the algebra of \(\bar r\): \(\frac{(1-\beta)\alpha - \beta(1-\alpha)}{\beta(1-\alpha)} = \frac{\alpha - \beta}{\beta(1-\alpha)}\). So <strong>\(\bar r>0 \iff \alpha>\beta\)</strong>, <strong>\(\bar r=0\iff\alpha=\beta\)</strong> and <strong>\(\bar r<0\iff\alpha\lt \beta\)</strong> <a class="slide-ref" href="../sources/slides2-olg.pdf#page=14">II p.14</a>.</p>
 
-  <h2>3. The savings function</h2>
+  <h2 id="s3">3. The savings function</h2>
 
   <p>The savings of generation \(t\) when young are \(e^t_t - x^t_t\). Facing a constant rate \(r\), a young agent who saves \(s\) consumes \(1-\alpha-s\) now and \(\alpha + (1+r)s\) later. Its problem (the slide question on <a class="slide-ref" href="../sources/slides2-olg.pdf#page=13">II p.13</a>) is</p>
   $$s(r;\alpha,\beta) = \arg\max_s\;(1-\beta)\log(1-\alpha-s) + \beta\log\big(\alpha+s(1+r)\big).$$
 
-  <div class="proof">
+  <div class="proof" id="pf-derivation-slide-question-p-13">
     <div class="box-title">Derivation (slide question, p. 13)</div>
     <ol class="steps">
       <li><strong>FOC.</strong> The objective is strictly concave in \(s\), so the FOC is necessary and sufficient:
@@ -104,7 +104,7 @@
     <div class="qed">∎</div>
   </div>
 
-  <div class="warning">
+  <div class="warning" id="warn-why-savings-rise-here-not">
     <div class="box-title">Why savings rise with \(r\) here (not always!)</div>
     <p>A higher \(r\) has a substitution effect (save more) and an income effect. Because the agent receives some endowment when old, a higher \(r\) <em>lowers</em> the present value of lifetime wealth \((1-\alpha)+\alpha/(1+r)\), and this income effect also raises saving. With log utility the pure-substitution and pure-income effects on \(c_y\) from \(r\) cancel, leaving only this wealth effect. If \(\alpha = 0\), saving \(s=\beta\) would not depend on \(r\) at all.</p>
   </div>
@@ -163,7 +163,7 @@
   })();
   </script>
 
-  <h2>4. Why \(\bar r\) rises with \(\alpha\) and falls with \(\beta\)</h2>
+  <h2 id="s4">4. Why \(\bar r\) rises with \(\alpha\) and falls with \(\beta\)</h2>
   <p>The slides give a "zero-savings" argument <a class="slide-ref" href="../sources/slides2-olg.pdf#page=14">II p.14</a>. Make it precise with the implicit function theorem applied to \(s(\bar r;\alpha,\beta)=0\):</p>
   $$\frac{\partial\bar r}{\partial\beta} = -\frac{\partial s/\partial\beta}{\partial s/\partial r} < 0,\qquad \frac{\partial\bar r}{\partial\alpha} = -\frac{\partial s/\partial\alpha}{\partial s/\partial r} > 0 .$$
   <ul>
@@ -172,7 +172,7 @@
   </ul>
   <p>The same conclusions follow from differentiating \(1+\bar r = \frac{(1-\beta)\alpha}{\beta(1-\alpha)}\) directly: it is increasing in \(\alpha\) and decreasing in \(\beta\).</p>
 
-  <h2>5. The price path</h2>
+  <h2 id="s5">5. The price path</h2>
 
   <div class="figure">
     <div id="pp-ctrl"></div>
@@ -204,7 +204,7 @@
   })();
   </script>
 
-  <h2>6. Check your understanding</h2>
+  <h2 id="s6">6. Check your understanding</h2>
 
   <div class="quiz-section">
     <div class="quiz-question" data-correct="c">
@@ -253,11 +253,11 @@
     <div class="quiz-score"></div>
   </div>
 
-  <h2>7. Exercises</h2>
+  <h2 id="s7">7. Exercises</h2>
 
   <p>Past exams test this material through short true/false justifications and through one long guided problem on an OLG economy with an asset (Exercise 9.2). Work with general parameters: the exams never ask you to plug in numbers.</p>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-9-1">
     <div class="box-title">Exercise 9.1 <span class="tag exam">Exam-inspired</span> True or false? Justify in 1–4 lines.</div>
     <ol class="tf-list">
       <li>With preferences \((1-\beta)\log c_y+\beta\log c_o\) and endowments \((1-\alpha,\alpha)\), the equilibrium interest rate is negative if and only if \(\alpha\lt \beta\).
@@ -277,7 +277,7 @@
     </ol>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-9-2">
     <div class="box-title">Exercise 9.2 <span class="tag past">Past exam: 2017/18 Midterm 1, "OLG and trees", parts 4–12</span></div>
     <p>Continue the economy of Exercise 8.2, where you showed \(a_t=1\), \(s_t=0\) and \(1+r_t=(q_{t+1}+d_{t+1})/q_t\). Define the savings function
     $$\sigma_t(R)\equiv\arg\max_x\; u^t\big(e^t_t-x,\;xR\big),$$
@@ -308,7 +308,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-9-3">
     <div class="box-title">Exercise 9.3 <span class="tag slides">Slides II p.13</span> <span class="tag exam">Exam-inspired</span> The savings function</div>
     <p>Let \(s(r;\alpha,\beta)=\arg\max_s (1-\beta)\log(1-\alpha-s)+\beta\log(\alpha+s(1+r))\).</p>
     <ol class="parts" type="a">
@@ -325,7 +325,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-9-4">
     <div class="box-title">Exercise 9.4 <span class="tag exam">Exam-inspired</span> CRRA preferences</div>
     <p>Replace log utility with \(v(c_y,c_o) = (1-\beta)\frac{c_y^{1-\sigma}}{1-\sigma} + \beta\frac{c_o^{1-\sigma}}{1-\sigma}\), \(\sigma>0\), keeping endowments \((1-\alpha,\alpha)\).</p>
     <ol class="parts" type="a">
@@ -340,7 +340,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-9-5">
     <div class="box-title">Exercise 9.5 <span class="tag exam">Exam-inspired</span> Non-stationary endowments</div>
     <p>Keep log preferences with weight \(\beta\), but let generation \(t\)'s endowments be \(e^t_t = w_t\) and \(e^t_{t+1}=a_t\), where \(\{w_t,a_t\}\) are positive sequences bounded above and away from zero.</p>
     <ol class="parts" type="a">
@@ -355,7 +355,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-9-6">
     <div class="box-title">Exercise 9.6 <span class="tag proof">Proof</span></div>
     <p>Show directly, without FOCs, that at the prices \(p_t = (1+\bar r)^{-(t-1)}\) the young of generation \(t\) find their endowment optimal: the optimal \(c_y\) at rate \(\bar r\) equals \(1-\alpha\).</p>
     <details class="solution"><summary>Show solution</summary><div class="body">
@@ -363,7 +363,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-9-7">
     <div class="box-title">Exercise 9.7 <span class="tag pset">Problem set 3 (2022), P4 Q1–Q7</span> A growing tree under uncertainty (harder)</div>
     <p>Two-period lives, a mass one per cohort, labour income only when young. Output is \(Y_t\), with \(Y_{t+1}=Y_tz_{t+1}\), where \(z>0\) is i.i.d. The young earn \(w_t=(1-\delta)Y_t\), and one tree, owned initially by the old, pays fruit \(d_t=\delta Y_t\). Preferences are \((1-\beta)\log c^t_t+\beta E_t\log c^t_{t+1}\). The young buy \(s_t\) trees at price \(q^e_t\) and \(b_t\) one-period discount bonds at price \(q^b_t\), each paying one unit next period:
     $$c^t_t+s_tq^e_t+b_tq^b_t=w_t,\qquad c^t_{t+1}=s_t(q^e_{t+1}+d_{t+1})+b_t .$$</p>
@@ -383,7 +383,7 @@
   </div>
 
   <div class="takeaways">
-    <h2>Key takeaways</h2>
+    <h2 id="takeaways">Key takeaways</h2>
     <ul>
       <li>Equilibrium prices make autarky optimal: \(p_{t+1}/p_t = v^t_2/v^t_1\) at the endowment, and \(1+r_t = p_t/p_{t+1}\).</li>
       <li>Log example: \(1+\bar r = \frac{(1-\beta)\alpha}{\beta(1-\alpha)}\), so \(\bar r \gtrless 0 \iff \alpha\gtrless\beta\), and \(p_t = (1+\bar r)^{-(t-1)}\).</li>

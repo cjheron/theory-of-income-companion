@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Midterm 1 · Session 2: The OLG Endowment Economy — Theory of Income</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/exam.js" defer></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Midterm 1 Study Guide · Session 2 of 6 · Saturday</div>
+    <h1>Session 2: The OLG Endowment Economy</h1>
+    <div class="meta">Lessons <a href="../lessons/0008-olg-environment.html">8</a>–<a href="../lessons/0013-growing-olg-economy.html">13</a> · About 80 minutes · 15 true/false items + 4 guided derivations · <a href="index.html">Study-guide hub</a> · <a href="../reference/olg-cheatsheet.html">OLG cheatsheet</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>What this session drills.</strong> "Is the OLG equilibrium efficient?" is the single most frequent in-scope question on past exams. It came up on the Fall 2005, 2017/18, Spring 2023 and Fall 2025 midterms and on the Fall 2025 final. The examiner wants one specific argument, so practise saying it:
+    <ol>
+      <li>the CE is no trade, and the autarky interest rate comes from the MRS at the endowment;</li>
+      <li>efficiency depends on whether the <b>value of the aggregate endowment</b> at CE prices is finite. With \(p_t=(1+\bar r)^{-(t-1)}\) and no growth, that means the sign of \(\bar r\); with growth it means \(1+\bar r\) versus \((1+g)(1+n)\);</li>
+      <li>"\(r>0\) so the 1WT applies" is <em>not</em> a full answer. Say why the value is finite.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides2-olg.pdf#page=4">Class Note II, pp.4–33</a>, and <a href="../sources/slides3-olg-extensions.pdf#page=25">Class Note III, pp.25–27</a> (population growth). The classic readings: Samuelson (1958), <a href="https://ideas.repec.org/a/ucp/jpolec/v66y1958p467.html">JPE 66(6)</a>, and Shell (1971), <a href="https://ideas.repec.org/a/ucp/jpolec/v79y1971i5p1002-11.html">"Notes on the Economics of Infinity"</a>.
+  </div>
+
+  <div class="xq-score"></div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="recall">1. Warm-up: blank-page recall (5 min)</h2>
+  <p>Start with a 2-minute spaced repetition from Session 1: write the five moves of the 1WT proof. Then:</p>
+  <ol class="recall">
+    <li>Why is the CE of the Note II economy no trade? Give the induction.
+      <div class="recall-a">The initial old value only date-1 goods and own \(e^0_1\). Their budget is \(p_1x\le p_1e^0_1\), so \(x^0_1=e^0_1\). Date-1 feasibility then forces generation 1's young to consume \(e^1_1\). Generation 1's budget, with \(x_1=e^1_1\), forces \(x_2=e^1_2\) (strictly increasing \(u\)). Then date-2 feasibility pins generation 2's young consumption, and so on. <a href="../lessons/0008-olg-environment.html#pf-proof-induction-dates">L8 §4</a></div></li>
+    <li>Log example, endowments \((1-\alpha,\alpha)\), \(v=(1-\beta)\log c_y+\beta\log c_o\): write \(1+\bar r\) and \(s(r)\).
+      <div class="recall-a">\(1+\bar r=\dfrac{(1-\beta)\alpha}{\beta(1-\alpha)}\), so \(\bar r=\dfrac{\alpha-\beta}{\beta(1-\alpha)}\). \(s(r)=\beta(1-\alpha)-\dfrac{(1-\beta)\alpha}{1+r}\). <a href="../lessons/0009-olg-prices-and-interest-rates.html#s2-equilibrium-prices">L9 §2</a></div></li>
+    <li>The three cases.
+      <div class="recall-a">\(\beta>\alpha\) (\(\bar r<0\)): the best symmetric allocation \((1-\beta,\beta)\) Pareto-dominates the CE. \(\beta=\alpha\) (\(\bar r=0\)): CE = best symmetric; PO even though the value is infinite. \(\beta<\alpha\) (\(\bar r>0\)): the value is finite, so the CE is PO; generations \(t\ge1\) would prefer \((1-\beta,\beta)\) but the initial old would lose. <a href="../lessons/0010-olg-efficiency.html#thm-three-cases">L10 §4</a></div></li>
+    <li>State the 1WT for infinitely many agents and goods.
+      <div class="recall-a">If preferences satisfy LNS and \(p\cdot\sum_i\bar x^i<\infty\) (finite value of aggregate consumption = endowment), the CE allocation is PO. Sufficient, not necessary. <a href="../lessons/0012-why-the-1wt-fails-in-olg.html#thm-1wt-infinitely-many-agents-goods">L12 §2</a></div></li>
+    <li>Growing economy: the inefficiency condition.
+      <div class="recall-a">\(\bar r\) is unchanged by \(g,n\). The best symmetric allocation dominates the CE iff \(1+\bar r<(1+g)(1+n)\), which is (up to the knife edge) when the value of the aggregate endowment is infinite. <a href="../lessons/0013-growing-olg-economy.html#thm-inefficiency-condition-growing-economy">L13 §5</a></div></li>
+  </ol>
+
+  <h2 id="readfirst">2. Read first: only what you could not reproduce</h2>
+  <ul class="readfirst">
+    <li><a href="../lessons/0008-olg-environment.html#pf-proof-induction-dates">L8 §4 · The no-trade proof</a> and <a href="../lessons/0008-olg-environment.html#warn-what-proof-does-does-not">what it does not use</a></li>
+    <li><a href="../lessons/0010-olg-efficiency.html#thm-three-cases">L10 §4 · The three cases</a> <span class="why">(the table to know cold)</span></li>
+    <li><a href="../lessons/0012-why-the-1wt-fails-in-olg.html#pf-1wt-proof-line-by-line">L12 §2 · The 1WT proof in OLG, line by line</a> and <a href="../lessons/0012-why-the-1wt-fails-in-olg.html#warn-sufficient-not-necessary">sufficient, not necessary</a></li>
+    <li><a href="../lessons/0013-growing-olg-economy.html#s5">L13 §5 · The growth condition</a></li>
+  </ul>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="tf">3. True or false? Justify in 1–4 lines</h2>
+
+  <div class="xq" id="s2-01" data-kind="tf" data-answer="T"
+       data-study="../lessons/0012-why-the-1wt-fails-in-olg.html#thm-1wt-infinitely-many-agents-goods|L12 §2 · The 1WT with infinitely many agents and goods ;; ../lessons/0012-why-the-1wt-fails-in-olg.html#pf-1wt-proof-line-by-line|L12 §2 · The proof, line by line">
+    <div class="xq-src"><span class="tag past">Past exam · Fall 2005 Midterm, Ex. 1 Q4</span></div>
+    <div class="xq-stem">"Consider an equilibrium in the OLG model. If the value of aggregate consumption at market prices is finite, then the equilibrium allocation is Pareto optimal."</div>
+    <div class="xq-solution"><p><b>True</b> (given LNS, which holds with increasing utility). This is the 1WT for infinitely many agents and goods. The only step that can fail in OLG is summing \(p\cdot x^i\ge p\cdot\bar x^i\) (strict for one \(i\)) over infinitely many agents. With \(p\cdot\sum_i\bar x^i<\infty\), the sum is a legitimate strict inequality, and feasibility gives the contradiction exactly as in the finite case.</p></div>
+  </div>
+
+  <div class="xq" id="s2-02" data-kind="tf" data-answer="F"
+       data-study="../lessons/0012-why-the-1wt-fails-in-olg.html#warn-sufficient-not-necessary|L12 §2 · Sufficient, not necessary ;; ../lessons/0010-olg-efficiency.html#thm-three-cases|L10 §4 · The three cases (Case 2)">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"In the OLG endowment economy, if the value of the aggregate endowment at equilibrium prices is infinite, the competitive equilibrium allocation is not Pareto optimal."</div>
+    <div class="xq-solution"><p><b>False.</b> Finite value is sufficient for PO, not necessary. In Case 2 of the log example (\(\alpha=\beta\), \(\bar r=0\)), \(p_t=1\) for all \(t\), so the value is \(\sum_t1=\infty\). Yet the CE equals the best symmetric allocation \((1-\beta,\beta)\) and is PO.</p></div>
+  </div>
+
+  <div class="xq" id="s2-03" data-kind="tf" data-answer="F"
+       data-study="../lessons/0012-why-the-1wt-fails-in-olg.html#s5|L12 §5 · It takes a double infinity ;; ../lessons/0012-why-the-1wt-fails-in-olg.html#int-intuition-what-infinite-value-means|L12 §5 · What the infinite value means">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag exam">common wrong answer</span></div>
+    <div class="xq-stem">"The OLG competitive equilibrium can be inefficient because markets are incomplete: the unborn cannot trade with the current old."</div>
+    <div class="xq-solution"><p><b>False</b> as a diagnosis. The OLG CE <em>is</em> an Arrow–Debreu equilibrium with a price for every dated good, and every agent can trade in every market at which it is alive. Nothing in the 1WT proof requires agents to meet. The proof breaks at one step: with infinitely many agents <em>and</em> goods, the value of the aggregate endowment can be infinite, and summing the inequalities gives "\(\infty>\infty\)" (Shell's double infinity).</p>
+    <div class="rubric">Some circulating review notes give the "missing market" answer. Alvarez's slides give the infinite-value one; use it.</div></div>
+  </div>
+
+  <div class="xq" id="s2-04" data-kind="tf" data-answer="T"
+       data-study="../lessons/0012-why-the-1wt-fails-in-olg.html#s5|L12 §5 · It takes a double infinity (finite agents case)">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">Note II pp.26–27</span></div>
+    <div class="xq-stem">"In an economy with finitely many households and infinitely many dated goods, a competitive equilibrium in which all utilities are strictly increasing is Pareto optimal."</div>
+    <div class="xq-solution"><p><b>True.</b> Strictly increasing utility gives LNS, so every budget binds: \(p\cdot\bar x^i=p\cdot e^i\). In a CE each household's wealth must be finite, or it would have no optimal choice. A finite sum of finite numbers is finite, so \(p\cdot\sum_i\bar x^i<\infty\) and the 1WT applies. A failure needs a double infinity: infinitely many goods <em>and</em> infinitely many agents.</p></div>
+  </div>
+
+  <div class="xq" id="s2-05" data-kind="tf" data-answer="F"
+       data-study="../lessons/0008-olg-environment.html#warn-what-proof-does-does-not|L8 §4 · What the no-trade proof does and does not use ;; ../lessons/0008-olg-environment.html#pf-proof-induction-dates|L8 §4 · The proof (induction on dates)">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"The result that the OLG endowment economy has a unique, no-trade equilibrium relies on log utility."</div>
+    <div class="xq-solution"><p><b>False.</b> The induction uses only that (i) the initial old value only date-1 consumption, (ii) each generation is a single (representative) household with strictly increasing utility, and (iii) feasibility at each date. Log utility only gives closed forms for \(\bar r\). What the result <em>does</em> need is one type per cohort: with heterogeneous households, they trade within the cohort (Lesson 16, and the Spring 2023 midterm).</p></div>
+  </div>
+
+  <div class="xq" id="s2-06" data-kind="tf" data-answer="T"
+       data-study="../lessons/0009-olg-prices-and-interest-rates.html#s2-equilibrium-prices|L9 §2 · Equilibrium prices in the log example ;; ../lessons/0009-olg-prices-and-interest-rates.html#s4|L9 §4 · Why r̄ rises with α and falls with β">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"In the log example with endowments \((1-\alpha,\alpha)\) and weights \((1-\beta,\beta)\), the equilibrium interest rate is negative if and only if \(\beta>\alpha\)."</div>
+    <div class="xq-solution"><p><b>True.</b> Prices support autarky: \(\frac{1}{1+\bar r}=\frac{v_2}{v_1}\big|_{e}=\frac{\beta/\alpha}{(1-\beta)/(1-\alpha)}\). So \(\bar r=\frac{\alpha-\beta}{\beta(1-\alpha)}\), which is negative iff \(\beta>\alpha\). Intuition: households want more old-age consumption (\(\beta\)) than their old-age endowment share (\(\alpha\)), but there is nobody to save with, so the interest rate falls until they are happy not to trade.</p></div>
+  </div>
+
+  <div class="xq" id="s2-07" data-kind="tf" data-answer="F"
+       data-study="../lessons/0009-olg-prices-and-interest-rates.html#s4|L9 §4 · Why r̄ rises with α and falls with β">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"In the log example, an increase in the old-age endowment share \(\alpha\) lowers the autarky interest rate."</div>
+    <div class="xq-solution"><p><b>False:</b> it raises it. \(1+\bar r=\frac{1-\beta}{\beta}\cdot\frac{\alpha}{1-\alpha}\) is increasing in \(\alpha\). A higher \(\alpha\) means the young are poorer now and richer later, so they want to <em>borrow</em> at the old rate. Since nobody can lend, the interest rate rises until they no longer want to.</p></div>
+  </div>
+
+  <div class="xq" id="s2-08" data-kind="tf" data-answer="T"
+       data-study="../lessons/0010-olg-efficiency.html#thm-three-cases|L10 §4 · The three cases (Case 1) ;; ../lessons/0010-olg-efficiency.html#s5|L10 §5 · Why Case 1 is a genuine Pareto improvement">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"In the log example with \(\beta>\alpha\), the allocation giving every generation \((1-\beta,\beta)\) and the initial old \(\beta\) Pareto-dominates the competitive equilibrium."</div>
+    <div class="xq-solution"><p><b>True.</b> It is feasible (\(c_y+c_o=1\) at each date). Every generation \(t\ge1\) strictly prefers \((1-\beta,\beta)\), the maximizer of \(v\) on \(c_y+c_o=1\), to \((1-\alpha,\alpha)\) since \(\alpha\ne\beta\). The initial old get \(\beta>\alpha\). Everyone is strictly better off. The implementation is a never-ending chain: each young gives \(\beta-\alpha\) to the current old.</p></div>
+  </div>
+
+  <div class="xq" id="s2-09" data-kind="tf" data-answer="F"
+       data-study="../lessons/0010-olg-efficiency.html#int-case-3-why-there-s|L10 §5 · Case 3: why there's no free lunch when r̄ > 0 ;; ../lessons/0012-why-the-1wt-fails-in-olg.html#s3|L12 §3 · Compute the value of the aggregate endowment">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"In the log example with \(\beta<\alpha\), every generation \(t\ge1\) prefers \((1-\beta,\beta)\) to its CE bundle, so the CE is not Pareto optimal."</div>
+    <div class="xq-solution"><p><b>False.</b> The premise is true but the conclusion does not follow. Moving to \((1-\beta,\beta)\) requires the old to consume less (\(\beta<\alpha\)), so the <em>initial old</em> lose. In fact the CE is PO: \(\bar r>0\), so \(p_t=(1+\bar r)^{-(t-1)}\) and the value of the aggregate endowment is \(\sum_tp_t=(1+\bar r)/\bar r<\infty\). The 1WT applies.</p></div>
+  </div>
+
+  <div class="xq" id="s2-10" data-kind="tf" data-answer="F"
+       data-study="../lessons/0011-pay-as-you-go-social-security.html#thm-answer-slide-question|L11 §3 · When does social security make everyone better off?">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"If \(\beta<\alpha\), introducing a small pay-as-you-go social security tax \(\tau>0\) makes every agent in the economy worse off."</div>
+    <div class="xq-solution"><p><b>False:</b> the initial old receive \(\tau\) without ever paying, so they gain. Every generation \(t\ge1\) loses: at \(\tau=0\), \(\frac{d}{d\tau}v(1-\alpha-\tau,\alpha+\tau)=-v_1+v_2\), which is negative when \(\bar r>0\) (the MRS \(v_1/v_2=1+\bar r>1\)). PAYG pays a return of 0 (population growth) while the market pays \(\bar r>0\).</p></div>
+  </div>
+
+  <div class="xq" id="s2-11" data-kind="tf" data-answer="T"
+       data-study="../lessons/0011-pay-as-you-go-social-security.html#pf-analysis|L11 §3 · Analysis of W(τ) ;; ../lessons/0011-pay-as-you-go-social-security.html#s2-implementing-best-symmetric-allocation|L11 §2 · Implementing the best symmetric allocation">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"If \(\beta>\alpha\), every PAYG tax \(\tau\in(0,\beta-\alpha]\) is a Pareto improvement over the competitive equilibrium."</div>
+    <div class="xq-solution"><p><b>True.</b> After-tax endowments are \((1-\alpha-\tau,\alpha+\tau)\) and the CE is still no trade. \(W(\tau)=v(1-\alpha-\tau,\alpha+\tau)\) is strictly concave, increasing at \(0\) (since \(\bar r<0\)), and maximized at \(\tau=\beta-\alpha\). So \(W(\tau)>W(0)\) on \((0,\beta-\alpha]\), and in fact up to some \(\bar\tau>\beta-\alpha\). The initial old gain \(\tau\).</p></div>
+  </div>
+
+  <div class="xq" id="s2-12" data-kind="tf" data-answer="F"
+       data-study="../lessons/0013-growing-olg-economy.html#thm-proposition-still-no-trade-same|L13 §2 · Still no trade, same interest rate ;; ../lessons/0013-growing-olg-economy.html#int-why-growth-doesn-t-change|L13 §2 · Why growth doesn't change r̄">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">Note II p.30</span></div>
+    <div class="xq-stem">"In the growing OLG endowment economy (endowments \((1+g)^t(1-\alpha)\) young and \((1+g)^t\alpha\) old, cohort size \((1+n)^t\)), faster productivity growth \(g\) raises the equilibrium interest rate."</div>
+    <div class="xq-solution"><p><b>False.</b> The CE is still no trade, and \(\bar r\) is the MRS at each generation's own endowment. Scaling both endowments by \((1+g)^t\) leaves the log MRS unchanged (homotheticity), so \(\bar r=\frac{\alpha-\beta}{\beta(1-\alpha)}\) as before. Growth changes the <em>benchmark</em> \((1+g)(1+n)\) against which \(\bar r\) is compared, not \(\bar r\) itself.</p></div>
+  </div>
+
+  <div class="xq" id="s2-13" data-kind="tf" data-answer="T"
+       data-study="../lessons/0013-growing-olg-economy.html#thm-inefficiency-condition-growing-economy|L13 §5 · Inefficiency condition in a growing economy ;; ../lessons/0013-growing-olg-economy.html#int-intuition-two-rates-return|L13 §5 · Two rates of return">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"With population growth \(n>0\), the OLG endowment equilibrium can be Pareto inefficient even though \(\bar r>0\)."</div>
+    <div class="xq-solution"><p><b>True.</b> The best symmetric allocation dominates the CE iff \(1+\bar r<(1+g)(1+n)\). With \(0<\bar r\lt n\) (and \(g=0\)), the CE is inefficient. Equivalently, the aggregate endowment grows at rate \((1+g)(1+n)\) while prices fall at \(1+\bar r\), so its value \(\sum_t\big(\frac{(1+g)(1+n)}{1+\bar r}\big)^{t}\) is infinite. "\(r>0\) ⇒ efficient" holds only without growth.</p></div>
+  </div>
+
+  <div class="xq" id="s2-14" data-kind="tf" data-answer="F"
+       data-study="../lessons/0013-growing-olg-economy.html#thm-permanent-fall-population-growth|L13 §7 · A permanent fall in population growth">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">Note III pp.25–27</span></div>
+    <div class="xq-stem">"In the OLG endowment economy with a fixed PAYG tax \(\tau\) per young person, a permanent fall in the population growth rate \(n\) hurts the current old but benefits future generations."</div>
+    <div class="xq-solution"><p><b>False.</b> Each old person receives \((1+n)\tau\). After the fall, the current old receive less, so they lose. Every future generation still pays \(\tau\) when young and receives \((1+n')\tau<(1+n)\tau\) when old: a lower return on the same contribution. Its budget line rotates around autarky toward it, so it loses too. Nobody gains.</p></div>
+  </div>
+
+  <div class="xq" id="s2-15" data-kind="tf" data-answer="T"
+       data-study="../lessons/0009-olg-prices-and-interest-rates.html#warn-why-savings-rise-here-not|L9 §3 · Why savings rise with r here (not always!)">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"In the log example with endowments in both periods, desired savings \(s(r)\) are strictly increasing in \(r\); with log utility and no old-age endowment they would not depend on \(r\) at all."</div>
+    <div class="xq-solution"><p><b>True.</b> \(s(r)=\beta(1-\alpha)-\frac{(1-\beta)\alpha}{1+r}\). With log utility, income and substitution effects cancel on the young's own wages, so only the old-age endowment term moves with \(r\). A higher \(r\) lowers its present value \(\alpha/(1+r)\), the human-wealth effect, and so raises saving. With no old-age endowment, \(s=\beta\times\)(young endowment), which is flat in \(r\). That is the Diamond-model case of Session 3.</p></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="derive">4. Guided derivations</h2>
+
+  <div class="xq" id="s2-d1" data-kind="derive"
+       data-study="../lessons/0008-olg-environment.html#ex-8-2|L8 · Exercise 8.2 (OLG with a tree, parts 1–3) ;; ../lessons/0009-olg-prices-and-interest-rates.html#ex-9-2|L9 · Exercise 9.2 (the savings fixed point) ;; ../lessons/0012-why-the-1wt-fails-in-olg.html#s3|L12 §3 · The value of the aggregate endowment">
+    <div class="xq-src"><span class="tag past">Past exam · 2017/18 Midterm 1, "OLG and trees", parts 1–6</span> <span class="pts">60 pts</span></div>
+    <div class="xq-stem"><p>Two-period lives, one household per cohort. Generation \(t\) has endowment \(e_t>0\) when young and nothing when old, and utility \(u^t(c^t_t,c^t_{t+1})\) strictly increasing and concave. There is one tree, paying dividends \(d_t\ge0\); the initial old own it. Feasibility: \(c^{t-1}_t+c^t_t=d_t+e_t\). The young buy \(a_t\) trees at ex-dividend price \(q_t\) and bonds \(s_t\) paying \(1+r_t\):
+    \(c^t_t+a_tq_t+s_t=e_t\), \(c^t_{t+1}=a_t(q_{t+1}+d_{t+1})+s_t(1+r_t)\).</p>
+    <ol>
+      <li>(10 pts) What is the equilibrium \(a_t\)? Why?</li>
+      <li>(10 pts) What is the equilibrium \(s_t\)? Why?</li>
+      <li>(10 pts, 1 line) For an interior solution, relate \(1+r_t\) to \((q_{t+1}+d_{t+1})/q_t\).</li>
+      <li>(10 pts, 1 equation) Let \(\sigma_t(R)\equiv\arg\max_xu^t(e_t-x,xR)\). Write a difference equation for \(q_t\).</li>
+      <li>(10 pts) With constant \(\bar e,\bar u,\bar d\), write the equation for a steady state \(\bar q\).</li>
+      <li>(10 pts) Assume Inada conditions and \(\bar d>0\). Is \(\bar r>0\)? Is the steady-state allocation Pareto optimal?</li>
+    </ol></div>
+    <div class="xq-solution">
+      <p>1. \(a_t=1\): the old will not be alive next period, so they sell; the supply of trees is 1 and only the young hold them.<br>
+      2. \(s_t=0\): bonds are in zero net supply and all young are identical, and the old cannot borrow because they will not be there to repay.<br>
+      3. \(1+r_t=\dfrac{q_{t+1}+d_{t+1}}{q_t}\) (no arbitrage between trees and bonds).<br>
+      4. Total saving is \(a_tq_t+s_t=q_t\), so \(\sigma_t\!\left(\dfrac{q_{t+1}+d_{t+1}}{q_t}\right)=q_t\).<br>
+      5. \(\bar\sigma\!\left(1+\dfrac{\bar d}{\bar q}\right)=\bar q\).<br>
+      6. Inada makes saving strictly positive at any finite return, so \(\bar q=\bar\sigma(\cdot)>0\) and \(\bar r=\bar d/\bar q>0\). <b>Yes, PO</b>, but justify it with the value argument: \(p_t=(1+\bar r)^{-(t-1)}\), so the value of the aggregate endowment is \((\bar e+\bar d)(1+\bar r)/\bar r<\infty\), and the 1WT proof goes through. "\(r>0\) so the 1WT applies" alone is incomplete.</p>
+    </div>
+  </div>
+
+  <div class="xq" id="s2-d2" data-kind="derive"
+       data-study="../lessons/0009-olg-prices-and-interest-rates.html#ex-9-2|L9 · Exercise 9.2 (comparative statics of the tree price) ;; ../lessons/0009-olg-prices-and-interest-rates.html#s3|L9 §3 · The savings function">
+    <div class="xq-src"><span class="tag past">Past exam · 2017/18 Midterm 1, "OLG and trees", parts 7–12</span> <span class="pts">60 pts</span></div>
+    <div class="xq-stem"><p>Continue with the steady state \(\bar\sigma(1+\bar d/\bar q)=\bar q\). Answer each in 1–3 lines.</p>
+    <ol start="7">
+      <li>(10 pts) If \(\bar\sigma\) is strictly increasing, is the steady state unique?</li>
+      <li>(10 pts) \(\bar d\) rises. What happens to \(\bar q\) and \(\bar r\)?</li>
+      <li>(10 pts) Preferences shift so that the young save more at every interest rate. \(\bar q\)? \(\bar r\)?</li>
+      <li>(10 pts) Both goods are normal and \(\bar e\) rises. \(\bar q\)? \(\bar r\)?</li>
+      <li>(10 pts) \(\bar u\) is homothetic and \(\bar e,\bar d\) are both multiplied by \(\lambda\). \(\bar q\)? \(\bar r\)?</li>
+      <li>(10 pts) \(\bar u=(1-\beta)\log c_y+\beta\log c_o\). Solve for \(\bar q\) and \(\bar r\).</li>
+    </ol></div>
+    <div class="xq-solution">
+      <p>7. Yes. The left side \(\bar\sigma(1+\bar d/q)\) is decreasing in \(q\) (the return falls as \(q\) rises) and the right side \(q\) is increasing, so they cross at most once. They do cross: near \(q=0\) the left side is positive, and at \(q=\bar e\) it is below \(\bar e\) (Inada keeps \(c_y>0\)).<br>
+      8. The left-side curve shifts up, so \(\bar q\) rises. And \(\bar\sigma(1+\bar r')=\bar q'>\bar q=\bar\sigma(1+\bar r)\) with \(\bar\sigma\) increasing, so \(\bar r\) rises too. (With log utility \(\bar q\) does not move at all, and \(\bar r\) still rises.)<br>
+      9. The new function satisfies \(\tilde\sigma(R)\ge\bar\sigma(R)\). The curve shifts up, so \(\bar q\) rises and \(\bar r=\bar d/\bar q\) falls. (A circulating answer key writes this inequality backwards.)<br>
+      10. Old-age consumption \(c_o=xR\) is normal, so at any \(R\) the saving \(x\) rises with \(\bar e\). As in 9: \(\bar q\) rises and \(\bar r\) falls.<br>
+      11. Homotheticity gives \(\bar\sigma(R;\lambda\bar e)=\lambda\bar\sigma(R;\bar e)\). Try \(\lambda\bar q\): the return \(1+\lambda\bar d/(\lambda\bar q)\) is unchanged, and the equation holds. By uniqueness, \(\bar q\) scales by \(\lambda\) and \(\bar r\) is unchanged.<br>
+      12. \(\sigma=\beta\bar e\) for every \(R\), so \(\bar q=\beta\bar e\) and \(\bar r=\bar d/(\beta\bar e)\).</p>
+    </div>
+  </div>
+
+  <div class="xq" id="s2-d3" data-kind="derive"
+       data-study="../lessons/0012-why-the-1wt-fails-in-olg.html#s3|L12 §3 · Compute the value of the aggregate endowment ;; ../lessons/0012-why-the-1wt-fails-in-olg.html#s4|L12 §4 · The Pareto improvement, priced at CE prices">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="pts">40 pts</span></div>
+    <div class="xq-stem"><p>Log example, endowments \((1-\alpha,\alpha)\), \(p_1=1\).</p>
+    <ol type="a">
+      <li>(10 pts, 1 line) Write \(p_t\) in terms of \(\bar r\).</li>
+      <li>(10 pts, 2 lines) Compute \(p\cdot\sum_i\bar x^i\) for each sign of \(\bar r\).</li>
+      <li>(10 pts, 2 lines) For which parameters does the 1WT apply? What do you conclude in the other cases?</li>
+      <li>(10 pts, 3 lines) When \(\beta>\alpha\), show that each generation's improved bundle \((1-\beta,\beta)\) costs <em>more</em> at CE prices than its endowment, and explain why that is no contradiction.</li>
+    </ol></div>
+    <div class="xq-solution">
+      <p>(a) \(p_t=(1+\bar r)^{-(t-1)}\).<br>
+      (b) Aggregate consumption is 1 at each date, so the value is \(\sum_{t\ge1}(1+\bar r)^{-(t-1)}\): equal to \((1+\bar r)/\bar r\) if \(\bar r>0\), and \(+\infty\) if \(\bar r\le0\).<br>
+      (c) The 1WT applies when \(\bar r>0\iff\beta<\alpha\): the CE is PO. When \(\bar r\le0\) the theorem is silent. Case 1 (\(\beta>\alpha\)) turns out inefficient and Case 2 (\(\beta=\alpha\)) efficient.<br>
+      (d) The bundle costs \(p_t(1-\beta)+p_{t+1}\beta\) against an endowment worth \(p_t(1-\alpha)+p_{t+1}\alpha\). The difference is \(p_t(\beta-\alpha)\big(\frac{1}{1+\bar r}-1\big)>0\), since \(\bar r<0\). So every agent's improvement costs more, exactly as move (2) of the proof says. Summing gives \(\infty>\infty\), so no contradiction arises: the economy can afford it because the chain of transfers never ends.</p>
+    </div>
+  </div>
+
+  <div class="xq" id="s2-d4" data-kind="derive"
+       data-study="../lessons/0013-growing-olg-economy.html#s3|L13 §3 · Feasible symmetric allocations ;; ../lessons/0013-growing-olg-economy.html#pf-proof-3|L13 §5 · Proof of the inefficiency condition ;; ../lessons/0013-growing-olg-economy.html#s6|L13 §6 · PAYG with growth">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="pts">50 pts</span></div>
+    <div class="xq-stem"><p>Growing economy: cohort size \(N_t=(1+n)^t\); generation \(t\) has endowment \((1+g)^t(1-\alpha)\) young, \((1+g)^t\alpha\) old; log utility with weight \(\beta\). Let \(G\equiv(1+g)(1+n)\). Normalize consumption by \((1+g)^t\): \(\hat c_y=c^t_t/(1+g)^t\), \(\hat c_o=c^t_{t+1}/(1+g)^t\).</p>
+    <ol type="a">
+      <li>(10 pts, 1 line) Write the normalized resource constraint for symmetric allocations.</li>
+      <li>(10 pts, 1 line) Find the best symmetric allocation.</li>
+      <li>(15 pts, 3 lines) Show it Pareto-dominates the CE iff \(1+\bar r\lt G\).</li>
+      <li>(15 pts, 2 lines) Show the value of the aggregate endowment is infinite under the same condition.</li>
+    </ol></div>
+    <details class="hint"><summary>Hint for (a)</summary><div class="body"><p>At date \(t\) there are \(N_t\) young and \(N_{t-1}\) old. Divide date-\(t\) feasibility by \(N_{t-1}(1+g)^{t-1}\).</p></div></details>
+    <div class="xq-solution">
+      <p>(a) \(G\hat c_y+\hat c_o=(1-\alpha)G+\alpha\equiv W\).<br>
+      (b) Maximize \((1-\beta)\log\hat c_y+\beta\log\hat c_o\) on the line: \(\hat c_y^*=(1-\beta)W/G\), \(\hat c_o^*=\beta W\).<br>
+      (c) Generations \(t\ge1\) weakly prefer the best point to their endowment, strictly unless the endowment is the best point. So domination comes down to the initial old: we need \(\hat c^*_o>\alpha\), i.e. \(\beta[(1-\alpha)G+\alpha]>\alpha\), i.e. \(G>\frac{\alpha(1-\beta)}{\beta(1-\alpha)}=1+\bar r\).<br>
+      (d) Aggregate endowment at date \(t\) is proportional to \(G^t\), and \(p_t\propto(1+\bar r)^{-t}\). So the value is proportional to \(\sum_t\big(G/(1+\bar r)\big)^t\), which is infinite iff \(G\ge1+\bar r\): the same condition, up to the knife edge.</p>
+    </div>
+  </div>
+
+  <div class="xq-score"></div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me. Try "why is the Case 2 allocation PO if the value is infinite?" or "write me a variant of the tree problem with population growth", or paste your answer to part 6 and ask whether it would get full marks.</div>
+
+  <div class="lesson-nav">
+    <a href="s1-welfare-theorems.html">← Session 1: Welfare theorems</a>
+    <a href="index.html">Study-guide hub</a>
+    <a href="../reference/olg-cheatsheet.html">OLG cheatsheet</a>
+    <a href="s3-olg-extensions-perpetual-youth.html">Session 3: OLG extensions &amp; perpetual youth →</a>
+  </div>
+
+</div>
+</body>
+</html>

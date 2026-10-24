@@ -31,6 +31,36 @@
     <div class="meta">Planner weights, the representative agent, the welfare theorems via first-order conditions, Gorman aggregation and its limits. Lessons <a href="../lessons/0021-utility-possibility-set-and-planner-weights.html">21</a>–<a href="../lessons/0025-limits-of-aggregation.html">25</a> · <a href="../sources/slides4-aggregation-planner.pdf">Slides</a> · <a href="ge-glossary.html">Glossary</a> · <a href="../index.html">Index</a></div>
   </div>
 
+  <div class="box mustknow" id="mt1">
+    <div class="box-title"><span class="mt1">MT1</span> Must-know for Midterm 1 (Lessons 21–23; closed book: write these from a blank page)</div>
+    <div class="two">
+      <div>
+        <p><b>Be able to write</b></p>
+        <ol>
+          <li>Planner-weight theorem: \(\lambda\gg0\) ⇒ PO (no convexity); PO ⇒ some \(\lambda\ge0\), \(\lambda\neq0\) (needs HH, FF, CC: convex \(U\)).</li>
+          <li>Planner FOC \(\lambda_iu^i_l=\gamma_l\); MRS \(=\gamma_l/\gamma_k\) for all \(i\); \(u^i_l/u^j_l=\lambda_j/\lambda_i\); \(\gamma_l=\partial U/\partial\bar e_l\).</li>
+          <li>Household FOC \(u^i_l=\mu_ip_l\), \(\mu_i=\partial V^i/\partial w\); the dictionary \(\lambda_i=\kappa/\mu_i\), \(\gamma=\kappa p\); \(p_l\propto\sum_i\frac{1}{\mu_i}u^i_l\).</li>
+          <li>Negishi's algorithm, and the log example: \(\gamma\cdot x^i(\lambda)=\lambda_i\), so \(\lambda_i\) = wealth.</li>
+          <li>Spring 2023 Q1: satiation utility ⇒ \(x^i_l=\theta^i_l+\delta^i(\bar e_l-\bar\theta_l)\), \(\delta^i=\frac{\lambda_i^{-1/\sigma}}{\sum_j\lambda_j^{-1/\sigma}}\).</li>
+          <li>Risk sharing: \(\lambda_i\pi^i_sv_i'(x^i_s)=\gamma_s\); common beliefs ⇒ \(x^i_s=g^i(\bar e_s)\); log + beliefs ⇒ share \(\frac{\lambda_i\pi^i_s}{\sum_j\lambda_j\pi^j_s}\).</li>
+        </ol>
+      </div>
+      <div>
+        <p><b>Past-exam traps</b> (Fall 2005, Spring 2023, Fall 2025)</p>
+        <ul>
+          <li>\(\lambda_i=1/\mu_i\), <em>not</em> \(\mu_i\): richer ⇒ higher weight.</li>
+          <li>Zero weights break sufficiency.</li>
+          <li>The MRS <em>condition</em> has no \(\lambda\); its <em>value</em> does, so prices depend on the distribution.</li>
+          <li>The FOC proof of the 1WT needs differentiability, interiority and concavity; the general proof needs only LNS.</li>
+          <li>Equal endowments ⇒ envy-free CE (identical budget sets).</li>
+          <li>Fall 2025 Final Q2.2: \(U=\lambda H(\bar e-\bar\theta)\), not \(H(\bar e-\sum\lambda_i\theta^i)\).</li>
+        </ul>
+      </div>
+    </div>
+    <p class="see">Sections marked <span class="mt1-off">not on MT1</span> below (Gorman aggregation and its limits, Lessons 24–25) come after the midterm. Drilled in <a href="../midterm1/s4-planner-negishi.html">Session 4</a> of the study guide.</p>
+  </div>
+
+
   <h2>Utility possibility set <span class="see"><a href="../lessons/0021-utility-possibility-set-and-planner-weights.html">L21</a> · <a href="../sources/slides4-aggregation-planner.pdf#page=3">slides 3–4</a></span></h2>
   <div class="two">
     <div>
@@ -107,7 +137,7 @@
     <li>In general \(p\) and \(\bar x\) depend on the endowment distribution \(\{e^i\}\), and \(\gamma\) and \(\bar x\) depend on \(\lambda\).</li>
   </ul>
 
-  <h2>Gorman aggregation <span class="see"><a href="../lessons/0024-gorman-aggregation.html">L24</a> · <a href="../sources/slides4-aggregation-planner.pdf#page=26">slides 26–30</a></span></h2>
+  <h2>Gorman aggregation <span class="mt1-off">not on MT1</span> <span class="see"><a href="../lessons/0024-gorman-aggregation.html">L24</a> · <a href="../sources/slides4-aggregation-planner.pdf#page=26">slides 26–30</a></span></h2>
   <div class="box theorem">
     <p><b>Assume</b> \(u^i(x)=g^i(h(x))\), with \(g^i\) strictly increasing and concave and \(h\) <b>common</b> and HD1. Endowments are proportional, \(e^i=\delta^i\bar e\) with \(\sum_i\delta^i=1\). <b>Then</b> \(\bar x^i=\delta^i\bar e\) (no trade), and</p>
     <p>$$p_l=\kappa\,\frac{\partial h(\bar e)}{\partial x_l},\qquad \mu_i=\frac{g^{i\prime}\big(h(\delta^i\bar e)\big)}{\kappa},\qquad \lambda_i=\frac{\kappa}{g^{i\prime}\big(h(\delta^i\bar e)\big)},\qquad \gamma_l=\kappa\,\frac{\partial h(\bar e)}{\partial x_l}.$$</p>
@@ -119,7 +149,7 @@
     <li><b>Arbitrary endowments:</b> all that is needed is \(p\cdot e^i=\delta^i\,p\cdot\bar e\), i.e. define \(\delta^i=p\cdot e^i/p\cdot\bar e\) at \(p\propto\nabla h(\bar e)\). Then \(\bar x^i=\delta^i\bar e\), and there is trade.</li>
   </ul>
 
-  <h2>Which preference families aggregate? <span class="see"><a href="../lessons/0025-limits-of-aggregation.html">L25</a> · <a href="../sources/slides4-aggregation-planner.pdf#page=31">slides 31–37</a></span></h2>
+  <h2>Which preference families aggregate? <span class="mt1-off">not on MT1</span> <span class="see"><a href="../lessons/0025-limits-of-aggregation.html">L25</a> · <a href="../sources/slides4-aggregation-planner.pdf#page=31">slides 31–37</a></span></h2>
   <p>Method: planner FOC \(\lambda_iu^i_l=\gamma_l\) → solve for \(x^i_l\) → sum using \(\sum_ix^i_l=\bar e_l\) → solve for \(\gamma_l(\lambda)\) → test whether \(\gamma_l/\gamma_k\) depends on \(\lambda\). Notation: \(\bar\theta=\sum_i\theta^i\).</p>
   <table class="simple">
     <tr><th>Family</th><th>\(\gamma_l\)</th><th>Aggregation?</th></tr>
@@ -136,7 +166,7 @@
     <p>Every family marked "Yes" is \(u^i=g\big(H(x-\theta^i)\big)\), with \(g\) and HD1 \(H\) common across agents: <b>identical homothetic preferences after an agent-specific shift of the origin</b> (slide 37). Let \(\hat x^i=x^i-\theta^i\), so feasibility becomes \(\sum_i\hat x^i=\bar e-\bar\theta\), and \(\gamma\propto\nabla H(\bar e-\bar\theta)\). Equivalently, Engel curves are linear with a common slope (Gorman polar form).</p>
   </div>
 
-  <h2>Representative agent with translations (Fall 2025 Final Q2) <span class="see"><a href="../lessons/0025-limits-of-aggregation.html">L25</a></span></h2>
+  <h2>Representative agent with translations (Fall 2025 Final Q2) <span class="mt1">MT1</span> <span class="see"><a href="../lessons/0022-representative-agent-and-planner-focs.html#ex-22-1">L22 Ex 22.1</a> · <a href="../lessons/0025-limits-of-aggregation.html">L25</a></span></h2>
   <ul>
     <li>Problem: \(U(\bar e;\lambda)=\max\sum_i\lambda_iH(c^i-\theta^i)\) s.t. \(\sum_ic^i=\bar e\), with \(H\) HD1, increasing and quasi-concave (hence concave and superadditive on its positive cone).</li>
     <li><b>Equal weights</b> (the CE weights, since \(\mu_i=1/b(p)\) is common under HD1 \(H\)): \(U(\bar e;\lambda)=\lambda\,H(\bar e-\bar\theta)\).</li>

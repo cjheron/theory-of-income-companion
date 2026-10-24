@@ -35,7 +35,7 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>1. The environment</h2>
+  <h2 id="s1">1. The environment</h2>
 
   <p>Everything is as in <a href="0008-olg-environment.html">Lesson 8</a>, with two growth rates added <a class="slide-ref" href="../sources/slides2-olg.pdf#page=28">N2 p.28</a>:</p>
   <ul>
@@ -47,15 +47,15 @@
   </ul>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>2. Savings scale with productivity; the interest rate does not move</h2>
+  <h2 id="s2">2. Savings scale with productivity; the interest rate does not move</h2>
 
-  <div class="theorem">
+  <div class="theorem" id="thm-savings-growing-economy">
     <div class="box-title">Savings in the growing economy <a class="slide-ref" href="../sources/slides2-olg.pdf#page=29">N2 p.29</a></div>
     <p>Facing a constant rate \(r\), generation \(t\)'s optimal saving is
     $$s_t(r;\alpha,\beta,g)=s(r;\alpha,\beta)\,(1+g)^t,\qquad s(r;\alpha,\beta)=\beta(1-\alpha)-\frac{(1-\beta)\alpha}{1+r},$$
     where \(s(r;\alpha,\beta)\) is the no-growth saving function of <a href="0009-olg-prices-and-interest-rates.html">Lesson 9</a>.</p>
   </div>
-  <div class="proof">
+  <div class="proof" id="pf-proof">
     <div class="box-title">Proof</div>
     <ol class="steps">
       <li>Generation \(t\) solves \(\max_s\ (1-\beta)\log\big[(1-\alpha)(1+g)^t-s\big]+\beta\log\big[\alpha(1+g)^t+s(1+r)\big]\).</li>
@@ -66,12 +66,12 @@
     <div class="qed">∎</div>
   </div>
 
-  <div class="theorem">
+  <div class="theorem" id="thm-proposition-still-no-trade-same">
     <div class="box-title">Proposition: still no trade, same interest rate <a class="slide-ref" href="../sources/slides2-olg.pdf#page=29">N2 p.29</a></div>
     <p>The unique CE is autarky, \(x^i=e^i\), and the equilibrium interest rate is the same as without growth:
     $$1+\bar r=\frac{(1-\beta)\alpha}{\beta(1-\alpha)},\qquad\text{i.e.}\quad \bar r=\frac{\alpha-\beta}{\beta(1-\alpha)}\quad\text{for any } g,n.$$</p>
   </div>
-  <div class="proof">
+  <div class="proof" id="pf-proof-2">
     <div class="box-title">Proof</div>
     <ol class="steps">
       <li><strong>No trade (same induction as Lesson 8).</strong> The initial old want only date-1 goods and own only date-1 goods, so \(x^0_1=e^0_1\). Date-1 clearing, \(N_1x^1_1+N_0x^0_1=N_1e^1_1+N_0e^0_1\), then gives \(x^1_1=e^1_1\) (identical members of a cohort make identical choices, by strict concavity). Generation 1's budget then forces \(x^1_2=e^1_2\). Date-2 clearing gives \(x^2_2=e^2_2\), and so on by induction.</li>
@@ -80,40 +80,40 @@
     <div class="qed">∎</div>
   </div>
 
-  <div class="intuition">
+  <div class="intuition" id="int-why-growth-doesn-t-change">
     <div class="box-title">Why growth doesn't change \(\bar r\) (slide question: "is there any difference?")</div>
     <p>The interest rate is pinned down by each cohort's MRS <em>at its own endowment</em>. Productivity growth scales both entries of a cohort's endowment by \((1+g)^t\), and homothetic preferences have the same MRS along a ray. Population growth only changes <em>how many</em> identical agents there are, and in autarky each agent's saving is zero whatever the cohort's size. Growth will matter, a lot, for <strong>efficiency</strong>, because it changes what is <em>feasible</em> through transfers across cohorts.</p>
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>3. Feasible symmetric allocations</h2>
+  <h2 id="s3">3. Feasible symmetric allocations</h2>
 
   <p>Call an allocation <strong>symmetric</strong> if consumption, normalized by the cohort's productivity, is the same for every cohort: \(c^t_t=\hat c_y(1+g)^t\) and \(c^t_{t+1}=\hat c_o(1+g)^t\). (The slide writes the old at date \(t\) as \(c_{ot}=\hat c_o(1+g)^{t-1}\): they belong to cohort \(t-1\).) Date-\(t\) feasibility
   $$N_t\hat c_y(1+g)^t+N_{t-1}\hat c_o(1+g)^{t-1}=N_t(1-\alpha)(1+g)^t+N_{t-1}\alpha(1+g)^{t-1}$$
   divided by \(N_{t-1}(1+g)^{t-1}\) becomes the same equation for every \(t\) <a class="slide-ref" href="../sources/slides2-olg.pdf#page=30">N2 p.30</a>:</p>
 
-  <div class="definition">
+  <div class="definition" id="def-normalized-resource-constraint">
     <div class="box-title">Normalized resource constraint</div>
     $$G\,\hat c_y+\hat c_o=W,\qquad G\equiv(1+g)(1+n),\qquad W\equiv(1-\alpha)G+\alpha .$$
     <p>\(G\) is the gross growth rate of the aggregate economy: there are \(1+n\) young per old, each \(1+g\) times as productive. The autarky point \((\hat c_y,\hat c_o)=(1-\alpha,\alpha)\) is always on the line. The slope is \(-G\): each unit taken from a young person yields \(G\) units for the old, because there are \(1+n\) young per old and each young unit is worth \(1+g\) in old-cohort productivity units.</p>
   </div>
 
-  <h2>4. The best symmetric allocation</h2>
+  <h2 id="s4">4. The best symmetric allocation</h2>
 
   <p>Because \(\log[\hat c(1+g)^t]=\log\hat c+t\log(1+g)\), maximizing \((1-\beta)\log c^t_t+\beta\log c^t_{t+1}\) over symmetric allocations is maximizing \((1-\beta)\log\hat c_y+\beta\log\hat c_o\) subject to \(G\hat c_y+\hat c_o=W\). That is a Cobb–Douglas problem with "prices" \((G,1)\) and "income" \(W\), so expenditure shares are \(1-\beta\) and \(\beta\) <a class="slide-ref" href="../sources/slides2-olg.pdf#page=31">N2 p.31</a>:</p>
   $$\hat c_y^*=(1-\beta)\frac{(1-\alpha)(1+g)(1+n)+\alpha}{(1+g)(1+n)}=\frac{(1-\beta)W}{G},\qquad \hat c_o^*=\beta\big[(1-\alpha)(1+g)(1+n)+\alpha\big]=\beta W .$$
   <p>With \(g=n=0\), \(W=1\) and we recover \((1-\beta,\beta)\) from <a href="0010-olg-efficiency.html">Lesson 10</a>.</p>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>5. When does the best symmetric allocation dominate the CE?</h2>
+  <h2 id="s5">5. When does the best symmetric allocation dominate the CE?</h2>
 
-  <div class="theorem">
+  <div class="theorem" id="thm-inefficiency-condition-growing-economy">
     <div class="box-title">Inefficiency condition in a growing economy <a class="slide-ref" href="../sources/slides2-olg.pdf#page=32">N2 p.32</a></div>
     <p>The best symmetric allocation Pareto-dominates the autarky CE if and only if
     $$1+\bar r<(1+g)(1+n)=G .$$
     If \(1+\bar r=G\) the two coincide. If \(1+\bar r>G\), the initial old strictly prefer the CE, so the two are not Pareto-ranked.</p>
   </div>
-  <div class="proof">
+  <div class="proof" id="pf-proof-3">
     <div class="box-title">Proof</div>
     <ol class="steps">
       <li><strong>Generations \(t\ge1\).</strong> The CE point \((1-\alpha,\alpha)\) lies on the line \(G\hat c_y+\hat c_o=W\). The best symmetric point is the unique maximizer of \(v\) on that line (strictly concave objective). So every \(t\ge1\) strictly prefers it unless the two points coincide.</li>
@@ -124,7 +124,7 @@
     <div class="qed">∎</div>
   </div>
 
-  <div class="intuition">
+  <div class="intuition" id="int-intuition-two-rates-return">
     <div class="box-title">Intuition: two rates of return</div>
     <p>A young person can save in two ways. The <strong>market</strong> pays gross return \(1+\bar r\). An <strong>intergenerational transfer scheme</strong> pays \(G\): give one unit (in your cohort's productivity units) when young, and when old you receive what the next cohort gives. There are \(1+n\) of them per old person, each \(1+g\) times as productive. If the scheme pays more than the market, everyone, the initial old included, can be made better off. With small rates, the condition is roughly \(\bar r\lt n+g\): <strong>the interest rate is below the growth rate of the economy.</strong> This is the growing-economy version of "\(\bar r<0\)", and it is the same condition under which the economy is <em>dynamically inefficient</em> in the production OLG model (<a href="0015-olg-with-capital.html">Lesson 15</a>).</p>
   </div>
@@ -134,7 +134,7 @@
   The 1WT applies exactly when the best symmetric allocation fails to dominate. The two analyses agree.</p>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>6. Pay-as-you-go social security with growth</h2>
+  <h2 id="s6">6. Pay-as-you-go social security with growth</h2>
 
   <p>Tax each young person at \(t\) the amount \(\tau_t=\hat\tau(1+g)^t\) and pay the revenue to the old alive at \(t\) <a class="slide-ref" href="../sources/slides2-olg.pdf#page=33">N2 p.33</a>.</p>
   <ol class="steps">
@@ -148,9 +148,9 @@
   </ol>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>7. Class Note III: population growth only, and a fall in \(n\)</h2>
+  <h2 id="s7">7. Class Note III: population growth only, and a fall in \(n\)</h2>
 
-  <div class="box notation">
+  <div class="box notation" id="note-notation-check-note-iii-vs">
     <div class="box-title">Notation check: Note III vs Note II</div>
     <p>Class Note III's population-growth slides set \(g=0\) and keep Note II's endowments (\(1-\alpha\) young, \(\alpha\) old). They write the resource constraint divided by \(N_t\) rather than \(N_{t-1}\) <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=25">N3 p.25</a>:
     $$c_y+\frac{c_o}{1+n}=(1-\alpha)+\frac{\alpha}{1+n}.$$
@@ -161,7 +161,7 @@
   $$c_y=1-\alpha-\tau,\qquad c_o=\alpha+(1+n)\tau .$$
   More young taxpayers per retiree means a higher <em>implicit return</em> on PAYG, namely \(1+n\). Matching to the optimum gives \(\tau=\beta(1-\alpha)-\alpha(1-\beta)/(1+n)\), the \(g=0\) case of the boxed formula.</p>
 
-  <div class="theorem">
+  <div class="theorem" id="thm-permanent-fall-population-growth">
     <div class="box-title">A permanent fall in population growth <a class="slide-ref" href="../sources/slides3-olg-extensions.pdf#page=27">N3 p.27</a></div>
     <p>Suppose \(n>0\) falls permanently to \(n'=0\) at date \(T\) (so \(N_T=N_{T-1}\)), with the tax per young \(\tau\) held fixed.</p>
     <ul>
@@ -242,7 +242,7 @@
   </script>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>8. Check your understanding</h2>
+  <h2 id="s8">8. Check your understanding</h2>
 
   <div class="quiz-section">
     <div class="quiz-question" data-correct="b">
@@ -292,11 +292,11 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>9. Exercises</h2>
+  <h2 id="s9">9. Exercises</h2>
 
   <p>These follow the format of Alvarez's exams. The midterms open with true/false statements whose points are for the justification. Longer questions come as guided derivations in short steps. Class Note III's population-growth slides are Problem 6 of the 2025 problem set, so Exercises 13.4–13.5 are that problem. Write your answer before you open the solution.</p>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-13-1">
     <div class="box-title">Exercise 13.1 True or false? Justify. <span class="tag past">Past materials</span> <span class="tag exam">Exam-inspired</span></div>
     <p>Answer each in one to four lines. State the condition you are using.</p>
     <ol class="tf-list">
@@ -321,7 +321,7 @@
     </ol>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-13-2">
     <div class="box-title">Exercise 13.2 <span class="tag slides">Slides N2 pp.29–33</span> <span class="tag exam">Exam-inspired</span> (the growing economy, start to finish)</div>
     <p>Class Note II's growing economy: \(N_{t+1}=(1+n)N_t\), endowments \(e^t_t=(1+g)^t(1-\alpha)\) and \(e^t_{t+1}=(1+g)^t\alpha\), preferences \((1-\beta)\log c^t_t+\beta\log c^t_{t+1}\). Let \(G\equiv(1+g)(1+n)\) and \(W\equiv(1-\alpha)G+\alpha\).</p>
     <ol class="parts" type="a">
@@ -346,7 +346,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-13-3">
     <div class="box-title">Exercise 13.3 <span class="tag exam">Exam-inspired</span> <span class="tag proof">Proof</span></div>
     <p>Show that in the growing economy the value of the aggregate endowment at CE prices is finite iff \(1+\bar r>(1+g)(1+n)\). Use this to give a <em>one-line</em> proof that the CE is Pareto optimal when \(1+\bar r>G\). Then explain why it does not contradict Exercise 13.2(e) when \(1+\bar r&lt;G\).</p>
     <details class="solution"><summary>Show solution</summary><div class="body">
@@ -354,7 +354,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-13-4">
     <div class="box-title">Exercise 13.4 <span class="tag pset">Problem set 2025, P6 (Q1–Q5)</span> <span class="tag slides">Slides N3 pp.25–26</span></div>
     <p>Population growth only: \(N_{t+1}=(1+n)N_t\) with \(N_0=1\), endowments \((1-\alpha,\alpha)\) for every generation and \(e^0_1=\alpha\), preferences \((1-\beta)\log c_y+\beta\log c_o\). (This problem uses Note II's convention: the young get \(1-\alpha\).)</p>
     <ol class="parts" type="a">
@@ -375,7 +375,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-13-5">
     <div class="box-title">Exercise 13.5 <span class="tag pset">Problem set 2025, P6 Q6</span> <span class="tag slides">Slides N3 p.27</span></div>
     <p>Continue Exercise 13.4 and assume \(\beta>\alpha\), so the no-transfer CE has \(\bar r&lt;0\). The system with \(\tau^*\) is in place when, at date \(T\), population growth falls permanently to \(n'=0\). The tax per young stays at \(\tau^*\).</p>
     <ol class="parts" type="a">
@@ -395,7 +395,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-13-6">
     <div class="box-title">Exercise 13.6 <span class="tag pset">Problem set 3 (2022), P4</span> (stochastic OLG: \(r&lt;g\) but efficient)</div>
     <p>Two-period lives, mass one per cohort. The young have labour income \(w_t=(1-\delta)Y_t\). One tree, owned by the initial old, pays \(d_t=\delta Y_t\). Output grows randomly: \(Y_{t+1}=Y_tz_{t+1}\), \(Y_1=1\), with \(z\) i.i.d. and positive. Preferences are \((1-\beta)\log c^t_t+\beta E_t\log c^t_{t+1}\). The young can buy shares of the tree at ex-dividend price \(q^e_t\), and one-period riskless discount bonds at price \(q^b_t\).</p>
     <ol class="parts" type="a">
@@ -419,7 +419,7 @@
   </div>
 
   <div class="takeaways">
-    <h2>Key takeaways</h2>
+    <h2 id="takeaways">Key takeaways</h2>
     <ul>
       <li>Growth leaves the autarky interest rate unchanged: \(1+\bar r=\frac{(1-\beta)\alpha}{\beta(1-\alpha)}\), with saving \(s_t=(1+g)^t s(r)\).</li>
       <li>Normalized feasibility: \(G\hat c_y+\hat c_o=W\), with \(G=(1+g)(1+n)\) and \(W=(1-\alpha)G+\alpha\). Best symmetric: \(\hat c^*_y=(1-\beta)W/G\), \(\hat c^*_o=\beta W\).</li>

@@ -35,9 +35,9 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>1. The theorem</h2>
+  <h2 id="s1">1. The theorem</h2>
 
-  <div class="theorem">
+  <div class="theorem" id="thm-first-welfare-theorem">
     <div class="box-title">First Welfare Theorem <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=15">S1 p.15</a></div>
     <p>Let \(\big(p,\{\bar x^i,\bar y^j\}\big)\) be a competitive equilibrium. Assume that the preferences of every agent satisfy local non-satiation. Then \(\{\bar x^i,\bar y^j\}\) is Pareto optimal.</p>
   </div>
@@ -45,7 +45,7 @@
   <p>In one sentence: <em>if prices are such that everyone is optimizing and markets clear, there is no way to make someone better off without hurting someone else.</em> This is Adam Smith's invisible hand made precise. It is remarkable mostly for how little it assumes. There is nothing about convexity, continuity, or the shape of technology; the CE just has to exist.</p>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>2. The idea in one picture</h2>
+  <h2 id="s2">2. The idea in one picture</h2>
 
   <p>The heart of the proof is the Lemma from <a href="0003-pareto-optimality-and-lns.html">Lesson 3</a>: <strong>at equilibrium prices, everything a household likes at least as much as \(\bar x^i\) costs at least as much as \(\bar x^i\)</strong>. Geometrically, the upper contour set \(\{x: u^i(x)\ge u^i(\bar x^i)\}\) lies entirely on or above the budget hyperplane through \(\bar x^i\). A Pareto improvement would make every household's bundle weakly more expensive and one strictly so. Its total value would then exceed the value of what the economy can produce, which is impossible.</p>
 
@@ -97,13 +97,13 @@
   </script>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>3. The proof, step by step <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=16">S1 pp.16–18</a></h2>
+  <h2 id="s3">3. The proof, step by step <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=16">S1 pp.16–18</a></h2>
 
   <p><strong>Strategy: contradiction.</strong> Suppose the CE allocation is not PO. Then some feasible allocation \(\{x^i,y^j\}\) Pareto dominates it:
   $$u^i(x^i)\ge u^i(\bar x^i)\ \ \forall i\in I,\qquad u^{i'}(x^{i'})>u^{i'}(\bar x^{i'})\ \text{ for some } i'\in I.$$
   We will value both allocations at the equilibrium prices \(p\) and show that the dominating one would have to be worth more than the economy can supply.</p>
 
-  <div class="proof">
+  <div class="proof" id="pf-proof">
     <div class="box-title">Proof</div>
     <ol class="steps">
       <li>
@@ -136,12 +136,12 @@
     <div class="qed">∎</div>
   </div>
 
-  <div class="intuition">
+  <div class="intuition" id="int-intuition-accounting-behind-proof">
     <div class="box-title">Intuition: the accounting behind the proof</div>
     <p>Prices turn "better off" into "more expensive" (Steps 1–2). Profit maximization means no firm could have produced anything more valuable (Step 4). Feasibility says the value of what households consume equals the value of what firms produce plus endowments (Step 5). So a Pareto improvement would need households to consume more value than the economy can create at these prices. Every inequality is evaluated at the <em>same</em> \(p\); this is why everybody facing the same prices matters.</p>
   </div>
 
-  <h3>Proof map: what is used where</h3>
+  <h3 id="s3-proof-map-what-used">Proof map: what is used where</h3>
   <table class="simple">
     <tr><th>Step</th><th>Inequality</th><th>Assumption used</th><th>Breaks if…</th></tr>
     <tr><td>1</td><td>\(p x^i\ge p\bar x^i\)</td><td>LNS + utility maximization</td><td>thick indifference curves, satiation (Lesson 3)</td></tr>
@@ -151,13 +151,13 @@
     <tr><td>5</td><td>contradiction</td><td>feasibility; a price for every good</td><td>missing markets (Lesson 5)</td></tr>
   </table>
 
-  <div class="warning">
+  <div class="warning" id="warn-not-used-anywhere">
     <div class="box-title">Not used anywhere</div>
     <p>Convexity of preferences or technology, continuity of \(u\), differentiability, \(p\gg 0\), and the ownership shares \(\theta\) (they cancel because feasibility is valued directly) are all absent. Increasing returns, non-convex preferences and so on do not by themselves invalidate the 1WT. They may destroy <em>existence</em> of a CE, but whenever a CE exists, it is PO. That is the point of slide questions p.19 (convex \(u\)) and p.20 (increasing returns), developed in <a href="0005-when-the-first-welfare-theorem-fails.html">Lesson 5</a>.</p>
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>4. Check your understanding</h2>
+  <h2 id="s4">4. Check your understanding</h2>
 
   <div class="quiz-section">
     <div class="quiz-question" data-correct="b">
@@ -207,11 +207,11 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>5. Exercises</h2>
+  <h2 id="s5">5. Exercises</h2>
 
   <p>The First Welfare Theorem is the single most tested result in this part of the course. On Alvarez's exams it appears as true/false statements that test its <em>exact</em> hypotheses (LNS, finitely many goods or a finite value of the aggregate endowment, and nothing about convexity), and as yes/no efficiency checks at the end of longer problems. The traps below come from past exams and from mistakes found in student review notes.</p>
 
-  <div class="box exercise">
+  <div class="box exercise" id="tf">
     <div class="box-title">True or false? Justify. <span class="tag past">Past exam</span> <span class="tag exam">Exam-inspired</span></div>
     <p>For each statement, answer True or False and justify in at most four lines.</p>
     <ol class="tf-list">
@@ -236,7 +236,7 @@
     </ol>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-4-1">
     <div class="box-title">Exercise 4.1 <span class="tag slides">Slides p.19</span> (convex utility)</div>
     <p>"Suppose that all \(u\) are convex (instead of concave). Does the first welfare theorem hold?"</p>
     <ol class="parts" type="a">
@@ -252,7 +252,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-4-2">
     <div class="box-title">Exercise 4.2 <span class="tag exam">Exam-inspired</span> (a second proof: CE solve a weighted planner problem)</div>
     <p>Review notes for this course present the 1WT through first-order conditions, and the Fall 2025 midterm tested its key step (Exercise 2.5). Take a pure exchange economy with finitely many goods, and \(u^i\) strictly concave, strictly increasing, differentiable, with Inada conditions. Let \((p,\bar x)\) be a CE with budget multipliers \(\mu^i\).</p>
     <ol class="parts" type="a">
@@ -269,7 +269,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-4-3">
     <div class="box-title">Exercise 4.3 <span class="tag proof">Proof</span> (weak PO for free)</div>
     <p>Show that <em>without any assumption on preferences</em> (no LNS), every CE allocation is weakly Pareto optimal: no feasible allocation makes <em>every</em> household strictly better off. Which step of the proof are you avoiding?</p>
     <details class="solution"><summary>Show solution</summary><div class="body">
@@ -277,7 +277,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-4-4">
     <div class="box-title">Exercise 4.4 <span class="tag exam">Exam-inspired</span> (locate the broken line)</div>
     <p>For each modification, say whether the 1WT can fail and identify the first equation of the proof, (1)–(4) or Step 5, that can no longer be established:</p>
     <ol class="parts" type="a">
@@ -294,7 +294,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-4-5">
     <div class="box-title">Exercise 4.5 <span class="tag proof">Proof</span> (zero prices)</div>
     <p>Show that in any CE where some household satisfies LNS, \(p\ne 0\). Where is this implicitly needed in Step 1?</p>
     <details class="solution"><summary>Show solution</summary><div class="body">
@@ -302,7 +302,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-4-6">
     <div class="box-title">Exercise 4.6 <span class="tag past">Past exam: Fall 2025 Final Q4 (20 pts)</span> (negative interest rates without inefficiency)</div>
     <p>Consider the continuous-time neoclassical growth model with fixed labour supply and an infinitely-lived representative agent. Utility and production functions are strictly increasing, strictly concave and satisfy Inada conditions; capital depreciates at rate \(\delta>0\), so \(r(t)=f'(k(t))-\delta\).</p>
     <ol class="parts" type="a">
@@ -318,7 +318,7 @@
   </div>
 
   <div class="takeaways">
-    <h2>Key takeaways</h2>
+    <h2 id="takeaways">Key takeaways</h2>
     <ul>
       <li>1WT: CE + LNS ⇒ PO. The proof is by contradiction in five steps: (1) weakly better ⇒ weakly costlier [LNS]; (2) strictly better ⇒ strictly costlier; (3) sum over households; (4) profits were maximal; (5) feasibility gives \(+\) = \(\le 0\), a contradiction.</li>
       <li>No convexity, continuity or differentiability is used. Non-convexities threaten <em>existence</em>, not efficiency.</li>

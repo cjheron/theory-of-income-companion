@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Midterm 1 · Session 1: Welfare Theorems — Theory of Income</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/exam.js" defer></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Midterm 1 Study Guide · Session 1 of 6 · Saturday</div>
+    <h1>Session 1: The Welfare Theorems</h1>
+    <div class="meta">Lessons <a href="../lessons/0001-the-economy.html">1</a>–<a href="../lessons/0007-arrows-remark-and-decentralization.html">7</a> · About 75 minutes · 16 true/false items + 3 guided derivations · <a href="index.html">Study-guide hub</a> · <a href="../reference/welfare-theorems-cheatsheet.html">Cheatsheet</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>What this session drills.</strong> The most-tested idea on Alvarez's midterms is <em>exactly which hypothesis each welfare theorem uses</em>. Three of the five in-scope true/false items on the Fall 2025 midterm, and the first item of the Fall 2005 midterm, are of this kind. By the end you should be able to:
+    <ol>
+      <li>prove the 1WT from memory and name the step each assumption feeds;</li>
+      <li>say what breaks (and what does not) under IRS, externalities, taxes, incomplete markets and heterogeneous beliefs;</li>
+      <li>state the 2WT with its real conclusion (a quasi-equilibrium) and the extra condition that turns it into a CE.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides1-welfare-theorems.pdf#page=15">Slides 1, pp.15–35</a> (1WT statement and proof, failure questions, 2WT, Arrow's remark). Textbook backup: Mas-Colell, Whinston &amp; Green, <em>Microeconomic Theory</em>, §16.C (1WT) and §16.D (2WT and quasi-equilibrium).
+  </div>
+
+  <div class="box">
+    <div class="box-title">How each question works</div>
+    <ol>
+      <li><b>Commit first.</b> For true/false, pick True or False <em>and</em> write a 1–4 line justification, as on the exam. For derivations, work on paper.</li>
+      <li><b>Check.</b> The T/F call is graded automatically. Then grade your justification against the model answer. Be strict: on the exam, a right call with the wrong reason earns little.</li>
+      <li><b>Follow the link if you miss.</b> Each miss shows the exact lesson section to reread, and goes on your review queue (saved in this browser). Monday's session sends you back to it.</li>
+    </ol>
+  </div>
+
+  <div class="xq-score"></div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="recall">1. Warm-up: blank-page recall (5 min)</h2>
+  <p>Before anything else, write these on a blank sheet from memory. Then click <b>Show</b> to check. This is the highest-value five minutes of the session: retrieval, not rereading, is what builds memory that lasts until Wednesday.</p>
+  <ol class="recall">
+    <li>Define a competitive equilibrium \((p,\bar x,\bar y)\).
+      <div class="recall-a">(i) \(\bar y^j\in\arg\max_{y\in Y^j}p\cdot y\) for each firm; (ii) \(\bar x^i\in\arg\max\{u^i(x):x\in X^i,\ p\cdot x\le p\cdot e^i+\sum_j\theta^i_jp\cdot\bar y^j\}\) for each household; (iii) feasibility \(\sum_i\bar x^i=\sum_i e^i+\sum_j\bar y^j\). <a href="../lessons/0002-competitive-equilibrium.html#def-definition-competitive-equilibrium">L2 §2</a></div></li>
+    <li>Define local non-satiation.
+      <div class="recall-a">For every \(x\in X^i\) and every \(\varepsilon>0\) there is \(\hat x\in X^i\) with \(\|\hat x-x\|<\varepsilon\) and \(u^i(\hat x)>u^i(x)\). <a href="../lessons/0003-pareto-optimality-and-lns.html#def-definition-local-non-satiation-lns">L3 §3</a></div></li>
+    <li>State the 1WT and list the five moves of its proof.
+      <div class="recall-a">CE + LNS ⇒ the CE allocation is PO. Suppose a feasible \((x,y)\) Pareto-dominates. (1) \(u^i(x^i)\ge u^i(\bar x^i)\Rightarrow p\cdot x^i\ge p\cdot\bar x^i\) (LNS). (2) Strictly for the one who is strictly better off (utility maximization). (3) Sum: \(p\cdot\sum x^i>p\cdot\sum\bar x^i\) (needs a finite sum). (4) Profit max: \(p\cdot\sum\bar y^j\ge p\cdot\sum y^j\). (5) Feasibility of both allocations turns (3) and (4) into a contradiction. <a href="../lessons/0004-first-welfare-theorem.html#pf-proof">L4 §3</a></div></li>
+    <li>State the 2WT: hypotheses and conclusion.
+      <div class="recall-a">HH (convex \(X^i\), continuous, convex upper contour sets), FF (aggregate \(Y\) convex), and some household not satiated at \(\bar x\). Then for a PO allocation there is \(p\ne0\) such that firms maximize profit and each household <em>minimizes expenditure</em> on its upper contour set: a <b>quasi-equilibrium</b>. <a href="../lessons/0006-second-welfare-theorem.html#thm-second-welfare-theorem-main-part">L6 §3</a></div></li>
+    <li>What turns a quasi-equilibrium into a CE?
+      <div class="recall-a">Arrow's remark: if \(u^i\) is continuous and there is a cheaper point \(\tilde x^i\in X^i\) with \(p\cdot\tilde x^i\lt p\cdot\bar x^i\), expenditure minimization implies utility maximization. <a href="../lessons/0007-arrows-remark-and-decentralization.html#thm-arrow-s-remark">L7 §2</a></div></li>
+  </ol>
+
+  <h2 id="readfirst">2. Read first: only the boxes you could not reproduce</h2>
+  <p>If a recall item above was shaky, read <em>just</em> its box (about 5 minutes each), then come back. Skip what you got right.</p>
+  <ul class="readfirst">
+    <li><a href="../lessons/0004-first-welfare-theorem.html#pf-proof">L4 §3 · The 1WT proof</a> and its <a href="../lessons/0004-first-welfare-theorem.html#s3-proof-map-what-used">proof map</a> <span class="why">(which line uses which assumption: the key to every T/F below)</span></li>
+    <li><a href="../lessons/0005-when-the-first-welfare-theorem-fails.html#s1">L5 §1 · Audit the proof line by line</a> <span class="why">(the method for "does the 1WT still hold if…")</span></li>
+    <li><a href="../lessons/0006-second-welfare-theorem.html#warn-read-conclusion-carefully">L6 §3 · Read the 2WT conclusion carefully</a> <span class="why">(quasi-equilibrium, not CE)</span></li>
+    <li><a href="../lessons/0007-arrows-remark-and-decentralization.html#s3">L7 §3 · The cheapest-point exception</a></li>
+  </ul>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="tf">3. True or false? Justify in 1–4 lines</h2>
+  <p>About 3 minutes each. On the exam these are worth 10–20 points apiece, and the justification carries most of the points.</p>
+
+  <div class="xq" id="s1-01" data-kind="tf" data-answer="T"
+       data-study="../lessons/0004-first-welfare-theorem.html#pf-proof|L4 §3 · The 1WT proof (move 3 needs a finite sum) ;; ../lessons/0012-why-the-1wt-fails-in-olg.html#s5|L12 §5 · Why it takes infinitely many goods and agents">
+    <div class="xq-src"><span class="tag past">Past exam · Fall 2025 MT1 I.1</span></div>
+    <div class="xq-stem">"If there are finitely many commodities, and preferences satisfy local non-satiation, the allocation of a competitive equilibrium is Pareto efficient."</div>
+    <div class="xq-solution"><p><b>True.</b> These are exactly the hypotheses of the 1WT. LNS gives \(p\cdot x^i\ge p\cdot\bar x^i\) for any bundle at least as good, and utility maximization makes it strict for a strictly better one. With finitely many goods, \(p\cdot\sum_i\bar x^i=p\cdot(\sum_ie^i+\sum_j\bar y^j)\) is a finite number, so the inequalities can be summed. Profit maximization and feasibility then give a contradiction. Nothing about convexity, continuity or the number of agents is needed.</p>
+    <div class="rubric">Full marks: "all hypotheses of the 1WT hold" plus the role of LNS. Bonus insight: "finitely many goods" is what rules out the OLG failure.</div></div>
+  </div>
+
+  <div class="xq" id="s1-02" data-kind="tf" data-answer="F"
+       data-study="../lessons/0005-when-the-first-welfare-theorem-fails.html#s3-increasing-returns-scale|L5 §3 · Increasing returns to scale ;; ../lessons/0004-first-welfare-theorem.html#warn-not-used-anywhere|L4 §3 · What the 1WT proof never uses">
+    <div class="xq-src"><span class="tag past">Past exam · Fall 2025 MT1 I.2</span></div>
+    <div class="xq-stem">"If there are increasing returns to scale, a competitive equilibrium can NOT be efficient."</div>
+    <div class="xq-solution"><p><b>False.</b> IRS makes the production set non-convex. The 1WT never uses convexity: move (4) only uses that \(\bar y^j\) maximizes \(p\cdot y\) on \(Y^j\), whatever the shape of \(Y^j\). So <em>if</em> a CE exists, it is PO. What IRS threatens is <em>existence</em> of a price-taking CE (profit \(n^\gamma-wn\) is unbounded for \(\gamma>1\)), and the 2WT, which needs convex \(Y\).</p>
+    <div class="rubric">Full marks: "the 1WT needs only LNS; convexity is a 2WT hypothesis." Saying "IRS ⇒ monopoly ⇒ inefficient" earns nothing: a monopoly outcome is not a CE.</div></div>
+  </div>
+
+  <div class="xq" id="s1-03" data-kind="tf" data-answer="F"
+       data-study="../lessons/0004-first-welfare-theorem.html#s3-proof-map-what-used|L4 §3 · Proof map: what is used where ;; ../lessons/0006-second-welfare-theorem.html#def-assumption-hh-households|L6 §2 · Assumption HH (where quasi-concavity lives)">
+    <div class="xq-src"><span class="tag past">Past exam · Fall 2005 Midterm, Ex. 1 Q1</span></div>
+    <div class="xq-stem">"The First Welfare Theorem requires as an assumption that the utility functions be all quasi-concave."</div>
+    <div class="xq-solution"><p><b>False.</b> The 1WT uses only LNS (together with the definition of a CE). Quasi-concavity, i.e. convex upper contour sets, is part of Assumption HH, which the <em>Second</em> Welfare Theorem needs to make the set \(A\) convex so it can be separated from \(B\).</p></div>
+  </div>
+
+  <div class="xq" id="s1-04" data-kind="tf" data-answer="F"
+       data-study="../lessons/0003-pareto-optimality-and-lns.html#s4|L3 §4 · The slide questions on LNS (continuity, monotonicity) ;; ../lessons/0003-pareto-optimality-and-lns.html#int-intuition-why-local-why-not|L3 §3 · Why 'local', and why not monotonicity?">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"The 1WT requires preferences to be continuous and strictly increasing."</div>
+    <div class="xq-solution"><p><b>False.</b> It requires only LNS. Strictly increasing preferences on \(\mathbb R^m_+\) <em>imply</em> LNS (move a little along any coordinate), so they are sufficient but not necessary: \(u(x)=x_1-x_2\) is not increasing, yet it is locally non-satiated (raise \(x_1\) a little). Continuity is never used in the 1WT proof (it matters for the 2WT and for Arrow's remark).</p></div>
+  </div>
+
+  <div class="xq" id="s1-05" data-kind="tf" data-answer="T"
+       data-study="../lessons/0005-when-the-first-welfare-theorem-fails.html#s2|L5 §2 · Local non-satiation, revisited (thick indifference curves) ;; ../lessons/0003-pareto-optimality-and-lns.html#thm-lemma-lns-budget-constraints-bind|L3 §3 · Lemma: LNS ⇒ every better bundle costs more">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"If one household has a 'thick' indifference curve (a region with non-empty interior on which its utility is constant), a competitive equilibrium allocation can fail to be Pareto optimal."</div>
+    <div class="xq-solution"><p><b>True.</b> LNS fails on the thick region, so move (1) breaks: a bundle that is just as good can be strictly <em>cheaper</em>. If the CE bundle sits inside the thick region, the household could give up some goods at no utility cost and those goods could make another household strictly better off. The CE is then Pareto-dominated.</p>
+    <div class="rubric">"Can fail" is the key word: the theorem's conclusion is no longer guaranteed, though a particular CE may still be PO.</div></div>
+  </div>
+
+  <div class="xq" id="s1-06" data-kind="tf" data-answer="F"
+       data-study="../lessons/0005-when-the-first-welfare-theorem-fails.html#s5-incomplete-markets|L5 §5 · Incomplete markets (constrained vs unconstrained PO)">
+    <div class="xq-src"><span class="tag past">Past exam · Fall 2005 Midterm, Ex. 1 Q3</span></div>
+    <div class="xq-stem">"In the security market economy, if the number of securities is smaller than the number of states, the resulting equilibrium allocation is necessarily inefficient."</div>
+    <div class="xq-solution"><p><b>False</b>, because of "necessarily". With missing markets, some marginal rates of substitution are never equalized, so the CE <em>can</em> fail to be (unconstrained) PO. But it need not: if endowments are already Pareto optimal (e.g. identical agents, or endowments proportional to the aggregate with identical homothetic preferences), or if the available securities span the trades agents actually want, the equilibrium is efficient.</p></div>
+  </div>
+
+  <div class="xq" id="s1-07" data-kind="tf" data-answer="F"
+       data-study="../lessons/0005-when-the-first-welfare-theorem-fails.html#s5-beliefs|L5 §5 · Beliefs (PO with respect to agents' own beliefs)">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag past">cf. Fall 2005 Ex. 1 Q2</span></div>
+    <div class="xq-stem">"With commodities indexed by states of nature, if households hold different subjective probabilities over the states, the competitive equilibrium allocation is not Pareto optimal."</div>
+    <div class="xq-solution"><p><b>False.</b> Beliefs live inside \(u^i(x)=\sum_s\pi^i_sv^i(x_s)\), and the 1WT proof never looks inside \(u^i\). With complete markets and LNS, the CE is PO with respect to each household's <em>own</em> beliefs (ex-ante efficiency). Agents bet against each other, and at most one belief can be right. A planner using the "true" probabilities would apply a different welfare criterion.</p></div>
+  </div>
+
+  <div class="xq" id="s1-08" data-kind="tf" data-answer="T"
+       data-study="../lessons/0005-when-the-first-welfare-theorem-fails.html#s4-consumption-externalities-moves-1|L5 §4 · Consumption externalities: moves (1)–(2) break">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"With a consumption externality (household 1's utility depends on household 2's consumption), the step of the 1WT proof that fails is 'every bundle at least as good as \(\bar x^i\) costs at least as much as \(\bar x^i\)'."</div>
+    <div class="xq-solution"><p><b>True.</b> With an externality, \(u^1(x^1,x^2)\). Household 1's optimality says \(\bar x^1\) is best <em>given</em> \(\bar x^2\). A Pareto-improving allocation changes \(x^2\) too, so "\(u^1(x^1,x^2)\ge u^1(\bar x^1,\bar x^2)\)" no longer implies \(p\cdot x^1\ge p\cdot\bar x^1\). Moves (1)–(2) break. (A <em>production</em> externality breaks move (4) instead.)</p></div>
+  </div>
+
+  <div class="xq" id="s1-09" data-kind="tf" data-answer="F"
+       data-study="../lessons/0005-when-the-first-welfare-theorem-fails.html#s4|L5 §4 · Externalities (the Pigou example and its tax) ;; ../reference/welfare-theorems-cheatsheet.html|Cheatsheet · 'When the 1WT breaks' table (taxes row)">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"In a finite economy with production and LNS, a proportional tax on households' purchases of good 1 (producers receive the pre-tax price), with the revenue rebated lump sum to households, leaves the competitive equilibrium allocation Pareto optimal."</div>
+    <div class="xq-solution"><p><b>False</b> (in general). Households pay \(p_1(1+t)\) while firms receive \(p_1\). Households set their MRS equal to the after-tax price ratio, firms set their MRT equal to the pre-tax ratio, so MRS ≠ MRT. In the proof, households and firms no longer face the <em>same</em> price vector, so moves (1)–(2) (household prices) and (4) (firm prices) cannot be combined. Contrast: a <em>lump-sum</em> tax only changes endowment values, and the 1WT still holds.</p></div>
+  </div>
+
+  <div class="xq" id="s1-10" data-kind="tf" data-answer="T"
+       data-study="../lessons/0002-competitive-equilibrium.html#thm-walras-law|L2 §4 · Walras' law (and why it needs \(p_m\neq0\))">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"Suppose all budget constraints bind, and at prices \(p\) markets \(1,\dots,m-1\) clear. If \(p_m=0\), market \(m\) need not clear."</div>
+    <div class="xq-solution"><p><b>True.</b> Walras' law gives \(p\cdot z(p)=0\). If the other \(m-1\) markets clear, it reads \(p_mz_m=0\), which forces \(z_m=0\) only if \(p_m\ne0\). A free good (\(p_m=0\)) can be in excess supply. So "\(m-1\) markets clear ⇒ the last clears" needs \(p_m\neq0\).</p></div>
+  </div>
+
+  <div class="xq" id="s1-11" data-kind="tf" data-answer="F"
+       data-study="../lessons/0006-second-welfare-theorem.html#thm-second-welfare-theorem-main-part|L6 §3 · The 2WT and its hypotheses ;; ../lessons/0006-second-welfare-theorem.html#s7|L6 §7 · What each hypothesis buys">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"Second Welfare Theorem: if preferences satisfy LNS, every Pareto optimal allocation is a competitive equilibrium allocation for a suitable redistribution of endowments."</div>
+    <div class="xq-solution"><p><b>False.</b> Three things are missing. (i) Convexity: HH (convex upper contour sets, continuity) and FF (convex aggregate \(Y\)) are needed for the separating hyperplane. (ii) Some household must be non-satiated at \(\bar x\). (iii) Even then, the theorem only delivers a <em>quasi-equilibrium</em> (expenditure minimization). A cheaper-point condition (Arrow's remark) is needed to get utility maximization, i.e. a CE.</p></div>
+  </div>
+
+  <div class="xq" id="s1-12" data-kind="tf" data-answer="F"
+       data-study="../lessons/0006-second-welfare-theorem.html#warn-read-conclusion-carefully|L6 §3 · Read the conclusion carefully ;; ../lessons/0007-arrows-remark-and-decentralization.html#s3|L7 §3 · The exceptional case">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"At a quasi-equilibrium, each household's bundle maximizes its utility on its budget set."</div>
+    <div class="xq-solution"><p><b>False.</b> At a quasi-equilibrium each household <em>minimizes expenditure</em> among bundles at least as good as \(\bar x^i\). The two coincide only with a cheaper point. Counterexample: \(u=\sqrt{x_1}+x_2\), \(\bar x=e=(0,1)\), \(p=(1,0)\). The bundle \(e\) minimizes expenditure (it costs 0), but at \(p_2=0\) good 2 is free, so demand for it is unbounded: \(e\) is not utility-maximizing. No other price vector works either.</p></div>
+  </div>
+
+  <div class="xq" id="s1-13" data-kind="tf" data-answer="T"
+       data-study="../lessons/0007-arrows-remark-and-decentralization.html#s3-ruling-exceptional-case-out|L7 §3 · Ruling the exceptional case out ;; ../lessons/0007-arrows-remark-and-decentralization.html#pf-proof|L7 §2 · Proof of Arrow's remark">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"Let \(X^i=\mathbb R^m_+\), utilities continuous and strictly increasing, and suppose the Pareto optimal allocation gives every household \(\bar x^i\gg0\). Then any quasi-equilibrium price vector \(p\ne0\) supporting it also supports it as a competitive equilibrium (with transfers)."</div>
+    <div class="xq-solution"><p><b>True.</b> Monotonicity gives \(p\ge0\) (a negative price would make expenditure minimization unbounded below). With \(p\ge0\), \(p\ne0\) and \(\bar x^i\gg0\), we have \(p\cdot\bar x^i>0=p\cdot0\), so \(0\in X^i\) is a cheaper point. By continuity, Arrow's remark turns expenditure minimization into utility maximization.</p>
+    <div class="rubric">Full marks: name the three steps: \(p\ge0\), cheaper point \(0\), Arrow's remark (continuity).</div></div>
+  </div>
+
+  <div class="xq" id="s1-14" data-kind="tf" data-answer="F"
+       data-study="../lessons/0007-arrows-remark-and-decentralization.html#thm-decentralizing-ownership-structure|L7 §4 · A decentralizing ownership structure">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"The endowments and ownership shares that decentralize a given Pareto optimal allocation as a competitive equilibrium are unique."</div>
+    <div class="xq-solution"><p><b>False.</b> All that matters is each household's wealth at the supporting prices: \(p\cdot e^i+\sum_j\theta^i_j\pi^j+T^i=p\cdot\bar x^i\). Any combination of endowments and shares that delivers those wealth levels works, e.g. \(e^i=\bar x^i-\sum_j\theta^i_j\bar y^j\) for <em>any</em> shares θ. (With endowments and shares fixed, the transfers \(T^i\) needed are pinned down once \(p\) is, up to scale, at least when preferences are smooth; but they can be paid in any bundle worth \(T^i\).)</p></div>
+  </div>
+
+  <div class="xq" id="s1-15" data-kind="tf" data-answer="T"
+       data-study="../lessons/0007-arrows-remark-and-decentralization.html#s5-b-fixed-cost-production|L7 §5(b) · A fixed cost in production">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"With a fixed cost in production, a Pareto optimal allocation may be impossible to decentralize as a competitive equilibrium, whatever the transfers."</div>
+    <div class="xq-solution"><p><b>True.</b> A fixed cost makes \(Y\) non-convex, so FF fails and the separating hyperplane argument breaks. In the Crusoe example \(c=(n-n_0)^\gamma\), at the price that supports the optimal tangency, the firm makes negative profits and would rather shut down when \(n_0>\frac{1-\gamma}{1+b}\). No price makes the optimum profit-maximizing.</p></div>
+  </div>
+
+  <div class="xq" id="s1-16" data-kind="tf" data-answer="F"
+       data-study="../lessons/0005-when-the-first-welfare-theorem-fails.html#s3-literally-one-firm|L5 §3 · Literally one firm">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"The 1WT requires many firms in each industry."</div>
+    <div class="xq-solution"><p><b>False.</b> Price-taking is built into the CE definition. The proof never uses the number of firms: move (4) holds firm by firm. A single price-taking firm is fine. A firm that <em>exercises</em> market power is not in a CE at all, so the theorem says nothing about it.</p></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="derive">4. Guided derivations</h2>
+  <p>Alvarez's long questions are chains of short parts, each "1 line" or "max 3 lines". Answer each part on paper before revealing.</p>
+
+  <div class="xq" id="s1-d1" data-kind="derive"
+       data-study="../lessons/0004-first-welfare-theorem.html#pf-proof|L4 §3 · The 1WT proof, step by step ;; ../lessons/0003-pareto-optimality-and-lns.html#pf-proof|L3 §3 · Proof of the LNS lemma">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag proof">Proof</span> <span class="pts">50 pts</span></div>
+    <div class="xq-stem"><p><b>Prove the First Welfare Theorem.</b> Let \((p,\bar x,\bar y)\) be a CE in which all households satisfy LNS. Suppose a feasible \((x,y)\) Pareto-dominates \((\bar x,\bar y)\), with household \(i'\) strictly better off.</p>
+    <ol type="a">
+      <li>(10 pts, max 3 lines) Show \(u^i(x^i)\ge u^i(\bar x^i)\Rightarrow p\cdot x^i\ge p\cdot\bar x^i\).</li>
+      <li>(10 pts, 1 line) Show \(p\cdot x^{i'}>p\cdot\bar x^{i'}\).</li>
+      <li>(10 pts, 1 line) Show \(p\cdot\sum_j\bar y^j\ge p\cdot\sum_jy^j\).</li>
+      <li>(10 pts, max 3 lines) Derive the contradiction.</li>
+      <li>(10 pts, 1 line) Which step requires the value of the aggregate endowment to be finite, and why?</li>
+    </ol></div>
+    <details class="hint"><summary>Hint for (a)</summary><div class="body"><p>Argue by contradiction: if \(x^i\) were strictly cheaper, use LNS in a small ball around \(x^i\) that stays inside the budget set.</p></div></details>
+    <div class="xq-solution">
+      <p>(a) Suppose \(p\cdot x^i\lt p\cdot\bar x^i\le w^i\). The budget set contains a ball around \(x^i\) (intersected with \(X^i\)). By LNS there is \(\hat x\) in that ball with \(u^i(\hat x)>u^i(x^i)\ge u^i(\bar x^i)\), and \(\hat x\) is affordable. This contradicts the optimality of \(\bar x^i\).<br>
+      (b) If \(p\cdot x^{i'}\le p\cdot\bar x^{i'}\), then \(x^{i'}\) is affordable and strictly preferred, contradicting optimality.<br>
+      (c) Each \(\bar y^j\) maximizes \(p\cdot y\) on \(Y^j\) and \(y^j\in Y^j\); sum over \(j\).<br>
+      (d) Summing (a) and (b): \(p\cdot\sum_ix^i>p\cdot\sum_i\bar x^i\). Feasibility of both allocations: \(\sum_ix^i-\sum_i\bar x^i=\sum_jy^j-\sum_j\bar y^j\). Take values: LHS \(>0\), while (c) says RHS \(\le0\). Contradiction.<br>
+      (e) The summation in (d). If \(p\cdot\sum_i\bar x^i=\infty\), the strict inequality reads "\(\infty>\infty\)" and gives nothing. This is how the 1WT fails in OLG.</p>
+    </div>
+  </div>
+
+  <div class="xq" id="s1-d2" data-kind="derive"
+       data-study="../lessons/0007-arrows-remark-and-decentralization.html#s3|L7 §3 · The exceptional case: a PO allocation that is not a CE ;; ../lessons/0007-arrows-remark-and-decentralization.html#thm-arrow-s-remark|L7 §2 · Arrow's remark">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="pts">40 pts</span></div>
+    <div class="xq-stem"><p><b>The cheapest point.</b> One household, \(X=\mathbb R^2_+\), \(u(x)=\sqrt{x_1}+x_2\), endowment \(e=(0,1)\), no firms.</p>
+    <ol type="a">
+      <li>(5 pts, 1 line) Why is \(\bar x=e\) Pareto optimal?</li>
+      <li>(10 pts, max 2 lines) Show that \(p=(1,0)\) supports \(\bar x\) as a quasi-equilibrium.</li>
+      <li>(15 pts, max 4 lines) Show that no price vector \(p\ge0\), \(p\ne0\) supports \(\bar x\) as a CE.</li>
+      <li>(10 pts, 2 lines) Which hypothesis of Arrow's remark fails, and why does that matter?</li>
+    </ol></div>
+    <div class="xq-solution">
+      <p>(a) With one household, PO means maximizing \(u\) on the feasible set \(\{x\in\mathbb R^2_+:x\le e\}\). Since \(u\) is increasing, the maximum is \(e\).<br>
+      (b) Expenditure minimization: \(\min\{x_1: u(x)\ge u(e)=1\}\). Every bundle costs \(x_1\ge0\), and \(\bar x\) costs \(0\), so it is a minimizer.<br>
+      (c) If \(p_1>0,p_2>0\): demand has \(x_1^d>0\ne\bar x_1\) (the tangency \(x_1=(p_2/2p_1)^2\), or the corner \(x_1=p_2/p_1\) when wealth is too small). If \(p_2=0\) (so \(p_1>0\)): good 2 is free and \(u\) increases in \(x_2\), so demand is unbounded. If \(p_1=0\) (so \(p_2>0\)): good 1 is free and demand for it is unbounded. In no case is \(e\) demanded.<br>
+      (d) There is no cheaper point: at \(p=(1,0)\) wealth is \(p\cdot e=0\), and no bundle in \(X\) costs less than 0. Arrow's argument mixes the better bundle with a strictly cheaper one; without one, expenditure minimization need not imply utility maximization.</p>
+    </div>
+  </div>
+
+  <div class="xq" id="s1-d3" data-kind="derive"
+       data-study="../lessons/0005-when-the-first-welfare-theorem-fails.html#s1|L5 §1 · Audit the proof line by line ;; ../lessons/0005-when-the-first-welfare-theorem-fails.html#s2|L5 §2 · Satiation breaks move (1) ;; ../reference/welfare-theorems-cheatsheet.html|Cheatsheet · 'When the 1WT breaks' table">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="pts">50 pts</span></div>
+    <div class="xq-stem"><p><b>Audit the proof.</b> For each modification, say whether the 1WT still holds and, if not, which move of the proof (1–5 in the recall box) breaks. Max 2 lines each.</p>
+    <ol type="a">
+      <li>(10 pts) Household 1 is satiated on a whole region, \(u^1=\min\{x_1+x_2,\,1\}\), and its CE bundle lies in the interior of that region. (Bonus: what if instead it had a <em>unique</em> bliss point and consumed exactly it?)</li>
+      <li>(10 pts) Firm 2's production set depends on firm 1's output (a production externality).</li>
+      <li>(10 pts) Some production sets are non-convex.</li>
+      <li>(10 pts) Infinitely many households and infinitely many dated goods (OLG).</li>
+      <li>(10 pts) Some markets are missing: good 3 cannot be traded.</li>
+    </ol></div>
+    <div class="xq-solution">
+      <p>(a) LNS fails on the satiation region, so move (1) breaks: household 1 is just as happy with a strictly <em>cheaper</em> bundle in the region. The 1WT can fail: in the L5 §2 example, shrinking household 1's bundle toward \(x_1+x_2=1\) leaves it indifferent and frees goods that make household 2 strictly better off. Bonus: with a <em>unique</em> bliss point that household 1 consumes, the proof survives. Any allocation that household 1 weakly prefers must give it the same bundle, so move (1) holds trivially for it, and the others satisfy LNS.<br>
+      (b) Move (4) breaks: \(\bar y^2\) maximizes profit on \(Y^2(\bar y^1)\), but the dominating allocation uses \(Y^2(y^1)\), a different set. The 1WT can fail.<br>
+      (c) Holds. No move uses convexity. (Existence and the 2WT are at risk, not the 1WT.)<br>
+      (d) Move (3) can break: if \(p\cdot\sum_i\bar x^i=\infty\), summing gives "\(\infty>\infty\)". The 1WT can fail (Samuelson's OLG with \(r<0\)).<br>
+      (e) Fails relative to unconstrained PO, at move (5): good 3 has no price, so feasibility cannot be valued and MRSs involving good 3 are never equalized. It holds relative to <em>constrained</em> PO (a planner who also cannot move good 3).</p>
+    </div>
+  </div>
+
+  <div class="xq-score"></div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher). Try "give me three more T/F items on the 2WT hypotheses", or "grade my justification for item 9", or paste in your proof of the 1WT and ask for an Alvarez-style grade.</div>
+
+  <div class="lesson-nav">
+    <a href="index.html">← Study-guide hub</a>
+    <a href="../reference/welfare-theorems-cheatsheet.html">Welfare theorems cheatsheet</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="s2-olg-endowment.html">Session 2: OLG →</a>
+  </div>
+
+</div>
+</body>
+</html>

@@ -35,7 +35,7 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>1. The method: audit the proof line by line</h2>
+  <h2 id="s1">1. The method: audit the proof line by line</h2>
 
   <p>The 1WT proof from <a href="0004-first-welfare-theorem.html">Lesson 4</a> has four moves. Each one uses a specific feature of the environment. To decide whether some modification breaks the theorem, ask which move it attacks.</p>
 
@@ -48,13 +48,13 @@
     <tr><td>(5)</td><td>Feasibility of both allocations, valued at \(p\), contradicts (3)–(4)</td><td>Every commodity that matters has a price, i.e. <strong>complete markets</strong></td></tr>
   </table>
 
-  <div class="intuition">
+  <div class="intuition" id="int-intuition-what-1wt-really-needs">
     <div class="box-title">Intuition: what the 1WT really needs</div>
     <p>The proof never uses convexity, continuity, differentiability, or the number of firms. It uses one fact about individuals: <em>anything you'd like at least as much as what you have costs at least as much</em> (moves 1–2). It also uses one fact about the system: <em>every effect of anyone's action on anyone else goes through a price</em> (moves 4–5). Externalities, market power and missing markets all break the second fact. Satiation breaks the first.</p>
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>2. Local non-satiation, revisited <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=19">S1 p.19</a></h2>
+  <h2 id="s2">2. Local non-satiation, revisited <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=19">S1 p.19</a></h2>
 
   <p>Recall LNS: for every \(x\in X^i\) and \(\varepsilon>0\), there is \(\hat x\in B_\varepsilon(x)\cap X^i\) with \(u^i(\hat x)>u^i(x)\) (<a href="0003-pareto-optimality-and-lns.html">Lesson 3</a>). Throughout, take \(X^i=\mathbb{R}^m_+\). Slide 19 asks four questions. The first three test whether you know what LNS is <em>implied by</em>; the fourth tests whether you know what the 1WT <em>doesn't need</em>.</p>
 
@@ -92,9 +92,9 @@
   </script>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>3. Technology: increasing returns and a single firm <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=20">S1 p.20</a></h2>
+  <h2 id="s3">3. Technology: increasing returns and a single firm <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=20">S1 p.20</a></h2>
 
-  <h3>Increasing returns to scale</h3>
+  <h3 id="s3-increasing-returns-scale">Increasing returns to scale</h3>
   <p><strong>The 1WT still holds: if a CE exists, it is PO.</strong> Move (4) uses only that \(\bar y^j\) maximizes \(p\cdot y\) over \(Y^j\). It never asks \(Y^j\) to be convex. The bite of increasing returns is elsewhere: <strong>a CE may not exist</strong>. With \(Y=\{(-n,c): c\le n^\gamma\}\), \(\gamma>1\), the profit \(c - wn = n^\gamma - wn\) is unbounded in \(n\) at any \(w>0\) (if \(n\) can grow without bound), so there is no profit-maximizing plan. The only candidate CE has no production at all, and that one usually fails market clearing. Use the slider below to see how the profit function changes shape.</p>
 
   <div class="figure">
@@ -129,21 +129,21 @@
   })();
   </script>
 
-  <h3>Literally one firm</h3>
+  <h3 id="s3-literally-one-firm">Literally one firm</h3>
   <p><strong>If the single firm takes prices as given, the 1WT holds.</strong> Nothing in the proof counts firms: \(J=\{1\}\) is a perfectly good index set. The theorem fails when the single firm <em>exercises market power</em>, for instance a monopolist choosing output knowing that its price falls as it sells more. Then the firm sets marginal revenue = marginal cost, so price exceeds marginal cost. Consumers equate their MRS to the price, the technology's MRT equals marginal cost, and MRS ≠ MRT. A small increase in output is a Pareto improvement. But that outcome is not a <em>competitive</em> equilibrium in the sense of <a href="0002-competitive-equilibrium.html">Lesson 2</a>, because the firm is not solving \(\max_{y\in Y}p\cdot y\) at given \(p\). The real lesson: <strong>price-taking is a behavioural assumption, not a statement about the number of firms</strong>. Large numbers are one justification for it; contestability and Bertrand competition are others.</p>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>4. Externalities <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=21">S1 p.21</a></h2>
+  <h2 id="s4">4. Externalities <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=21">S1 p.21</a></h2>
 
-  <h3>Consumption externalities: moves (1)–(2) break</h3>
+  <h3 id="s4-consumption-externalities-moves-1">Consumption externalities: moves (1)–(2) break</h3>
   <p>Suppose \(u^{i'}(x^{i'},x^i)\): agent \(i'\) cares about \(i\)'s consumption, but in a CE takes \(\bar x^i\) as given. Then utility maximization only tells us
   $$u^{i'}(x,\bar x^i) > u^{i'}(\bar x^{i'},\bar x^i)\ \Rightarrow\ p x > p\bar x^{i'} .$$
   A Pareto-dominating allocation changes <em>both</em> \(x^{i'}\) and \(x^i\). Then \(u^{i'}(x^{i'},x^{i})\ge u^{i'}(\bar x^{i'},\bar x^i)\) says nothing about \(u^{i'}(x^{i'},\bar x^{i})\), which is what the budget argument needs. Agent \(i'\) may be happier only because \(i\) changed behaviour, even though \(x^{i'}\) itself is cheap. So move (1) fails and <strong>the 1WT generally fails</strong>.</p>
 
-  <h3>Production externalities: move (4) breaks</h3>
+  <h3 id="s4-production-externalities-move-4">Production externalities: move (4) breaks</h3>
   <p>Suppose firm \(j'\)'s technology is \(Y^{j'}(y^j)\): an upstream factory's output pollutes a downstream fishery. In a CE, firm \(j'\) maximizes over \(Y^{j'}(\bar y^j)\). In the dominating allocation, \(y^{j'}\in Y^{j'}(y^j)\), a <em>different</em> set, so \(p\bar y^{j'}\ge p y^{j'}\) need not hold. Move (4) fails, and <strong>the 1WT generally fails</strong>. In both cases the root problem is the same: <em>there is no market, and hence no price, for the side effect</em>. Read this way, an externality is a missing market (see §5).</p>
 
-  <h3>A worked example you can play with</h3>
+  <h3 id="s4-worked-example-you-can">A worked example you can play with</h3>
   <p>Agent 1 smokes: \(u^1 = \log s + m^1\), where \(s\) is cigarettes and \(m\) is money (the numeraire). Agent 2 doesn't smoke and dislikes smoke: \(u^2 = m^2 - \gamma s\). Cigarettes are produced at constant cost: one unit of \(m\) makes one unit of \(s\), so the CE price of \(s\) is \(1\).</p>
   <ul>
     <li><strong>CE.</strong> Agent 1 solves \(\max_s \log s - s\), so \(1/s = 1\) and \(s^{CE}=1\).</li>
@@ -180,21 +180,21 @@
   </script>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>5. Markets, beliefs, and what agents must agree on <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=22">S1 p.22</a></h2>
+  <h2 id="s5">5. Markets, beliefs, and what agents must agree on <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=22">S1 p.22</a></h2>
 
-  <h3>Incomplete markets</h3>
+  <h3 id="s5-incomplete-markets">Incomplete markets</h3>
   <p>Three goods but markets for only two. Each agent consumes its endowment of the untraded good 3 and trades goods 1–2. <strong>Relative to the unconstrained notion of PO, the 1WT fails.</strong> Move (5) values feasibility using a price for every good, but good 3 has none, so agents' marginal rates of substitution involving good 3 are never equalized. <strong>Relative to constrained efficiency, it holds.</strong> Constrained efficiency is the planner who must also leave good 3 where it is. Fix \(x_3^i = e_3^i\) and define \(\tilde u^i(x_1,x_2)=u^i(x_1,x_2,e^i_3)\). The CE is then a CE of a complete-markets two-good economy, and the 1WT applies to it. So the answer to "what is the notion of efficiency?" is: <em>the benchmark must respect the same trading restrictions the agents face</em>. (Warning for later: with several goods per date or state, even constrained efficiency typically fails, because prices on the open markets change how valuable the incomplete trades are. That is Geanakoplos–Polemarchakis 1986.)</p>
 
-  <h3>Beliefs</h3>
+  <h3 id="s5-beliefs">Beliefs</h3>
   <p><strong>The 1WT does not require agents to agree, nor to be "right".</strong> With commodities indexed by states of nature, \(u^i(x)=\sum_s\pi^i_s\,v^i(x_s)\) can embed any subjective probabilities \(\pi^i\). The proof never looks inside \(u^i\). So a CE is PO <em>with respect to the agents' own beliefs</em>, which is ex ante efficiency. If beliefs differ, the CE involves betting (Exercise 5.6), and at most one person's beliefs can be correct. A planner who uses "true" probabilities might call the outcome excessively risky, but that is a different welfare criterion.</p>
 
-  <h3>What must agents agree on?</h3>
+  <h3 id="s5-what-must-agents-agree">What must agents agree on?</h3>
   <p>They must agree on the <strong>commodity space and the prices</strong>. Everyone has to recognise the same list of commodities: the same dates, the same set of possible states, and states that are publicly <em>verifiable</em>, so that a contract "deliver 1 unit if state \(s\)" can be enforced. And everyone faces the <em>same</em> price for each commodity. Agents need not agree on how likely the states are.</p>
 
-  <h3>The intertemporal budget constraint</h3>
+  <h3 id="s5-intertemporal-budget-constraint">The intertemporal budget constraint</h3>
   <p>With dated commodities there is a <em>single</em> budget constraint. All trades for all dates (and states) are contracted at date 0 at prices \(p_t\), and then simply executed. That is the Arrow–Debreu interpretation. It is equivalent to a sequence of budget constraints with borrowing and lending at interest rates \(1+r_t = p_t/p_{t+1}\), plus a limit on borrowing (a no-Ponzi condition). Lesson 9 makes this concrete in the OLG model, and we'll see that what is "summable" turns out to matter.</p>
 
-  <h2>6. Frictions, money and nominal contracts <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=23">S1 p.23</a></h2>
+  <h2 id="s6">6. Frictions, money and nominal contracts <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=23">S1 p.23</a></h2>
   <ul>
     <li><strong>Frictions (finding jobs, houses).</strong> Some can be folded into the technology: a "matching technology" that uses search effort as an input. If there is a competitive price for every relevant margin (e.g. <em>competitive search</em>, where firms post wages and workers direct their search), efficiency can survive. With random matching and bargaining, it typically fails because of <em>congestion externalities</em>: one more searcher makes it harder for others. Efficiency obtains only on a knife-edge (the Hosios condition). This is the subject of the DMP lectures later in the course.</li>
     <li><strong>How are transactions carried out? The unit of account.</strong> The model is silent about this. Trades happen at given prices in an abstract clearing house. The unit of account is just the numeraire. Rescaling all prices changes nothing (Lesson 2), so the unit of account has no real importance.</li>
@@ -203,7 +203,7 @@
   </ul>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>7. Check your understanding</h2>
+  <h2 id="s7">7. Check your understanding</h2>
 
   <div class="quiz-section">
     <div class="quiz-question" data-correct="b">
@@ -253,11 +253,11 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>8. Exercises</h2>
+  <h2 id="s8">8. Exercises</h2>
 
   <p>These follow the format of Alvarez's exams. True/false items like these were about half the points on recent first midterms, and the derivations are broken into short sub-steps. Answer each sub-part in a few lines before opening the solution.</p>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-5-1">
     <div class="box-title">Exercise 5.1 <span class="tag past">Past exams</span> True or false? Justify.</div>
     <p>For each statement, say true or false and justify it in one to four lines. The quickest justification names the step of the 1WT proof (§1) that does or does not go through.</p>
     <ol class="tf-list">
@@ -284,7 +284,7 @@
     </ol>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-5-2">
     <div class="box-title">Exercise 5.2 <span class="tag slides">Slides p.19</span> <span class="tag proof">Proof</span> Which properties imply LNS?</div>
     <p>Let \(X=\mathbb{R}^m_+\). Prove or give a counterexample.</p>
     <ol class="parts" type="a">
@@ -302,7 +302,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-5-3">
     <div class="box-title">Exercise 5.3 <span class="tag exam">Exam-inspired</span> Increasing returns: existence, not efficiency</div>
     <p>This is the derivation behind statement 1 of Exercise 5.1. One consumption good \(c\) and labour \(n\) (price of \(c\) normalized to 1, wage \(w>0\)). A single price-taking firm has \(Y=\{(-n,c): 0\le c\le n^\gamma,\ n\ge0\}\) with \(\gamma>1\).</p>
     <ol class="parts" type="a">
@@ -321,7 +321,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-5-4">
     <div class="box-title">Exercise 5.4 <span class="tag slides">Slides p.21</span> <span class="tag exam">Exam-inspired</span> A consumption externality</div>
     <p>Use the smoking economy of §4 with a general \(\gamma>0\): \(u^1=\log s+m^1\), \(u^2=m^2-\gamma s\), and one unit of money makes one cigarette.</p>
     <ol class="parts" type="a">
@@ -340,7 +340,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-5-5">
     <div class="box-title">Exercise 5.5 <span class="tag slides">Slides p.22</span> <span class="tag pset">Problem set 2022 (PS3 P1, Ex. 9 &amp; 11)</span> Incomplete markets</div>
     <p>Two agents with \(u^i=\log x_1+\log x_2+\log x_3\). Endowments are \(e^A=(1,1,a)\) and \(e^B=(1,1,b)\) with \(a\ne b\), \(a,b>0\). Only goods 1 and 2 can be traded.</p>
     <ol class="parts" type="a">
@@ -358,7 +358,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-5-6">
     <div class="box-title">Exercise 5.6 <span class="tag past">Past exam: Fall 2005 Midterm, Ex. 1 Q2</span> Beliefs and betting</div>
     <p>One good, \(S\) states, aggregate endowment \(Y(s)>0\). Agent \(i\) has expected utility \(\sum_s\pi_i(s)\log c_i(s)\) with <em>subjective</em> probabilities \(\pi_i\). Markets are complete.</p>
     <ol class="parts" type="a">
@@ -378,7 +378,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-5-7">
     <div class="box-title">Exercise 5.7 <span class="tag slides">Slides pp.22–23</span> Short answers</div>
     <p>Answer each in at most three lines. (a) What must agents agree about in a classical CE? (b) Interpret the single intertemporal budget constraint. (c) Why can't intrinsically useless money have positive value in a finite Arrow–Debreu economy? (d) Give one friction that leads to inefficiency and one that need not.</p>
     <details class="solution"><summary>Show solution</summary><div class="body">
@@ -390,7 +390,7 @@
   </div>
 
   <div class="takeaways">
-    <h2>Key takeaways</h2>
+    <h2 id="takeaways">Key takeaways</h2>
     <ul>
       <li>The 1WT uses: LNS, price-taking optimization, utility and technology that depend only on one's own choices, a price for every relevant commodity, and finite sums.</li>
       <li>It does <em>not</em> use convexity, continuity, the number of firms, or common or correct beliefs. Increasing returns threaten <em>existence</em>, not efficiency.</li>

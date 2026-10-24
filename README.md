@@ -8,6 +8,8 @@ Unofficial study companion for UChicago's first-year macro sequence (*Theory of 
 - **Part IV: Perpetual Youth** (Lessons 17–20): Blanchard–Yaari households, aggregation, capital, fiscal policy
 - **Part V: Aggregation and the Social Planner** (Lessons 21–25): Pareto weights, the representative agent, Negishi weights, Gorman aggregation and its limits
 
+**Midterm 1 study guide** (`midterm1/`): six sessions of past-exam and exam-style questions over Lessons 1–23, with links back to the lessons on every miss, a saved review queue, spaced review, and a timed mock midterm.
+
 Each lesson has step-by-step proofs, interactive figures, a quiz, and exercises with hints and full solutions. Cheatsheets and a glossary are in `reference/`.
 
 **Open the course:** the GitHub Pages site (link in the repo's About section), or clone the repo and open `index.html`.

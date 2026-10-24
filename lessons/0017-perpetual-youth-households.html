@@ -35,7 +35,7 @@
     Blanchard, O. J. (1985), <a href="https://ideas.repec.org/a/ucp/jpolec/v93y1985i2p223-47.html">"Debt, Deficits, and Finite Horizons,"</a> <em>Journal of Political Economy</em> 93(2): 223–247, §§I–II. The annuity idea comes from Yaari, M. E. (1965), <a href="https://academic.oup.com/restud/article-abstract/32/2/137/1555438">"Uncertain Lifetime, Life Insurance, and the Theory of the Consumer,"</a> <em>Review of Economic Studies</em> 32(2): 137–150. Alvarez's <a href="../sources/slides-blanchard-yaari.pdf">perpetual-youth slides</a> follow Blanchard's notation closely.
   </div>
 
-  <div class="box notation">
+  <div class="box notation" id="note-notation-alert-same-letters-new">
     <div class="box-title">Notation alert: same letters, new meanings</div>
     <ul>
       <li>\(p\) is the <strong>instantaneous death probability</strong> (a hazard rate), <em>not</em> a price. Prices are now \(R(t,z)\): the price at \(t\) of one good delivered at \(z\).</li>
@@ -46,18 +46,18 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>1. Why this model?</h2>
+  <h2 id="s1">1. Why this model?</h2>
 
   <p>The two-period OLG model of Part II has a sharp young/old split, which makes dynamics with capital and debt awkward: every policy question turns into an infinite sequence of cohort-specific budgets. Blanchard's "perpetual youth" model keeps the essential OLG ingredient, namely that <strong>people alive today are not the same as people alive tomorrow</strong>, so new cohorts keep arriving with no assets. It drops the age structure that makes OLG intractable.</p>
 
   <p>The trick is that every agent faces the same constant hazard of death, whatever their age. Nobody is "young" or "old" in terms of their horizon <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=3">BY slide 3</a>. That is unrealistic but tractable: with log utility (and, in Lesson 18, an exponential income profile) individual decisions <strong>aggregate exactly</strong>. We get a two-equation system in aggregate consumption and wealth that looks like the Ramsey model, plus one extra term that captures the turnover of generations.</p>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>2. Demographics</h2>
+  <h2 id="s2">2. Demographics</h2>
 
   <p>Time is continuous. In any interval of length \(\Delta\), each living agent dies with probability \(p\Delta\) (to first order), independently of age, with \(p\in(0,\infty)\) <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=2">BY slide 2</a>.</p>
 
-  <div class="proof">
+  <div class="proof" id="pf-derivation-size-cohort">
     <div class="box-title">Derivation: the size of a cohort</div>
     <ol class="steps">
       <li><strong>Discrete step.</strong> Let \(N(s,t)\) be the number of people born at \(s\) still alive at \(t\). A fraction \(1-p\Delta\) of them survive another \(\Delta\): \(N(s,t+\Delta) = N(s,t)(1-p\Delta)\).</li>
@@ -115,11 +115,11 @@
   </script>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>3. Annuities: why wealth earns \(r+p\)</h2>
+  <h2 id="s3">3. Annuities: why wealth earns \(r+p\)</h2>
 
   <p>With an uncertain lifetime and no bequest motive, holding wealth at the moment of death is pure waste. Following Yaari (1965), assume competitive insurance companies sell <strong>actuarially fair annuities</strong>. You hand the company your wealth. Each instant it pays you a premium while you live, and when you die it keeps what you held. With negative wealth the contract runs the other way: you pay a premium, and your debt is cancelled when you die, which is life insurance <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=3">BY slide 3</a>.</p>
 
-  <div class="proof">
+  <div class="proof" id="pf-derivation-fair-annuity-rate">
     <div class="box-title">Derivation: the fair annuity rate</div>
     <ol class="steps">
       <li><strong>The contract.</strong> An agent invests \(v\) at \(t\). The company pays \(v\,\dfrac{1+\Delta r}{1-p\Delta}\) at \(t+\Delta\) if the agent is alive, and nothing if the agent is dead.</li>
@@ -131,19 +131,19 @@
     <div class="qed">∎</div>
   </div>
 
-  <div class="intuition">
+  <div class="intuition" id="int-intuition-survivors-inherit-from-dead">
     <div class="box-title">Intuition: survivors inherit from the dead, via the insurer</div>
     <p>Every instant, a fraction \(p\) of wealth holders die. Their wealth doesn't vanish: the insurer redistributes it to survivors in proportion to their holdings. A survivor's return is therefore \(r\) plus \(p\). For the economy as a whole, though, no wealth is created; it is only moved from the dead to the living. That is why, in <a href="0018-perpetual-youth-aggregation.html">Lesson 18</a>, aggregate wealth grows at \(r\) while each individual's grows at \(r+p\).</p>
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>4. Preferences: death adds to impatience</h2>
+  <h2 id="s4">4. Preferences: death adds to impatience</h2>
 
   <p>An agent at \(t\) maximizes expected discounted utility, getting utility only while alive. The expectation is only over the date of death \(T\) <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=4">BY slide 4</a>:
   $$E_t\left[\int_t^{T} u(c(z))\,e^{-\theta(z-t)}\,dz\right], \qquad \Pr(T > z\mid T>t) = e^{-p(z-t)} .$$
   One util at \(t+\Delta\) is worth \(1/(1+\Delta\theta)\) utils at \(t\), so \(\theta\in(0,\infty)\) is the pure rate of time preference.</p>
 
-  <div class="proof">
+  <div class="proof" id="pf-derivation-expected-utility-discounting-at">
     <div class="box-title">Derivation: expected utility = discounting at \(\theta+p\)</div>
     <ol class="steps">
       <li>Write the random upper limit with an indicator: \(\int_t^T f(z)\,dz = \int_t^\infty f(z)\,\mathbf 1\{T>z\}\,dz\), where \(f(z) = u(c(z))e^{-\theta(z-t)}\).</li>
@@ -157,13 +157,13 @@
   <p>So a mortal agent behaves like an immortal one with a higher discount rate, \(\theta+p\). But the same agent also earns a higher return, \(r+p\). Section 7 shows that the two \(p\)'s cancel in the Euler equation but <em>not</em> in the consumption function.</p>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>5. The household problem and its solution</h2>
+  <h2 id="s5">5. The household problem and its solution</h2>
 
   <p>Define the intertemporal price \(R(t,z)\), the price at \(t\) of one unit of the good delivered at \(z\) <em>conditional on being alive</em> (the annuity market prices exactly this). Let \(v(t)\) be non-human (financial) wealth and \(y(z)\) labour income. The present-value budget is <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=6">BY slide 5</a>
   $$\int_t^\infty \big[c(z)-y(z)\big]R(t,z)\,dz = v(t).$$
   Define <strong>human wealth</strong> \(h(t)\equiv\int_t^\infty y(z)R(t,z)\,dz\), the market value of future labour income. The budget becomes \(\int_t^\infty c(z)R(t,z)\,dz = v(t) + h(t)\): the present value of consumption equals total wealth.</p>
 
-  <div class="theorem">
+  <div class="theorem" id="thm-result-log-consumption-function">
     <div class="box-title">Result: log consumption function <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=6">BY slide 5</a></div>
     <p>With \(u=\log\), the optimal plan satisfies
     $$c(t) = (\theta+p)\big(v(t)+h(t)\big).$$
@@ -172,14 +172,14 @@
 
   <p>The proof uses a lemma you already know from Cobb–Douglas demand <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=10">BY slide 6</a>.</p>
 
-  <div class="theorem">
+  <div class="theorem" id="thm-lemma-log-utility-spends-fixed">
     <div class="box-title">Lemma: log utility spends fixed shares</div>
     <p>The solution to \(\max_{c_1,\dots,c_n}\sum_{i=1}^n a_i\log c_i\) subject to \(\sum_{i=1}^n R_ic_i = W\) (with \(a_i>0\)) is
     $$R_i c_i = \frac{a_i}{\sum_{k=1}^n a_k}\,W \qquad\text{for each } i.$$
     The expenditure share on good \(i\) depends only on its preference weight.</p>
   </div>
 
-  <div class="proof">
+  <div class="proof" id="pf-proof-lemma-then-consumption-function">
     <div class="box-title">Proof of the lemma, then the consumption function</div>
     <ol class="steps">
       <li><strong>FOC.</strong> The objective is strictly concave and the constraint linear, so the FOCs are necessary and sufficient: \(a_i/c_i = \lambda R_i\), i.e. \(R_ic_i = a_i/\lambda\).</li>
@@ -192,15 +192,15 @@
     <div class="qed">∎</div>
   </div>
 
-  <div class="warning">
+  <div class="warning" id="warn-typos-slide-6">
     <div class="box-title">Typos on slide 6</div>
     <p>The slide writes the objective as "\(a_1\log c_1 + a_1\log c_2+\dots\)" and the budget as "\(R_1c_1+R_1c_2+\dots\)". The second subscripts should be \(a_2\) and \(R_2\) (and so on), as in the lemma above.</p>
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>6. From present values to ODEs</h2>
+  <h2 id="s6">6. From present values to ODEs</h2>
 
-  <h3>6.1 Prices as accumulated interest</h3>
+  <h3 id="s6-6-1-prices-as">6.1 Prices as accumulated interest</h3>
   <p>Define the instantaneous rate \(r(\mu)\) by writing <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=12">BY slide 7</a>
   $$R(t,z) = \exp\left(-\int_t^z \big[r(\mu)+p\big]\,d\mu\right).$$
   Why this form? Take the discrete case with periods of length Δ and \(p=0\) <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=13">BY slide 8</a>. The price of a good \((z-t)/\Delta\) periods ahead is the inverse of the compounded gross return:
@@ -209,8 +209,8 @@
 
   <p>A fact we will use repeatedly: \(\dfrac{\partial R(t,z)}{\partial t} = \big[r(t)+p\big]R(t,z)\). Moving the start date forward removes one instant of discounting.</p>
 
-  <h3>6.2 The sequential budget constraint</h3>
-  <div class="proof">
+  <h3 id="s6-6-2-sequential-budget">6.2 The sequential budget constraint</h3>
+  <div class="proof" id="pf-derivation">
     <div class="box-title">Derivation: \(\dot v = (r+p)v + y - c\) <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=14">BY slide 9</a></div>
     <ol class="steps">
       <li><strong>Truncate the horizon.</strong> For any \(T>t\), wealth at \(t\) finances net consumption up to \(T\) plus the wealth left at \(T\):
@@ -227,7 +227,7 @@
     <div class="qed">∎</div>
   </div>
 
-  <h3>6.3 The boundary condition</h3>
+  <h3 id="s6-6-3-boundary-condition">6.3 The boundary condition</h3>
   <p>The ODE alone does not pin down the budget; it holds for <em>any</em> \(v(T)\). Letting \(T\to\infty\) in Step 1, the sequential constraint is equivalent to the present-value constraint if and only if <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=16">BY slide 10</a>
   $$\lim_{T\to\infty} R(t,T)\,v(T) = \lim_{T\to\infty} v(T)\,e^{-\int_t^T (r(\mu)+p)d\mu} = 0 .$$</p>
   <table class="simple">
@@ -239,9 +239,9 @@
   <p>Human wealth must also be finite, which requires \(\lim_{T\to\infty}y(T)e^{-\int_t^T(r+p)} = 0\) (in fact the integral must converge). If human wealth were infinite, the agent could borrow without bound against it and the problem would have no solution. With constant \(y\) and \(r\), finiteness needs \(r+p>0\). So <strong>negative interest rates are fine as long as \(r>-p\)</strong>, a point that matters in Lessons 18–20.</p>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>7. The Euler equation: \(p\) cancels</h2>
+  <h2 id="s7">7. The Euler equation: \(p\) cancels</h2>
 
-  <div class="proof">
+  <div class="proof" id="pf-derivation-two-ways">
     <div class="box-title">Derivation: \(\dot c = (r-\theta)c\), two ways <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=12">BY slide 7</a></div>
     <ol class="steps">
       <li><strong>From the FOC.</strong> \(e^{-(\theta+p)(z-t)}/c(z) = \lambda\exp\big(-\int_t^z[r(\mu)+p]d\mu\big)\). Taking logs, \(-(\theta+p)(z-t) - \log c(z) = \log\lambda - \int_t^z[r(\mu)+p]d\mu\). Differentiating in \(z\): \(-(\theta+p) - \dot c/c = -(r(z)+p)\), so \(\dot c(z) = [r(z)-\theta]c(z)\).</li>
@@ -251,12 +251,12 @@
     <div class="qed">∎</div>
   </div>
 
-  <div class="intuition">
+  <div class="intuition" id="int-intuition-why-mortality-changes-level">
     <div class="box-title">Intuition: why mortality changes the level, not the slope</div>
     <p>Death makes the agent more impatient (discount \(\theta+p\)), but annuities raise the return by exactly the same \(p\) (return \(r+p\)). In the Euler equation only the gap between return and impatience matters, \((r+p)-(\theta+p) = r-\theta\), so \(p\) cancels. The level is different: the MPC out of wealth is \(\theta+p\), not \(\theta\), because a shorter expected horizon means total wealth is spread over fewer expected years. Even so, when all agents face the same \(r\), the cross-section of consumption growth is identical for everyone. Differences between cohorts come only from their different wealth levels, and newborns arrive with \(v=0\).</p>
   </div>
 
-  <h3>See it: one agent's life</h3>
+  <h3 id="s7-see-it-one-agent">See it: one agent's life</h3>
   <p>Take constant \(r\) and constant labour income \(y\) (this is \(\alpha=0\) in the next lesson's notation) and an agent born with \(v=0\). Then \(h = y/(r+p)\), initial consumption is \(c_0 = (\theta+p)y/(r+p)\), and \(c(x) = c_0e^{(r-\theta)x}\) at age \(x\). Since \(h\) is constant, \(v(x) = c(x)/(\theta+p) - h\), or
   $$\frac{v(x)}{y} = \frac{e^{(r-\theta)x}-1}{r+p}.$$</p>
 
@@ -314,7 +314,7 @@
   </script>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>8. Check your understanding</h2>
+  <h2 id="s8">8. Check your understanding</h2>
 
   <div class="quiz-section">
     <div class="quiz-question" data-correct="b">
@@ -364,11 +364,11 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>9. Exercises</h2>
+  <h2 id="s9">9. Exercises</h2>
 
   <p>No past exam has asked about Blanchard–Yaari directly, so these exercises follow the formats Alvarez does use: true/false with a short justification, and guided derivations with hints and point weights. Answer every part with general parameters before opening the solutions.</p>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-17-1">
     <div class="box-title">Exercise 17.1 <span class="tag exam">Exam-inspired</span> True or false? Justify. <span class="pts">(7 × 10 points)</span></div>
     <p>Give a verdict and a justification of one to four lines for each statement.</p>
     <ol class="tf-list">
@@ -389,7 +389,7 @@
     </ol>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-17-2">
     <div class="box-title">Exercise 17.2 <span class="tag slides">Slides p.2</span> Demographics <span class="pts">(30 points)</span></div>
     <ol class="parts" type="a">
       <li>(10) From \(N(s,t+\Delta)=N(s,t)(1-p\Delta)\) and \(N(s,s)=p\), derive \(N(s,t)=pe^{-p(t-s)}\). [Hint: subtract \(N(s,t)\), divide by Δ and let \(\Delta\downarrow0\).]</li>
@@ -403,7 +403,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-17-3">
     <div class="box-title">Exercise 17.3 <span class="tag slides">Slides p.3</span> Annuities and life insurance <span class="pts">(30 points)</span></div>
     <ol class="parts" type="a">
       <li>(10) An insurer takes \(v\) from each of many agents at \(t\) and pays each survivor \(v(1+\Delta r)/(1-p\Delta)\) at \(t+\Delta\). Show that it breaks even, and expand the payout to first order in Δ.</li>
@@ -417,7 +417,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-17-4">
     <div class="box-title">Exercise 17.4 <span class="tag slides">Slides p.6</span> <span class="tag proof">Proof</span> The log lemma <span class="pts">(30 points)</span></div>
     <ol class="parts" type="a">
       <li>(15) Show that the solution to \(\max\sum_{i=1}^n a_i\log c_i\) subject to \(\sum_i R_ic_i = W\), with \(a_i&gt;0\), is \(R_ic_i = W\,a_i/\sum_k a_k\).</li>
@@ -431,7 +431,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-17-5">
     <div class="box-title">Exercise 17.5 <span class="tag proof">Proof</span> PV budget ⇔ ODE + boundary <span class="pts">(20 points)</span></div>
     <p>Show that if \(v(\cdot)\) satisfies \(\dot v = (r+p)v + y - c\) and \(\lim_{T\to\infty}R(t,T)v(T)=0\), then \(\int_t^\infty[c-y]R(t,z)dz = v(t)\). [Hint: compute \(\frac{d}{dz}\big[R(t,z)v(z)\big]\).]</p>
     <details class="solution"><summary>Show solution</summary><div class="body">
@@ -439,7 +439,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-17-6">
     <div class="box-title">Exercise 17.6 <span class="tag exam">Exam-inspired</span> A life cycle with constant income <span class="pts">(50 points)</span></div>
     <p>An agent is born at age 0 with \(v=0\) and earns a constant \(y&gt;0\) for life. The interest rate is constant at \(r&gt;-p\). Answer in terms of \(y,r,\theta,p\).</p>
     <ol class="parts" type="a">
@@ -459,7 +459,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-17-7">
     <div class="box-title">Exercise 17.7 <span class="tag exam">Exam-inspired</span> CRRA instead of log <span class="pts">(30 points)</span></div>
     <p>Replace \(\log c\) with \(c^{1-\sigma}/(1-\sigma)\), \(\sigma&gt;0\).</p>
     <ol class="parts" type="a">
@@ -475,7 +475,7 @@
   </div>
 
   <div class="takeaways">
-    <h2>Key takeaways</h2>
+    <h2 id="takeaways">Key takeaways</h2>
     <ul>
       <li>Constant death hazard \(p\): cohort size \(pe^{-p(t-s)}\), population 1, everyone expects \(1/p\) more years.</li>
       <li>Fair annuities pay \(r+p\). Survivors inherit the wealth of the dead via insurers.</li>

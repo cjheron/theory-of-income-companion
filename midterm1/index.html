@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Midterm 1 Study Guide — Theory of Income</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/exam.js" defer></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Midterm 1 Study Guide · Fall 2026</div>
+    <h1>Midterm 1: Four Days, Six Sessions</h1>
+    <div class="meta">Covers Lessons 1–23 (welfare theorems, OLG, OLG extensions, perpetual youth, planner and Negishi weights) · About 8 hours in total · Midterm on Wednesday, October 28 · <a href="../index.html">Course index</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>How this guide works.</strong> Each session starts with a five-minute blank-page recall, then lists the lesson boxes to read <em>only if</em> the recall was shaky, then drills exam-format questions. About a third of the questions are reworded from past exams and problem sets (marked <span class="tag past" style="background:#7a3a10;color:#fff;font-family:var(--font-sans);font-size:0.7rem;padding:0.05rem 0.4rem;border-radius:3px">Past exam</span>); the rest are written to test the same ideas in new ways. You commit to an answer before you see the solution. When you miss, you get a link to the exact spot in a lesson, and the question joins the review queue below. Monday's session is built around that queue, and Tuesday is a timed mock. Your progress is saved in this browser.
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="schedule">1. The schedule</h2>
+  <table class="simple plan">
+    <tr><th>When</th><th>What</th><th>Time</th></tr>
+    <tr><td>Sat Oct 24</td><td><a href="s1-welfare-theorems.html">Session 1: Welfare theorems</a> → 10-minute break → <a href="s2-olg-endowment.html">Session 2: OLG endowment economy</a>. If you run past 2½ hours, skip Session 2's derivation 2; it goes on Monday's list.</td><td>~2½ h</td></tr>
+    <tr><td>Sun Oct 25</td><td><a href="s3-olg-extensions-perpetual-youth.html">Session 3: OLG extensions &amp; perpetual youth</a> → break → <a href="s4-planner-negishi.html">Session 4: Planner &amp; Negishi</a>. Each warm-up begins with two minutes of recall from Saturday (spacing). Derivations marked optional can wait.</td><td>~2½–3 h</td></tr>
+    <tr><td>Mon Oct 26</td><td><a href="s5-spaced-review.html">Session 5</a> in pieces: the review queue (25 min), then Sets A, B and C at different times of day (20 min each), then a 10-minute bedtime recall of the cheatsheets' MT1 boxes.</td><td>~1½ h</td></tr>
+    <tr><td>Tue Oct 27</td><td><a href="s6-mock-midterm.html">Session 6: Mock midterm</a>, 90 minutes in one sitting, then 30 minutes of grading and the review queue. Evening: MT1 boxes from memory, then stop.</td><td>~2 h</td></tr>
+    <tr><td>Wed Oct 28</td><td>Morning: 15 minutes with the four MT1 must-know boxes. No new problems.</td><td>15 min</td></tr>
+  </table>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="dashboard">2. Your progress and review queue</h2>
+  <p>Updates live as you answer. "Partly" means a right call with a weak justification, or a half-right derivation. On the exam that is lost points, so it is on the queue too.</p>
+  <div class="xq-dashboard"
+       data-pages="s1-welfare-theorems.html|Session 1 · Welfare theorems ;; s2-olg-endowment.html|Session 2 · OLG endowment economy ;; s3-olg-extensions-perpetual-youth.html|Session 3 · OLG extensions &amp; perpetual youth ;; s4-planner-negishi.html|Session 4 · Planner &amp; Negishi ;; s5-spaced-review.html|Session 5 · Spaced review ;; s6-mock-midterm.html|Session 6 · Mock midterm"
+       data-totals="19,19,22,20,24,10"></div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="sessions">3. The sessions</h2>
+  <ol class="toc">
+    <li><span class="num">S1</span><span><a href="s1-welfare-theorems.html">The welfare theorems</a> <span class="desc">· Lessons 1–7 · 16 T/F + 3 derivations · 75 min</span></span></li>
+    <li><span class="num">S2</span><span><a href="s2-olg-endowment.html">The OLG endowment economy</a> <span class="desc">· Lessons 8–13 · 15 T/F + 4 derivations (incl. the 2017/18 "OLG and trees" midterm question) · 80 min</span></span></li>
+    <li><span class="num">S3</span><span><a href="s3-olg-extensions-perpetual-youth.html">OLG extensions and perpetual youth</a> <span class="desc">· Lessons 14–20 · 18 T/F + 4 derivations (incl. the Fall 2025 final's Diamond question and PSET 1) · 90 min</span></span></li>
+    <li><span class="num">S4</span><span><a href="s4-planner-negishi.html">The planner, the representative agent and Negishi weights</a> <span class="desc">· Lessons 21–23 · 16 T/F + 4 derivations (incl. the whole Spring 2023 midterm) · 75 min</span></span></li>
+    <li><span class="num">S5</span><span><a href="s5-spaced-review.html">Spaced, interleaved review</a> <span class="desc">· all lessons, mixed · 24 T/F in three sets + your queue · 85 min</span></span></li>
+    <li><span class="num">S6</span><span><a href="s6-mock-midterm.html">Mock midterm</a> <span class="desc">· timed, 250 points · 90 min + 30 min review</span></span></li>
+  </ol>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="format">4. What past exams tell us</h2>
+  <p>Alvarez midterms mix (a) true/false items worth 10–20 points that ask you to justify in a few lines, and (b) long guided derivations whose parts say "one line" or "max 3 lines". There are no plug-in-number questions. The past midterms differ in scope from yours (the Fall 2025 midterm also had dynamic programming), but here are the in-scope themes across the Fall 2005, 2017/18, Spring 2023 and Fall 2025 exams and the 2025 problem sets:</p>
+  <table class="simple">
+    <tr><th>Theme</th><th>Times asked</th><th>Drilled in</th></tr>
+    <tr><td>OLG efficiency: sign of \(r\), finite value of the aggregate endowment, \(1+r\) vs \((1+g)(1+n)\)</td><td>6 (midterms 2005, 2017/18, 2023, 2025; final 2025)</td><td>S2, S3, S5, S6</td></tr>
+    <tr><td>Exact hypotheses of the 1WT (LNS only; IRS and quasi-concavity irrelevant)</td><td>3</td><td>S1, S5, S6</td></tr>
+    <tr><td>\(\lambda_i=1/\mu_i\); prices proportional to weighted marginal utilities; \(p\propto\gamma\)</td><td>3</td><td>S4, S6</td></tr>
+    <tr><td>Planner FOCs with weights; solve for \(\gamma\); comparative statics in \(\lambda_i\)</td><td>1 (an 8-part question)</td><td>S4</td></tr>
+    <tr><td>Diamond model with capital (factor prices, \(r_t\) dating, \(s_t=K_{t+1}\), law of motion, efficiency)</td><td>final 2025 (70 pts) + PSET 1</td><td>S3, S5</td></tr>
+    <tr><td>Heterogeneity within an OLG cohort</td><td>2 (midterm 2023, PSET 1)</td><td>S3, S4</td></tr>
+    <tr><td>Incomplete markets / heterogeneous beliefs vs efficiency</td><td>2</td><td>S1, S4, S6</td></tr>
+    <tr><td>PAYG: who gains, privatization with debt, falling \(n\)</td><td>PSET 1 (3 problems)</td><td>S2, S3, S6</td></tr>
+    <tr><td>Envy-free equilibrium from equal endowments</td><td>1</td><td>S4</td></tr>
+  </table>
+  <p>Blanchard–Yaari has no past midterm item, but it is in this year's lectures. The guide covers it with T/F items and one derivation, so you're not caught out.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="traps">5. Circulating answers that are wrong</h2>
+  <p>Some solution sets and review notes floating around the cohort contain these errors. The guide's model answers avoid them. Know the right version:</p>
+  <ul>
+    <li><b>"The OLG equilibrium is inefficient because the unborn can't trade (incomplete markets)."</b> No. The OLG CE is a complete-markets Arrow–Debreu equilibrium. The 1WT fails because the value of the aggregate endowment can be infinite (double infinity). <a href="../lessons/0012-why-the-1wt-fails-in-olg.html#s5">L12 §5</a></li>
+    <li><b>"\(r>0\) in all periods ⇒ efficient."</b> Only without growth. With growth the test is \(1+r\) vs \((1+g)(1+n)\). And even without growth, justify it with the finite-value argument. <a href="../lessons/0013-growing-olg-economy.html#s5">L13 §5</a></li>
+    <li><b>"\(r<0\) ⇒ over-accumulation of capital."</b> In the pure-exchange OLG there is no capital; aggregate saving is zero.</li>
+    <li><b>2WT stated as "convexity ⇒ every PO is a CE with transfers".</b> It delivers a <em>quasi-equilibrium</em>; you need a cheaper point (Arrow's remark) and a non-satiated household. <a href="../lessons/0006-second-welfare-theorem.html#warn-read-conclusion-carefully">L6 §3</a></li>
+    <li><b>"PO iff it solves the planner's problem for some \(\lambda\ge0\), \(\lambda\ne0\)."</b> The "if" direction needs \(\lambda\gg0\). <a href="../lessons/0021-utility-possibility-set-and-planner-weights.html#s6">L21 §6</a></li>
+    <li><b>"The planner's common MRS does not depend on \(\lambda\)."</b> The condition doesn't contain \(\lambda\); its value does. <a href="../lessons/0022-representative-agent-and-planner-focs.html#warn-don-t-over-read-mrs">L22 §5</a></li>
+    <li><b>Fall 2025 Final Q2.2: \(U=H(\bar e-\sum_i\lambda_i\theta^i)\).</b> Wrong; with equal weights \(U=\lambda H(\bar e-\bar\theta)\). <a href="../lessons/0022-representative-agent-and-planner-focs.html#ex-22-1">L22 Ex 22.1</a></li>
+    <li><b>PSET 1 P4 Q8: "a uniform PAYG tax makes borrowers strictly worse off".</b> Not necessarily: the answer is "not necessarily Pareto superior". <a href="../lessons/0016-olg-heterogeneity-and-long-lives.html#s3">L16 §3</a></li>
+    <li><b>Diamond: \(r_t=F_K(K_t,1)-\delta\).</b> The dating is \(K_{t+1}\). <a href="../lessons/0015-olg-with-capital.html#thm-interest-rate-capital">L15 §2</a></li>
+    <li><b>"Lump-sum taxes / IRS / quasi-concavity matter for the 1WT."</b> None of them does. <a href="../lessons/0004-first-welfare-theorem.html#warn-not-used-anywhere">L4 §3</a></li>
+  </ul>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="cheatsheets">6. Cheatsheets (closed-book: memorize the MT1 boxes)</h2>
+  <p>Each cheatsheet now opens with an <b>MT1 must-know</b> box: the statements and derivations to be able to write from a blank page, with the past-exam traps. Use them for recall (cover, write, check), not rereading.</p>
+  <ul>
+    <li><a href="../reference/welfare-theorems-cheatsheet.html#mt1">Welfare theorems</a> (Lessons 1–7)</li>
+    <li><a href="../reference/olg-cheatsheet.html#mt1">Overlapping generations</a> (Lessons 8–16)</li>
+    <li><a href="../reference/perpetual-youth-cheatsheet.html#mt1">Perpetual youth</a> (Lessons 17–20)</li>
+    <li><a href="../reference/aggregation-cheatsheet.html#mt1">Planner &amp; Negishi</a> (Lessons 21–23; the Gorman sections are marked "not on MT1")</li>
+    <li><a href="../reference/ge-glossary.html">Glossary</a></li>
+  </ul>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything, any time. Useful asks: "grade my justification", "give me three more items like the one I missed", "explain this model answer differently", or paste your review queue and ask what the misses have in common.</div>
+
+  <div class="lesson-nav">
+    <a href="../index.html">← Course index</a>
+    <a href="s1-welfare-theorems.html">Start: Session 1 →</a>
+  </div>
+
+</div>
+</body>
+</html>

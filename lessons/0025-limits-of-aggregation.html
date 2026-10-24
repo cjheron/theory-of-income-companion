@@ -35,7 +35,7 @@
     Alvarez, <a href="../sources/slides4-aggregation-planner.pdf#page=31">Class Note 3, slides 31–37</a>. For the demand-side view: Mas-Colell, Whinston &amp; Green, <em>Microeconomic Theory</em>, §4.B (aggregate demand depends only on aggregate wealth iff indirect utilities have the Gorman form) and §4.D (the representative consumer). For the planner side: MWG §16.E–16.F. In growth theory: Acemoglu, <em>Introduction to Modern Economic Growth</em>, §5.2 (Gorman's theorem and the representative household). The original paper is Gorman, W. M. (1953), "Community Preference Fields," <em>Econometrica</em> 21(1): 63–80.
   </div>
 
-  <div class="box notation">
+  <div class="box notation" id="note-notation-alert">
     <div class="box-title">Notation alert</div>
     <p>The slide footer says "Class Notes III", but this is <strong>folder 3</strong> (Aggregation, Social Planner), not Class Note III on OLG extensions (<a href="0014-privatizing-social-security.html">Lessons 14–16</a>). In this lesson:</p>
     <ul>
@@ -46,13 +46,13 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>1. The aggregation test</h2>
+  <h2 id="s1">1. The aggregation test</h2>
 
   <p><a href="0024-gorman-aggregation.html">Lesson 24</a> proved that if every household has \(u^i=g^i(h(x))\) with a <em>common</em> HD1 function \(h\), then relative prices are \(p_l/p_k=h_l(\bar e)/h_k(\bar e)\), whatever the distribution of wealth. Both hypotheses in that sentence, <em>identical</em> and <em>homothetic</em>, do real work. This lesson shows what happens when each one is dropped, and how a change of origin rescues a large class of non-homothetic, non-identical preferences.</p>
 
   <p>All examples use the same recipe. It is the skeleton of every past exam question on this note.</p>
 
-  <div class="definition">
+  <div class="definition" id="def-recipe-there-aggregation">
     <div class="box-title">Recipe: is there aggregation? <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=31">N3 p.31</a></div>
     <ol class="steps">
       <li><strong>Planner FOC.</strong> For an interior optimum with \(\lambda\gg0\): \(\lambda_i\,\partial u^i(x^i)/\partial x_l=\gamma_l\) for every \(i,l\).</li>
@@ -65,13 +65,13 @@
   <p>The logic of step 4 deserves a sentence. Every CE is a planner optimum for <em>some</em> weights, and redistributing endowments moves the supporting weights. If the planner's relative shadow values are the same for all weights, redistribution cannot move relative prices. If they differ across weights, it generically does. Section 2 shows this directly from the CE in one case.</p>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>2. Counterexample 1: homothetic, but not identical</h2>
+  <h2 id="s2">2. Counterexample 1: homothetic, but not identical</h2>
 
   <p>Let household \(i\) have Cobb–Douglas preferences with its own taste weights <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=31">N3 p.31</a>:</p>
   $$u^i(x^i)=\sum_{l=1}^m\beta^i_l\log x^i_l,\qquad \beta^i_l>0,\quad\sum_l\beta^i_l=1 .$$
   <p>Each \(u^i\) is homothetic: it is a strictly increasing transformation of the HD1 function \(\prod_l x_l^{\beta^i_l}\). But the HD1 function differs across households.</p>
 
-  <div class="proof">
+  <div class="proof" id="pf-derivation-planner-side">
     <div class="box-title">Derivation (planner side)</div>
     <ol class="steps">
       <li><strong>FOC.</strong> \(\lambda_i\,\beta^i_l/x^i_l=\gamma_l\).</li>
@@ -84,26 +84,26 @@
     </ol>
   </div>
 
-  <h3>The same failure, seen in the competitive equilibrium</h3>
+  <h3 id="s2-same-failure-seen-competitive">The same failure, seen in the competitive equilibrium</h3>
   <p>Let agent \(i\) have wealth \(w^i=p\cdot e^i\). Cobb–Douglas demand is \(x^i_l=\beta^i_lw^i/p_l\). Market clearing for good \(l\) gives</p>
   $$p_l\bar e_l=\sum_i\beta^i_l\,w^i .$$
   <p>The value of good \(l\) equals the total spending on it, and that is a wealth-weighted average of the taste weights. Take even <em>proportional</em> endowments \(e^i=\delta^i\bar e\), so that \(w^i=\delta^i\,p\cdot\bar e\). Then</p>
   $$\frac{p_l\bar e_l}{p_k\bar e_k}=\frac{\sum_i\delta^i\beta^i_l}{\sum_i\delta^i\beta^i_k},$$
   <p>which moves with the distribution \(\delta\). Moving wealth toward households that like good \(l\) raises its relative price. The two formulas match exactly. With log utility and \(\sum_l\beta^i_l=1\), the marginal utility of income is \(\mu_i=1/w^i\), so the Negishi weight is \(\lambda_i=1/\mu_i=w^i\propto\delta^i\).</p>
 
-  <div class="intuition">
+  <div class="intuition" id="int-lesson-homotheticity-alone-not-enough">
     <div class="box-title">Lesson: homotheticity alone is not enough <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=32">N3 p.32</a></div>
     <p>Each household's Engel curves are rays from the origin, so each spends a fixed share of a marginal dollar on each good. But the shares <em>differ</em> across households. A transfer from \(j\) to \(i\) therefore changes the composition of aggregate demand, and relative prices must adjust. What exact aggregation needs is a single preference ordering \(h\) shared by everyone, up to individual increasing transformations \(g^i\).</p>
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>3. Counterexample 2: identical, but not homothetic</h2>
+  <h2 id="s3">3. Counterexample 2: identical, but not homothetic</h2>
 
   <p>Now give everyone the <em>same</em> preferences, \(I=m=2\) <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=33">N3 p.33</a>:</p>
   $$u^i(x_1,x_2)=\frac{x_1^{1-\rho}}{1-\rho}+\frac{x_2^{1-\beta}}{1-\beta},\qquad\rho,\beta>0,\quad\rho\ne\beta .$$
   <p>(Read \(\frac{x^{1-1}}{1-1}\) as \(\log x\).) Good 1 has curvature \(\rho\) and good 2 has curvature \(\beta\). These preferences are not homothetic: along a ray \(x=t\bar x\), the MRS \(\frac{x_1^{-\rho}}{x_2^{-\beta}}\) scales like \(t^{\beta-\rho}\), so it changes with \(t\) unless \(\rho=\beta\).</p>
 
-  <div class="proof">
+  <div class="proof" id="pf-derivation">
     <div class="box-title">Derivation</div>
     <ol class="steps">
       <li><strong>FOCs.</strong> \(\lambda_i(x^i_1)^{-\rho}=\gamma_1\) and \(\lambda_i(x^i_2)^{-\beta}=\gamma_2\).</li>
@@ -119,13 +119,13 @@
     </ol>
   </div>
 
-  <div class="intuition">
+  <div class="intuition" id="int-why-non-homotheticity-breaks-aggregation">
     <div class="box-title">Why non-homotheticity breaks aggregation</div>
     <p>With identical non-homothetic preferences, rich and poor households spend a marginal dollar differently: Engel curves bend. Suppose \(\rho>\beta\). Good 1 is then more of a necessity, because its marginal utility falls off faster. A rich agent's extra dollar goes disproportionately to good 2. Shifting wealth from poor to rich raises aggregate demand for good 2 and lowers it for good 1, so \(p_1/p_2\) falls. Identical preferences do not help when the slope of the Engel curve depends on the level of wealth.</p>
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>4. See it: flat lines mean aggregation</h2>
+  <h2 id="s4">4. See it: flat lines mean aggregation</h2>
 
   <p>Two agents, two goods, \(\bar e=(1,1)\). Let \(s\equiv\lambda_1/(\lambda_1+\lambda_2)\) be agent 1's share of the Pareto weight. Since every \(\gamma_1/\gamma_2\) above is HD0 in \(\lambda\), it is a function of \(s\) alone. A family has aggregation exactly when its curve is <strong>flat</strong>.</p>
 
@@ -206,13 +206,13 @@
   </script>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>5. The rescue: Stone–Geary and translation</h2>
+  <h2 id="s5">5. The rescue: Stone–Geary and translation</h2>
 
   <p>Now let preferences be neither identical nor homothetic <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=34">N3 p.34</a>:</p>
   $$u^i(x^i)=\sum_{l=1}^m\beta^i_l\log\big(x^i_l-\theta^i_l\big),\qquad x^i_l>\theta^i_l .$$
   <p>\(\theta^i_l\) is a subsistence level. Agent \(i\) needs at least \(\theta^i_l\) of good \(l\) before it gets any utility from the good, and marginal utility explodes as \(x^i_l\downarrow\theta^i_l\). The quantity \(x^i_l-\theta^i_l\) is <em>supernumerary</em> consumption, the consumption above subsistence.</p>
 
-  <div class="proof">
+  <div class="proof" id="pf-derivation-2">
     <div class="box-title">Derivation</div>
     <ol class="steps">
       <li><strong>FOC.</strong> \(\lambda_i\,\dfrac{\beta^i_l}{x^i_l-\theta^i_l}=\gamma_l\).</li>
@@ -227,12 +227,12 @@
     </ol>
   </div>
 
-  <h3>Why it works: shift each household's origin <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=35">N3 p.35</a></h3>
+  <h3 id="s5-why-it-works-shift">Why it works: shift each household's origin <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=35">N3 p.35</a></h3>
   <p>Define translated consumption \(\hat x^i\equiv x^i-\theta^i\). In these coordinates, \(u^i=\sum_l\beta_l\log\hat x^i_l\) is the <em>same</em> homothetic function for everyone. The feasibility constraint becomes</p>
   $$\sum_i\hat x^i=\bar e-\bar\theta,$$
   <p>an exchange economy with identical homothetic preferences and aggregate endowment \(\bar e-\bar\theta\). Lesson 24 applies verbatim with \(\bar e\) replaced by \(\bar e-\bar\theta\). In the original coordinates the preferences are not homothetic (Engel curves start at \(\theta^i\), not at 0) and not identical (the \(\theta^i\) differ). They are <em>homothetic around a household-specific point</em>, which is what economists call <strong>quasi-homothetic</strong>.</p>
 
-  <div class="warning">
+  <div class="warning" id="warn-two-traps">
     <div class="box-title">Two traps</div>
     <ul>
       <li><strong>The taste weights must be common.</strong> With \(\beta^i_l\) varying across \(i\), step 3 gives \(\gamma_l/\gamma_k=\frac{\sum_i\lambda_i\beta^i_l}{\sum_i\lambda_i\beta^i_k}\cdot\frac{\bar e_k-\bar\theta_k}{\bar e_l-\bar\theta_l}\), and the first factor depends on \(\lambda\), exactly as in §2. Translation can absorb different <em>origins</em>, but not different <em>shapes</em>.</li>
@@ -241,7 +241,7 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>6. The CES generalization</h2>
+  <h2 id="s6">6. The CES generalization</h2>
 
   <p>Replace the logs by power functions <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=36">N3 p.36</a>:</p>
   $$u^i(x^i)=\sum_{l=1}^m\beta_l\,\frac{\big(x^i_l-\theta^i_l\big)^{1-\sigma}}{1-\sigma},\qquad\sigma>0 .$$
@@ -259,19 +259,19 @@
   <p>Compare §3: there the exponent was <em>good-specific</em> (\(\rho\) versus \(\beta\)), so the shares \(\lambda_i^{1/\rho}/\sum\lambda^{1/\rho}\) and \(\lambda_i^{1/\beta}/\sum\lambda^{1/\beta}\) differed across goods, and the \(\lambda\) terms did not cancel. A common curvature \(\sigma\) across goods is what makes \(u\) homothetic in \(\hat x\).</p>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>7. The general statement, completed</h2>
+  <h2 id="s7">7. The general statement, completed</h2>
 
   <p>Slide 37 sets up the general case and stops. Let \(\theta^i\in\mathbb R^m\) for every \(i\), and <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=37">N3 p.37</a></p>
   $$u^i(x)=g^i\big(h(x-\theta^i)\big),$$
   <p>with \(h\) common, HD1, increasing and concave, and \(g^i\) strictly increasing and concave. If \(\theta^i_l>0\), good \(l\) is a <strong>necessity</strong> for household \(i\). Redefine consumption as \(\hat x^i=x^i-\theta^i\), so feasibility reads \(\sum_i\hat x^i=\bar e-\bar\theta\). Here is the conclusion the slide leaves implicit.</p>
 
-  <div class="theorem">
+  <div class="theorem" id="thm-proposition-aggregation-translated-homothetic-preferences">
     <div class="box-title">Proposition: aggregation with translated homothetic preferences</div>
     <p>Suppose \(\bar e-\bar\theta\gg0\). In any interior competitive equilibrium, whatever the endowments \(\{e^i\}\) (provided each agent can afford its translation point, \(p\cdot e^i>p\cdot\theta^i\)),
     $$p=\kappa\,\nabla h\big(\bar e-\bar\theta\big)\quad\text{for some }\kappa>0,\qquad x^i=\theta^i+\delta^i(\bar e-\bar\theta),\quad\delta^i=\frac{p\cdot(e^i-\theta^i)}{p\cdot(\bar e-\bar\theta)} .$$
     On the planner side (with strictly concave \(g^i\)), \(\gamma_l/\gamma_k=h_l(\bar e-\bar\theta)/h_k(\bar e-\bar\theta)\) for every \(\lambda\gg0\).</p>
   </div>
-  <div class="proof">
+  <div class="proof" id="pf-proof-competitive-equilibrium-route">
     <div class="box-title">Proof (competitive-equilibrium route)</div>
     <ol class="steps">
       <li><strong>Translate the budget.</strong> \(p\cdot x^i\le p\cdot e^i\iff p\cdot\hat x^i\le\hat w^i\), where \(\hat w^i\equiv p\cdot(e^i-\theta^i)\) is <em>supernumerary wealth</em>: what is left after buying the translation bundle.</li>
@@ -282,7 +282,7 @@
     </ol>
     <div class="qed">∎</div>
   </div>
-  <div class="proof">
+  <div class="proof" id="pf-proof-planner-route-strictly-concave">
     <div class="box-title">Proof (planner route, for strictly concave \(g^i\))</div>
     <ol class="steps">
       <li><strong>Guess</strong> that every \(\hat x^i\) lies on the ray through \(Z\equiv\bar e-\bar\theta\): \(\hat x^i=s_iZ\) with \(s_i>0\) and \(\sum_is_i=1\).</li>
@@ -293,13 +293,13 @@
     <div class="qed">∎</div>
   </div>
 
-  <div class="warning">
+  <div class="warning" id="warn-we-can-dispense-harmless-ce">
     <div class="box-title">"We can dispense with \(g^i\)": harmless for the CE, degenerate for the planner</div>
     <p>The slide notes that one can take \(g^i\) to be the identity. For the CE that is fine (step 2 above never used \(g^i\)). For the planner it changes the problem: with \(u^i=h(x-\theta^i)\) linear along rays, utility is <em>transferable</em>, and with unequal weights the planner hands the whole surplus \(Z\) to a top-weight agent. With equal weights every split on the ray is optimal. This is the source of a wrong answer to a recent final (Exercise 25.3).</p>
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>8. Satiation points: the mirror image</h2>
+  <h2 id="s8">8. Satiation points: the mirror image</h2>
 
   <p>Two past exams use a translation in the other direction. Let</p>
   $$u^i(x^i)=-\sum_{l=1}^m\pi_l\,\frac{\big(\theta^i_l-x^i_l\big)^{1+\sigma}}{1+\sigma},\qquad x^i_l\le\theta^i_l,\quad\pi_l,\sigma>0 .$$
@@ -314,7 +314,7 @@
   <p><strong>The condition \(\bar e\lt\bar\theta\) is essential, and the exam leaves it unstated.</strong> Since \(x^i\le\theta^i\), feasibility with equality needs \(\bar e_l\le\bar\theta_l\). If \(\bar e_l=\bar\theta_l\), everyone is satiated in good \(l\) and \(\gamma_l=0\). With free disposal and \(\bar e_l>\bar\theta_l\), good \(l\) is free. Interior, positive prices need \(\bar e\ll\bar\theta\). Relative prices \(p_l/p_k\) then <em>fall</em> with \(\bar e_l\) and <em>rise</em> with \(\bar e_k\): the less scarce good \(l\) is relative to satiation, the cheaper it is.</p>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>9. The unifying principle: the Gorman polar form</h2>
+  <h2 id="s9">9. The unifying principle: the Gorman polar form</h2>
 
   <p>Why do translations work while §2 and §3 fail? Look at demand. Gorman (1953) showed that aggregate demand depends only on aggregate wealth, for every wealth distribution, iff each household's indirect utility has the form (MWG Prop. 4.B.1)</p>
   $$v^i(p,w)=a^i(p)+b(p)\,w ,$$
@@ -332,13 +332,13 @@
 
   <p>For \(u^i=h(x-\theta^i)\) with \(h\) HD1, let \(P(p)=\min\{p\cdot z:h(z)\ge1\}\) be the unit cost of \(h\)-utility. Then \(v^i(p,w)=\frac{w-p\cdot\theta^i}{P(p)}\), which is the Gorman form with \(a^i(p)=-p\cdot\theta^i/P(p)\) and \(b(p)=1/P(p)\). Translation is therefore one example of the Gorman polar form, not the whole of it. Exercise 25.7 shows another: CARA utilities with <em>different</em> risk aversions, which aggregate even though preferences are not identical.</p>
 
-  <div class="intuition">
+  <div class="intuition" id="int-two-versions-result">
     <div class="box-title">Two versions of the result</div>
     <p>Gorman's condition delivers aggregation for <em>every</em> wealth distribution (with interior demands). The course's version (slides 26–30) assumed identical homothetic preferences and proportional endowments, then noted that proportionality is not needed: <em>sufficient</em> is \(p\cdot e^i=\delta^ip\cdot\bar e\), and with identical homothetic preferences any distribution satisfies this for \(\delta^i\equiv p\cdot e^i/p\cdot\bar e\). One widely shared review sheet calls this condition "necessary". It is sufficient, not necessary: Stone–Geary aggregates without it.</p>
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>10. Where exams use this: inside an OLG cohort</h2>
+  <h2 id="s10">10. Where exams use this: inside an OLG cohort</h2>
 
   <p>Put heterogeneous types inside each generation of a two-period OLG economy (<a href="0016-olg-heterogeneity-and-long-lives.html">Lesson 16</a>). Each cohort's "goods" are consumption at \(t\) and at \(t+1\). Two facts combine:</p>
   <ol class="steps">
@@ -350,7 +350,7 @@
   <p>The interest rate depends only on cohort aggregates. Whether \(r\) is positive then decides efficiency, exactly as in the homogeneous model (<a href="0010-olg-efficiency.html">Lesson 10</a>). With log utility and heterogeneous endowments (the 2025 problem set), the same logic gave \(\bar r=\frac{\bar\alpha-\beta}{\beta(1-\bar\alpha)}\): only the mean \(\bar\alpha\) matters.</p>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>11. Check your understanding</h2>
+  <h2 id="s11">11. Check your understanding</h2>
 
   <div class="quiz-section">
     <div class="quiz-question" data-correct="a">
@@ -411,11 +411,11 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>12. Exercises</h2>
+  <h2 id="s12">12. Exercises</h2>
 
   <p>Aggregation questions on Alvarez's exams have two shapes. One is a long guided derivation on translated utilities (FOC, invert, aggregate, test, representative agent, prices). The other is a set of one-line true/false items. Exercises 25.2, 25.3 and 25.5 are reworded past exam questions. Attempt each part before opening the solution.</p>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-25-1">
     <div class="box-title">Exercise 25.1 True or false? Justify. <span class="tag exam">Exam format</span></div>
     <p>For each statement, say whether it is true or false and justify in one to four lines.</p>
     <ol class="tf-list">
@@ -454,7 +454,7 @@
     </ol>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-25-2">
     <div class="box-title">Exercise 25.2 Aggregation with satiation points <span class="tag past">Past exam: Spring 2023 Midterm 1 Q1</span></div>
     <p>A pure endowment economy has \(m\) goods and \(I\) consumers with</p>
     $$u^i(x^i)=-\sum_{l=1}^m\pi_l\frac{(\theta^i_l-x^i_l)^{1+\sigma}}{1+\sigma}\quad\text{on }X^i=\{x\in\mathbb R^m:x_l\le\theta^i_l\},\qquad\pi_l,\sigma,\theta^i_l>0 .$$
@@ -492,7 +492,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-25-3">
     <div class="box-title">Exercise 25.3 The representative agent with translated preferences <span class="tag past">Past exam: Fall 2025 Final Q2</span> <span class="pts">[20 points]</span></div>
     <p>There are \(m\) goods and \(I\) agents with \(u^i(c)=H(c-\theta^i)\), where \(\theta^i\in\mathbb R^m\) and \(H\) is HD1, strictly increasing and strictly quasi-concave. Assume \(H\) is defined on \(\mathbb R^m_+\) (consumption at or above \(\theta^i\)) and \(\bar e-\bar\theta\gg0\), where \(\bar\theta=\sum_i\theta^i\).</p>
     <ol class="parts" type="a">
@@ -512,7 +512,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-25-4">
     <div class="box-title">Exercise 25.4 Classification drill: does aggregation hold? <span class="tag pset">Problem set (aggregation) P1.1–1.5</span></div>
     <p>For each family, (i) say whether preferences are identical and whether they are homothetic, (ii) derive \(\gamma_l/\gamma_k\) from the planner's FOCs, and (iii) decide whether aggregation holds. Assume interior solutions, and \(\bar e\gg\bar\theta\) or \(\bar e\ll\bar\theta\) as appropriate.</p>
     <ol class="parts" type="a">
@@ -532,7 +532,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-25-5">
     <div class="box-title">Exercise 25.5 Aggregation inside an OLG cohort <span class="tag past">Past exam: Spring 2023 Midterm 1 Q2</span></div>
     <p>Periods \(t=1,2,\dots\). Each generation lives two periods and contains types \(i=1,\dots,I\), with preferences as in Exercise 25.2 over \((x^{t,i}_t,x^{t,i}_{t+1})\), weights \((\pi_y,\pi_o)\) and type-specific satiation points \((\theta^i_y,\theta^i_o)\). Type \(i\) is endowed with \(\alpha^i_y\) when young and \(\alpha^i_o\) when old. The initial old have \(\alpha^i_o\) and utility \(x^{0,i}_1\). Let \(\bar\alpha_y,\bar\alpha_o,\bar\theta_y,\bar\theta_o\) be the cohort sums, with \(\bar\alpha\ll\bar\theta\).</p>
     <ol class="parts" type="a">
@@ -551,7 +551,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-25-6">
     <div class="box-title">Exercise 25.6 Complete slide 37 <span class="tag slides">Slides N3 p.37</span> <span class="tag proof">Proof</span></div>
     <p>Let \(u^i(x)=g^i(h(x-\theta^i))\) with \(h\) HD1, increasing and concave, and \(g^i\) strictly increasing.</p>
     <ol class="parts" type="a">
@@ -568,7 +568,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-25-7">
     <div class="box-title">Exercise 25.7 Gorman form: who passes, who fails <span class="tag exam">Exam-inspired</span></div>
     <ol class="parts" type="a">
       <li><span class="pts">[10]</span> For \(u^i=h(x-\theta^i)\) with \(h\) HD1, let \(P(p)=\min\{p\cdot z:h(z)\ge1\}\). Show that \(v^i(p,w)=\frac{w-p\cdot\theta^i}{P(p)}\). Use Roy's identity to find demand, and verify that \(\partial x^i_l/\partial w\) is common to all \(i\).</li>
@@ -587,7 +587,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-25-8">
     <div class="box-title">Exercise 25.8 Negishi weights when aggregation fails <span class="tag exam">Exam-inspired</span></div>
     <p>Two goods, households with \(u^i=\beta^i\log x_1+(1-\beta^i)\log x_2\) and proportional endowments \(e^i=\delta^i\bar e\), with \(\sum_i\delta^i=1\).</p>
     <ol class="parts" type="a">
@@ -607,7 +607,7 @@
   </div>
 
   <div class="takeaways">
-    <h2>Key takeaways</h2>
+    <h2 id="takeaways">Key takeaways</h2>
     <ul>
       <li><strong>Test:</strong> solve \(\lambda_iu^i_l=\gamma_l\) for \(x^i_l\), sum to get \(\gamma_l(\lambda)\), and check whether \(\gamma_l/\gamma_k\) depends on \(\lambda\). If it does not, CE relative prices do not depend on the wealth distribution.</li>
       <li><strong>Homothetic but not identical fails</strong> (non-identical Cobb–Douglas: \(\gamma_l\propto\sum_i\lambda_i\beta^i_l/\bar e_l\)). <strong>Identical but not homothetic fails</strong> (curvatures \(\rho\ne\beta\): the shares \(\lambda_i^{1/\rho}\) and \(\lambda_i^{1/\beta}\) differ across goods).</li>

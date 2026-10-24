@@ -34,9 +34,9 @@
     Alvarez, <a href="../sources/slides2-olg.pdf#page=19">Class Note II, pp. 19–20</a>. Samuelson's <a href="https://ideas.repec.org/a/ucp/jpolec/v66y1958p467.html">1958 paper</a> makes the same point with a "social compact" and with fiat money. Exercise 11.6 shows that the two are equivalent. Diamond, <a href="https://www.jstor.org/stable/1809231">"National Debt in a Neoclassical Growth Model"</a>, <em>AER</em> (1965), extends the argument to an economy with capital (see <a href="0015-olg-with-capital.html">Lesson 15</a>).
   </div>
 
-  <h2>1. The policy</h2>
+  <h2 id="s1">1. The policy</h2>
 
-  <div class="definition">
+  <div class="definition" id="def-definition-payg-social-security-tax">
     <div class="box-title">Definition: PAYG social security with tax \(\tau\) <a class="slide-ref" href="../sources/slides2-olg.pdf#page=19">II p.19</a></div>
     <p>At every date, each young agent pays a lump-sum tax \(\tau\) and each old agent alive receives a transfer \(\tau\). One young and one old are alive at each date, so taxes equal transfers <strong>period by period</strong>: the government budget balances for every \(\tau\) and the government never issues debt. After-tax endowments become
     $$e^i_i = (1-\alpha)-\tau,\qquad e^i_{i+1} = \alpha+\tau\quad (i\ge1),\qquad e^0_1 = \alpha+\tau .$$
@@ -45,7 +45,7 @@
 
   <p>"Pay-as-you-go" means that current workers' contributions are paid out immediately to current retirees. Nothing is invested. Contrast this with a <em>funded</em> system that would save contributions and pay retirees out of the accumulated returns; Lesson 14 shows how to move between the two.</p>
 
-  <h2>2. The equilibrium with social security</h2>
+  <h2 id="s2">2. The equilibrium with social security</h2>
 
   <p>The policy only relabels endowments. Every assumption of the no-trade proposition (Lesson 8) still holds with the after-tax endowments, so <strong>the unique CE is again autarky</strong>, now at the after-tax point:</p>
   $$c_y(\tau) = 1-\alpha-\tau,\qquad c_o(\tau) = \alpha+\tau .$$
@@ -53,12 +53,12 @@
   $$1+r(\tau) = \frac{v_1}{v_2}\Big|_{(1-\alpha-\tau,\ \alpha+\tau)} = \frac{(1-\beta)(\alpha+\tau)}{\beta(1-\alpha-\tau)},$$
   <p>which is increasing in \(\tau\). Social security shifts resources toward old age, so the young want to save less. To keep them content with zero savings, the interest rate must rise.</p>
 
-  <h3>Implementing the best symmetric allocation</h3>
+  <h3 id="s2-implementing-best-symmetric-allocation">Implementing the best symmetric allocation</h3>
   <p>Choosing \(\tau\) so that the after-tax endowment <em>is</em> \((1-\beta,\beta)\) requires <a class="slide-ref" href="../sources/slides2-olg.pdf#page=19">II p.19</a></p>
   $$\boxed{\;\tau^* = \beta-\alpha\;}$$
   <p>and then \(1+r(\tau^*) = \frac{(1-\beta)\beta}{\beta(1-\beta)} = 1\): the interest rate becomes <strong>zero</strong>, the biological rate of return.</p>
 
-  <h2>3. When does social security make everyone better off?</h2>
+  <h2 id="s3">3. When does social security make everyone better off?</h2>
 
   <p>Compare the CE with policy \(\tau\) to the CE without it (\(\tau=0\)).</p>
   <ul>
@@ -66,7 +66,7 @@
     <li><strong>Generations \(i\ge1\):</strong> utility \(W(\tau) \equiv (1-\beta)\log(1-\alpha-\tau) + \beta\log(\alpha+\tau)\).</li>
   </ul>
 
-  <div class="proof">
+  <div class="proof" id="pf-analysis">
     <div class="box-title">Analysis of \(W(\tau)\)</div>
     <ol class="steps">
       <li><strong>Strict concavity.</strong> \(W''(\tau) = -\frac{1-\beta}{(1-\alpha-\tau)^2} - \frac{\beta}{(\alpha+\tau)^2} < 0\).</li>
@@ -78,7 +78,7 @@
     <div class="qed">∎</div>
   </div>
 
-  <div class="theorem">
+  <div class="theorem" id="thm-answer-slide-question">
     <div class="box-title">Answer to the slide question <a class="slide-ref" href="../sources/slides2-olg.pdf#page=20">II p.20</a></div>
     <p>A PAYG system with tax \(\tau\) yields a CE that Pareto-dominates the no-policy CE <strong>if and only if</strong> \(\beta>\alpha\), equivalently the no-policy CE has a <strong>negative interest rate</strong> \(\bar r<0\), and \(\tau\in(0,\bar\tau]\), where \(\bar\tau>\beta-\alpha\) solves
     $$(1-\beta)\log\frac{1-\alpha-\bar\tau}{1-\alpha} + \beta\log\frac{\alpha+\bar\tau}{\alpha} = 0 .$$
@@ -153,12 +153,12 @@
   })();
   </script>
 
-  <div class="intuition">
+  <div class="intuition" id="int-intuition-payg-asset-return-equal">
     <div class="box-title">Intuition: PAYG is an asset with return equal to population growth</div>
     <p>From any generation's point of view, PAYG says: give up \(\tau\) when young, get \(\tau\) when old. That's a savings instrument with a gross return of \(1\), the ratio of contributors to recipients. Private markets offered an "autarky" return \(1+\bar r\). If \(1+\bar r<1\), the PAYG asset dominates and everyone wants some. The initial old receive a pure windfall. The scheme's "capital" is the promise that the next young will pay, and that promise is honoured forever. In <a href="0013-growing-olg-economy.html">Lesson 13</a> the return on PAYG becomes \((1+n)(1+g)\) and the condition becomes \(1+\bar r<(1+n)(1+g)\).</p>
   </div>
 
-  <h2>4. Check your understanding</h2>
+  <h2 id="s4">4. Check your understanding</h2>
 
   <div class="quiz-section">
     <div class="quiz-question" data-correct="c">
@@ -207,11 +207,11 @@
     <div class="quiz-score"></div>
   </div>
 
-  <h2>5. Exercises</h2>
+  <h2 id="s5">5. Exercises</h2>
 
   <p>Social security in OLG shows up on exams as true/false items ("does PAYG make everyone better off?") and in the 2025 problem set, which extends this lesson to population growth and to heterogeneous types (Exercises 11.7–11.8). Answer with general parameters.</p>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-11-1">
     <div class="box-title">Exercise 11.1 <span class="tag exam">Exam-inspired</span> True or false? Justify in 1–4 lines.</div>
     <ol class="tf-list">
       <li>If the no-policy CE has \(\bar r<0\), introducing a PAYG system with any tax \(\tau>0\) is a Pareto improvement.
@@ -233,7 +233,7 @@
     </ol>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-11-2">
     <div class="box-title">Exercise 11.2 <span class="tag slides">Slides II pp.19–20</span> <span class="tag exam">Exam-inspired</span> When does PAYG Pareto-improve?</div>
     <p>Endowments \((1-\alpha,\alpha)\), preferences \((1-\beta)\log c_y+\beta\log c_o\), and the PAYG policy \(\tau\) of §1. Answer without looking back at §3.</p>
     <ol class="parts" type="a">
@@ -250,7 +250,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-11-3">
     <div class="box-title">Exercise 11.3 <span class="tag proof">Proof</span></div>
     <p>Show that when \(\beta=\tfrac12\), \(\bar\tau = 2(\beta-\alpha) = 1-2\alpha\). Then show that, more generally, \(\bar\tau>2(\beta-\alpha)\) if \(\beta\lt \tfrac12\) and \(\bar\tau<2(\beta-\alpha)\) if \(\beta>\tfrac12\).</p>
     <details class="hint"><summary>Hint</summary><div class="body"><p>Write young utility as a function of old-age consumption \(c\): \(f(c) = (1-\beta)\log(1-c) + \beta\log c\), which peaks at \(c=\beta\). With \(d\equiv\beta-\alpha>0\), the CE is at \(c = \beta-d\), and \(\tau=2d\) puts the young at \(c=\beta+d\). Study \(g(d)\equiv f(\beta+d)-f(\beta-d)\).</p></div></details>
@@ -266,7 +266,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-11-4">
     <div class="box-title">Exercise 11.4 <span class="tag exam">Exam-inspired</span> Transitions</div>
     <p>Suppose \(\beta>\alpha\).</p>
     <ol class="parts" type="a">
@@ -281,7 +281,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-11-5">
     <div class="box-title">Exercise 11.5 <span class="tag exam">Exam-inspired</span> Negative taxes in Case 3</div>
     <p>Now take \(\beta\lt \alpha\) (so \(\bar r>0\)).</p>
     <ol class="parts" type="a">
@@ -296,7 +296,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-11-6">
     <div class="box-title">Exercise 11.6 <span class="tag exam">Exam-inspired</span> Fiat money</div>
     <p>Remove social security. At date 1 the initial old instead hold \(M>0\) units of intrinsically useless fiat money. Each period the young may buy money from the old at price \(1/P_t\) (goods per unit of money) and sell it when old.</p>
     <ol class="parts" type="a">
@@ -311,7 +311,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-11-7">
     <div class="box-title">Exercise 11.7 <span class="tag pset">Problem set 2025, P6 Q3–Q6</span> PAYG with population growth</div>
     <p>Keep log preferences and endowments \((1-\alpha,\alpha)\), but let cohorts grow: \(N_{t+1}=(1+n)N_t\), \(n>0\). Under PAYG each young pays \(\tau\), and each old receives \(N_t\tau/N_{t-1}=(1+n)\tau\).</p>
     <ol class="parts" type="a">
@@ -328,7 +328,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-11-8">
     <div class="box-title">Exercise 11.8 <span class="tag pset">Problem set 2025, P4 Q8</span> Uniform PAYG with heterogeneous types</div>
     <p>Each cohort has types \(n=1,\dots,N\) with endowments \((1-\alpha_n,\alpha_n)\), log preferences with weight \(\beta\), and \(\bar\alpha\equiv\frac1N\sum_n\alpha_n\lt \beta\), so \(\bar r=\frac{\bar\alpha-\beta}{\beta(1-\bar\alpha)}<0\) (Lesson 16). A uniform PAYG tax \(\tau\) is introduced, so type \(n\)'s endowments become \((1-\alpha_n-\tau,\alpha_n+\tau)\).</p>
     <ol class="parts" type="a">
@@ -350,7 +350,7 @@
   </div>
 
   <div class="takeaways">
-    <h2>Key takeaways</h2>
+    <h2 id="takeaways">Key takeaways</h2>
     <ul>
       <li>PAYG with tax \(\tau\) relabels endowments to \((1-\alpha-\tau,\alpha+\tau)\). The new CE is autarky there, with \(1+r(\tau) = \frac{(1-\beta)(\alpha+\tau)}{\beta(1-\alpha-\tau)}\).</li>
       <li>\(\tau^*=\beta-\alpha\) implements the best symmetric allocation and drives \(r\) to 0.</li>

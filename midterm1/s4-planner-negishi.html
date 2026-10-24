@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Midterm 1 · Session 4: The Planner and Negishi Weights — Theory of Income</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/exam.js" defer></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Midterm 1 Study Guide · Session 4 of 6 · Sunday</div>
+    <h1>Session 4: The Planner, the Representative Agent and Negishi Weights</h1>
+    <div class="meta">Lessons <a href="../lessons/0021-utility-possibility-set-and-planner-weights.html">21</a>–<a href="../lessons/0023-negishi-weights-and-welfare-theorems.html">23</a> · About 75 minutes · 16 true/false items + 4 guided derivations · <a href="index.html">Study-guide hub</a> · <a href="../reference/aggregation-cheatsheet.html">Aggregation cheatsheet</a> (sections up to Negishi)</div>
+  </div>
+
+  <div class="goal">
+    <strong>What this session drills.</strong> The Spring 2023 midterm was built on this material: an 11-part planner problem, then an OLG question that reuses its answer. The Fall 2025 and Fall 2005 midterms each had a T/F item on \(\lambda_i=1/\mu_i\). By the end you should be able to:
+    <ol>
+      <li>write the planner's FOCs \(\lambda_iu^i_l=\gamma_l\), solve for \(\gamma\) using feasibility, and say how allocations move with \(\lambda_i\);</li>
+      <li>match them to the household FOCs \(u^i_l=\mu_ip_l\): \(\lambda_i\propto1/\mu_i\), \(p\propto\gamma\);</li>
+      <li>use Negishi's method: guess weights, solve the planner, check budgets at \(p=\gamma\), update.</li>
+    </ol>
+    Not on the midterm: Gorman aggregation and its limits (Lessons 24–25). Where a past question touched them, the guide gives you the in-scope route.
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides4-aggregation-planner.pdf#page=3">Class Note 3 (Aggregation, Social Planner), slides 3–25</a>. Textbook backup: Mas-Colell, Whinston &amp; Green §16.E–16.F (Pareto optima as welfare-maximizers, and their FOCs). Original: Negishi (1960), "Welfare Economics and Existence of an Equilibrium for a Competitive Economy", <em>Metroeconomica</em> 12, 92–97.
+  </div>
+
+  <div class="xq-score"></div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="recall">1. Warm-up: blank-page recall (6 min)</h2>
+  <p>Spaced repetition first (2 min): the Diamond law of motion with log utility and Cobb–Douglas, and the BY \(\dot C\) equation. Then:</p>
+  <ol class="recall">
+    <li>State the planner-weight theorem (both directions, with their hypotheses).
+      <div class="recall-a">(1) If \(\lambda\gg0\) and the allocation solves \(\max\sum_i\lambda_iu^i\) s.t. feasibility, it is PO. (2) Under HH, FF and CC (concave \(u^i\)), so that \(U\) is convex, every PO allocation solves the problem for some \(\lambda\ge0\), \(\lambda\ne0\). Zero weights can be needed for (2), but they break (1). <a href="../lessons/0021-utility-possibility-set-and-planner-weights.html#thm-theorem">L21 §4</a></div></li>
+    <li>Exchange economy: the planner's FOCs and what each part says.
+      <div class="recall-a">\(\lambda_i\,\partial u^i(x^i)/\partial x_l=\gamma_l\) for all \(i,l\) (interior). Ratio across goods: every MRS equals \(\gamma_l/\gamma_k\) (efficiency). Ratio across agents: \(u^i_l/u^j_l=\lambda_j/\lambda_i\), so a higher weight means lower marginal utility, i.e. more consumption (distribution). <a href="../lessons/0022-representative-agent-and-planner-focs.html#thm-karush-kuhn-tucker-conditions-problem">L22 §5</a></div></li>
+    <li>What is \(\gamma_l\)?
+      <div class="recall-a">The marginal value to the planner of one more unit of the aggregate endowment of good \(l\): \(\gamma_l=\partial U(\bar e;\lambda)/\partial\bar e_l\) (envelope theorem). <a href="../lessons/0022-representative-agent-and-planner-focs.html#thm-proposition-envelope-property-representative-agent">L22 §7</a></div></li>
+    <li>The dictionary between CE and planner.
+      <div class="recall-a">Household: \(u^i_l=\mu_ip_l\), with \(\mu_i=\partial V^i/\partial w\) the marginal utility of income. Planner: \(\lambda_iu^i_l=\gamma_l\). They match with \(\lambda_i=\kappa/\mu_i\), \(\gamma=\kappa p\). Richer agents (lower \(\mu_i\)) get higher weights. <a href="../lessons/0023-negishi-weights-and-welfare-theorems.html#s2-two-sets-first-order">L23 §2</a></div></li>
+    <li>Negishi's algorithm in one line.
+      <div class="recall-a">Guess \(\lambda\); solve the planner; set \(p=\gamma(\lambda)\); compute each agent's budget gap \(p\cdot(x^i(\lambda)-e^i)\); <em>lower</em> the weights of agents who consume more than their endowment is worth and raise the others; repeat until every budget balances. <a href="../lessons/0023-negishi-weights-and-welfare-theorems.html#def-negishi-s-algorithm">L23 §6</a></div></li>
+  </ol>
+
+  <h2 id="readfirst">2. Read first: only what you could not reproduce</h2>
+  <ul class="readfirst">
+    <li><a href="../lessons/0021-utility-possibility-set-and-planner-weights.html#s6">L21 §6 · Zero weights</a> <span class="why">(a classic T/F trap)</span></li>
+    <li><a href="../lessons/0022-representative-agent-and-planner-focs.html#warn-don-t-over-read-mrs">L22 §5 · Don't over-read "the MRS condition does not contain λ"</a></li>
+    <li><a href="../lessons/0023-negishi-weights-and-welfare-theorems.html#pf-proof">L23 §3 · The 1WT via FOCs</a> and <a href="../lessons/0023-negishi-weights-and-welfare-theorems.html#warn-this-proof-needs-much-more">what it needs beyond Lesson 4</a></li>
+    <li><a href="../lessons/0023-negishi-weights-and-welfare-theorems.html#s5">L23 §5 · Prices depend on the income distribution</a></li>
+  </ul>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="tf">3. True or false? Justify in 1–4 lines</h2>
+
+  <div class="xq" id="s4-01" data-kind="tf" data-answer="T"
+       data-study="../lessons/0023-negishi-weights-and-welfare-theorems.html#thm-claim-marginal-utility-income|L23 §2 · μ_i is the marginal utility of income ;; ../lessons/0023-negishi-weights-and-welfare-theorems.html#ex-23-2|L23 · Exercise 23.2 (prices as weighted marginal utilities)">
+    <div class="xq-src"><span class="tag past">Past exam · Fall 2025 MT1 I.4</span></div>
+    <div class="xq-stem">"Assume all agents have strictly concave, strictly increasing, differentiable utility functions satisfying Inada conditions. In a pure endowment economy, equilibrium prices of each commodity are proportional to a weighted average of the marginal utility of that commodity across all agents, with the same weights across agents for all commodities."</div>
+    <div class="xq-solution"><p><b>True.</b> Inada gives interior demands, so each household's FOC is \(u^i_l=\mu_ip_l\) for every good, i.e. \(p_l=\frac{1}{\mu_i}u^i_l\) for every \(i\). Averaging over agents, \(p_l=\frac1I\sum_i\frac{1}{\mu_i}u^i_l\propto\sum_i\frac{1}{\mu_i}u^i_l\). Agent \(i\)'s weight \(1/\mu_i\) does not depend on \(l\). These are exactly the Negishi weights.</p></div>
+  </div>
+
+  <div class="xq" id="s4-02" data-kind="tf" data-answer="F"
+       data-study="../lessons/0023-negishi-weights-and-welfare-theorems.html#s3-reading-dictionary|L23 §3 · Reading the dictionary (λ_i = 1/μ_i) ;; ../lessons/0023-negishi-weights-and-welfare-theorems.html#s6|L23 §6 · Negishi's method">
+    <div class="xq-src"><span class="tag past">Past exam · Fall 2005 Midterm, Ex. 1 Q5</span></div>
+    <div class="xq-stem">"Let \(\mu_i\) be the marginal utility of income of agent \(i\) and \(p_s\) the price of the consumption good in state \(s\). Let \(\lambda_i\) be the weight of agent \(i\) in the planner's problem and \(\gamma_s\) the marginal social value of good \(s\). Then setting \(\mu_i=\lambda_i\) and \(p_s=\gamma_s\) implies that the allocations of the competitive equilibrium and of the planner's problem coincide."</div>
+    <div class="xq-solution"><p><b>False.</b> The household FOC is \(u_i'(c^i_s)=\mu_ip_s\) and the planner's is \(\lambda_iu_i'(c^i_s)=\gamma_s\). They coincide when \(\lambda_i=1/\mu_i\) (and \(\gamma=p\), up to a common scale), not \(\lambda_i=\mu_i\). With \(\lambda_i=\mu_i\) they coincide only if all \(\mu_i\) are equal. Rich agents have low \(\mu_i\) and get high weights.</p></div>
+  </div>
+
+  <div class="xq" id="s4-03" data-kind="tf" data-answer="T"
+       data-study="../lessons/0023-negishi-weights-and-welfare-theorems.html#ex-23-5|L23 · Exercise 23.5 (envy-free allocations)">
+    <div class="xq-src"><span class="tag past">Past exam · Fall 2025 MT1 I.6</span></div>
+    <div class="xq-stem">"Pure endowment economy, \(I\) agents, \(m\) goods. A feasible allocation is envy-free if \(u^i(x^i)\ge u^i(x^j)\) for all \(i,j\). Consider the competitive equilibrium with endowments \(e^i=\frac1I\bar e\). Its allocation is envy-free."</div>
+    <div class="xq-solution"><p><b>True.</b> Everyone's wealth is \(p\cdot\bar e/I\), so all budget sets are identical. Agent \(j\)'s bundle \(\bar x^j\) is affordable to \(i\), and \(i\) chose \(\bar x^i\), so \(u^i(\bar x^i)\ge u^i(\bar x^j)\). No LNS, convexity or identical preferences needed. Adding LNS, the 1WT makes it PO as well: a market route to "fair and efficient".</p>
+    <div class="rubric">Traps: equal endowments are sufficient, not necessary; with production you also need equal shares.</div></div>
+  </div>
+
+  <div class="xq" id="s4-04" data-kind="tf" data-answer="F"
+       data-study="../lessons/0022-representative-agent-and-planner-focs.html#ex-22-5|L22 · Exercise 22.5 (risk sharing with different beliefs) ;; ../lessons/0005-when-the-first-welfare-theorem-fails.html#s5-beliefs|L5 §5 · Beliefs">
+    <div class="xq-src"><span class="tag past">Past exam · Fall 2005 Midterm, Ex. 1 Q2</span></div>
+    <div class="xq-stem">"Consider an economy with one good, with commodities indexed by the state of nature. If all agents have expected utility and are risk averse but their subjective probabilities differ, then their equilibrium consumption is only a function of the aggregate endowment."</div>
+    <div class="xq-solution"><p><b>False.</b> The CE is PO (with respect to each agent's own beliefs), so it solves the planner's problem with FOC \(\lambda_i\pi^i_sv_i'(c^i_s)=\gamma_s\). With common beliefs \(\pi_s\) cancels across agents, and \(c^i_s\) depends on \(s\) only through \(\bar e_s\). With different beliefs, \(c^i_s\) also depends on \(\pi^i_s\) relative to others' beliefs: agents bet, consuming more in the states they think likelier. Two states with the same \(\bar e\) can give \(i\) different consumption.</p></div>
+  </div>
+
+  <div class="xq" id="s4-05" data-kind="tf" data-answer="T"
+       data-study="../lessons/0021-utility-possibility-set-and-planner-weights.html#pf-proof-1-sufficiency|L21 §4 · Proof of sufficiency">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"Any allocation that solves the planner's problem \(\max\sum_i\lambda_iu^i(x^i)\) subject to feasibility, with all \(\lambda_i>0\), is Pareto optimal. No convexity is needed."</div>
+    <div class="xq-solution"><p><b>True.</b> If a feasible allocation Pareto-dominated it, then \(u^i\ge\bar u^i\) for all \(i\), strictly for one, and with \(\lambda\gg0\) the weighted sum would be strictly larger, contradicting optimality. Convexity is needed only for the converse.</p></div>
+  </div>
+
+  <div class="xq" id="s4-06" data-kind="tf" data-answer="F"
+       data-study="../lessons/0021-utility-possibility-set-and-planner-weights.html#s6-maximizer-that-not-pareto|L21 §6(a) · A maximizer of W that is not Pareto optimal">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag exam">common wrong statement</span></div>
+    <div class="xq-stem">"An allocation that solves the planner's problem for some weights \(\lambda\ge0\), \(\lambda\ne0\), is Pareto optimal."</div>
+    <div class="xq-solution"><p><b>False.</b> With a zero weight, the planner does not care whether agent \(i\) gets more. Example: one good, \(u^1=u^2=x\), \(X^1=[0,a]\) with \(a<\bar e\), \(\lambda=(1,0)\). Every allocation with \(x^1=a\) and \(x^2\in[0,\bar e-a]\) solves \(W\), but only \(x^2=\bar e-a\) is PO. (If the solution is unique, it is PO even with zero weights.)</p></div>
+  </div>
+
+  <div class="xq" id="s4-07" data-kind="tf" data-answer="F"
+       data-study="../lessons/0021-utility-possibility-set-and-planner-weights.html#ex-ii-non-convex-pareto-optimum|L21 §7(ii) · Non-convex U: a PO that solves W for no λ ;; ../lessons/0021-utility-possibility-set-and-planner-weights.html#def-assumption-cc|L21 §3 · Assumption CC">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"Every Pareto optimal allocation maximizes \(\sum_i\lambda_iu^i\) for some weights \(\lambda\ge0\), \(\lambda\ne0\), even if utility functions are only quasi-concave."</div>
+    <div class="xq-solution"><p><b>False.</b> Necessity needs the utility possibility set \(U\) to be convex, which needs <em>concave</em> utility representations (CC) plus HH and FF. With quasi-concave but not concave \(u^i\), \(U\) can be non-convex, and a PO point in a "dent" of the frontier is not the maximizer of any linear function \(\sum\lambda_iu^i\). Concavity is cardinal: the representation matters.</p></div>
+  </div>
+
+  <div class="xq" id="s4-08" data-kind="tf" data-answer="F"
+       data-study="../lessons/0022-representative-agent-and-planner-focs.html#warn-don-t-over-read-mrs|L22 §5 · Don't over-read the MRS condition ;; ../lessons/0023-negishi-weights-and-welfare-theorems.html#s5|L23 §5 · Prices depend on the distribution">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag exam">common wrong statement</span></div>
+    <div class="xq-stem">"At an interior solution of the planner's problem, the common MRS between goods \(l\) and \(k\) does not depend on the Pareto weights \(\lambda\)."</div>
+    <div class="xq-solution"><p><b>False</b> in general. The <em>condition</em> "all MRSs are equal to \(\gamma_l/\gamma_k\)" does not contain \(\lambda\), but its common <em>value</em> does. Changing \(\lambda\) moves the planner along the contract curve, and the MRS changes along it unless preferences are identical and homothetic (or, more generally, Gorman-aggregable). That is why equilibrium prices depend on the distribution of wealth.</p></div>
+  </div>
+
+  <div class="xq" id="s4-09" data-kind="tf" data-answer="T"
+       data-study="../lessons/0023-negishi-weights-and-welfare-theorems.html#pf-proof-filling-slide-s-from|L23 §2 · Proof: μ_i = ∂V/∂w ;; ../lessons/0023-negishi-weights-and-welfare-theorems.html#warn-cardinal-so-weights-are-too|L23 §2 · μ_i is cardinal">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"In a CE, the multiplier \(\mu_i\) on agent \(i\)'s budget constraint equals \(\partial V^i(p,w^i)/\partial w\). Doubling \(u^i\) doubles \(\mu_i\) and halves agent \(i\)'s Negishi weight, without changing any allocation."</div>
+    <div class="xq-solution"><p><b>True.</b> By the envelope theorem (or directly: \(V_w=\sum_lu^i_lx_{l,w}=\mu_i\sum_lp_lx_{l,w}=\mu_i\), using the binding budget), \(\mu_i\) is the marginal utility of income. It is cardinal: scaling \(u^i\) by 2 scales \(\mu_i\) by 2 and \(\lambda_i=1/\mu_i\) by \(1/2\), so \(\lambda_iu^i\) and the planner's solution are unchanged.</p></div>
+  </div>
+
+  <div class="xq" id="s4-10" data-kind="tf" data-answer="F"
+       data-study="../lessons/0023-negishi-weights-and-welfare-theorems.html#ex-23-1|L23 · Exercise 23.1 (e): richer agent, larger weight ;; ../lessons/0023-negishi-weights-and-welfare-theorems.html#s3-reading-dictionary|L23 §3 · Reading the dictionary">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"If two agents have the same strictly concave utility function, the richer one gets the smaller Negishi weight, because the planner favours those with high marginal utility."</div>
+    <div class="xq-solution"><p><b>False.</b> With a common concave \(u\), \(V\) is concave in wealth, so the richer agent has the <em>lower</em> \(\mu_i\) and the <em>higher</em> weight \(\lambda_i=1/\mu_i\). The planner must put a high weight on an agent to justify giving it a large bundle (low marginal utility at the optimum).</p></div>
+  </div>
+
+  <div class="xq" id="s4-11" data-kind="tf" data-answer="F"
+       data-study="../lessons/0023-negishi-weights-and-welfare-theorems.html#s5|L23 §5 · Prices depend on the income distribution ;; ../lessons/0022-representative-agent-and-planner-focs.html#warn-catch-representative-agent-indexed-by|L22 §3 · The representative agent is indexed by the distribution">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"In a pure exchange economy, equilibrium relative prices depend only on the aggregate endowment \(\bar e\), not on how it is distributed across agents."</div>
+    <div class="xq-solution"><p><b>False</b> in general. Redistributing endowments changes the Negishi weights \(\lambda_i=1/\mu_i\), which moves the planner along the contract curve, which changes \(\gamma_l/\gamma_k=p_l/p_k\). Example: two agents with Cobb–Douglas weights \(a_1\neq a_2\) on good 1. Moving wealth to the agent who likes good 1 more raises \(p_1/p_2\). It is true only in special (Gorman) cases, such as identical homothetic preferences.</p></div>
+  </div>
+
+  <div class="xq" id="s4-12" data-kind="tf" data-answer="T"
+       data-study="../lessons/0022-representative-agent-and-planner-focs.html#thm-proposition-envelope-property-representative-agent|L22 §7 · Envelope property of the representative agent">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"The multiplier \(\gamma_l\) on the resource constraint for good \(l\) in the planner's problem equals the marginal increase in \(U(\bar e;\lambda)=\max\sum_i\lambda_iu^i\) from one more unit of the aggregate endowment of good \(l\)."</div>
+    <div class="xq-solution"><p><b>True.</b> Envelope theorem: \(\partial U(\bar e;\lambda)/\partial\bar e_l=\gamma_l\). With Negishi weights \(\gamma=p\), so the representative agent's marginal utilities at \(\bar e\) are proportional to equilibrium prices. This is how the representative agent "prices" goods.</p></div>
+  </div>
+
+  <div class="xq" id="s4-13" data-kind="tf" data-answer="T"
+       data-study="../lessons/0022-representative-agent-and-planner-focs.html#s5-what-2-says-efficiency|L22 §5 · What (2) says: efficiency versus distribution ;; ../lessons/0023-negishi-weights-and-welfare-theorems.html#ex-23-7|L23 · Exercise 23.7 (risk sharing)">
+    <div class="xq-src"><span class="tag pset">cf. PSET 3 P3</span></div>
+    <div class="xq-stem">"With expected utility \(\sum_s\pi_s\frac{x_s^{1-\sigma}}{1-\sigma}\), the same \(\sigma\) and the same beliefs for all agents, every Pareto optimal allocation gives each agent a constant share of the aggregate endowment across states."</div>
+    <div class="xq-solution"><p><b>True.</b> The planner's FOC \(\lambda_i\pi_s(x^i_s)^{-\sigma}=\gamma_s\) gives \(x^i_s=(\lambda_i\pi_s/\gamma_s)^{1/\sigma}\). Summing over \(i\) and using feasibility: \(x^i_s=\frac{\lambda_i^{1/\sigma}}{\sum_j\lambda_j^{1/\sigma}}\,\bar e_s\). The share depends on the weights only, not on \(s\). (Different \(\sigma\)s or different beliefs break this.)</p></div>
+  </div>
+
+  <div class="xq" id="s4-14" data-kind="tf" data-answer="T"
+       data-study="../lessons/0005-when-the-first-welfare-theorem-fails.html#s5-incomplete-markets|L5 §5 · Incomplete markets ;; ../lessons/0022-representative-agent-and-planner-focs.html#thm-karush-kuhn-tucker-conditions-problem|L22 §5 · The planner's FOCs">
+    <div class="xq-src"><span class="tag pset">cf. PSET 3 P1 Ex. 11</span></div>
+    <div class="xq-stem">"With strictly concave expected utility, common beliefs, and an aggregate endowment that is the same in every state, any Pareto optimal allocation gives each agent the same consumption in every state. So if markets are so incomplete that agents end up consuming their own risky endowments, the equilibrium is not Pareto optimal."</div>
+    <div class="xq-solution"><p><b>True.</b> The planner's FOC \(\lambda_iv_i'(x^i_s)=\gamma_s/\pi_s\equiv\tilde\gamma_s\). Feasibility \(\sum_i(v_i')^{-1}(\tilde\gamma_s/\lambda_i)=\bar e_s\) pins \(\tilde\gamma_s\) as a function of \(\bar e_s\), so with \(\bar e_s\) constant, \(\tilde\gamma_s\) and every \(x^i_s\) are constant across states. Consuming one's own endowment, which varies across states, is therefore not PO. (Without interiority, Jensen gives the same: replacing each agent's consumption by its expected value is feasible when \(\bar e\) is constant and makes every risk-averse agent strictly better off.)</p></div>
+  </div>
+
+  <div class="xq" id="s4-15" data-kind="tf" data-answer="F"
+       data-study="../lessons/0023-negishi-weights-and-welfare-theorems.html#warn-this-proof-needs-much-more|L23 §3 · This proof needs much more than the proof in Lesson 4">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"The proof of the 1WT by matching household and planner first-order conditions uses the same assumptions as the general proof of Lesson 4."</div>
+    <div class="xq-solution"><p><b>False.</b> It needs much more: differentiability, interior solutions (Inada), and concave utilities, so that the planner's FOCs are <em>sufficient</em> for a maximum. The general proof uses only LNS. (The smooth proof is useful because it delivers \(\lambda_i=1/\mu_i\) and \(p=\gamma\), not because it is more general.)</p></div>
+  </div>
+
+  <div class="xq" id="s4-16" data-kind="tf" data-answer="F"
+       data-study="../lessons/0023-negishi-weights-and-welfare-theorems.html#def-negishi-s-algorithm|L23 §6 · Negishi's algorithm">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span></div>
+    <div class="xq-stem">"In Negishi's method, after solving the planner's problem for arbitrary weights \(\lambda\gg0\), every agent's budget constraint holds with equality at prices \(p=\gamma(\lambda)\)."</div>
+    <div class="xq-solution"><p><b>False.</b> For arbitrary weights the planner's allocation is PO but generally not affordable: \(p\cdot x^i(\lambda)\neq p\cdot e^i\) for some agents, which is a CE with transfers, not a CE. The method adjusts the weights (down for agents who consume more than their endowment is worth, up for the others) until all budgets balance. Only then is the planner's allocation the CE allocation. (By Walras' law the budget gaps sum to zero at any \(\lambda\).)</p></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="derive">4. Guided derivations</h2>
+
+  <div class="xq" id="s4-d1" data-kind="derive"
+       data-study="../lessons/0022-representative-agent-and-planner-focs.html#ex-22-2|L22 · Exercise 22.2 (planner with satiation points) ;; ../lessons/0022-representative-agent-and-planner-focs.html#s5|L22 §5 · The planner's FOCs ;; ../lessons/0003-pareto-optimality-and-lns.html#s3|L3 §3 · LNS (part 3)">
+    <div class="xq-src"><span class="tag past">Past exam · Spring 2023 Midterm 1, Q1 parts 1–8</span> <span class="pts">each part "1 line" unless stated</span></div>
+    <div class="xq-stem"><p>Pure endowment economy, \(m\) goods, \(I\) consumers with
+    $$u^i(x^i)=-\sum_{l=1}^m\pi_l\frac{(\theta^i_l-x^i_l)^{1+\sigma}}{1+\sigma},\qquad\pi_l>0,\ \sigma>0,\ \theta^i_l>0,$$
+    on \(X^i=\{x:x_l\le\theta^i_l\}\). The planner maximizes \(\sum_i\lambda_iu^i(x^i)\), \(\lambda_i>0\), s.t. \(\sum_ix^i_l=\bar e_l\). Let \(\bar\theta_l=\sum_i\theta^i_l\), and assume \(\bar e_l<\bar\theta_l\).</p>
+    <ol>
+      <li>(max 4 lines) Show \(u^i\) is strictly increasing and strictly concave on \(X^i\).</li>
+      <li>Which \(\sigma\) makes \(u^i\) quadratic?</li>
+      <li>Economic interpretation of \(\theta^i_l\)?</li>
+      <li>The planner's FOC for \(x^i_l\), with \(\gamma_l\) the multiplier on good \(l\).</li>
+      <li>Solve for \(x^i_l\) in terms of \(\theta^i_l,\lambda_i,\gamma_l/\pi_l,\sigma\).</li>
+      <li>Use feasibility to find \(\gamma_l\) in terms of \(\pi_l,\bar\theta_l-\bar e_l,\sigma,\{\lambda_j\}\).</li>
+      <li>Substitute: \(x^i_l-\theta^i_l\) in terms of \(\bar e_l-\bar\theta_l\), \(\sigma\) and the \(\lambda\)'s.</li>
+      <li>(2 lines) Write \(x^i_l-\theta^i_l=\delta^i(\bar e_l-\bar\theta_l)\). Give \(\delta^i>0\), show \(\sum_i\delta^i=1\), and show \(x^i_l\) rises with \(\lambda_i\).</li>
+    </ol></div>
+    <div class="xq-solution">
+      <p>1. Each term is \(v(c)=-\pi(\theta-c)^{1+\sigma}/(1+\sigma)\) with \(v'=\pi(\theta-c)^\sigma>0\) and \(v''=-\pi\sigma(\theta-c)^{\sigma-1}<0\) for \(c<\theta\). (The official solution has a sign typo in \(v''\).) A separable sum of such terms is strictly increasing, and strictly concave since its Hessian is diagonal and negative.<br>
+      2. \(\sigma=1\).<br>
+      3. The satiation (bliss) point of consumer \(i\) for good \(l\). LNS fails exactly at \(x=\theta^i\).<br>
+      4. \(\lambda_i\pi_l(\theta^i_l-x^i_l)^\sigma=\gamma_l\).<br>
+      5. \(x^i_l-\theta^i_l=-(\gamma_l/\pi_l)^{1/\sigma}\lambda_i^{-1/\sigma}\).<br>
+      6. Sum over \(i\): \(\bar\theta_l-\bar e_l=(\gamma_l/\pi_l)^{1/\sigma}\sum_j\lambda_j^{-1/\sigma}\), so \(\gamma_l=\pi_l\dfrac{(\bar\theta_l-\bar e_l)^\sigma}{\big(\sum_j\lambda_j^{-1/\sigma}\big)^\sigma}\).<br>
+      7. \(x^i_l-\theta^i_l=(\bar e_l-\bar\theta_l)\dfrac{\lambda_i^{-1/\sigma}}{\sum_j\lambda_j^{-1/\sigma}}\).<br>
+      8. \(\delta^i=\lambda_i^{-1/\sigma}/\sum_j\lambda_j^{-1/\sigma}\), positive and summing to one. Raising \(\lambda_i\) lowers \(\delta^i\), and since \(\bar e_l-\bar\theta_l<0\), it raises \(x^i_l\): a higher weight means more consumption (closer to satiation).</p>
+    </div>
+  </div>
+
+  <div class="xq" id="s4-d2" data-kind="derive"
+       data-study="../lessons/0016-olg-heterogeneity-and-long-lives.html#s1|L16 §1 · Heterogeneity within a generation ;; ../lessons/0012-why-the-1wt-fails-in-olg.html#s3|L12 §3 · The value of the aggregate endowment ;; ../lessons/0022-representative-agent-and-planner-focs.html#thm-proposition-envelope-property-representative-agent|L22 §7 · γ and prices">
+    <div class="xq-src"><span class="tag past">Past exam · Spring 2023 Midterm 1, Q2</span> <span class="pts">5 parts</span></div>
+    <div class="xq-stem"><p>Two-period OLG. Each cohort has types \(i=1,\dots,I\) with
+    $$u^{t,i}=-\pi_y\frac{(\theta^i_y-x^{i,t}_t)^{1+\sigma}}{1+\sigma}-\pi_o\frac{(\theta^i_o-x^{i,t}_{t+1})^{1+\sigma}}{1+\sigma},$$
+    endowments \(\alpha^i_y\) young and \(\alpha^i_o\) old; the initial old of type \(i\) have \(u=x\) and endowment \(\alpha^i_o\). Let \(\bar\alpha_y=\sum_i\alpha^i_y\), \(\bar\alpha_o=\sum_i\alpha^i_o\), \(\bar\theta_y=\sum_i\theta^i_y\), \(\bar\theta_o=\sum_i\theta^i_o\) (assume \(\bar\alpha<\bar\theta\)). Answer yes/no where asked.</p>
+    <ol>
+      <li>Is the equilibrium equal to autarky?</li>
+      <li>Is the total consumption of each cohort when young equal to \(\bar\alpha_y\)?</li>
+      <li>Is the interest rate constant?</li>
+      <li>Find \(\frac{1}{1+r_t}=\frac{p_{t+1}}{p_t}\) in terms of \(\bar\theta_y,\bar\theta_o,\pi_y,\pi_o,\bar\alpha_y,\bar\alpha_o,\sigma\). (The exam's hint: treat the cohort as a representative agent. In-scope route: each cohort is a two-good exchange economy, use part 6 of the previous question.)</li>
+      <li>Suppose \(\pi_o<\pi_y\), \(\bar\alpha_y=\bar\alpha_o\), \(\bar\theta_y=\bar\theta_o\). Is \(r\) positive or negative? Is the allocation PO? Justify.</li>
+    </ol></div>
+    <div class="xq-solution">
+      <p>1. No (generically): types differ, so they trade <em>within</em> the cohort.<br>
+      2. Yes. The initial old (linear utility) consume their endowments, so date-1 feasibility gives cohort 1's young \(\bar\alpha_y\) in total. Summing cohort 1's budgets then gives \(\bar\alpha_o\) when old, and induction does the rest: no trade <em>across</em> cohorts. (The exam prints "\(I-\bar\alpha\)", a typo carried over from the problem-set version.)<br>
+      3. Yes (see 4).<br>
+      4. Each cohort's CE is a CE of a two-good exchange economy (goods: young-date and old-date consumption), so it is PO and solves a planner problem with Negishi weights, and relative prices equal \(\gamma_o/\gamma_y\). From part 6 of the previous question the \(\sum_j\lambda_j^{-1/\sigma}\) factor cancels in the ratio: \(\dfrac{p_{t+1}}{p_t}=\dfrac{\pi_o(\bar\theta_o-\bar\alpha_o)^\sigma}{\pi_y(\bar\theta_y-\bar\alpha_y)^\sigma}\), the same for every \(t\).<br>
+      5. \(\frac{1}{1+r}=\pi_o/\pi_y<1\), so \(r>0\). PO, because \(p_t=(1+r)^{-(t-1)}\) falls geometrically, so the value of the aggregate endowment \(\sum_tp_t(\bar\alpha_y+\bar\alpha_o)\) is finite and the 1WT applies. "\(r>0\)" alone is not a full justification.</p>
+    </div>
+  </div>
+
+  <div class="xq" id="s4-d3" data-kind="derive"
+       data-study="../lessons/0023-negishi-weights-and-welfare-theorems.html#ex-23-4|L23 · Exercise 23.4 (Negishi weights in a log economy) ;; ../lessons/0023-negishi-weights-and-welfare-theorems.html#s6|L23 §6 · Negishi's method">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="pts">50 pts</span></div>
+    <div class="xq-stem"><p>Two goods, \(I\) agents, \(u^i=a_i\log x^i_1+(1-a_i)\log x^i_2\), \(a_i\in(0,1)\), endowments \(e^i\gg0\), aggregate \(\bar e\).</p>
+    <ol type="a">
+      <li>(10 pts, 2 lines) For weights \(\lambda\gg0\), solve the planner: \(x^i_l\) and \(\gamma_l\) as functions of \(\lambda\).</li>
+      <li>(10 pts, 1 line) Compute \(\gamma\cdot x^i(\lambda)\).</li>
+      <li>(10 pts, 2 lines) Using \(p=\gamma(\lambda)\), write the condition on \(\lambda\) under which the planner's allocation is a CE (Negishi's fixed point).</li>
+      <li>(10 pts, 2 lines) Show \(\lambda_i\) equals agent \(i\)'s wealth, and check this against \(\lambda_i=1/\mu_i\).</li>
+      <li>(10 pts, 2 lines) Show \(p_1/p_2\) depends on the distribution of endowments unless all \(a_i\) are equal.</li>
+    </ol></div>
+    <div class="xq-solution">
+      <p>(a) FOC \(\lambda_ia_i/x^i_1=\gamma_1\Rightarrow x^i_1=\lambda_ia_i/\gamma_1\); feasibility gives \(\gamma_1=\sum_j\lambda_ja_j/\bar e_1\). Similarly \(x^i_2=\lambda_i(1-a_i)/\gamma_2\), \(\gamma_2=\sum_j\lambda_j(1-a_j)/\bar e_2\).<br>
+      (b) \(\gamma\cdot x^i=\lambda_ia_i+\lambda_i(1-a_i)=\lambda_i\).<br>
+      (c) Each budget must balance at \(p=\gamma(\lambda)\): \(\lambda_i=\gamma(\lambda)\cdot e^i\) for all \(i\). Summing gives \(\sum\lambda_i=\gamma\cdot\bar e=\sum\lambda_i\), so one equation is redundant (Walras): the weights are pinned down up to scale.<br>
+      (d) By (c), \(\lambda_i=p\cdot e^i=w_i\). For log utility with weights summing to 1, \(V^i=\log w_i+\text{const}(p)\), so \(\mu_i=1/w_i\) and \(1/\mu_i=w_i=\lambda_i\). ✓<br>
+      (e) \(\frac{p_1}{p_2}=\frac{\gamma_1}{\gamma_2}=\frac{\sum_j\lambda_ja_j}{\sum_j\lambda_j(1-a_j)}\cdot\frac{\bar e_2}{\bar e_1}\). If all \(a_j=a\), this is \(\frac{a}{1-a}\frac{\bar e_2}{\bar e_1}\), independent of \(\lambda\). Otherwise, shifting wealth (weight) toward agents with high \(a_j\) raises \(p_1/p_2\).</p>
+    </div>
+  </div>
+
+  <div class="xq" id="s4-d4" data-kind="derive"
+       data-study="../lessons/0022-representative-agent-and-planner-focs.html#ex-22-1|L22 · Exercise 22.1 (this question, with the full solution) ;; ../lessons/0022-representative-agent-and-planner-focs.html#def-definition-representative-agent-s-utility|L22 §1 · The representative agent's utility">
+    <div class="xq-src"><span class="tag past">Past exam · Fall 2025 Final Q2</span> <span class="pts">20 pts</span> <span class="pts">· optional if short on time</span></div>
+    <div class="xq-stem"><p>\(m\) goods, \(I\) agents, \(u^i(c)=H(c-\theta^i)\), with \(H\) homogeneous of degree one, strictly increasing and strictly quasi-concave. Take \(c^i\ge\theta^i\) and \(\bar e\ge\bar\theta\equiv\sum_i\theta^i\).</p>
+    <ol>
+      <li>(10 pts) Fix \(\lambda\) and \(\bar e\). Write the problem that defines \(U(\bar e;\lambda)\). Do not solve it.</li>
+      <li>(10 pts) Write an expression for \(U(\bar e;\lambda)\) using \(H\) and a simple transformation of the \(\theta^i\). Start with equal weights \(\lambda_i=\lambda\).</li>
+      <li>(check) Test your answer: with \(I=1\) it must give \(\lambda_1H(\bar e-\theta^1)\), and \(U(\bar e;k\lambda)=kU(\bar e;\lambda)\).</li>
+    </ol></div>
+    <details class="hint"><summary>Hint for 2</summary><div class="body"><p>Let \(z^i=c^i-\theta^i\). HD1 + quasi-concave + positive ⇒ concave, and concave + HD1 ⇒ superadditive: \(H(a+b)\ge H(a)+H(b)\).</p></div></details>
+    <div class="xq-solution">
+      <p>1. \(U(\bar e;\lambda)=\max_{\{c^i\}}\sum_i\lambda_iH(c^i-\theta^i)\) s.t. \(\sum_ic^i=\bar e\) (good by good), \(c^i\ge\theta^i\).<br>
+      2. With \(Z=\bar e-\bar\theta\): \(\lambda\sum_iH(z^i)\le\lambda H(\sum_iz^i)=\lambda H(Z)\), attained by any split along the ray \(z^i=s_iZ\). So \(U=\lambda H(\bar e-\bar\theta)\): the transformation is the <em>unweighted sum</em> \(\bar\theta=\sum_i\theta^i\). (With unequal weights, \(U=(\max_i\lambda_i)H(\bar e-\bar\theta)\), a corner.)<br>
+      3. Both checks pass. The circulating answer \(H(\bar e-\sum_i\lambda_i\theta^i)\) fails both, and is right only when every \(\lambda_i=1\).</p>
+    </div>
+  </div>
+
+  <div class="xq-score"></div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me. Try "run two rounds of Negishi's algorithm by hand for part (c)", "why is μ_i cardinal but the allocation ordinal?", or "give me a planner problem with CRRA and different σ's".</div>
+
+  <div class="lesson-nav">
+    <a href="s3-olg-extensions-perpetual-youth.html">← Session 3: OLG extensions &amp; perpetual youth</a>
+    <a href="index.html">Study-guide hub</a>
+    <a href="../reference/aggregation-cheatsheet.html">Aggregation cheatsheet</a>
+    <a href="s5-spaced-review.html">Session 5: Spaced review →</a>
+  </div>
+
+</div>
+</body>
+</html>

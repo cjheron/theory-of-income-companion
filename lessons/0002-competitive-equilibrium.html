@@ -35,7 +35,7 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>1. Prices are a linear valuation of bundles</h2>
+  <h2 id="s1">1. Prices are a linear valuation of bundles</h2>
 
   <p>With \(m\) commodities, a <strong>price vector</strong> is \(p = (p_1,\dots,p_m)\). It turns any bundle \(x \in \mathbb{R}^m\) into a number, its value in units of account:
   $$p\cdot x \;=\; \sum_{s=1}^m p_s x_s .$$
@@ -45,15 +45,15 @@
     <li><strong>Sign conventions carry through.</strong> Remember from <a href="0001-the-economy.html">Lesson 1</a> that a negative entry of a household's \(x\) is a sale, so it <em>subtracts</em> from the value of net purchases. For a firm, a negative entry of \(y\) is an input, so it subtracts from profit \(p\cdot y\).</li>
   </ul>
 
-  <div class="intuition">
+  <div class="intuition" id="int-intuition-prices-commodities-are-dual">
     <div class="box-title">Intuition: prices and commodities are "dual"</div>
     <p>The commodity space decides what a price <em>is</em>. If commodities are dated, then \(p_t\) is the price today of a good delivered at \(t\), and \(p_{t+1}/p_t = 1/(1+r_t)\) is a gross interest rate. If commodities are state-contingent, \(p(z^t)\) is an Arrow–Debreu price for delivery after history \(z^t\). Whatever the space, the value of a bundle is always an inner product: \(\sum_t\sum_{z^t} p_t(z^t)x_t(z^t)\), or \(\int p(s)x(s)\,ds\) <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=11">S1 p.11</a>. Real wages, terms of trade, factor prices and interest rates are all ratios of entries of the same vector \(p\).</p>
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>2. The definition</h2>
+  <h2 id="s2">2. The definition</h2>
 
-  <div class="definition">
+  <div class="definition" id="def-definition-competitive-equilibrium">
     <div class="box-title">Definition: Competitive Equilibrium <a class="slide-ref" href="../sources/slides1-welfare-theorems.pdf#page=12">S1 p.12</a></div>
     <p>A <strong>competitive equilibrium</strong> is a price vector \(p\in\mathbb{R}^m\) and an allocation \(\{\bar x^i,\bar y^j\}\) such that</p>
     <ol>
@@ -67,7 +67,7 @@
 
   <p>Read the budget constraint as <em>uses of funds ≤ sources of funds</em>. On the left is the value of net purchases. On the right are the value of the endowment, which the household can sell, plus its share of every firm's profits, which it owns via the \(\theta^i_j\).</p>
 
-  <div class="warning">
+  <div class="warning" id="warn-three-things-definition-does-not">
     <div class="box-title">Three things the definition does <em>not</em> say</div>
     <ul>
       <li><strong>Nobody chooses prices.</strong> Each agent treats \(p\) as given (price-taking). Equilibrium is a <em>fixed point</em>: prices at which the independently chosen plans happen to be mutually consistent.</li>
@@ -77,22 +77,22 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>3. Only relative prices matter</h2>
+  <h2 id="s3">3. Only relative prices matter</h2>
 
   <p>Multiply every price by \(\lambda>0\). Each firm's objective \(\lambda p\cdot y\) has the same maximizers, so \(\bar y^j\) is unchanged and \(\pi^j\) scales by \(\lambda\). Each household's budget set
   $$\{x: \lambda p\cdot x \le \lambda p\cdot e^i + \textstyle\sum_j\theta^i_j\lambda\pi^j\}$$
   is identical to the original one. So if \((p,\bar x,\bar y)\) is a CE, then so is \((\lambda p,\bar x,\bar y)\). That is why we can always <strong>normalize one price</strong> (e.g. \(p_1 = 1\), or \(\sum_s p_s = 1\)): with \(m\) goods, there are only \(m-1\) prices to find.</p>
 
-  <h2>4. Walras' law: one market clears for free</h2>
+  <h2 id="s4">4. Walras' law: one market clears for free</h2>
 
-  <div class="theorem">
+  <div class="theorem" id="thm-walras-law">
     <div class="box-title">Walras' law</div>
     <p>If every household's budget constraint binds, then for <em>any</em> prices \(p\) and any profit-maximizing and utility-maximizing plans,
     $$p\cdot\Big(\underbrace{\textstyle\sum_i x^i - \sum_j y^j - \sum_i e^i}_{\text{aggregate excess demand } z(p)}\Big) = 0 .$$
     Hence if \(m-1\) markets clear and \(p_m\neq 0\), the \(m\)-th clears too.</p>
   </div>
 
-  <div class="proof">
+  <div class="proof" id="pf-proof">
     <div class="box-title">Proof</div>
     <ol class="steps">
       <li>Binding budgets: \(p\cdot x^i = p\cdot e^i + \sum_j \theta^i_j\, p\cdot y^j\) for each \(i\).</li>
@@ -106,7 +106,7 @@
   <p>Why do budgets bind? Under local non-satiation (the key assumption of <a href="0003-pareto-optimality-and-lns.html">Lesson 3</a>), a household with money left over could buy a slightly better bundle nearby. Notice that Walras' law used exactly the two ingredients that reappear in the First Welfare Theorem proof: binding budgets and \(\sum_i\theta^i_j=1\).</p>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>5. See it: the Edgeworth box</h2>
+  <h2 id="s5">5. See it: the Edgeworth box</h2>
 
   <p>Two consumers, two goods, no firms, and a total endowment of one unit of each good. Consumer A's origin is bottom-left; consumer B's origin is top-right, so a point in the box is an allocation of both goods. Both have Cobb–Douglas utility, \(u^A = a\log x_1 + (1-a)\log x_2\) and \(u^B = b\log x_1 + (1-b)\log x_2\). Normalize \(p_2 = 1\) and let \(p\equiv p_1\).</p>
 
@@ -173,7 +173,7 @@
   })();
   </script>
 
-  <h3>Worked example: solve the box by hand</h3>
+  <h3 id="s5-worked-example-solve-box">Worked example: solve the box by hand</h3>
   <p>Take endowments \(e^A = (e_1,e_2)\) and \(e^B=(1-e_1,1-e_2)\), with \(p_2=1\).</p>
   <ol class="steps">
     <li><strong>Wealth.</strong> \(m^A = p e_1 + e_2\) and \(m^B = p(1-e_1) + (1-e_2)\).</li>
@@ -185,7 +185,7 @@
   <p>With the default values \(a=0.5\), \(b=0.3\), \(e=(0.8,0.2)\), this gives \(p^* = (0.1+0.24)/(1-0.4-0.06) = 0.34/0.54 \approx 0.63\).</p>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>6. Check your understanding</h2>
+  <h2 id="s6">6. Check your understanding</h2>
 
   <div class="quiz-section">
     <div class="quiz-question" data-correct="c">
@@ -235,11 +235,11 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>7. Exercises</h2>
+  <h2 id="s7">7. Exercises</h2>
 
   <p>Alvarez's Midterm 1 opens with true/false statements worth about half the points; two of the Fall 2025 statements are about this lesson. The longer exercises below are derivations in the exam's format: small steps, each worth a few points, with general parameters rather than numbers.</p>
 
-  <div class="box exercise">
+  <div class="box exercise" id="tf">
     <div class="box-title">True or false? Justify. <span class="tag past">Past exam</span> <span class="tag exam">Exam-inspired</span></div>
     <p>For each statement, answer True or False and justify in at most four lines.</p>
     <ol class="tf-list">
@@ -260,7 +260,7 @@
     </ol>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-2-1">
     <div class="box-title">Exercise 2.1 <span class="tag slides">Slides p.11</span> (what price ratios mean)</div>
     <p>For each commodity space from <a href="0001-the-economy.html">Lesson 1</a>, interpret a <em>ratio</em> of two prices as a familiar economic object:</p>
     <ol class="parts" type="a">
@@ -274,7 +274,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-2-2">
     <div class="box-title">Exercise 2.2 <span class="tag exam">Exam-inspired</span> (the two-good box, solved in general)</div>
     <p>Two consumers, two goods. \(u^A = a\log x_1 + (1-a)\log x_2\) with \(e^A=(1,0)\), and \(u^B = b\log x_1+(1-b)\log x_2\) with \(e^B=(0,1)\), where \(a,b\in(0,1)\). Normalize \(p_2=1\) and write \(p\equiv p_1\).</p>
     <ol class="parts" type="a">
@@ -295,7 +295,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-2-3">
     <div class="box-title">Exercise 2.3 <span class="tag exam">Exam-inspired</span> (Robinson Crusoe with a firm)</div>
     <p>One household with endowment \(e=(0,1)\) (no consumption good, one unit of time) and utility \(u(c,\ell)=\log c+b\log\ell\), \(b>0\). One firm with technology \(Y=\{(c,-n): 0\le c\le An^\gamma,\ n\ge0\}\), \(A>0\), \(\gamma\in(0,1)\), owned entirely by the household. Normalize the price of consumption to 1 and let \(w\) be the price of time.</p>
     <ol class="parts" type="a">
@@ -316,13 +316,13 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-2-4">
     <div class="box-title">Exercise 2.4 <span class="tag proof">Proof</span> (when Walras' law fails)</div>
     <p>Show that if some household has a <em>slack</em> budget constraint at its optimum, Walras' law can fail, i.e. \(p\cdot z(p) < 0\). Construct a one-line example and say which assumption it violates.</p>
     <details class="solution"><summary>Show solution</summary><div class="body"><p>Let one household have a bliss point \(x^b\) with \(p\cdot x^b < p\cdot e\), and let every bundle be weakly worse than \(x^b\). For example, \(u(x) = -\|x - x^b\|^2\). It chooses \(x^b\) and leaves money unspent, so \(p\cdot z = p\cdot(x^b - e) < 0\). This violates <strong>local non-satiation</strong>: at \(x^b\) there is no better bundle nearby. In <a href="0003-pareto-optimality-and-lns.html">Lesson 3</a> we'll see that LNS is exactly what forces budgets to bind.</p></div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-2-5">
     <div class="box-title">Exercise 2.5 <span class="tag past">Past exam: Fall 2025 MT1 I.4, extended</span> (prices are weighted marginal utilities)</div>
     <p>Pure exchange, \(I\) agents, \(m\) goods. Each \(u^i\) is strictly concave, strictly increasing, differentiable and satisfies Inada conditions. Let \((p,\bar x)\) be a competitive equilibrium.</p>
     <ol class="parts" type="a">
@@ -341,7 +341,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-2-6">
     <div class="box-title">Exercise 2.6 <span class="tag pset">Problem set 2025 P1 Q1</span> (Walras' law in an OLG economy with a government)</div>
     <p>Generation \(t\ge1\) lives two periods; the initial old (generation 0) live only at \(t=1\). A unit mass is born each period. Taxes are \(\tau^t_t\) (when young) and \(\tau^t_{t+1}\) (when old); \(s_t\) is the saving of the young; \(B_t\) is the government's <em>assets</em> (\(B_t<0\) is debt); \(g_t\) is government spending. The constraints are:</p>
     <p>$$\text{(1) } s_t+c^t_t=e^t_t-\tau^t_t,\qquad c^t_{t+1}=s_t(1+r_t)+e^t_{t+1}-\tau^t_{t+1},$$
@@ -364,7 +364,7 @@
   </div>
 
   <div class="takeaways">
-    <h2>Key takeaways</h2>
+    <h2 id="takeaways">Key takeaways</h2>
     <ul>
       <li>A CE is <strong>prices + allocation</strong>: firms maximize \(p\cdot y\), households maximize \(u^i\) on the budget \(p\cdot x\le p\cdot e^i + \sum_j\theta^i_j\pi^j\), and markets clear.</li>
       <li>Only relative prices matter: normalize one price.</li>

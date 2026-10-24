@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Midterm 1 · Session 5: Spaced, Interleaved Review — Theory of Income</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/exam.js" defer></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Midterm 1 Study Guide · Session 5 of 6 · Monday</div>
+    <h1>Session 5: Spaced, Interleaved Review</h1>
+    <div class="meta">All of Lessons 1–23 · Three 20-minute sets you can do "here and there", plus your review queue · <a href="index.html">Study-guide hub</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>Why this session looks different.</strong> On the exam, the questions do not come labelled by lesson. Here every set <em>mixes</em> all four blocks, so you have to decide which tool applies before using it. That decision is half of what the exam tests. And because you last saw this material a day or two ago, retrieving it now (spacing) does more for Wednesday than another reread would. Expect it to feel harder than the weekend. That is the point.
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="queue">1. First: your review queue (20–30 min)</h2>
+  <p>Every question you missed or half-got over the weekend is listed below, misses first. For each one: open the linked lesson section and read <em>only</em> that box (5 minutes at most). Then click through to the question, press <b>Reset and retry</b>, and answer it from memory. If it is still a miss, write the model answer out by hand once.</p>
+  <div class="xq-dashboard"
+       data-pages="s1-welfare-theorems.html|Session 1 · Welfare theorems ;; s2-olg-endowment.html|Session 2 · OLG endowment economy ;; s3-olg-extensions-perpetual-youth.html|Session 3 · OLG extensions &amp; perpetual youth ;; s4-planner-negishi.html|Session 4 · Planner &amp; Negishi ;; s5-spaced-review.html|Session 5 · Spaced review ;; s6-mock-midterm.html|Session 6 · Mock midterm"
+       data-totals="19,19,22,20,24,10"></div>
+
+  <div class="xq-score"></div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="setA">2. Set A (about 20 min)</h2>
+
+  <div class="xq" id="s5-a1" data-kind="tf" data-answer="T"
+       data-study="../lessons/0003-pareto-optimality-and-lns.html#s4|L3 §4 · What implies LNS">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">Welfare theorems</span></div>
+    <div class="xq-stem">"Finite exchange economy with \(X^i=\mathbb R^m_+\). If every consumer's utility is strictly increasing in at least one good (possibly a different good for each consumer), every competitive equilibrium allocation is Pareto optimal."</div>
+    <div class="xq-solution"><p><b>True.</b> If \(u^i\) is strictly increasing in good \(k\), then from any \(x\) the bundle \(x+\varepsilon e_k\) is in \(X^i\), within \(\varepsilon\) of \(x\), and strictly better. So LNS holds for every consumer, and the 1WT applies. Monotonicity in <em>every</em> good is not needed.</p></div>
+  </div>
+
+  <div class="xq" id="s5-a2" data-kind="tf" data-answer="F"
+       data-study="../lessons/0010-olg-efficiency.html#thm-three-cases|L10 §4 · The three cases">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">OLG</span></div>
+    <div class="xq-stem">"In the log OLG example, the initial old always prefer the best symmetric allocation \((1-\beta,\beta)\) to the competitive equilibrium."</div>
+    <div class="xq-solution"><p><b>False.</b> The initial old consume \(\alpha\) in the CE and \(\beta\) under the best symmetric allocation. They prefer it only if \(\beta>\alpha\) (Case 1, \(\bar r<0\)). When \(\beta<\alpha\) they lose, which is exactly why the CE is PO in Case 3.</p></div>
+  </div>
+
+  <div class="xq" id="s5-a3" data-kind="tf" data-answer="T"
+       data-study="../lessons/0015-olg-with-capital.html#s5|L15 §5 · The law of motion ;; ../lessons/0015-olg-with-capital.html#ex-15-2|L15 · Exercise 15.2">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">Diamond</span></div>
+    <div class="xq-stem">"In the Diamond model with log utility (weight \(\beta\) on old age), \(F=AK^\alpha L^{1-\alpha}\) and no government, a higher \(\beta\) raises the steady-state capital stock and lowers the steady-state interest rate."</div>
+    <div class="xq-solution"><p><b>True.</b> \(K_{t+1}=\beta(1-\alpha)AK_t^\alpha\), so \(\bar K=[\beta(1-\alpha)A]^{1/(1-\alpha)}\), increasing in \(\beta\). And \(\bar r=\alpha A\bar K^{\alpha-1}-\delta=\frac{\alpha}{\beta(1-\alpha)}-\delta\), decreasing in \(\beta\). More thrift moves the economy toward, and possibly past, the golden rule.</p></div>
+  </div>
+
+  <div class="xq" id="s5-a4" data-kind="tf" data-answer="T"
+       data-study="../lessons/0022-representative-agent-and-planner-focs.html#int-intuition-first-equation-efficiency-second|L22 §5 · Efficiency vs 'who gets more'">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">Planner</span></div>
+    <div class="xq-stem">"Two agents share the same strictly concave, additively separable utility \(u(x)=\sum_lv_l(x_l)\). At an interior solution of the planner's problem with \(\lambda_1>\lambda_2\), agent 1 gets more of every good."</div>
+    <div class="xq-solution"><p><b>True.</b> FOC: \(\lambda_1v_l'(x^1_l)=\lambda_2v_l'(x^2_l)=\gamma_l\), so \(v_l'(x^1_l)\lt v_l'(x^2_l)\). Since \(v_l'\) is strictly decreasing, \(x^1_l>x^2_l\) for every \(l\). (Without separability, lower marginal utilities need not mean more of <em>every</em> good.)</p></div>
+  </div>
+
+  <div class="xq" id="s5-a5" data-kind="tf" data-answer="T"
+       data-study="../lessons/0017-perpetual-youth-households.html#thm-result-log-consumption-function|L17 §5 · The log consumption function ;; ../lessons/0017-perpetual-youth-households.html#s4|L17 §4 · Death adds to impatience">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">Blanchard–Yaari</span></div>
+    <div class="xq-stem">"In Blanchard–Yaari, a higher death rate \(p\) raises the household's marginal propensity to consume out of total wealth."</div>
+    <div class="xq-solution"><p><b>True.</b> \(c=(\theta+p)(v+h)\): the propensity is \(\theta+p\). A shorter expected horizon makes the household effectively more impatient (utility is discounted at \(\theta+p\)). Note that the <em>growth</em> rate of individual consumption, \(r-\theta\), does not depend on \(p\).</p></div>
+  </div>
+
+  <div class="xq" id="s5-a6" data-kind="tf" data-answer="T"
+       data-study="../lessons/0003-pareto-optimality-and-lns.html#thm-lemma-lns-budget-constraints-bind|L3 §3 · Lemma: LNS ⇒ budgets bind">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">Welfare theorems</span></div>
+    <div class="xq-stem">"If every household satisfies LNS, there is no competitive equilibrium in which some household's budget constraint is slack."</div>
+    <div class="xq-solution"><p><b>True.</b> If \(p\cdot\bar x^i\lt w^i\), a small ball around \(\bar x^i\) is affordable, and by LNS it contains a strictly better bundle, so \(\bar x^i\) was not optimal. (This is move (1) of the 1WT proof in another guise.)</p></div>
+  </div>
+
+  <div class="xq" id="s5-a7" data-kind="tf" data-answer="T"
+       data-study="../lessons/0011-pay-as-you-go-social-security.html#ex-11-6|L11 · Exercise 11.6 (fiat money)">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">OLG</span></div>
+    <div class="xq-stem">"In the log OLG endowment economy with \(\beta>\alpha\), a stationary equilibrium in which the initial old hold intrinsically useless fiat money achieves the same allocation as the optimal PAYG system."</div>
+    <div class="xq-solution"><p><b>True.</b> With a constant price level the real return on money is 1, i.e. \(r=0\). The young hold real balances \(M/P=s(0)=\beta-\alpha>0\), consume \(1-\beta\), and consume \(\beta\) when old. The initial old consume \(\alpha+M/P=\beta\). This is exactly PAYG with \(\tau=\beta-\alpha\). It exists only if \(\beta>\alpha\), i.e. when \(\bar r<0\). (In a finite economy money could not be valued.)</p></div>
+  </div>
+
+  <div class="xq" id="s5-a8" data-kind="tf" data-answer="T"
+       data-study="../lessons/0023-negishi-weights-and-welfare-theorems.html#ex-23-2|L23 · Exercise 23.2 (with and without corners)">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">Negishi</span></div>
+    <div class="xq-stem">"If the CE gives household \(i\) zero consumption of good \(l\) (a corner), the equation \(p_l=u^i_l/\mu_i\) can fail for that good."</div>
+    <div class="xq-solution"><p><b>True.</b> The Kuhn–Tucker condition is \(u^i_l\le\mu_ip_l\), with equality if \(x^i_l>0\). At a corner the inequality can be strict: the good is too expensive for \(i\) at the margin. That is why the Fall 2025 item assumed Inada conditions.</p></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="setB">3. Set B (about 20 min)</h2>
+
+  <div class="xq" id="s5-b1" data-kind="tf" data-answer="F"
+       data-study="../lessons/0006-second-welfare-theorem.html#def-assumption-ff-firms|L6 §2 · Assumption FF">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">Welfare theorems</span></div>
+    <div class="xq-stem">"The Second Welfare Theorem requires each firm's production set \(Y^j\) to be convex."</div>
+    <div class="xq-solution"><p><b>False</b>, strictly speaking. Assumption FF requires only the <em>aggregate</em> production set \(Y=\sum_jY^j\) to be convex, because the proof separates \(A\) from \(B=Y+\sum_ie^i\). Convexity of each \(Y^j\) is sufficient for that but not necessary. (On the other side, the 1WT needs no convexity at all.)</p></div>
+  </div>
+
+  <div class="xq" id="s5-b2" data-kind="tf" data-answer="T"
+       data-study="../lessons/0013-growing-olg-economy.html#thm-inefficiency-condition-growing-economy|L13 §5 · The growth condition">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">OLG</span></div>
+    <div class="xq-stem">"With productivity growth \(g>0\) and no population growth, the OLG endowment equilibrium is Pareto-dominated by the best symmetric allocation whenever \(\bar r\lt g\)."</div>
+    <div class="xq-solution"><p><b>True.</b> The condition is \(1+\bar r<(1+g)(1+n)\); with \(n=0\) that is \(\bar r\lt g\). Equivalently, the aggregate endowment grows faster than prices discount it, so its value is infinite. A positive interest rate is not enough for efficiency in a growing economy.</p></div>
+  </div>
+
+  <div class="xq" id="s5-b3" data-kind="tf" data-answer="T"
+       data-study="../lessons/0014-privatizing-social-security.html#def-privatized-tax-system|L14 §3 · The privatized tax system">
+    <div class="xq-src"><span class="tag pset">cf. PSET 1 P1</span> <span class="tag slides">Note III</span></div>
+    <div class="xq-stem">"When PAYG with tax \(\theta\) is privatized (same PV of taxes for each generation, paid when young), the young receive a net subsidy rather than pay a tax if \(\bar r<0\)."</div>
+    <div class="xq-solution"><p><b>True.</b> The privatized tax is \(\tilde\tau^t_t=\theta-\frac{\theta}{1+\bar r}=\frac{\theta\bar r}{1+\bar r}\), which is negative when \(\bar r<0\). Under PAYG they receive \(\theta\) when old, worth more than the \(\theta\) they paid young (a negative interest rate makes the future valuable). The PV-equivalent of that is a subsidy now. The debt is still constant at \(\theta/(1+\bar r)\).</p></div>
+  </div>
+
+  <div class="xq" id="s5-b4" data-kind="tf" data-answer="T"
+       data-study="../lessons/0016-olg-heterogeneity-and-long-lives.html#def-young-old-transfer|L16 §4 · The young-to-old transfer">
+    <div class="xq-src"><span class="tag pset">cf. PSET 1 P5</span> <span class="tag slides">Note III</span></div>
+    <div class="xq-stem">"In the \(N\)-period OLG model, the \((\tau,Y)\) transfer (give \(\tau\) at ages \(1..Y\), receive \(Y\tau/(N-Y)\) at ages \(Y+1..N\)) raises generation \(t\)'s utility at \(\tau=0\) iff the average price of its receiving dates exceeds the average price of its paying dates."</div>
+    <div class="xq-solution"><p><b>True.</b> By the FOCs, \(dU^t/d\tau|_0=\lambda^t\big[-\sum_{a\le Y}p_{t+a-1}+\frac{Y}{N-Y}\sum_{a>Y}p_{t+a-1}\big]=\lambda^tY\big[\bar p_{\text{late}}-\bar p_{\text{early}}\big]\). Rising prices (negative interest rates) make this positive for every generation.</p></div>
+  </div>
+
+  <div class="xq" id="s5-b5" data-kind="tf" data-answer="F"
+       data-study="../lessons/0020-perpetual-youth-fiscal-policy.html#s3|L20 §3 · Ricardian equivalence fails">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">Blanchard–Yaari</span></div>
+    <div class="xq-stem">"In Blanchard–Yaari, Ricardian equivalence holds if labour income does not decline with age (\(\alpha=0\)), even when \(p>0\)."</div>
+    <div class="xq-solution"><p><b>False.</b> What breaks equivalence is \(p>0\): part of the future tax falls on people not yet born, so \(dH=-dT[1-e^{-ps}]\neq0\). Equivalence holds iff \(p=0\) (infinitely lived households), whatever \(\alpha\) is.</p></div>
+  </div>
+
+  <div class="xq" id="s5-b6" data-kind="tf" data-answer="T"
+       data-study="../lessons/0022-representative-agent-and-planner-focs.html#thm-proposition-concave-increasing|L22 §2 · u(·;λ) is concave and increasing">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">Planner</span></div>
+    <div class="xq-stem">"If every \(u^i\) is concave, the representative agent's utility \(U(x;\lambda)=\max\{\sum_i\lambda_iu^i(x^i):\sum_ix^i=x\}\) is concave in \(x\)."</div>
+    <div class="xq-solution"><p><b>True.</b> Take optimal splits \(\{x^i\}\) of \(x\) and \(\{y^i\}\) of \(y\). The mixture \(\{tx^i+(1-t)y^i\}\) is a feasible split of \(tx+(1-t)y\), and by concavity of each \(u^i\) it gives at least \(tU(x)+(1-t)U(y)\). The planner can do no worse with averages.</p></div>
+  </div>
+
+  <div class="xq" id="s5-b7" data-kind="tf" data-answer="F"
+       data-study="../lessons/0005-when-the-first-welfare-theorem-fails.html#s1|L5 §1 · Audit the proof">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">Welfare theorems</span></div>
+    <div class="xq-stem">"Lump-sum taxes and transfers break the 1WT, because they change households' budget sets."</div>
+    <div class="xq-solution"><p><b>False.</b> Lump-sum transfers only change each household's wealth. Everyone still faces the same prices, and the proof never uses the wealth levels, only optimality at prices \(p\), profit maximization and feasibility. (That is exactly why the 2WT can use them.) Distorting taxes break it, because households and firms then face different prices.</p></div>
+  </div>
+
+  <div class="xq" id="s5-b8" data-kind="tf" data-answer="T"
+       data-study="../lessons/0010-olg-efficiency.html#thm-three-cases|L10 §4 · The three cases ;; ../lessons/0012-why-the-1wt-fails-in-olg.html#ex-12-7|L12 · Exercise 12.7 (Case 2 is efficient)">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">OLG synthesis</span></div>
+    <div class="xq-stem">"In the Note II log economy (no growth), the CE allocation is Pareto optimal if and only if \(\bar r\ge0\)."</div>
+    <div class="xq-solution"><p><b>True.</b> \(\bar r>0\): finite value, 1WT applies. \(\bar r=0\) (\(\alpha=\beta\)): the CE is the best symmetric allocation and is PO, even though the value is infinite. \(\bar r<0\): the best symmetric allocation Pareto-dominates it. So the cutoff is exactly at 0, and the 1WT alone gets you only the \(\bar r>0\) part.</p></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="setC">4. Set C (about 20 min)</h2>
+
+  <div class="xq" id="s5-c1" data-kind="tf" data-answer="T"
+       data-study="../lessons/0007-arrows-remark-and-decentralization.html#pf-proof|L7 §2 · Proof of Arrow's remark">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">Welfare theorems</span></div>
+    <div class="xq-stem">"Arrow's remark (a cheaper point turns expenditure minimization into utility maximization) uses continuity of the utility function."</div>
+    <div class="xq-solution"><p><b>True.</b> The proof mixes a strictly better affordable bundle \(\hat x\) with a little of the cheaper point \(\tilde x\): \(x^\theta=\theta\tilde x+(1-\theta)\hat x\) is strictly cheaper than \(\bar x\), and continuity keeps it strictly better than \(\bar x\) for small \(\theta\). That contradicts expenditure minimization.</p></div>
+  </div>
+
+  <div class="xq" id="s5-c2" data-kind="tf" data-answer="T"
+       data-study="../lessons/0011-pay-as-you-go-social-security.html#int-intuition-payg-asset-return-equal|L11 §3 · PAYG is an asset with return equal to population growth">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">OLG</span></div>
+    <div class="xq-stem">"With population growth \(n\) and no productivity growth, contributing \(\tau\) to PAYG when young is like holding an asset with gross return \(1+n\)."</div>
+    <div class="xq-solution"><p><b>True.</b> Each old person receives the contributions of \(1+n\) young: \((1+n)\tau\). So PAYG beats private saving iff \(1+n>1+\bar r\), which is the same condition as the CE being inefficient.</p></div>
+  </div>
+
+  <div class="xq" id="s5-c3" data-kind="tf" data-answer="T"
+       data-study="../lessons/0015-olg-with-capital.html#thm-asset-market-clearing-implied|L15 §4 · Asset-market clearing is implied">
+    <div class="xq-src"><span class="tag pset">cf. PSET 1 P2 Q4</span> <span class="tag slides">Diamond</span></div>
+    <div class="xq-stem">"In the Diamond model with a government holding assets \(B_t\) (Note III sign convention), Walras' law implies \(B_t+s_t=K_{t+1}\) at every date, given the initial condition."</div>
+    <div class="xq-solution"><p><b>True.</b> Adding the young's, old's and government's budgets, using CRS (\(F=F_KK+F_LL\)), \(v_t=r_{t-1}+\delta\) and goods-market clearing, gives \(B_t+s_t-K_{t+1}=(1+r_{t-1})(B_{t-1}+s_{t-1}-K_t)\). This is zero by induction from \(B_0+s_0=K_1\).</p></div>
+  </div>
+
+  <div class="xq" id="s5-c4" data-kind="tf" data-answer="T"
+       data-study="../lessons/0019-perpetual-youth-capital.html#s6|L19 §6 · Comparative statics of the steady state">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">Blanchard–Yaari</span></div>
+    <div class="xq-stem">"In Blanchard–Yaari with capital, a higher death rate \(p\) lowers the steady-state capital stock."</div>
+    <div class="xq-solution"><p><b>True.</b> The steady state solves \(\frac{\mathcal F(\bar K)}{\bar K}=\frac{(p+\alpha)(p+\theta)}{\mathcal F'(\bar K)+\alpha-\theta}\). The left side falls in \(K\), the right side rises in \(K\), and a higher \(p\) raises the right side, so they cross at a lower \(\bar K\). Shorter horizons mean more generational turnover, so less wealth is accumulated.</p></div>
+  </div>
+
+  <div class="xq" id="s5-c5" data-kind="tf" data-answer="F"
+       data-study="../lessons/0018-perpetual-youth-aggregation.html#thm-result-endowment-equilibrium-autarky-at|L18 §6 · r = θ − α">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">Blanchard–Yaari</span></div>
+    <div class="xq-stem">"In the Blanchard–Yaari endowment economy, a faster decline of labour income with age (higher \(\alpha\)) raises the equilibrium interest rate."</div>
+    <div class="xq-solution"><p><b>False:</b> \(r=\theta-\alpha\) falls. People want to save for old age, when their income will be low, but in the aggregate nobody can save (no capital, no debt). The interest rate falls until they are content to consume their declining income. It is the continuous-time analogue of Note II, where a lower old-age endowment share \(\alpha\) lowers \(\bar r\).</p></div>
+  </div>
+
+  <div class="xq" id="s5-c6" data-kind="tf" data-answer="T"
+       data-study="../lessons/0022-representative-agent-and-planner-focs.html#ex-22-5|L22 · Exercise 22.5 (risk sharing with different beliefs)">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag past">cf. Fall 2005 Ex. 1 Q2</span></div>
+    <div class="xq-stem">"With log utility and subjective beliefs \(\pi^i_s\), the Pareto optimal allocation with weights \(\lambda\) gives agent \(i\) the share \(\frac{\lambda_i\pi^i_s}{\sum_j\lambda_j\pi^j_s}\) of the aggregate endowment in state \(s\)."</div>
+    <div class="xq-solution"><p><b>True.</b> FOC \(\lambda_i\pi^i_s/x^i_s=\gamma_s\) gives \(x^i_s=\lambda_i\pi^i_s/\gamma_s\); feasibility gives \(\gamma_s=\sum_j\lambda_j\pi^j_s/\bar e_s\). The share varies with \(s\) whenever beliefs differ: agent \(i\) gets more in the states it considers relatively likely. With common beliefs the share is \(\lambda_i/\sum_j\lambda_j\), constant.</p></div>
+  </div>
+
+  <div class="xq" id="s5-c7" data-kind="tf" data-answer="F"
+       data-study="../lessons/0005-when-the-first-welfare-theorem-fails.html#s5-incomplete-markets|L5 §5 · Incomplete markets (and the Geanakoplos–Polemarchakis warning)">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">Welfare theorems</span></div>
+    <div class="xq-stem">"With incomplete markets, a competitive equilibrium is always constrained Pareto optimal."</div>
+    <div class="xq-solution"><p><b>False</b>, because of "always". In the simple case of a missing market for one good with fixed endowments, the CE is constrained PO (the planner must respect the same trading restrictions). But with several goods per date or state, prices on the open markets affect how valuable the incomplete trades are, and even constrained efficiency typically fails (Geanakoplos–Polemarchakis 1986).</p></div>
+  </div>
+
+  <div class="xq" id="s5-c8" data-kind="tf" data-answer="T"
+       data-study="../lessons/0023-negishi-weights-and-welfare-theorems.html#thm-theorem-2wt-smooth-version|L23 §4 · The 2WT, smooth version">
+    <div class="xq-src"><span class="tag exam">Exam-inspired</span> <span class="tag slides">Negishi</span></div>
+    <div class="xq-stem">"Smooth exchange economy with concave, differentiable utilities and interior solutions. If \(\bar x\) solves the planner's problem with weights \(\lambda\gg0\) and multipliers \(\gamma\), then \(\bar x\) is a CE allocation with prices \(p=\gamma\) and endowments \(e^i=\bar x^i\)."</div>
+    <div class="xq-solution"><p><b>True.</b> Set \(\mu_i=1/\lambda_i\). The planner's FOC \(\lambda_iu^i_l=\gamma_l\) becomes \(u^i_l=\mu_ip_l\), the household FOC. With \(e^i=\bar x^i\), \(\bar x^i\) is affordable with the budget binding, and concavity makes the FOC sufficient, so \(\bar x^i\) is optimal. Markets clear because \(\bar x\) is feasible.</p></div>
+  </div>
+
+  <div class="xq-score"></div>
+
+  <div class="box">
+    <div class="box-title">Before bed: 10-minute recall</div>
+    <p>Without notes, write the "MT1 must-know" box of each cheatsheet from memory, then check: <a href="../reference/welfare-theorems-cheatsheet.html#mt1">welfare theorems</a>, <a href="../reference/olg-cheatsheet.html#mt1">OLG</a>, <a href="../reference/perpetual-youth-cheatsheet.html#mt1">perpetual youth</a>, <a href="../reference/aggregation-cheatsheet.html#mt1">planner &amp; Negishi</a>.</p>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me. Try "quiz me on the items I missed, in a different form", or "which of my misses share a root cause?". Paste your review queue in and I'll diagnose the pattern.</div>
+
+  <div class="lesson-nav">
+    <a href="s4-planner-negishi.html">← Session 4: Planner and Negishi</a>
+    <a href="index.html">Study-guide hub</a>
+    <a href="s6-mock-midterm.html">Session 6: Mock midterm →</a>
+  </div>
+
+</div>
+</body>
+</html>

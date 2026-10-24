@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Midterm 1 · Session 6: Mock Midterm — Theory of Income</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/exam.js" defer></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Midterm 1 Study Guide · Session 6 of 6 · Tuesday</div>
+    <h1>Session 6: Mock Midterm</h1>
+    <div class="meta">90 minutes, closed book · 250 points · Format modelled on Alvarez's Fall 2025 and Spring 2023 midterms · <a href="index.html">Study-guide hub</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>Instructions.</strong> Treat this as the real thing: phone away, notes closed, paper and pen. Press <b>Start the clock</b>. Answer in the boxes or on paper; for true/false, pick True or False <em>and</em> write a 1–4 line justification. Solutions stay hidden until you press <b>Finish and grade</b> (or time runs out). Then grade every item against the model answer and its rubric. Misses go to your review queue, so spend the rest of Tuesday's time on it. All questions are new; they reuse the ideas past exams test.
+    <ul>
+      <li><b>Part I</b>: six true/false items, 20 points each (120). Budget 35 minutes.</li>
+      <li><b>Part II</b>: OLG with population growth and government debt (70). Budget 30 minutes.</li>
+      <li><b>Part III</b>: planner, beliefs and Negishi weights (60). Budget 25 minutes.</li>
+    </ul>
+  </div>
+
+  <div class="xq-exam" data-minutes="90">
+
+  <h2 id="part1">Part I. True or false? Justify in 1–4 lines (120 points)</h2>
+
+  <div class="xq" id="s6-01" data-kind="tf" data-answer="F"
+       data-study="../lessons/0003-pareto-optimality-and-lns.html#thm-lemma-lns-budget-constraints-bind|L3 §3 · What LNS is used for ;; ../lessons/0005-when-the-first-welfare-theorem-fails.html#s2|L5 §2 · Without LNS, the 1WT can fail (not must)">
+    <div class="xq-src"><span class="pts">20 pts</span></div>
+    <div class="xq-stem">"In an exchange economy with finitely many goods, if one consumer's preferences violate local non-satiation, the competitive equilibrium allocation is not Pareto optimal."</div>
+    <div class="xq-solution"><p><b>False.</b> LNS is sufficient for the 1WT, not necessary. Without it the conclusion can fail (a satiated consumer may hold goods it does not value at the margin), but it need not. Example: a consumer with a <em>unique</em> bliss point who consumes exactly it in the CE. Any allocation it weakly prefers gives it the same bundle, so the 1WT argument goes through for the others, and the CE is PO.</p>
+    <div class="rubric">20: "False; LNS is sufficient, not necessary" + an example or the reason. 10: right call, reason only "the theorem doesn't apply".</div></div>
+  </div>
+
+  <div class="xq" id="s6-02" data-kind="tf" data-answer="T"
+       data-study="../lessons/0011-pay-as-you-go-social-security.html#pf-analysis|L11 §3 · Analysis of W(τ)">
+    <div class="xq-src"><span class="pts">20 pts</span></div>
+    <div class="xq-stem">"In the Note II OLG economy with \(v=(1-\beta)\log c_y+\beta\log c_o\), endowments \((1-\alpha,\alpha)\) and \(\beta>\alpha\), some PAYG taxes \(\tau>\beta-\alpha\) are still Pareto improvements over the competitive equilibrium."</div>
+    <div class="xq-solution"><p><b>True.</b> With PAYG the CE is still no trade at the after-tax endowments, so each generation \(t\ge1\) gets \(W(\tau)=v(1-\alpha-\tau,\alpha+\tau)\). \(W\) is strictly concave, maximized at \(\tau=\beta-\alpha\), and continuous, so \(W(\tau)>W(0)\) for all \(\tau\in(0,\bar\tau)\) with \(\bar\tau>\beta-\alpha\). The initial old gain \(\tau\) for any \(\tau>0\).</p>
+    <div class="rubric">20: concavity of \(W\), max at \(\beta-\alpha\), continuity ⇒ an interval beyond it, initial old gain. 10: right call, "a little over the optimum still beats autarky" without the argument.</div></div>
+  </div>
+
+  <div class="xq" id="s6-03" data-kind="tf" data-answer="T"
+       data-study="../lessons/0013-growing-olg-economy.html#thm-inefficiency-condition-growing-economy|L13 §5 · The growth condition ;; ../lessons/0015-olg-with-capital.html#s7-but-steady-state-generations|L15 §7 · Efficiency with capital">
+    <div class="xq-src"><span class="pts">20 pts</span></div>
+    <div class="xq-stem">"In the Diamond model with population growth \(n>0\), a steady state with a strictly positive interest rate can be dynamically inefficient."</div>
+    <div class="xq-solution"><p><b>True.</b> With population growth, the golden rule is \(F_K-\delta=n\), not \(0\). If \(0<\bar r\lt n\), capital per worker is above the golden rule: lowering it permanently raises consumption per capita at every date, so the CE is Pareto-dominated. Equivalently, the aggregate endowment grows at \(1+n\) while prices fall at \(1+\bar r<1+n\), so its value is infinite. "\(r>0\) ⇒ efficient" holds only without growth.</p>
+    <div class="rubric">20: the criterion \(\bar r\) vs \(n\) (or the infinite-value argument). 10: right call, no criterion.</div></div>
+  </div>
+
+  <div class="xq" id="s6-04" data-kind="tf" data-answer="T"
+       data-study="../lessons/0020-perpetual-youth-fiscal-policy.html#s5-balanced-budget-policy-hold|L20 §5 · Balanced-budget policy: hold B fixed ;; ../lessons/0020-perpetual-youth-fiscal-policy.html#int-key-asymmetry-people-discount-at|L20 §2 · Why debt is net wealth when p > 0">
+    <div class="xq-src"><span class="pts">20 pts</span></div>
+    <div class="xq-stem">"In Blanchard–Yaari with capital and \(\alpha=0\), a permanently higher level of government debt, with lump-sum taxes adjusted every instant to pay its interest, lowers the steady-state capital stock. The effect vanishes as \(p\to0\)."</div>
+    <div class="xq-solution"><p><b>True.</b> With \(T=rB+G\), the steady state solves \([\mathcal F'(K)-\theta](\mathcal F(K)-G)=p(p+\theta)(B+K)\). A higher \(B\) raises the right side, so \(K^*\) falls and \(r^*\) rises: debt is net wealth to people alive today, because part of the taxes falls on the unborn. As \(p\to0\) the right side vanishes and \(\mathcal F'(K^*)=\theta\) regardless of \(B\): Ricardian equivalence.</p>
+    <div class="rubric">20: the steady-state condition (or the "debt is net wealth since \(p>0\)" logic) and the \(p\to0\) limit. 10: one of the two.</div></div>
+  </div>
+
+  <div class="xq" id="s6-05" data-kind="tf" data-answer="T"
+       data-study="../lessons/0023-negishi-weights-and-welfare-theorems.html#s3-reading-dictionary|L23 §3 · Reading the dictionary ;; ../lessons/0023-negishi-weights-and-welfare-theorems.html#s2-two-sets-first-order|L23 §2 · Two sets of FOCs">
+    <div class="xq-src"><span class="pts">20 pts</span></div>
+    <div class="xq-stem">"Pure exchange economy with differentiable, strictly increasing, concave utilities. Suppose a CE allocation is interior, so it solves the planner's problem for some weights. Then those weights are, up to scale, the inverses \(1/\mu_i\) of the households' marginal utilities of income, and no other weights work."</div>
+    <div class="xq-solution"><p><b>True.</b> At an interior allocation, any supporting weights satisfy the planner's FOC \(\lambda_iu^i_l=\gamma_l\), and the CE gives \(u^i_l=\mu_ip_l\). So \(\lambda_i\mu_ip_l=\gamma_l\) for all \(i\) and \(l\). Fixing \(l\) with \(p_l>0\), \(\lambda_i\mu_i\) is the same for every \(i\): \(\lambda_i=\kappa/\mu_i\), with \(\gamma=\kappa p\).</p>
+    <div class="rubric">20: both FOCs and the "\(\lambda_i\mu_i\) is common across \(i\)" step. 10: states \(\lambda_i=1/\mu_i\) without showing uniqueness.</div></div>
+  </div>
+
+  <div class="xq" id="s6-06" data-kind="tf" data-answer="T"
+       data-study="../lessons/0013-growing-olg-economy.html#s7|L13 §7 · Note III: population growth and PAYG ;; ../lessons/0011-pay-as-you-go-social-security.html#int-intuition-payg-asset-return-equal|L11 §3 · PAYG as an asset">
+    <div class="xq-src"><span class="pts">20 pts</span></div>
+    <div class="xq-stem">"In the OLG endowment economy with log utility, endowments \((1-\alpha,\alpha)\) and population growth \(n\), if \(\bar r>n\), introducing PAYG social security (each young pays \(\tau>0\), each old receives \((1+n)\tau\)) makes every generation born after its introduction worse off."</div>
+    <div class="xq-solution"><p><b>True.</b> The CE stays no trade at the after-tax endowments, so a generation born after the reform gets \(W(\tau)=v(1-\alpha-\tau,\alpha+(1+n)\tau)\). Then \(W'(0)=-v_1+(1+n)v_2=v_2[(1+n)-(1+\bar r)]<0\), using \(v_1/v_2=1+\bar r\) at the endowment. \(W\) is concave, so \(W(\tau)\lt W(0)\) for every \(\tau>0\). Only the initial old gain. PAYG returns \(1+n\) while the market returns \(1+\bar r\).</p>
+    <div class="rubric">20: \(W'(0)\) sign via MRS \(=1+\bar r\), plus concavity for all \(\tau\). 10: "PAYG returns n &lt; r" without the derivative.</div></div>
+  </div>
+
+  <h2 id="part2">Part II. OLG with population growth and government debt (70 points)</h2>
+  <p>Time \(t=1,2,\dots\). Generation \(t\) has \(N_t=(1+n)^t\) members, \(n>0\), each with utility \((1-\beta)\log c^t_t+\beta\log c^t_{t+1}\) and endowments \(1-\alpha\) young and \(\alpha\) old. The \(N_0=1\) initial old have utility \(c^0_1\) and endowment \(\alpha\) each. One good per date. Each answer: at most 2 lines unless stated.</p>
+
+  <div class="xq" id="s6-07" data-kind="derive"
+       data-study="../lessons/0013-growing-olg-economy.html#s2|L13 §2 · Still no trade, same interest rate ;; ../lessons/0012-why-the-1wt-fails-in-olg.html#s3|L12 §3 · Value of the aggregate endowment ;; ../lessons/0013-growing-olg-economy.html#s5|L13 §5 · The growth condition">
+    <div class="xq-src"><span class="pts">40 pts</span></div>
+    <div class="xq-stem"><p><b>No government.</b></p>
+    <ol>
+      <li>(10 pts, 1 line) Write goods-market clearing at date \(t\).</li>
+      <li>(10 pts) Argue that the equilibrium is no trade, and give \(\bar r\). Does it depend on \(n\)?</li>
+      <li>(10 pts) Compute the value of the aggregate endowment at CE prices (\(p_1=1\)). When is it finite?</li>
+      <li>(10 pts) For which parameters does the 1WT guarantee the CE is PO? For which is it Pareto-dominated by a symmetric allocation? (No proof needed for the second.)</li>
+    </ol></div>
+    <div class="xq-solution">
+      <p>1. \(N_tc^t_t+N_{t-1}c^{t-1}_t=N_t(1-\alpha)+N_{t-1}\alpha\), i.e. \((1+n)c^t_t+c^{t-1}_t=(1+n)(1-\alpha)+\alpha\) per old person.<br>
+      2. The initial old can only consume their endowment (they value only date 1 and have nobody to trade with who would repay them). Then date-1 clearing gives the young \(1-\alpha\), their budget gives \(\alpha\) when old, and so on by induction. \(\bar r\) is the MRS at the endowment: \(\bar r=\frac{\alpha-\beta}{\beta(1-\alpha)}\), independent of \(n\).<br>
+      3. Aggregate endowment at \(t\) is \(N_t(1-\alpha)+N_{t-1}\alpha=(1+n)^{t-1}[(1+n)(1-\alpha)+\alpha]\), and \(p_t=(1+\bar r)^{-(t-1)}\). The value is \([(1+n)(1-\alpha)+\alpha]\sum_{t\ge1}\big(\frac{1+n}{1+\bar r}\big)^{t-1}\), finite iff \(1+\bar r>1+n\).<br>
+      4. 1WT: PO if \(\bar r>n\). Pareto-dominated by the best symmetric allocation if \(\bar r\lt n\).</p>
+      <div class="rubric">Part 2 needs the initial-old induction; "autarky satisfies the FOCs" only shows it is <em>an</em> equilibrium (half credit).</div>
+    </div>
+  </div>
+
+  <div class="xq" id="s6-08" data-kind="derive"
+       data-study="../lessons/0011-pay-as-you-go-social-security.html#ex-11-6|L11 · Exercise 11.6 (fiat money: the same logic) ;; ../lessons/0013-growing-olg-economy.html#s6|L13 §6 · PAYG with growth ;; ../lessons/0014-privatizing-social-security.html#s4-dates|L14 §4 · Rolled-over debt">
+    <div class="xq-src"><span class="pts">30 pts</span></div>
+    <div class="xq-stem"><p><b>Rolled-over debt.</b> At date 1 the government sells \(b\) units of one-period debt to each young person, gives the proceeds to the initial old, and from then on repays maturing debt (with interest) only by selling new debt \(b\) to each new young person. No taxes. Assume \(\bar r\lt n\).</p>
+    <ol start="5">
+      <li>(10 pts) Write the government's budget constraint at \(t\ge2\) and show that a stationary equilibrium with \(b>0\) has \(1+r=1+n\).</li>
+      <li>(10 pts) Find \(b\), and show \(b>0\) iff \(\bar r\lt n\).</li>
+      <li>(10 pts, 3 lines) Show every generation \(t\ge1\) consumes the best symmetric allocation, and that the policy Pareto-improves on the CE.</li>
+    </ol></div>
+    <div class="xq-solution">
+      <p>5. \(N_tb=(1+r_{t-1})N_{t-1}b\) (new debt sold = old debt repaid with interest), so \(1+r=N_t/N_{t-1}=1+n\).<br>
+      6. Asset clearing: each young person's saving equals \(b\), so \(b=s(n)=\beta(1-\alpha)-\frac{(1-\beta)\alpha}{1+n}\). This is positive iff \(1+n>\frac{(1-\beta)\alpha}{\beta(1-\alpha)}=1+\bar r\).<br>
+      7. Consumption: \(c_y=1-\alpha-b=(1-\beta)\big[(1-\alpha)+\frac{\alpha}{1+n}\big]\) and \(c_o=\alpha+(1+n)b=\beta[(1+n)(1-\alpha)+\alpha]\). That is the maximizer of \(v\) on the normalized resource line \((1+n)c_y+c_o=(1+n)(1-\alpha)+\alpha\), the best symmetric allocation, identical to optimal PAYG. Each generation strictly prefers it to its endowment (which is on the same line), and the initial old get \(\alpha+(1+n)b>\alpha\). Pareto improvement.</p>
+    </div>
+  </div>
+
+  <h2 id="part3">Part III. Planner, beliefs and Negishi weights (60 points)</h2>
+  <p>One good, two states \(s=1,2\), two agents \(i=1,2\). Agent \(i\) has subjective probabilities \(\pi^i_s>0\) (\(\pi^i_1+\pi^i_2=1\)) and utility \(u^i(x^i)=\sum_s\pi^i_s\log x^i_s\). Aggregate endowment \(\bar e_s>0\). Complete markets for state-contingent goods.</p>
+
+  <div class="xq" id="s6-09" data-kind="derive"
+       data-study="../lessons/0022-representative-agent-and-planner-focs.html#ex-22-5|L22 · Exercise 22.5 (risk sharing with different beliefs) ;; ../lessons/0022-representative-agent-and-planner-focs.html#s5|L22 §5 · Planner FOCs">
+    <div class="xq-src"><span class="pts">30 pts</span></div>
+    <div class="xq-stem"><ol>
+      <li>(10 pts, 1 line) The planner's FOC for \(x^i_s\), with weights \(\lambda_i>0\) and multipliers \(\gamma_s\).</li>
+      <li>(10 pts, 2 lines) Solve for \(\gamma_s\) and \(x^i_s\) as functions of \(\lambda\).</li>
+      <li>(10 pts, 3 lines) With common beliefs, show \(x^i_s\) depends on \(s\) only through \(\bar e_s\). With different beliefs and \(\bar e_1=\bar e_2\), show agent 1 consumes more in state 1 than in state 2 iff \(\pi^1_1/\pi^2_1>\pi^1_2/\pi^2_2\).</li>
+    </ol></div>
+    <div class="xq-solution">
+      <p>1. \(\lambda_i\pi^i_s/x^i_s=\gamma_s\).<br>
+      2. \(x^i_s=\lambda_i\pi^i_s/\gamma_s\). Feasibility: \(\gamma_s=(\lambda_1\pi^1_s+\lambda_2\pi^2_s)/\bar e_s\). So \(x^i_s=\dfrac{\lambda_i\pi^i_s}{\lambda_1\pi^1_s+\lambda_2\pi^2_s}\,\bar e_s\).<br>
+      3. Common \(\pi\): the share is \(\lambda_i/(\lambda_1+\lambda_2)\), constant, so \(x^i_s\) depends on \(s\) only through \(\bar e_s\). With \(\bar e_1=\bar e_2\), agent 1's share in state \(s\) is \(\big(1+\frac{\lambda_2\pi^2_s}{\lambda_1\pi^1_s}\big)^{-1}\), larger when \(\pi^1_s/\pi^2_s\) is larger. So \(x^1_1>x^1_2\) iff \(\pi^1_1/\pi^2_1>\pi^1_2/\pi^2_2\) (equivalently \(\pi^1_1>\pi^2_1\)). Agents bet.</p>
+    </div>
+  </div>
+
+  <div class="xq" id="s6-10" data-kind="derive"
+       data-study="../lessons/0023-negishi-weights-and-welfare-theorems.html#def-negishi-s-algorithm|L23 §6 · Negishi's algorithm ;; ../lessons/0023-negishi-weights-and-welfare-theorems.html#s5|L23 §5 · Prices depend on the distribution">
+    <div class="xq-src"><span class="pts">30 pts</span></div>
+    <div class="xq-stem"><ol start="4">
+      <li>(10 pts, 2 lines) Show \(\gamma\cdot x^i(\lambda)=\lambda_i\), and write the condition on \(\lambda\) under which the planner's allocation, with \(p=\gamma\), is a CE for endowments \(e^i\).</li>
+      <li>(10 pts, 3 lines) Let \(\bar e_1=\bar e_2=1\), \(e^1=(1,0)\), \(e^2=(0,1)\), and normalize \(\lambda_1+\lambda_2=1\). Solve for the Negishi weight \(\lambda_1\). Check your answer when beliefs are common.</li>
+      <li>(10 pts, 2 lines) Write \(p_1/p_2\). Does it depend on the distribution of endowments? Contrast with common beliefs.</li>
+    </ol></div>
+    <div class="xq-solution">
+      <p>4. \(\gamma\cdot x^i=\sum_s\gamma_s\lambda_i\pi^i_s/\gamma_s=\lambda_i\sum_s\pi^i_s=\lambda_i\). CE condition (budgets balance): \(\lambda_i=\gamma(\lambda)\cdot e^i\) for each \(i\) (one is redundant by Walras).<br>
+      5. \(\lambda_1=\gamma_1=\lambda_1\pi^1_1+(1-\lambda_1)\pi^2_1\), so \(\lambda_1(1-\pi^1_1+\pi^2_1)=\pi^2_1\) and \(\lambda_1=\dfrac{\pi^2_1}{\pi^1_2+\pi^2_1}\). Common beliefs: \(\lambda_1=\frac{\pi_1}{\pi_2+\pi_1}=\pi_1\), the value of a claim to one unit in state 1. ✓<br>
+      6. \(\dfrac{p_1}{p_2}=\dfrac{\gamma_1}{\gamma_2}=\dfrac{\lambda_1\pi^1_1+\lambda_2\pi^2_1}{\lambda_1\pi^1_2+\lambda_2\pi^2_2}\cdot\dfrac{\bar e_2}{\bar e_1}\). With different beliefs it depends on the weights, hence on the distribution of endowments: more wealth to the agent who thinks state 1 is likely raises \(p_1/p_2\). With common beliefs it is \(\frac{\pi_1\bar e_2}{\pi_2\bar e_1}\), independent of the distribution.</p>
+    </div>
+  </div>
+
+  </div>
+
+  <div class="xq-score"></div>
+
+  <div class="box">
+    <div class="box-title">After grading (Tuesday evening, 30 min)</div>
+    <ol>
+      <li>Add up your points (use the rubrics). Above about 175/250 means you are in good shape. Below it, the review queue tells you where the points went.</li>
+      <li>Open the <a href="index.html#dashboard">hub dashboard</a> and work through every <em>Missed</em> item from all six sessions once more.</li>
+      <li>Finish with the four cheatsheets' <b>MT1 must-know</b> boxes, from memory first. Then stop: sleep consolidates what you just practised.</li>
+    </ol>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Paste your answers to Part II or III and ask me to grade them like Alvarez would, with points per part. Or ask for a second mock exam on whichever block cost you the most points.</div>
+
+  <div class="lesson-nav">
+    <a href="s5-spaced-review.html">← Session 5: Spaced review</a>
+    <a href="index.html">Study-guide hub</a>
+  </div>
+
+</div>
+</body>
+</html>

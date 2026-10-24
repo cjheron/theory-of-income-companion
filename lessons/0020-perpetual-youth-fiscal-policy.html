@@ -34,24 +34,24 @@
     Blanchard, O. J. (1985), <a href="https://ideas.repec.org/a/ucp/jpolec/v93y1985i2p223-47.html">"Debt, Deficits, and Finite Horizons,"</a> <em>JPE</em> 93(2): 223–247, Sections IV–V. For the two-period analogue of the debt results, see Diamond (1965), <a href="https://www.jstor.org/stable/1809231">"National Debt in a Neoclassical Growth Model"</a>, <em>AER</em> 55(5).
   </div>
 
-  <div class="box notation">
+  <div class="box notation" id="note-notation">
     <div class="box-title">Notation</div>
     <p>\(p\) = death rate, \(\theta\) = discount rate, \(\alpha\) = rate of decline of labour income with age (as in Lessons 17–19). \(T\) = aggregate taxes, \(G\) = government purchases, \(B\) = government <strong>debt</strong> (so \(B>0\) means the government owes the private sector). This is the opposite of Class Note III (<a href="0014-privatizing-social-security.html">Lesson 14</a>), where \(B_t\) denotes government <em>assets</em> and \(B_t<0\) is debt.</p>
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>1. The government budget constraint</h2>
+  <h2 id="s1">1. The government budget constraint</h2>
 
   <p><a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=46">BY slide 35</a> The sequential constraint says debt grows with the primary deficit plus interest:</p>
   $$\dot B(z) = G(z) - T(z) + r(z)B(z).$$
 
-  <div class="theorem">
+  <div class="theorem" id="thm-sequential-no-ponzi-present-value">
     <div class="box-title">Sequential + no-Ponzi \(\iff\) present value</div>
     <p>Given the sequential constraint, the boundary condition \(\lim_{T'\to\infty}B(T')e^{-\int_t^{T'}r(\mu)d\mu}=0\) holds if and only if
     $$B(t) = \int_t^\infty [T(z)-G(z)]\;e^{-\int_t^z r(\mu)d\mu}\,dz .$$
     Today's debt equals the present value of future primary surpluses.</p>
   </div>
-  <div class="proof">
+  <div class="proof" id="pf-proof">
     <div class="box-title">Proof</div>
     <ol class="steps">
       <li>Let \(D(z) \equiv e^{-\int_t^z r}\), so \(\dot D = -rD\). Then \(\tfrac{d}{dz}[D B] = D(\dot B - rB) = D\,(G-T)\).</li>
@@ -62,18 +62,18 @@
   <p>This is the same algebra as the household's \(v\) and \(h\) in <a href="0017-perpetual-youth-households.html">Lesson 17</a>, but with discount rate \(r\) instead of \(r+p\). The government does not die.</p>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>2. Households facing taxes</h2>
+  <h2 id="s2">2. Households facing taxes</h2>
 
   <p><a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=47">BY slide 36</a> To keep the algebra short, set \(\alpha=0\) and let taxes be lump sum, the same for everyone alive. Labour income becomes after-tax labour income \(Y-T\). Private non-human wealth now includes government bonds: \(V = K + B\).</p>
   $$C = (p+\theta)(H+V),\qquad H(t) = \int_t^\infty [Y(z)-T(z)]\,e^{-\int_t^z (r+p)}\,dz,\qquad \dot V = rV + Y - T - C .$$
 
-  <div class="intuition">
+  <div class="intuition" id="int-key-asymmetry-people-discount-at">
     <div class="box-title">The key asymmetry: people discount at \(r+p\), the government at \(r\)</div>
     <p>Households discount future taxes at \(r+p\) because there is a probability \(1-e^{-p(z-t)}\) that they will be dead (and so will not pay) by date \(z\). The government's budget discounts at \(r\): someone will pay those taxes, but partly people who are not yet born. That wedge is the entire story of this lesson.</p>
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>3. Ricardian equivalence fails: a partial-equilibrium experiment</h2>
+  <h2 id="s3">3. Ricardian equivalence fails: a partial-equilibrium experiment</h2>
 
   <p><a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=48">BY slide 37</a> Cut taxes at \(t\) by \(dT(t)<0\), finance the cut with debt, and repay it with a tax increase at \(t+s\). Hold the path of \(r\) fixed (partial equilibrium).</p>
   <ol class="steps">
@@ -86,7 +86,7 @@
     <li><strong>Consumption.</strong> Non-human wealth \(V(t)\) does not jump at \(t\), so \(dC(t) = (p+\theta)\,dH(t) > 0\) when \(dT(t)<0\) and \(p>0\).</li>
   </ol>
 
-  <div class="intuition">
+  <div class="intuition" id="int-why-tax-cut-raises-consumption">
     <div class="box-title">Why a tax cut raises consumption when \(p>0\)</div>
     <p>The people alive at \(t\) receive the whole cut. Only a fraction \(e^{-ps}\) of them are still alive at \(t+s\) to pay the higher tax. The rest is paid by people born after \(t\), whose welfare does not enter anyone's budget today. So <strong>the current population is richer</strong>, even though the government's present-value constraint (discounting at \(r\)) is unchanged. Two limits:</p>
     <ul>
@@ -96,8 +96,8 @@
     <p>Example: \(p=0.05\), \(s=10\) years. Each dollar of tax cut raises human wealth by \(1-e^{-0.5}\approx 0.39\) dollars.</p>
   </div>
 
-  <h3>The slide's questions</h3>
-  <div class="proof">
+  <h3 id="s3-slide-s-questions">The slide's questions</h3>
+  <div class="proof" id="pf-answers">
     <div class="box-title">Answers</div>
     <ol class="steps">
       <li><strong>"Do you get the same equilibrium \(C\)'s and \(r\)'s?"</strong> No. The partial-equilibrium experiment holds \(r\) fixed, but aggregate consumption cannot rise in general equilibrium unless resources allow it.
@@ -111,7 +111,7 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>4. Government debt in the pure-endowment economy</h2>
+  <h2 id="s4">4. Government debt in the pure-endowment economy</h2>
 
   <p><a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=49">BY slide 38</a> Now allow \(\alpha\ge0\). To keep the aggregate \(\dot C\) equation unchanged, assume taxes are levied in proportion to labour income, so after-tax income still declines with age at rate \(\alpha\). (With \(\alpha=0\) this is automatic.) Then the derivation of <a href="0018-perpetual-youth-aggregation.html">Lesson 18</a> goes through with \(Y\) replaced by \(Y-T\), and \(\dot C = (r+\alpha-\theta)C - (p+\alpha)(p+\theta)V\) still holds.</p>
   <ol class="steps">
@@ -127,7 +127,7 @@
   $$\dot b = k b^2 + (\theta-\alpha)\,b - \sigma \;=\; r(b)\,b - \sigma, \qquad r(b) = kb + \theta - \alpha .$$
   The second form makes steady states transparent: \(\dot b = 0 \iff r^* b^* = \sigma\). In a steady state, the interest bill is exactly covered by the primary surplus.</p>
 
-  <h3>Case \(T=G=0\) <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=50">BY slide 39</a></h3>
+  <h3 id="s4-case">Case \(T=G=0\) <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=50">BY slide 39</a></h3>
   <ul>
     <li><strong>Two steady states:</strong> \(B^*=0\) and \(\bar B = \dfrac{(\alpha-\theta)\,Y}{(p+\alpha)(p+\theta)}\).</li>
     <li>\(\bar B > 0\) iff \(\alpha>\theta\), i.e. iff the autarky interest rate \(\bar r=\theta-\alpha\) is <strong>negative</strong>, which is the dynamically inefficient case.</li>
@@ -143,7 +143,7 @@
     <div class="caption"><b>Interactive debt dynamics.</b> The curve is \(\dot b\) as a function of \(b = B/(Y-G)\). Steady states are zeros of the curve: <b>filled</b> dots are stable and <b>hollow</b> dots are unstable. Arrows on the axis show the direction in which debt moves. <b>Try:</b> (1) start with \(\alpha>\theta\) and \(\sigma=0\): the positive steady state \(\bar b\) is unstable and has \(r=0\); (2) set \(\theta>\alpha\): the nonzero steady state becomes negative (government assets); (3) make \(\sigma\) negative (a primary deficit): with \(\alpha>\theta\) a <em>stable</em> positive debt level appears, until the deficit exceeds \((\theta-\alpha)^2/4k\) and no steady state survives.</div>
   </div>
 
-  <h3>Case \(T-G\neq0\) <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=50">BY slide 39</a></h3>
+  <h3 id="s4-case-2">Case \(T-G\neq0\) <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=50">BY slide 39</a></h3>
   <p>The parabola \(\dot b = kb^2+(\theta-\alpha)b-\sigma\) shifts vertically by \(-\sigma\). Its roots are \(b_\pm = \dfrac{-(\theta-\alpha) \pm\sqrt{(\theta-\alpha)^2 + 4k\sigma}}{2k}\), and \(\tfrac{d\dot b}{db}\big|_{b_\pm} = \pm\sqrt{(\theta-\alpha)^2+4k\sigma}\). So <strong>the smaller root is always the stable one and the larger root the unstable one.</strong></p>
   <table class="simple">
     <tr><th>Primary balance</th><th>Steady states</th><th>Stable root</th><th>Interpretation</th></tr>
@@ -153,7 +153,7 @@
   </table>
   <p><strong>How it depends on \(\theta-\alpha\):</strong> the sign of \(\theta-\alpha\) (the sign of the no-debt interest rate) decides whether the stable steady state with a deficit involves positive debt (\(\alpha>\theta\)) or government assets (\(\theta>\alpha\)). Its size decides how large a deficit is sustainable: \(|\sigma|_{\max} = (\theta-\alpha)^2/4k\).</p>
 
-  <h3>The two-period OLG analogue ("Try it")</h3>
+  <h3 id="s4-two-period-olg-analogue">The two-period OLG analogue ("Try it")</h3>
   <p>Take Class Note II's economy (young endowment \(1-\alpha\), old endowment \(\alpha\), utility \((1-\beta)\log c_y + \beta\log c_o\); note that this \(\alpha\) is the Note II endowment, not BY's \(\alpha\)). The young hold government debt: \(B_t = s(r_t)\) with \(s(r) = \beta(1-\alpha) - (1-\beta)\alpha/(1+r)\) (<a href="0009-olg-prices-and-interest-rates.html">Lesson 9</a>). With \(T=G=0\), \(B_{t+1} = (1+r_t)B_t\). Solving \(B_t = s(r_t)\) for \(1+r_t\) and substituting:
   $$B_{t+1} = \phi(B_t) \equiv \frac{(1-\beta)\alpha\,B_t}{\beta(1-\alpha) - B_t}.$$</p>
   <ul>
@@ -162,14 +162,14 @@
   </ul>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>5. Debt and capital</h2>
+  <h2 id="s5">5. Debt and capital</h2>
 
   <p><a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=51">BY slide 40</a> Set \(\alpha=0\) and hold \(T\) and \(G\) constant. Now \(V=B+K\), and the system has three equations:</p>
   $$\dot C = (r-\theta)C - p(p+\theta)(B+K),\qquad \dot K = \mathcal F(K) - C - G,\qquad \dot B = rB + G - T,\qquad r=\mathcal F'(K).$$
   <p>Steady states satisfy \([\mathcal F'(K^*)-\theta]C^* = p(p+\theta)(B^*+K^*)\), \(C^* = \mathcal F(K^*)-G\), and \(\mathcal F'(K^*)B^* = T-G\). Eliminating \(C^*\) and \(B^*\) <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=52">BY slide 41</a>:
   $$\mathcal F(K^*) - G = \frac{p(p+\theta)}{\mathcal F'(K^*)-\theta}\left[\frac{T-G}{\mathcal F'(K^*)} + K^*\right].$$</p>
 
-  <div class="proof">
+  <div class="proof" id="pf-answers-slide-41-s-questions">
     <div class="box-title">Answers to slide 41's questions</div>
     <ol class="steps">
       <li><strong>Does an increase in \(T\) increase the debt?</strong> In the steady state, <strong>yes</strong>: \(B^* = (T-G)/r^*\) with \(r^*>0\). A higher permanent surplus is consistent only with a larger debt whose interest it pays. Read this as "the debt level a given fiscal policy can support". Since the positive-debt steady state is unstable in \(B\) (as in §4), it is not a statement that raising taxes makes debt grow over time.</li>
@@ -192,7 +192,7 @@
   </table>
   <p>The table shows each answer: higher \(T\) means more debt and less capital; a tax cut and a spending increase of the same size give almost the same \(B^*\), but the spending increase leaves less for consumption and raises \(K^*\) slightly less; and as \(p\to0\), \(r^*\to\theta=0.03\) whatever the fiscal policy.</p>
 
-  <h3>Balanced-budget policy: hold \(B\) fixed <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=53">BY slide 42</a></h3>
+  <h3 id="s5-balanced-budget-policy-hold">Balanced-budget policy: hold \(B\) fixed <a class="slide-ref" href="../sources/slides-blanchard-yaari.pdf#page=53">BY slide 42</a></h3>
   <p>Now the government keeps \(B\) constant and adjusts taxes, \(T = \mathcal F'(K)B + G\). The steady state solves
   $$[\mathcal F'(K^*)-\theta]\,[\mathcal F(K^*)-G] = p(p+\theta)\,(B+K^*).$$</p>
   <ul>
@@ -203,7 +203,7 @@
   </ul>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>6. Check your understanding</h2>
+  <h2 id="s6">6. Check your understanding</h2>
 
   <div class="quiz-section">
     <div class="quiz-question" data-correct="c">
@@ -253,11 +253,11 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>7. Exercises</h2>
+  <h2 id="s7">7. Exercises</h2>
 
   <p>Exercise 20.2 is Problem Set 2 (2025), which asks you to linearize the debt-and-capital system and count its eigenvalues. No past exam has asked about Blanchard–Yaari directly. The other exercises follow the formats Alvarez does use: true/false with a short justification, and guided derivations with hints and point weights. Use the notation of §4: \(k\equiv(p+\alpha)(p+\theta)\), \(b\equiv B/(Y-G)\), \(\sigma\equiv(T-G)/(Y-G)\).</p>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-20-1">
     <div class="box-title">Exercise 20.1 <span class="tag exam">Exam-inspired</span> True or false? Justify. <span class="pts">(8 × 10 points)</span></div>
     <ol class="tf-list">
       <li>In the perpetual-youth model, a lump-sum tax cut today, financed by debt and repaid with interest by a tax increase \(s\) years later, leaves the consumption of those alive today unchanged. <span class="tf-src">exam-inspired (slide 37)</span>
@@ -279,7 +279,7 @@
     </ol>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-20-2">
     <div class="box-title">Exercise 20.2 <span class="tag pset">Problem set 2022, PS2</span> Debt and capital: linearization and stability <span class="pts">(80 points)</span></div>
     <p>Take \(\alpha=0\) and constant \(T,G\). \(B\) is government debt.
     $$\dot C=(\mathcal F'(K)-\theta)C-p(p+\theta)(B+K),\qquad \dot K=\mathcal F(K)-C-G,\qquad \dot B=\mathcal F'(K)B+G-T.$$
@@ -307,7 +307,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-20-3">
     <div class="box-title">Exercise 20.3 <span class="tag slides">Slides p.37</span> <span class="tag exam">Exam-inspired</span> Ricardian equivalence, partial and general equilibrium <span class="pts">(50 points)</span></div>
     <p>Set \(\alpha=0\). At date \(t\) the government cuts taxes by \(dT(t)&lt;0\) and raises them at \(t+s\) by enough to repay the extra debt with interest.</p>
     <ol class="parts" type="a">
@@ -324,7 +324,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-20-4">
     <div class="box-title">Exercise 20.4 <span class="tag slides">Slides p.39</span> The two-period analogue <span class="pts">(40 points)</span></div>
     <p>Take the Class Note II economy (young endowment \(1-\alpha\), old \(\alpha\); utility \((1-\beta)\log c_y+\beta\log c_o\)) and add one-period government bonds, with no taxes and no spending. The young at \(t\) buy the whole debt \(B_t\), which is repaid with interest at \(t+1\) by issuing new debt.</p>
     <ol class="parts" type="a">
@@ -341,7 +341,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-20-5">
     <div class="box-title">Exercise 20.5 <span class="tag exam">Exam-inspired</span> Sustainable deficits <span class="pts">(50 points)</span></div>
     <p>In the endowment economy, \(\dot b=kb^2+(\theta-\alpha)b-\sigma\), with \(r(b)=kb+\theta-\alpha\).</p>
     <ol class="parts" type="a">
@@ -358,7 +358,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-20-6">
     <div class="box-title">Exercise 20.6 <span class="tag slides">Slides pp.40–42</span> Debt and capital in the steady state <span class="pts">(50 points)</span></div>
     <p>Take the capital economy of §5 (\(\alpha=0\)).</p>
     <ol class="parts" type="a">
@@ -375,7 +375,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-20-7">
     <div class="box-title">Exercise 20.7 <span class="tag proof">Proof</span> Convergence to zero debt <span class="pts">(30 points)</span></div>
     <p>In the endowment economy with \(T=G=0\) and \(\alpha&gt;\theta\), show that every path with \(0&lt;B(0)&lt;\bar B\) converges to \(B=0\). How does the interest rate move along such a path? Who gains from the initial debt?</p>
     <details class="solution"><summary>Show solution</summary><div class="body">
@@ -384,7 +384,7 @@
   </div>
 
   <div class="takeaways">
-    <h2>Key takeaways</h2>
+    <h2 id="takeaways">Key takeaways</h2>
     <ul>
       <li>Government: \(\dot B = G-T+rB\). Together with no-Ponzi, this means debt equals the PV of primary surpluses discounted at \(r\). Households discount at \(r+p\).</li>
       <li>A debt-financed tax cut repaid after \(s\): \(dH = -dT(1-e^{-ps})>0\). Ricardian equivalence fails iff \(p>0\), because burdens shift to the unborn. In GE, \(r\) rises (endowment) or capital is crowded out.</li>

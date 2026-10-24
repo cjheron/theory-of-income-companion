@@ -48,11 +48,11 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>1. One agent instead of many</h2>
+  <h2 id="s1">1. One agent instead of many</h2>
 
   <p>Lesson 21 proved that, under convexity and concavity, every Pareto optimum maximizes a weighted sum of utilities \(\sum_i\lambda_iu^i\) for some \(\lambda\ge0\), \(\lambda\ne0\). This lesson turns that weighted sum into the utility function of a single fictitious consumer <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=11">CN3 p.11</a>.</p>
 
-  <div class="definition">
+  <div class="definition" id="def-definition-representative-agent-s-utility">
     <div class="box-title">Definition: the representative agent's utility <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=11">CN3 p.11</a></div>
     <p>For weights \(\lambda\in\mathbb R^I_+\) and an aggregate consumption vector \(x\in\mathbb R^m\),
     $$u(x;\lambda)\;=\;\max_{\{x^i\}}\;\sum_{i\in I}\lambda_i\,u^i(x^i)\qquad\text{s.t.}\qquad \sum_{i\in I}x^i=x,\quad x^i\in X^i\ \text{for all } i .$$
@@ -67,13 +67,13 @@
     <li><strong>It says nothing about production.</strong> No \(Y^j\) appears. Technology enters when the representative agent's own problem is solved, as the next box shows. That is why the slides can move to pure exchange economies without loss of generality for this purpose <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=13">CN3 p.13</a>.</li>
   </ul>
 
-  <div class="theorem">
+  <div class="theorem" id="thm-planner-s-problem-splits-into">
     <div class="box-title">The planner's problem splits into "produce", then "divide"</div>
     <p>Let \(Y=\sum_jY^j\) and \(\bar e=\sum_ie^i\). Then the weighted planner's problem \(W\) of Lesson 21 equals
     $$\max_{y\in Y}\;u(\bar e+y;\lambda).$$
     The planner first picks aggregate production, treating the representative agent as the only consumer. Then it divides the resulting bundle optimally among households.</p>
   </div>
-  <div class="proof">
+  <div class="proof" id="pf-proof">
     <div class="box-title">Proof</div>
     <ol class="steps">
       <li><strong>Any allocation feasible for \(W\) is feasible for the two-stage problem.</strong> Take \(\{x^i,y^j\}\) with \(x^i\in X^i\), \(y^j\in Y^j\) and \(\sum_ix^i=\bar e+\sum_jy^j\). Set \(y=\sum_jy^j\in Y\). Then \(\{x^i\}\) splits \(\bar e+y\), so \(\sum_i\lambda_iu^i(x^i)\le u(\bar e+y;\lambda)\le\max_{y'\in Y}u(\bar e+y';\lambda)\).</li>
@@ -84,9 +84,9 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>2. Two properties the representative agent inherits</h2>
+  <h2 id="s2">2. Two properties the representative agent inherits</h2>
 
-  <div class="theorem">
+  <div class="theorem" id="thm-proposition-concave-increasing">
     <div class="box-title">Proposition: \(u(\cdot;\lambda)\) is concave and increasing <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=12">CN3 p.12</a></div>
     <ol type="a">
       <li>If every \(X^i\) is convex, every \(u^i\) is concave (Assumption CC) and \(\lambda\ge0\), then \(\sum_iX^i\) is convex and \(u(\cdot;\lambda)\) is concave on it.</li>
@@ -94,7 +94,7 @@
     </ol>
   </div>
 
-  <div class="proof">
+  <div class="proof" id="pf-proof-concavity">
     <div class="box-title">Proof of (a): concavity</div>
     <ol class="steps">
       <li><strong>Pick two aggregate bundles and their best splits.</strong> Let \(\hat x,\bar x\in\sum_iX^i\). Let \(\{\hat x^i\}\) attain \(u(\hat x;\lambda)\) and \(\{\bar x^i\}\) attain \(u(\bar x;\lambda)\), so \(\sum_i\hat x^i=\hat x\) and \(\sum_i\bar x^i=\bar x\).</li>
@@ -108,7 +108,7 @@
     <div class="qed">∎</div>
   </div>
 
-  <div class="proof">
+  <div class="proof" id="pf-proof-b-strict-monotonicity">
     <div class="box-title">Proof of (b): strict monotonicity</div>
     <ol class="steps">
       <li>Let \(x'\ge x\) with \(x'\ne x\). Let \(\{x^i\}\) attain \(u(x;\lambda)\), and pick an agent \(k\) with \(\lambda_k>0\).</li>
@@ -118,13 +118,13 @@
     <div class="qed">∎</div>
   </div>
 
-  <div class="intuition">
+  <div class="intuition" id="int-intuition-why-planner-never-does">
     <div class="box-title">Intuition: why a planner never does worse with averages</div>
     <p>Averaging the two optimal splits is <em>one</em> way to share the averaged aggregate bundle. Concave households like averages, so even this naive split does at least as well as the average of the two welfare levels, and the optimal split can only do better. Concavity of \(u(\cdot;\lambda)\) is what makes the representative agent's problem well behaved: its first-order conditions are sufficient, and its demand is single-valued under strict concavity. Note what the proof needs: concave \(u^i\), which is <em>cardinal</em> (Lesson 21), and non-negative weights. A negative \(\lambda_i\) would flip Step 4.</p>
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>3. From many agents to one, and back</h2>
+  <h2 id="s3">3. From many agents to one, and back</h2>
 
   <p>Slide 13 compresses a chain of results into four bullets <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=13">CN3 p.13</a>. Here it is with every link labelled.</p>
 
@@ -135,15 +135,15 @@
     <li><strong>Going back: PO ⇒ CE</strong> (2WT, <a href="0006-second-welfare-theorem.html">Lesson 6</a>). Fix any \(\lambda\), solve \(W\), and you get a PO allocation. Under convexity it is a CE once endowments and ownership are redistributed suitably (in pure exchange, set \(e^i=\bar x^i\)).</li>
   </ol>
 
-  <div class="warning">
+  <div class="warning" id="warn-catch-representative-agent-indexed-by">
     <div class="box-title">The catch: the representative agent is indexed by the distribution</div>
     <p>A representative agent <em>always</em> exists in this weak sense, but its utility \(u(\cdot;\lambda^*)\) depends on the weights, and the weights depend on who owns what. Change the distribution of endowments (a tax reform, a transfer, a shock that hits some agents and not others) and \(\lambda^*\) changes, so <strong>a different</strong> representative agent describes the new equilibrium. You cannot do comparative statics on the distribution with a fixed \(u(\cdot;\lambda)\). Lessons 24–25 ask when \(u(\cdot;\lambda)\) gives the same <em>prices</em> for every \(\lambda\). That is the aggregation result macroeconomists rely on.</p>
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>4. The pure exchange economy</h2>
+  <h2 id="s4">4. The pure exchange economy</h2>
 
-  <div class="definition">
+  <div class="definition" id="def-definition-exchange-economy">
     <div class="box-title">Definition: exchange economy <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=14">CN3 p.14</a></div>
     <p>The aggregate production set is the negative orthant, \(Y=-\mathbb R^m_+\). Goods can be thrown away (free disposal) but not produced. With \(y\le0\), feasibility \(\sum_ix^i=\bar e+y\) becomes
     $$\sum_{i\in I}x^i\;\le\;\sum_{i\in I}e^i\equiv\bar e,\qquad x^i\in X^i\ \text{for all } i, \tag{1}$$
@@ -157,12 +157,12 @@
   </ul>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>5. The planner's first-order conditions</h2>
+  <h2 id="s5">5. The planner's first-order conditions</h2>
 
   <p>Take \(X^i=\mathbb R^m_+\) and differentiable \(u^i\). The planner's Lagrangian, with multiplier \(\gamma_l\) on the resource constraint (1) for good \(l\), is</p>
   $$\mathcal L=\sum_i\lambda_i\,u^i(x^i)+\sum_{l=1}^m\gamma_l\Big(\bar e_l-\sum_ix^i_l\Big).$$
 
-  <div class="theorem">
+  <div class="theorem" id="thm-karush-kuhn-tucker-conditions-problem">
     <div class="box-title">Karush–Kuhn–Tucker conditions for problem \(W\)</div>
     <p>For every agent \(i\) and good \(l\):
     $$\lambda_i\frac{\partial u^i(\bar x^i)}{\partial x_l}\;\le\;\gamma_l,\qquad\text{with equality if } \bar x^i_l>0;$$
@@ -171,7 +171,7 @@
     $$\lambda_i\,\frac{\partial u^i(\bar x^i)}{\partial x_l}=\gamma_l\qquad\text{for all } i,\ l. \tag{2}$$</p>
   </div>
 
-  <h3>When are these conditions necessary, and when sufficient?</h3>
+  <h3 id="s5-when-are-these-conditions">When are these conditions necessary, and when sufficient?</h3>
   <table class="simple">
     <tr><th></th><th>What it needs</th><th>Why</th></tr>
     <tr><td><strong>Necessary</strong></td><td>\(u^i\) differentiable at \(\bar x^i\)</td><td>All constraints (1) and \(x^i\ge0\) are <em>linear</em>, so a constraint qualification holds automatically, and KKT conditions hold at any local maximum.</td></tr>
@@ -182,14 +182,14 @@
 
   <p>Slides 16–17 state the conditions under HH and CC "for an interior solution with strictly positive Pareto weights" <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=16">CN3 p.16</a>. The table explains each qualifier. Note also that \(\gamma_l=\lambda_iu^i_l>0\) when utility is strictly increasing, so complementary slackness forces (1) to bind: <strong>the planner throws nothing away.</strong></p>
 
-  <h3>What (2) says: efficiency versus distribution</h3>
+  <h3 id="s5-what-2-says-efficiency">What (2) says: efficiency versus distribution</h3>
 
   <p>Equation (2) carries two separate pieces of information. Dividing it for good \(l\) by itself for good \(k\), the \(\lambda_i\) cancels:</p>
   $$\underbrace{\frac{\partial u^i(\bar x^i)/\partial x_l}{\partial u^i(\bar x^i)/\partial x_k}}_{MRS^i_{lk}}=\frac{\gamma_l}{\gamma_k}=\underbrace{\frac{\partial u^j(\bar x^j)/\partial x_l}{\partial u^j(\bar x^j)/\partial x_k}}_{MRS^j_{lk}}\qquad\text{for all } i,j,\ l,k .$$
   <p>Writing (2) for agents \(i\) and \(j\) and the same good \(l\), the \(\gamma_l\) cancels instead <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=16">CN3 p.16</a>:</p>
   $$\frac{\partial u^i(\bar x^i)/\partial x_l}{\partial u^j(\bar x^j)/\partial x_l}=\frac{\lambda_j}{\lambda_i}\qquad\text{for all } i,j,\ l .$$
 
-  <div class="intuition">
+  <div class="intuition" id="int-intuition-first-equation-efficiency-second">
     <div class="box-title">Intuition: the first equation is efficiency, the second is "who gets more"</div>
     <ul>
       <li><strong>Equal MRS</strong> is the tangency condition that defines the contract curve. No \(\lambda\) appears, because <em>every</em> Pareto optimum must satisfy it, whatever the weights. If two agents valued goods differently at the margin, a swap would help both.</li>
@@ -198,13 +198,13 @@
     </ul>
   </div>
 
-  <div class="warning">
+  <div class="warning" id="warn-don-t-over-read-mrs">
     <div class="box-title">Don't over-read "the MRS condition does not contain \(\lambda\)"</div>
     <p>The <em>condition</em> \(MRS^i=MRS^j\) has no \(\lambda\) in it. The common <em>value</em> \(\gamma_l/\gamma_k\) is evaluated at the allocation the weights select, so in general it changes with \(\lambda\). The figure below shows this. Slide 17 says the same thing: \(\gamma\) is a function of \(\lambda\) and of all the utility functions <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=17">CN3 p.17</a>. The exceptions, where \(\gamma_l/\gamma_k\) does not depend on \(\lambda\), are the subject of Lessons 24–25.</p>
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>6. See it: the planner slides along the contract curve</h2>
+  <h2 id="s6">6. See it: the planner slides along the contract curve</h2>
 
   <p>Two agents, two goods, one unit of each in aggregate. A has \(u^A=a\log x_1+(1-a)\log x_2\) and B has \(u^B=b\log x_1+(1-b)\log x_2\). Using (2) and feasibility, \(\lambda_Aa/x^A_1=\gamma_1=\lambda_Bb/(1-x^A_1)\). Adding \(x^A_1=\lambda_Aa/\gamma_1\) and \(x^B_1=\lambda_Bb/\gamma_1\) and setting the sum to 1 gives a closed form:</p>
   $$\gamma_1=\lambda_Aa+\lambda_Bb,\qquad \gamma_2=\lambda_A(1-a)+\lambda_B(1-b),\qquad x^A_l=\frac{\lambda_A\beta^A_l}{\gamma_l},$$
@@ -313,11 +313,11 @@
   </script>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>7. \(\gamma\) is the marginal value of the aggregate endowment</h2>
+  <h2 id="s7">7. \(\gamma\) is the marginal value of the aggregate endowment</h2>
 
   <p>Slide 17 says \(\gamma_l\) "has the interpretation of the marginal value for the planner (or rep-agent) of an extra unit of the aggregate endowment" <a class="slide-ref" href="../sources/slides4-aggregation-planner.pdf#page=17">CN3 p.17</a>. Here is the precise statement and a proof that needs no differentiability of the optimal allocation.</p>
 
-  <div class="theorem">
+  <div class="theorem" id="thm-proposition-envelope-property-representative-agent">
     <div class="box-title">Proposition: envelope property of the representative agent</div>
     <p>Let \(X^i\) be convex, \(u^i\) concave and differentiable, and \(\lambda\ge0\). Let \(\{\bar x^i\}\) be an interior solution of the planner's problem at aggregate endowment \(\bar e\), with multipliers \(\gamma\) satisfying (2). Then
     $$u(x;\lambda)\;\le\;u(\bar e;\lambda)+\gamma\cdot(x-\bar e)\qquad\text{for every } x\in\textstyle\sum_iX^i,$$
@@ -325,7 +325,7 @@
     $$\frac{\partial u(\bar e;\lambda)}{\partial\bar e_l}=\gamma_l=\lambda_i\frac{\partial u^i(\bar x^i)}{\partial x_l}\qquad\text{for every agent } i .$$</p>
   </div>
 
-  <div class="proof">
+  <div class="proof" id="pf-proof-2">
     <div class="box-title">Proof</div>
     <ol class="steps">
       <li><strong>Take any split of any aggregate bundle.</strong> Fix \(x\) and any \(\{x^i\}\) with \(x^i\in X^i\) and \(\sum_ix^i=x\).</li>
@@ -341,7 +341,7 @@
 
   <p>You may know the textbook envelope argument: differentiate \(\mathcal L\) at the optimum with respect to \(\bar e_l\). The terms multiplying \(\partial x^i_k/\partial\bar e_l\) vanish by (2), the terms multiplying \(\partial\gamma_k/\partial\bar e_l\) vanish because the constraint binds, and what remains is \(\gamma_l\). That argument assumes the optimal allocation is differentiable in \(\bar e\). The proof above does not.</p>
 
-  <div class="intuition">
+  <div class="intuition" id="int-intuition-why-this-links-representative">
     <div class="box-title">Intuition: why this links the representative agent to prices</div>
     <ul>
       <li>One extra unit of good \(l\) handed to the economy can go to <em>any</em> agent. At the optimum, every agent's weighted marginal utility for it equals \(\gamma_l\), so the planner is indifferent about who gets it, and its value is \(\gamma_l\).</li>
@@ -353,7 +353,7 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>8. Check your understanding</h2>
+  <h2 id="s8">8. Check your understanding</h2>
 
   <div class="quiz-section">
     <div class="quiz-question" data-correct="b">
@@ -414,11 +414,11 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <h2>9. Exercises</h2>
+  <h2 id="s9">9. Exercises</h2>
 
   <p>On Alvarez's exams this material shows up in two forms. The first is a long guided derivation, typically: planner FOC → solve for \(x^i_l\) → sum over agents → \(\gamma_l(\lambda)\) → compare with a representative agent. The second is true/false statements about weights and multipliers. The derivations below are the front half of that chain. Lessons 24–25 finish it.</p>
 
-  <div class="box exercise">
+  <div class="box exercise" id="tf">
     <div class="box-title">True or false? Justify. <span class="tag past">Past exam</span> <span class="tag exam">Exam-inspired</span></div>
     <p>For each statement, answer True or False and justify in at most four lines.</p>
     <ol class="tf-list">
@@ -439,7 +439,7 @@
     </ol>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-22-1">
     <div class="box-title">Exercise 22.1 <span class="tag past">Past exam: Fall 2025 Final Q2</span> (the representative agent with translated utility) <span class="pts">(20 pts on the exam, + extensions)</span></div>
     <p>There are \(m\) goods and \(I\) agents with \(u^i(c)=H(c-\theta^i)\), where \(\theta^i\in\mathbb R^m\). \(H\) is homogeneous of degree one, strictly increasing and strictly quasi-concave. Assume consumption must satisfy \(c^i\ge\theta^i\) (each agent's \(\theta^i\) is a subsistence vector) and \(\bar e\ge\bar\theta\equiv\sum_i\theta^i\). Fix weights \(\lambda\in\mathbb R^I_+\) and an aggregate endowment \(\bar e\in\mathbb R^m_+\).</p>
     <ol class="parts" type="a">
@@ -461,7 +461,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-22-2">
     <div class="box-title">Exercise 22.2 <span class="tag past">Past exam: Spring 2023 MT1 Q1, parts 1–8</span> (planner with satiation points)</div>
     <p>Pure exchange with \(m\) goods and \(I\) consumers, with
     $$u^i(x^i)=-\sum_{l=1}^m\pi_l\frac{(\theta^i_l-x^i_l)^{1+\sigma}}{1+\sigma},\qquad X^i=\{x\in\mathbb R^m: x_l\le\theta^i_l\ \text{for all } l\},$$
@@ -491,7 +491,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-22-3">
     <div class="box-title">Exercise 22.3 <span class="tag exam">Exam-inspired</span> (Cobb–Douglas planner: verify the envelope property by hand)</div>
     <p>Pure exchange with \(I\) agents, \(m\) goods and \(u^i(x^i)=\sum_l\beta^i_l\log x^i_l\), where \(\beta^i_l>0\) and \(\sum_l\beta^i_l=1\). Aggregate endowment \(\bar e\gg0\), weights \(\lambda\gg0\).</p>
     <ol class="parts" type="a">
@@ -513,7 +513,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-22-4">
     <div class="box-title">Exercise 22.4 <span class="tag proof">Proof</span> (properties of \(u(x;\lambda)\) in the weights)</div>
     <ol class="parts" type="a">
       <li>Show that \(u(x;\cdot)\) is homogeneous of degree one and <strong>convex</strong> in \(\lambda\) (for fixed \(x\)). <span class="pts">(10 pts)</span></li>
@@ -528,7 +528,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-22-5">
     <div class="box-title">Exercise 22.5 <span class="tag past">Past exam: Fall 2005 Midterm Ex. 1 Q2, extended</span> (risk sharing with different beliefs)</div>
     <p>One good, \(S\) states, two agents. Agent \(i\) has expected utility \(\sum_s\pi^i_s\,\dfrac{(x^i_s)^{1-\rho}}{1-\rho}\) with \(\rho>0\) and subjective probabilities \(\pi^i_s>0\). The aggregate endowment in state \(s\) is \(\bar e_s>0\). Use planner weights \(\lambda_1,\lambda_2>0\).</p>
     <ol class="parts" type="a">
@@ -546,7 +546,7 @@
   </div>
 
   <div class="takeaways">
-    <h2>Key takeaways</h2>
+    <h2 id="takeaways">Key takeaways</h2>
     <ul>
       <li>\(u(x;\lambda)=\max\{\sum_i\lambda_iu^i(x^i):\sum_ix^i=x\}\) is a one-agent stand-in for the economy. It is concave if the \(u^i\) are concave and \(\lambda\ge0\), and it is increasing. It ignores technology: \(W=\max_{y\in Y}u(\bar e+y;\lambda)\).</li>
       <li>CE → PO (1WT) → weights \(\lambda^*\) → one-agent economy. The weights, and hence the representative agent, depend on the wealth distribution.</li>

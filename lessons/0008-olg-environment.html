@@ -34,7 +34,7 @@
     Alvarez, <a href="../sources/slides2-olg.pdf#page=4">Class Note II, pp. 4–8</a>. The model originates in Samuelson, <a href="https://ideas.repec.org/a/ucp/jpolec/v66y1958p467.html">"An Exact Consumption-Loan Model of Interest with or without the Social Contrivance of Money"</a>, <em>JPE</em> 66 (1958). It is short and very readable; §§I–III are the endowment economy studied here. Textbook treatment: Ljungqvist &amp; Sargent, <em>Recursive Macroeconomic Theory</em>, chapter "Overlapping Generations".
   </div>
 
-  <h2>1. Roadmap: why study this economy?</h2>
+  <h2 id="s1">1. Roadmap: why study this economy?</h2>
 
   <p>Class Note II has four parts <a class="slide-ref" href="../sources/slides2-olg.pdf#page=2">II p.2</a>:</p>
   <ol>
@@ -45,11 +45,11 @@
   </ol>
   <p>This lesson builds the environment and solves for the equilibrium allocation. It is the foundation for all the welfare results that follow.</p>
 
-  <h2>2. The environment, as a special case of Part I</h2>
+  <h2 id="s2">2. The environment, as a special case of Part I</h2>
 
   <p>The point to keep in mind is that <strong>nothing here is new machinery</strong>. The OLG economy is an instance of the general economy of <a href="0001-the-economy.html">Lesson 1</a>, with \(L=\mathbb{R}^\infty\), countably many households and no firms. Everything from Part I (budget constraints, CE, Pareto optimality) applies word for word. What is unusual is only that <em>both</em> the number of goods and the number of agents are infinite.</p>
 
-  <div class="definition">
+  <div class="definition" id="def-definition-endowment-olg-economy">
     <div class="box-title">Definition: the endowment OLG economy <a class="slide-ref" href="../sources/slides2-olg.pdf#page=4">II pp.4–6</a></div>
     <ul>
       <li><strong>Commodities.</strong> One consumption good at each date \(t=1,2,\dots\), so \(L=\mathbb{R}^\infty\). A bundle is a sequence \(x = (x_1,x_2,x_3,\dots)\), and \(x_t\) is the good dated \(t\).</li>
@@ -63,7 +63,7 @@
 
   <p>Notation: a superscript is <em>who</em> (the generation), a subscript is <em>when</em> (the date). So \(x^i_{i+1}\) is generation \(i\)'s consumption when old. The slides note that in any CE or efficient allocation, \(x^i_t = 0\) for \(t\notin\{i,i+1\}\) <a class="slide-ref" href="../sources/slides2-olg.pdf#page=4">II p.4</a>. Goods at dates when you are dead give no utility, so giving them to you wastes resources (inefficient) or wastes budget (not optimal at positive prices).</p>
 
-  <h3>Who is alive when</h3>
+  <h3 id="s2-who-alive-when">Who is alive when</h3>
 
   <div class="figure">
     <div id="tl-ctrl"></div>
@@ -72,7 +72,7 @@
     <div class="caption"><b>Interactive.</b> Each bar is a generation's lifetime, with endowments labelled in each period. At every date exactly <b>two</b> generations are alive: the current young and the current old. Press <b>Next step</b> to walk through the induction proof of §4. Each highlighted arrow is one step: a market-clearing condition (vertical, within a date) or a budget constraint (horizontal, within a lifetime).</div>
   </div>
 
-  <h3>Feasibility</h3>
+  <h3 id="s2-feasibility">Feasibility</h3>
   <p>Material balance from Lesson 1, \(\sum_{i\in I}x^i = \sum_{i\in I}e^i\), is an equation in \(\mathbb{R}^\infty\): one equation per date. At date \(t\) only generations \(t-1\) (old) and \(t\) (young) consume or hold endowments. So the infinite sum over \(i\) collapses to two terms <a class="slide-ref" href="../sources/slides2-olg.pdf#page=6">II p.6</a>:</p>
   $$x^{t-1}_t + x^t_t \;=\; e^{t-1}_t + e^t_t \;\equiv\; \bar e_t \qquad t = 1,2,\dots$$
   <p>Here \(\bar e_t\) is the <strong>aggregate endowment at date \(t\)</strong>. Written out:</p>
@@ -83,11 +83,11 @@
     &\quad\vdots
   \end{aligned}$$
 
-  <h2>3. Competitive equilibrium</h2>
+  <h2 id="s3">3. Competitive equilibrium</h2>
 
   <p>Prices are a sequence \(p=(p_1,p_2,\dots)\in\mathbb{R}^\infty\): \(p_t\) is the price, in a common unit of account, of one unit of the date-\(t\) good. Think of all trades as happening in one big Arrow–Debreu market "before time starts" (or, equivalently, think of a sequence of markets with one-period loans; see Exercise 8.4). Generation \(i\)'s problem is the general household problem \(\max u^i(x)\) s.t. \(p\cdot x\le p\cdot e^i\). Since \(x^i_t=e^i_t=0\) outside \(\{i,i+1\}\), it specializes to <a class="slide-ref" href="../sources/slides2-olg.pdf#page=7">II p.7</a>:</p>
 
-  <div class="definition">
+  <div class="definition" id="def-household-problems-olg-economy">
     <div class="box-title">Household problems in the OLG economy</div>
     <p>For \(i\ge1\):
     $$\max_{x_i,\,x_{i+1}}\; v^i(x_i,x_{i+1})\quad\text{s.t.}\quad p_i x_i + p_{i+1}x_{i+1} \;=\; p_i e^i_i + p_{i+1}e^i_{i+1}.$$
@@ -98,14 +98,14 @@
 
   <p>The slides write the budgets with equality. That is legitimate whenever \(v^i\) is strictly increasing (so LNS holds and budgets bind; see Lesson 3).</p>
 
-  <h2>4. The proposition: no trade</h2>
+  <h2 id="s4">4. The proposition: no trade</h2>
 
-  <div class="theorem">
+  <div class="theorem" id="thm-proposition">
     <div class="box-title">Proposition <a class="slide-ref" href="../sources/slides2-olg.pdf#page=8">II p.8</a></div>
     <p>In any competitive equilibrium, \(\bar x^i = e^i\) for every \(i\ge0\). There is no trade.</p>
   </div>
 
-  <div class="proof">
+  <div class="proof" id="pf-proof-induction-dates">
     <div class="box-title">Proof (induction on dates)</div>
     <ol class="steps">
       <li><strong>The initial old cannot trade.</strong> Generation 0's budget \(p_1 x_1 = p_1 e^0_1\) has a single good on each side. For any \(p_1\neq0\) it forces \(x^0_1 = e^0_1\), whatever the price. (They have nothing else to sell and want nothing else to buy.)</li>
@@ -122,13 +122,13 @@
     <p>Steps 1 and 3 divided by \(p_t\). If some \(p_t\le 0\), the date-\(t\) good would be free (or better than free) to a generation that values it with strictly increasing \(v\). Demand would be unbounded and the market could not clear. So in any CE with strictly increasing utilities, \(p_t>0\) for all \(t\).</p>
   </div>
 
-  <div class="intuition">
+  <div class="intuition" id="int-intuition-why-nobody-trades">
     <div class="box-title">Intuition: why nobody trades</div>
     <p>Trade needs a <strong>double coincidence across time</strong>. The young at \(t\) would like to save, i.e. give up goods today for goods tomorrow. The only people they can trade with today are the current old, and the old will be dead tomorrow, so they cannot repay. The young at \(t\) will meet the young of \(t+1\) tomorrow, but those people are not yet born today. So every mutually beneficial intertemporal loan has a counterparty who is either dead or unborn.</p>
     <p>The induction shows that this logic is airtight: the initial old are stuck with their endowment, and that "locks" every subsequent link of the chain. Prices still exist and are well defined (Lesson 9). They are simply the prices at which nobody <em>wants</em> to trade.</p>
   </div>
 
-  <div class="warning">
+  <div class="warning" id="warn-what-proof-does-does-not">
     <div class="box-title">What the proof does and does not use</div>
     <ul>
       <li><strong>Uses:</strong> two-period lives, so that at each date only two generations overlap and they never meet again; an initial old who value only date-1 goods; binding budgets; positive prices.</li>
@@ -190,7 +190,7 @@
   })();
   </script>
 
-  <h2>5. Check your understanding</h2>
+  <h2 id="s5">5. Check your understanding</h2>
 
   <div class="quiz-section">
     <div class="quiz-question" data-correct="b">
@@ -239,11 +239,11 @@
     <div class="quiz-score"></div>
   </div>
 
-  <h2>6. Exercises</h2>
+  <h2 id="s6">6. Exercises</h2>
 
   <p>Exams on this material come in two formats: rapid <strong>true/false questions with a short justification</strong>, and <strong>long guided derivations</strong> that walk you through one economy step by step (see the past exams cited below). Attempt each part before opening its solution.</p>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-8-1">
     <div class="box-title">Exercise 8.1 <span class="tag exam">Exam-inspired</span> True or false? Justify in 1–4 lines.</div>
     <ol class="tf-list">
       <li>In the stationary two-period endowment OLG economy (no money, no outside asset), there is a competitive equilibrium in which the young lend to the old.
@@ -261,7 +261,7 @@
     </ol>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-8-2">
     <div class="box-title">Exercise 8.2 <span class="tag past">Past exam: 2017/18 Midterm 1, "OLG and trees", parts 1–3</span></div>
     <p>Time is discrete, \(t=1,2,\dots\). A measure one of agents is born each period and lives two periods. Generation \(t\) has endowment \(e^t_t>0\) when young and nothing when old, with strictly increasing, concave utility \(u^t(c^t_t,c^t_{t+1})\). There is one tree that pays a dividend \(d_t\ge0\) of the good each period, and at \(t=1\) each initial old agent owns one tree. Feasibility is \(c^{t-1}_t+c^t_t = d_t + e^t_t\). Whoever owns the tree collects the dividend and may sell the tree at the <em>ex-dividend</em> price \(q_t\). Agents may also borrow or lend for one period at net rate \(r_t\). Generation \(t\) buys \(a_t\) trees and saves \(s_t\) in bonds:
     $$c^t_t + a_tq_t + s_t = e^t_t,\qquad c^t_{t+1} = a_t(q_{t+1}+d_{t+1}) + s_t(1+r_t),$$
@@ -280,7 +280,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-8-3">
     <div class="box-title">Exercise 8.3 <span class="tag exam">Exam-inspired</span> Three-period lives</div>
     <p>Suppose each generation lives three periods (young, middle-aged, old), with \(u^i = v(x_i,x_{i+1},x_{i+2})\) and strictly positive endowments in all three periods. At \(t=1\) there are an initial old (alive only at \(t=1\)) and an initial middle-aged (alive at \(t=1,2\)).</p>
     <ol class="parts" type="a">
@@ -295,7 +295,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-8-4">
     <div class="box-title">Exercise 8.4 <span class="tag exam">Exam-inspired</span> Sequential markets</div>
     <p>Instead of one Arrow–Debreu market at the beginning of time, suppose that at each date \(t\) there is a spot market for the date-\(t\) good and a market for one-period loans at net interest rate \(r_t\). Generation \(t\) chooses savings \(s_t\): \(x^t_t + s_t = e^t_t\) and \(x^t_{t+1} = e^t_{t+1} + (1+r_t)s_t\).</p>
     <ol class="parts" type="a">
@@ -310,7 +310,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-8-5">
     <div class="box-title">Exercise 8.5 <span class="tag proof">Proof</span></div>
     <p>Prove that in any CE of the OLG economy with strictly increasing \(v^i\), \(p_t>0\) for all \(t\). Where exactly did the proof of the proposition need this?</p>
     <details class="solution"><summary>Show solution</summary><div class="body">
@@ -318,7 +318,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-8-6">
     <div class="box-title">Exercise 8.6 <span class="tag proof">Proof</span> An endowment the old don't value</div>
     <p>Suppose the initial old have preferences \(u^0(x)=w(x_1)\) for some strictly increasing \(w\). Does the proposition still hold? What if the initial old also held an endowment \(e^0_2>0\) of the date-2 good? Prove it, or give a counterexample.</p>
     <details class="hint"><summary>Hint</summary><div class="body"><p>Step 1 of the proof is the only place where generation 0's preferences enter. In the second case, ask whether generation 0 can now <em>sell</em> something.</p></div></details>
@@ -328,7 +328,7 @@
     </div></details>
   </div>
 
-  <div class="box exercise">
+  <div class="box exercise" id="ex-8-7">
     <div class="box-title">Exercise 8.7 <span class="tag pset">Problem set 2025, P4 Q1–2 and P6 Q1–2</span> No trade across generations, generalized</div>
     <p>Keep two-period lives and one good per period.</p>
     <ol class="parts" type="a">
@@ -347,7 +347,7 @@
   </div>
 
   <div class="takeaways">
-    <h2>Key takeaways</h2>
+    <h2 id="takeaways">Key takeaways</h2>
     <ul>
       <li>The OLG economy is the Part I economy with \(L=\mathbb{R}^\infty\), \(I=\{0,1,2,\dots\}\) and no firms. It has a double infinity of goods <em>and</em> agents.</li>
       <li>Feasibility is one equation per date with two terms: \(x^{t-1}_t + x^t_t = \bar e_t\).</li>
