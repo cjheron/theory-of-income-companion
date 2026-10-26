@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 32 — Adjustment Costs, Investment and Tobin's q</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part VI: Euler Equations &amp; Transversality · Lesson 32 of 32</div>
+    <h1>Adjustment Costs, Investment and Tobin's q</h1>
+    <div class="meta">Covers <a href="../sources/slides5-euler-transversality.pdf#page=45">Euler Equations &amp; Transversality, slides 45–52</a> · About 40 min · Prerequisites: <a href="0031-homogeneous-problems-and-ak-growth.html">Lesson 31</a> (homogeneous problems, linear policies), <a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a> (the Euler equation and sufficiency)</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>write a firm's investment problem as a dynamic problem \([X,\Gamma,F,\beta]\) and explain why it is the same as an economy with linear utility;</li>
+      <li>show that without adjustment costs capital jumps to its steady state in one period, and that a linear technology has no interior solution at all;</li>
+      <li>derive the Euler equation for the linear technology with adjustment costs, prove that the growth rate \(\bar g\) is unique and lies in \((1,1/\beta)\), and sign its comparative statics;</li>
+      <li>compute the firm's value, show that marginal and average q coincide, and prove \(q=a'(\bar g)/\beta=(1+r)\,a'(\bar g)\);</li>
+      <li>say exactly when "more costly adjustment" lowers growth. Pointwise higher costs are not enough.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides5-euler-transversality.pdf#page=45">Euler Equations &amp; Transversality, slides 45–52</a>. The Euler-equation machinery (sufficiency of the Euler equation plus transversality) is Stokey &amp; Lucas with Prescott, <em>Recursive Methods in Economic Dynamics</em> (1989), §4.5, Theorem 4.15. For q theory read F. Hayashi (1982), "Tobin's marginal q and average q: a neoclassical interpretation," <em>Econometrica</em> 50(1), 213–224. It proves that marginal and average q coincide when the firm is a price taker with constant returns in both production and installation, which is exactly the structure of this lesson. A textbook treatment of q theory is the investment chapter of D. Romer, <em>Advanced Macroeconomics</em>. Formulas from this part of the course are collected in the <a href="../reference/euler-transversality-cheatsheet.html">Euler equations &amp; transversality cheatsheet</a>.
+  </div>
+
+  <div class="notation">
+    <div class="box-title">Notation for this lesson</div>
+    <ul>
+      <li>Here \(f(k)\) is the firm's <strong>production function</strong> (output). In <a href="0026-the-dynamic-optimization-problem.html">Lesson 26</a>, \(f(k)\equiv G(k,1)+(1-\delta)k\) also included undepreciated capital. Here the \((1-\delta)k\) term appears separately, through the law of motion \(k_{t+1}=i_t+(1-\delta)k_t\).</li>
+      <li>\(\phi(i/k)\,k\) is the installation cost. \(a(\cdot)\) is the <strong>adjustment-cost function</strong> of the growth factor \(g=k_{t+1}/k_t\), defined in §4. It has nothing to do with the cost weights \(a,b\) of the quadratic model in <a href="0030-closed-form-decision-rules.html">Lesson 30</a>.</li>
+      <li>\(\bar g\) is the gross growth factor of capital, and \(\gamma\equiv\bar g-1\) is the net growth rate (slide 50). This is the third meaning of \(\gamma\) in this deck: it was the root of \(Q(\gamma)\) on slide 34 and the CRRA curvature on slides 41–44.</li>
+      <li>\(\beta=1/(1+r)\): the firm discounts at the interest rate \(r\). \(F\) is always the period return, never a production function.</li>
+      <li>\(q\equiv V(k)/k\) is Tobin's q measured <em>at the start of the period, including the current dividend</em> (cum-dividend). §7 compares it with the ex-dividend convention used in most textbooks.</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s1">1. Where we are</h2>
+
+  <p><a href="0031-homogeneous-problems-and-ak-growth.html">Lesson 31</a> showed that when \(F\) is homogeneous of degree one and \(\Gamma\) is a cone, the optimal policy is linear, \(x_{t+1}=\bar g\,x_t\). The Euler equation then collapses from a second-order difference equation to a <em>single equation in one unknown</em>, \(F_y(1,\bar g)+\beta F_x(1,\bar g)=0\). The last application in the deck uses this result for a firm that invests subject to adjustment costs. It delivers three things at once:</p>
+  <ul>
+    <li>a theory of the <strong>growth rate of a firm</strong>, pinned down by technology, adjustment costs and the interest rate;</li>
+    <li>a <strong>closed form for the firm's market value</strong> that turns out to be linear in capital;</li>
+    <li>a clean statement of <strong>Tobin's q</strong>. The market-to-book ratio, which you can observe, equals the marginal cost of investing, so it is a sufficient statistic for investment.</li>
+  </ul>
+  <p>The Euler-equation tools are those of <a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a>: write \(F\), take \(F_x\) and \(F_y\), impose the Euler equation, and check transversality. Here, transversality ends up being the condition \(\beta\bar g\lt1\), which keeps the firm's value finite.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s2">2. The investment problem</h2>
+
+  <p>A firm (or an economy with linear utility \(u(c)=c\)) owns capital \(k_t\), produces \(f(k_t)\), and invests \(i_t\). Capital follows \(k_{t+1}=i_t+(1-\delta)k_t\). Installing capital may cost extra goods, \(\phi(i_t/k_t)\,k_t\). The firm maximizes the present value of its cash flows <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=45">EE p.45</a>:</p>
+  $$\max_{\{i_t\}_{t=0}^\infty}\ \sum_{t=0}^\infty\beta^t\Big[f(k_t)-i_t-\phi\Big(\frac{i_t}{k_t}\Big)k_t\Big]\quad\text{s.t. } k_{t+1}=i_t+(1-\delta)k_t,\ k_0\text{ given.}$$
+
+  <div class="intuition" id="int-why-firm-economy-are-same">
+    <div class="box-title">Why "a firm" and "an economy with \(u(c)=c\)" are the same problem</div>
+    <p>The bracket is the firm's dividend: output minus investment spending minus installation costs. A price-taking firm owned by agents who discount at \(r\) maximizes the present value of dividends at \(\beta=1/(1+r)\). In the planner's version, the bracket is consumption, and with \(u(c)=c\) the planner maximizes \(\sum\beta^tc_t\), the same objective. Linear utility means there is no motive to smooth consumption. Everything that slows investment down must come from the technology, here the adjustment cost \(\phi\). Two differences between the versions are worth noting. The planner needs \(c_t\ge0\), while a firm can have negative dividends (it raises equity). And the firm's \(\beta\) is a market price, while the planner's is a preference parameter.</p>
+  </div>
+
+  <p>To put this in the notation of <a href="0026-the-dynamic-optimization-problem.html">Lesson 26</a>, use the law of motion to substitute out the control, \(i_t=k_{t+1}-(1-\delta)k_t\). The state is \(x=k\), next period's state is \(y=k'\), and</p>
+  $$F(x,y)=f(x)-\big[y-(1-\delta)x\big]-\phi\Big(\frac{y-(1-\delta)x}{x}\Big)x .$$
+  <p>When investment is reversible, as assumed throughout, \(\Gamma(x)=\mathbb R_+\) for the firm. The planner would add \(c\ge0\).</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s3">3. Concave technology, no adjustment costs ("old news")</h2>
+
+  <p>Start with \(\phi\equiv0\) and \(f\) strictly concave, satisfying the Inada conditions. Investment may be positive or negative <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=46">EE p.46</a>. Then</p>
+  $$F(x,y)=f(x)+(1-\delta)x-y,\qquad F_x(x,y)=f'(x)+1-\delta,\qquad F_y(x,y)=-1 .$$
+
+  <div class="theorem" id="thm-proposition-slide-46-steady-state">
+    <div class="box-title">Proposition (slide 46): the steady state is reached immediately</div>
+    <p>Let \(k^*\) solve \(f'(k^*)=r+\delta\). For every \(k_0>0\), the optimal plan is \(k_t=k^*\) for all \(t\ge1\). Investment is \(i_0=k^*-(1-\delta)k_0\), which may be negative, and \(i_t=\delta k^*\) for \(t\ge1\).</p>
+  </div>
+
+  <div class="proof" id="pf-proof">
+    <div class="box-title">Proof</div>
+    <ol class="steps">
+      <li><strong>Euler equation.</strong> \(F_y(k_t,k_{t+1})+\beta F_x(k_{t+1},k_{t+2})=0\) reads \(-1+\beta\big[f'(k_{t+1})+1-\delta\big]=0\). Only \(k_{t+1}\) appears: \(f'(k_{t+1})=1/\beta-1+\delta=r+\delta\).</li>
+      <li><strong>Unique solution.</strong> \(f'\) is strictly decreasing, and by the Inada conditions it runs from \(+\infty\) to \(0\). So \(f'(k)=r+\delta\) has exactly one root \(k^*>0\), and the Euler equation forces \(k_{t+1}=k^*\) for every \(t\ge0\), starting from any \(k_0\).</li>
+      <li><strong>Transversality.</strong> \(\beta^tF_x(k_t,k_{t+1})k_t=\beta^t(1+r)k^*\to0\), since \(f'(k^*)+1-\delta=1+r\) and \(\beta\lt1\).</li>
+      <li><strong>Sufficiency.</strong> \(F\) is concave, being a concave function of \(x\) plus a linear function of \(y\). \(F_x=f'+1-\delta>0\), and \(X=\mathbb R_+\). By the theorem of <a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a>, a path satisfying the Euler equation and transversality is optimal. ∎</li>
+    </ol>
+  </div>
+
+  <div class="intuition" id="int-why-there-no-transition">
+    <div class="box-title">Why there is no transition</div>
+    <p>The marginal cost of a unit of next period's capital is one unit of goods today, whatever the quantity. The marginal benefit is \(\beta(f'(k')+1-\delta)\). Neither side depends on \(k_t\), so today's capital is irrelevant for tomorrow's choice. There is nothing to smooth, because utility is linear, and no penalty for large changes, because there are no adjustment costs. So the firm closes any gap in one period. This is the "old news" of the slide and the benchmark adjustment costs are meant to break. Without them, investment is infinitely elastic to any change in \(r\), which is counterfactual. Compare the neoclassical growth model with concave \(u\) (<a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a>, and the linear-utility exercise in <a href="0029-transversality-at-work.html">Lesson 29</a>). With concave \(u\), the transition is slow because households want smooth consumption.</p>
+  </div>
+
+  <div class="warning" id="warn-can-be-linear-here-no">
+    <div class="box-title">Can \(f\) be linear here? No.</div>
+    <p>Let \(f(k)=Ak\), with no adjustment costs. Then \(F_x=A+1-\delta\) is a constant, and the Euler equation becomes \(\beta(A+1-\delta)=1\), that is, \(A-\delta=r\). This involves no endogenous variable at all:</p>
+    <ul>
+      <li><strong>\(A-\delta>r\).</strong> No path satisfies the Euler equation. Each unit of capital returns more than \(r\), so the firm wants to invest without bound. With reversible investment and unlimited equity, the value is \(+\infty\). In the planner's version with \(c\ge0\), consuming nothing and reinvesting everything always beats any plan, but "consume at infinity" pays nothing. The supremum is not attained, and no optimum exists.</li>
+      <li><strong>\(A-\delta\lt r\).</strong> Capital is a bad investment. The firm sells it all at once: \(k_1=0\), a corner where the Euler equation fails.</li>
+      <li><strong>\(A-\delta=r\).</strong> The knife-edge case. Every path satisfies the Euler equation, and the firm is indifferent among all of them.</li>
+    </ul>
+    <p>Either way, there is no interior, determinate growth rate. A linear technology needs a convex adjustment cost to produce one, which is the next model.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s4">4. Linear technology with adjustment costs</h2>
+
+  <p>Now let \(f(k)=Ak\) and keep the installation cost. Write everything in terms of the growth factor \(g=k_{t+1}/k_t\). Investment per unit of capital is \(i/k=g-(1-\delta)\). Define the <strong>adjustment-cost function</strong> <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=47">EE p.47</a></p>
+  $$a\Big(\frac{k_{t+1}}{k_t}\Big)\equiv\frac{k_{t+1}}{k_t}-(1-\delta)+\phi\Big(\frac{k_{t+1}-k_t(1-\delta)}{k_t}\Big),$$
+  <p>the total cost, in goods per unit of current capital, of moving capital from \(k_t\) to \(k_{t+1}\). It is investment spending plus installation, both per unit of \(k_t\). The period return is then</p>
+  $$F(x,y)=Ax-a\Big(\frac yx\Big)x .$$
+  <p>\(F\) is homogeneous of degree one: \(F(\lambda x,\lambda y)=\lambda Ax-a(y/x)\lambda x=\lambda F(x,y)\). With \(\Gamma(x)=\mathbb R_+\), a cone, the result of <a href="0031-homogeneous-problems-and-ak-growth.html">Lesson 31</a> applies. The policy is \(k_{t+1}=\bar g\,k_t\) for a constant \(\bar g\), and the firm grows at a constant rate forever.</p>
+
+  <div class="definition" id="def-four-assumptions-slide-47-what">
+    <div class="box-title">The four assumptions on \(a(\cdot)\) (slide 47), and what each one buys</div>
+    <ol>
+      <li><strong>\(a\) is positive and strictly convex.</strong> Convexity makes the marginal cost \(a'(g)\) increase with the speed of adjustment, so spreading growth out is cheaper than doing it in one go. This is what produces an interior growth rate (§3 showed what happens without it). On "positive": \(a(1)=\delta+\phi(\delta)>0\) even when capital is held constant, because \(a\) includes replacement investment. The slide's gloss "any change implies cost" is loose. What matters is \(a>0\) and \(a''>0\).</li>
+      <li><strong>\(a'(1)=1\).</strong> Around constant capital, one more unit of \(k_{t+1}\) costs exactly one unit of goods: \(a'(g)=1+\phi'(g-1+\delta)\), so this says \(\phi'(\delta)=0\). Replacement investment has no marginal installation cost. It is a normalization that makes "q = 1/β" the no-growth benchmark (§7).</li>
+      <li><strong>\(a(1/\beta)>A\).</strong> Growing at the gross rate \(1/\beta=1+r\) would cost more than the firm's entire output. This bounds growth below the interest rate, so the present value of dividends stays finite (\(\beta\bar g\lt1\)).</li>
+      <li><strong>\(A-a(1)>r\).</strong> Keeping capital constant gives a net cash flow \(A-a(1)\) per unit of capital, which beats the interest rate. So capital is worth accumulating, and the firm grows: \(\bar g>1\).</li>
+    </ol>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s5">5. The Euler equation and the growth rate</h2>
+
+  <h3 id="s5-derivatives-depend-only">The derivatives depend only on \(y/x\)</h3>
+  <p>Differentiate \(F(x,y)=Ax-a(y/x)x\) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=49">EE p.49</a>:</p>
+  $$F_x(x,y)=A-a\Big(\frac yx\Big)+a'\Big(\frac yx\Big)\frac yx,\qquad F_y(x,y)=-a'\Big(\frac yx\Big).$$
+  <p>(For \(F_x\), use the product rule. \(\partial/\partial x\) of \(-a(y/x)x\) is \(-a(y/x)-x\,a'(y/x)\cdot(-y/x^2)\).) Both are homogeneous of degree zero, as they must be for an HD1 function. Interpretations:</p>
+  <ul>
+    <li>\(-F_y=a'(g)\) is the marginal cost, in today's goods, of one more unit of capital tomorrow.</li>
+    <li>\(F_x\) is the marginal value of one more unit of capital today. It yields output \(A\), and it makes any given \(k'\) cheaper to reach: \(-a(g)+a'(g)g\) is the reduction in total adjustment cost from having a larger base.</li>
+  </ul>
+
+  <h3 id="s5-euler-equation-one-equation">The Euler equation is one equation in \(\bar g\)</h3>
+  <p>Substitute \(x_{t+1}/x_t=x_{t+2}/x_{t+1}=\bar g\) into \(F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0\):</p>
+  $$\boxed{\;-a'(\bar g)+\beta\big[A-a(\bar g)+a'(\bar g)\,\bar g\big]=0\;}\qquad\Longleftrightarrow\qquad \beta A=\underbrace{\beta a(\bar g)+a'(\bar g)(1-\beta\bar g)}_{\equiv\,R(\bar g)} .$$
+  <p>Guessing a constant growth rate is legitimate because Lesson 31's homogeneity result says the optimal policy is linear. If the optimum is unique, it must be one of these constant-growth paths.</p>
+
+  <div class="theorem" id="thm-proposition-slides-48-49-unique">
+    <div class="box-title">Proposition (slides 48–49): a unique growth rate, between 1 and \(1/\beta\) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=48">EE p.48</a> <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=49">EE p.49</a></div>
+    <p>Under the four assumptions, the Euler equation has exactly one solution \(\bar g\) in \((-\infty,1/\beta)\), and it satisfies \(1\lt\bar g\lt1/\beta\). Equivalently, the net growth rate satisfies \(0\lt\gamma\lt r\). The path \(k_t=\bar g^tk_0\) satisfies transversality.</p>
+  </div>
+
+  <div class="proof" id="pf-proof-2">
+    <div class="box-title">Proof</div>
+    <ol class="steps">
+      <li><strong>The left side of the Euler equation is decreasing.</strong> Let \(E(g)\equiv-a'(g)+\beta[A-a(g)+a'(g)g]\). Then \(E'(g)=-a''(g)+\beta[-a'(g)+a'(g)+a''(g)g]=-a''(g)(1-\beta g)\), which is strictly negative for \(g\lt1/\beta\), since \(a''>0\). Equivalently, \(R'(g)=\beta a'(g)+a''(g)(1-\beta g)-\beta a'(g)=a''(g)(1-\beta g)>0\) on \(g\lt1/\beta\). So there is at most one root below \(1/\beta\).</li>
+      <li><strong>At \(g=1\), \(R\) is below \(\beta A\).</strong> \(R(1)=\beta a(1)+a'(1)(1-\beta)=\beta a(1)+1-\beta\), using assumption 2. Assumption 4 says \(A-a(1)>r=(1-\beta)/\beta\). Multiplying by \(\beta\) gives \(\beta A>\beta a(1)+1-\beta=R(1)\).</li>
+      <li><strong>At \(g=1/\beta\), \(R\) is above \(\beta A\).</strong> \(R(1/\beta)=\beta a(1/\beta)+a'(1/\beta)\cdot0=\beta a(1/\beta)>\beta A\), by assumption 3.</li>
+      <li><strong>Existence and location.</strong> \(R\) is continuous, so by the intermediate value theorem there is \(\bar g\in(1,1/\beta)\) with \(R(\bar g)=\beta A\). By step 1, it is the only root below \(1/\beta\).</li>
+      <li><strong>Transversality.</strong> \(\beta^tF_x(k_t,k_{t+1})k_t=\beta^t\big[A-a(\bar g)+a'(\bar g)\bar g\big]\bar g^tk_0=(\beta\bar g)^t\cdot\text{const}\to0\), because \(\beta\bar g\lt1\). This is the condition \(\beta|\bar g|\lt1\) of <a href="0031-homogeneous-problems-and-ak-growth.html">Lesson 31</a>. \(F\) is concave, because \(a\) convex makes \(a(y/x)x\) jointly convex (it is the perspective of a convex function). \(F_x=A-a(\bar g)+a'(\bar g)\bar g>0\) on the path, because the Euler equation gives \(\beta[A-a(\bar g)]=a'(\bar g)(1-\beta\bar g)>0\). And \(X=\mathbb R_+\). So the sufficiency theorem of Lesson 27 says this path is optimal. ∎</li>
+    </ol>
+  </div>
+
+  <p>A root above \(1/\beta\) would mean growing faster than the interest rate. It violates transversality and gives an infinite value, so it is never the answer. That is why the slide restricts attention to \(g\lt1/\beta\).</p>
+
+  <div class="figure" id="fig-r">
+    <div id="r-ctrl"></div>
+    <div id="r-fig"></div>
+    <div id="r-read"></div>
+    <div class="verdict" id="r-verdict"></div>
+    <div class="caption"><b>Interactive.</b> The Euler equation as a crossing. The flat dashed line is \(\beta A\). The <span style="color:#2a78d6">blue</span> curve is \(R(g)=\beta a(g)+a'(g)(1-\beta g)\) for \(a(g)=g-(1-\delta)+\tfrac{\varphi}{2}(g-1)^2\), which satisfies \(a'(1)=1\) and \(a''=\varphi\). The black dot is \(\bar g\). <b>Try:</b> (1) raise \(A\). The flat line moves up and \(\bar g\) rises (Exercise 5 of the slide). (2) Raise \(\varphi\). \(R\) rotates up to the right of \(g=1\), so growth falls. (3) Lower \(\varphi\) until assumption 3 fails. The curve no longer crosses \(\beta A\) before \(1/\beta\), and the firm would want to grow at least as fast as the interest rate. (4) Raise \(\delta\) until \(A-\delta\lt r\). Now \(\bar g\lt1\), and the firm shrinks.</div>
+  </div>
+
+  <div class="figure" id="fig-q">
+    <div id="q-fig"></div>
+    <div class="caption"><b>Same parameters, second view.</b> Tobin's q against productivity \(A\), from \(q=a'(\bar g(A))/\beta\) (§7). The dashed line \(q=1/\beta\) is the no-growth benchmark: the firm grows exactly when \(q>1/\beta=1+r\). The black dot is the current \(A\). The curve stops where an assumption fails.</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const host = document.getElementById('r-fig'), qhost = document.getElementById('q-fig');
+    function model(v, A) {
+      const b = v.beta, d = v.delta, phi = v.phi;
+      const a = g => g - (1 - d) + phi / 2 * (g - 1) * (g - 1);
+      const ap = g => 1 + phi * (g - 1);
+      const R = g => b * a(g) + ap(g) * (1 - b * g);
+      // R is increasing on (-inf, 1/b); its minimum over the economically relevant range is at g = 1 - d (zero gross investment)
+      const lo = Math.min(1 - d, 0.9), hi = 1 / b;
+      let g = null;
+      if (R(lo) < b * A && R(hi) > b * A) g = EconPlot.bisect(x => R(x) - b * A, lo, hi);
+      return { a, ap, R, g, lo, hi, a3: a(1 / b) > A, a4: A - a(1) > 1 / b - 1 };
+    }
+    function draw(v) {
+      const b = v.beta, r = 1 / b - 1;
+      const M = model(v, v.A);
+      host.innerHTML = '';
+      const x0 = 0.97, x1 = 1 / b + 0.006;
+      let ys = [b * v.A];
+      for (let i = 0; i <= 60; i++) ys.push(M.R(x0 + (x1 - x0) * i / 60));
+      let y0 = Math.min(...ys), y1 = Math.max(...ys); const pad = 0.08 * (y1 - y0 + 1e-6);
+      y0 -= pad; y1 += pad;
+      const P = EconPlot.create(host, { x: [x0, x1], y: [y0, y1], width: 540, height: 360, xlabel: 'growth factor g = k_{t+1}/k_t', ylabel: '', xticks: 6, yticks: 5, margin: { l: 58, t: 20 } });
+      P.vline(1, { color: C.muted });
+      P.vline(1 / b, { color: C.muted });
+      P.text(1, y1, 'g = 1', { anchor: 'start', dx: 4, dy: 14, sans: true, size: 12, color: C.muted });
+      P.text(1 / b, y1, 'g = 1/β', { anchor: 'end', dx: -4, dy: 14, sans: true, size: 12, color: C.muted });
+      P.hline(b * v.A, { color: C.orange, dash: '6 4', width: 1.8 });
+      P.text(x0, b * v.A, 'βA', { anchor: 'start', dx: 6, dy: -7, sans: true, size: 13, color: C.orange });
+      P.fn(M.R, { color: C.blue, width: 2.4, domain: [x0, x1], n: 200 });
+      const lx = x0 + 0.12 * (x1 - x0);
+      P.text(lx, M.R(lx), 'R(g)', { anchor: 'start', dx: 6, dy: 16, sans: true, size: 13, color: C.blue });
+      const out = [['β, r :', b.toFixed(3) + ' , ' + r.toFixed(4)]];
+      let msg;
+      if (M.g !== null) {
+        P.point(M.g, b * v.A, { color: C.ink, r: 5 });
+        P.text(M.g, b * v.A, 'ḡ', { dx: 2, dy: 22, italic: true, size: 15 });
+        const q1 = M.ap(M.g) / b, q2 = (v.A - M.a(M.g)) / (1 - b * M.g);
+        out.push(['ḡ, net growth γ = ḡ − 1 :', M.g.toFixed(4) + ' , ' + (M.g - 1).toFixed(4)]);
+        out.push(['βḡ (must be below 1) :', (b * M.g).toFixed(4)]);
+        out.push(['q = a′(ḡ)/β :', q1.toFixed(3)]);
+        out.push(['q = (A − a(ḡ))/(1 − βḡ) :', q2.toFixed(3)]);
+      } else {
+        out.push(['ḡ :', 'no root below 1/β']);
+      }
+      out.push(['Assumption 3, a(1/β) > A :', M.a3 ? 'holds' : 'FAILS']);
+      out.push(['Assumption 4, A − a(1) > r :', M.a4 ? 'holds' : 'FAILS']);
+      EconPlot.readout('#r-read', out);
+      if (M.g === null) msg = 'No crossing before g = 1/β. Growing at the interest rate still pays (assumption 3 fails), so the value of the firm is infinite and there is no optimum. Raise φ or lower A.';
+      else if (!M.a4) msg = 'A − a(1) ≤ r: holding capital constant earns less than the interest rate, so the firm shrinks (ḡ ≤ 1) and q ≤ 1/β.';
+      else msg = 'All four assumptions hold: the unique crossing is in (1, 1/β), so the firm grows at net rate γ ∈ (0, r) and q = a′(ḡ)/β > 1/β.';
+      document.getElementById('r-verdict').textContent = msg;
+      drawQ(v, M);
+    }
+    function drawQ(v, Mcur) {
+      const b = v.beta;
+      qhost.innerHTML = '';
+      const As = [], qs = [];
+      for (let i = 0; i <= 120; i++) {
+        const A = 0.02 + (0.5 - 0.02) * i / 120, M = model(v, A);
+        if (M.g !== null && M.a3) { As.push(A); qs.push(M.ap(M.g) / b); }
+      }
+      const qmax = 1.06 * Math.max(1 / b + 0.5, ...qs), qmin = Math.min(1 / b - 0.3, ...qs);
+      const xmax = Math.min(0.5, Math.max(v.A, As.length ? As[As.length - 1] : 0.2) + 0.06);
+      const P = EconPlot.create(qhost, { x: [0, xmax], y: [Math.max(0, qmin), qmax], width: 540, height: 300, xlabel: 'productivity A', ylabel: 'q', xticks: 5, yticks: 5, margin: { l: 58, t: 20 } });
+      P.hline(1 / b, { color: C.muted });
+      P.text(0, 1 / b, 'q = 1/β (no growth)', { anchor: 'start', dx: 6, dy: -7, sans: true, size: 12, color: C.muted });
+      if (As.length > 1) {
+        P.path(As.map((A, i) => [A, qs[i]]), { color: C.violet, width: 2.4 });
+        const k = Math.floor(As.length * 0.75);
+        P.text(As[k], qs[k], 'q(A)', { anchor: 'end', dx: -8, dy: -8, sans: true, size: 13, color: C.violet });
+      }
+      if (Mcur.g !== null && Mcur.a3) P.point(v.A, Mcur.ap(Mcur.g) / b, { color: C.ink, r: 5 });
+    }
+    EconPlot.sliders('#r-ctrl', [
+      { id: 'A', label: 'A', min: 0.05, max: 0.5, step: 0.005, value: 0.2, fmt: x => x.toFixed(3) },
+      { id: 'phi', label: 'φ', min: 2, max: 300, step: 1, value: 60, fmt: x => x.toFixed(0) },
+      { id: 'beta', label: 'β', min: 0.9, max: 0.99, step: 0.001, value: 0.95, fmt: x => x.toFixed(3) },
+      { id: 'delta', label: 'δ', min: 0, max: 0.2, step: 0.005, value: 0.08, fmt: x => x.toFixed(3) }
+    ], draw);
+  })();
+  </script>
+
+  <h3 id="s5-comparative-statics">Comparative statics in \(A\)</h3>
+  <p>Higher productivity raises growth <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=49">EE p.49</a>. Differentiate \(R(\bar g)=\beta A\) to get \(R'(\bar g)\,d\bar g=\beta\,dA\), so</p>
+  $$\frac{d\bar g}{dA}=\frac{\beta}{a''(\bar g)(1-\beta\bar g)}>0 .$$
+  <p>In the figure, a higher \(A\) shifts the flat line up along an increasing curve.</p>
+
+  <h3 id="s5-when-do-higher-adjustment">When do "higher adjustment costs" lower growth?</h3>
+  <p>The tempting answer is "whenever \(\tilde a(g)>a(g)\) for all \(g\neq1\)". <strong>That is not enough</strong>, because the Euler equation depends on the level of costs <em>and</em> on the marginal cost \(a'\) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=49">EE p.49</a>. (The 2025 version of the slides claimed the pointwise ordering suffices. The 2026 deck corrected it.) What moves \(\bar g\) is the curve \(R\):</p>
+
+  <div class="theorem" id="thm-right-ordering">
+    <div class="box-title">The right ordering</div>
+    <p>If \(\tilde R(g)\equiv\beta\tilde a(g)+\tilde a'(g)(1-\beta g)>R(g)\) on the relevant interval \([1,1/\beta)\), then \(\tilde{\bar g}\lt\bar g\). A sufficient condition on primitives is that the extra cost \(d\equiv\tilde a-a\) is <em>non-negative and non-decreasing</em> on \([1,1/\beta)\), since \(\tilde R-R=\beta d+d'(1-\beta g)\).</p>
+  </div>
+  <p><em>Proof.</em> \(\tilde R(\bar g)>R(\bar g)=\beta A\), and \(\tilde R\) is increasing, so its crossing with \(\beta A\) lies to the left of \(\bar g\). For instance, raising \(\varphi\) in the figure adds \(d=\tfrac{\Delta\varphi}2(g-1)^2\), which is non-negative and increasing for \(g\ge1\), so growth falls.</p>
+
+  <div class="box exercise" id="ex-worked-counterexample-pointwise-higher-costs">
+    <div class="box-title">Worked counterexample: pointwise higher costs, faster growth</div>
+    <p>Take any \(a\) satisfying the assumptions, with growth \(\bar g\in(1,1/\beta)\). Pick \(g_*>\bar g\) and small \(\varepsilon,\eta>0\), and set</p>
+    $$\tilde a(g)=a(g)+\varepsilon\,(g_*-g)^2+\eta .$$
+    <p>Then \(\tilde a>a\) everywhere, and \(\tilde a\) is strictly convex. At the old growth rate,</p>
+    $$\tilde R(\bar g)-R(\bar g)=\beta\big[\varepsilon(g_*-\bar g)^2+\eta\big]-2\varepsilon(g_*-\bar g)(1-\beta\bar g)=\varepsilon(g_*-\bar g)\big[\beta(g_*-\bar g)-2(1-\beta\bar g)\big]+\beta\eta .$$
+    <p>Choose \(g_*\) with \(0\lt g_*-\bar g\lt2(1-\beta\bar g)/\beta\), so the bracket is negative, then take \(\eta\) small enough. Then \(\tilde R(\bar g)\lt\beta A\), and the new crossing is to the <em>right</em>: \(\tilde{\bar g}>\bar g\). The extra cost is higher everywhere, but it <em>falls</em> as \(g\) rises towards \(g_*\). Growing a little faster now saves cost at the margin, and the margin is what the Euler equation sees.</p>
+    <p>This \(\tilde a\) has \(\tilde a'(1)=1-2\varepsilon(g_*-1)\ne1\). If you insist on keeping assumption 2, use a bump that vanishes to second order at \(g=1\), such as \(d(g)=\kappa(g-1)^2\big[(g_*-g)^2+\eta\big]\) with \(g_*\) slightly above \(\bar g\). A numerical check: with \(r=0.05\), \(\delta=0.1\), \(A=0.2\), \(\varphi=100\), we have \(\bar g=1.01127\). Adding this bump with \(g_*=1.0125\), \(\eta=10^{-6}\), \(\kappa=2\cdot10^4\) keeps \(\tilde a\) strictly convex with \(\tilde a'(1)=1\), and raises growth to \(1.01132\).</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s6">6. Reading the Euler equation</h2>
+
+  <p>Rearrange the Euler equation <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=50">EE p.50</a>:</p>
+  $$a'(\bar g)\,[1-\beta\bar g]=\beta\,[A-a(\bar g)]\qquad\Longleftrightarrow\qquad a'(\bar g)=\beta\,\frac{A-a(\bar g)}{1-\beta\bar g}.$$
+  <ul>
+    <li>\(A-a(\bar g)\) is the <strong>dividend per unit of capital</strong>: output \(A\) minus everything spent on investment and installation, per unit of \(k_t\).</li>
+    <li>\(\dfrac{1}{1-\beta\bar g}=\sum_{t\ge0}(\beta\bar g)^t\) is the <strong>growing-annuity (Gordon growth) factor</strong>. It is the present value of a stream that starts at 1 and grows at gross rate \(\bar g\), discounted at \(\beta\). It is finite exactly when \(\beta\bar g\lt1\), which is transversality again.</li>
+    <li>So \(\beta\frac{A-a(\bar g)}{1-\beta\bar g}\) is the present value, as of today, of all future dividends generated by one extra unit of capital installed for tomorrow. Because everything is linear, a marginal unit of capital is worth the same as an average one. The Euler equation says: <strong>marginal cost of installing capital = present value of the dividends it generates</strong>.</li>
+  </ul>
+
+  <p>In net rates, \(\gamma=\bar g-1\) and \(1/\beta=1+r\), so \(1/\beta-\bar g=r-\gamma\). Multiplying the Euler equation by \(1/\beta\) gives</p>
+  $$a'(1+\gamma)=\frac{A-a(1+\gamma)}{r-\gamma}\qquad\Longleftrightarrow\qquad A=a(1+\gamma)+a'(1+\gamma)\,[r-\gamma].$$
+  <p>This is a Gordon formula. The price of a unit of capital, \(a'\), equals its dividend divided by the interest rate minus the growth rate.</p>
+
+  <div class="theorem" id="thm-higher-interest-rate-lowers-growth">
+    <div class="box-title">A higher interest rate lowers growth</div>
+    <p>\(\dfrac{d\gamma}{dr}=-\dfrac{a'(1+\gamma)}{a''(1+\gamma)\,(r-\gamma)}\lt0.\)</p>
+  </div>
+  <div class="proof" id="pf-proof-3">
+    <div class="box-title">Proof</div>
+    <ol class="steps">
+      <li>Differentiate \(A=a(1+\gamma)+a'(1+\gamma)[r-\gamma]\) totally, with \(A\) fixed: \(0=a'\,d\gamma+a''\,[r-\gamma]\,d\gamma+a'\,(dr-d\gamma)\).</li>
+      <li>The \(a'\,d\gamma\) terms cancel, leaving \(a''(r-\gamma)\,d\gamma=-a'\,dr\).</li>
+      <li>Signs: \(a''>0\). \(r-\gamma>0\) because \(\bar g\lt1/\beta\). \(a'(\bar g)>a'(1)=1>0\) because \(\bar g>1\) and \(a\) is strictly convex. So \(d\gamma/dr\lt0\). ∎</li>
+    </ol>
+  </div>
+  <p><em>Intuition.</em> A higher \(r\) shrinks the Gordon factor \(1/(r-\gamma)\), so the dividends from a new unit of capital are worth less, and the firm accepts less marginal installation cost: it grows more slowly. This is the q-theory version of "investment falls when interest rates rise". Unlike §3, the response is finite, because convex costs make investment respond smoothly.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s7">7. Tobin's q</h2>
+
+  <h3 id="s7-value-firm-linear-capital">The value of the firm is linear in capital</h3>
+  <p>Let \(V(k)\) be the maximized present value of dividends starting from capital \(k\) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=51">EE p.51</a>. Along the optimal path, capital grows at \(\bar g\), so</p>
+  $$V(k)=k\,[A-a(\bar g)]+\beta\,V(k\bar g).$$
+
+  <div class="theorem" id="thm-homogeneous-degree-one-slide-s">
+    <div class="box-title">\(V\) is homogeneous of degree one (the slide's "Exercise: why?")</div>
+    <p>For every \(\lambda>0\), \(V(\lambda k)=\lambda V(k)\).</p>
+  </div>
+  <div class="proof" id="pf-proof-4">
+    <div class="box-title">Proof</div>
+    <ol class="steps">
+      <li>Take any feasible plan \(\{k_t\}\) from \(k_0=k\). Because \(\Gamma\) is a cone, \(\{\lambda k_t\}\) is feasible from \(\lambda k\).</li>
+      <li>Because \(F\) is HD1, its payoff is \(\sum\beta^tF(\lambda k_t,\lambda k_{t+1})=\lambda\sum\beta^tF(k_t,k_{t+1})\). So \(V(\lambda k)\ge\lambda V(k)\).</li>
+      <li>Apply the same argument from \(\lambda k\) with the factor \(1/\lambda\): \(V(k)\ge\frac1\lambda V(\lambda k)\). Combining the two, \(V(\lambda k)=\lambda V(k)\). ∎</li>
+    </ol>
+  </div>
+  <p>So \(V(k)=V(1)\,k\), and \(V(k\bar g)=\bar g\,V(k)\). Substituting into the recursion:</p>
+  $$V(k)=[A-a(\bar g)]\,k+\beta\bar g\,V(k)\quad\Longrightarrow\quad V(k)=\frac{A-a(\bar g)}{1-\beta\bar g}\,k ,$$
+  <p>which is finite because \(\beta\bar g\lt1\). The same answer comes from summing the dividends directly: \(\sum_t\beta^t[A-a(\bar g)]\bar g^tk\).</p>
+
+  <h3 id="s7-average-q-marginal-q">Average q, marginal q, and the marginal cost of investment</h3>
+  <p>Define <strong>Tobin's q</strong> as the market value of the firm divided by the replacement (book) value of its capital, with capital goods priced at 1 <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=52">EE p.52</a>:</p>
+  $$q\equiv\frac{V(k)}{k}=V(1)=\frac{A-a(\bar g)}{1-\beta\bar g}.$$
+  <p>Now use the Euler equation \(\beta[A-a(\bar g)]=a'(\bar g)(1-\beta\bar g)\):</p>
+  $$\boxed{\;q=\frac{1}{\beta}\,a'(\bar g)=(1+r)\,a'(\bar g)\;}$$
+  <p>The 2025 slides wrote "Tobin's q = derivative of adjustment cost \(a'(\cdot)\)", which contradicted the displayed formula. The 2026 deck states the \(1/\beta\) factor explicitly. Four consequences follow.</p>
+  <ol>
+    <li><strong>Marginal q equals average q.</strong> \(V\) is linear, so \(V'(k)=V(1)=V(k)/k\). The shadow value of one more unit of installed capital, which governs investment, equals the observable market-to-book ratio. This is Hayashi's (1982) result: it needs a price-taking firm with constant returns in production <em>and</em> in installation. Here these are \(f=Ak\) and an adjustment cost of the form \(a(k'/k)k\).</li>
+    <li><strong>q is a sufficient statistic for investment.</strong> Since \(a'\) is strictly increasing, \(\bar g=a'^{-1}(\beta q)\). Productivity \(A\) and the interest rate \(r\) affect growth <em>only through q</em>. That is why "q should forecast the growth rate of capital": observe the stock market, invert the marginal cost, and read off investment.</li>
+    <li><strong>The benchmark is \(q=1+r\), not \(q=1\).</strong> Because \(a'(1)=1\), \(\bar g>1\iff a'(\bar g)>1\iff q>1/\beta=1+r\). A firm with \(1\lt q\lt1+r\) is shrinking.</li>
+    <li><strong>Timing explains the \(1/\beta\).</strong> \(V(k)\) is measured at the start of the period and includes this period's dividend. The <em>ex-dividend</em> value of next period's capital, per unit, is \(\beta V(k')/k'=\beta V(1)=a'(\bar g)\). With that convention, \(q^{\text{ex}}=a'(\bar g)\) and the benchmark is \(q^{\text{ex}}=1\), as in most textbooks and in continuous time, where the two conventions coincide. The investment first-order condition reads directly \(a'(k'/k)=\beta V'(k')\): <em>marginal installation cost = discounted marginal q</em>. (This is the Bellman-equation view of the problem, which arrives in lecture folder 8.)</li>
+  </ol>
+
+  <div class="intuition" id="int-firm-picks-growth-rate-maximize">
+    <div class="box-title">The firm picks its growth rate to maximize a Gordon valuation</div>
+    <p>Because the optimal policy is a constant growth rate, the problem reduces to a one-dimensional maximization:</p>
+    $$V(1)=\max_{g\lt1/\beta}\ \frac{A-a(g)}{1-\beta g}.$$
+    <p>Its first-order condition, \(-a'(g)(1-\beta g)+\beta[A-a(g)]=0\), <em>is</em> the Euler equation. Faster growth costs dividends today, through the numerator, and buys a longer-lived growing stream, through the denominator. The optimum balances the two. The envelope theorem then gives comparative statics for q almost for free:</p>
+    <ul>
+      <li>\(\partial q/\partial A=1/(1-\beta\bar g)>0\);</li>
+      <li>a higher \(\varphi\) lowers q, since \(\partial q/\partial\varphi=-\tfrac12(\bar g-1)^2/(1-\beta\bar g)\lt0\) with the figure's cost function;</li>
+      <li>a higher \(r\) (lower \(\beta\)) lowers q, since \(\partial q/\partial\beta=\bar g[A-a(\bar g)]/(1-\beta\bar g)^2>0\).</li>
+    </ul>
+  </div>
+
+  <p><strong>Looking ahead.</strong> Lecture folder 7b redoes this model in continuous time with a Hamiltonian. The co-state on capital <em>is</em> marginal q. The investment condition becomes "q = marginal cost of investment", and the co-state equation is the continuous-time version of the Gordon formula above. Exercise 32.4 shows that the discrete model already contains the continuous-time formula exactly.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s8">8. Check your understanding</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">1. With strictly concave \(f\), reversible investment and no adjustment costs, how long does capital take to reach its steady state?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Exactly one period, from any initial capital</li>
+        <li class="quiz-option" data-option="b">Infinitely long, converging at a geometric rate</li>
+        <li class="quiz-option" data-option="c">One period only when starting below it</li>
+        <li class="quiz-option" data-option="d">It never arrives, because transversality always fails</li>
+      </ul>
+      <div class="quiz-explain">The Euler equation \(-1+\beta(f'(k_{t+1})+1-\delta)=0\) involves only \(k_{t+1}\), so \(k_1=k^*\) whatever \(k_0\) is. Negative investment handles the case of starting above \(k^*\). Transversality holds because \(k_t\) is constant.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">2. Under the four assumptions of slide 47, where does the optimal growth factor \(\bar g\) lie?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Below one, because adjustment is always costly</li>
+        <li class="quiz-option" data-option="b">Between one and the gross interest rate</li>
+        <li class="quiz-option" data-option="c">Above the gross interest rate when productive</li>
+        <li class="quiz-option" data-option="d">Exactly at one, as in steady state</li>
+      </ul>
+      <div class="quiz-explain">\(R(1)\lt\beta A\) by assumptions 2 and 4, \(R(1/\beta)>\beta A\) by assumption 3, and \(R\) is increasing on \(g\lt1/\beta\). So \(\bar g\in(1,1/\beta)=(1,1+r)\): positive growth, but slower than the interest rate, which keeps the firm's value finite.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">3. With \(q\equiv V(k)/k\) measured including the current dividend, Tobin's q equals:</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">\(a'(\bar g)\), the marginal adjustment cost by itself</li>
+        <li class="quiz-option" data-option="b">\(A\), the marginal product of capital alone</li>
+        <li class="quiz-option" data-option="c">\(a'(\bar g)/\beta\), the marginal adjustment cost grossed up</li>
+        <li class="quiz-option" data-option="d">\(1\), because marginal and average q coincide</li>
+      </ul>
+      <div class="quiz-explain">\(q=V(1)=\frac{A-a(\bar g)}{1-\beta\bar g}\), and the Euler equation turns this into \(a'(\bar g)/\beta\). The value \(a'(\bar g)\) is the <em>ex-dividend</em> q, \(\beta V(k')/k'\). \(A\) is the marginal product, which is a different object from the marginal value of installed capital.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">4. A new cost function satisfies \(\tilde a(g)>a(g)\) for every \(g\neq1\). What can you conclude about growth?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">It falls, because adjustment is costlier everywhere</li>
+        <li class="quiz-option" data-option="b">It rises, because firms outgrow the costs</li>
+        <li class="quiz-option" data-option="c">It is unchanged, because only a′(1) matters</li>
+        <li class="quiz-option" data-option="d">Nothing, because the marginal cost also matters</li>
+      </ul>
+      <div class="quiz-explain">The Euler equation is \(\beta A=\beta a(g)+a'(g)(1-\beta g)\). A pointwise ordering of \(a\) says nothing about \(a'\) at \(\bar g\). Growth falls if \(\beta\tilde a+\tilde a'(1-\beta g)>\beta a+a'(1-\beta g)\), e.g. if \(\tilde a-a\) is non-negative and non-decreasing. The worked counterexample in §5 has growth rising instead.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">5. Why does marginal q equal average q in this model?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Production and installation both have constant returns</li>
+        <li class="quiz-option" data-option="b">The firm discounts at the interest rate</li>
+        <li class="quiz-option" data-option="c">Adjustment costs are strictly convex in growth</li>
+        <li class="quiz-option" data-option="d">Transversality forces the value to grow slowly</li>
+      </ul>
+      <div class="quiz-explain">With \(F\) HD1 and \(\Gamma\) a cone, \(V\) is HD1, hence linear: \(V'(k)=V(k)/k\). This is Hayashi's condition. With decreasing returns, \(V\) is concave and average q exceeds marginal q. Convexity of \(a\) gives an interior growth rate, not linearity of \(V\).</div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s9">9. Exercises</h2>
+
+  <p>Discrete-time Tobin's q has not appeared on a past Alvarez exam. The continuous-time Hayashi model has (a 2010/11 final), and Exercise 32.4 shows that the discrete model reproduces its key formula exactly. The rest follows the exam format, with general functions and no numbers.</p>
+
+  <div class="box exercise" id="tf">
+    <div class="box-title">True or false? Justify. <span class="tag past">Past exam</span> <span class="tag exam">Exam-inspired</span></div>
+    <p>Answer True or False and justify in at most four lines.</p>
+    <ol class="tf-list">
+      <li>With \(f\) strictly concave and Inada, no adjustment costs, and reversible investment, the optimal capital stock is constant from period 1 on, whatever \(k_0\) is. <span class="tf-src">slide 46</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> The Euler equation \(-1+\beta[f'(k_{t+1})+1-\delta]=0\) pins down \(k_{t+1}=k^*\), with \(f'(k^*)=r+\delta\), independently of \(k_t\). Transversality holds since \(k_t=k^*\) is bounded, and \(F\) is concave with \(F_x>0\), so the path is optimal (§3). With irreversible investment (\(i\ge0\)) the statement fails when \(k_0>k^*/(1-\delta)\), since capital can then only depreciate towards \(k^*\).</p></div></details></li>
+      <li>With \(f(k)=Ak\) and no adjustment costs, the firm's problem has an interior solution in which capital grows at a constant rate determined by \(A\), \(\delta\) and \(r\). <span class="tf-src">exam-inspired (slide 46)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The Euler equation becomes \(\beta(A+1-\delta)=1\), which contains no endogenous variable. If \(A-\delta>r\), the value is unbounded (no optimum). If \(A-\delta\lt r\), the firm sells all its capital at once (corner). If \(A-\delta=r\), every path is optimal. No determinate growth rate exists without convex adjustment costs.</p></div></details></li>
+      <li>Under the assumptions of slide 47, the firm's capital grows faster than the interest rate when productivity \(A\) is high enough. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> Assumption 3, \(a(1/\beta)>A\), gives \(R(1/\beta)>\beta A\), so \(\bar g\lt1/\beta\): \(\gamma\lt r\). A root with \(\beta\bar g\ge1\) would violate transversality and make \(V\) infinite. If \(A\) is raised enough to break assumption 3, there is no optimum at all, rather than an optimum with \(\gamma\ge r\).</p></div></details></li>
+      <li>If \(\tilde a(g)>a(g)\) for all \(g\ne1\), the firm with adjustment-cost function \(\tilde a\) grows more slowly. <span class="tf-src">exam-inspired (slide 48 Q6; the 2025 slides answered "true")</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False</strong> in general. The Euler equation \(\beta A=\beta a(g)+a'(g)(1-\beta g)\) depends on \(a'\), which a pointwise ordering does not control. Counterexample (§5): \(\tilde a=a+\varepsilon(g_*-g)^2+\eta\) with \(g_*\) slightly above \(\bar g\) raises growth. Sufficient for lower growth: \(\tilde a-a\ge0\) and non-decreasing on \([1,1/\beta)\).</p></div></details></li>
+      <li>In the linear model with adjustment costs, the marginal value of an extra unit of installed capital equals the firm's market-to-book ratio. <span class="tf-src">exam-inspired (circulating practice question on marginal and average q)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> \(F\) is HD1 and \(\Gamma\) is a cone, so \(V\) is HD1: \(V(k)=V(1)k\), and \(V'(k)=V(1)=V(k)/k\). Marginal q equals average q (Hayashi 1982). This needs constant returns in production and in installation.</p></div></details></li>
+      <li>In the model of slides 47–52, Tobin's q, defined as \(V(k)/k\) with \(V\) including the current dividend, equals the marginal adjustment cost \(a'(\bar g)\). <span class="tf-src">exam-inspired (the 2025 wording of slide 52)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> \(V(1)=\frac{A-a(\bar g)}{1-\beta\bar g}\), and the Euler equation \(\beta[A-a(\bar g)]=a'(\bar g)(1-\beta\bar g)\) gives \(q=a'(\bar g)/\beta=(1+r)a'(\bar g)\). The statement is true for the <em>ex-dividend</em> ratio \(\beta V(k')/k'\).</p></div></details></li>
+      <li>In this model, a firm with \(q>1\) is growing. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False</strong> with the cum-dividend definition. Since \(a'(1)=1\) and \(a'\) is increasing, \(\bar g>1\iff q=a'(\bar g)/\beta>1/\beta=1+r\). A firm with \(1\lt q\le1+r\) is not growing. The threshold "q = 1" is right for the ex-dividend q, and in continuous time.</p></div></details></li>
+      <li>A permanent rise in the interest rate lowers both the growth rate of capital and Tobin's q. <span class="tf-src">exam-inspired (slide 50)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> From \(A=a(1+\gamma)+a'(1+\gamma)(r-\gamma)\): \(d\gamma/dr=-a'/[a''(r-\gamma)]\lt0\), using \(r>\gamma\) and \(a'>0\). For q: \(q=\max_g\frac{A-a(g)}{1-\beta g}\), and by the envelope theorem \(\partial q/\partial\beta=\bar g[A-a(\bar g)]/(1-\beta\bar g)^2>0\), so a lower \(\beta\) (higher \(r\)) lowers q. Equivalently, the ex-dividend \(q^{\text{ex}}=a'(\bar g)\) falls with \(\bar g\).</p></div></details></li>
+      <li>In the Hayashi model, the co-state on capital (marginal q) equals the marginal product of capital. <span class="tf-src">Past exam: 2010/11 Final Q1, part 7 (a commonly circulated answer)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> Marginal q is the marginal <em>value</em> of installed capital, \(V'(k)\): the present value of everything an extra unit contributes. Here that is \(A\) per period plus the adjustment cost it saves, discounted with growth. The marginal product is \(A\). A commonly circulated answer key makes this mistake. The same key calls \(V(k)/k\) "average productivity", when it is average q, the market-to-book ratio.</p></div></details></li>
+      <li>If \(f\) has decreasing returns, \(f(k)=Ak^\alpha\) with \(\alpha\lt1\), and the adjustment cost is \(a(k'/k)k\), then average q is at least as large as marginal q. <span class="tf-src">exam-inspired (Hayashi 1982)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> \(F\) is jointly concave and \(\Gamma\) is convex, so \(V\) is concave. With \(V(0)\ge0\), concavity gives \(V(0)\le V(k)-V'(k)k\), i.e. \(V(k)/k\ge V'(k)+V(0)/k\ge V'(k)\). Decreasing returns create rents on inframarginal capital, so the market-to-book ratio overstates the value of the marginal unit, and regressions of investment on average q are misspecified.</p></div></details></li>
+    </ol>
+  </div>
+
+  <div class="box exercise" id="ex-32-1">
+    <div class="box-title">Exercise 32.1 <span class="tag slides">Slides p.46</span> <span class="tag exam">Exam-inspired</span> (the frictionless benchmark)</div>
+    <p>A firm maximizes \(\sum_t\beta^t[f(k_t)-i_t]\) subject to \(k_{t+1}=i_t+(1-\delta)k_t\), with \(\beta=1/(1+r)\), \(i_t\in\mathbb R\), and \(f\) strictly increasing, strictly concave, \(C^1\) and Inada.</p>
+    <ol class="parts" type="a">
+      <li>Write \(F(x,y)\) and \(\Gamma(x)\). Is \(F\) concave? Sign \(F_x\), \(F_y\) and \(F_{xy}\). <span class="pts">(10 pts)</span></li>
+      <li>Write the Euler equation and transversality. One line each. <span class="pts">(10 pts)</span></li>
+      <li>Find the optimal path from an arbitrary \(k_0\) and prove it is optimal. Which theorem do you use, and where does each of its hypotheses come from? <span class="pts">(15 pts)</span></li>
+      <li>The interest rate falls permanently at date 0. Describe investment at date 0 and afterwards. Why is this response "too large" relative to the data? <span class="pts">(5 pts)</span></li>
+      <li>Replace \(f\) with \(Ak\). Show that there is no interior solution, and describe the solution or non-existence in each of the three cases for \(A-\delta-r\). <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (a), substitute \(i=y-(1-\delta)x\). For (d), \(k^*\) jumps when \(r\) changes, and only \(k_1\) is free. For (e), the Euler equation no longer contains any endogenous variable.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(F(x,y)=f(x)+(1-\delta)x-y\), \(\Gamma(x)=\mathbb R_+\) (capital is non-negative; investment is unrestricted in sign). \(F\) is concave: it is a concave function of \(x\) plus a linear function of \(y\), so its Hessian \(\begin{pmatrix}f''&amp;0\\0&amp;0\end{pmatrix}\) is negative semi-definite. \(F_x=f'(x)+1-\delta>0\), \(F_y=-1\lt0\), \(F_{xy}=0\).<br>
+      (b) EE: \(-1+\beta[f'(k_{t+1})+1-\delta]=0\), i.e. \(f'(k_{t+1})=r+\delta\). TC: \(\lim_t\beta^t[f'(k_t)+1-\delta]k_t=0\).<br>
+      (c) \(k_t=k^*\) for all \(t\ge1\), with \(f'(k^*)=r+\delta\) (unique by strict concavity and Inada), and \(i_0=k^*-(1-\delta)k_0\), \(i_t=\delta k^*\) for \(t\ge1\). The EE holds for \(t\ge0\). The TC term is \(\beta^t(1+r)k^*\to0\). Sufficiency theorem of Lesson 27 (SLP Thm 4.15): \(F\) concave (from concave \(f\)), \(F_x\ge0\) (from \(f'>0\)), \(X=\mathbb R_+\) (capital is non-negative). So the path is optimal.<br>
+      (d) \(k^*\) rises, since \(f'(k^*)=r+\delta\) and \(f'\) is decreasing. Investment at date 0 jumps by \(\Delta k^*\), which may be large, and returns to \(\delta k^*_{\text{new}}\) from date 1 on. All the adjustment happens in one period. Measured investment is much smoother, and its response to interest rates much smaller and spread out over time. This motivates convex adjustment costs.<br>
+      (e) The EE becomes \(\beta(A+1-\delta)=1\). If \(A-\delta>r\), no path satisfies it. The value of investing an extra unit, \(\beta(1+A-\delta)>1\), exceeds its cost forever, so \(V=+\infty\) (no optimum). If \(A-\delta\lt r\), sell everything: \(k_1=0\), a corner where the EE fails. If \(A-\delta=r\), every feasible path with \(\beta^tk_t\to0\) gives the same value \((1+r)k_0\) (the sum telescopes, because \(\beta^t(1+r)=\beta^{t-1}\)), so the solution is indeterminate.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-32-2">
+    <div class="box-title">Exercise 32.2 <span class="tag slides">Slides pp.47–49</span> <span class="tag proof">Proof</span> (the growth rate of a firm)</div>
+    <p>Let \(F(x,y)=Ax-a(y/x)x\) on \(x>0\), \(y\ge0\), with \(a\) \(C^2\), \(a''>0\), \(a'(1)=1\), \(a(1/\beta)>A\), and \(A-a(1)>r\), where \(\beta=1/(1+r)\).</p>
+    <ol class="parts" type="a">
+      <li>Compute \(F_x\) and \(F_y\), and show that both depend only on \(y/x\). <span class="pts">(5 pts)</span></li>
+      <li>Show that \(F\) is HD1 and concave. Explain why the optimal policy is \(y=\bar gx\). <span class="pts">(10 pts)</span></li>
+      <li>Write the Euler equation as an equation in \(\bar g\) alone. <span class="pts">(5 pts)</span></li>
+      <li>Prove that there is exactly one \(\bar g\lt1/\beta\) solving it, and that \(1\lt\bar g\lt1/\beta\). Use each of the four assumptions once, and say where. <span class="pts">(15 pts)</span></li>
+      <li>Verify transversality along \(k_t=\bar g^tk_0\). <span class="pts">(5 pts)</span></li>
+      <li>Compute \(d\bar g/dA\) and sign it. <span class="pts">(5 pts)</span></li>
+      <li>Give a condition on \(\tilde a-a\) under which replacing \(a\) by \(\tilde a\) lowers growth. Show that \(\tilde a>a\) pointwise is not sufficient. <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For concavity in (b), \(a(y/x)x\) is the <em>perspective</em> of the convex function \(a\), which is jointly convex in \((x,y)\) for \(x>0\). Alternatively, compute the Hessian of \(-a(y/x)x\), whose determinant is zero (HD1) and whose diagonal entries are \(-a''y^2/x^3\) and \(-a''/x\). For (d), work with \(R(g)=\beta a(g)+a'(g)(1-\beta g)\) and evaluate it at \(g=1\) and \(g=1/\beta\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(F_x=A-a(g)+a'(g)g\), \(F_y=-a'(g)\), with \(g=y/x\).<br>
+      (b) \(F(\lambda x,\lambda y)=\lambda Ax-a(y/x)\lambda x=\lambda F(x,y)\). Hessian of \(-a(y/x)x\): \(F_{xx}=-a''y^2/x^3\), \(F_{yy}=-a''/x\), \(F_{xy}=a''y/x^2\). The diagonal entries are \(\le0\) and the determinant is \(a''^2y^2/x^4-a''^2y^2/x^4=0\), so the Hessian is negative semi-definite and \(F\) is concave. HD1 \(F\) and a conic \(\Gamma\) make the policy correspondence HD1 (Lesson 31). With a unique optimum the policy is a function with \(g(\lambda x)=\lambda g(x)\), so in one dimension \(g(x)=\bar gx\).<br>
+      (c) \(-a'(\bar g)+\beta[A-a(\bar g)+a'(\bar g)\bar g]=0\), i.e. \(\beta A=R(\bar g)\).<br>
+      (d) \(R'(g)=a''(g)(1-\beta g)>0\) for \(g\lt1/\beta\) (assumption 1), so there is at most one root there. \(R(1)=\beta a(1)+1-\beta\) (assumption 2) \(\lt\beta A\) (assumption 4, multiplied by \(\beta\)). \(R(1/\beta)=\beta a(1/\beta)>\beta A\) (assumption 3). By the intermediate value theorem, the root lies in \((1,1/\beta)\).<br>
+      (e) \(\beta^tF_x(k_t,k_{t+1})k_t=(\beta\bar g)^t[A-a(\bar g)+a'(\bar g)\bar g]k_0\to0\), since \(\beta\bar g\lt1\).<br>
+      (f) \(d\bar g/dA=\beta/[a''(\bar g)(1-\beta\bar g)]>0\).<br>
+      (g) \(\tilde R-R=\beta d+d'(1-\beta g)\) with \(d=\tilde a-a\). If \(d\ge0\) and \(d'\ge0\) on \([1,1/\beta)\), with at least one strict, then \(\tilde R(\bar g)>\beta A\), and the increasing \(\tilde R\) crosses \(\beta A\) to the left: \(\tilde{\bar g}\lt\bar g\). Counterexample to the pointwise claim: \(d=\varepsilon(g_*-g)^2+\eta\) with \(0\lt g_*-\bar g\lt2(1-\beta\bar g)/\beta\) and small \(\eta\) gives \(\tilde R(\bar g)\lt\beta A\), so growth <em>rises</em> (§5).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-32-3">
+    <div class="box-title">Exercise 32.3 <span class="tag slides">Slides pp.50–52</span> <span class="tag exam">Exam-inspired</span> (the value of the firm and Tobin's q)</div>
+    <p>Same model as Exercise 32.2. Let \(V(k)\) be the maximized present value of dividends from capital \(k\).</p>
+    <ol class="parts" type="a">
+      <li>Show that \(V\) is homogeneous of degree one. Three lines. <span class="pts">(10 pts)</span></li>
+      <li>Using \(V(k)=k[A-a(\bar g)]+\beta V(k\bar g)\), derive \(V(k)\) in closed form. What guarantees that it is finite? <span class="pts">(5 pts)</span></li>
+      <li>Show that \(q\equiv V(k)/k=a'(\bar g)/\beta\). <span class="pts">(5 pts)</span></li>
+      <li>Show that \(\bar g>1\) if and only if \(q>1+r\). What is the threshold for the ex-dividend ratio \(\beta V(k')/k'\)? <span class="pts">(5 pts)</span></li>
+      <li>Show that \(V(1)=\max_{g\lt1/\beta}\frac{A-a(g)}{1-\beta g}\), and that the first-order condition of this problem is the Euler equation. Interpret the trade-off. <span class="pts">(10 pts)</span></li>
+      <li>Use (e) and the envelope theorem to sign \(\partial q/\partial A\) and \(\partial q/\partial r\). <span class="pts">(5 pts)</span></li>
+      <li>An econometrician observes q and wants to predict the growth rate of capital. What does she need to know, and what can she ignore? <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (a), scale an arbitrary feasible plan by \(\lambda\), and then by \(1/\lambda\). For (e), the optimal plan is a constant-growth plan, and a constant-growth plan with factor \(g\) from \(k=1\) pays \(\sum_t\beta^t[A-a(g)]g^t\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) If \(\{k_t\}\) is feasible from \(k\), \(\{\lambda k_t\}\) is feasible from \(\lambda k\) (\(\Gamma\) is a cone) and pays \(\lambda\) times as much (\(F\) is HD1). So \(V(\lambda k)\ge\lambda V(k)\). The reverse inequality follows by scaling with \(1/\lambda\).<br>
+      (b) \(V(k\bar g)=\bar gV(k)\), so \(V(k)=[A-a(\bar g)]k+\beta\bar gV(k)\) and \(V(k)=\frac{A-a(\bar g)}{1-\beta\bar g}k\). It is finite because \(\beta\bar g\lt1\) (assumption 3, equivalently transversality).<br>
+      (c) The Euler equation \(\beta[A-a(\bar g)]=a'(\bar g)(1-\beta\bar g)\) gives \(V(1)=a'(\bar g)/\beta\).<br>
+      (d) \(a'\) is strictly increasing with \(a'(1)=1\), so \(\bar g>1\iff a'(\bar g)>1\iff q>1/\beta=1+r\). The ex-dividend ratio is \(\beta V(1)=a'(\bar g)\), with threshold 1.<br>
+      (e) Any plan with constant factor \(g\lt1/\beta\) from \(k=1\) pays \(\frac{A-a(g)}{1-\beta g}\le V(1)\), and the optimal plan is of this form, so \(V(1)\) is the maximum. FOC: \(\frac{-a'(g)(1-\beta g)+\beta[A-a(g)]}{(1-\beta g)^2}=0\), which is the Euler equation. Growing faster lowers today's dividend \(A-a(g)\) but lengthens the growing stream \(1/(1-\beta g)\).<br>
+      (f) \(\partial q/\partial A=\frac{1}{1-\beta\bar g}>0\). \(\partial q/\partial\beta=\frac{\bar g[A-a(\bar g)]}{(1-\beta\bar g)^2}>0\) (dividends are positive at the optimum since \(q>0\)), so \(\partial q/\partial r\lt0\).<br>
+      (g) Only the marginal cost function: \(\bar g=a'^{-1}(\beta q)\), plus \(\beta\) for the cum-dividend timing. \(A\), \(r\) and the level of costs matter for growth only through q. That is the sense in which q is a sufficient statistic for investment.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-32-4">
+    <div class="box-title">Exercise 32.4 <span class="tag past">Past exam: 2010/11 Final Q1 (discrete-time version)</span> (Hayashi's q)</div>
+    <p>A firm has cash flow \(Ak_t-i_t-i_t\phi(i_t/k_t)\) and capital \(k_{t+1}=k_t+i_t\) (no depreciation), and discounts at \(\beta=1/(1+r)\) with \(0\lt r\lt A\). The installation cost satisfies \(\phi(0)=\phi'(0)=0\), \(\phi'(x)>0\) for \(x>0\), and \(2\phi'(x)+x\phi''(x)>0\). Write \(x\equiv i/k=\bar g-1\) for the investment rate.</p>
+    <ol class="parts" type="a">
+      <li>Show that this is the model of slide 47 with \(a(g)=(g-1)\big[1+\phi(g-1)\big]\). Compute \(a'(g)\) and \(a''(g)\), and check assumptions 1, 2 and 4. <span class="pts">(10 pts)</span></li>
+      <li>Show that the Euler equation is equivalent to
+        $$a'(\bar g)=1+\phi(x)+x\phi'(x)=\frac{A+x^2\phi'(x)}{r}.$$
+        Interpret both sides. Which is the "marginal cost of investment" and which the "present value of a unit of capital"? <span class="pts">(15 pts)</span></li>
+      <li>Show that both sides of (b) increase in \(x\), that the left side is steeper on \([0,r)\), and that there is a unique solution \(x\in(0,r)\) if and only if \(r[1+\phi(r)]>A\). Compare this with assumption 3. <span class="pts">(10 pts)</span></li>
+      <li>Sign the effects of \(A\) and of \(r\) on \(x\) and on the ex-dividend q. <span class="pts">(5 pts)</span></li>
+      <li>Is the value function linear in \(k\)? Is marginal q equal to average q? Is marginal q equal to the marginal product of capital? <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (b), use \(1-\beta\bar g=\beta(r-x)\) and write the Euler equation as \(a'(\bar g)(r-x)=A-a(\bar g)\). The term \(x^2\phi'(x)\) is minus the derivative of the installation cost \(i\phi(i/k)\) with respect to \(k\), holding \(i\) fixed.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) With \(\delta=0\), \(i/k=g-1\), so cash flow is \(Ak-k(g-1)[1+\phi(g-1)]=Ak-a(g)k\). \(a'(g)=1+\phi(x)+x\phi'(x)\), \(a''(g)=2\phi'(x)+x\phi''(x)>0\), so \(a\) is strictly convex (assumption 1). Positivity fails: \(a(1)=0\), and \(a\lt0\) for \(g\lt1\), because disinvestment generates cash. But the argument of slides 48–49 never uses it. \(a'(1)=1+\phi(0)=1\) (assumption 2). \(A-a(1)=A>r\) (assumption 4).<br>
+      (b) Multiply the Euler equation \(a'(\bar g)(1-\beta\bar g)=\beta[A-a(\bar g)]\) by \(1/\beta\), using \(1/\beta-\bar g=r-x\): \((1+\phi+x\phi')(r-x)=A-x-x\phi\). Expanding the left side gives \(r(1+\phi+x\phi')-x-x\phi-x^2\phi'\). Cancelling \(-x-x\phi\) leaves \(r(1+\phi+x\phi')=A+x^2\phi'\). The left side is the marginal cost of one more unit of capital: one unit of goods plus marginal installation cost. It is the ex-dividend q. The right side is the present value, at rate \(r\), of what a unit of capital yields each period: its product \(A\) plus the saving in installation costs, since \(-\partial[i\phi(i/k)]/\partial k=x^2\phi'(x)\). Exactly the same formula appears in continuous time, as \(q=(A+x^2\phi'(x))/\rho\).<br>
+      (c) Left-side slope \(2\phi'+x\phi''>0\). Right-side slope \(\frac{x}{r}(2\phi'+x\phi'')\), which is smaller when \(x\lt r\). At \(x=0\): \(1\lt A/r\). At \(x=r\): left \(\gt\) right iff \(r(1+\phi(r)+r\phi'(r))>A+r^2\phi'(r)\iff r[1+\phi(r)]>A\). With continuity and the slope ranking, the two sides cross exactly once on \((0,r)\) iff this holds. It is exactly assumption 3, \(a(1/\beta)=a(1+r)=r[1+\phi(r)]>A\).<br>
+      (d) \(A\) raises the right side only: \(x\) rises, and \(q^{\text{ex}}=1+\phi+x\phi'\) rises. \(r\) lowers the right side: \(x\) falls and \(q^{\text{ex}}\) falls.<br>
+      (e) Yes: \(F\) is HD1 and \(\Gamma\) a cone, so \(V(k)=V(1)k\), and marginal q (\(V'\)) equals average q (\(V/k\)). Marginal q is <em>not</em> the marginal product \(A\). It is the present value of \(A\) plus future installation-cost savings, \(q^{\text{ex}}=(A+x^2\phi')/r\). A commonly circulated answer key gets this wrong, and also calls \(V/k\) "average productivity" instead of average q.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-32-5">
+    <div class="box-title">Exercise 32.5 <span class="tag exam">Exam-inspired</span> (when marginal and average q differ)</div>
+    <p>Let \(f\) be strictly concave with \(f(0)=0\), and keep the cost \(a(k'/k)k\) with \(a\) strictly convex. Assume an optimum exists and \(V\) is differentiable.</p>
+    <ol class="parts" type="a">
+      <li>Is \(F(x,y)=f(x)-a(y/x)x\) homogeneous of degree one? Is the optimal policy linear? <span class="pts">(5 pts)</span></li>
+      <li>Show that \(V\) is concave. You may use that \(F\) is concave and \(\Gamma\) convex. <span class="pts">(10 pts)</span></li>
+      <li>Show that \(V(k)/k\ge V'(k)\). Interpret the gap. <span class="pts">(10 pts)</span></li>
+      <li>Why does this matter for empirical investment equations that regress \(i/k\) on the market-to-book ratio? <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (b), take optimal plans from \(k\) and \(k'\), and form their convex combination. For (c), a concave function lies below its tangent lines. Evaluate the tangent at \(k\) at the point 0.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) No. \(f(\lambda x)\ne\lambda f(x)\), so Lesson 31's result does not apply and the policy is generally not linear. Growth slows as the firm gets large, because the marginal product falls.<br>
+      (b) Let \(\{k_t\}\), \(\{k'_t\}\) be optimal from \(k\), \(k'\). For \(\theta\in(0,1)\), the plan \(\theta k_t+(1-\theta)k'_t\) is feasible from \(\theta k+(1-\theta)k'\) (\(\Gamma\) convex) and pays at least \(\theta V(k)+(1-\theta)V(k')\) (\(F\) concave, term by term). Hence \(V(\theta k+(1-\theta)k')\ge\theta V(k)+(1-\theta)V(k')\).<br>
+      (c) Concavity gives \(V(0)\le V(k)+V'(k)(0-k)\), so \(V(k)\ge kV'(k)+V(0)\). Since \(V(0)\ge0\) (do nothing), \(V(k)/k\ge V'(k)\). Average q exceeds marginal q by the rents on inframarginal units: early units of capital have a high marginal product, and the firm's value includes those rents, but the marginal unit earns less.<br>
+      (d) Investment responds to marginal q, while the stock market measures average q. With decreasing returns (or market power) the two differ, so average q is a noisy, biased proxy. This is one explanation for the weak empirical fit of q-regressions. Hayashi's conditions (constant returns in production and installation, price taking) are what make the observable ratio the right regressor.</p>
+    </div></details>
+  </div>
+
+  <div class="takeaways">
+    <h2 id="takeaways">Key takeaways</h2>
+    <ul>
+      <li>Without adjustment costs and with concave \(f\), capital jumps to \(f'(k^*)=r+\delta\) in one period. With linear \(f\), there is no interior solution at all. Convex adjustment costs are what make investment smooth and determinate.</li>
+      <li>With \(f=Ak\) and cost \(a(k'/k)k\), \(F\) is HD1, the policy is \(k'=\bar gk\), and the Euler equation is the single equation \(\beta A=\beta a(\bar g)+a'(\bar g)(1-\beta\bar g)\). The four assumptions put the unique root in \((1,1/\beta)\), so \(0\lt\gamma\lt r\), and transversality is \(\beta\bar g\lt1\).</li>
+      <li>Read the Euler equation as "marginal installation cost = PV of dividends": \(a'(\bar g)=\beta\frac{A-a(\bar g)}{1-\beta\bar g}\). Growth rises with \(A\) and falls with \(r\): \(d\gamma/dr=-a'/[a''(r-\gamma)]\).</li>
+      <li>Pointwise higher costs need not lower growth. The ordering that matters is on \(\beta a+a'(1-\beta g)\), for example \(\tilde a-a\ge0\) and non-decreasing.</li>
+      <li>\(V(k)=\frac{A-a(\bar g)}{1-\beta\bar g}k\) is linear, so marginal q = average q (Hayashi), and \(q=V(k)/k=a'(\bar g)/\beta=(1+r)a'(\bar g)\). The no-growth benchmark is \(q=1+r\) cum-dividend, or \(q=1\) ex-dividend.</li>
+      <li>q is a sufficient statistic for investment: \(\bar g=a'^{-1}(\beta q)\).</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "derive the Hessian of \(a(y/x)x\) and show it is singular", "why is the continuous-time q formula exactly the same as Exercise 32.4(b)?", or "what happens to q and growth if investment is irreversible?"</div>
+
+  <div class="lesson-nav">
+    <a href="0031-homogeneous-problems-and-ak-growth.html">← Lesson 31: Homogeneous problems and AK growth</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="../reference/euler-transversality-cheatsheet.html">Cheatsheet →</a>
+  </div>
+
+</div>
+</body>
+</html>

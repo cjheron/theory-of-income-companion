@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Euler Equations &amp; Transversality Cheatsheet — Theory of Income</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <style>
+    .sheet { font-size: 0.9rem; line-height: 1.55; }
+    .sheet h2 { font-size: 1.05rem; margin-top: 1.4rem; }
+    .sheet .box { padding: 0.6rem 0.9rem; margin: 0.6rem 0; }
+    .sheet ol, .sheet ul { margin-top: 0.2rem; margin-bottom: 0.2rem; }
+    .sheet li { margin: 0.15rem 0; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.2rem; }
+    @media (max-width: 700px) { .two { grid-template-columns: 1fr; } }
+    .sheet table.simple { font-size: 0.82rem; margin: 0.5rem 0; width: 100%; }
+    .sheet table.simple td, .sheet table.simple th { padding: 0.25rem 0.5rem; vertical-align: top; }
+    .see { font-family: var(--font-sans); font-size: 0.72rem; color: var(--muted); }
+    .see a { color: var(--accent); }
+  </style>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page sheet">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Reference · Folder 4</div>
+    <h1>Euler Equations &amp; Transversality: Cheatsheet</h1>
+    <div class="meta">Discrete-time deterministic dynamic problems: the sequence problem, Euler equations and transversality (sufficiency and necessity), steady states, shooting, closed-form decision rules, homogeneous problems and AK growth, adjustment costs and Tobin's q. Lessons <a href="../lessons/0026-the-dynamic-optimization-problem.html">26</a>–<a href="../lessons/0032-adjustment-costs-and-tobins-q.html">32</a> · <a href="../sources/slides5-euler-transversality.pdf">Slides</a> · <a href="ge-glossary.html">Glossary</a> · <a href="../index.html">Index</a></div>
+  </div>
+
+  <div class="box mustknow" id="mt2">
+    <div class="box-title">Exam must-know (MT2 / final). Not on Midterm 1.</div>
+    <div class="two">
+      <div>
+        <p><b>Be able to write from a blank page</b></p>
+        <ol>
+          <li>Any model as \(F(x,y)\) and \(\Gamma(x)\): substitute \(c\) (and \(i\)) out with the law of motion, and get \(\Gamma\) from \(c\ge0\). Then list \(F_x>0\), \(F_y\lt 0\), \(F_{xx}\lt 0\), \(F_{yy}\lt 0\), \(F_{xx}F_{yy}-F_{xy}^2>0\) and the sign of \(F_{xy}\).</li>
+          <li>EE: \(F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0\). In policy form: \(F_y(x,g(x))+\beta F_x(g(x),g(g(x)))=0\) for all \(x\).</li>
+          <li>TC: \(\lim_{t\to\infty}\beta^tF_x(x_t,x_{t+1})\cdot x_t=0\). Steady state: \(F_y(\bar x,\bar x)+\beta F_x(\bar x,\bar x)=0\).</li>
+          <li>The sufficiency proof in five lines (below), with its three hypotheses.</li>
+          <li>Linear-policy guess \(x_{t+1}=\gamma x_t\) → a quadratic \(Q(\gamma)\): \(Q(0)>0\), \(Q(1)\lt 0\), convex. Pick the root in \((0,1)\); the other violates the TC.</li>
+          <li>\(s=\alpha\beta\) (log, Cobb–Douglas, \(\delta=1\)); constant saving rate with CES/CRRA iff \(\sigma=\rho\), with \(s=(\alpha\beta)^{\sigma}\).</li>
+        </ol>
+      </div>
+      <div>
+        <p><b>Past-exam traps</b> (Fall 2005, Fall 2016, 2017/18, Fall 2025)</p>
+        <ul>
+          <li><b>Steady-state invariance</b> is the favourite twist. At \((\bar x,\bar x)\), a common factor cancels (\(U\circ F\), 2025 MT1 Q6), an added term vanishes (\(-\frac b2(y-x)^2\), 2016 MT2 Q2), and \(u\) drops out of \(\beta f'(\bar k)=1\) (2005 T/F Q6: <b>True</b>). The <em>dynamics</em> do change.</li>
+          <li>"Concavity is needed for <em>necessity</em> of the TC" (2005 T/F Q9): <b>False</b>. Concavity is used for sufficiency (slide 14), and the necessity argument (slide 23) never uses it.</li>
+          <li>Concavity checks need \(F_{yy}\) <em>and</em> the determinant. Circulating answers to 2025 MT1 QII.10–11 check only \(F_x,F_y,F_{xx},F_{xy}\).</li>
+          <li>"The EE can't be derived without the envelope condition": <b>False</b>. A circulating T/F bank says True, but slides 19–22 perturb the sequence problem directly.</li>
+          <li>CES/CRRA: a circulating study summary says "only log utility, σ=0". Correct: \(\sigma=\rho\), and log is \(\sigma=1\).</li>
+          <li>\(c_t+k_{t+1}=Ak_t^\alpha\) is <b>100% depreciation</b>, not "no depreciation", which is a common mislabel.</li>
+          <li>2017/18 core Q3, \(c\lt 0\): the root closest to 0 is <b>decreasing</b> in \(\alpha=a/c\), moving toward −1 as \(\alpha\uparrow-2\). A circulating answer says increasing.</li>
+          <li>With the quadratic guess \(V=-\frac c2x^2\): \(\beta c^2+(a+(1-\beta)b)c-ab=0\). A circulating review drops the \(\beta bc\) term.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="see">Formats: 20-point T/F, plus guided derivations of 10–30 points per part, each answered in "one line"–"four lines". Folder-4 parts usually open a question that then moves on to linearization (folder 5) or Bellman equations (folder 8). Never examined so far in discrete time: shooting, the savings TC computation, HD/AK, and discrete Tobin's q. The 2026 deck rewrote several of these slides.</p>
+  </div>
+
+  <h2>The problem \([X,\Gamma,F,\beta]\) <span class="see"><a href="../lessons/0026-the-dynamic-optimization-problem.html">L26</a> · <a href="../sources/slides5-euler-transversality.pdf#page=3">slides 3–5</a></span></h2>
+  <div class="two">
+    <div>
+      <ul>
+        <li>The state space is \(X\). Next period's state is \(y\in\Gamma(x)\) (the feasibility correspondence), and \(\mathrm{Gr}(\Gamma)=\{(x,y):x\in X,\ y\in\Gamma(x)\}\).</li>
+        <li>The period return is \(F:\mathrm{Gr}(\Gamma)\to\mathbb R\), and the discount factor is \(\beta\in(0,1)\).</li>
+        <li>The sequence problem: \(V^*(x_0)=\max_{\{x_{t+1}\}}\sum_{t\ge0}\beta^tF(x_t,x_{t+1})\) s.t. \(x_{t+1}\in\Gamma(x_t)\), with \(x_0\) given.</li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li><b>Control/state form</b> \([X,U,h,g,\beta]\): \(\max\sum\beta^th(x_t,u_t)\) s.t. \(x_{t+1}=g(x_t,u_t)\), \(u_t\in U\).</li>
+        <li>Map to \(F,\Gamma\): \(F(x,y)=\max_u\{h(x,u):u\in U,\ y=g(x,u)\}\), and \(\Gamma(x)=\{y:\exists u\in U,\ y=g(x,u)\}\).</li>
+        <li>States are predetermined stocks (\(k\), \(h\), assets). Controls are chosen flows (\(c\), \(i\), \(n\), \(\ell\)). The \(F\)-form eliminates the controls.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Standard mappings <span class="see"><a href="../lessons/0026-the-dynamic-optimization-problem.html">L26</a> · <a href="../sources/slides5-euler-transversality.pdf#page=4">slides 4–10</a></span></h2>
+  <table class="simple">
+    <tr><th>Model</th><th>\(F(x,y)\)</th><th>\(\Gamma(x)\)</th></tr>
+    <tr><td>NGM, \(f(k)=G(k,1)+(1-\delta)k\)</td><td>\(U(f(k)-k')\). Control/state: \(u=c\), \(g=f(x)-u\), \(h=U(u)\); or \(u=i\), \(g=(1-\delta)x+u\), \(h=U(G(x,1)-u)\)</td><td>\([0,f(k)]\)</td></tr>
+    <tr><td>Labor supply, \(\ell+n=1\)</td><td>\(\max_{c\ge0,\ \ell\in[0,1]}U(c,\ell)\) s.t. \(k'=(1-\delta)k+G(k,1-\ell)-c\). The controls are \((c,\ell)\); slide 8 calls them "the state", which is a typo.</td><td>\([0,(1-\delta)k+G(k,1)]\): work all day, consume nothing</td></tr>
+    <tr><td>Lucas–Uzawa, \(x=(k,h)\)</td><td>\(\max_{n\in[0,1]}U\big(G(k,hn)+(1-\delta_k)k-k'\big)\) s.t. \(h'=(1-\delta_h)h+h\varphi(1-n)\)</td><td>\(\{(k',h')\ge0:\exists n\in[0,1],\ G(k,hn)+(1-\delta_k)k-k'\ge0,\ h'=(1-\delta_h)h+h\varphi(1-n)\}\)</td></tr>
+    <tr><td>NGM + adjustment cost \(\Phi(k'-k)\), linear \(U\) (2025 MT1 QII.11)</td><td>\(G(k)+(1-\delta)k-k'-\Phi(k'-k)\); \(F_{xy}=\Phi''>0\) and \(\det=-G''\Phi''>0\)</td><td>\(c\ge0\)</td></tr>
+    <tr><td>Human capital (Fall 2005 E2 Q5)</td><td>\(u\big(g(h)+m-p(h'-(1-\delta)h)\big)\)</td><td>\(\big[0,\ \frac{g(h)+m}{p}+(1-\delta)h\big]\)</td></tr>
+  </table>
+  <p>NGM signs: \(F_x=U'f'>0\), \(F_y=-U'\lt 0\), \(F_{xx}=U''f'^2+U'f''\lt 0\), \(F_{yy}=U''\lt 0\), \(F_{xy}=-U''f'>0\), and \(F_{xx}F_{yy}-F_{xy}^2=U'U''f''>0\). With linear \(U\), \(F_{xy}=0\).</p>
+
+  <h2>Euler equation and transversality <span class="see"><a href="../lessons/0027-euler-equations-and-sufficiency.html">L27</a> · <a href="../sources/slides5-euler-transversality.pdf#page=11">slide 11</a></span></h2>
+  <div class="box definition">
+    <p>Assume \(X\subseteq\mathbb R^m\), \(F\in C^1\). A path satisfies the <b>EE</b> if \(F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0\) for all \(t\ge0\), and the <b>TC</b> if \(\lim_{t\to\infty}\beta^tF_x(x_t,x_{t+1})\cdot x_t=0\).</p>
+    <p>NGM: \(U'(c_t)=\beta U'(c_{t+1})f'(k_{t+1})\) and \(\lim\beta^tU'(c_t)f'(k_t)k_t=0\).</p>
+  </div>
+  <ul>
+    <li><b>EE:</b> the marginal cost of raising \(x_{t+1}\) today (\(-F_y\)) equals its discounted marginal return tomorrow (\(\beta F_x\)). This is a one-period perturbation that leaves the rest of the path unchanged.</li>
+    <li><b>TC:</b> the discounted shadow value of the stock held "at infinity" is zero, so there is no over-accumulation. It is the boundary condition that pins down \(x_1\) given \(x_0\).</li>
+    <li>"Under appropriate concavity, interiority and regularity conditions, EE + TC are necessary and sufficient." The 2026 slide 11 adds the qualifier; the 2025 deck stated it unconditionally.</li>
+  </ul>
+
+  <h2>Sufficiency theorem <span class="see"><a href="../lessons/0027-euler-equations-and-sufficiency.html">L27</a> · <a href="../sources/slides5-euler-transversality.pdf#page=12">slides 12–17</a> · SLP Thm 4.15</span></h2>
+  <div class="box theorem">
+    <p><b>Assume</b> (1) \(F\) concave in \((x,y)\), (2) \(F_x(x^*_t,x^*_{t+1})\ge0\) along the candidate path, and (3) \(X=\mathbb R^m_+\). <b>Then</b> a path \(\{x^*_{t+1}\}\) satisfying the EE and TC is optimal.</p>
+  </div>
+  <div class="box proof">
+    <ol class="steps">
+      <li><b>Concavity:</b> \(F(x,y)\le F(x^*,y^*)+F_x\cdot(x-x^*)+F_y\cdot(y-y^*)\), for any feasible \(\{x_t\}\) with \(x_0=x^*_0\).</li>
+      <li><b>Sum</b> \(\beta^t\times\) the inequality over \(t\le T\), and drop the \(t=0\) term \(F_x(x_0-x_0^*)=0\).</li>
+      <li><b>Regroup</b> by \((x_{t+1}-x^*_{t+1})\). Each coefficient is \(\beta^t[F_y+\beta F_x]=0\) by the EE, leaving \(\beta^TF_y(x^*_T,x^*_{T+1})(x_{T+1}-x^*_{T+1})\).</li>
+      <li><b>Use the EE</b> once more: this equals \(-\beta^{T+1}F_x(x^*_{T+1},x^*_{T+2})(x_{T+1}-x^*_{T+1})\le\beta^{T+1}F_x\,x^*_{T+1}\), because \(x_{T+1}\ge0\) (hypothesis 3) and \(F_x\ge0\) (hypothesis 2).</li>
+      <li><b>TC</b> ⇒ the bound → 0, so \(\lim_T\sum\beta^t[F(x_t,x_{t+1})-F(x^*_t,x^*_{t+1})]\le0\).</li>
+    </ol>
+  </div>
+  <ul>
+    <li>Concave \(f\): \(f(x)\le f(x^0)+f'(x^0)(x-x^0)\); the graph lies below every tangent (slide 13). With \(C^2\), the second-order Taylor term \(\frac12(x-x^0)'D^2f(x-x^0)\le0\).</li>
+    <li>\(X=\mathbb R_+\) fails when \(\Gamma=\mathbb R\), as in the quadratic adjustment-cost model. Then argue directly: use the quadratic value function, or restrict to paths with \(\beta^tx_t^2\to0\).</li>
+  </ul>
+
+  <h2>Necessity and uniqueness <span class="see"><a href="../lessons/0028-necessity-and-the-shooting-algorithm.html">L28</a> · <a href="../sources/slides5-euler-transversality.pdf#page=19">slides 19–25</a></span></h2>
+  <div class="two">
+    <div>
+      <ul>
+        <li><b>Variations:</b> \(x_t(\alpha)=x_t+\alpha\varepsilon_t\) with \(\varepsilon_0=0\), because \(x_0\) is given. Optimality ⇒ \(v'(0)=0\), provided \(v\) is differentiable and the limits in \(\alpha\) and \(T\) can be interchanged.</li>
+        <li><b>EE necessary</b> given interiority. There must be a neighbourhood of \(x_{t+1}\) in which every \(z\) has \(z\in\Gamma(x_t)\) and \(x_{t+2}\in\Gamma(z)\), with \(x_{t+1}\in\operatorname{Int}X\). Both adjacent constraints must be slack; the 2026 deck states both, while 2025 stated only one.</li>
+        <li>The simplest proof perturbs one coordinate: \(\max_z F(x_t,z)+\beta F(z,x_{t+2})\). It needs <b>no value function and no envelope condition</b>.</li>
+        <li><b>TC necessary (heuristic):</b> use the EE to get \(v'(0)=-\lim\beta^{T+1}F_x\,\varepsilon_{T+1}\), then take \(\varepsilon_{T+1}=-x_{T+1}\), which scales the stock to 0. The 2026 slide 23 flags this as heuristic, because the variation changes with \(T\). It uses no concavity.</li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li><b>EE as a second-order difference equation:</b> \(x_{t+2}=\psi(x_{t+1},x_t)\). It is well defined (by the IFT) if \(F\in C^2\) and \(F_{xy}(x_{t+1},x_{t+2})\ne0\), because \(\partial[\text{EE}]/\partial x_{t+2}=\beta F_{xy}\). There is one initial condition (\(x_0\)) and one terminal condition (the TC).</li>
+        <li><b>At most one solution</b> if \(X\) is convex, \(\Gamma\) has a convex graph, and \(F\) is strictly concave. The proof: average two optima, which is feasible and strictly better.</li>
+        <li><b>Shooting:</b> given \(x_0\), guess \(x_1\), iterate \(\psi\), and check the TC. Adjust \(x_1\) by bisection: too little saving makes \(k\) hit 0, and too much makes \(k\) head to \(k_{\max}\) with \(c\to0\), which violates the TC. It works for one-dimensional saddle-path problems, where paths are monotone in \(x_1\) and exactly one converges to \(\bar x\). It is numerically unstable, because errors explode along the unstable root.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Steady states <span class="see"><a href="../lessons/0027-euler-equations-and-sufficiency.html">L27</a> · <a href="../sources/slides5-euler-transversality.pdf#page=18">slide 18</a></span></h2>
+  <ul>
+    <li>A steady state satisfies \(F_y(\bar x,\bar x)+\beta F_x(\bar x,\bar x)=0\). Staying at \(\bar x\) from \(x_0=\bar x\) is optimal when the sufficiency theorem applies. The TC is automatic: \(\beta^tF_x(\bar x,\bar x)\bar x\to0\).</li>
+    <li><b>NGM:</b> \(\beta f'(\bar k)=1\iff G_k(\bar k)=\frac1\beta-1+\delta=\rho+\delta\). Under Inada it is unique, and it rises with \(\beta\). This is the <b>modified golden rule</b>. The golden rule \(\max_k f(k)-k\) gives \(f'(k_{gr})=1\) (\(G_k=\delta\)), so \(\bar k\lt k_{gr}\): impatience. Compare Diamond and BY, where the CE can sit above the golden rule (<a href="../lessons/0015-olg-with-capital.html">L15</a>, <a href="../lessons/0019-perpetual-youth-capital.html">L19</a>).</li>
+    <li><b>Invariance:</b> the steady state is unchanged by \(U\circ F\) (factor \(U'(F(\bar x,\bar x))\)), by \(-\frac b2(y-x)^2\) (zero on the diagonal), and by the form of \(u\) in the NGM.</li>
+    <li>Savings with \(\beta(1+r)=1\): every \(x_0>-w/r\) is a steady state, a continuum. Cake eating \(F=\ln(x-y)\): no interior steady state.</li>
+  </ul>
+
+  <h2>Closed forms <span class="see"><a href="../lessons/0029-transversality-at-work.html">L29</a>, <a href="../lessons/0030-closed-form-decision-rules.html">L30</a>, <a href="../lessons/0031-homogeneous-problems-and-ak-growth.html">L31</a>, <a href="../lessons/0032-adjustment-costs-and-tobins-q.html">L32</a> · <a href="../sources/slides5-euler-transversality.pdf#page=26">slides 26–52</a></span></h2>
+  <table class="simple">
+    <tr><th>Problem</th><th>EE / key condition</th><th>Solution, and the TC</th></tr>
+    <tr><td>Savings: \(F=U(w+x(1+r)-y)\), \(\beta(1+r)=1\) (slides 26–30)</td><td>\(U'(c_t)=U'(c_{t+1})\): any constant \(c\) satisfies the EE</td><td>\(c^*=w+rx_0\), \(x_t=x_0\). Under \(\tilde c=c^*-\Delta\), \(x_t-x_0=\Delta\frac{(1+r)^t-1}{r}\), and the TC term → \((1+r)U'(\tilde c)\frac\Delta r>0\): it satisfies the EE but violates the TC (oversaving).</td></tr>
+    <tr><td>Linear utility NGM: \(F=f(k)-k'\) (slide 31)</td><td>\(-1+\beta f'(k_{t+1})=0\)</td><td>If \(f(k_0)\ge\bar k\): \(k_1=\bar k\), one-period convergence (\(F_{xy}=0\)). Otherwise the corner \(c=0\) holds and \(k_{t+1}=f(k_t)\) until \(f(k_T)\ge\bar k\) (Kuhn–Tucker multiplier on \(c\ge0\)).</td></tr>
+    <tr><td>Quadratic cost: \(-\frac a2y^2-\frac b2(y-x)^2\), \(\Gamma=\mathbb R\) (slides 32–34)</td><td>\(Q(\gamma)=\gamma^2-\big(1+\frac1\beta+\frac{a}{\beta b}\big)\gamma+\frac1\beta=0\)</td><td>\(Q(0)=\frac1\beta\), \(Q(1)=-\frac a{\beta b}\), product of roots \(=\frac1\beta\), so \(0\lt\gamma_1\lt1\lt\frac1\beta\lt\gamma_2\). Take \(\gamma_1\), since \(\gamma_2\) gives a TC term \(\propto(\beta\gamma_2^2)^t\to\infty\). \(\gamma_1\uparrow\) in \(b/a\): \(\to0\) as \(b/a\to0\), \(\to1\) as \(b/a\to\infty\), and \(\gamma=1\) if \(a=0\).</td></tr>
+    <tr><td>Log, \(k^\alpha\), \(\delta=1\) (slides 35–36; 2025 Final Q5)</td><td>\(\frac1{c_t}=\frac{\alpha\beta k_{t+1}^{\alpha-1}}{c_{t+1}}\)</td><td>\(k_{t+1}=\alpha\beta k_t^\alpha\), \(c=(1-\alpha\beta)k^\alpha\). TC: \(\beta^t\frac{\alpha}{1-\alpha\beta}\to0\). Bellman: \(V=b_0+\frac{\alpha}{1-\alpha\beta}\log k\).</td></tr>
+    <tr><td>CES (elasticity \(\rho\)) + CRRA (IES \(\sigma\)), \(\delta=1\) (slide 37)</td><td>\(f'=\alpha(f/k)^{1/\rho}\); \(\big(\frac{f_{t+1}}{f_t}\big)^{1/\sigma}=\beta\alpha s^{-1/\rho}\big(\frac{f_{t+1}}{f_t}\big)^{1/\rho}\)</td><td>The saving rate is constant iff \(\sigma=\rho\), with \(s=(\alpha\beta)^{\sigma}\) (it reduces to \(\alpha\beta\) when \(\sigma=\rho=1\)).</td></tr>
+    <tr><td>HD1: \(F(\lambda x,\lambda y)=\lambda F(x,y)\), cone \(X\), \(\Gamma\) HD1 (slides 38–40)</td><td>\(y=\bar gx\); \(F_y(1,\bar g)+\beta F_x(1,\bar g)=0\)</td><td>TC \(\iff\beta|\bar g|\lt1\). Using \(F_{xy}=-\bar gF_{yy}\) (Euler's theorem on HD0 \(F_y\)), the derivative of the EE in \(\bar g\) is \(F_{yy}(1-\beta\bar g)\lt0\): at most one root with \(\beta\bar g\lt1\).</td></tr>
+    <tr><td>HD(\(1-\gamma\)), e.g. \(H(x,y)^{1-\gamma}/(1-\gamma)\) (slides 41–43)</td><td>\(F_x(x,y)=\lambda^\gamma F_x(\lambda x,\lambda y)\); \(F_y(1,\bar g)+\beta\bar g^{-\gamma}F_x(1,\bar g)=0\)</td><td>TC term \(=(\beta\bar g^{1-\gamma})^tx_0^{1-\gamma}F_x(1,\bar g)\), so the TC holds iff \(|\beta\bar g^{1-\gamma}|\lt1\). \(\gamma=1\): use the log limit (log is not HD0).</td></tr>
+    <tr><td>AK: \(F=U(Ak-k')\), \(U=c^{1-\gamma}/(1-\gamma)\) (slide 44)</td><td>\(1=\beta A\bar g^{-\gamma}\)</td><td>\(\bar g=(\beta A)^{1/\gamma}\). TC: \(\beta\bar g^{1-\gamma}=\bar g/A\lt1\iff c/k=A-\bar g>0\). Growth is higher with \(\beta A\) and lower with \(\gamma\) (when \(\beta A>1\)). There are no transition dynamics.</td></tr>
+    <tr><td>Investment: \(F=Ax-a(y/x)x\), \(a(g)\equiv g-(1-\delta)+\phi(g-(1-\delta))\) (slides 45–52)</td><td>\(-a'(\bar g)+\beta[A-a(\bar g)+a'(\bar g)\bar g]=0\iff\beta A=\beta a(\bar g)+a'(\bar g)(1-\beta\bar g)\)</td><td>The RHS has slope \(a''(1-\beta g)>0\) on \(g\lt1/\beta\). Assumptions 2 and 4 make the RHS at 1 \(\lt\beta A\), and assumption 3 makes the RHS at \(1/\beta\) \(>\beta A\), so \(\bar g\in(1,1/\beta)\). \(\bar g\uparrow\) in \(A\); \(\frac{d\gamma}{dr}=-\frac{a'}{a''(r-\gamma)}\lt0\), where \(\gamma=\bar g-1\lt r\).</td></tr>
+    <tr><td>Tobin's q (slides 51–52)</td><td>\(V(k)=[A-a(\bar g)]k+\beta V(\bar gk)\), with \(V\) HD1</td><td>\(q\equiv\frac{V(k)}k=\frac{A-a(\bar g)}{1-\beta\bar g}=\frac{a'(\bar g)}\beta=(1+r)a'(1+\gamma)\). Marginal q = average q. q is observable and forecasts \(\bar g\).</td></tr>
+  </table>
+  <div class="two">
+    <div class="box intuition">
+      <div class="box-title">Reading the investment EE</div>
+      <p>\(a'(\bar g)=\beta\cdot\frac{A-a(\bar g)}{1-\beta\bar g}\). The marginal cost of growing one more unit equals the discounted value of one more unit of installed capital. Here \(A-a(\bar g)\) is the dividend per unit of capital, and \(\frac1{1-\beta\bar g}=\sum_t(\beta\bar g)^t\) capitalizes a dividend that grows at \(\bar g\). Equivalently, \(A=a(1+\gamma)+a'(1+\gamma)(r-\gamma)\).</p>
+    </div>
+    <div class="box warning">
+      <div class="box-title">Which q, and which cost ordering?</div>
+      <p>The slide 52 \(q=V(k)/k\) is <em>cum-dividend</em>, so zero growth gives \(q=1/\beta\), not 1. The ex-dividend value per unit of next-period capital is \(\beta V(1)=a'(\bar g)\); the 2025 deck's "q = \(a'\)" refers to that object. A pointwise higher cost \(\tilde a>a\) does <b>not</b> by itself lower \(\bar g\), because the EE involves \(a'\). A sufficient condition is \(\beta\tilde a+\tilde a'(1-\beta g)>\beta a+a'(1-\beta g)\) on \((1,1/\beta)\), as the 2026 slide 49 now says.</p>
+    </div>
+  </div>
+
+  <h2>Exam traps</h2>
+  <table class="simple">
+    <tr><th>Statement</th><th>Verdict</th><th>Why</th></tr>
+    <tr><td>Steady-state consumption in the NGM is independent of the (concave, increasing) utility function (Fall 2005).</td><td>True</td><td>\(U'(\bar c)[-1+\beta f'(\bar k)]=0\Rightarrow\beta f'(\bar k)=1\): technology and \(\beta\) only.</td></tr>
+    <tr><td>Replacing \(F\) by \(U\circ F\) (\(U'>0\)) changes the steady state (Fall 2025 MT1).</td><td>False</td><td>The common factor \(U'(F(\bar x,\bar x))\) cancels on the diagonal. Off the diagonal the factors differ, so the dynamics do change.</td></tr>
+    <tr><td>Concavity of \(F\) is needed to derive necessity of the TC (Fall 2005).</td><td>False</td><td>It is needed for sufficiency. Necessity uses differentiability, the EE, interchange of limits, and feasibility of scaling the stock down.</td></tr>
+    <tr><td>Any path satisfying the EE from \(x_0\) is optimal.</td><td>False</td><td>Savings with \(\beta(1+r)=1\): \(\tilde c=c^*-\Delta\) satisfies the EE and violates the TC.</td></tr>
+    <tr><td>In the NGM, \(g(k)\lt f(k)\) for all \(k>0\).</td><td>True</td><td>With \(U'(0)=\infty\), moving \(\varepsilon\) from \(k_{t+1}\) to \(c_t\) gains infinitely more than it loses.</td></tr>
+    <tr><td>If \(\Gamma\) does not depend on \(x\), the policy is constant.</td><td>False</td><td>\(F=-(x-y)^2\), \(\Gamma=[0,1]\): \(g(x)=x\), and every \(x\) is a steady state.</td></tr>
+    <tr><td>Higher \(h'\) raises \(\bar x\) when \(F=\theta(x)-h(y)\) (2017/18 Final Q3).</td><td>False</td><td>\(h'(\bar x)=\beta\theta'(\bar x)\): the increasing curve shifts up, so \(\bar x\) falls. One-period convergence, since \(F_{xy}=0\).</td></tr>
+    <tr><td>With \(F_{xy}=0\), convergence takes one period.</td><td>True (if interior)</td><td>The EE involves only \(x_{t+1}\): linear utility, the separable \(F\), and \(c=0\) in 2017/18 Q3.</td></tr>
+  </table>
+
+  <div class="box notation">
+    <div class="box-title">Notation clashes in folder 4</div>
+    <ul>
+      <li>\(F\) is the <b>period return</b>, not a production function. \(G(k,n)\) is production, and \(f(k)=G(k,1)+(1-\delta)k\) includes undepreciated capital, so \(\beta f'(\bar k)=1\) (not \(f'=\rho+\delta\)).</li>
+      <li>\(\alpha\): the Cobb–Douglas capital share (slide 35) or the CES weight (slide 37). Earlier it was the old-age endowment (Note II) or the income-decline rate (BY). In slide 19, \(\alpha\) is the size of a variation.</li>
+      <li>\(\gamma\): the policy root (slide 34), then the CRRA curvature or homogeneity degree \(1-\gamma\) (slides 41–44), then the net growth rate \(\gamma=\bar g-1\) (slide 50).</li>
+      <li>\(a,b\): cost weights (slide 32); \(a(\cdot)\): the adjustment-cost function (slide 47). \(\rho\): the CES elasticity (slide 37); \(\sigma\): the IES. \(r\): the net interest rate with \(\beta=1/(1+r)\).</li>
+      <li>\(g\): the policy function \(y=g(x)\) or the control-state law of motion \(g(x,u)\). \(\bar g\): the gross growth factor.</li>
+      <li>\(\beta\) is the discount factor here; in Note II it was a preference weight.</li>
+    </ul>
+  </div>
+
+  <div class="lesson-nav">
+    <a href="../index.html">Course index</a>
+    <a href="aggregation-cheatsheet.html">Aggregation cheatsheet</a>
+    <a href="ge-glossary.html">Glossary</a>
+  </div>
+
+</div>
+</body>
+</html>

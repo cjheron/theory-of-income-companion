@@ -77,7 +77,7 @@
     <dt>\(B_t\)</dt>
     <dd>Government <em>assets</em> in Class Note III (\(B_t<0\) is debt). Asset market clearing: \(B_t+s_t=0\) (endowment) or \(B_t+s_t=K_{t+1}\) (with capital).</dd>
     <dt>Golden rule</dt>
-    <dd>The steady-state capital stock that maximizes steady-state consumption: \(F'(K)=\delta\) gross, or \(r=n\) with growth (\(r=0\) without). <span class="see"><a href="../lessons/0015-olg-with-capital.html">L15</a></span></dd>
+    <dd>The steady-state capital stock that maximizes steady-state consumption: \(F'(K)=\delta\) gross, or \(r=n\) with growth (\(r=0\) without). <span class="see"><a href="../lessons/0015-olg-with-capital.html">L15</a></span> Contrast the <em>modified</em> golden rule \(\beta f'(\bar k)=1\) of the planner's problem (Part VI). <span class="see"><a href="../lessons/0027-euler-equations-and-sufficiency.html">L27</a></span></dd>
   </dl>
 
   <h2>Part IV: Perpetual youth (Blanchard–Yaari)</h2>
@@ -125,7 +125,7 @@
     <dt>Envy-free allocation</dt>
     <dd>Feasible \(\{x^i\}\) with \(u^i(x^i)\ge u^i(x^j)\) for all \(i,j\). The CE from equal endowments \(e^i=\bar e/I\) is envy-free (identical budget sets); equal endowments are sufficient, not necessary.</dd>
     <dt>Homogeneous of degree \(k\) (HD\(k\))</dt>
-    <dd>\(h(\eta x)=\eta^kh(x)\) for all \(\eta>0\). If \(h\) is HD1, its partial derivatives are HD0: \(h_l(\eta x)=h_l(x)\). <span class="see"><a href="../lessons/0024-gorman-aggregation.html">L24</a></span></dd>
+    <dd>\(h(\eta x)=\eta^kh(x)\) for all \(\eta>0\). If \(h\) is HD1, its partial derivatives are HD0: \(h_l(\eta x)=h_l(x)\). More generally, the partials of an HD\(k\) function are HD\((k-1)\). <span class="see"><a href="../lessons/0024-gorman-aggregation.html">L24</a>, <a href="../lessons/0031-homogeneous-problems-and-ak-growth.html">L31</a></span></dd>
     <dt>Euler's theorem</dt>
     <dd>If \(h\) is differentiable and HD1, then \(h(x)=\sum_lx_l\,h_l(x)=\nabla h(x)\cdot x\).</dd>
     <dt>Homothetic</dt>
@@ -140,19 +140,64 @@
     <dd>A bundle beyond which more is not better, e.g. \(\theta^i\) in \(-\sum_l\pi_l(\theta^i_l-x_l)^{1+\sigma}/(1+\sigma)\) on \(x\le\theta^i\). It violates LNS at \(\theta^i\). That family still aggregates (needs \(\bar e\lt\bar\theta\)).</dd>
   </dl>
 
+  <h2>Part VI: Euler equations and transversality (folder 4)</h2>
+  <dl class="gloss">
+    <dt>Sequence problem \([X,\Gamma,F,\beta]\)</dt>
+    <dd>\(V^*(x_0)=\max_{\{x_{t+1}\}}\sum_{t\ge0}\beta^tF(x_t,x_{t+1})\) s.t. \(x_{t+1}\in\Gamma(x_t)\), with \(x_0\) given. The choice is the whole path of next-period states. <span class="see"><a href="../lessons/0026-the-dynamic-optimization-problem.html">L26</a></span></dd>
+    <dt>Feasibility correspondence \(\Gamma\); graph \(\mathrm{Gr}(\Gamma)\)</dt>
+    <dd>\(\Gamma(x)\subseteq X\) is the set of states reachable next period from \(x\) (NGM: \([0,f(k)]\), from \(c\ge0\)). \(\mathrm{Gr}(\Gamma)=\{(x,y):x\in X,\ y\in\Gamma(x)\}\) is the domain of \(F\). <span class="see"><a href="../lessons/0026-the-dynamic-optimization-problem.html">L26</a></span></dd>
+    <dt>Period return \(F(x,y)\)</dt>
+    <dd>The payoff in a period as a function of today's and tomorrow's state, after the controls have been substituted out (NGM: \(U(f(k)-k')\)). It is not a production function. <span class="see"><a href="../lessons/0026-the-dynamic-optimization-problem.html">L26</a></span></dd>
+    <dt>State vs control</dt>
+    <dd>A state is predetermined at \(t\) (\(k_t\), \(h_t\), assets). A control is chosen at \(t\) (\(c_t\), \(i_t\), hours). Control/state form \([X,U,h,g,\beta]\): \(x_{t+1}=g(x_t,u_t)\), \(u_t\in U\), with return \(h(x,u)\). It maps to \(F(x,y)=\max_u\{h(x,u):y=g(x,u)\}\). <span class="see"><a href="../lessons/0026-the-dynamic-optimization-problem.html">L26</a></span></dd>
+    <dt>Euler equation (EE)</dt>
+    <dd>\(F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0\): the marginal cost of one more unit of \(x_{t+1}\) equals its discounted marginal return next period. It is a second-order difference equation \(x_{t+2}=\psi(x_{t+1},x_t)\), well defined when \(F_{xy}\ne0\). NGM: \(U'(c_t)=\beta U'(c_{t+1})f'(k_{t+1})\). <span class="see"><a href="../lessons/0027-euler-equations-and-sufficiency.html">L27</a>, <a href="../lessons/0028-necessity-and-the-shooting-algorithm.html">L28</a></span></dd>
+    <dt>Transversality condition (TC)</dt>
+    <dd>\(\lim_{t\to\infty}\beta^tF_x(x_t,x_{t+1})\cdot x_t=0\): the discounted shadow value of the stock left "at infinity" is zero. It is the terminal condition that, with \(x_0\), selects the optimal path among EE solutions, ruling out over-accumulation. <span class="see"><a href="../lessons/0027-euler-equations-and-sufficiency.html">L27</a>, <a href="../lessons/0029-transversality-at-work.html">L29</a></span></dd>
+    <dt>Sufficiency theorem (EE + TC)</dt>
+    <dd>If \(F\) is concave, \(F_x\ge0\) along the path and \(X=\mathbb R^m_+\), a path satisfying the EE and TC is optimal (Stokey–Lucas Thm 4.15). The proof uses the concavity inequality, telescoping with the EE, and the TC to kill the tail. Necessity needs interiority instead of concavity, and for the TC it is heuristic in this course. <span class="see"><a href="../lessons/0027-euler-equations-and-sufficiency.html">L27</a>, <a href="../lessons/0028-necessity-and-the-shooting-algorithm.html">L28</a></span></dd>
+    <dt>Steady state (dynamic)</dt>
+    <dd>\(\bar x\) with \(F_y(\bar x,\bar x)+\beta F_x(\bar x,\bar x)=0\), so \(x_{t+1}=\bar x\) is optimal from \(x_0=\bar x\). It is unchanged by \(U\circ F\) or by adding \(-\frac b2(y-x)^2\). <span class="see"><a href="../lessons/0027-euler-equations-and-sufficiency.html">L27</a></span></dd>
+    <dt>Modified golden rule</dt>
+    <dd>The NGM steady state \(\beta f'(\bar k)=1\), i.e. \(G_k(\bar k)=\rho+\delta\). It lies below the golden rule \(G_k=\delta\) because of impatience, and it does not depend on \(U\). <span class="see"><a href="../lessons/0027-euler-equations-and-sufficiency.html">L27</a></span></dd>
+    <dt>Policy function \(g\)</dt>
+    <dd>\(x_{t+1}=g(x_t)\), the optimal choice of next period's state. In policy form the EE reads \(F_y(x,g(x))+\beta F_x(g(x),g(g(x)))=0\) for all \(x\). Examples: \(g(k)=\alpha\beta k^\alpha\) (log/CD, \(\delta=1\)); \(g(x)=\gamma_1x\) (quadratic cost). <span class="see"><a href="../lessons/0028-necessity-and-the-shooting-algorithm.html">L28</a>, <a href="../lessons/0030-closed-form-decision-rules.html">L30</a></span></dd>
+    <dt>Shooting algorithm</dt>
+    <dd>Given \(x_0\), guess \(x_1\), generate the path from \(x_{t+2}=\psi(x_{t+1},x_t)\), and revise \(x_1\) (e.g. by bisection) until the path satisfies the TC, i.e. converges to the steady state. <span class="see"><a href="../lessons/0028-necessity-and-the-shooting-algorithm.html">L28</a></span></dd>
+    <dt>Saddle path</dt>
+    <dd>The unique path through \(x_0\) that converges to the steady state. Nearby EE paths diverge (in the NGM, \(k\to0\) or \(c\to0\) with \(k\to k_{\max}\)), and the TC selects the saddle path. <span class="see"><a href="../lessons/0028-necessity-and-the-shooting-algorithm.html">L28</a></span></dd>
+    <dt>No-Ponzi / over-accumulation</dt>
+    <dd>Two ways a path can fail at infinity. A Ponzi scheme borrows without limit, and is ruled out by the constraint set (here \(X=\mathbb R_+\)). Over-accumulation saves "too much" forever, and is ruled out by the TC. Example: \(\tilde c=c^*-\Delta\) with \(\beta(1+r)=1\) satisfies the EE, yet the TC term → \((1+r)U'(\tilde c)\Delta/r>0\). <span class="see"><a href="../lessons/0029-transversality-at-work.html">L29</a></span></dd>
+    <dt>Homogeneous dynamic problem</dt>
+    <dd>\(X\) is a cone, \(\Gamma\) is HD1, and \(F\) is HD1 (or HD\((1-\gamma)\)). The optimal policy is then HD1, \(y=\bar gx\), with EE \(F_y(1,\bar g)+\beta\bar g^{-\gamma}F_x(1,\bar g)=0\) and TC \(|\beta\bar g^{1-\gamma}|\lt1\) (\(\gamma=0\) for HD1). <span class="see"><a href="../lessons/0031-homogeneous-problems-and-ak-growth.html">L31</a></span></dd>
+    <dt>Balanced growth</dt>
+    <dd>All stocks and flows grow at a common constant factor \(\bar g\). It is the solution form of homogeneous problems, which have no transition dynamics. <span class="see"><a href="../lessons/0031-homogeneous-problems-and-ak-growth.html">L31</a>, <a href="../lessons/0032-adjustment-costs-and-tobins-q.html">L32</a></span></dd>
+    <dt>AK model</dt>
+    <dd>Linear technology \(c_t+k_{t+1}=Ak_t\) with CRRA utility. The growth factor is \(\bar g=(\beta A)^{1/\gamma}\), and the TC \(\iff\bar g\lt A\iff\) consumption is positive. <span class="see"><a href="../lessons/0031-homogeneous-problems-and-ak-growth.html">L31</a></span></dd>
+    <dt>Adjustment cost function \(a(g)\)</dt>
+    <dd>Total resources used per unit of capital to grow capital by the factor \(g=k'/k\): \(a(g)=g-(1-\delta)+\phi(g-(1-\delta))\), i.e. investment plus the installation cost \(\phi\). It is assumed positive and strictly convex, with \(a'(1)=1\). Quadratic version (slide 32): \(-\frac b2(y-x)^2\). <span class="see"><a href="../lessons/0030-closed-form-decision-rules.html">L30</a>, <a href="../lessons/0032-adjustment-costs-and-tobins-q.html">L32</a></span></dd>
+    <dt>Tobin's q</dt>
+    <dd>Market value of the firm per unit of installed capital. With \(F=Ax-a(y/x)x\): \(q=V(k)/k=\frac{A-a(\bar g)}{1-\beta\bar g}=\frac{a'(\bar g)}{\beta}\) (cum-dividend). Observable, it forecasts the growth of capital. <span class="see"><a href="../lessons/0032-adjustment-costs-and-tobins-q.html">L32</a></span></dd>
+    <dt>Marginal vs average q</dt>
+    <dd>Marginal q is \(V'(k)\), the value of one more installed unit. Average q is \(V(k)/k\). They coincide when \(V\) is HD1 (CRS technology and adjustment costs, price-taking firm), the Hayashi (1982) condition. <span class="see"><a href="../lessons/0032-adjustment-costs-and-tobins-q.html">L32</a></span></dd>
+  </dl>
+
   <h2 id="traps">Notation traps across slide decks</h2>
   <table class="simple">
-    <tr><th>Symbol</th><th>Class Note II</th><th>Class Note III</th><th>Blanchard–Yaari</th><th>Class Note 3 (aggregation)</th></tr>
-    <tr><td>\(\alpha\)</td><td>old-age endowment (young get \(1-\alpha\))</td><td>privatization slides: <em>young</em> endowment; Cobb–Douglas: capital share; heterogeneity/population slides: as in Note II</td><td>decline rate of labour income with age</td><td>(unused)</td></tr>
-    <tr><td>\(\theta\)</td><td>ownership share \(\theta^i_j\) (Slides 1)</td><td>PAYG tax per young</td><td>discount rate</td><td>translation vector \(\theta^i\): subsistence (\(x\ge\theta^i\)) or satiation (\(x\le\theta^i\)) point</td></tr>
-    <tr><td>\(\tau\)</td><td>PAYG tax per young</td><td>generic tax \(\tau^t_s\) (positive = tax)</td><td>(unused; taxes are \(T\))</td><td>(unused)</td></tr>
-    <tr><td>\(p\)</td><td>prices \(p_t\)</td><td>prices</td><td>death rate</td><td>prices (but an <em>exponent</em> in one Fall 2025 MT1 T/F statement)</td></tr>
-    <tr><td>\(B\)</td><td>(unused)</td><td>government <em>assets</em></td><td>government <em>debt</em></td><td>(unused)</td></tr>
-    <tr><td>\(\delta\)</td><td>(unused)</td><td>depreciation (capital slides)</td><td>depreciation (inside \(F\))</td><td>endowment share \(\delta^i\): \(e^i=\delta^i\bar e\)</td></tr>
-    <tr><td>\(\lambda\)</td><td>(unused)</td><td>(unused)</td><td>(unused)</td><td>Pareto weight \(\lambda_i\); Negishi weight \(=\kappa/\mu_i\)</td></tr>
-    <tr><td>\(\beta\)</td><td>weight on old-age consumption (log example)</td><td>as in Note II</td><td>(unused)</td><td>Cobb–Douglas / Stone–Geary shares \(\beta_l\); on slide 33 a curvature parameter</td></tr>
-    <tr><td>\(h\), \(H\)</td><td>(unused)</td><td>(unused)</td><td>human wealth (individual, aggregate)</td><td>HD1 aggregator \(h\) (slides); \(H\) in the Fall 2025 Final</td></tr>
-    <tr><td>Footer "Class Notes III"</td><td colspan="4">The folder-3 aggregation deck's footer reads "Class Notes III", but it is a different deck from Class Note III (OLG extensions). This course calls it <strong>Class Note 3</strong>.</td></tr>
+    <tr><th>Symbol</th><th>Class Note II</th><th>Class Note III</th><th>Blanchard–Yaari</th><th>Class Note 3 (aggregation)</th><th>Folder 4 (Euler/TC)</th></tr>
+    <tr><td>\(\alpha\)</td><td>old-age endowment (young get \(1-\alpha\))</td><td>privatization slides: <em>young</em> endowment; Cobb–Douglas: capital share; heterogeneity/population slides: as in Note II</td><td>decline rate of labour income with age</td><td>(unused)</td><td>Cobb–Douglas capital share; CES weight; size of a variation (slide 19)</td></tr>
+    <tr><td>\(\theta\)</td><td>ownership share \(\theta^i_j\) (Slides 1)</td><td>PAYG tax per young</td><td>discount rate</td><td>translation vector \(\theta^i\): subsistence (\(x\ge\theta^i\)) or satiation (\(x\le\theta^i\)) point</td><td>(unused)</td></tr>
+    <tr><td>\(\tau\)</td><td>PAYG tax per young</td><td>generic tax \(\tau^t_s\) (positive = tax)</td><td>(unused; taxes are \(T\))</td><td>(unused)</td><td>(unused)</td></tr>
+    <tr><td>\(p\)</td><td>prices \(p_t\)</td><td>prices</td><td>death rate</td><td>prices (but an <em>exponent</em> in one Fall 2025 MT1 T/F statement)</td><td>(unused)</td></tr>
+    <tr><td>\(B\)</td><td>(unused)</td><td>government <em>assets</em></td><td>government <em>debt</em></td><td>(unused)</td><td>(unused)</td></tr>
+    <tr><td>\(\delta\)</td><td>(unused)</td><td>depreciation (capital slides)</td><td>depreciation (inside \(F\))</td><td>endowment share \(\delta^i\): \(e^i=\delta^i\bar e\)</td><td>depreciation (inside \(f(k)=G(k,1)+(1-\delta)k\))</td></tr>
+    <tr><td>\(\lambda\)</td><td>(unused)</td><td>(unused)</td><td>(unused)</td><td>Pareto weight \(\lambda_i\); Negishi weight \(=\kappa/\mu_i\)</td><td>scaling factor in homogeneity \(F(\lambda x,\lambda y)\)</td></tr>
+    <tr><td>\(\beta\)</td><td>weight on old-age consumption (log example)</td><td>as in Note II</td><td>(unused)</td><td>Cobb–Douglas / Stone–Geary shares \(\beta_l\); on slide 33 a curvature parameter</td><td>discount factor, \(\beta=1/(1+r)\)</td></tr>
+    <tr><td>\(h\), \(H\)</td><td>(unused)</td><td>(unused)</td><td>human wealth (individual, aggregate)</td><td>HD1 aggregator \(h\) (slides); \(H\) in the Fall 2025 Final</td><td>period return in control/state form \(h(x,u)\); human capital \(h\) (Lucas–Uzawa)</td></tr>
+    <tr><td>\(\gamma\)</td><td>(unused)</td><td>(unused)</td><td>(unused)</td><td>\(\gamma_l\): shadow value of good \(l\)</td><td>policy root (slide 34); CRRA curvature / homogeneity degree \(1-\gamma\) (slides 41–44); net growth \(\bar g-1\) (slide 50)</td></tr>
+    <tr><td>\(F\), \(f\), \(G\)</td><td>(unused)</td><td>\(F\): production function</td><td>\(F(K)\): output net of depreciation</td><td>(unused)</td><td>\(F(x,y)\): <em>period return</em>; \(G\): production; \(f(k)=G(k,1)+(1-\delta)k\)</td></tr>
+    <tr><td>\(g\), \(\bar g\)</td><td>productivity growth \(g\) (growing economy)</td><td>(unused)</td><td>(unused)</td><td>\(g^i\): monotone transformation</td><td>policy \(y=g(x)\) or law of motion \(g(x,u)\); \(\bar g\): gross growth factor</td></tr>
+    <tr><td>Footer "Class Notes III"</td><td colspan="5">The folder-3 aggregation deck's footer reads "Class Notes III", but it is a different deck from Class Note III (OLG extensions). This course calls it <strong>Class Note 3</strong>.</td></tr>
   </table>
 
   <div class="lesson-nav">
@@ -161,6 +206,7 @@
     <a href="olg-cheatsheet.html">OLG cheatsheet</a>
     <a href="perpetual-youth-cheatsheet.html">Perpetual youth cheatsheet</a>
     <a href="aggregation-cheatsheet.html">Aggregation cheatsheet</a>
+    <a href="euler-transversality-cheatsheet.html">Euler &amp; transversality cheatsheet</a>
   </div>
 </div>
 </body>

@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 26 — The Dynamic Optimization Problem: [X, Γ, F, β]</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part VI: Euler Equations &amp; Transversality · Lesson 26 of 32</div>
+    <h1>The Dynamic Optimization Problem: \([X,\Gamma,F,\beta]\)</h1>
+    <div class="meta">Covers <a href="../sources/slides5-euler-transversality.pdf#page=1">Euler Equations and Transversality (folder 4), slides 1–10</a> · About 35 min · Prerequisites: <a href="0022-representative-agent-and-planner-focs.html">Lesson 22</a> (the planner problem), <a href="0004-first-welfare-theorem.html">Lesson 4</a> (the 1WT)</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>state the four primitives \([X,\Gamma,F,\beta]\) of a discrete-time dynamic problem and write its sequence problem \(V^*(x_0)\);</li>
+      <li>map the neoclassical growth model into \(F(x,y)=U(f(x)-y)\), \(\Gamma(x)=[0,f(x)]\), and explain why consumption disappears from the problem;</li>
+      <li>translate between the state-only notation \([X,\Gamma,F,\beta]\) and the control–state notation \([X,\mathcal U,h,g,\beta]\), and prove the two give the same value;</li>
+      <li>map new models into \(F\) and \(\Gamma\) (labor supply, human capital, adjustment costs), and check the signs and concavity of \(F\). Past Alvarez exams ask for exactly this.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides5-euler-transversality.pdf#page=3">Euler Equations and Transversality, slides 1–10</a>. The slides follow Stokey &amp; Lucas with Prescott, <em>Recursive Methods in Economic Dynamics</em> (1989). Read §4.1 for the sequence problem: the set \(X\), the correspondence \(\Gamma\), the graph \(A\), feasible plans \(\Pi(x_0)\), and Assumptions 4.1–4.2. Read §5.1 for the one-sector growth model, and §§5.7–5.8 for human capital. Acemoglu, <em>Introduction to Modern Economic Growth</em> (2009), ch. 6 (infinite-horizon optimization) and ch. 8 (the neoclassical growth model) cover the same ground in growth notation. The two-sector human capital model is due to H. Uzawa (1965), "Optimum technical change in an aggregative model of economic growth," <em>International Economic Review</em> 6(1), and R. E. Lucas (1988), "On the mechanics of economic development," <em>Journal of Monetary Economics</em> 22(1).
+  </div>
+
+  <div class="notation">
+    <div class="box-title">Notation for Part VI (read this once)</div>
+    <ul>
+      <li><strong>\(x\) and \(y\) are states</strong>: \(x\) is today's state and \(y\) is tomorrow's. In Part I, \(x^i\) was a consumption bundle and \(y^j\) a production plan. Here they are dates of one state variable.</li>
+      <li><strong>\(F\) is the period return function</strong> (utility as a function of today's and tomorrow's state), <em>not</em> a production function. Production is \(G(k,n)\). The slides write \(f(k)\equiv G(k,1)+(1-\delta)k\) for output plus undepreciated capital, i.e. total resources available at the end of the period. Careful: the Fall 2025 MT1 writes \(f\) for production \(G(k,1)\) itself and adds \((1-\delta)k\) separately.</li>
+      <li><strong>\(\Gamma\)</strong> is the feasibility <em>correspondence</em>. It is not the planner multiplier \(\gamma_l\) of Lessons 22–23. Later in this deck the letter \(\gamma\) gets three other jobs (a policy root, CRRA curvature, a growth rate). Each lesson will flag which one is in use.</li>
+      <li><strong>\(\beta\in(0,1)\)</strong> is the discount factor. In Class Note II (Lessons 8–11), \(\beta\) was the preference weight on old-age consumption.</li>
+      <li><strong>\(\alpha\)</strong> is the Cobb–Douglas capital share, \(G(k,1)=Ak^\alpha\). In Note II it was the old-age endowment, and in Blanchard–Yaari the rate at which labor income declines.</li>
+      <li>The slides use \(U\) for both the utility function and the set of feasible controls. Here the control set is written \(\mathcal U\). Slide 9 also uses \(h\) for human capital, while slide 5 uses \(h\) for the return function in control–state notation. Context tells them apart.</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s1">1. Why a dynamic planner, and why now</h2>
+
+  <p>Part V solved the planner's problem in a static economy: choose an allocation to maximize \(\sum_i\lambda_iu^i(x^i)\) subject to resource constraints, and read prices off the multipliers (<a href="0022-representative-agent-and-planner-focs.html">Lesson 22</a>, <a href="0023-negishi-weights-and-welfare-theorems.html">Lesson 23</a>). Part VI does the same for an economy that lasts forever. The commodities are dated (consumption at \(t=0,1,2,\dots\)), as in the date-event economies of <a href="0001-the-economy.html">Lesson 1</a>, and the planner chooses an entire path.</p>
+
+  <p>Why study a planner rather than markets? Take the neoclassical growth model: one infinitely lived representative household (a dynasty), competitive firms with a constant-returns technology, and complete markets for dated goods. There are infinitely many goods but <em>finitely many agents</em>. As <a href="0012-why-the-1wt-fails-in-olg.html">Lesson 12</a> showed, that is enough for the value of the aggregate endowment to be finite, so the proof of the 1WT (<a href="0004-first-welfare-theorem.html">Lesson 4</a>) goes through. The competitive equilibrium allocation is Pareto optimal. With one household it is <em>the</em> solution of the planner's problem. Conversely, the 2WT (<a href="0006-second-welfare-theorem.html">Lesson 6</a>) makes the planner's solution a competitive equilibrium. Prices are recovered from the planner's marginal utilities, and interest rates from marginal products. So <strong>to find the equilibrium, solve one maximization problem</strong>. This is the problem whose optimality conditions (the Euler equation and the transversality condition) occupy the rest of this part.</p>
+
+  <div class="intuition" id="int-contrast-olg">
+    <div class="box-title">Contrast with OLG</div>
+    <p>In OLG (Parts II–III) there are infinitely many goods <em>and</em> infinitely many agents, the value of the aggregate endowment can be infinite, and equilibria can be inefficient (Shell's double infinity, <a href="0012-why-the-1wt-fails-in-olg.html">Lesson 12</a>). With one dynasty, only one of the two infinities is present, so equilibria are efficient. The capital stocks of <a href="0015-olg-with-capital.html">Lesson 15</a> (Diamond) and <a href="0019-perpetual-youth-capital.html">Lesson 19</a> (Blanchard–Yaari) can exceed the golden rule. You will see in <a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a> that the planner's steady state \(\beta f'(\bar k)=1\) never does.</p>
+  </div>
+
+  <p>The plan for Part VI:</p>
+  <ul>
+    <li><strong>Lesson 26 (this one):</strong> how to write a dynamic problem. This is a skill exams test directly.</li>
+    <li><a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a>: the Euler equation (EE) and transversality condition (TC), and the proof that they are sufficient for an optimum.</li>
+    <li><a href="0028-necessity-and-the-shooting-algorithm.html">Lesson 28</a>: why they are necessary, and how to compute a solution by shooting.</li>
+    <li><a href="0029-transversality-at-work.html">Lesson 29</a>: a path that satisfies the EE but not the TC.</li>
+    <li><a href="0030-closed-form-decision-rules.html">Lesson 30</a>–<a href="0032-adjustment-costs-and-tobins-q.html">Lesson 32</a>: closed-form solutions, homogeneous problems, AK growth, and Tobin's q.</li>
+  </ul>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s2">2. The four primitives \([X,\Gamma,F,\beta]\)</h2>
+
+  <div class="definition" id="def-definition-dynamic-programming-problem">
+    <div class="box-title">Definition (a dynamic programming problem) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=3">EE p.3</a></div>
+    <ul>
+      <li>\(X\) is the <strong>state space</strong>, the set of possible values of the state \(x\). Usually \(X\subseteq\mathbb R^m\).</li>
+      <li>\(\Gamma:X\rightrightarrows X\) is the <strong>feasibility correspondence</strong>: \(\Gamma(x)\) is the set of states that can be reached tomorrow from state \(x\) today. Its graph is
+      $$\mathrm{Gr}(\Gamma)\equiv\{(x,y):x\in X,\ y\in\Gamma(x)\}.$$</li>
+      <li>\(F:\mathrm{Gr}(\Gamma)\to\mathbb R\) is the <strong>period return function</strong>: \(F(x,y)\) is the utility earned this period when today's state is \(x\) and tomorrow's is \(y\).</li>
+      <li>\(\beta\in(0,1)\) is the <strong>discount factor</strong>.</li>
+    </ul>
+    <p>The <strong>sequence problem</strong> is
+    $$V^*(x_0)=\max_{\{x_{t+1}\}_{t=0}^\infty}\ \sum_{t=0}^\infty\beta^tF(x_t,x_{t+1})\qquad\text{s.t.}\quad x_{t+1}\in\Gamma(x_t)\ \text{ for all }t\ge0,\quad x_0\text{ given.}$$</p>
+  </div>
+
+  <p>Some things to notice:</p>
+  <ul>
+    <li><strong>The choice at date \(t\) is tomorrow's state.</strong> Everything decided today (consumption, investment, hours) is either implied by the pair \((x_t,x_{t+1})\) or folded into \(F\). The unknown is a sequence of states \(x_1,x_2,\dots\). A sequence satisfying the constraints is a <em>feasible plan</em>. SLP call the set of feasible plans from \(x_0\) \(\Pi(x_0)\).</li>
+    <li><strong>Why \(F\) lives on the graph.</strong> Returns are needed only at pairs that can actually occur. Often \(F\) cannot be defined anywhere else. In the growth model with log utility, \(F(k,k')=\log(f(k)-k')\) is not a real number when \(k'\ge f(k)\). Defining \(F\) on \(\mathrm{Gr}(\Gamma)\) keeps the primitives honest: feasibility is in \(\Gamma\), preferences are in \(F\).</li>
+    <li><strong>Stationarity.</strong> \(\Gamma\), \(F\) and \(\beta\) do not depend on calendar time. The problem that starts at date \(t\) from state \(x_t\) is the same problem as the one that starts at 0 from \(x_0=x_t\). That is why the value depends only on \(x_0\), written \(V^*(x_0)\). It is also why the optimal choice will turn out to be a time-invariant policy \(x_{t+1}=g(x_t)\).</li>
+    <li><strong>"max" is shorthand.</strong> Strictly, \(V^*\) is a supremum, and the infinite sum must be well defined. SLP assume \(\Gamma(x)\neq\emptyset\) (Assumption 4.1) and that \(\lim_{n\to\infty}\sum_{t=0}^n\beta^tF(x_t,x_{t+1})\) exists for every feasible plan, possibly as \(\pm\infty\) (Assumption 4.2). Bounded \(F\) with \(\beta\lt1\) is enough. The slides take these regularity conditions for granted, and so will we.</li>
+  </ul>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s3">3. The neoclassical growth model in this notation</h2>
+
+  <p>The planner maximizes \(\sum_t\beta^tU(c_t)\) subject to the resource constraint and the law of motion of capital <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=4">EE p.4</a>:
+  $$c_t+i_t=G(k_t,1),\qquad k_{t+1}=i_t+(1-\delta)k_t,\qquad c_t\ge0,\ k_{t+1}\ge0,$$
+  with labor supplied inelastically and normalized to one, \(G\) neoclassical (constant returns, increasing and concave in \(k\)), and \(\delta\in[0,1]\) the depreciation rate.</p>
+
+  <ol class="steps">
+    <li><strong>Eliminate investment.</strong> From the law of motion, \(i_t=k_{t+1}-(1-\delta)k_t\). Substituting into the resource constraint gives
+    $$c_t=G(k_t,1)+(1-\delta)k_t-k_{t+1}\equiv f(k_t)-k_{t+1}.$$
+    Here \(f(k)\) is everything the economy has at the end of the period: output plus the capital left after depreciation.</li>
+    <li><strong>Eliminate consumption.</strong> Given \((k_t,k_{t+1})\), consumption is pinned down: \(c_t=f(k_t)-k_{t+1}\). So utility at \(t\) is a function of today's and tomorrow's capital only:
+    $$F(x,y)=U\big(f(x)-y\big).$$</li>
+    <li><strong>Translate the inequality constraints.</strong> \(c_t\ge0\) becomes \(k_{t+1}\le f(k_t)\), and \(k_{t+1}\ge0\) is the lower bound. So
+    $$\Gamma(x)=[0,f(x)],\qquad X=\mathbb R_+.$$</li>
+  </ol>
+
+  <p>Why write the problem in states only? Because it leaves a single type of unknown, the capital path, with no constraints linking dates beyond \(k_{t+1}\in\Gamma(k_t)\). Each \(k_{t+1}\) appears in exactly two period returns: \(F(k_t,k_{t+1})\), where it is "spent", and \(F(k_{t+1},k_{t+2})\), where it "produces". Setting the derivative with respect to \(k_{t+1}\) to zero balances these two effects. That is the Euler equation of <a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a>.</p>
+
+  <p>Several properties of \(F\) and \(\Gamma\) follow from those of \(U\) and \(G\). They are exactly the hypotheses the next lessons need.</p>
+  <ul>
+    <li><strong>Signs.</strong> \(F_x=U'(c)f'(x)>0\): more capital today means more to consume. \(F_y=-U'(c)\lt0\): more capital tomorrow means less consumption today. Capital is a "good" (\(F_x\ge0\)), which <a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a>'s sufficiency theorem uses.</li>
+    <li><strong>Concavity.</strong> \(f(x)-y\) is concave in \((x,y)\) because \(f\) is concave. \(U\) is increasing and concave, and an increasing concave function of a concave function is concave, so \(F\) is concave. With \(U'\gt0\), \(U''\lt0\) and \(f''\lt0\), the Hessian
+    $$F_{xx}=U''f'^2+U'f'',\quad F_{yy}=U'',\quad F_{xy}=-U''f',\qquad F_{xx}F_{yy}-F_{xy}^2=U'U''f''\gt0$$
+    is negative definite, so \(F\) is strictly concave.</li>
+    <li><strong>Complementarity.</strong> \(F_{xy}=-U''f'\gt0\). A higher \(k_t\) raises the marginal utility cost of \(k_{t+1}\) less than it raises resources. This sign will make the Euler equation solvable for \(k_{t+2}\) (<a href="0028-necessity-and-the-shooting-algorithm.html">Lesson 28</a>).</li>
+    <li><strong>Convex graph.</strong> \(\mathrm{Gr}(\Gamma)=\{(x,y):x\ge0,\ 0\le y\le f(x)\}\) is the region under a concave function, a convex set.</li>
+    <li><strong>A bounded state space.</strong> Let \(k_{\max}\) solve \(f(k)=k\), i.e. \(G(k,1)=\delta k\). For Cobb–Douglas \(G=Ak^\alpha\), \(k_{\max}=(A/\delta)^{1/(1-\alpha)}\). Above \(k_{\max}\), even consuming nothing cannot keep capital constant. So every feasible path stays in \([0,\max\{k_0,k_{\max}\}]\), and one can take \(X\) to be that compact interval.</li>
+  </ul>
+
+  <div class="warning" id="warn-investment-can-be-negative-here">
+    <div class="box-title">Investment can be negative here</div>
+    <p>\(\Gamma(k)=[0,f(k)]\) allows \(k'\lt(1-\delta)k\), i.e. \(i\lt0\). The planner can "eat" installed capital, turning it back into consumption one for one. If investment is irreversible (\(i\ge0\)), the lower bound moves up: \(\Gamma(k)=[(1-\delta)k,f(k)]\). This is still a convex graph, but the constraint can now bind, for instance when \(k_0\) is far above the steady state. Toggle it in the figure.</p>
+  </div>
+
+  <div class="figure" id="fig-graph">
+    <div id="gr-ctrl"></div>
+    <div id="gr-fig"></div>
+    <div id="gr-read"></div>
+    <div class="verdict" id="gr-verdict"></div>
+    <div class="caption"><b>Interactive: the graph of \(\Gamma\) for the growth model.</b> The shaded region is \(\mathrm{Gr}(\Gamma)=\{(k,k'):0\le k'\le f(k)\}\) with \(f(k)=Ak^\alpha+(1-\delta)k\). The <span style="color:#2a78d6">blue</span> curve is its upper boundary \(k'=f(k)\), where \(c=0\). The dashed line is the 45° line \(k'=k\). The thick <span style="color:#eb6834">orange</span> vertical segment is the feasible set \(\Gamma(k)\) at the dragged point's \(k\). Drag the point: its height is next period's capital \(k'\), and its distance below the blue curve (the dashed segment) is consumption. <b>Try:</b> (1) drag the point above the 45° line (capital grows) and below it (capital shrinks), and watch the sign of investment. (2) Move \(k\) past \(k_{\max}\): the blue curve is below the 45° line, so capital must fall even with \(c=0\). (3) Turn on irreversibility: the floor rises to \(k'=(1-\delta)k\). (4) Raise \(\delta\) to 1: \(f(k)=Ak^\alpha\) and \(\Gamma(k)=[0,Ak^\alpha]\), the model of <a href="0030-closed-form-decision-rules.html">Lesson 30</a>.</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const host = document.getElementById('gr-fig');
+    let P = null, handle = null, dom = 1, S;
+    let zp = [0.4, 0.22];            // dragged point, in units of the plot domain
+    const kmaxOf = v => Math.pow(v.A / v.delta, 1 / (1 - v.alpha));
+    const fOf = v => k => v.A * Math.pow(Math.max(k, 0), v.alpha) + (1 - v.delta) * k;
+    function clamp(v, k, kp) {
+      const f = fOf(v), lo = v.irr > 0.5 ? (1 - v.delta) * k : 0;
+      return [k, Math.min(f(k), Math.max(lo, kp))];
+    }
+    function build(v) {
+      host.innerHTML = '';
+      dom = 1.35 * kmaxOf(v);
+      P = EconPlot.create(host, { x: [0, dom], y: [0, dom], width: 480, height: 480, equal: true,
+        xlabel: 'k  (today)', ylabel: "k'  (tomorrow)", xticks: 5, yticks: 5, margin: { t: 18, r: 24 } });
+      handle = P.drag(zp[0] * dom, zp[1] * dom, (x, y) => {
+        const [k, kp] = clamp(S.values, Math.max(1e-6, x), y);
+        zp = [k / dom, kp / dom]; draw(S.values); return [k, kp];
+      });
+    }
+    function draw(v) {
+      const f = fOf(v), kmax = kmaxOf(v), irr = v.irr > 0.5;
+      P.clear();
+      // shaded graph
+      const pts = [];
+      const n = 160;
+      for (let j = 0; j <= n; j++) { const k = dom * j / n; pts.push([k, f(k)]); }
+      for (let j = n; j >= 0; j--) { const k = dom * j / n; pts.push([k, irr ? (1 - v.delta) * k : 0]); }
+      P.path(pts, { close: true, fill: C.fillBlue, color: 'none', width: 0 });
+      P.fn(k => k, { color: C.muted, dash: '6 4', width: 1.4 });
+      P.text(dom * 0.93, dom * 0.93, "45°: k' = k", { anchor: 'end', dx: -6, dy: -8, sans: true, size: 12, color: C.muted });
+      P.fn(f, { color: C.blue, width: 2.2, domain: [0, dom] });
+      const kl = dom * 0.22;
+      P.text(kl, f(kl), "k' = f(k)  (c = 0)", { anchor: 'end', dx: -8, dy: -8, sans: true, size: 12, color: C.blue });
+      if (irr) {
+        P.fn(k => (1 - v.delta) * k, { color: C.violet, width: 1.6, domain: [0, dom] });
+        P.text(dom * 0.82, (1 - v.delta) * dom * 0.82, "k' = (1−δ)k  (i = 0)", { anchor: 'end', dx: 0, dy: 18, sans: true, size: 12, color: C.violet });
+      }
+      // k_max
+      P.vline(kmax, { color: C.muted, width: 1, dash: '2 3' });
+      P.point(kmax, kmax, { color: C.ink, r: 4 });
+      P.text(kmax, kmax, 'k_{max}', { dx: 8, dy: 16, sans: true, size: 12 });
+      // the feasible set at the dragged k
+      let [k, kp] = clamp(v, zp[0] * dom, zp[1] * dom);
+      zp = [k / dom, kp / dom];
+      P.segment(k, irr ? (1 - v.delta) * k : 0, k, f(k), { color: C.orange, width: 5, opacity: 0.85 });
+      P.text(k, f(k), 'Γ(k)', { dx: 8, dy: -4, sans: true, size: 13, color: C.orange });
+      P.segment(k, kp, k, f(k), { color: C.ink, width: 1.2, dash: '3 3' });
+      handle.move(k, kp);
+      P.raiseHandles();
+      const c = f(k) - kp, inv = kp - (1 - v.delta) * k;
+      EconPlot.readout('#gr-read', [
+        ['k (today) :', k.toFixed(2)],
+        ["k' (tomorrow) :", kp.toFixed(2)],
+        ['resources f(k) :', f(k).toFixed(2)],
+        ["consumption c = f(k) − k' :", c.toFixed(2)],
+        ["investment i = k' − (1−δ)k :", inv.toFixed(2)],
+        ['k_max (f(k) = k) :', kmax.toFixed(2)]
+      ]);
+      let msg;
+      if (k > kmax) msg = 'k > k_max: even with c = 0, f(k) < k, so capital must fall. Feasible paths eventually stay below k_max.';
+      else if (inv < -1e-9) msg = "Investment is negative: the planner eats installed capital (k' < (1−δ)k). Allowed unless investment is irreversible.";
+      else if (kp > k) msg = "k' > k: capital grows. Consumption is the gap between the blue curve and the point.";
+      else msg = "k' ≤ k but i ≥ 0: gross investment is positive but does not cover depreciation.";
+      document.getElementById('gr-verdict').textContent = msg;
+    }
+    let lastStruct = '';
+    S = EconPlot.sliders('#gr-ctrl', [
+      { id: 'alpha', label: 'α', min: 0.15, max: 0.6, step: 0.01, value: 0.40 },
+      { id: 'delta', label: 'δ', min: 0.04, max: 1, step: 0.01, value: 0.50 },
+      { id: 'A', label: 'A', min: 0.5, max: 2, step: 0.05, value: 1 },
+      { id: 'irr', label: 'i ≥ 0', min: 0, max: 1, step: 1, value: 0, fmt: x => (x > 0.5 ? 'imposed' : 'off') }
+    ], (v, id) => {
+      const key = [v.alpha, v.delta, v.A].join(',');
+      if (!P || key !== lastStruct) { build(v); lastStruct = key; }
+      draw(v);
+    });
+  })();
+  </script>
+
+  <p>A feasible plan is a chain of points in this region: \((k_0,k_1)\), then \((k_1,k_2)\), and so on, where each point's \(y\)-coordinate becomes the next point's \(x\)-coordinate. The 45° line performs that hand-off. The next figure draws such chains for a simple family of plans, "save a fixed share \(\sigma\) of resources", \(k_{t+1}=\sigma f(k_t)\), and computes the discounted utility \(\sum_t\beta^t\log c_t\) of each plan. The sequence problem asks for the best plan among <em>all</em> feasible chains. Already within this one-parameter family there is a trade-off: too little saving starves future production, too much starves current consumption.</p>
+
+  <div class="figure" id="fig-paths">
+    <div id="fp-ctrl"></div>
+    <div class="figure-row" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
+      <div id="fp-fig"></div>
+      <div id="fp-val"></div>
+    </div>
+    <div id="fp-read"></div>
+    <div class="caption"><b>Interactive: feasible plans and their values.</b> Left: the <span style="color:#2a78d6">blue</span> curve is \(k'=f(k)\), the <span style="color:#eb6834">orange</span> curve the saving rule \(k'=\sigma f(k)\). The <span style="color:#4a3aa7">violet</span> staircase is the plan it generates from \(k_0\): go up to the rule, across to the 45° line, up again. Right: the value \(\sum_{t\ge0}\beta^t\log c_t\) of the plan, as a function of \(\sigma\), with log utility and \(G=k^\alpha\). The dot marks the current \(\sigma\), and the open circle the best \(\sigma\) in this family. <b>Try:</b> (1) move \(\sigma\) and watch the staircase converge to the rule's fixed point. (2) Set \(\delta=1\): the best constant share becomes exactly \(\alpha\beta\), the dashed marker, and <a href="0030-closed-form-decision-rules.html">Lesson 30</a> proves that this rule is optimal among <em>all</em> plans. (3) With \(\delta\lt1\), the best constant share is not \(\alpha\beta\), and no constant-share rule is exactly optimal. Finding the true optimum is what the Euler equation is for.</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const T = 1500;
+    function value(v, sig) {
+      const f = k => Math.pow(k, v.alpha) + (1 - v.delta) * k;
+      let k = v.k0, V = 0, b = 1;
+      for (let t = 0; t < T; t++) {
+        const fk = f(k); V += b * Math.log((1 - sig) * fk); k = sig * fk; b *= v.beta;
+        if (b < 1e-14) break;
+      }
+      return V;
+    }
+    function draw(v) {
+      const f = k => Math.pow(k, v.alpha) + (1 - v.delta) * k;
+      const kmax = Math.pow(1 / v.delta, 1 / (1 - v.alpha));
+      // fixed point of the rule: k = sigma f(k)  <=>  k^{1-alpha} = sigma / (1 - sigma (1-delta))
+      const den = 1 - v.sigma * (1 - v.delta);
+      const kss = den > 0 ? Math.pow(v.sigma / den, 1 / (1 - v.alpha)) : Infinity;
+      const dom = 1.2 * Math.max(v.k0, isFinite(kss) ? Math.max(kss, Math.min(kmax, 3 * kss)) : kmax, 0.05);
+      const hostA = document.getElementById('fp-fig'); hostA.innerHTML = '';
+      const P = EconPlot.create(hostA, { x: [0, dom], y: [0, dom], width: 360, height: 360, equal: true,
+        xlabel: 'k_t', ylabel: 'k_{t+1}', xticks: 4, yticks: 4, margin: { t: 14, r: 16 } });
+      P.fn(k => k, { color: C.muted, dash: '6 4', width: 1.3 });
+      P.fn(f, { color: C.blue, width: 2, domain: [0, dom] });
+      P.fn(k => v.sigma * f(k), { color: C.orange, width: 2, domain: [0, dom] });
+      const kf = f(dom) > 0.85 * dom ? EconPlot.bisect(k => f(k) - 0.85 * dom, 1e-9, dom) : 0.8 * dom;
+      P.text(kf, f(kf), 'f(k)', { anchor: 'end', dx: -14, dy: -10, sans: true, size: 12, color: C.blue });
+      P.text(dom * 0.95, v.sigma * f(dom * 0.95), 'σ f(k)', { anchor: 'end', dx: 0, dy: 16, sans: true, size: 12, color: C.orange });
+      const stair = [[v.k0, 0]]; let k = v.k0;
+      for (let t = 0; t < 40; t++) { const kn = v.sigma * f(k); stair.push([k, kn]); stair.push([kn, kn]); k = kn; }
+      P.path(stair, { color: C.violet, width: 1.5 });
+      P.point(v.k0, 0, { color: C.violet, r: 4 });
+      P.text(v.k0, 0, 'k_0', { dx: 5, dy: -8, sans: true, size: 12, color: C.violet });
+      // value as a function of sigma
+      const grid = [], n = 120; let best = { s: NaN, V: -Infinity };
+      for (let j = 1; j < n; j++) { const s = 0.01 + 0.97 * j / n; const V = value(v, s); grid.push([s, V]); if (V > best.V) best = { s, V }; }
+      // refine
+      for (let it = 0; it < 30; it++) { const h = 0.97 / n / Math.pow(2, it / 3); [best.s - h, best.s + h].forEach(s => { if (s > 0.005 && s < 0.995) { const V = value(v, s); if (V > best.V) best = { s, V }; } }); }
+      const Vcur = value(v, v.sigma);
+      const span = Math.max(2, 1.5 / (1 - v.beta));
+      const ylo = best.V - span, yhi = best.V + 0.12 * span;
+      const hostB = document.getElementById('fp-val'); hostB.innerHTML = '';
+      const Q = EconPlot.create(hostB, { x: [0, 1], y: [ylo, yhi], width: 360, height: 360,
+        xlabel: 'σ (saving share)', ylabel: 'value of the plan', xticks: 5, yticks: 4, margin: { t: 14, r: 16, l: 56 } });
+      Q.path(grid.filter(p => isFinite(p[1])), { color: C.violet, width: 2 });
+      const ab = v.alpha * v.beta;
+      Q.vline(ab, { color: C.muted, dash: '5 4', width: 1.2 });
+      Q.text(ab, yhi, 'αβ', { dx: 4, dy: 14, sans: true, size: 12, color: C.muted });
+      Q.point(best.s, best.V, { color: C.ink, r: 5, hollow: true });
+      if (Vcur > ylo) Q.point(v.sigma, Vcur, { color: C.violet, r: 5 });
+      EconPlot.readout('#fp-read', [
+        ['value of this plan :', Vcur.toFixed(3)],
+        ['best σ in the family :', best.s.toFixed(3)],
+        ['αβ :', ab.toFixed(3)],
+        ['long-run k of the rule :', isFinite(kss) ? kss.toFixed(3) : '∞'],
+        ['c_0 = (1−σ) f(k_0) :', ((1 - v.sigma) * f(v.k0)).toFixed(3)]
+      ]);
+    }
+    EconPlot.sliders('#fp-ctrl', [
+      { id: 'sigma', label: 'σ', min: 0.03, max: 0.95, step: 0.01, value: 0.50 },
+      { id: 'k0', label: 'k₀', min: 0.02, max: 3, step: 0.01, value: 0.60 },
+      { id: 'alpha', label: 'α', min: 0.2, max: 0.6, step: 0.01, value: 0.33 },
+      { id: 'beta', label: 'β', min: 0.5, max: 0.97, step: 0.01, value: 0.9 },
+      { id: 'delta', label: 'δ', min: 0.05, max: 1, step: 0.01, value: 1 }
+    ], draw);
+  })();
+  </script>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s4">4. States and controls: \([X,\mathcal U,h,g,\beta]\)</h2>
+
+  <p>A second notation, closer to how models are usually written, separates the variables that carry the past into the future (<em>states</em>) from the variables chosen within the period (<em>controls</em>) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=5">EE p.5</a>:
+  $$V^*(x_0)=\max_{\{u_t\}_{t=0}^\infty}\ \sum_{t=0}^\infty\beta^th(x_t,u_t)\qquad\text{s.t.}\quad x_{t+1}=g(x_t,u_t),\quad u_t\in\mathcal U,\quad x_0\text{ given}.$$
+  \(\mathcal U\) is the set of controls, \(h\) the period return, and \(g\) the law of motion. This is the notation of the Hamiltonian (folder 7), where \(\dot x=g(x,u)\), and of many dynamic programming problems.</p>
+
+  <div class="theorem" id="thm-from-controls-states">
+    <div class="box-title">From controls to states <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=5">EE p.5</a></div>
+    <p>Define
+    $$F(x,y)=\max_u\{h(x,u):u\in\mathcal U,\ y=g(x,u)\},\qquad \Gamma(x)=\{y:\text{there is }u\in\mathcal U\text{ with }y=g(x,u)\}.$$
+    If the maximum defining \(F\) is attained for every \((x,y)\in\mathrm{Gr}(\Gamma)\), then the two sequence problems have the same value \(V^*(x_0)\). An optimal plan in one notation gives an optimal plan in the other.</p>
+  </div>
+
+  <div class="proof" id="pf-proof">
+    <div class="box-title">Proof</div>
+    <ol class="steps">
+      <li><strong>Every control plan is dominated by a state plan.</strong> Take any feasible \(\{u_t\}\) and the states it generates, \(x_{t+1}=g(x_t,u_t)\). By the definition of \(\Gamma\), \(x_{t+1}\in\Gamma(x_t)\), so \(\{x_{t+1}\}\) is a feasible state plan. By the definition of \(F\), \(h(x_t,u_t)\le F(x_t,x_{t+1})\), because \(u_t\) is one of the controls that lead from \(x_t\) to \(x_{t+1}\). Discount and sum: the control plan's value is at most the state plan's value, which is at most \(V^*_{\text{states}}(x_0)\).</li>
+      <li><strong>Every state plan is matched by a control plan.</strong> Take any feasible \(\{x_{t+1}\}\). Since \(x_{t+1}\in\Gamma(x_t)\), the set \(\{u\in\mathcal U:g(x_t,u)=x_{t+1}\}\) is non-empty. Pick \(u_t\) attaining the maximum in \(F(x_t,x_{t+1})\). The controls \(\{u_t\}\) are feasible, generate exactly \(\{x_{t+1}\}\), and earn \(h(x_t,u_t)=F(x_t,x_{t+1})\) every period. So the state plan's value is at most \(V^*_{\text{controls}}(x_0)\).</li>
+      <li><strong>Combine.</strong> Taking suprema in steps 1 and 2 gives \(V^*_{\text{controls}}(x_0)\le V^*_{\text{states}}(x_0)\le V^*_{\text{controls}}(x_0)\). If \(\{x^*_{t+1}\}\) is an optimal state plan, step 2's controls are an optimal control plan. If \(\{u^*_t\}\) is an optimal control plan, step 1's states are an optimal state plan, and the inequalities in step 1 hold with equality. ∎</li>
+    </ol>
+  </div>
+
+  <div class="intuition" id="int-what-inner-maximization-does">
+    <div class="box-title">What the inner maximization does</div>
+    <p>A control affects the future only through tomorrow's state. Once \(y\) is fixed, choosing among the controls that reach \(y\) is a <em>static</em> problem. Examples are splitting resources between consumption and leisure, or choosing hours given the human capital you want tomorrow. \(F\) solves that static problem once and for all. What remains in the sequence problem is purely intertemporal: how much state to carry forward. Exams use this split all the time: "intratemporal" conditions live inside \(F\), and the Euler equation is the intertemporal one.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s5">5. Mapping models: the slide exercises, worked</h2>
+
+  <p>Try each exercise before opening the solution. These are the exact tasks of slides 6–10. They are also the opening parts of several past exam questions (Section 6).</p>
+
+  <div class="box exercise" id="ex-slide-exercise-baseline-growth-model">
+    <div class="box-title">Slide exercise A (baseline): the growth model with controls <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=6">EE p.6</a></div>
+    <p>Write the neoclassical growth model in the notation \([X,\mathcal U,h,g,\beta]\). What is the state and what is the control? The candidate variables are capital, consumption and investment.</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>The state is capital, \(x=k\). It is predetermined at \(t\) and carries the past into the future. Either flow variable can be the control <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=7">EE p.7</a>:</p>
+      <ul>
+        <li><strong>Control = consumption</strong>, \(u=c\): \(g(x,u)=G(x,1)+(1-\delta)x-u\) and \(h(x,u)=U(u)\). The return depends only on the control.</li>
+        <li><strong>Control = investment</strong>, \(u=i\): \(g(x,u)=(1-\delta)x+u\) and \(h(x,u)=U(G(x,1)-u)\). The law of motion is now linear and the return depends on both.</li>
+      </ul>
+      <p>Both representations give the same \(F\): \(F(x,y)=U(f(x)-y)\). In each case only one control reaches a given \(y\) (\(c=f(x)-y\) or \(i=y-(1-\delta)x\)), so the inner max in the theorem is trivial. The feasibility constraints \(c\ge0\), \(k'\ge0\) make the control set depend on the state: \(c\in[0,f(x)]\), or \(i\in[-(1-\delta)x,\,G(x,1)]\). The fixed-\(\mathcal U\) notation hides this, and \(\Gamma\) captures it exactly: \(\Gamma(x)=[0,f(x)]\).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-slide-exercise-b-labor-supply">
+    <div class="box-title">Slide exercise B (labor supply): two controls, one state <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=6">EE p.6</a></div>
+    <p>Now utility is \(U(c,\ell)\) over consumption and leisure, with one unit of time, \(\ell+n=1\), and production \(G(k,n)\). Write the problem in \([X,\mathcal U,h,g,\beta]\) and in \([X,\Gamma,F,\beta]\). The candidate variables are capital, consumption, labor and investment.</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p><strong>Controls.</strong> The state is \(x=k\). The controls are \(u=(u_1,u_2)=(c,\ell)\). (The slide says "let \(c\) and \(\ell\) be the state". That is a typo: they are the controls <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=8">EE p.8</a>.) The law of motion and the return are
+      $$g(x,u)=(1-\delta)x+G(x,1-u_2)-u_1,\qquad h(x,u)=U(u_1,u_2).$$</p>
+      <p><strong>States only.</strong> Now many controls lead to the same \(k'\): work more and consume more, or work less and consume less. So the inner maximization is a real problem:
+      $$F(x,y)=\max_{c\ge0,\ \ell\in[0,1]}\ U(c,\ell)\quad\text{s.t.}\quad y=(1-\delta)x+G(x,1-\ell)-c.$$
+      At an interior solution, substitute \(c\) from the constraint and differentiate with respect to \(\ell\). The intratemporal condition is
+      $$U_\ell(c,\ell)=U_c(c,\ell)\,G_n(x,1-\ell):$$
+      the marginal utility of an hour of leisure equals the utility value of what that hour would produce. The largest feasible \(y\) comes from working all day and consuming nothing:
+      $$\Gamma(x)=\big[0,\ (1-\delta)x+G(x,1)\big].$$</p>
+      <p>Exercise 26.1 shows that this \(F\) is concave when \(U\) and \(G\) are.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-slide-exercise-c-lucas-uzawa">
+    <div class="box-title">Slide exercise C (Lucas–Uzawa): a two-dimensional state <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=9">EE pp.9–10</a></div>
+    <p>Physical capital follows \(k_{t+1}=(1-\delta_k)k_t+i_t\). Human capital follows \(h_{t+1}=(1-\delta_h)h_t+h_t\varphi(s_t)\), where \(s_t\) is time spent learning and \(\varphi\) is increasing. Time is split as \(1=n_t+s_t\), and output is \(c_t+i_t=G(k_t,h_tn_t)\), with \(G\) constant returns in capital and <em>effective</em> labor \(hn\). Utility is \(\sum_t\beta^tU(c_t)\). Using \((k,h)\) as the state, write \(F(x,y)\) and \(\Gamma(x)\).</p>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>Let \(x=(k,h)\) and \(y=(k',h')\). The slide's answer <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=10">EE p.10</a> writes \(F\) in two equivalent ways:
+      $$F(k,h,k',h')=\max_{c\ge0,\ n\in[0,1]}U(c)\ \ \text{s.t.}\ \ h'=h(1-\delta_h)+h\varphi(1-n),\ \ c=G(k,hn)+(1-\delta_k)k-k',$$
+      or, substituting \(c\) out,
+      $$F(k,h,k',h')=\max_{n\in[0,1]}U\big(G(k,hn)+(1-\delta_k)k-k'\big)\ \ \text{s.t.}\ \ h'=h(1-\delta_h)+h\varphi(1-n).$$
+      With \(\varphi\) strictly increasing, the human capital constraint pins down hours, so the max is over a single point:
+      $$n(h,h')=1-\varphi^{-1}\!\Big(\frac{h'}{h}-1+\delta_h\Big),\qquad F=U\big(G(k,h\,n(h,h'))+(1-\delta_k)k-k'\big).$$
+      The feasible set is
+      $$\Gamma(k,h)=\big\{(k',h')\ge0:\ \exists\,n\in[0,1]\text{ with }h'=h(1-\delta_h)+h\varphi(1-n)\text{ and }G(k,hn)+(1-\delta_k)k-k'\ge0\big\}.$$
+      Equivalently, \(h'\in\big[h(1-\delta_h+\varphi(0)),\,h(1-\delta_h+\varphi(1))\big]\) and \(0\le k'\le G(k,h\,n(h,h'))+(1-\delta_k)k\).</p>
+      <p><strong>Reading it.</strong> \(\Gamma(k,h)\) is now a two-dimensional set with a downward-sloping frontier. More human capital tomorrow requires more time learning today, hence less output and less room for physical capital tomorrow. The state is two-dimensional, but the return still depends only on \((x,y)\). (The slide's "time to lean" means "learn".)</p>
+    </div></details>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s6">6. What the exams ask: map the model, then check the signs</h2>
+
+  <p>Mapping a model into \(F\) and \(\Gamma\) is the opening part of several past Alvarez questions. It appears in the Fall 2005 midterm, where human capital is worth 20 of 170 points, and in the Fall 2025 MT1, where two parts are worth 30 points. A later question then needs properties of \(F\): concavity for sufficiency (<a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a>), and the sign of \(F_{xy}\) for the dynamics (<a href="0028-necessity-and-the-shooting-algorithm.html">Lesson 28</a>, and folder 5 on stability). Graders want the full checklist:</p>
+
+  <div class="definition" id="def-checklist-mapped-problem">
+    <div class="box-title">The checklist for a mapped problem</div>
+    <ol class="steps">
+      <li><strong>Substitute.</strong> Use the law of motion to eliminate investment, and the budget or resource constraint to eliminate consumption. Write \(F(x,y)\).</li>
+      <li><strong>Feasibility.</strong> Turn \(c\ge0\) (and \(k'\ge0\), or \(i\ge0\) if investment is irreversible) into bounds on \(y\). That is \(\Gamma(x)\).</li>
+      <li><strong>First derivatives.</strong> \(F_x>0\) (the state is a good) and \(F_y\lt0\) (accumulating is costly today).</li>
+      <li><strong>Concavity.</strong> \(F_{xx}\lt0\), \(F_{yy}\lt0\) <em>and</em> \(F_{xx}F_{yy}-F_{xy}^2>0\). The determinant is the step most often skipped, and it is needed: two negative diagonal entries do not make a matrix negative definite.</li>
+      <li><strong>Cross partial.</strong> The sign of \(F_{xy}\), usually positive.</li>
+    </ol>
+  </div>
+
+  <p>For the growth model, written the Fall 2025 way as \(F(k,k')=v\big(f(k)+(1-\delta)k-k'\big)\) with production \(f\):
+  $$F_1=v'\,(f'+1-\delta)>0,\quad F_2=-v'\lt0,\quad F_{11}=v''(f'+1-\delta)^2+v'f''\lt0,\quad F_{22}=v''\lt0,\quad F_{12}=-v''(f'+1-\delta)>0,$$
+  $$F_{11}F_{22}-F_{12}^2=v'v''f''>0.$$
+  The determinant is positive because it is a product of one positive and two negative numbers. A commonly circulated walkthrough of this exam checks only \(F_1,F_2,F_{11},F_{12}\) and declares strict concavity. Do not lose points that way. Exercises 26.3–26.5 are the past-exam versions.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s7">7. Check your understanding</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">1. In the sequence problem \(\max\sum_t\beta^tF(x_t,x_{t+1})\), what is chosen at date \(t\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The state next period, \(x_{t+1}\)</li>
+        <li class="quiz-option" data-option="b">The state this period, \(x_t\)</li>
+        <li class="quiz-option" data-option="c">Consumption, always a separate control</li>
+        <li class="quiz-option" data-option="d">The discount factor each period</li>
+      </ul>
+      <div class="quiz-explain">\(x_t\) is inherited from yesterday's choice (or given, at \(t=0\)). Consumption has been substituted out: it is implied by \((x_t,x_{t+1})\). \(\beta\) is a parameter. The unknown is the sequence \(x_1,x_2,\dots\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">2. With \(f(k)=G(k,1)+(1-\delta)k\) and \(\delta\lt1\), which pair \((F(x,y),\,\Gamma(x))\) describes the growth model?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">\(U(f(x)-y)\) and \([0,f(x)]\)</li>
+        <li class="quiz-option" data-option="b">\(U(f(x))-y\) and \([0,f(x)]\)</li>
+        <li class="quiz-option" data-option="c">\(U(f(x)-y)\) and \([0,x]\)</li>
+        <li class="quiz-option" data-option="d">\(U(G(x,1)-y)\) and \([0,G(x,1)]\)</li>
+      </ul>
+      <div class="quiz-explain">Consumption is \(c=f(x)-y\), and \(c\ge0\) gives \(y\le f(x)\). Utility is applied to consumption, not to resources alone. The last option drops the undepreciated capital \((1-\delta)x\), so it is right only when \(\delta=1\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">3. Why is \(F\) defined only on the graph of \(\Gamma\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The graph is always closed and bounded</li>
+        <li class="quiz-option" data-option="b">Infeasible pairs always give returns of zero</li>
+        <li class="quiz-option" data-option="c">Returns are needed only at feasible pairs</li>
+        <li class="quiz-option" data-option="d">Concavity requires a bounded domain for F</li>
+      </ul>
+      <div class="quiz-explain">The planner never visits an infeasible pair, and often \(F\) is not even defined there: \(\log(f(k)-k')\) has no value when \(k'\ge f(k)\). The graph need not be compact (\(X=\mathbb R_+\)), and concavity needs a convex domain, not a bounded one.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">4. In the growth model with labor supply (slides 6–8), which variables are states and which are controls?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">States \(c\) and \(\ell\); control \(k\)</li>
+        <li class="quiz-option" data-option="b">State \(k\); controls \(c\) and \(\ell\)</li>
+        <li class="quiz-option" data-option="c">States \(k\) and \(\ell\); control \(c\)</li>
+        <li class="quiz-option" data-option="d">State \(\ell\); controls \(k\) and \(c\)</li>
+      </ul>
+      <div class="quiz-explain">Capital is the only variable that links periods. Consumption and leisure are chosen within the period and enter \(F\) through an inner maximization. Slide 8's "let \(c\) and \(\ell\) be the state" is a typo for "controls".</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">5. In Lucas–Uzawa with \(\varphi\) strictly increasing, what pins down hours worked \(n\) inside \(F(k,h,k',h')\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The physical-capital choice \(k'\) given \(k\)</li>
+        <li class="quiz-option" data-option="b">The marginal utility of leisure alone</li>
+        <li class="quiz-option" data-option="c">Nothing: hours are fixed at one</li>
+        <li class="quiz-option" data-option="d">The human-capital choice \(h'\) given \(h\)</li>
+      </ul>
+      <div class="quiz-explain">\(h'=h(1-\delta_h)+h\varphi(1-n)\) can be inverted: \(n=1-\varphi^{-1}(h'/h-1+\delta_h)\). Choosing tomorrow's human capital <em>is</em> choosing today's time allocation. Leisure is not in utility here.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">6. A drill writes the constraint \(c_t+k_{t+1}=Ak_t^\alpha\). What is the depreciation rate?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">\(\delta=0\): capital never depreciates</li>
+        <li class="quiz-option" data-option="b">\(\delta=1\): capital fully depreciates</li>
+        <li class="quiz-option" data-option="c">\(\delta=\alpha\): depreciation equals share</li>
+        <li class="quiz-option" data-option="d">Undetermined by this constraint</li>
+      </ul>
+      <div class="quiz-explain">With depreciation \(\delta\), the constraint is \(c_t+k_{t+1}=Ak_t^\alpha+(1-\delta)k_t\). Here no undepreciated capital is left over, so \(\delta=1\). A commonly circulated study guide labels this "no depreciation", which is backwards.</div>
+    </div>
+    <div class="quiz-score"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s8">8. Exercises</h2>
+
+  <p>On past Alvarez exams this material is always the first step of a longer question: write the state, \(F\) and \(\Gamma\), then verify the hypotheses (signs, concavity, \(F_{xy}\)) that later parts use. The exercises below are in that format, with general functions.</p>
+
+  <div class="box exercise" id="tf">
+    <div class="box-title">True or false? Justify. <span class="tag past">Past exam</span> <span class="tag exam">Exam-inspired</span></div>
+    <p>Answer True or False and justify in at most four lines.</p>
+    <ol class="tf-list">
+      <li>In the sequence problem, the period return \(F(x,y)\) must be defined, and finite, for every pair \((x,y)\in X\times X\). <span class="tf-src">exam-inspired (slide 3)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> \(F\) is defined on \(\mathrm{Gr}(\Gamma)\) only <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=3">EE p.3</a>. In the growth model with log utility, \(F(k,k')=\log(f(k)-k')\) is not defined for \(k'\ge f(k)\). Those pairs are infeasible, so no value is needed there.</p></div></details></li>
+      <li>Writing the growth model as \(F(k,k')=U(f(k)-k')\) loses information: the optimal consumption path cannot be recovered from the optimal capital path. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> \(c_t=f(k_t)-k_{t+1}\) for all \(t\), and investment is \(i_t=k_{t+1}-(1-\delta)k_t\). Every quantity is a function of consecutive states. That is exactly why consumption could be substituted out.</p></div></details></li>
+      <li>The growth model has a unique representation in the control–state notation \([X,\mathcal U,h,g,\beta]\). <span class="tf-src">slide 7</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> Either consumption or investment can be the control: \((h,g)=(U(u),\,G(x,1)+(1-\delta)x-u)\) or \((U(G(x,1)-u),\,(1-\delta)x+u)\) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=7">EE p.7</a>. Both collapse to the same \(F\) and \(\Gamma\). The state-only notation is the canonical one.</p></div></details></li>
+      <li>To show that \(F(k,k')=v\big(f(k)+(1-\delta)k-k'\big)\) is strictly concave, with \(v\) and \(f\) strictly increasing and strictly concave, it suffices to check \(F_{11}\lt0\) and \(F_{22}\lt0\). <span class="tf-src">Fall 2025 MT1 QII.10 (a circulating answer's shortcut)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False</strong> as a method, although the conclusion is true. Negative diagonal entries do not make a \(2\times2\) Hessian negative definite. Here the determinant is \(F_{11}F_{22}-F_{12}^2=v'v''f''>0\), and that step must be shown. (Alternative: \(f(k)+(1-\delta)k-k'\) is concave in \((k,k')\), and an increasing concave function of a concave function is concave.)</p></div></details></li>
+      <li>In the growth model with endogenous labor supply, consumption and leisure are state variables. <span class="tf-src">slide 8</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> They are controls, chosen within the period. Only \(k\) links periods. Slide 8 says "state", which is a typo. In the state-only notation they are maximized out inside \(F\), subject to the intratemporal condition \(U_\ell=U_cG_n\).</p></div></details></li>
+      <li>With \(\Gamma(k)=[0,f(k)]\), the planner may choose negative gross investment. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> Any \(k'\in[0,(1-\delta)k)\) means \(i=k'-(1-\delta)k\lt0\): installed capital is converted back into consumption. Irreversible investment would be \(\Gamma(k)=[(1-\delta)k,f(k)]\).</p></div></details></li>
+      <li>With \(G(k,1)=Ak^\alpha\), \(\alpha\in(0,1)\), \(\delta\in(0,1]\), every feasible capital path satisfies \(k_t\le\max\{k_0,(A/\delta)^{1/(1-\alpha)}\}\) for all \(t\). <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> Let \(\hat k=\max\{k_0,k_{\max}\}\), where \(f(k_{\max})=k_{\max}\). Since \(f(k)-k=Ak^\alpha-\delta k\) is negative for \(k>k_{\max}\), \(f(\hat k)\le\hat k\). By induction, if \(k_t\le\hat k\) then \(k_{t+1}\le f(k_t)\le f(\hat k)\le\hat k\), using that \(f\) is increasing. So \(X\) can be taken compact.</p></div></details></li>
+      <li>The growth model has one infinitely lived household and infinitely many dated goods. Its competitive equilibrium allocation therefore need not solve the planner's problem, for the same reason as in OLG. <span class="tf-src">exam-inspired (Lessons 4 and 12)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The OLG failure needs infinitely many goods <em>and</em> infinitely many agents, which is what allows the aggregate endowment to have infinite value. With finitely many agents, each with finite wealth in equilibrium, the value is finite and the 1WT proof goes through (<a href="0012-why-the-1wt-fails-in-olg.html">Lesson 12</a>). With LNS, the CE allocation is PO, and with one household that means it solves the planner's problem.</p></div></details></li>
+      <li>In the human capital problem with \(g(h_t)+m=c_t+p\,i_t\) and \(h_{t+1}=i_t+(1-\delta)h_t\), the feasible correspondence is \(\Gamma(h)=\big[0,\ (g(h)+m)/p+(1-\delta)h\big]\). <span class="tf-src">Fall 2005 Midterm, Ex. 2 Q5</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> \(c=g(h)+m-p\big(h'-(1-\delta)h\big)\ge0\) gives the upper bound, and \(h'\ge0\) is the lower bound (the state space \(X=\mathbb R_+\)). Investment \(i=h'-(1-\delta)h\) may be negative.</p></div></details></li>
+      <li>If \(F(x,y)\) is concave, then \(\tilde F=U\circ F\) is also concave for any concave \(U\). <span class="tf-src">exam-inspired (Fall 2025 MT1 QII, version 2)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False</strong> without monotonicity. A decreasing concave \(U\) can destroy concavity. For example, \(F(x)=-x^2\) and \(U(z)=-z\) give \(\tilde F=x^2\), which is convex. With \(U\) increasing and concave, \(\tilde F\) is concave: \(\tilde F(\theta a+(1-\theta)b)\ge U(\theta F(a)+(1-\theta)F(b))\ge\theta\tilde F(a)+(1-\theta)\tilde F(b)\). This is the case in the exam.</p></div></details></li>
+    </ol>
+  </div>
+
+  <div class="box exercise" id="ex-26-1">
+    <div class="box-title">Exercise 26.1 <span class="tag proof">Proof</span> <span class="tag slides">Slides pp.6–8</span> (concavity survives the inner maximization)</div>
+    <p>Take the labor-supply model of slide exercise B. \(U(c,\ell)\) is jointly concave and strictly increasing in \(c\), and \(G(k,n)\) is concave.</p>
+    <ol class="parts" type="a">
+      <li>Show that \(F(x,y)\) does not change if the constraint \(y=(1-\delta)x+G(x,1-\ell)-c\) is replaced by \(c\le(1-\delta)x+G(x,1-\ell)-y\). Why is the inequality version more convenient? <span class="pts">(5 pts)</span></li>
+      <li>Prove that \(F\) is concave in \((x,y)\). <span class="pts">(15 pts)</span></li>
+      <li>Prove that \(\mathrm{Gr}(\Gamma)\) is convex. <span class="pts">(5 pts)</span></li>
+      <li>At an interior solution, compute \(F_x\) and \(F_y\). (Use the envelope theorem.) <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (b), take optimal \((c,\ell)\) at \((x,y)\) and \((\hat c,\hat\ell)\) at \((\hat x,\hat y)\). Show that the convex combination of the controls is feasible at the convex combination of the states. For (d), the Lagrangian of the inner problem is \(U(c,\ell)+\mu[(1-\delta)x+G(x,1-\ell)-c-y]\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Since \(U\) is strictly increasing in \(c\), any solution of the inequality-constrained problem has the constraint binding: otherwise raise \(c\). So both problems have the same maximizers and the same value. The inequality version defines a <em>convex</em> feasible set when \(G\) is concave. The equality version does not, because the graph of a nonlinear function is not convex.</p>
+      <p>(b) Let \(\theta\in(0,1)\), with \(x_\theta=\theta x+(1-\theta)\hat x\) and similarly \(y_\theta,c_\theta,\ell_\theta\). Then
+      $$c_\theta\le\theta[(1-\delta)x+G(x,1-\ell)-y]+(1-\theta)[(1-\delta)\hat x+G(\hat x,1-\hat\ell)-\hat y]\le(1-\delta)x_\theta+G(x_\theta,1-\ell_\theta)-y_\theta,$$
+      by concavity of \(G\). Also \(c_\theta\ge0\) and \(\ell_\theta\in[0,1]\). So \((c_\theta,\ell_\theta)\) is feasible at \((x_\theta,y_\theta)\), and
+      $$F(x_\theta,y_\theta)\ge U(c_\theta,\ell_\theta)\ge\theta U(c,\ell)+(1-\theta)U(\hat c,\hat\ell)=\theta F(x,y)+(1-\theta)F(\hat x,\hat y).$$
+      The general lesson: <strong>maximizing a jointly concave function over a jointly convex set yields a concave value function of the parameters.</strong></p>
+      <p>(c) \(\mathrm{Gr}(\Gamma)=\{(x,y):x\ge0,\ 0\le y\le(1-\delta)x+G(x,1)\}\) is the region under a concave function of \(x\), hence convex.</p>
+      <p>(d) Envelope theorem: \(F_x=\mu[(1-\delta)+G_k(x,1-\ell)]\) and \(F_y=-\mu\). The FOC for \(c\) gives \(\mu=U_c\). So \(F_x=U_c\,[1-\delta+G_k]\gt0\) and \(F_y=-U_c\lt0\). These are the same formulas as with fixed labor, evaluated at the optimal hours. That is why the Euler equation of <a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a> keeps its familiar form.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-26-2">
+    <div class="box-title">Exercise 26.2 <span class="tag proof">Proof</span> <span class="tag slides">Slides pp.9–10</span> (is the Lucas–Uzawa return concave?)</div>
+    <p>Use the Lucas–Uzawa \(F\) from slide exercise C, with \(U\) and \(G\) increasing and concave and \(\varphi\) strictly increasing. Effective labor is \(E(h,h')\equiv h\,n(h,h')\).</p>
+    <ol class="parts" type="a">
+      <li>Let \(\varphi(s)=Bs\), with \(B>0\). Show that \(E(h,h')\) is linear in \((h,h')\), and conclude that \(F\) is concave in \((k,h,k',h')\). <span class="pts">(10 pts)</span></li>
+      <li>Now let \(\varphi\) be strictly increasing and concave. Show that \(\psi(z)\equiv1-\varphi^{-1}(z-1+\delta_h)\) is concave. Show that \(E(h,h')=h\,\psi(h'/h)\) is concave for \(h>0\). <span class="pts">(15 pts)</span></li>
+      <li>Conclude that \(F\) is concave. Which property of \(G\) beyond concavity did you use? <span class="pts">(5 pts)</span></li>
+      <li>In two lines, interpret \(\partial E/\partial h'\lt0\). <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>The inverse of an increasing concave function is increasing and convex. \(h\psi(h'/h)\) is the <em>perspective</em> of \(\psi\). Write \(\frac{\theta h'+(1-\theta)\hat h'}{\theta h+(1-\theta)\hat h}\) as a weighted average of \(h'/h\) and \(\hat h'/\hat h\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(h'=h(1-\delta_h)+hB(1-n)\) gives \(hn=h-\frac{h'-(1-\delta_h)h}{B}=h\Big(1+\frac{1-\delta_h}{B}\Big)-\frac{h'}{B}\), which is linear. Then \(G(k,E)\) is concave in \((k,h,h')\), because a concave function composed with a linear map is concave. Adding the linear term \((1-\delta_k)k-k'\) keeps it concave, and applying increasing concave \(U\) gives concave \(F\).</p>
+      <p>(b) \(\varphi^{-1}\) is increasing and convex, so \(z\mapsto-\varphi^{-1}(z-1+\delta_h)\) is concave, and so is \(\psi\). For the perspective, take \(h,\hat h>0\), \(\theta\in(0,1)\) and \(H=\theta h+(1-\theta)\hat h\). Let \(\omega=\theta h/H\in(0,1)\). Then \(\frac{\theta h'+(1-\theta)\hat h'}{H}=\omega\frac{h'}{h}+(1-\omega)\frac{\hat h'}{\hat h}\), so
+      $$E(\text{mix})=H\psi\Big(\omega\tfrac{h'}{h}+(1-\omega)\tfrac{\hat h'}{\hat h}\Big)\ge H\big[\omega\psi(\tfrac{h'}{h})+(1-\omega)\psi(\tfrac{\hat h'}{\hat h})\big]=\theta E(h,h')+(1-\theta)E(\hat h,\hat h').$$</p>
+      <p>(c) \(G\) is concave and <em>nondecreasing</em> in its second argument, and \(E\) is concave. So \(G(k,E(h,h'))\) is concave in \((k,h,h')\): a concave, nondecreasing function of a concave function is concave. Then proceed as in (a). Monotonicity of \(G\) in labor is the extra property used.</p>
+      <p>(d) \(\partial E/\partial h'=-1/\varphi'(\cdot)\lt0\). More human capital tomorrow costs hours of work today. This is the intertemporal trade-off that makes \(\Gamma(k,h)\) downward sloping in the \((k',h')\) plane.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-26-3">
+    <div class="box-title">Exercise 26.3 <span class="tag past">Past exam: Fall 2005 MT, Ex. 2 Q1 and Q5</span> (human capital in \([X,\Gamma,F,\beta]\))</div>
+    <p>A household maximizes \(\sum_t\beta^tu(c_t)\). It produces \(g(h_t)\) goods from human capital \(h_t\), receives a constant endowment \(m\) of goods each period, and buys human capital investment \(i_t\) at the constant price \(p\) (in goods). Human capital follows \(h_{t+1}=i_t+(1-\delta)h_t\), with \(h_0>0\) given. \(u\) and \(g\) are strictly increasing, strictly concave and satisfy Inada conditions.</p>
+    <ol class="parts" type="a">
+      <li>Write the period budget constraint. <span class="pts">(10 pts)</span></li>
+      <li>Write the state \(x_t\), the return \(F(x_t,x_{t+1})\) and the correspondence \(\Gamma(x_t)\). (Use that consumption is non-negative.) <span class="pts">(20 pts)</span></li>
+      <li>Compute \(F_x,F_y,F_{xy}\) and show that \(F\) is concave. <span class="pts">(10 pts)</span></li>
+      <li>In one line: what role does \(m\gt0\) play when \(h\) is small? <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(g(h_t)+m=c_t+p\,i_t\).</p>
+      <p>(b) \(x_t=h_t\). Substituting \(i_t=h_{t+1}-(1-\delta)h_t\) gives \(c_t=g(h_t)+m-p\big(h_{t+1}-(1-\delta)h_t\big)\). So
+      $$F(h,h')=u\big(g(h)+m-p(h'-(1-\delta)h)\big),\qquad\Gamma(h)=\Big[0,\ \frac{g(h)+m}{p}+(1-\delta)h\Big].$$</p>
+      <p>(c) \(F_x=u'(c)\,[g'(h)+p(1-\delta)]>0\), \(F_y=-p\,u'(c)\lt0\), and \(F_{xy}=-p\,u''(c)[g'(h)+p(1-\delta)]>0\). Consumption \(c(h,h')\) is concave in \((h,h')\), as \(g\) is concave and the rest is linear. \(u\) is increasing and concave, so \(F\) is concave, and strictly so because the determinant is \(F_{xx}F_{yy}-F_{xy}^2=p^2u'u''g''>0\).</p>
+      <p>(d) With \(m>0\), consumption can be positive even at \(h=0\), so \(\Gamma(h)\) is non-degenerate everywhere and the household can start accumulating from nothing. The exam's next questions derive the Euler equation \(u'(c_t)=\beta u'(c_{t+1})[1-\delta+g'(h_{t+1})/p]\) twice, from a Lagrangian and from this \(F\). <a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a> does the same.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-26-4">
+    <div class="box-title">Exercise 26.4 <span class="tag past">Past exam: Fall 2025 MT1 QII.10</span> (the growth model, two utility functions)</div>
+    <p>Version 1: \(\max\sum_t\beta^tv(c_t)\) s.t. \(c_t=f(k_t)-i_t\), \(k_{t+1}=i_t+(1-\delta)k_t\), with \(v\) and \(f\) strictly increasing, strictly concave and satisfying Inada conditions. Here \(f\) is <em>production</em>. Version 2 replaces \(v\) by \(U\circ v\), with \(U\) strictly increasing and concave.</p>
+    <ol class="parts" type="a">
+      <li>Map version 1 into \(F(k,k')\). <span class="pts">(5 pts)</span></li>
+      <li>Show that \(F\) is strictly increasing in \(k\), strictly decreasing in \(k'\), strictly concave, and has \(F_{kk'}>0\). Show every step of the concavity check. <span class="pts">(10 pts)</span></li>
+      <li>Let \(\tilde F=U\circ F\). Show that \(\tilde F_x>0\), \(\tilde F_y\lt0\), \(\tilde F_{xy}>0\) and that \(\tilde F\) is concave. <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(F(k,k')=v\big(f(k)+(1-\delta)k-k'\big)\).</p>
+      <p>(b) Write \(c=f(k)+(1-\delta)k-k'\) and \(R\equiv f'(k)+1-\delta>0\). Then \(F_1=v'R>0\), \(F_2=-v'\lt0\), \(F_{11}=v''R^2+v'f''\lt0\), \(F_{22}=v''\lt0\), \(F_{12}=-v''R>0\), and
+      $$F_{11}F_{22}-F_{12}^2=v''^2R^2+v'v''f''-v''^2R^2=v'v''f''>0.$$
+      So the Hessian is negative definite and \(F\) is strictly concave. (A commonly circulated answer stops after \(F_{11}\lt0\) and \(F_{12}>0\). The determinant is the step that actually proves concavity.)</p>
+      <p>(c) \(\tilde F_x=U'F_x>0\), \(\tilde F_y=U'F_y\lt0\), and
+      $$\tilde F_{xy}=U''F_xF_y+U'F_{xy}>0,$$
+      since \(U''\le0\) and \(F_xF_y\lt0\) make the first term non-negative. Concavity follows from "increasing concave of concave". (The exam then uses these signs to compare speeds of convergence of the two versions. That analysis is folder 5.)</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-26-5">
+    <div class="box-title">Exercise 26.5 <span class="tag past">Past exam: Fall 2025 MT1 QII.11</span> (adjustment costs)</div>
+    <p>\(\max\sum_t\beta^tc_t\) s.t. \(c_t=f(k_t)-i_t-\Phi(k_{t+1}-k_t)\) and \(k_{t+1}=i_t+(1-\delta)k_t\). Here \(f\) is strictly concave production satisfying Inada conditions, and \(\Phi\) is the cost of changing the capital stock, with \(\Phi(0)=\Phi'(0)=0\) and \(\Phi''>0\).</p>
+    <ol class="parts" type="a">
+      <li>Map the problem into \(F(k,k')\). Using \(c\ge0\), write \(\Gamma(k)\) and show that its graph is convex. <span class="pts">(10 pts)</span></li>
+      <li>Compute the first and second derivatives of \(F\) and the Hessian determinant. Where are the signs \(F_1>0\), \(F_2\lt0\) guaranteed? <span class="pts">(10 pts)</span></li>
+      <li>The exam also states "\(\Phi'\ge0\)". Is that consistent with \(\Phi'(0)=0\) and \(\Phi''>0\)? <span class="pts">(5 pts)</span></li>
+      <li>In one line: which feature of \(F\) do adjustment costs create that linear utility alone would not? <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(F(k,k')=f(k)+(1-\delta)k-k'-\Phi(k'-k)\) and \(\Gamma(k)=\{k'\ge0:\ k'+\Phi(k'-k)\le f(k)+(1-\delta)k\}\). The function \((k,k')\mapsto k'+\Phi(k'-k)-f(k)-(1-\delta)k\) is convex, because \(\Phi\) composed with a linear map is convex and \(-f\) is convex. The graph is its lower level set intersected with \(k'\ge0\), hence convex. Each \(\Gamma(k)\) is an interval.</p>
+      <p>(b) \(F_1=f'+1-\delta+\Phi'(k'-k)\), \(F_2=-1-\Phi'(k'-k)\), \(F_{11}=f''-\Phi''\lt0\), \(F_{22}=-\Phi''\lt0\), \(F_{12}=\Phi''>0\), and
+      $$F_{11}F_{22}-F_{12}^2=(f''-\Phi'')(-\Phi'')-\Phi''^2=-f''\Phi''>0.$$
+      Near a steady state, \(k'-k\approx0\) and \(\Phi'\approx0\), so \(F_1\approx f'+1-\delta>0\) and \(F_2\approx-1\lt0\). Far from it, the signs need \(\Phi'\gt-(f'+1-\delta)\) and \(\Phi'\gt-1\).</p>
+      <p>(c) No, not globally. \(\Phi'(0)=0\) and \(\Phi''>0\) force \(\Phi'(z)\lt0\) for \(z\lt0\), so "\(\Phi'\ge0\)" can hold only for \(k'\ge k\). The local results the exam needs are evaluated at the steady state, where \(\Phi'=0\), so nothing breaks. On an exam, say this in one line rather than silently using a false global sign.</p>
+      <p>(d) \(F_{12}=\Phi''>0\). With linear utility and no adjustment cost, \(F_{12}=0\): the return is separable in \(k\) and \(k'\), and the optimal path jumps to the steady state in one period (<a href="0029-transversality-at-work.html">Lesson 29</a>). Adjustment costs create the complementarity that makes adjustment gradual (<a href="0032-adjustment-costs-and-tobins-q.html">Lesson 32</a>).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-26-6">
+    <div class="box-title">Exercise 26.6 <span class="tag exam">Exam-inspired</span> (four more mappings)</div>
+    <p>For each problem, give the state, \(F(x,y)\), \(\Gamma(x)\) and \(X\). <span class="pts">(5 pts each)</span></p>
+    <ol class="parts" type="a">
+      <li><strong>Cake eating.</strong> A cake of size \(x_0\) is consumed over time: \(c_t+x_{t+1}=x_t\), \(c_t\ge0\).</li>
+      <li><strong>Saving at a constant interest rate.</strong> Assets \(a_t\) earn the gross return \(1+r\). Income \(w\) is constant, \(c_t+a_{t+1}=w+(1+r)a_t\), and borrowing is limited by \(a_{t+1}\ge-b\). Why might you want to shift the state to \(\tilde a=a+b\)?</li>
+      <li><strong>Irreversible investment.</strong> The growth model with \(i_t\ge0\).</li>
+      <li><strong>Habit formation.</strong> The growth model with utility \(U(c_t-\eta c_{t-1})\), \(\eta\in(0,1)\), \(c_{-1}\) given.</li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(x\) is the cake, \(F(x,y)=U(x-y)\), \(\Gamma(x)=[0,x]\) and \(X=\mathbb R_+\). (This is SLP §5.2.)</p>
+      <p>(b) \(x=a\), \(F(x,y)=U\big(w+(1+r)x-y\big)\), \(\Gamma(x)=[-b,\ w+(1+r)x]\) and \(X=[-b,\infty)\). Shifting to \(\tilde a=a+b\) gives \(X=\mathbb R_+\), the lower bound assumed in the sufficiency theorem of <a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a>. In shifted units, \(F(\tilde x,\tilde y)=U\big(w-rb+(1+r)\tilde x-\tilde y\big)\). <a href="0029-transversality-at-work.html">Lesson 29</a> studies this problem with \(\beta(1+r)=1\).</p>
+      <p>(c) \(x=k\), \(F(x,y)=U(f(x)-y)\), \(\Gamma(x)=[(1-\delta)x,f(x)]\) and \(X=\mathbb R_+\).</p>
+      <p>(d) Utility depends on <em>last period's</em> consumption, so \(k\) alone is not enough to summarize the past: enlarge the state. Let \(x_t=(k_t,c_{t-1})\) and \(y=(k',c)\), where \(c\) is today's consumption, which becomes tomorrow's lagged consumption. Then \(F\big((k,c_-),(k',c)\big)=U(c-\eta c_-)\), and
+      $$\Gamma(k,c_-)=\{(k',c):\ c=f(k)-k',\ 0\le k'\le f(k)\}.$$
+      The general rule: <strong>the state must contain everything from the past that affects current returns or feasibility.</strong></p>
+    </div></details>
+  </div>
+
+  <div class="takeaways">
+    <h2 id="takeaways">Key takeaways</h2>
+    <ul>
+      <li>A dynamic problem is \([X,\Gamma,F,\beta]\). The sequence problem chooses tomorrow's state every period: \(V^*(x_0)=\max\sum_t\beta^tF(x_t,x_{t+1})\) s.t. \(x_{t+1}\in\Gamma(x_t)\). \(F\) is defined only on \(\mathrm{Gr}(\Gamma)\).</li>
+      <li>Growth model: \(c=f(k)-k'\) with \(f(k)=G(k,1)+(1-\delta)k\), so \(F(x,y)=U(f(x)-y)\) and \(\Gamma(x)=[0,f(x)]\). Every quantity is a function of consecutive states.</li>
+      <li>Control–state notation \([X,\mathcal U,h,g,\beta]\) maps to \(F(x,y)=\max\{h(x,u):y=g(x,u)\}\) and \(\Gamma(x)=g(x,\mathcal U)\), with the same value. Intratemporal choices (leisure, hours) are maximized out inside \(F\).</li>
+      <li>Exam checklist after mapping: \(F_x>0\), \(F_y\lt0\), \(F_{xx}\lt0\), \(F_{yy}\lt0\), the determinant \(F_{xx}F_{yy}-F_{xy}^2>0\), and the sign of \(F_{xy}\). For the growth model, \(\det=U'U''f''>0\) and \(F_{xy}=-U''f'>0\).</li>
+      <li>With one dynasty, the competitive equilibrium is the planner's solution: finitely many agents make the 1WT work, unlike in OLG. So solving \(V^*\) solves the model.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "map the growth model with a variable capital utilization rate into F and Γ" or "why does the state need to include lagged consumption under habits but not under time-separable utility?"</div>
+
+  <div class="lesson-nav">
+    <a href="0025-limits-of-aggregation.html">← Lesson 25: Limits of aggregation</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="../reference/euler-transversality-cheatsheet.html">EE &amp; TC cheatsheet</a>
+    <a href="0027-euler-equations-and-sufficiency.html">Lesson 27: Euler equations and sufficiency →</a>
+  </div>
+
+</div>
+</body>
+</html>

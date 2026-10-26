@@ -7,6 +7,7 @@ Unofficial study companion for UChicago's first-year macro sequence (*Theory of 
 - **Part III: OLG Extensions** (Lessons 14–16): privatizing social security, capital, heterogeneity
 - **Part IV: Perpetual Youth** (Lessons 17–20): Blanchard–Yaari households, aggregation, capital, fiscal policy
 - **Part V: Aggregation and the Social Planner** (Lessons 21–25): Pareto weights, the representative agent, Negishi weights, Gorman aggregation and its limits
+- **Part VI: Euler Equations and Transversality** (Lessons 26–32): the discrete-time dynamic problem, sufficiency and necessity of the Euler equation and transversality, shooting, closed-form policies, homogeneous problems and AK growth, adjustment costs and Tobin's q
 
 **Midterm 1 study guide** (`midterm1/`): six sessions of past-exam and exam-style questions over Lessons 1–23, with links back to the lessons on every miss, a saved review queue, spaced review, and a timed mock midterm.
 

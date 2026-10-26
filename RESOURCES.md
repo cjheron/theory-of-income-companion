@@ -1,7 +1,7 @@
 # Resources
 
 ## Course materials (primary)
-- **Alvarez lecture slides, Fall 2026**: class Dropbox folder "class notes pdf files for students" (https://www.dropbox.com/scl/fo/fn9xoskx6ud23pimgo82p/ALVspsCuMymaBs2MzSqeOwQ?rlkey=vg06spyn2hsedldeyyaenifrn&dl=0). Folders 1–3 are copied to `./sources/`.
+- **Alvarez lecture slides, Fall 2026**: class Dropbox folder "class notes pdf files for students" (https://www.dropbox.com/scl/fo/fn9xoskx6ud23pimgo82p/ALVspsCuMymaBs2MzSqeOwQ?rlkey=vg06spyn2hsedldeyyaenifrn&dl=0). Folders 1–4 are copied to `./sources/`.
 - **First-Year Notes** (past exams): shared among the cohort. The link is kept in private notes, not published here.
 
 ## General Equilibrium & Welfare Theorems
@@ -25,6 +25,12 @@
 - **Negishi (1960)**, "Welfare Economics and Existence of an Equilibrium for a Competitive Economy", *Metroeconomica* 12(2–3): 92–97. The weights λ_i = 1/μ_i and Negishi's method.
 - **Gorman (1953)**, "Community Preference Fields", *Econometrica* 21(1): 63–80. Linear Engel curves with a common slope.
 - **Acemoglu, *Introduction to Modern Economic Growth*** (2009), §5.2: the representative household and Gorman aggregation, in a macro setting.
+
+## Euler Equations & Transversality (folder 4)
+- **Stokey & Lucas with Prescott (1989), *Recursive Methods in Economic Dynamics***, §4.5 (Euler equations; Theorem 4.15, sufficiency of EE + TC). The source the slides follow.
+- **Acemoglu, *Introduction to Modern Economic Growth*** (2009), ch. 6 (discrete-time dynamic programming, Euler equations, transversality) and ch. 11 (AK model).
+- **Kamihigashi (2001)**, "Necessity of Transversality Conditions for Infinite Horizon Problems", *Econometrica* 69(4): 995–1012. When the TC is necessary.
+- **Hayashi (1982)**, "Tobin's Marginal q and Average q: A Neoclassical Interpretation", *Econometrica* 50(1): 213–224. Average q equals marginal q under constant returns.
 
 ## Community
 - **Classmates / TA sessions**: the best place to test proofs aloud; consider a weekly prelim study group.

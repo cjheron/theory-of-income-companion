@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 30 — Closed-Form Decision Rules: Guess and Verify with the Euler Equation</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part VI: Euler Equations &amp; Transversality · Lesson 30 of 32</div>
+    <h1>Closed-Form Decision Rules: Guess and Verify with the Euler Equation</h1>
+    <div class="meta">Covers <a href="../sources/slides5-euler-transversality.pdf#page=32">folder 4 slides, pp. 32–37</a> · About 40 min · Prerequisites: <a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a> (sufficiency of EE + TC), <a href="0029-transversality-at-work.html">Lesson 29</a> (paths that satisfy the EE but violate the TC)</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>run the <em>guess-and-verify</em> recipe: guess a functional form for the policy, substitute it into the Euler equation, solve for the coefficients, then check transversality and invoke sufficiency;</li>
+      <li>derive the quadratic \(Q(\gamma)\) for the adjustment-cost model, locate its roots without solving it, and pick the right root using the transversality condition;</li>
+      <li>sign the comparative statics of the speed of convergence and handle the exam variant in which the agent <em>likes</em> changes (oscillating convergence);</li>
+      <li>derive the saving rate \(s=\alpha\beta\) for log utility, Cobb–Douglas production and full depreciation, and say why it does not depend on \(k\) or on productivity;</li>
+      <li>prove that with CES production and CRRA utility the saving rate is constant <em>if and only if</em> \(\sigma=\rho\), and then \(s=(\alpha\beta)^\sigma\).</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides5-euler-transversality.pdf#page=32">folder 4 slides, pp. 32–37</a>. The theory behind "guess and verify" is the sufficiency theorem for the Euler equation and transversality condition in Stokey &amp; Lucas with Prescott (1989), <em>Recursive Methods in Economic Dynamics</em>, §4.5 (Theorem 4.15). The same book works the log/Cobb–Douglas example in §2.1 and the quadratic (linear–quadratic) case in its dynamic-programming chapters. Ljungqvist &amp; Sargent, <em>Recursive Macroeconomic Theory</em>, ch. 3–4, solve these examples by guessing the value function; Acemoglu (2009), <em>Introduction to Modern Economic Growth</em>, ch. 6, uses the log/Cobb–Douglas closed form as its running example.
+  </div>
+
+  <div class="notation">
+    <div class="box-title">Notation for this lesson</div>
+    <ul>
+      <li>\(F(x,y)\) is the <strong>period return</strong> (today's state \(x\), tomorrow's state \(y\)), not a production function. Production is \(f(k)\); with full depreciation \(f(k)\) is just output.</li>
+      <li>\(\gamma\) here is the <strong>slope of a linear decision rule</strong>, \(x_{t+1}=\gamma x_t\), and a root of \(Q(\gamma)\). In <a href="0031-homogeneous-problems-and-ak-growth.html">Lesson 31</a> the same letter becomes the CRRA curvature (homogeneity of degree \(1-\gamma\)), and in <a href="0032-adjustment-costs-and-tobins-q.html">Lesson 32</a> the net growth rate. Three different objects.</li>
+      <li>\(a,b\ge0\) are <strong>cost weights</strong> in the quadratic model (slide 32). They have nothing to do with the adjustment-cost <em>function</em> \(a(\cdot)\) of Lesson 32. In the past-exam version (Exercise 30.1), \(c\) is a third cost weight, <em>not</em> consumption.</li>
+      <li>\(\alpha\) is the capital share (Cobb–Douglas) or the CES weight on capital. It is <em>not</em> the old-age endowment of Class Note II or the income-decline rate of Blanchard–Yaari.</li>
+      <li>\(\rho\) is the <strong>elasticity of substitution</strong> in production, \(\sigma\) the <strong>intertemporal elasticity of substitution</strong> (IES) of utility. \(\beta\in(0,1)\) is the discount factor (in Class Note II, \(\beta\) was a preference weight).</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s1">1. The recipe: guess, substitute, verify</h2>
+
+  <p>The Euler equation (EE) \(F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0\) is a second-order difference equation. In general you cannot solve it by hand: you shoot (<a href="0028-necessity-and-the-shooting-algorithm.html">Lesson 28</a>) or compute. But for a handful of models the optimal policy has a known <em>functional form</em> with a few unknown coefficients, and the EE pins those coefficients down. This lesson collects the three examples on slides 32–37 that every macro student is expected to do from memory.</p>
+
+  <div class="definition" id="def-guess-verify">
+    <div class="box-title">Guess and verify</div>
+    <ol class="steps">
+      <li><strong>Guess a form</strong> for the policy \(x_{t+1}=g(x_t)\) with unknown coefficients: linear \(g(x)=\gamma x\), or proportional to output \(g(k)=s\,f(k)\).</li>
+      <li><strong>Substitute</strong> \(x_{t+1}=g(x_t)\) and \(x_{t+2}=g(g(x_t))\) into the EE. The EE must hold for <em>every</em> \(x_t\), so it becomes an identity in \(x_t\). Matching coefficients gives equations for the unknowns.</li>
+      <li><strong>Select</strong> among the solutions (there may be several) the one whose path satisfies the transversality condition (TC) \(\lim_{t\to\infty}\beta^tF_x(x_t,x_{t+1})\cdot x_t=0\).</li>
+      <li><strong>Verify optimality.</strong> If \(F\) is concave, \(F_x\ge0\) and \(X=\mathbb R^m_+\), a path that satisfies the EE and the TC is optimal (the sufficiency theorem, <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=12">EE p.12</a>, proved in <a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a>). If \(F\) is strictly concave and \(\Gamma\) has a convex graph, it is the <em>unique</em> optimum.</li>
+    </ol>
+  </div>
+
+  <div class="intuition" id="int-why-guessing-legitimate">
+    <div class="box-title">Why guessing is legitimate</div>
+    <p>A guess is not an assumption you have to defend. Sufficiency says: <em>any</em> feasible path satisfying the EE and the TC is optimal, however you found it. So if a lucky guess produces such a path, you are done, and uniqueness (strict concavity) tells you there is nothing else to find. The only thing a failed guess costs you is time: if no coefficients make the EE an identity, the true policy simply has another form.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s2">2. A quadratic adjustment-cost model</h2>
+
+  <p>Slide 32 sets up the simplest model with a non-trivial transition
+  <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=32">EE p.32</a>:
+  $$F(x,y)=-\frac a2\,y^2-\frac b2\,(y-x)^2,\qquad \Gamma(x)=\mathbb R,\qquad a,b>0 .$$
+  Read it as a firm (or a household) that wants its state at the <strong>target</strong> 0, but pays a cost to <strong>move</strong>. The first term, \(-\frac a2y^2\), is the loss from being away from the target; the second, \(-\frac b2(y-x)^2\), is the adjustment cost of changing the state from \(x\) to \(y\).</p>
+
+  <ul>
+    <li><strong>The ratio \(b/a\)</strong> measures how costly adjustment is <em>relative</em> to being off target. Only the ratio matters: multiplying \(F\) by a positive constant does not change the optimal plan. With \(b/a\) large the agent moves slowly; with \(b/a\) small it jumps almost immediately.</li>
+    <li><strong>The target 0 is a normalization</strong> <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=33">EE p.33</a>. With a target \(\bar x\), \(F(x,y)=-\frac a2(y-\bar x)^2-\frac b2\big((y-\bar x)-(x-\bar x)\big)^2\) is the same problem in the deviation \(z=x-\bar x\). Every result below holds for \(z\).</li>
+    <li><strong>\(x_0=0\) is a steady state.</strong> Staying at 0 forever gives \(F=0\) every period, the highest possible value of \(F\) (both terms are \(\le0\)). No plan can do better, so \(x_t=0\) for all \(t\) is optimal from \(x_0=0\).</li>
+  </ul>
+
+  <h3 id="s2-euler-equation">The Euler equation</h3>
+  <p>The derivatives are \(F_y(x,y)=-ay-b(y-x)\) and \(F_x(x,y)=b(y-x)\). The EE \(F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0\) reads
+  $$0=\underbrace{-a\,x_{t+1}-b\,(x_{t+1}-x_t)}_{\text{marginal cost of a higher }x_{t+1}\text{ today}}\;+\;\beta\underbrace{b\,(x_{t+2}-x_{t+1})}_{\text{saving on next period's adjustment}} .$$
+  Raising \(x_{t+1}\) by one unit worsens today's target loss (\(-ax_{t+1}\)) and today's adjustment cost (\(-b(x_{t+1}-x_t)\)) when the state is above 0 and falling. Tomorrow it shrinks the adjustment still to be made, \(x_{t+2}-x_{t+1}\), which is worth \(\beta b(x_{t+2}-x_{t+1})\) in today's units.</p>
+
+  <p><strong>At a steady state</strong> \(x_t=x_{t+1}=x_{t+2}=\bar x\), the adjustment terms vanish and the EE becomes \(-a\bar x=0\), so \(\bar x=0\) (for \(a>0\)). At the steady state both \(F_y=-a\bar x\) and \(F_x=0\) are zero: the EE holds with each term zero, not just their sum. This is the general fact that an adjustment cost of the form \(\phi(y-x)\) with \(\phi'(0)=0\) <em>never moves the steady state</em>. On the diagonal its derivatives vanish. Past exams test exactly this (Exercise 30.2(f)).</p>
+
+  <p><strong>If \(a=0\)</strong> there is no reason to move: any change costs \(b\) and buys nothing. The optimal policy is \(x_{t+1}=x_t\), and every \(x_0\) is a steady state. In the EE, \(-b(x_{t+1}-x_t)+\beta b(x_{t+2}-x_{t+1})=0\) is solved by the constant path, and also by paths with \(x_{t+2}-x_{t+1}=\beta^{-1}(x_{t+1}-x_t)\), which explode and violate the TC.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s3">3. Guess a linear rule: the quadratic \(Q(\gamma)\)</h2>
+
+  <p>The model is linear–quadratic, so guess a linear policy \(x_{t+1}=\gamma x_t\) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=33">EE p.33</a>. Then \(x_{t+2}=\gamma^2x_t\), and the EE becomes
+  $$0=x_t\Big[-a\gamma-b(\gamma-1)+\beta b(\gamma^2-\gamma)\Big].$$
+  This must hold for every \(x_t\neq0\), so the bracket is zero:
+  $$0=b-(a+b+\beta b)\,\gamma+\beta b\,\gamma^2 .$$
+  Dividing by \(\beta b\) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=34">EE p.34</a>:
+  $$\boxed{\;Q(\gamma)\equiv\gamma^2-\Big(1+\frac1\beta+\frac{1}{\beta}\frac ab\Big)\gamma+\frac1\beta=0\;}$$</p>
+
+  <div class="theorem" id="thm-locating-roots-without-quadratic-formula">
+    <div class="box-title">Locating the roots without the quadratic formula (slide 34's exercise)</div>
+    <p>Let \(B\equiv1+\frac1\beta+\frac a{\beta b}\). Then \(Q\) has two real roots \(\gamma_1,\gamma_2\) with
+    $$0\lt\gamma_1\lt1\lt\frac1\beta\lt\gamma_2=\frac{1}{\beta\gamma_1}.$$</p>
+  </div>
+
+  <div class="proof" id="pf-proof">
+    <div class="box-title">Proof</div>
+    <ol class="steps">
+      <li><strong>Shape.</strong> \(Q''=2>0\), so \(Q\) is a convex parabola.</li>
+      <li><strong>At 0.</strong> \(Q(0)=1/\beta>0\).</li>
+      <li><strong>At 1.</strong> \(Q(1)=1-1-\frac1\beta-\frac a{\beta b}+\frac1\beta=-\frac{a}{\beta b}\lt0\).</li>
+      <li><strong>Two real roots, one in \((0,1)\).</strong> A continuous function that is positive at 0 and negative at 1 has a root \(\gamma_1\in(0,1)\). A convex parabola that dips below zero has exactly two real roots, so the second root \(\gamma_2\) lies to the right of 1.</li>
+      <li><strong>The minimum.</strong> \(Q'(\gamma_m)=0\) at \(\gamma_m=B/2\), with \(Q(\gamma_m)=\frac1\beta-\gamma_m^2\). Since \(\gamma_m\ge\frac12(1+\frac1\beta)>\frac1{\sqrt\beta}\) (arithmetic–geometric mean, strict for \(\beta\lt1\)), \(Q(\gamma_m)\lt0\), which confirms two real roots even when \(a=0\).</li>
+      <li><strong>Product of the roots.</strong> For a monic quadratic the product of the roots is the constant term: \(\gamma_1\gamma_2=1/\beta\). With \(\gamma_1\lt1\), \(\gamma_2=1/(\beta\gamma_1)>1/\beta\). \(\square\)</li>
+    </ol>
+  </div>
+
+  <h3 id="s3-transversality-picks-root">Transversality picks the root</h3>
+  <p>Both \(\gamma_1\) and \(\gamma_2\) make the EE hold, so the EE alone does not determine the policy. We need the boundary condition at infinity (<a href="0029-transversality-at-work.html">Lesson 29</a>). Along \(x_t=\gamma^tx_0\):
+  $$\beta^tF_x(x_t,x_{t+1})\,x_t=\beta^t\,b(\gamma-1)\gamma^tx_0\cdot\gamma^tx_0=b(\gamma-1)x_0^2\,(\beta\gamma^2)^t .$$
+  This goes to zero if and only if \(\beta\gamma^2\lt1\).</p>
+  <ul>
+    <li>For \(\gamma_1\in(0,1)\): \(\beta\gamma_1^2\lt1\). <strong>The TC holds.</strong></li>
+    <li>For \(\gamma_2>1/\beta\): \(\beta\gamma_2^2>\beta/\beta^2=1/\beta>1\). <strong>The TC fails</strong>; the state explodes away from the target, at ever-growing cost.</li>
+  </ul>
+  <p>So the optimal policy is \(x_{t+1}=\gamma_1x_t\), with
+  $$\gamma_1=\frac12\Big[B-\sqrt{B^2-4/\beta}\,\Big] .$$
+  The state approaches the target <strong>monotonically and geometrically</strong>. Each period it closes a fraction \(1-\gamma_1\) of the remaining gap. This is the <em>partial adjustment</em> model, and \(1-\gamma_1\) is the speed of convergence <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=34">EE p.34</a>. The <strong>half-life</strong>, the number of periods needed to close half the gap, is \(h=\ln2/\ln(1/\gamma_1)\).</p>
+
+  <div class="figure" id="fig-q">
+    <div id="q-ctrl"></div>
+    <div class="figure-row">
+      <div id="q-fig"></div>
+      <div id="q-path"></div>
+    </div>
+    <div id="q-read"></div>
+    <div class="caption"><b>Interactive.</b> Left: the quadratic \(Q(\gamma)\) (black), with its roots \(\gamma_1\) (<span style="color:#2a78d6">blue</span>) and \(\gamma_2\) (<span style="color:#eb6834">orange</span>), and dashed markers at 1 and \(1/\beta\). Right: the two candidate paths \(x_t=\gamma^tx_0\) from \(x_0=1\). Both satisfy the Euler equation, but only the blue one satisfies transversality. <b>Try:</b> (1) push \(a/b\) toward 0 (adjustment very costly relative to being off target): \(\gamma_1\) creeps toward 1 and the half-life explodes; at \(a/b=0\) the root would be exactly 1. (2) Push \(a/b\) up: \(\gamma_1\to0\), so the agent jumps to the target almost at once. (3) Raise \(\beta\): \(\gamma_1\) <em>falls</em>, because a patient agent puts more weight on the future savings in adjustment costs, so it adjusts faster now. Throughout, \(\gamma_2\) stays beyond \(1/\beta\), the product rule \(\gamma_1\gamma_2=1/\beta\) at work.</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const GMAX = 3;
+    const P = EconPlot.create('#q-fig', { x: [0, GMAX], y: [-2, 2.5], width: 380, height: 320,
+      xlabel: 'γ', ylabel: 'Q(γ)', xticks: 6, yticks: 5, margin: { t: 18, r: 14 } });
+    const T = 20;
+    const R = EconPlot.create('#q-path', { x: [0, T], y: [0, 1.6], width: 380, height: 320,
+      xlabel: 't', ylabel: 'x_t', xticks: 5, yticks: 4, margin: { t: 18, r: 14 } });
+    function draw(v) {
+      const r = v.ab, beta = v.beta;
+      const B = 1 + 1 / beta + r / beta;
+      const disc = Math.sqrt(B * B - 4 / beta);
+      const g1 = (B - disc) / 2, g2 = (B + disc) / 2;
+      const Q = g => g * g - B * g + 1 / beta;
+      P.clear();
+      P.hline(0, { color: C.muted, width: 1 });
+      P.vline(1, { color: C.muted, dash: '4 4', width: 1.2 });
+      P.text(1, 2.5, 'γ = 1', { anchor: 'end', dx: -4, dy: 14, sans: true, size: 11, color: C.muted });
+      P.vline(1 / beta, { color: C.muted, dash: '2 3', width: 1.2 });
+      P.text(1 / beta, 2.5, '1/β', { dx: 4, dy: 14, sans: true, size: 11, color: C.muted });
+      P.fn(Q, { color: C.ink, width: 2, domain: [0, GMAX], n: 300 });
+      P.point(g1, 0, { color: C.blue, r: 5, label: 'γ₁', labelDx: -16, labelDy: 18 });
+      if (g2 <= GMAX) P.point(g2, 0, { color: C.orange, r: 5, label: 'γ₂', labelDx: 6, labelDy: 18 });
+      else P.text(GMAX, 0, 'γ₂ = ' + g2.toFixed(2) + ' →', { anchor: 'end', dx: -4, dy: 18, sans: true, size: 12, color: C.orange });
+      P.point(0, 1 / beta, { color: C.ink, r: 3, label: 'Q(0) = 1/β', labelDx: 8, labelDy: -4 });
+      // paths
+      R.clear();
+      const p1 = [], p2 = [];
+      for (let t = 0; t <= T; t++) { p1.push([t, Math.pow(g1, t)]); p2.push([t, Math.pow(g2, t)]); }
+      R.path(p2, { color: C.orange, width: 1.8, dash: '6 4' });
+      R.path(p1, { color: C.blue, width: 2.2 });
+      p1.forEach(([t, y]) => R.point(t, y, { color: C.blue, r: 2.5 }));
+      R.text(1.6, Math.min(1.55, Math.pow(g2, 1.6)), 'γ₂ path: violates TC', { dx: 6, dy: 0, sans: true, size: 12, color: C.orange });
+      const tl = Math.min(T - 6, 3 + Math.round(4 * g1));
+      R.text(tl, Math.pow(g1, tl), 'γ₁ path: optimal', { dx: 6, dy: -10, sans: true, size: 12, color: C.blue });
+      const h = g1 > 1e-9 ? Math.log(2) / Math.log(1 / g1) : 0;
+      EconPlot.readout('#q-read', [
+        ['γ₁ (stable root) :', g1.toFixed(4)],
+        ['γ₂ (explosive root) :', g2.toFixed(4)],
+        ['γ₁·γ₂ vs 1/β :', (g1 * g2).toFixed(4) + ' = ' + (1 / beta).toFixed(4)],
+        ['half-life ln2 / ln(1/γ₁) :', h.toFixed(2) + ' periods'],
+        ['βγ₁² (TC needs  < 1) :', (beta * g1 * g1).toFixed(3)],
+        ['βγ₂² :', (beta * g2 * g2).toFixed(3)]
+      ]);
+    }
+    EconPlot.sliders('#q-ctrl', [
+      { id: 'ab', label: 'a/b', min: 0.02, max: 4, step: 0.02, value: 0.5 },
+      { id: 'beta', label: 'β', min: 0.5, max: 0.99, step: 0.01, value: 0.9 }
+    ], draw);
+  })();
+  </script>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s4">4. Why the guess is <em>the</em> solution, even though \(X=\mathbb R\)</h2>
+
+  <p>Step 4 of the recipe needs the sufficiency theorem, and slide 12 states it for \(X=\mathbb R^m_+\). Here \(\Gamma(x)=\mathbb R\): the state can be negative. Where did the proof in Lesson 27 use \(x\ge0\)? In its last step it bounds the leftover term
+  $$-\lim_{T\to\infty}\beta^{T+1}F_x(x^*_{T+1},x^*_{T+2})\,(x_{T+1}-x^*_{T+1})$$
+  by dropping \(-\beta^{T+1}F_x^*\,x_{T+1}\le0\), which needs \(F_x^*\ge0\) and \(x_{T+1}\ge0\). With \(X=\mathbb R\) an alternative path could make that term positive. Here is a direct fix for the quadratic model.</p>
+
+  <div class="proof" id="pf-proof-that-optimal-unique">
+    <div class="box-title">Proof that \(x_{t+1}=\gamma_1x_t\) is optimal (and unique) on \(X=\mathbb R\)</div>
+    <ol class="steps">
+      <li><strong>Discard paths with value \(-\infty\).</strong> Since \(F\le0\), every plan has a well-defined value in \([-\infty,0]\). The candidate path has finite value: \(F(x_t,x_{t+1})\) is proportional to \(\gamma_1^{2t}x_0^2\), and \(\sum\beta^t\gamma_1^{2t}\lt\infty\). A plan with value \(-\infty\) cannot be better, so compare only with plans \(\{x_t\}\) of finite value.</li>
+      <li><strong>Finite value forces \(\beta^{t/2}x_t\to0\).</strong> If \(\sum_t\beta^tF(x_t,x_{t+1})>-\infty\), then \(\sum_t\beta^t\frac a2x_{t+1}^2\lt\infty\) (each term of \(-F\) is non-negative), so \(\beta^tx_{t+1}^2\to0\) and \(\beta^{t/2}|x_t|\to0\).</li>
+      <li><strong>Redo the sufficiency argument up to the leftover term.</strong> Concavity of \(F\) and the EE give, exactly as on slides 14–16,
+      $$\sum_{t=0}^T\beta^t\big[F(x_t,x_{t+1})-F(x^*_t,x^*_{t+1})\big]\le-\beta^{T+1}F_x(x^*_{T+1},x^*_{T+2})\,(x_{T+1}-x^*_{T+1}).$$</li>
+      <li><strong>The leftover term vanishes.</strong> \(F_x(x^*_{T+1},x^*_{T+2})=b(\gamma_1-1)\gamma_1^{T+1}x_0\), so the right side is bounded in absolute value by
+      $$b|x_0|\;\underbrace{\big(\beta^{1/2}\gamma_1\big)^{T+1}}_{\to0}\;\cdot\;\underbrace{\beta^{(T+1)/2}\big(|x_{T+1}|+|x^*_{T+1}|\big)}_{\to0\ \text{by Step 2}}\;\longrightarrow\;0 .$$</li>
+      <li><strong>Conclude.</strong> Letting \(T\to\infty\), no finite-value plan beats the candidate, so the candidate is optimal. \(F\) is strictly concave (\(a,b>0\)) and \(\Gamma\) has a convex graph, so a strict average of two distinct optimal plans would do strictly better. The optimum is unique. \(\square\)</li>
+    </ol>
+  </div>
+
+  <div class="intuition" id="int-what-replaced-lower-bound">
+    <div class="box-title">What replaced the lower bound</div>
+    <p>The role of "\(x\ge0\)" in slide 12 is to stop an alternative plan from exploiting the boundary term by running the state off to \(-\infty\). Here the objective itself does the policing: running the state far from 0 costs \(\frac a2x^2\) per period, so any plan that does it has value \(-\infty\). In applications with an unbounded state, look for an argument like this one; "the theorem needs \(X=\mathbb R_+\)" is a frequent oral-exam question.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s5">5. Comparative statics: what governs the speed of convergence</h2>
+
+  <p>Differentiate the identity \(Q(\gamma_1(\theta);\theta)=0\) with respect to any parameter \(\theta\): \(\dfrac{d\gamma_1}{d\theta}=-\dfrac{Q_\theta}{Q_\gamma}\). At the smaller root a convex parabola is crossing zero from above, so \(Q_\gamma(\gamma_1)\lt0\). Hence
+  $$\operatorname{sign}\frac{d\gamma_1}{d\theta}=\operatorname{sign}Q_\theta(\gamma_1).$$</p>
+
+  <ul>
+    <li><strong>Relative cost \(a/b\).</strong> \(Q_{a/b}=-\gamma/\beta\lt0\), so \(\gamma_1\) <em>falls</em> as \(a/b\) rises. Limits: \(\gamma_1\to0\) as \(a/b\to\infty\) (adjustment is free relative to the target loss: jump at once) and \(\gamma_1\to1\) as \(a/b\to0\) (adjustment is prohibitive: stay put). Equivalently, <strong>higher adjustment costs \(b\) slow convergence</strong>.</li>
+    <li><strong>Patience \(\beta\).</strong> Write \(Q=\gamma^2-\gamma-\frac{1}{\beta}\big[(1+\frac ab)\gamma-1\big]\). Then \(Q_\beta=\frac1{\beta^2}\big[(1+\frac ab)\gamma_1-1\big]\). From Section 6, \(\gamma_1=b/(a+b+\beta v)\) with \(v>0\), so \(\gamma_1\lt b/(a+b)\) and \(Q_\beta\lt0\). <strong>A more patient agent adjusts faster</strong> (\(\gamma_1\) falls). The cost of moving is paid today; part of the benefit (a smaller adjustment still to make tomorrow) comes later, and patience raises its value. As \(\beta\to0\), \(\beta Q\to1-(1+\frac ab)\gamma\), so the myopic agent sets \(\gamma=b/(a+b)\): it balances only today's two costs.</li>
+  </ul>
+
+  <div class="warning" id="warn-if-agent-likes-change-oscillating">
+    <div class="box-title">If the agent <em>likes</em> change: oscillating convergence</div>
+    <p>The fullest past exam on this material (2017/18 core exam Q3, Exercise 30.1) adds a target term for today's state and lets the adjustment weight \(c\) be <em>negative</em>. Concavity still holds for small negative \(c\). The linear guess still works, but now the relevant root is <strong>negative</strong>, in \((-1,0)\). The state overshoots the target, then undershoots, with shrinking swings. A commonly circulated answer to that exam says the root "increases with \(\alpha=a/c\)". It <em>decreases</em>, moving from 0 toward \(-1\) as \(\alpha\) rises toward \(-2\) (Exercise 30.1(j)). Always check a claimed monotonicity against the two limits: here they are 0 as \(\alpha\to-\infty\) and \(-1\) as \(\alpha\to-2\).</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s6">6. A bridge to dynamic programming: guessing the value function</h2>
+
+  <p>Lecture folder 8 solves the same model by guessing the <em>value</em> function \(V(x)=-\frac v2x^2\), with \(v>0\) unknown. (We write \(v\) rather than the \(c\) of the circulating notes to avoid a clash with consumption.) The Bellman equation \(V(x)=\max_y\{F(x,y)+\beta V(y)\}\) gives:</p>
+  <ol class="steps">
+    <li><strong>FOC:</strong> \(-ay-b(y-x)-\beta vy=0\), so \(y=\dfrac{b}{a+b+\beta v}\,x\). The policy is linear, with \(\gamma=b/(a+b+\beta v)\).</li>
+    <li><strong>Envelope:</strong> \(V'(x)=F_x(x,y)=b(y-x)\), i.e. \(-vx=b(\gamma-1)x\), so \(v=b(1-\gamma)\).</li>
+    <li><strong>Riccati equation:</strong> substituting step 1 into step 2, \(v(a+b+\beta v)=b(a+b+\beta v)-b^2=ab+\beta bv\), so
+    $$\beta v^2+\big(a+(1-\beta)b\big)v-ab=0,$$
+    and \(v\) is its positive root.</li>
+    <li><strong>Back to \(Q\):</strong> eliminating \(v=b(1-\gamma)\) from \(\gamma(a+b+\beta v)=b\) gives \(\beta b\gamma^2-(a+b+\beta b)\gamma+b=0\), which is slide 34's \(Q(\gamma)=0\). The positive root \(v>0\) corresponds to \(\gamma=1-v/b\lt1\), the stable root.</li>
+  </ol>
+  <p>A commonly circulated review sheet writes the Riccati equation as \(\beta v^2+(a+b)v-ab=0\). It drops the \(\beta bv\) term on the right of step 3. With \(a=1,b=2,\beta=0.9\), iterating the Bellman map gives \(v\approx0.966\), which satisfies the equation above but not the circulated one. The Euler route needs no envelope condition at all (the EE comes from perturbing one \(x_{t+1}\), <a href="0028-necessity-and-the-shooting-algorithm.html">Lesson 28</a>), which is one reason this course leads with it.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s7">7. Log utility, Cobb–Douglas, full depreciation: \(s=\alpha\beta\)</h2>
+
+  <p>The second classic <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=35">EE p.35</a>: the neoclassical growth model with \(U=\log\), \(f(k)=k^\alpha\) and \(\delta=1\), so
+  $$F(x,y)=\log(x^\alpha-y),\qquad\Gamma(x)=[0,x^\alpha].$$
+  Guess that a constant fraction of output is saved: \(k_{t+1}=s\,k_t^\alpha\), hence \(c_t=(1-s)k_t^\alpha\).</p>
+
+  <ol class="steps">
+    <li><strong>The EE.</strong> \(F_y=-1/c_t\) and \(F_x(k_{t+1},k_{t+2})=\alpha k_{t+1}^{\alpha-1}/c_{t+1}\), so <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=36">EE p.36</a>
+    $$\frac1{c_t}=\beta\,\frac{\alpha k_{t+1}^{\alpha-1}}{c_{t+1}} .$$</li>
+    <li><strong>Substitute the guess.</strong> \(\dfrac{1}{(1-s)k_t^\alpha}=\beta\,\dfrac{\alpha k_{t+1}^{\alpha-1}}{(1-s)k_{t+1}^\alpha}=\dfrac{\alpha\beta}{(1-s)k_{t+1}}\). Cancel \(1-s\): \(k_{t+1}=\alpha\beta\,k_t^\alpha\).</li>
+    <li><strong>Match coefficients.</strong> This agrees with the guess for every \(k_t\) iff \(\boxed{s=\alpha\beta}\).</li>
+    <li><strong>Check the TC.</strong> \(\beta^tF_x(k_t,k_{t+1})\,k_t=\beta^t\dfrac{\alpha k_t^{\alpha}}{(1-\alpha\beta)k_t^\alpha}=\dfrac{\alpha}{1-\alpha\beta}\,\beta^t\to0\). (Neither the slides nor the circulating solutions check it; you should, in one line.)</li>
+    <li><strong>Verify.</strong> \(F\) is concave (log of a concave function, minus a linear term), \(F_x=\alpha x^{\alpha-1}/c>0\), and \(X=\mathbb R_+\). Sufficiency applies verbatim, and strict concavity of \(\log\) makes the solution unique.</li>
+  </ol>
+
+  <p>The path is \(\log k_{t+1}=\log(\alpha\beta)+\alpha\log k_t\), a linear difference equation in logs. It converges monotonically to \(\bar k=(\alpha\beta)^{1/(1-\alpha)}\). Check: \(\beta f'(\bar k)=\alpha\beta\bar k^{\alpha-1}=1\), the usual steady-state condition. With productivity, \(f(k)=Ak^\alpha\) (the Fall 2025 Final version, Exercise 30.4), the same steps give \(k_{t+1}=\alpha\beta Ak_t^\alpha\). <strong>The saving rate does not depend on \(A\).</strong></p>
+
+  <div class="intuition" id="int-why-saving-rate-constant">
+    <div class="box-title">Why the saving rate is constant</div>
+    <p>A richer agent (higher \(k\) or \(A\)) faces a <em>lower</em> marginal return \(f'(k_{t+1})\). Lower returns have a substitution effect (save less) and an income effect (you are poorer in the future, so save more). With log utility, an IES of one, the two effects cancel exactly. With Cobb–Douglas output, the return falls in proportion to output per unit of capital. With \(\delta=1\) there is no undepreciated capital to break the proportionality. All three are needed: Exercise 30.6 shows that \(\delta\lt1\) kills the result, and the next section shows what replaces log and Cobb–Douglas.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s8">8. CES production and CRRA utility: when is the saving rate constant?</h2>
+
+  <p>Slide 37 generalizes both curvatures <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=37">EE p.37</a>. Keep \(\delta=1\) and set
+  $$f(k)=\Big[\alpha k^{1-\frac1\rho}+(1-\alpha)\Big]^{\frac{1}{1-1/\rho}},\qquad U(c)=\frac{c^{1-1/\sigma}-1}{1-1/\sigma},$$
+  where \(\rho>0\) is the elasticity of substitution between capital and labor (labor fixed at 1) and \(\sigma>0\) the IES. Cobb–Douglas is the limit \(\rho\to1\); log utility is \(\sigma=1\). Question: for which \((\rho,\sigma)\) is the policy \(k_{t+1}=s f(k_t)\) for a constant \(s\in(0,1)\)?</p>
+
+  <div class="theorem" id="thm-claim">
+    <div class="box-title">Claim</div>
+    <p>The optimal policy has a constant saving rate <strong>if and only if \(\sigma=\rho\)</strong>, and then \(s=(\alpha\beta)^\sigma\).</p>
+  </div>
+
+  <div class="proof" id="pf-proof-2">
+    <div class="box-title">Proof</div>
+    <ol class="steps">
+      <li><strong>The marginal product.</strong> Let \(e=1-1/\rho\), so \(f^e=\alpha k^e+(1-\alpha)\). Differentiate: \(e f^{e-1}f'=\alpha e k^{e-1}\), so \(f'(k)=\alpha\,(k/f)^{e-1}=\alpha\Big(\dfrac{f(k)}{k}\Big)^{1/\rho}\). (For \(\rho=1\) this is \(\alpha k^{\alpha-1}\), matching Section 7.)</li>
+      <li><strong>The EE.</strong> \(U'(c)=c^{-1/\sigma}\), so the EE is \(c_t^{-1/\sigma}=\beta f'(k_{t+1})\,c_{t+1}^{-1/\sigma}\).</li>
+      <li><strong>Substitute the guess.</strong> With \(c=(1-s)f\) and \(k_{t+1}=sf_t\) (write \(f_t\equiv f(k_t)\)), the factor \((1-s)^{-1/\sigma}\) cancels and
+      $$\Big(\frac{f_{t+1}}{f_t}\Big)^{1/\sigma}=\beta\alpha\Big(\frac{f_{t+1}}{s f_t}\Big)^{1/\rho}\quad\Longleftrightarrow\quad\Big(\frac{f_{t+1}}{f_t}\Big)^{\frac1\sigma-\frac1\rho}=\alpha\beta\,s^{-1/\rho}.$$</li>
+      <li><strong>If \(\sigma=\rho\):</strong> the left side is 1 for every \(k_t\), so the EE holds for all \(k_t\) iff \(s^{1/\rho}=\alpha\beta\), i.e. \(s=(\alpha\beta)^\sigma\in(0,1)\).</li>
+      <li><strong>If \(\sigma\ne\rho\):</strong> the EE needs \(R(k)\equiv f(sf(k))/f(k)\) to be the same constant \(\bar R\) for every \(k>0\). Write \(m=f(k)\), which ranges over an interval \((0,\bar m)\) as \(k\) ranges over \((0,\infty)\). Then \(f(sm)=\bar Rm\) for all \(m\in(0,\bar m)\): \(f\) would be <em>linear</em> on \((0,s\bar m)\). But the CES \(f\) is strictly concave in \(k\) for every finite \(\rho>0\) and \(\alpha\in(0,1)\). This is a contradiction, so no constant \(s\) works.</li>
+      <li><strong>The TC (for \(\sigma=\rho\)).</strong> \(F_x(k_t,k_{t+1})k_t=c_t^{-1/\sigma}f'(k_t)k_t=\alpha(1-s)^{-1/\sigma}f_t^{\frac1\rho-\frac1\sigma}k_t^{1-1/\rho}=\alpha(1-s)^{-1/\sigma}k_t^{1-1/\rho}\). If \(k_t\) converges to a positive steady state, this is bounded and \(\beta^t\) sends the TC term to zero. (If \(\rho>1\) and parameters allow perpetual growth at the asymptotic factor \(g=s\alpha^{\rho/(\rho-1)}\), the term grows like \((\beta g^{1-1/\rho})^t=s^t\to0\) anyway.) Sufficiency applies: \(F=U(f(x)-y)\) is concave, \(F_x\ge0\), \(X=\mathbb R_+\). \(\square\)</li>
+    </ol>
+  </div>
+
+  <div class="intuition" id="int-two-curvatures-must-match">
+    <div class="box-title">Two curvatures must match</div>
+    <p>With a constant saving rate, consumption grows exactly as fast as output: \(c_{t+1}/c_t=f_{t+1}/f_t\). The EE says consumption growth is the return raised to the power \(\sigma\): \(c_{t+1}/c_t=(\beta f'(k_{t+1}))^\sigma\). The CES technology says the return is output per unit of capital raised to the power \(1/\rho\). The two powers line up for every \(k\) only if \(\sigma=\rho\). With \(\sigma>\rho\), saving responds strongly to the high returns of a capital-poor economy, so the saving rate falls as \(k\) rises. With \(\sigma\lt\rho\) it rises with \(k\).</p>
+  </div>
+
+  <div class="warning" id="warn-commonly-circulated-answer-wrong-here">
+    <div class="box-title">A commonly circulated answer is wrong here</div>
+    <p>One widely shared study summary answers slide 37 with "σ = 0 (log utility): the constant-savings-rate solution only works with log utility". That is wrong on every count. Log utility is \(\sigma=1\), not \(\sigma=0\). And log utility is not needed: \(\sigma=\rho=2\) gives a constant saving rate \((\alpha\beta)^2\). Conversely, log utility with \(\rho\ne1\) does <em>not</em> give a constant rate. The correct condition is \(\sigma=\rho\), as the figure below shows numerically.</p>
+  </div>
+
+  <div class="figure" id="fig-ces">
+    <div id="ces-ctrl"></div>
+    <div id="ces-fig"></div>
+    <div id="ces-read"></div>
+    <div class="verdict" id="ces-verdict"></div>
+    <div class="caption"><b>Interactive: the saving rate, computed.</b> For each \((\sigma,\rho)\) the page solves the CES/CRRA growth model (\(\alpha=0.3\), \(\beta=0.95\), \(\delta=1\)) by iterating on the Euler equation until the policy converges (the endogenous-grid method). It then plots the optimal saving rate \(s(k)=k_{t+1}/f(k_t)\) (<span style="color:#2a78d6">blue</span>) against today's capital. The dashed <span style="color:#eb6834">orange</span> line is \((\alpha\beta)^\sigma\), and the violet dot is the steady state. <b>Try:</b> (1) press "set ρ = σ": the blue curve becomes flat and lands on the orange line. (2) Log utility (\(\sigma=1\)) with \(\rho=2\): the rate is <em>not</em> constant, refuting the circulated answer. (3) \(\sigma>\rho\): the capital-poor economy saves a large share of output and the rate falls with \(k\). With \(\sigma\lt\rho\) the slope flips.</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const alpha = 0.3, beta = 0.95, N = 160, KMIN = 0.01, KMAX = 1.2;
+    let P;
+    function makePlot(ymax) {
+      document.getElementById('ces-fig').innerHTML = '';
+      P = EconPlot.create('#ces-fig', { x: [0, KMAX], y: [0, ymax], width: 560, height: 340,
+        xlabel: 'capital today  k_t', ylabel: 's(k) = k_{t+1}/f(k_t)', xticks: 6, yticks: 5, margin: { t: 18, r: 18 } });
+    }
+    function solve(sig, rho) {
+      const cd = Math.abs(rho - 1) < 1e-6, e = 1 - 1 / rho;
+      const f = k => cd ? Math.pow(k, alpha) : Math.pow(alpha * Math.pow(k, e) + (1 - alpha), 1 / e);
+      const fp = k => cd ? alpha * Math.pow(k, alpha - 1) : alpha * Math.pow(f(k) / k, 1 / rho);
+      // inverse of f; NaN when no k >= 0 has f(k) = m (with ρ > 1, f(0) = (1−α)^{ρ/(ρ−1)} > 0)
+      const finv = m => { if (cd) return Math.pow(m, 1 / alpha); const base = (Math.pow(m, e) - (1 - alpha)) / alpha; return base > 0 ? Math.pow(base, 1 / e) : NaN; };
+      const kp = []; const lo = Math.log(1e-4), hi = Math.log(6);
+      for (let i = 0; i < N; i++) kp.push(Math.exp(lo + (hi - lo) * i / (N - 1)));
+      let M = kp.map(f), Cc = M.map(m => 0.7 * m);
+      const interp = m => {
+        if (m <= M[0]) return Cc[0] * m / M[0];
+        let a = 0, b = M.length - 1;
+        if (m >= M[b]) return Cc[b - 1] + (Cc[b] - Cc[b - 1]) * (m - M[b - 1]) / (M[b] - M[b - 1]);
+        while (b - a > 1) { const h = (a + b) >> 1; if (M[h] <= m) a = h; else b = h; }
+        return Cc[a] + (Cc[b] - Cc[a]) * (m - M[a]) / (M[b] - M[a]);
+      };
+      let diff = 1, it = 0;
+      for (; it < 3000 && diff > 1e-10; it++) {
+        const cn = kp.map(k => Math.pow(beta * fp(k) * Math.pow(interp(f(k)), -1 / sig), -sig));
+        const Mn = kp.map((k, i) => cn[i] + k);
+        diff = 0;
+        for (let i = 0; i < N; i++) diff = Math.max(diff, Math.abs(cn[i] / Mn[i] - Cc[i] / M[i]));
+        M = Mn; Cc = cn;
+      }
+      const pts = [];
+      for (let i = 0; i < N; i++) {
+        const k = finv(M[i]);
+        if (isFinite(k) && k >= KMIN && k <= KMAX) pts.push([k, kp[i] / M[i]]);
+      }
+      // steady state: k = s(k) f(k), found on the computed policy
+      let kss = NaN;
+      for (let i = 1; i < pts.length; i++) {
+        const g0 = pts[i - 1][1] * f(pts[i - 1][0]) - pts[i - 1][0], g1 = pts[i][1] * f(pts[i][0]) - pts[i][0];
+        if (g0 > 0 && g1 <= 0) { kss = pts[i - 1][0] + (pts[i][0] - pts[i - 1][0]) * g0 / (g0 - g1); break; }
+      }
+      return { pts, it, kss, f };
+    }
+    let S;
+    function draw(v) {
+      const sig = v.sig, rho = v.rho;
+      const R = solve(sig, rho), target = Math.pow(alpha * beta, sig);
+      const top = Math.max(target, ...R.pts.map(p => p[1]));
+      makePlot(Math.min(1, Math.max(0.1, Math.ceil(top * 1.3 * 10) / 10)));
+      P.hline(target, { color: C.orange, dash: '6 4', width: 1.6 });
+      P.text(KMAX, target, '(αβ)^σ = ' + target.toFixed(3), { anchor: 'end', dx: -4, dy: -6, sans: true, size: 12, color: C.orange });
+      P.path(R.pts, { color: C.blue, width: 2.4 });
+      const ys = R.pts.map(p => p[1]);
+      const lab = R.pts[Math.floor(R.pts.length * 0.55)];
+      if (lab) P.text(lab[0], lab[1], 'optimal s(k)', { dx: 6, dy: lab[1] >= target - 1e-6 ? -10 : 18, sans: true, size: 12, color: C.blue });
+      if (isFinite(R.kss) && R.kss <= KMAX) {
+        let sk = NaN; for (let i = 1; i < R.pts.length; i++) if (R.pts[i][0] >= R.kss) { sk = R.pts[i][1]; break; }
+        P.point(R.kss, sk, { color: C.violet, r: 4.5 });
+        P.text(R.kss, sk, 'steady state', { dx: 8, dy: 16, sans: true, size: 12, color: C.violet });
+      }
+      const smin = Math.min(...ys), smax = Math.max(...ys);
+      EconPlot.readout('#ces-read', [
+        ['saving rate over the plotted k :', smin.toFixed(4) + ' to ' + smax.toFixed(4)],
+        ['(αβ)^σ :', target.toFixed(4)],
+        ['Euler-equation iterations :', String(R.it)]
+      ]);
+      const flat = smax - smin < 1e-3;
+      document.getElementById('ces-verdict').textContent = flat
+        ? 'σ = ρ: the saving rate is constant at (αβ)^σ for every k, as the theorem says.'
+        : 'σ ≠ ρ: the saving rate varies with k (it ' + (sig > rho ? 'falls' : 'rises') + ' as capital accumulates). No constant-saving-rate rule is optimal.';
+    }
+    S = EconPlot.sliders('#ces-ctrl', [
+      { id: 'sig', label: 'σ', min: 0.3, max: 3, step: 0.05, value: 1 },
+      { id: 'rho', label: 'ρ', min: 0.3, max: 3, step: 0.05, value: 2 }
+    ], draw);
+    S.button('set ρ = σ', () => S.set('rho', S.values.sig));
+    S.button('log utility, ρ = 2', () => { S.set('sig', 1); S.set('rho', 2); });
+  })();
+  </script>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s9">9. Check yourself</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">1. In the quadratic adjustment-cost model, both roots of \(Q(\gamma)\) satisfy the Euler equation. What rules out \(\gamma_2\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Its path violates the transversality condition</li>
+        <li class="quiz-option" data-option="b">Its path violates the feasibility constraint</li>
+        <li class="quiz-option" data-option="c">Its path makes the return positive</li>
+        <li class="quiz-option" data-option="d">Its path never reaches the target</li>
+      </ul>
+      <div class="quiz-explain">\(\Gamma=\mathbb R\), so every path is feasible, and \(F\le0\) always. Along \(\gamma^t x_0\) the TC term is proportional to \((\beta\gamma^2)^t\). Since \(\gamma_1\gamma_2=1/\beta\) and \(\gamma_1\lt1\), \(\gamma_2>1/\beta\) and \(\beta\gamma_2^2>1\), so the term explodes. ("Never reaches the target" is true of \(\gamma_1\) too: it only converges.)</div>
+    </div>
+
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">2. Adjustment becomes more costly relative to being off target (\(b/a\) rises). What happens to \(\gamma_1\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">It falls, so convergence becomes faster</li>
+        <li class="quiz-option" data-option="b">It rises, so convergence becomes slower</li>
+        <li class="quiz-option" data-option="c">It stays put; only targets move</li>
+        <li class="quiz-option" data-option="d">It turns negative, so convergence oscillates</li>
+      </ul>
+      <div class="quiz-explain">\(Q_{a/b}=-\gamma/\beta\lt0\) and \(Q_\gamma(\gamma_1)\lt0\), so \(\gamma_1\) falls with \(a/b\), i.e. rises with \(b/a\). As \(a/b\to0\), \(\gamma_1\to1\): the agent barely moves. The target (0) never moves; negative roots need a taste for change (\(c\lt0\) in Exercise 30.1).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">3. Log utility, \(f(k)=Ak^\alpha\), full depreciation. Productivity \(A\) doubles. What happens to the saving rate?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">It rises, because returns to saving rise</li>
+        <li class="quiz-option" data-option="b">It falls, because the agent is richer</li>
+        <li class="quiz-option" data-option="c">It stays at αβ, since effects cancel</li>
+        <li class="quiz-option" data-option="d">It doubles, in line with total output</li>
+      </ul>
+      <div class="quiz-explain">The EE with \(k_{t+1}=sAk_t^\alpha\) gives \(s=\alpha\beta\) for any \(A\). With log utility the income and substitution effects of a change in the return cancel exactly, and with Cobb–Douglas output and \(\delta=1\) the return is proportional to output per unit of capital.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">4. With CES production (elasticity \(\rho\)), CRRA utility (IES \(\sigma\)) and \(\delta=1\), when is the optimal saving rate constant?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Only with log utility, whatever ρ is</li>
+        <li class="quiz-option" data-option="b">Only with Cobb–Douglas output, whatever σ is</li>
+        <li class="quiz-option" data-option="c">Whenever both σ and ρ exceed one</li>
+        <li class="quiz-option" data-option="d">Exactly when σ equals ρ, any value</li>
+      </ul>
+      <div class="quiz-explain">The EE reduces to \((f_{t+1}/f_t)^{1/\sigma-1/\rho}=\alpha\beta s^{-1/\rho}\). It holds for every \(k\) iff \(\sigma=\rho\) (then \(s=(\alpha\beta)^\sigma\)), because \(f(sf(k))/f(k)\) is not constant for a strictly concave \(f\). Log utility with \(\rho\ne1\) fails, and so does Cobb–Douglas with \(\sigma\ne1\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">5. Slide 12's sufficiency theorem assumes \(X=\mathbb R^m_+\). In the quadratic model \(X=\mathbb R\). How is optimality still established?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Finite-value plans have \(\beta^{t/2}x_t\to0\), so the leftover term vanishes</li>
+        <li class="quiz-option" data-option="b">A linear policy is optimal in every concave problem</li>
+        <li class="quiz-option" data-option="c">The Euler equation alone suffices when F is quadratic</li>
+        <li class="quiz-option" data-option="d">The state stays non-negative along the optimal path anyway</li>
+      </ul>
+      <div class="quiz-explain">The lower bound \(x\ge0\) is used only to sign the boundary term \(-\beta^{T+1}F_x^*x_{T+1}\). Here any plan with value above \(-\infty\) has \(\sum\beta^tx_t^2\lt\infty\), so the boundary term goes to zero directly (Section 4). The EE alone is never sufficient: the \(\gamma_2\) path satisfies it too. With \(x_0\lt0\) the optimal path is negative.</div>
+    </div>
+    <div class="quiz-score"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s10">10. Exercises</h2>
+
+  <div class="box exercise" id="tf">
+    <div class="box-title">True or false? Justify. <span class="tag past">Past exam</span> <span class="tag exam">Exam-inspired</span></div>
+    <p>Answer True or False and justify in at most four lines.</p>
+    <ol class="tf-list">
+      <li>In the model \(F(x,y)=-\frac a2y^2-\frac b2(y-x)^2\), \(\Gamma=\mathbb R\), both roots of \(Q(\gamma)\) generate paths satisfying the Euler equation, so the optimal policy is not unique. <span class="tf-src">exam-inspired (slides 33–34)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> Both roots satisfy the EE, but only \(\gamma_1\in(0,1)\) satisfies the TC: the TC term is proportional to \((\beta\gamma^2)^t\) and \(\beta\gamma_2^2>1/\beta>1\). With \(a,b>0\), \(F\) is strictly concave and \(\Gamma\) convex, so the optimum is unique: \(x_{t+1}=\gamma_1x_t\).</p></div></details></li>
+      <li>In the same model with \(a=0\), every \(x_0\) is a steady state and the optimal policy is \(x_{t+1}=x_t\). <span class="tf-src">slide 32</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> With \(a=0\), \(F=-\frac b2(y-x)^2\le0\), and staying put achieves \(F=0\) every period, the maximum. (Then \(Q(\gamma)=(\gamma-1)(\gamma-1/\beta)\); the root \(1/\beta\) violates the TC.) The optimum is still unique, though strict concavity no longer delivers it (\(F\) is not strictly concave when \(a=0\)): any other path pays a strictly positive cost in the first period it moves.</p></div></details></li>
+      <li>A more patient agent (higher \(\beta\)) adjusts toward the target more slowly, because it discounts the adjustment cost it pays today. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> \(Q_\beta=\beta^{-2}[(1+a/b)\gamma_1-1]\lt0\) because \(\gamma_1\lt b/(a+b)\), and \(Q_\gamma(\gamma_1)\lt0\), so \(d\gamma_1/d\beta\lt0\): faster adjustment. Today's cost is not discounted; what patience raises is the value of the <em>future</em> benefit of moving now (a smaller adjustment still to make). The myopic limit \(\beta\to0\) gives the slowest rule, \(\gamma=b/(a+b)\).</p></div></details></li>
+      <li>Adding an adjustment cost \(-\frac b2(y-x)^2\) to a period return \(F(x,y)\) changes the speed of convergence but not the steady state. <span class="tf-src">Fall 2016 MT2 Q2, in T/F form</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> The new derivatives are \(\tilde F_y=F_y-b(y-x)\) and \(\tilde F_x=F_x+b(y-x)\). On the diagonal \(y=x=\bar x\) the extra terms vanish, so \(\tilde F_y(\bar x,\bar x)+\beta\tilde F_x(\bar x,\bar x)=F_y(\bar x,\bar x)+\beta F_x(\bar x,\bar x)\): same steady-state equation. Off the diagonal they slow adjustment, as \(\gamma_1\) rising with \(b/a\) shows.</p></div></details></li>
+      <li>With \(U=\log\), \(f(k)=k^\alpha\) and full depreciation, the optimal saving rate is \(\alpha\beta\). With \(f(k)=k^\alpha+(1-\delta)k\), \(\delta\in(0,1)\), the optimal policy still saves a constant fraction of \(f(k)\), now depending on \(\delta\). <span class="tf-src">exam-inspired (slides 35–36)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The first sentence is true. With \(c=(1-s)f\) and \(k'=sf(k)\), the log EE gives \(f(k')=\beta f'(k')f(k)=\beta f'(k')k'/s\). So the elasticity \(k'f'(k')/f(k')=s/\beta\) would have to be constant, which forces \(f\) to be a power function. \(k^\alpha+(1-\delta)k\) has elasticity varying with \(k\) unless \(\delta=1\) (Exercise 30.6).</p></div></details></li>
+      <li>In the log/Cobb–Douglas model with full depreciation and \(f(k)=Ak^\alpha\), a permanent rise in \(A\) raises the saving rate because it raises the return to capital. <span class="tf-src">Fall 2025 Final Q5, in T/F form</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The EE with \(k_{t+1}=sAk_t^\alpha\) gives \(s=\alpha\beta\) for every \(A\). Higher \(A\) raises capital and output, but the saving <em>rate</em> is unchanged. Log utility makes the income and substitution effects of the return cancel. The steady state \(\bar k=(\alpha\beta A)^{1/(1-\alpha)}\) does rise.</p></div></details></li>
+      <li>With CES production and CRRA utility (\(\delta=1\)), a constant saving rate requires log utility. <span class="tf-src">exam-inspired (slide 37)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> It requires \(\sigma=\rho\) (IES equal to the elasticity of substitution), and then \(s=(\alpha\beta)^\sigma\). Log utility (\(\sigma=1\)) works only with Cobb–Douglas (\(\rho=1\)). A commonly circulated study summary states the false version, and even writes log utility as "σ = 0"; it is \(\sigma=1\).</p></div></details></li>
+      <li>In the quadratic problem of Exercise 30.1 with \(a=b\) and a negative adjustment weight \(c\lt0\) (consistent with concavity), the optimal \(z_t=x_t-\bar x\) converges to zero with alternating signs. <span class="tf-src">2017/18 core exam Q3</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> Concavity needs \(\alpha=a/c\lt-2\). Then \(Q(\gamma)=\beta\gamma^2-(1+\alpha)(1+\beta)\gamma+1\) has \(Q(0)=1>0\) and \(Q(-1)=(2+\alpha)(1+\beta)\lt0\), so the root of smallest modulus lies in \((-1,0)\). \(z_{t+1}=\gamma_1z_t\) with \(\gamma_1\lt0\) flips sign every period while \(|z_t|\to0\).</p></div></details></li>
+      <li>In that same \(c\lt0\) case, the stable root \(\gamma_1\) is increasing in \(\alpha=a/c\). <span class="tf-src">2017/18 core exam Q3</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False</strong>, although a commonly circulated answer says True. \(Q_\alpha=-(1+\beta)\gamma>0\) at \(\gamma_1\lt0\), and \(Q_\gamma(\gamma_1)>0\) (Q crosses zero upward at the larger root), so \(d\gamma_1/d\alpha=-Q_\alpha/Q_\gamma\lt0\). Check with the limits: \(\gamma_1\to0\) as \(\alpha\to-\infty\) and \(\gamma_1\to-1\) as \(\alpha\to-2\). \(|\gamma_1|\) <em>rises</em> with \(\alpha\).</p></div></details></li>
+    </ol>
+  </div>
+
+  <div class="box exercise" id="ex-30-1">
+    <div class="box-title">Exercise 30.1 <span class="tag past">Past exam: 2017/18 core Q3</span> (a quadratic dynamic programming problem)</div>
+    <p>Let \(x\in\mathbb R\), \(\Gamma(x)=\mathbb R\), \(\beta\in(0,1)\), \(a,b,\bar x>0\), and
+    $$F(x_t,x_{t+1})=-\frac a2(x_t-\bar x)^2-\frac b2(x_{t+1}-\bar x)^2-\frac c2(x_{t+1}-x_t)^2 .$$
+    With \(c>0\) the agent dislikes changes; with \(c\lt0\) it likes them. (The original exam had no point weights; these are indicative.)</p>
+    <ol class="parts" type="a">
+      <li>Compute the first and second derivatives of \(F\). Give necessary and sufficient conditions on \((a,b,c)\) for \(F\) to be strictly concave. <span class="pts">(10 pts)</span></li>
+      <li>Write the Euler equation, rewrite it in \(z_t=x_t-\bar x\), and find the steady state. <span class="pts">(10 pts)</span></li>
+      <li>Guess \(z_{t+1}=\gamma z_t\) and derive the equation that \(\gamma\) must satisfy. What is \(\gamma\) when \(c=0\)? Interpret. <span class="pts">(10 pts)</span></li>
+      <li>Let \(c>0\), \(a=b\) and \(\alpha\equiv a/c\). Interpret \(\alpha\). Write the equation as \(Q(\gamma)=\beta\gamma^2+\dots=0\), and evaluate \(Q(0)\), \(Q'(0)\), \(Q(1)\) and \(Q''\). Sketch \(Q\) and locate its roots. <span class="pts">(15 pts)</span></li>
+      <li>Give a formula for the smaller root \(\gamma_1\). Is it increasing or decreasing in \(\alpha\)? Find its limits as \(\alpha\to\infty\) and \(\alpha\to0\), and interpret. Is convergence monotone or oscillatory? <span class="pts">(15 pts)</span></li>
+      <li>Which root is optimal? Justify with the transversality condition. <span class="pts">(5 pts)</span></li>
+      <li>Now let \(c\lt0\), \(a=b\). Find the range of \(\alpha=a/c\) consistent with strict concavity. <span class="pts">(5 pts)</span></li>
+      <li>For \(c\lt0\): evaluate \(Q(0)\), \(Q'(0)\), \(Q(-1)\) and \(Q''\); sketch \(Q\) and locate the roots. <span class="pts">(10 pts)</span></li>
+      <li>Give a formula for the root of smallest absolute value. <span class="pts">(5 pts)</span></li>
+      <li>Is it increasing or decreasing in \(\alpha\)? Find its limits as \(\alpha\to-2\) and \(\alpha\to-\infty\). Is convergence monotone or oscillatory? Interpret. <span class="pts">(15 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>(a) A \(2\times2\) Hessian is negative definite iff both diagonal entries are negative and the determinant is positive. (e), (j) Use implicit differentiation of \(Q(\gamma(\alpha);\alpha)=0\); you do not need to differentiate the square root. For the limits, rationalize: since the product of the roots is \(1/\beta\), the root of smallest modulus equals \(2/\big[(1+\alpha)(1+\beta)\pm\sqrt{\cdot}\big]\) with the sign that makes the denominator large.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(F_1\equiv F_x=-a(x_t-\bar x)+c(x_{t+1}-x_t)\) and \(F_2\equiv F_y=-b(x_{t+1}-\bar x)-c(x_{t+1}-x_t)\). Second derivatives: \(F_{11}=-(a+c)\), \(F_{22}=-(b+c)\), \(F_{12}=c\). The Hessian is constant, so strict concavity ⇔ negative definiteness: \(a+c>0\), \(b+c>0\), \((a+c)(b+c)-c^2=ab+(a+b)c>0\). With \(a,b>0\) the last one, \(c>-ab/(a+b)\), is binding (it implies the other two because \(ab/(a+b)\lt\min\{a,b\}\)). In particular every \(c\ge0\) is fine.</p>
+      <p>(b) EE: \(F_2(x_t,x_{t+1})+\beta F_1(x_{t+1},x_{t+2})=0\):
+      $$-b z_{t+1}-c(z_{t+1}-z_t)+\beta\big[-a z_{t+1}+c(z_{t+2}-z_{t+1})\big]=0,$$
+      i.e. \(0=-(b+\beta a)z_{t+1}-c(z_{t+1}-z_t)+\beta c(z_{t+2}-z_{t+1})\). Steady state: \(-(b+\beta a)\bar z=0\), so \(\bar z=0\), \(x=\bar x\).</p>
+      <p>(c) Substituting \(z_{t+1}=\gamma z_t\), \(z_{t+2}=\gamma^2z_t\) and dividing by \(z_t\):
+      $$0=-(b+\beta a)\gamma+c(1-\gamma)(1-\beta\gamma).$$
+      With \(c=0\): \(\gamma=0\). Without adjustment costs \(F\) is separable in \((x_t,x_{t+1})\) (\(F_{12}=0\)), so the agent jumps to \(\bar x\) in one period.</p>
+      <p>(d) \(\alpha=a/c\) is the cost of being off target relative to the cost of changing. Dividing by \(-c\) and using \(a=b\): \(Q(\gamma)=\beta\gamma^2-(1+\alpha)(1+\beta)\gamma+1\). \(Q(0)=1>0\), \(Q'(0)=-(1+\alpha)(1+\beta)\lt0\), \(Q(1)=\beta-(1+\alpha)(1+\beta)+1=-\alpha(1+\beta)\lt0\), \(Q''=2\beta>0\). A convex parabola that is positive at 0 and negative at 1: \(0\lt\gamma_1\lt1\lt\gamma_2\), with \(\gamma_1\gamma_2=1/\beta\).</p>
+      <p>(e) \(\gamma_1=\dfrac{(1+\alpha)(1+\beta)-\sqrt{(1+\alpha)^2(1+\beta)^2-4\beta}}{2\beta}\). Monotonicity: \(Q_\alpha=-(1+\beta)\gamma_1\lt0\) and \(Q_\gamma(\gamma_1)\lt0\), so \(d\gamma_1/d\alpha=-Q_\alpha/Q_\gamma\lt0\): <strong>decreasing in \(\alpha\)</strong>. Limits: \(\gamma_1=2/\big[(1+\alpha)(1+\beta)+\sqrt{\cdot}\big]\to0\) as \(\alpha\to\infty\) (changes are cheap: jump). As \(\alpha\to0\): \(\gamma_1\to\frac{(1+\beta)-(1-\beta)}{2\beta}=1\) (changes are prohibitive: stay put). Convergence is monotone since \(\gamma_1>0\). Numerically, with \(\beta=0.9\), \(\alpha=1\) gives \(\gamma_1\approx0.282\) and \(\alpha=9\) gives \(\approx0.053\). (A circulating solution writes the denominator as "\(2b\)"; it is \(2\beta\).)</p>
+      <p>(f) Along \(z_t=\gamma^tz_0\), \(\beta^tF_1(x_t,x_{t+1})z_t\propto(\beta\gamma^2)^t\). It vanishes iff \(\beta\gamma^2\lt1\): true for \(\gamma_1\in(0,1)\), false for \(\gamma_2=1/(\beta\gamma_1)>1/\beta\). So \(\gamma_1\) is optimal (sufficiency with the finite-value argument of Section 4, and uniqueness by strict concavity).</p>
+      <p>(g) With \(a=b\), (a) requires \(c>-a/2\). Dividing by \(c\lt0\) flips the inequality: \(\alpha=a/c\lt-2\).</p>
+      <p>(h) Same \(Q\). Now \(1+\alpha\lt-1\), so \(Q'(0)=-(1+\alpha)(1+\beta)>0\). \(Q(0)=1\), \(Q(-1)=\beta+(1+\alpha)(1+\beta)+1=(2+\alpha)(1+\beta)\lt0\), \(Q''=2\beta>0\). So one root lies in \((-1,0)\) and the other below \(-1\) (in fact below \(-1/\beta\), by the product rule).</p>
+      <p>(i) \(\gamma_1=\dfrac{(1+\alpha)(1+\beta)+\sqrt{(1+\alpha)^2(1+\beta)^2-4\beta}}{2\beta}\): the leading term is negative, so adding the square root brings the root toward 0.</p>
+      <p>(j) \(Q_\alpha=-(1+\beta)\gamma_1>0\) (as \(\gamma_1\lt0\)), and at the larger root \(Q\) crosses zero upward, \(Q_\gamma(\gamma_1)>0\). So \(d\gamma_1/d\alpha\lt0\): <strong>\(\gamma_1\) is decreasing in \(\alpha\)</strong> and \(|\gamma_1|\) is increasing. Limits: as \(\alpha\to-2\), the discriminant tends to \((1+\beta)^2-4\beta=(1-\beta)^2\) and \(\gamma_1\to\frac{-(1+\beta)+(1-\beta)}{2\beta}=-1\). As \(\alpha\to-\infty\), \(\gamma_1=2/\big[(1+\alpha)(1+\beta)-\sqrt{\cdot}\big]\to0\). Numerically, with \(\beta=0.9\): \(\alpha=-10,-5,-3,-2.1\) give \(\gamma_1\approx-0.059,-0.134,-0.282,-0.674\). Convergence is <strong>oscillatory</strong>: an agent who enjoys change overshoots the target each period. It is slowest near the concavity boundary \(\alpha\to-2\), where the taste for change almost offsets the target loss.</p>
+      <p><em>A commonly circulated answer</em> states that in (j) "\(|\gamma_1|\) decreases, so \(\gamma_1\) is increasing in \(\alpha\)". Both halves are wrong, and they contradict that answer's own limits. Its derivation of the \(\alpha\to-\infty\) limit also adds the square root with the wrong sign before applying L'Hôpital. The rationalized form above avoids L'Hôpital altogether.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-30-2">
+    <div class="box-title">Exercise 30.2 <span class="tag slides">Slides pp.32–34</span> <span class="tag proof">Proof</span> (the partial-adjustment model, from scratch)</div>
+    <p>\(F(x,y)=-\frac a2y^2-\frac b2(y-x)^2\), \(\Gamma(x)=\mathbb R\), \(a,b>0\).</p>
+    <ol class="parts" type="a">
+      <li>Write the EE and show it implies the steady state \(\bar x=0\). Show that at the steady state \(F_y\) and \(F_x\) are separately zero. One line each. <span class="pts">(10 pts)</span></li>
+      <li>Show that the guess \(x_{t+1}=\gamma x_t\) satisfies the EE iff \(Q(\gamma)=0\), where \(Q\) is slide 34's quadratic. <span class="pts">(10 pts)</span></li>
+      <li>Without computing the roots, show that \(0\lt\gamma_1\lt1\lt1/\beta\lt\gamma_2\). <span class="pts">(15 pts)</span></li>
+      <li>Show that only \(\gamma_1\) satisfies the TC. <span class="pts">(10 pts)</span></li>
+      <li>Prove that \(x_{t+1}=\gamma_1x_t\) is the unique optimal policy, although \(X=\mathbb R\) is not bounded below. <span class="pts">(20 pts)</span></li>
+      <li>Let \(\tilde F(x,y)=F(x,y)-\phi(y-x)\) for a differentiable \(\phi\) with \(\phi(0)=\phi'(0)=0\). Show that \(\tilde F\) has the same steady state as \(F\). Give the one-line economic reason. <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>(c) Evaluate \(Q\) at 0 and 1, and use the product of the roots. (e) Follow Section 4: first show that any plan with finite value has \(\beta^tx_t^2\to0\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) EE: \(-ax_{t+1}-b(x_{t+1}-x_t)+\beta b(x_{t+2}-x_{t+1})=0\). At \(x_t\equiv\bar x\): \(-a\bar x=0\Rightarrow\bar x=0\). Then \(F_y(0,0)=0\) and \(F_x(0,0)=b\cdot0=0\).</p>
+      <p>(b) Substituting gives \(x_t[-a\gamma-b(\gamma-1)+\beta b(\gamma^2-\gamma)]=0\) for all \(x_t\), i.e. \(\beta b\gamma^2-(a+b+\beta b)\gamma+b=0\). Divide by \(\beta b\).</p>
+      <p>(c) \(Q(0)=1/\beta>0\) and \(Q(1)=-a/(\beta b)\lt0\), so by continuity there is a root \(\gamma_1\in(0,1)\). Since \(Q\) is a convex parabola, the other root exceeds 1. The product of the roots is \(1/\beta\), so \(\gamma_2=1/(\beta\gamma_1)>1/\beta\).</p>
+      <p>(d) \(\beta^tF_x(x_t,x_{t+1})x_t=b(\gamma-1)x_0^2(\beta\gamma^2)^t\), which vanishes iff \(\beta\gamma^2\lt1\). \(\beta\gamma_1^2\lt\beta\lt1\), while \(\beta\gamma_2^2>1/\beta>1\).</p>
+      <p>(e) Section 4, Steps 1–5: restrict to plans of finite value, which have \(\beta^{t/2}|x_t|\to0\). The sufficiency inequality leaves the boundary term \(-\beta^{T+1}F_x^*(x_{T+1}-x^*_{T+1})\), bounded by \(b|x_0|(\sqrt\beta\gamma_1)^{T+1}\beta^{(T+1)/2}(|x_{T+1}|+|x^*_{T+1}|)\to0\). Uniqueness follows from strict concavity of \(F\) (\(a,b>0\)) and the convexity of \(\Gamma\).</p>
+      <p>(f) \(\tilde F_y=F_y-\phi'(y-x)\) and \(\tilde F_x=F_x+\phi'(y-x)\). At \(y=x\) both corrections are \(\phi'(0)=0\), so the steady-state equations coincide. Reason: at a steady state nothing changes, so a cost of <em>changing</em> has zero marginal effect there. This is the Fall 2016 MT2 Q2.2 result.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-30-3">
+    <div class="box-title">Exercise 30.3 <span class="tag exam">Exam-inspired</span> (the same model by guessing the value function)</div>
+    <p>Same \(F\) and \(\Gamma\) as Exercise 30.2. Guess \(V(x)=-\frac v2x^2\), \(v>0\).</p>
+    <ol class="parts" type="a">
+      <li>Use the Bellman equation's FOC to show that the policy is \(y=\gamma x\) with \(\gamma=b/(a+b+\beta v)\). <span class="pts">(5 pts)</span></li>
+      <li>Use the envelope condition to show \(v=b(1-\gamma)\). <span class="pts">(5 pts)</span></li>
+      <li>Derive the quadratic equation for \(v\) and show it has exactly one positive root. <span class="pts">(10 pts)</span></li>
+      <li>Show that eliminating \(v\) gives back \(Q(\gamma)=0\), and that \(v>0\) selects the stable root. <span class="pts">(10 pts)</span></li>
+      <li>Explain in one line why \(\gamma_1\lt b/(a+b)\), and what this says about patience. <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Maximize \(-\frac a2y^2-\frac b2(y-x)^2-\beta\frac v2y^2\): FOC \(-ay-b(y-x)-\beta vy=0\), so \(y=bx/(a+b+\beta v)\).</p>
+      <p>(b) \(V'(x)=F_x(x,y)=b(y-x)\), so \(-vx=b(\gamma-1)x\) and \(v=b(1-\gamma)\).</p>
+      <p>(c) \(v=b-b\gamma=b-\dfrac{b^2}{a+b+\beta v}\). Multiplying by \(a+b+\beta v\): \(v(a+b+\beta v)=ab+\beta bv\), so \(\beta v^2+(a+(1-\beta)b)v-ab=0\). The constant term \(-ab\lt0\) means the roots have opposite signs: exactly one is positive. (A commonly circulated review sheet drops the \(\beta bv\) on the right and gets \(\beta v^2+(a+b)v-ab=0\). With \(a=1,b=2,\beta=0.9\), value iteration gives \(v\approx0.966\), which solves the correct equation only.)</p>
+      <p>(d) From (b), \(v=b(1-\gamma)\). Substituting into \(\gamma(a+b+\beta v)=b\): \(\gamma\big(a+b+\beta b-\beta b\gamma\big)=b\), i.e. \(\beta b\gamma^2-(a+b+\beta b)\gamma+b=0\), slide 34's equation. \(v>0\iff\gamma\lt1\), which picks \(\gamma_1\). The explosive root \(\gamma_2>1\) would give \(v\lt0\), a convex "value function", which cannot be the value of this concave problem.</p>
+      <p>(e) \(\gamma_1=b/(a+b+\beta v)\lt b/(a+b)\) because \(\beta v>0\). The myopic agent (\(\beta=0\)) uses \(b/(a+b)\). Valuing the future (the term \(\beta v\)) makes the agent move further toward the target today.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-30-4">
+    <div class="box-title">Exercise 30.4 <span class="tag past">Past exam: Fall 2025 Final Q5</span> (log utility, Cobb–Douglas, full depreciation)</div>
+    <p>A planner maximizes \(\sum_t\beta^t\log c_t\) subject to \(c_t+k_{t+1}=Ak_t^\alpha\), \(k_{t+1}\ge0\), \(k_0>0\) given, with \(A>0\), \(\alpha,\beta\in(0,1)\). (The exam posed this as a Bellman problem with the hint that savings are proportional to output. Here you do it with the Euler equation.)</p>
+    <ol class="parts" type="a">
+      <li>Write \(F(x,y)\) and \(\Gamma(x)\), and check the hypotheses of the sufficiency theorem. <span class="pts">(5 pts)</span></li>
+      <li>Guess \(k_{t+1}=sAk_t^\alpha\). Use the EE to find \(s\). <span class="pts">(10 pts)</span></li>
+      <li>Check the TC. <span class="pts">(5 pts)</span></li>
+      <li>Find the steady state and show that it satisfies \(\beta f'(\bar k)=1\). How do the saving rate and \(\bar k\) depend on \(A\)? <span class="pts">(5 pts)</span></li>
+      <li>Now guess \(V(k)=b_0+b_1\log k\) in the Bellman equation and confirm \(s=\beta b_1/(1+\beta b_1)\) with \(b_1=\alpha/(1-\alpha\beta)\). <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(F(x,y)=\log(Ax^\alpha-y)\), \(\Gamma(x)=[0,Ax^\alpha]\). \(F\) is concave (an increasing concave function of the concave function \(Ax^\alpha-y\)), \(F_x=\alpha Ax^{\alpha-1}/c>0\), and \(X=\mathbb R_+\). Sufficiency applies.</p>
+      <p>(b) EE: \(1/c_t=\beta\alpha Ak_{t+1}^{\alpha-1}/c_{t+1}\). With \(c=(1-s)Ak^\alpha\): \(\dfrac1{(1-s)Ak_t^\alpha}=\dfrac{\alpha\beta}{(1-s)k_{t+1}}\), so \(k_{t+1}=\alpha\beta Ak_t^\alpha\) and \(s=\alpha\beta\).</p>
+      <p>(c) \(\beta^tF_xk_t=\beta^t\alpha Ak_t^\alpha/c_t=\beta^t\alpha/(1-\alpha\beta)\to0\). ✓</p>
+      <p>(d) \(\bar k=\alpha\beta A\bar k^\alpha\Rightarrow\bar k=(\alpha\beta A)^{1/(1-\alpha)}\), and \(\beta\alpha A\bar k^{\alpha-1}=1\). The saving rate is \(\alpha\beta\) for all \(A\); \(\bar k\) rises with \(A\), with elasticity \(1/(1-\alpha)\).</p>
+      <p>(e) FOC: \(\dfrac{1}{Ak^\alpha-k'}=\dfrac{\beta b_1}{k'}\), so \(k'=\dfrac{\beta b_1}{1+\beta b_1}Ak^\alpha\). Substituting back, the coefficient on \(\log k\) is \(\alpha+\alpha\beta b_1\), which must equal \(b_1\): \(b_1=\alpha/(1-\alpha\beta)\). Then \(\beta b_1/(1+\beta b_1)=\alpha\beta\), the same \(s\). (The constant is \(b_0=\frac1{1-\beta}\big[\log(A(1-\alpha\beta))+\frac{\alpha\beta}{1-\alpha\beta}\log(\alpha\beta A)\big]\).)</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-30-5">
+    <div class="box-title">Exercise 30.5 <span class="tag slides">Slide p.37</span> <span class="tag proof">Proof</span> (CES and CRRA: the constant-saving-rate theorem)</div>
+    <p>\(\delta=1\), \(f(k)=[\alpha k^{1-1/\rho}+(1-\alpha)]^{1/(1-1/\rho)}\), \(U(c)=(c^{1-1/\sigma}-1)/(1-1/\sigma)\), \(\alpha,\beta\in(0,1)\), \(\rho,\sigma>0\).</p>
+    <ol class="parts" type="a">
+      <li>Show that \(f'(k)=\alpha\,(f(k)/k)^{1/\rho}\). <span class="pts">(5 pts)</span></li>
+      <li>Substitute \(k_{t+1}=sf(k_t)\) into the EE and reduce it to one equation in \(f(k_{t+1})/f(k_t)\). <span class="pts">(10 pts)</span></li>
+      <li>Show that if \(\sigma=\rho\) the guess works with \(s=(\alpha\beta)^\sigma\), and check that this reduces to slide 36 when \(\sigma=\rho=1\). <span class="pts">(5 pts)</span></li>
+      <li>Show that if \(\sigma\ne\rho\) no constant \(s\) works. <span class="pts">(15 pts)</span></li>
+      <li>Verify the TC when \(\sigma=\rho\) and capital converges to a positive steady state. <span class="pts">(5 pts)</span></li>
+      <li>Give the economic intuition for the condition \(\sigma=\rho\) in two lines. <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>(d) If the EE holds for all \(k\), then \(f(sm)/m\) is constant for all \(m\) in the range of \(f\). What does that say about the shape of \(f\)?</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Section 8, Step 1: \(f^e=\alpha k^e+1-\alpha\) with \(e=1-1/\rho\); differentiate to get \(f'=\alpha(k/f)^{e-1}=\alpha(f/k)^{1/\rho}\).</p>
+      <p>(b) \(c_t^{-1/\sigma}=\beta f'(k_{t+1})c_{t+1}^{-1/\sigma}\) with \(c=(1-s)f\) and \(k_{t+1}=sf_t\) gives \((f_{t+1}/f_t)^{1/\sigma-1/\rho}=\alpha\beta s^{-1/\rho}\).</p>
+      <p>(c) If \(\sigma=\rho\) the left side is 1, so \(s=(\alpha\beta)^\rho=(\alpha\beta)^\sigma\). With \(\sigma=\rho=1\), \(s=\alpha\beta\). ✓</p>
+      <p>(d) We need \(f(sf(k))/f(k)=\bar R\) for all \(k>0\), so \(f(sm)=\bar Rm\) for all \(m\in f((0,\infty))\), an open interval. Then \(f\) is linear on an interval, contradicting the strict concavity of the CES technology in \(k\). (When \(\rho\to\infty\) the technology becomes linear and the argument fails, but \(\rho=\infty\) is excluded.)</p>
+      <p>(e) \(\beta^tF_xk_t=\beta^t\alpha(1-s)^{-1/\sigma}k_t^{1-1/\rho}\), which is \(\beta^t\) times a bounded sequence, so it tends to 0.</p>
+      <p>(f) A constant saving rate makes consumption grow with output. The EE ties consumption growth to the return with exponent \(\sigma\), and CES ties the return to output per unit of capital with exponent \(1/\rho\). These match at every \(k\) only if \(\sigma=\rho\). <em>A commonly circulated summary</em> claims "only log utility (σ = 0)" works; that is false (and log utility is σ = 1).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-30-6">
+    <div class="box-title">Exercise 30.6 <span class="tag exam">Exam-inspired</span> (which technologies allow a constant saving rate with log utility?)</div>
+    <p>\(U=\log\) and a general strictly increasing, strictly concave technology \(f\), with resources \(c_t+k_{t+1}=f(k_t)\).</p>
+    <ol class="parts" type="a">
+      <li>Show that the policy \(k_{t+1}=sf(k_t)\) satisfies the EE for all \(k_0\) iff \(\dfrac{kf'(k)}{f(k)}=\dfrac s\beta\) for all \(k\) in the range of the policy. <span class="pts">(10 pts)</span></li>
+      <li>Conclude that \(f\) must be a power function \(f(k)=Bk^\eta\) on that range, and find \(s\). <span class="pts">(5 pts)</span></li>
+      <li>Show that the standard \(f(k)=k^\alpha+(1-\delta)k\) is a power function only if \(\delta=1\). Conclude that with partial depreciation the log/Cobb–Douglas saving rate out of \(f(k)\) is not constant. <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) EE: \(1/c_t=\beta f'(k_{t+1})/c_{t+1}\). With \(c=(1-s)f\): \(f(k_{t+1})=\beta f'(k_{t+1})f(k_t)=\beta f'(k_{t+1})k_{t+1}/s\). So \(k'f'(k')/f(k')=s/\beta\) at every \(k'=sf(k)\). Conversely, if the elasticity is \(s/\beta\) on the range, the same algebra run backwards gives the EE.</p>
+      <p>(b) A constant elasticity \(\eta=d\log f/d\log k\) integrates to \(f=Bk^\eta\). Then \(s=\beta\eta\), the analogue of \(\alpha\beta\).</p>
+      <p>(c) The elasticity of \(k^\alpha+(1-\delta)k\) is \(\dfrac{\alpha k^\alpha+(1-\delta)k}{k^\alpha+(1-\delta)k}\), which moves from \(\alpha\) (as \(k\to0\)) toward 1 (as \(k\to\infty\)) unless \(\delta=1\). So with \(\delta\lt1\) no constant saving rate is optimal, which is why the textbook closed form assumes full depreciation.</p>
+    </div></details>
+  </div>
+
+  <div class="takeaways">
+    <h2 id="takeaways">Key takeaways</h2>
+    <ul>
+      <li><strong>Guess and verify</strong>: guess the policy's form, make the EE an identity in the state, pick the coefficient that satisfies the TC, and invoke sufficiency (plus strict concavity for uniqueness).</li>
+      <li>Quadratic adjustment costs give \(x_{t+1}=\gamma_1x_t\), where \(\gamma_1\in(0,1)\) is the smaller root of \(Q(\gamma)=\gamma^2-(1+\frac1\beta+\frac a{\beta b})\gamma+\frac1\beta\). Locate the roots with \(Q(0)=1/\beta\), \(Q(1)=-a/(\beta b)\) and \(\gamma_1\gamma_2=1/\beta\). The TC rules out \(\gamma_2>1/\beta\).</li>
+      <li>\(\gamma_1\) rises with \(b/a\) (slower adjustment) and falls with \(\beta\) (patient agents adjust faster). An agent who likes change (\(c\lt0\) in the exam version) converges with oscillations, and the stable root is decreasing in \(\alpha=a/c\).</li>
+      <li>Adjustment costs on \(y-x\) with zero slope at zero never move the steady state.</li>
+      <li>Log utility, Cobb–Douglas, \(\delta=1\): \(s=\alpha\beta\), independent of \(k\) and \(A\), with the TC term \(\beta^t\alpha/(1-\alpha\beta)\to0\).</li>
+      <li>CES and CRRA with \(\delta=1\): the saving rate is constant iff \(\sigma=\rho\), and then \(s=(\alpha\beta)^\sigma\). Log utility alone is not enough.</li>
+      <li>Sufficiency theorems with \(X=\mathbb R_+\) can be extended when the objective itself punishes runaway states: restrict to plans of finite value.</li>
+    </ul>
+  </div>
+
+  <p>For the formulas in one place, see the <a href="../reference/euler-transversality-cheatsheet.html">Euler equations &amp; transversality cheatsheet</a>. Next, <a href="0031-homogeneous-problems-and-ak-growth.html">Lesson 31</a> finds another class of problems where guessing works: homogeneous problems, whose policy is linear by a scaling argument rather than by luck.</p>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "why does the larger root of \(Q\) correspond to a convex value function?", "redo Exercise 30.1 with \(a\ne b\)", or "show me the half-life formula for the log/Cobb–Douglas model in logs".</div>
+
+  <div class="lesson-nav">
+    <a href="0029-transversality-at-work.html">← Lesson 29: Transversality at work</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0031-homogeneous-problems-and-ak-growth.html">Lesson 31: Homogeneous problems and AK growth →</a>
+  </div>
+
+</div>
+</body>
+</html>

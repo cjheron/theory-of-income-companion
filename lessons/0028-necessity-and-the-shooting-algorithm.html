@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 28 — Necessity of the Euler Equation and the Shooting Algorithm</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part VI: Euler Equations &amp; Transversality · Lesson 28 of 32</div>
+    <h1>Necessity of the Euler Equation, and the Shooting Algorithm</h1>
+    <div class="meta">Covers <a href="../sources/slides5-euler-transversality.pdf#page=19">folder 4 slides, pp. 19–25</a> · About 40 min · Prerequisite: <a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a> (the Euler equation, transversality and the sufficiency proof)</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>derive the Euler equation (EE) as a <em>necessary</em> condition in two ways, by a perturbation \(x_t+\alpha\varepsilon_t\) of the whole path and by a one-date variation, and say exactly which assumptions each step uses (none of them is concavity, and neither uses a value function);</li>
+      <li>write the Euler <em>inequalities</em> that replace the EE at a corner;</li>
+      <li>reproduce the heuristic argument for necessity of the transversality condition (TC) and explain why the slides now call it heuristic;</li>
+      <li>treat the EE as a second-order difference equation \(x_{t+2}=\psi(x_{t+1},x_t)\) with two boundary conditions: say when \(\psi\) exists and when the optimum is unique;</li>
+      <li>run the shooting algorithm in the growth model, prove why bisection works there, and explain why it is numerically fragile.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Stokey &amp; Lucas with Prescott (1989), <em>Recursive Methods in Economic Dynamics</em>, §4.5 "Euler Equations". It introduces the one-date variational problem (its equation (1), our §4) and the TC as the missing boundary condition, then proves sufficiency (Theorem 4.15). Chapter 6 studies the resulting difference equations. The lecture slides are Alvarez, <a href="../sources/slides5-euler-transversality.pdf#page=19">folder 4, pp. 19–25</a>. For a textbook treatment of necessity including the TC: Acemoglu (2009), <em>Introduction to Modern Economic Growth</em>, ch. 6. Rigorous necessity results for the TC are in Ekeland &amp; Scheinkman (1986, <em>Mathematics of Operations Research</em>) and Kamihigashi (2001, "Necessity of transversality conditions for infinite horizon problems," <em>Econometrica</em> 69(4)). All formulas for this Part are collected in the <a href="../reference/euler-transversality-cheatsheet.html">Euler equations &amp; transversality cheatsheet</a>.
+  </div>
+
+  <div class="box notation" id="note-notation-this-lesson">
+    <div class="box-title">Notation for this lesson</div>
+    <ul>
+      <li>\(F(x,y)\) is the <strong>period return</strong>: \(x\) is today's state and \(y\) tomorrow's. It is not a production function. \(F_x\) and \(F_y\) are its partial derivatives with respect to the first and second arguments. They are vectors when \(x\in\mathbb R^m\), and products like \(F_x\cdot\varepsilon\) are inner products. In the growth model, \(F(x,y)=U(f(x)-y)\) with \(f(k)=G(k,1)+(1-\delta)k\).</li>
+      <li>On slides 19–20, <strong>\(\alpha\in\mathbb R\) is the size of a perturbation</strong>, not the capital share. To avoid the clash, the figure below writes the capital share as a number (0.33).</li>
+      <li>\(v(\alpha)\) is the value of the perturbed path, a function of one real number. It is <em>not</em> the value function \(V(x)\) of dynamic programming, which comes in folder 8.</li>
+      <li>\(\varepsilon=\{\varepsilon_t\}\) is the <em>direction</em> of a variation, with \(\varepsilon_t\in\mathbb R^m\). In the shooting section, \(\lambda_1,\lambda_2\) are the roots of the linearized EE. Lesson 30 calls the stable root \(\gamma\).</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s1">1. Where we are: the converse of Lesson 27</h2>
+
+  <p><a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a> proved <strong>sufficiency</strong>. If \(F\) is concave, \(F_x\ge0\) and \(X=\mathbb R^m_+\), then any path satisfying the EE
+  $$F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0,\qquad t\ge0,$$
+  and the TC \(\lim_{t\to\infty}\beta^tF_x(x_t,x_{t+1})\cdot x_t=0\) is optimal <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=12">EE p.12</a>. That tells us a candidate <em>is</em> optimal once we have found it. To use the EE to <em>find</em> the optimum, we need the converse: every optimal path must satisfy the EE and the TC. Then we can look for the optimum among the solutions of EE + TC, which is exactly what the shooting algorithm does.</p>
+
+  <p>The 2026 slides state the general principle with care: "under appropriate concavity, interiority, and regularity conditions, EE and TC are necessary and sufficient" <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=11">EE p.11</a>. (The 2025 version said this without qualification.) This lesson shows which condition does which job.</p>
+
+  <table class="simple">
+    <tr><th></th><th>Uses concavity?</th><th>Uses interiority?</th><th>Uses differentiability / limit interchange?</th></tr>
+    <tr><td>Sufficiency of EE + TC (L27)</td><td>Yes: \(F\) concave, plus \(F_x\ge0\), \(X=\mathbb R^m_+\)</td><td>No</td><td>Differentiability only</td></tr>
+    <tr><td>Necessity of the EE (§3–4)</td><td>No</td><td>Yes: local feasibility at two adjacent dates</td><td>Yes</td></tr>
+    <tr><td>Necessity of the TC (§5)</td><td>No</td><td>Needs the terminal variation to be feasible</td><td>Yes, and the argument is heuristic</td></tr>
+    <tr><td>Uniqueness of the optimum (§6)</td><td>Yes: strictly concave \(F\), convex \(X\) and \(\mathrm{Gr}(\Gamma)\)</td><td>No</td><td>No</td></tr>
+  </table>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s2">2. Variations around an optimal path</h2>
+
+  <p>Let \(\{x_t\}_{t=0}^\infty\) be an optimal path from \(x_0\) (so \(x_{t+1}\in\Gamma(x_t)\) and it attains \(V^*(x_0)\)). Pick a direction \(\varepsilon=\{\varepsilon_t\}_{t=0}^\infty\), \(\varepsilon_t\in\mathbb R^m\), and a scalar \(\alpha\). Define the perturbed path</p>
+
+  <div class="definition" id="def-definition-variation">
+    <div class="box-title">Definition: a variation <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=19">EE p.19</a></div>
+    <p>$$x_t(\alpha,\varepsilon)=x_t+\alpha\,\varepsilon_t,\qquad \varepsilon_0=0,$$
+    and the value of the perturbed path
+    $$v(\alpha)\equiv\lim_{T\to\infty}\sum_{t=0}^T\beta^tF\big(x_t(\alpha,\varepsilon),\,x_{t+1}(\alpha,\varepsilon)\big).$$
+    The variation is <strong>feasible</strong> for \(\alpha\) if \(x_{t+1}(\alpha,\varepsilon)\in\Gamma(x_t(\alpha,\varepsilon))\) for all \(t\ge0\).</p>
+  </div>
+
+  <p>The slide asks two "why" questions.</p>
+  <ul>
+    <li><strong>Why \(\varepsilon_0=0\)?</strong> The initial state \(x_0\) is <em>given</em>. It is data, not a choice. A variation may move every future state, but not the starting point.</li>
+    <li><strong>Why must the variation be feasible?</strong> Optimality says \(v(0)=V^*(x_0)\ge\) the value of every <em>feasible</em> path. A perturbed path that violates \(x_{t+1}\in\Gamma(x_t)\) is not a competitor, and it can easily have a higher value. In the growth model, raising both consumption and next period's capital is infeasible but obviously "better". So the inequality
+    $$v(0)\ge v(\alpha)$$
+    holds only for those \((\alpha,\varepsilon)\) whose perturbed path is feasible.</li>
+  </ul>
+
+  <p>Hence: if every \(\alpha\) in a neighbourhood of 0 gives a feasible path, then \(\alpha=0\) is an <em>interior</em> maximizer of the one-variable function \(v\), and if \(v\) is differentiable, \(v'(0)=0\). Everything in §3–5 is this one-variable first-order condition, applied to cleverly chosen directions \(\varepsilon\).</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s3">3. Differentiating \(v\): the slide-20 exercise</h2>
+
+  <p>Assume \(F\) is \(C^1\). Assume also that the derivative with respect to \(\alpha\) and the limit in \(T\) can be interchanged <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=20">EE p.20</a>. Then, by the chain rule term by term,
+  $$v'(0)=\lim_{T\to\infty}\sum_{t=0}^T\beta^t\big[F_x(x_t,x_{t+1})\cdot\varepsilon_t+F_y(x_t,x_{t+1})\cdot\varepsilon_{t+1}\big].$$
+  The slide's exercise is to show that this equals
+  $$v'(0)=\lim_{T\to\infty}\Big\{\sum_{t=0}^{T-1}\beta^t\big[F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})\big]\cdot\varepsilon_{t+1}\;+\;\beta^TF_y(x_T,x_{T+1})\cdot\varepsilon_{T+1}\Big\}.$$</p>
+
+  <div class="proof" id="pf-proof-second-equality-fixed">
+    <div class="box-title">Proof of the second equality (fixed \(T\))</div>
+    <p>Abbreviate \(F_x(t)\equiv F_x(x_t,x_{t+1})\) and \(F_y(t)\equiv F_y(x_t,x_{t+1})\).</p>
+    <ol class="steps">
+      <li><strong>Split the sum.</strong> \(\displaystyle S_T\equiv\sum_{t=0}^T\beta^t\big[F_x(t)\cdot\varepsilon_t+F_y(t)\cdot\varepsilon_{t+1}\big]=\underbrace{\sum_{t=0}^T\beta^tF_x(t)\cdot\varepsilon_t}_{A}+\underbrace{\sum_{t=0}^T\beta^tF_y(t)\cdot\varepsilon_{t+1}}_{B}.\)</li>
+      <li><strong>Drop the \(t=0\) term of \(A\).</strong> It is \(F_x(0)\cdot\varepsilon_0=0\), because \(\varepsilon_0=0\). This is the only place the fixed initial condition enters.</li>
+      <li><strong>Re-index \(A\)</strong> with \(s=t-1\), so that both sums multiply \(\varepsilon_{s+1}\): \(\displaystyle A=\sum_{s=0}^{T-1}\beta^{s+1}F_x(s+1)\cdot\varepsilon_{s+1}\).</li>
+      <li><strong>Peel off the last term of \(B\)</strong> (\(t=T\)), which has no partner in \(A\): \(\displaystyle B=\sum_{s=0}^{T-1}\beta^{s}F_y(s)\cdot\varepsilon_{s+1}+\beta^TF_y(T)\cdot\varepsilon_{T+1}\).</li>
+      <li><strong>Add, collecting the coefficient of each \(\varepsilon_{s+1}\):</strong> \(\displaystyle S_T=\sum_{s=0}^{T-1}\beta^s\big[F_y(x_s,x_{s+1})+\beta F_x(x_{s+1},x_{s+2})\big]\cdot\varepsilon_{s+1}+\beta^TF_y(x_T,x_{T+1})\cdot\varepsilon_{T+1}.\) Taking \(T\to\infty\) gives the slide's formula.</li>
+    </ol>
+    <div class="qed">∎</div>
+  </div>
+
+  <div class="intuition" id="int-intuition-each-state-shows-up">
+    <div class="box-title">Intuition: each state shows up twice</div>
+    <p>The state \(x_{s+1}\) is tomorrow's state in period \(s\) and today's state in period \(s+1\). Moving it changes two period returns: \(F(x_s,\cdot)\) through \(F_y\), and \(F(\cdot,x_{s+2})\), one period later and so discounted by \(\beta\), through \(F_x\). The bracket \(F_y(s)+\beta F_x(s+1)\) is the <strong>total marginal effect</strong> of the date-\((s+1)\) state on lifetime value. It is exactly the same rearrangement as in the sufficiency proof <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=16">EE p.16</a>, where the coefficients multiplied \(x_{t+1}-x^*_{t+1}\) instead of \(\varepsilon_{t+1}\). The leftover \(\beta^TF_y(T)\cdot\varepsilon_{T+1}\) is the "end of the horizon" term that becomes the TC.</p>
+  </div>
+
+  <div class="warning" id="warn-two-technical-assumptions-when-they">
+    <div class="box-title">The two technical assumptions, and when they hold</div>
+    <ul>
+      <li><strong>\(v\) is differentiable at 0.</strong> Each finite sum is differentiable because \(F\) is \(C^1\), but a limit of differentiable functions need not be.</li>
+      <li><strong>The limits can be interchanged.</strong> A standard sufficient condition is that the series of derivatives converges <em>uniformly</em> in \(\alpha\) near 0. For instance, if \(\|\varepsilon_t\|\) is bounded and \(F_x,F_y\) are bounded along the perturbed paths, then each term is at most \(M\beta^t\), and the Weierstrass M-test applies. This is automatic for single-date variations, which change only finitely many terms. That is why §4's argument for the EE is airtight, while §5's argument for the TC is not.</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s4">4. Necessity of the Euler equation</h2>
+
+  <div class="theorem" id="thm-theorem-ee-necessary-at-interior">
+    <div class="box-title">Theorem: the EE is necessary at interior dates <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=21">EE p.21</a></div>
+    <p>Let \(F\) be \(C^1\) and \(\{x_t\}\) optimal from \(x_0\). Suppose that at date \(t+1\) there is a neighbourhood \(N\) of \(x_{t+1}\) such that for every \(z\in N\),
+    $$z\in\Gamma(x_t)\quad\text{and}\quad x_{t+2}\in\Gamma(z).$$
+    (A sufficient condition: both adjacent constraints are interior at the optimum.) Then
+    $$F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0 .$$
+    If the condition holds at every date, the EE holds for all \(t\ge0\).</p>
+  </div>
+
+  <p>The 2026 slides restate the interiority condition. The 2025 version asked only that \((x_t,x_{t+1})\) be in the interior of the graph of \(\Gamma\), which controls the constraint \(x_{t+1}\in\Gamma(x_t)\) but not \(x_{t+2}\in\Gamma(x_{t+1})\). Moving \(x_{t+1}\) affects <em>both</em> constraints, so both must have slack.</p>
+
+  <h3 id="s4-proof-1-perturb-one">Proof 1: perturb one date</h3>
+  <div class="proof" id="pf-proof-slide-21">
+    <div class="box-title">Proof (slide 21)</div>
+    <ol class="steps">
+      <li><strong>Choose the direction.</strong> Fix any \(e\in\mathbb R^m\) and let \(\varepsilon_{t+1}=e\) and \(\varepsilon_s=0\) for \(s\neq t+1\). The perturbed path differs from the optimum only in the date-\((t+1)\) state, which becomes \(z=x_{t+1}+\alpha e\).</li>
+      <li><strong>Feasibility.</strong> The only constraints that involve \(x_{t+1}\) are \(x_{t+1}\in\Gamma(x_t)\) and \(x_{t+2}\in\Gamma(x_{t+1})\). For \(|\alpha|\) small, \(z\in N\), so both hold, and all the other constraints are untouched. So the variation is feasible for all \(\alpha\) near 0.</li>
+      <li><strong>Differentiability is free here.</strong> Only two period returns change, so \(v(\alpha)-v(0)=\beta^t[F(x_t,z)-F(x_t,x_{t+1})]+\beta^{t+1}[F(z,x_{t+2})-F(x_{t+1},x_{t+2})]\), a finite sum of \(C^1\) functions of \(\alpha\). No limit needs to be interchanged.</li>
+      <li><strong>First-order condition.</strong> \(\alpha=0\) maximizes \(v\) on a neighbourhood of 0, so \(0=v'(0)=\beta^t\big[F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})\big]\cdot e\). (This is the slide-20 formula with a single nonzero \(\varepsilon\).)</li>
+      <li><strong>Every direction.</strong> This holds for all \(e\in\mathbb R^m\). Taking \(e\) equal to each unit vector, every component of the bracket is zero. Cancel \(\beta^t>0\) to get the EE.</li>
+    </ol>
+    <div class="qed">∎</div>
+  </div>
+
+  <h3 id="s4-proof-2-direct-simpler">Proof 2: the direct, "simpler" version</h3>
+  <div class="proof" id="pf-proof-slide-22-stokey-lucas">
+    <div class="box-title">Proof (slide 22; Stokey–Lucas §4.5, problem (1))</div>
+    <ol class="steps">
+      <li><strong>Freeze everything but one date.</strong> If \(\{x_t\}\) is optimal, then holding all other states fixed, \(x_{t+1}\) must solve
+      $$\max_{z}\;\beta^t\big[F(x_t,z)+\beta F(z,x_{t+2})\big]\quad\text{s.t.}\quad z\in\Gamma(x_t),\;x_{t+2}\in\Gamma(z).$$
+      Otherwise, replacing \(x_{t+1}\) by a better feasible \(z\) would raise total value, because the other terms \(\beta^sF(x_s,x_{s+1})\), \(s\ne t,t+1\), do not depend on \(z\).</li>
+      <li><strong>Interior maximizer.</strong> By the neighbourhood condition, the constraints do not bind near \(z=x_{t+1}\), so \(x_{t+1}\) is an interior (local) maximizer of a \(C^1\) function of \(z\).</li>
+      <li><strong>FOC.</strong> \(0=\beta^t\big[F_y(x_t,z)+\beta F_x(z,x_{t+2})\big]\) at \(z=x_{t+1}\). Cancel \(\beta^t\). ∎</li>
+    </ol>
+  </div>
+
+  <div class="intuition" id="int-intuition-ee-no-profitable-one">
+    <div class="box-title">Intuition: the EE is a "no profitable one-period deviation" condition</div>
+    <p>In the growth model the EE reads \(U'(c_t)=\beta f'(k_{t+1})U'(c_{t+1})\). Save one more unit today: you lose \(U'(c_t)\). Tomorrow you have \(f'(k_{t+1})\) more units, worth \(\beta U'(c_{t+1})\) each in today's utils. Then you return to the original plan from \(t+2\) on. At an optimum, this round trip must be worthless at the margin. The deviation is confined to two dates, which is why its feasibility only needs slack at those two dates.</p>
+  </div>
+
+  <div class="warning" id="warn-ee-does-not-need-value">
+    <div class="box-title">The EE does not need a value function or an envelope condition</div>
+    <p>A commonly circulated T/F bank marks "The Euler equation can be derived without the envelope condition" as <em>False</em>, because "the envelope condition is essential to eliminate \(V'\)". <strong>That answer is wrong.</strong> Both proofs above work on the <em>sequence</em> problem and never mention a value function. The envelope route is one valid derivation:
+    $$F_y(x,g(x))+\beta V'(g(x))=0\quad\text{and}\quad V'(x)=F_x(x,g(x))\;\Rightarrow\;F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0 .$$
+    It comes in folder 8, and it needs more: a differentiable \(V\) (Benveniste–Scheinkman). So the statement is <strong>True</strong>.</p>
+  </div>
+
+  <h3 id="s4-when-neighbourhood-condition-fails">When the neighbourhood condition fails: Euler inequalities</h3>
+
+  <p>At a corner the one-date problem still holds, but its maximizer sits on the boundary, so the FOC becomes a Kuhn–Tucker inequality. In one dimension, write \(\phi(z)=F(x_t,z)+\beta F(z,x_{t+2})\). Then</p>
+  <ul>
+    <li>if only <strong>upward</strong> moves of \(x_{t+1}\) are feasible (a lower bound binds), optimality needs \(\phi'(x_{t+1})\le0\): \(\;F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})\le0\);</li>
+    <li>if only <strong>downward</strong> moves are feasible (an upper bound binds), it needs \(\phi'(x_{t+1})\ge0\): \(\;F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})\ge0\).</li>
+  </ul>
+  <p>In the growth model with \(\Gamma(k)=[0,f(k)]\), the upper bound \(k_{t+1}=f(k_t)\) means \(c_t=0\), and the inequality reads \(\beta f'(k_{t+1})U'(c_{t+1})\ge U'(0)\). The return to saving is so high that you would like to consume <em>negative</em> amounts. If \(U'(0)=\infty\) (Inada), this is impossible, so Inada conditions are what make the EE hold with equality everywhere (Exercise 28.2). With linear utility there is no Inada condition, and the corner \(c_t=0\) is optimal whenever \(\beta f'(k_{t+1})\ge1\). That is the slide-31 exercise, worked out in <a href="0029-transversality-at-work.html">Lesson 29</a>.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s5">5. Necessity of the transversality condition (a heuristic)</h2>
+
+  <p>Suppose the EE holds at every date. Then every bracket in the slide-20 formula vanishes, and only the end-of-horizon term survives:
+  $$v'(0)=\lim_{T\to\infty}\beta^TF_y(x_T,x_{T+1})\cdot\varepsilon_{T+1}=-\lim_{T\to\infty}\beta^{T+1}F_x(x_{T+1},x_{T+2})\cdot\varepsilon_{T+1},$$
+  using the EE once more to replace \(F_y(T)\) by \(-\beta F_x(T+1)\) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=23">EE p.23</a>.</p>
+
+  <div class="proof" id="pf-slide-23-argument-steps">
+    <div class="box-title">The slide-23 argument, in steps</div>
+    <ol class="steps">
+      <li><strong>Choose the terminal variation</strong> \(\varepsilon_{T+1}=-x_{T+1}\). With \(\alpha\in(0,1]\), this <em>scales down</em> the date-\((T+1)\) state toward zero: \(x_{T+1}+\alpha\varepsilon_{T+1}=(1-\alpha)x_{T+1}\). Economically: "consume part of the capital stock at the end".</li>
+      <li><strong>Assume it is feasible</strong> (for instance \(0\in\Gamma(x_T)\), and the continuation can adjust), and that \(v\) is differentiable with the limits interchangeable.</li>
+      <li><strong>Apply the first-order condition:</strong> \(0=v'(0)=-\lim_T\beta^{T+1}F_x(x_{T+1},x_{T+2})\cdot(-x_{T+1})=\lim_T\beta^{T+1}F_x(x_{T+1},x_{T+2})\cdot x_{T+1}\).</li>
+      <li><strong>Re-index</strong> \(t=T+1\): \(\lim_{t\to\infty}\beta^tF_x(x_t,x_{t+1})\cdot x_t=0\). This is the TC.</li>
+    </ol>
+  </div>
+
+  <div class="warning" id="warn-why-slides-now-call-this">
+    <div class="box-title">Why the slides now call this "heuristic"</div>
+    <p>The 2026 deck adds a remark: "the argument is heuristic: the terminal variation changes with \(T\)" <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=23">EE p.23</a>. The problem is this.</p>
+    <ul>
+      <li>In §2–3, \(\varepsilon\) was a <em>fixed</em> sequence, and \(v'(0)\) was computed for it. Here the variation \(\varepsilon_{T+1}=-x_{T+1}\) is a different sequence for each \(T\).</li>
+      <li>So we are really looking at a family of functions \(v_T(\alpha)\), each with \(v_T'(0)\le0\) or \(=0\), and then taking a limit in \(T\) of their derivatives. Nothing in the argument shows that this limit is the derivative of anything, or that it must be zero. Even the sign requires that the scaled-down path stays feasible <em>for all later dates</em>, not only at \(T+1\).</li>
+      <li>Making it rigorous needs extra regularity and admissibility conditions. Roughly, these let you scale the <em>whole tail</em> of the path down to \(\lambda x_t\), \(\lambda\) slightly below 1, and still have a feasible path with a finite value. Results of this type are in Ekeland &amp; Scheinkman (1986) and Kamihigashi (2001). The course does not pursue them.</li>
+    </ul>
+  </div>
+
+  <p>There is a second heuristic that many people find more convincing. In the <strong>\(T\)-period problem</strong>, the terminal state \(x_{T+1}\ge0\) is chosen freely, and the Kuhn–Tucker condition for it is
+  $$\beta^TF_y(x_T,x_{T+1})\le0,\qquad \beta^TF_y(x_T,x_{T+1})\cdot x_{T+1}=0 .$$
+  In the growth model \(F_y=-U'\lt 0\), so the finite-horizon planner eats everything: \(x_{T+1}=0\). The TC is the limit of this complementary-slackness condition, after the EE has been used to write \(\beta^TF_y(T)=-\beta^{T+1}F_x(T+1)\). It is still a heuristic, because it presumes that the finite-horizon solutions converge to the infinite-horizon one.</p>
+
+  <div class="intuition" id="int-intuition-no-valuable-stock-left">
+    <div class="box-title">Intuition: no valuable stock left "at infinity"</div>
+    <p>\(F_x(x_t,x_{t+1})\) is the marginal value at \(t\) of the state, its shadow price. So \(\beta^tF_x\cdot x_t\) is the present value of the stock you are holding at date \(t\). Stokey–Lucas (§4.5) read it as the present value of the capital stock at market prices. The TC says this present value must vanish. If it did not, you could consume a little of the stock "at the end" and gain. <a href="0029-transversality-at-work.html">Lesson 29</a> builds a path that satisfies the EE at every date but keeps accumulating assets forever. That path violates exactly this condition.</p>
+  </div>
+
+  <div class="box notation" id="note-which-assumptions-did-tc-argument">
+    <div class="box-title">Which assumptions did the TC argument use?</div>
+    <p>It used differentiability of \(F\), the interchange of limits, the EE, and feasibility of scaling the state down. It did <strong>not</strong> use concavity. Concavity is the engine of <em>sufficiency</em>, through the tangent-line inequality \(F(x,y)\le F(x^*,y^*)+F_x\cdot(x-x^*)+F_y\cdot(y-y^*)\) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=14">EE p.14</a>. Mixing up the two directions is a recurring exam trap (Fall 2005 Midterm; see the T/F block).</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s6">6. The Euler equation as a second-order difference equation</h2>
+
+  <p>The EE links three consecutive states. Solve it for the latest one,
+  $$F_y(x_t,x_{t+1})+\beta F_x\big(x_{t+1},\psi(x_{t+1},x_t)\big)=0\quad\Longleftrightarrow\quad x_{t+2}=\psi(x_{t+1},x_t),$$
+  and it becomes a <strong>second-order difference equation</strong> <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=24">EE p.24</a>. A second-order equation needs two boundary conditions to pin down a solution. One is the initial condition \(x_0\). The other is <em>not</em> an initial value of \(x_1\), since \(x_1\) is a choice. It is the TC, a condition at infinity. This is a <strong>two-point boundary value problem</strong>, and that structure is what makes the shooting algorithm natural.</p>
+
+  <h3 id="s6-when-well-defined">When is \(\psi\) well defined?</h3>
+  <p>Write \(\Phi(x_t,x_{t+1},x_{t+2})\equiv F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})\). For \(F\in C^2\), the implicit function theorem gives a locally unique \(C^1\) solution \(x_{t+2}=\psi(x_{t+1},x_t)\) near any solution point, provided
+  $$\frac{\partial\Phi}{\partial x_{t+2}}=\beta F_{xy}(x_{t+1},x_{t+2})\neq0$$
+  (with \(m\) states: the \(m\times m\) matrix \(F_{xy}\) is nonsingular). Here \(F_{xy}=\partial^2F/\partial x\,\partial y\) is the cross-partial. If moreover \(F_{xy}>0\) everywhere in one dimension, \(\Phi\) is strictly monotone in \(x_{t+2}\), so \(\psi\) is <em>globally</em> unique wherever a solution exists.</p>
+
+  <ul>
+    <li><strong>Growth model.</strong> \(F(x,y)=U(f(x)-y)\) gives \(F_x=U'(c)f'(x)\), \(F_y=-U'(c)\), and
+    $$F_{xy}=-U''(c)f'(x)>0 .$$
+    So \(\psi\) exists. With \(U'(c)=c^{-1/\sigma}\) (intertemporal elasticity \(\sigma\)) it is explicit:
+    $$c_{t+1}=c_t\big(\beta f'(k_{t+1})\big)^{\sigma},\qquad k_{t+2}=\psi(k_{t+1},k_t)=f(k_{t+1})-\big(f(k_t)-k_{t+1}\big)\big(\beta f'(k_{t+1})\big)^{\sigma}.$$</li>
+    <li><strong>Linear utility.</strong> \(U(c)=c\) gives \(F_{xy}=0\), so \(\psi\) is <em>not</em> defined: the EE \(-1+\beta f'(k_{t+1})=0\) does not involve \(x_{t+2}\) at all. Instead it pins down \(k_{t+1}=\bar k\) directly. The equation is first order, and capital jumps to the steady state in one period when feasible (slide 31, <a href="0029-transversality-at-work.html">Lesson 29</a>).</li>
+  </ul>
+
+  <h3 id="s6-at-most-one-optimum">At most one optimum</h3>
+  <div class="theorem" id="thm-proposition-uniqueness">
+    <div class="box-title">Proposition: uniqueness <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=25">EE p.25</a></div>
+    <p>If \(X\) is convex, the graph of \(\Gamma\) is convex, and \(F\) is strictly concave in \((x,y)\), then for each \(x_0\) the sequence problem has <strong>at most one</strong> solution (when the value is finite).</p>
+  </div>
+  <div class="proof" id="pf-proof-midpoint-argument-as-slide">
+    <div class="box-title">Proof (the midpoint argument, as on slide 28)</div>
+    <ol class="steps">
+      <li>Suppose \(\{x_t\}\) and \(\{x'_t\}\) are both optimal from \(x_0\), with value \(V^*(x_0)\), and \(x_{s}\neq x'_{s}\) for some \(s\ge1\).</li>
+      <li><strong>The midpoint path is feasible.</strong> Let \(x''_t=\tfrac12(x_t+x'_t)\). Then \(x''_0=x_0\), and \(x''_t\in X\) because \(X\) is convex. For each \(t\), \((x_t,x_{t+1})\) and \((x'_t,x'_{t+1})\) are in \(\mathrm{Gr}(\Gamma)\), and so is their midpoint, because the graph is convex: \(x''_{t+1}\in\Gamma(x''_t)\).</li>
+      <li><strong>It is at least as good at every date</strong> by concavity: \(F(x''_t,x''_{t+1})\ge\tfrac12F(x_t,x_{t+1})+\tfrac12F(x'_t,x'_{t+1})\).</li>
+      <li><strong>Strictly better at one date.</strong> At \(t=s-1\) the pairs differ, because \(x_s\neq x'_s\), so strict concavity makes that inequality strict.</li>
+      <li><strong>Sum.</strong> Multiply by \(\beta^t\) and add up. The value of \(\{x''_t\}\) is strictly greater than \(\tfrac12V^*+\tfrac12V^*=V^*\), contradicting optimality. ∎</li>
+    </ol>
+  </div>
+
+  <div class="warning" id="warn-strict-quasi-concavity-not-enough">
+    <div class="box-title">Strict quasi-concavity is not enough</div>
+    <p>Step 3 needs \(F(\text{midpoint})\ge\) the <em>average</em> of the two values. Strict quasi-concavity only gives \(F(\text{midpoint})>\) the <em>smaller</em> of them, and that inequality does not survive summation over dates, because a sum of quasi-concave functions need not be quasi-concave. Uniqueness is one of the few places in this deck where the cardinal property (concavity) is essential. The same point came up for planner weights in <a href="0021-utility-possibility-set-and-planner-weights.html">Lesson 21</a>.</p>
+  </div>
+
+  <div class="intuition" id="int-preview-folder-5-two-roots">
+    <div class="box-title">Preview of folder 5: the two roots</div>
+    <p>Linearize the EE around a steady state \(\bar x\). In one dimension, \(F_{yx}\,dx_t+(F_{yy}+\beta F_{xx})\,dx_{t+1}+\beta F_{xy}\,dx_{t+2}=0\). Trying \(dx_t=\lambda^t\) gives the characteristic equation
+    $$\beta F_{xy}\lambda^2+(F_{yy}+\beta F_{xx})\lambda+F_{xy}=0,\qquad \lambda_1\lambda_2=\frac{F_{xy}}{\beta F_{xy}}=\frac1\beta .$$
+    The roots come in pairs whose product is \(1/\beta>1\). In the growth model, one root is in \((0,1)\) (stable) and the other is \(\lambda_2=1/(\beta\lambda_1)>1/\beta\) (unstable) (Exercise 28.5). The TC rules out the explosive root. That is the deep reason there is exactly one good choice of \(x_1\), and also the reason that choice is hard to hit numerically. The quadratic \(Q(\gamma)\) of <a href="0030-closed-form-decision-rules.html">Lesson 30</a> is this characteristic equation for the adjustment-cost model.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s7">7. The shooting algorithm</h2>
+
+  <div class="definition" id="def-algorithm-shooting">
+    <div class="box-title">Algorithm: shooting <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=25">EE p.25</a></div>
+    <ol class="steps">
+      <li>Given \(x_0\), <strong>guess</strong> \(x_1\). In the growth model, equivalently guess \(c_0=f(k_0)-k_1\).</li>
+      <li><strong>Iterate the EE forward:</strong> \(x_{t+2}=\psi(x_{t+1},x_t)\) for \(t\ge0\). (The slide says "for all \(t\ge2\)". That is a typo, since the first application produces \(x_2\).)</li>
+      <li><strong>Check the TC</strong>, or in practice check whether the path heads to the steady state or diverges.</li>
+      <li>If it fails, <strong>adjust \(x_1\)</strong> in the right direction and repeat. In one dimension, keep a bracket \([\underline{x}_1,\overline{x}_1]\) and bisect.</li>
+    </ol>
+  </div>
+
+  <p>The slide asks: for what problems does this work, and why? The answer has two halves.</p>
+  <ul>
+    <li><strong>Why the target is right.</strong> If the problem is concave with \(F_x\ge0\) and \(X=\mathbb R^m_+\), any path satisfying EE + TC is optimal (Lesson 27). If moreover \(F\) is strictly concave on a convex graph, it is the <em>only</em> optimum (§6). So hitting EE + TC means you have found <em>the</em> solution, not just a candidate.</li>
+    <li><strong>Why the search is easy in one dimension.</strong> The guesses can be ordered, and too-high and too-low guesses fail in recognizably different ways.</li>
+  </ul>
+
+  <div class="theorem" id="thm-proposition-shooting-paths-are-ordered">
+    <div class="box-title">Proposition: shooting paths are ordered (one-sector growth model)</div>
+    <p>Let \(U'' \lt 0\), \(f'>0\), \(f''\lt 0\), fix \(k_0\), and let \(\{k_t,c_t\}\) and \(\{\tilde k_t,\tilde c_t\}\) be generated by the EE and \(k_{t+1}=f(k_t)-c_t\) from guesses \(\tilde k_1>k_1\). Then, as long as both paths are defined, \(\tilde k_{t+1}>k_{t+1}\) and \(\tilde c_t\lt c_t\) for every \(t\ge0\).</p>
+  </div>
+  <div class="proof" id="pf-proof-induction">
+    <div class="box-title">Proof (induction)</div>
+    <ol class="steps">
+      <li><strong>Base, \(t=0\).</strong> \(\tilde c_0=f(k_0)-\tilde k_1\lt f(k_0)-k_1=c_0\), and \(\tilde k_1>k_1\) by assumption.</li>
+      <li><strong>Hypothesis.</strong> Suppose \(\tilde c_t\lt c_t\) and \(\tilde k_{t+1}>k_{t+1}\).</li>
+      <li><strong>Consumption.</strong> The EE gives \(U'(c_{t+1})=U'(c_t)/\big(\beta f'(k_{t+1})\big)\). Lower \(\tilde c_t\) means higher \(U'(\tilde c_t)\), and higher \(\tilde k_{t+1}\) means lower \(f'(\tilde k_{t+1})\). Both raise the right-hand side, so \(U'(\tilde c_{t+1})>U'(c_{t+1})\), i.e. \(\tilde c_{t+1}\lt c_{t+1}\).</li>
+      <li><strong>Capital.</strong> \(\tilde k_{t+2}=f(\tilde k_{t+1})-\tilde c_{t+1}>f(k_{t+1})-c_{t+1}=k_{t+2}\). This completes the induction. ∎</li>
+    </ol>
+  </div>
+
+  <p>The induction hypothesis has to carry both inequalities: knowing only \(\tilde k_t>k_t\) and \(\tilde k_{t+1}>k_{t+1}\) would leave \(\tilde c_t=f(\tilde k_t)-\tilde k_{t+1}\) ambiguous. With the ordering in hand, the two kinds of failure are separated by the optimal guess:</p>
+  <ul>
+    <li><strong>Too much saving</strong> (\(k_1\) too high, \(c_0\) too low): consumption keeps falling, capital rises past \(\bar k\) toward the maximum sustainable stock, and \(c_t\to0\). The EE holds at every date, but \(\beta^tU'(c_t)f'(k_t)k_t\) does not vanish, so the path violates the TC. This is over-accumulation, the same failure as the savings example of slide 30.</li>
+    <li><strong>Too little saving</strong> (\(c_0\) too high): consumption keeps rising, capital turns down, and in finite time \(k_{t+1}=f(k_t)-c_t\) would be negative. The path becomes infeasible.</li>
+  </ul>
+  <p>Because the paths are ordered, the set of "too low" guesses and the set of "too high" guesses are intervals, and the optimal \(k_1\) separates them. Bisection therefore converges to it.</p>
+
+  <div class="figure" id="fig-shoot">
+    <div id="sh-ctrl"></div>
+    <div id="sh-phase"></div>
+    <div id="sh-time"></div>
+    <div id="sh-read"></div>
+    <div class="verdict" id="sh-verdict"></div>
+    <div id="sh-log" style="font-family:var(--sans,system-ui);font-size:.85rem;color:#52514e;margin-top:.4rem"></div>
+    <div class="caption"><b>Interactive: shooting in the growth model.</b> \(f(k)=k^{0.33}+0.9k\), \(\beta=0.95\), \(U'(c)=c^{-1/\sigma}\). The top panel is the \((k,c)\) plane. The <span style="color:#1baf7a">aqua</span> curve is \(c=f(k)-k\), where capital is constant (\(k_{t+1}=k_t\)). The gray dashed curve is \(c=f(k)-\bar k\), where consumption is constant: \(c_{t+1}=c_t\) iff \(\beta f'(k_{t+1})=1\) iff \(k_{t+1}=\bar k\). In discrete time this curve is not vertical. The thin black dotted curve is the saddle path, computed by shooting from many \(k_0\). The bottom panel plots \(k_t\) against \(t\). Paths are colored <span style="color:#eb6834">orange</span> if they over-accumulate, <span style="color:#4a3aa7">violet</span> if capital collapses, and <span style="color:#2a78d6">blue</span> once bisection has located the saddle path. <b>Try:</b> move \(c_0\) by hand and find the knife edge. Press <b>Bisect</b> and watch the bracket shrink. Even the bisected path eventually leaves the steady state, because rounding errors grow at the unstable root \(\lambda_2\). Raise \(\sigma\) and see the saddle path flatten.</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const A = 0.33, B = 0.95, D = 0.1;
+    const f = k => Math.pow(k, A) + (1 - D) * k, fp = k => A * Math.pow(k, A - 1) + 1 - D;
+    const kb = Math.pow(A / (1 / B - 1 + D), 1 / (1 - A)), cb = f(kb) - kb;
+    const KMAX = 2.25 * kb, CMAX = 2.4;
+    const Pp = EconPlot.create('#sh-phase', { x: [0, KMAX], y: [0, CMAX], width: 560, height: 360, xlabel: 'capital k_t', ylabel: 'consumption c_t', xticks: 7, yticks: 6 });
+    const TMAX = 160;
+    const Pt = EconPlot.create('#sh-time', { x: [0, TMAX], y: [0, KMAX], width: 560, height: 220, xlabel: 'period t', ylabel: 'k_t', xticks: 8, yticks: 4 });
+
+    // simulate EE + resource constraint; classify outcome
+    function sim(k0, c0, sig, T) {
+      const ks = [k0], cs = [c0]; let k = k0, c = c0, out = 'none';
+      for (let t = 0; t < T; t++) {
+        const k1 = f(k) - c;
+        if (!(k1 > 0)) { out = 'collapse'; ks.push(0); break; }
+        const c1 = c * Math.pow(B * fp(k1), sig);
+        ks.push(k1); cs.push(c1);
+        if (k1 < kb && k1 < k) { out = 'collapse'; break; }
+        if (k1 > kb && k1 > k) { out = 'overshoot'; break; }
+        k = k1; c = c1;
+      }
+      return { out, ks, cs };
+    }
+    // keep simulating past the classification point, to draw the full divergence
+    function simFull(k0, c0, sig, T) {
+      const ks = [k0], cs = [c0]; let k = k0, c = c0, out = 'none';
+      for (let t = 0; t < T; t++) {
+        const k1 = f(k) - c;
+        if (!(k1 > 0)) { if (out === 'none') out = 'collapse'; ks.push(0); break; }
+        const c1 = c * Math.pow(B * fp(k1), sig);
+        if (out === 'none') { if (k1 < kb && k1 < k) out = 'collapse'; else if (k1 > kb && k1 > k) out = 'overshoot'; }
+        ks.push(k1); cs.push(c1); k = k1; c = c1;
+        if (k > 1.05 * KMAX || c > 1.2 * CMAX) break;
+      }
+      return { out, ks, cs };
+    }
+    function shoot(k0, sig, n) {
+      let lo = 0, hi = f(k0); const steps = [];
+      for (let i = 0; i < n; i++) {
+        const m = (lo + hi) / 2, r = sim(k0, m, sig, 600).out;
+        steps.push([lo, hi, m, r]);
+        if (r === 'collapse') hi = m; else if (r === 'overshoot') lo = m; else break;
+        if (hi - lo < 1e-15) break;
+      }
+      return { c0: (lo + hi) / 2, steps };
+    }
+    function roots(sig) {
+      const U1 = Math.pow(cb, -1 / sig), U2 = -(1 / sig) * Math.pow(cb, -1 / sig - 1);
+      const fpb = fp(kb), fpp = A * (A - 1) * Math.pow(kb, A - 2);
+      const Fxy = -U2 * fpb, Fyy = U2, Fxx = U2 * fpb * fpb + U1 * fpp;
+      const a = B * Fxy, b = Fyy + B * Fxx, c = Fxy, dsc = Math.sqrt(b * b - 4 * a * c);
+      return [(-b - dsc) / (2 * a), (-b + dsc) / (2 * a)];
+    }
+    let saddleSig = null, saddle = [];
+    function saddlePath(sig) {
+      if (saddleSig === sig) return saddle;
+      saddle = [];
+      for (let i = 0; i <= 40; i++) { const k0 = 0.08 * kb + i * (KMAX - 0.08 * kb) / 40; saddle.push([k0, shoot(k0, sig, 70).c0]); }
+      saddleSig = sig; return saddle;
+    }
+    const col = o => o === 'overshoot' ? C.orange : o === 'collapse' ? C.violet : C.blue;
+    let bisected = null, S;
+    function draw(v) {
+      const { k0r, sig, c0 } = v, k0 = k0r * kb;
+      Pp.clear(); Pt.clear();
+      Pp.fn(k => f(k) - k, { color: C.aqua, width: 2, domain: [0.001, KMAX], label: 'k_{t+1} = k_t', labelAt: 0.83 * KMAX, labelDy: -10 });
+      const kz = EconPlot.bisect(k => f(k) - kb, 0.01, kb);
+      Pp.fn(k => f(k) - kb, { color: C.muted, width: 1.6, dash: '6 4', domain: [kz, KMAX], label: 'c_{t+1} = c_t', labelAt: 1.28 * kb, labelDx: 8, labelDy: 4 });
+      Pp.path(saddlePath(sig), { color: C.ink, width: 1, dash: '2 3' });
+      const sl = saddle[saddle.length - 3]; Pp.text(sl[0], sl[1], 'saddle path', { anchor: 'end', dy: -10, size: 12, sans: true, color: '#52514e' });
+      Pp.point(kb, cb, { color: C.ink, r: 3.5, label: 'steady state', labelDx: 8, labelDy: 16 });
+      const isB = bisected && Math.abs(bisected.c0 - c0) < 1e-12 && bisected.k0 === k0 && bisected.sig === sig;
+      const r = simFull(k0, c0, sig, 400);
+      const color = isB ? C.blue : col(r.out);
+      const pts = [];
+      for (let t = 0; t < r.cs.length && t + 1 < r.ks.length + 1; t++) pts.push([r.ks[t], r.cs[t]]);
+      Pp.path(pts.filter(p => p[0] <= KMAX && p[1] <= CMAX), { color, width: 2.2 });
+      pts.slice(0, 40).forEach(p => { if (p[0] <= KMAX && p[1] <= CMAX) Pp.point(p[0], p[1], { color, r: 2.2 }); });
+      Pp.point(k0, Math.min(c0, CMAX), { color, r: 4.5, hollow: true, label: '(k_0, c_0)', labelDx: 10, labelDy: 22 });
+      Pt.hline(kb, { color: C.muted, dash: '6 4', width: 1.2 });
+      Pt.text(TMAX, kb, 'k̄', { anchor: 'end', dx: -4, dy: -6, italic: true });
+      Pt.path(r.ks.slice(0, TMAX + 1).map((k, t) => [t, k]).filter(p => p[1] <= KMAX), { color, width: 2.2 });
+      let near = 0; for (const k of r.ks) if (Math.abs(k - kb) < 0.01 * kb) near++;
+      const [l1, l2] = roots(sig);
+      EconPlot.readout('#sh-read', [
+        ['steady state k̄, c̄ :', kb.toFixed(3) + ', ' + cb.toFixed(3)],
+        ['guess c₀ :', isB ? c0.toFixed(12) : c0.toFixed(4)],
+        ['outcome :', isB ? 'on the saddle path (to machine precision)' : r.out === 'overshoot' ? 'over-accumulates (TC fails)' : r.out === 'collapse' ? 'capital collapses (infeasible)' : 'undecided', isB ? 'good' : 'bad'],
+        ['periods with |k_t − k̄| < 1% k̄ :', String(near)],
+        ['roots λ₁, λ₂ (λ₁λ₂ = 1/β) :', l1.toFixed(3) + ', ' + l2.toFixed(3)]
+      ]);
+      document.getElementById('sh-verdict').textContent = isB
+        ? 'Bisection pinned c₀ down to about 15 digits. The path converges toward the steady state at rate λ₁, then the leftover rounding error, growing at rate λ₂, takes over and the path leaves.'
+        : r.out === 'overshoot' ? 'c₀ is too low: you save too much. Capital passes k̄ and keeps rising while consumption falls toward zero. The Euler equation holds every period, but transversality fails.'
+        : 'c₀ is too high: you save too little. Capital turns down below k̄ and eventually k_{t+1} = f(k_t) − c_t would be negative.';
+    }
+    function resetLog() { document.getElementById('sh-log').innerHTML = ''; }
+    S = EconPlot.sliders('#sh-ctrl', [
+      { id: 'k0r', label: 'k₀ / k̄', min: 0.2, max: 2, step: 0.01, value: 0.5 },
+      { id: 'sig', label: 'σ (IES)', min: 0.25, max: 3, step: 0.05, value: 1 },
+      { id: 'c0', label: 'c₀', min: 0.05, max: 2.2, step: 0.0005, value: 0.75, fmt: x => (+x).toFixed(4) }
+    ], (v, id) => { if (id && id !== 'c0') { bisected = null; resetLog(); } if (id === 'c0' && bisected && Math.abs(bisected.c0 - v.c0) > 1e-12) bisected = null; draw(v); });
+    S.button('Bisect', () => {
+      const v = S.values, k0 = v.k0r * kb, res = shoot(k0, v.sig, 80);
+      const lines = res.steps.slice(0, 10).map(([lo, hi, m, o], i) =>
+        `<li>bracket [${lo.toFixed(5)}, ${hi.toFixed(5)}]: try c₀ = ${m.toFixed(5)}, ${o === 'collapse' ? 'collapses, so too high' : 'over-accumulates, so too low'}</li>`).join('');
+      document.getElementById('sh-log').innerHTML = `<b>Bisection log</b> (first 10 of ${res.steps.length} steps; the width halves each time):<ol style="margin:.2rem 0 0 1.2rem">${lines}</ol>`;
+      bisected = { c0: res.c0, k0, sig: v.sig };
+      S.set('c0', res.c0);
+    });
+    S.button('Reset c₀', () => { bisected = null; resetLog(); S.set('c0', 0.75); });
+  })();
+  </script>
+
+  <h3 id="s7-why-shooting-fragile-when">Why shooting is fragile, and when it fails</h3>
+  <ul>
+    <li><strong>Errors grow at the unstable root.</strong> A guess that is off by \(\epsilon\) puts the path off the saddle path by a deviation of order \(\epsilon\) along the unstable direction, and that deviation multiplies by \(\lambda_2>1/\beta\) every period. Meanwhile the distance to the steady state shrinks like \(\lambda_1^t\). The path turns away at roughly the date when \(\epsilon\lambda_2^t\) overtakes \(\lambda_1^t\). So each extra correct digit in \(c_0\) buys only about \(\ln10/\ln(\lambda_2/\lambda_1)\) more periods near the steady state, about 6 periods in the figure's calibration. In double precision you cannot shoot for much more than a hundred periods. In practice people shoot backward from near the steady state, or use multiple shooting or policy-function methods.</li>
+    <li><strong>More than one state.</strong> With \(x\in\mathbb R^m\) you must search over \(x_1\in\mathbb R^m\). Nothing like the ordering proposition is available in general, and with \(m\) unstable roots the path is sensitive in \(m\) directions at once.</li>
+    <li><strong>No \(\psi\).</strong> If \(F_{xy}\) is singular (e.g. linear utility), the EE cannot be iterated forward. It must be used directly, as in Lesson 29.</li>
+  </ul>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s8">8. Check yourself</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">1. Why must a variation \(x_t+\alpha\varepsilon_t\) satisfy \(\varepsilon_0=0\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The initial state \(x_0\) is given data</li>
+        <li class="quiz-option" data-option="b">Otherwise the Euler equation would not hold</li>
+        <li class="quiz-option" data-option="c">Concavity of \(F\) fails at date zero</li>
+        <li class="quiz-option" data-option="d">The discount factor equals one at zero</li>
+      </ul>
+      <div class="quiz-explain">\(x_0\) is the initial condition of the problem, not a choice, so variations cannot move it. In the derivation, \(\varepsilon_0=0\) is exactly what kills the stray term \(F_x(x_0,x_1)\cdot\varepsilon_0\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">2. Which assumption does the one-date proof of the EE (slide 22) need?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Interior choices at the two adjacent dates</li>
+        <li class="quiz-option" data-option="b">A differentiable value function and the envelope</li>
+        <li class="quiz-option" data-option="c">Concavity of \(F\) in both its arguments</li>
+        <li class="quiz-option" data-option="d">A state space bounded below by zero</li>
+      </ul>
+      <div class="quiz-explain">Moving \(x_{t+1}\) touches the constraints \(x_{t+1}\in\Gamma(x_t)\) and \(x_{t+2}\in\Gamma(x_{t+1})\), so both need slack. Concavity and \(X=\mathbb R^m_+\) are sufficiency assumptions. The value function and envelope condition belong to a different derivation (folder 8).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">3. The map \(\psi\) in \(x_{t+2}=\psi(x_{t+1},x_t)\) is locally well defined if</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">\(F_{xy}\neq0\) along the path</li>
+        <li class="quiz-option" data-option="b">\(F_{yy}\neq0\) along the path</li>
+        <li class="quiz-option" data-option="c">\(F_{x}\ge0\) along the path</li>
+        <li class="quiz-option" data-option="d">\(F\) strictly concave everywhere</li>
+      </ul>
+      <div class="quiz-explain">The derivative of \(F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})\) with respect to \(x_{t+2}\) is \(\beta F_{xy}(x_{t+1},x_{t+2})\). The implicit function theorem needs it nonzero. Strict concavity does not ensure this: a separable \(F(x,y)=a(x)+b(y)\) can be strictly concave with \(F_{xy}=0\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">4. Shooting in the growth model from \(k_0\lt\bar k\), with a guess of \(c_0\) that is too low, gives a path that</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Accumulates too much capital as consumption falls</li>
+        <li class="quiz-option" data-option="b">Exhausts the capital stock in finite time</li>
+        <li class="quiz-option" data-option="c">Converges to the steady state from above</li>
+        <li class="quiz-option" data-option="d">Oscillates around the steady state forever after</li>
+      </ul>
+      <div class="quiz-explain">By the ordering proposition, a lower \(c_0\) means higher capital and lower consumption at every date. Capital passes \(\bar k\), where \(\beta f'\lt 1\), so consumption keeps falling. The EE holds throughout, but the TC fails. Running capital to zero is what a too-<em>high</em> \(c_0\) does.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">5. Is concavity of \(F\) used in the (heuristic) necessity argument for the TC?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">No: it uses only differentiability and feasibility</li>
+        <li class="quiz-option" data-option="b">Yes: the proof uses the tangent-line inequality</li>
+        <li class="quiz-option" data-option="c">Yes: otherwise Euler equations have no solution</li>
+        <li class="quiz-option" data-option="d">No: transversality follows from the Euler equation</li>
+      </ul>
+      <div class="quiz-explain">Slide 23 uses differentiability, the limit interchange, the EE and the variation \(\varepsilon_{T+1}=-x_{T+1}\). The tangent-line inequality is the <em>sufficiency</em> proof. And the TC does not follow from the EE: Lesson 29 has paths satisfying the EE that violate it.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">6. Why does shooting break down numerically over long horizons?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Errors grow at the unstable root each period</li>
+        <li class="quiz-option" data-option="b">The stable root is always larger than one</li>
+        <li class="quiz-option" data-option="c">Bisection needs a differentiable map from the guess</li>
+        <li class="quiz-option" data-option="d">The Euler equation has no steady state here</li>
+      </ul>
+      <div class="quiz-explain">The roots satisfy \(\lambda_1\lambda_2=1/\beta\). Any error in the guess loads on the unstable root \(\lambda_2>1/\beta\) and grows geometrically, so even a 15-digit guess leaves the steady state after roughly a hundred periods. Bisection needs only the ordering of paths, not differentiability.</div>
+    </div>
+    <div class="quiz-score"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s9">9. Exercises</h2>
+
+  <div class="box exercise" id="tf">
+    <div class="box-title">True or false? Justify. <span class="tag past">Past exam</span> <span class="tag exam">Exam-inspired</span></div>
+    <p>Answer True or False and justify in at most four lines.</p>
+    <ol class="tf-list">
+      <li>Concavity of the period return \(F(x,y)\) is required, as an assumption, to derive the necessity of the transversality condition. <span class="tf-src">Fall 2005 Midterm, Ex. 1 Q9 (20 pts)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The necessity argument <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=23">EE p.23</a> uses differentiability of \(F\), the interchange of the \(\alpha\)-derivative with the \(T\)-limit, the EE, and feasibility of the terminal variation \(\varepsilon_{T+1}=-x_{T+1}\). It never uses concavity. Concavity is what the <em>sufficiency</em> proof needs, through \(F(x,y)\le F(x^*,y^*)+F_x\cdot(x-x^*)+F_y\cdot(y-y^*)\) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=14">EE p.14</a>. (The course's necessity argument is heuristic. The extra conditions in rigorous versions are regularity or scaling conditions, not concavity.)</p></div></details></li>
+      <li>The Euler equation can be derived without the envelope condition. <span class="tf-src">exam-inspired (a circulating T/F bank)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> Perturb only \(x_{t+1}\) in the sequence problem: \(x_{t+1}\) must maximize \(F(x_t,z)+\beta F(z,x_{t+2})\) over feasible \(z\). The interior FOC is the EE <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=22">EE p.22</a>. No value function appears. A commonly circulated answer says "False, the envelope condition is essential to eliminate \(V'\)". That describes one derivation, not the only one.</p></div></details></li>
+      <li>Suppose \(V\) is differentiable and the optimal policy \(g\) is interior. Then the first-order condition \(F_y(x,g(x))+\beta V'(g(x))=0\) and the envelope condition \(V'(x)=F_x(x,g(x))\) together imply the EE. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> Evaluate the envelope condition at \(x_{t+1}=g(x_t)\): \(V'(x_{t+1})=F_x(x_{t+1},x_{t+2})\). Substitute into the FOC at \(x=x_t\): \(F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0\). This route needs differentiability of \(V\) (Benveniste–Scheinkman), which the sequence-problem route does not.</p></div></details></li>
+      <li>For any dynamic problem with \(F\in C^1\), the EE and the TC are necessary and sufficient for a path to be optimal. <span class="tf-src">exam-inspired (a circulating review sheet)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> Sufficiency needs \(F\) concave, \(F_x\ge0\) and \(X=\mathbb R^m_+\) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=12">EE p.12</a>. Necessity of the EE needs interiority at adjacent dates: at a corner it becomes an inequality. Necessity of the TC is only established heuristically in the course. The 2026 slide 11 states the principle "under appropriate concavity, interiority, and regularity conditions".</p></div></details></li>
+      <li>In the growth model with \(\Gamma(k)=[0,f(k)]\), if the optimum has \(c_t=0\) at some date, the EE \(U'(c_t)=\beta f'(k_{t+1})U'(c_{t+1})\) still holds at that date. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False</strong> in general. With \(c_t=0\), \(k_{t+1}=f(k_t)\) is at the upper end of \(\Gamma(k_t)\), so only downward variations are feasible. Optimality then gives only the inequality \(F_y+\beta F_x\ge0\), i.e. \(U'(0)\le\beta f'(k_{t+1})U'(c_{t+1})\), which can be strict. This happens with linear utility when \(\beta f'(k_{t+1})>1\) (slide 31). With \(U'(0)=\infty\) the corner cannot occur.</p></div></details></li>
+      <li>The midpoint argument for uniqueness of the optimal path still works if "\(F\) strictly concave" is replaced by "\(F\) strictly quasi-concave". <span class="tf-src">exam-inspired (slide 25)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The argument needs \(F(\text{midpoint})\ge\frac12F(a)+\frac12F(b)\) at every date, so that it can be summed with weights \(\beta^t\). Strict quasi-concavity gives only \(F(\text{midpoint})>\min\{F(a),F(b)\}\), which does not add up across dates: a sum of quasi-concave functions need not be quasi-concave.</p></div></details></li>
+      <li>In the growth model with \(U'(0)=\infty\) and \(f(0)=0\), \(f'(0)=\infty\), the EE holds with equality at every date along the optimal path. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> The upper corner \(c_t=0\), at the last date of a run of zero-consumption dates (so \(c_{t+1}>0\)), would need \(U'(0)\le\beta f'(k_{t+1})U'(c_{t+1})\lt\infty\), which is impossible. The lower corner \(k_{t+1}=0\) forces \(c_s=0\) for all \(s>t\) (since \(f(0)=0\)). Then raising \(k_{t+1}\) slightly has marginal value \(-U'(c_t)+\beta U'(0)f'(0)=+\infty\), so it is not optimal. So both adjacent constraints have slack and the interior EE applies (Exercise 28.2).</p></div></details></li>
+      <li>Shooting in the growth model from \(k_0\lt\bar k\): if the path generated by a guess \(k_1\) eventually has capital rising above \(\bar k\), the guess \(k_1\) was too low. <span class="tf-src">exam-inspired (slide 25)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False: it was too high.</strong> Higher \(k_1\) means lower \(c_0\), and by the ordering proposition lower consumption and higher capital at every later date. A path that keeps accumulating past \(\bar k\), where \(\beta f'(k)\lt1\) and consumption falls, is saving too much. It satisfies the EE but violates the TC. Lower \(k_1\) next time.</p></div></details></li>
+    </ol>
+  </div>
+
+  <div class="box exercise" id="ex-28-1">
+    <div class="box-title">Exercise 28.1 <span class="tag slides">Slides p.19–21</span> <span class="tag proof">Proof</span> (variations, step by step)</div>
+    <p>Let \(\{x_t\}\) be optimal from \(x_0\) in \(\max\sum_t\beta^tF(x_t,x_{t+1})\) s.t. \(x_{t+1}\in\Gamma(x_t)\), with \(F\in C^1\) and \(X\subseteq\mathbb R^m\).</p>
+    <ol class="parts" type="a">
+      <li>Define the variation \(x_t(\alpha,\varepsilon)\) and \(v(\alpha)\). Explain in one line each why \(\varepsilon_0=0\) and why \(v(0)\ge v(\alpha)\) requires a feasibility condition. <span class="pts">(10 pts)</span></li>
+      <li>For a fixed \(T\), compute \(\frac{d}{d\alpha}\sum_{t=0}^T\beta^tF(x_t(\alpha,\varepsilon),x_{t+1}(\alpha,\varepsilon))\big|_{\alpha=0}\) and rearrange it into a sum of brackets multiplying \(\varepsilon_{t+1}\) plus a terminal term. Say where you used \(\varepsilon_0=0\). <span class="pts">(15 pts)</span></li>
+      <li>State two assumptions under which \(v'(0)\) equals the limit of your expression in (b). Give a sufficient condition for the second. <span class="pts">(10 pts)</span></li>
+      <li>Choose a direction \(\varepsilon\) that delivers the EE at date \(t\). State the interiority condition you need, and explain why the assumptions in (c) are unnecessary for this choice. <span class="pts">(15 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>In (b), split the sum into the \(F_x\) part and the \(F_y\) part and shift the index of the first by one. In (d), a variation that is nonzero at one date changes only two terms of the objective.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(x_t(\alpha,\varepsilon)=x_t+\alpha\varepsilon_t\) and \(v(\alpha)=\lim_T\sum_{t=0}^T\beta^tF(x_t(\alpha,\varepsilon),x_{t+1}(\alpha,\varepsilon))\). \(\varepsilon_0=0\) because \(x_0\) is given. \(v(0)=V^*(x_0)\) is the maximum over <em>feasible</em> paths only, so the comparison \(v(0)\ge v(\alpha)\) is valid only when \(x_{t+1}(\alpha,\varepsilon)\in\Gamma(x_t(\alpha,\varepsilon))\) for all \(t\). An infeasible path can have a higher value.<br>
+      (b) The derivative is \(\sum_{t=0}^T\beta^t[F_x(t)\cdot\varepsilon_t+F_y(t)\cdot\varepsilon_{t+1}]\). The \(t=0\) term of the \(F_x\)-part vanishes since \(\varepsilon_0=0\). Shift \(s=t-1\) in the \(F_x\)-part and peel off the \(t=T\) term of the \(F_y\)-part:
+      $$\sum_{s=0}^{T-1}\beta^s\big[F_y(x_s,x_{s+1})+\beta F_x(x_{s+1},x_{s+2})\big]\cdot\varepsilon_{s+1}+\beta^TF_y(x_T,x_{T+1})\cdot\varepsilon_{T+1}.$$
+      (c) \(v\) is differentiable at 0, and \(\frac{d}{d\alpha}\lim_T=\lim_T\frac{d}{d\alpha}\). A sufficient condition for the interchange is uniform convergence of the series of derivatives near \(\alpha=0\). For example, \(\|\varepsilon_t\|\le M\) and \(\|F_x\|,\|F_y\|\le M'\) along the perturbed paths make each term at most \(2MM'\beta^t\) (Weierstrass M-test).<br>
+      (d) \(\varepsilon_{t+1}=e\), with all other \(\varepsilon_s=0\). We need a neighbourhood \(N\) of \(x_{t+1}\) with \(z\in\Gamma(x_t)\) and \(x_{t+2}\in\Gamma(z)\) for all \(z\in N\), so the variation is feasible for small \(|\alpha|\). Only \(F(x_t,\cdot)\) and \(F(\cdot,x_{t+2})\) change, so \(v(\alpha)-v(0)\) is a finite sum of \(C^1\) functions, and no limit needs interchanging. Then \(0=v'(0)=\beta^t[F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})]\cdot e\) for all \(e\), which is the EE.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-28-2">
+    <div class="box-title">Exercise 28.2 <span class="tag exam">Exam-inspired</span> (Euler inequalities and the role of Inada conditions)</div>
+    <p>Growth model: \(F(k,k')=U(f(k)-k')\), \(\Gamma(k)=[0,f(k)]\), \(U\) and \(f\) strictly increasing, strictly concave and \(C^1\), \(f(0)=0\). Let \(\{k_t\}\) be optimal.</p>
+    <ol class="parts" type="a">
+      <li>Suppose \(c_t=0\) (so \(k_{t+1}=f(k_t)\)) while \(c_{t+1}>0\). Which variations of \(k_{t+1}\) are feasible? Derive the condition optimality imposes, as an inequality on \(F_y(k_t,k_{t+1})+\beta F_x(k_{t+1},k_{t+2})\). Write it in terms of \(U'\) and \(f'\). <span class="pts">(10 pts)</span></li>
+      <li>Suppose \(k_{t+1}=0\). Show that then \(k_s=0\) and \(c_s=0\) for all \(s\ge t+2\). Which variations are feasible, and what inequality does optimality impose? <span class="pts">(10 pts)</span></li>
+      <li>Show that if \(U'(0)=\infty\) and \(f'(0)=\infty\), neither corner can occur, and the EE holds with equality at every date. <span class="pts">(10 pts)</span></li>
+      <li>Now let \(U(c)=c\) (no Inada condition). Write the inequality from (a). Show that a date with \(c_t=0\) requires \(\beta f'(k_{t+1})\ge1\), and interpret this with the result of <a href="0029-transversality-at-work.html">Lesson 29</a>. <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>Write \(\phi(z)=F(k_t,z)+\beta F(z,k_{t+2})\) and ask whether \(z\) can be moved up, down, or both, while keeping \(z\in\Gamma(k_t)\) and \(k_{t+2}\in\Gamma(z)\). A maximizer at the right end of an interval has \(\phi'\ge0\), at the left end \(\phi'\le0\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(z\) cannot exceed \(f(k_t)\). Lowering \(z\) slightly keeps \(z\in\Gamma(k_t)\), and keeps \(k_{t+2}\le f(z)\) because \(k_{t+2}=f(k_{t+1})-c_{t+1}\lt f(k_{t+1})\). So only downward moves are feasible, and optimality at the right end requires \(\phi'(k_{t+1})\ge0\):
+      $$F_y(k_t,k_{t+1})+\beta F_x(k_{t+1},k_{t+2})\ge0\iff U'(0)\le\beta f'(k_{t+1})U'(c_{t+1}).$$
+      (b) \(f(0)=0\) gives \(\Gamma(0)=\{0\}\), so \(k_{t+2}=0\) and \(c_{t+1}=f(0)-k_{t+2}=0\), and so on forever. Upward moves \(z>0\) are feasible (\(z\le f(k_t)\) if \(c_t>0\), and \(0\in\Gamma(z)\)). Optimality at the left end requires \(\phi'(0^+)\le0\): \(-U'(c_t)+\beta U'(0)f'(0)\le0\).<br>
+      (c) With \(U'(0)=\infty\), the inequality in (a) cannot hold, since its right side is finite when \(c_{t+1}>0\). A run of several zero-consumption dates is ruled out by applying (a) at the <em>last</em> date of the run. A run that never ends is not optimal either: from \(k_t>0\), consuming a little at \(t\) and nothing afterwards is feasible and strictly better. With \(U'(0)=f'(0)=\infty\), the left side of (b) is \(+\infty\), so (b) fails too. Both constraints have slack, the neighbourhood condition holds, and §4 gives the EE with equality.<br>
+      (d) \(U'\equiv1\): the inequality from (a) becomes \(1\le\beta f'(k_{t+1})\). Consuming nothing is optimal only while the return to saving is at least \(1/\beta\), i.e. while \(k_{t+1}\le\bar k\). This is the corner part of the slide-31 policy: if \(f(k_t)\lt\bar k\), invest everything, \(k_{t+1}=f(k_t)\), until output first exceeds \(\bar k\), and then jump to \(\bar k\).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-28-3">
+    <div class="box-title">Exercise 28.3 <span class="tag past">Past exam: Fall 2005 MT E1 Q9, extended</span> <span class="tag proof">Proof</span> (where the transversality condition comes from)</div>
+    <p>Same general problem as Exercise 28.1, with \(X=\mathbb R^m_+\). Assume the optimal path satisfies the EE at every date.</p>
+    <ol class="parts" type="a">
+      <li>"Concavity of \(F\) is required to derive the necessity of the TC." True or false? Justify in three lines. <span class="pts">(10 pts)</span></li>
+      <li>Using the EE, show that for any variation the slide-20 formula reduces to \(v'(0)=-\lim_T\beta^{T+1}F_x(x_{T+1},x_{T+2})\cdot\varepsilon_{T+1}\). <span class="pts">(10 pts)</span></li>
+      <li>Choose \(\varepsilon_{T+1}=-x_{T+1}\) and derive the TC. Interpret the variation economically in the growth model. <span class="pts">(10 pts)</span></li>
+      <li>Explain why the argument in (c) is heuristic. One or two sentences. <span class="pts">(10 pts)</span></li>
+      <li>Consider the \(T\)-period problem in which \(x_{T+1}\ge0\) is chosen freely. Write the Kuhn–Tucker condition for \(x_{T+1}\), and show how the TC appears as its limit as \(T\to\infty\). What does the finite-horizon growth planner do with the capital stock at \(T+1\)? <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) <strong>False.</strong> The argument uses only differentiability, the interchange of limits, the EE, and feasibility of scaling the state down. Concavity enters the <em>sufficiency</em> proof, via the tangent-line inequality.<br>
+      (b) With the EE, every bracket \(F_y(s)+\beta F_x(s+1)\) is zero, leaving \(\lim_T\beta^TF_y(x_T,x_{T+1})\cdot\varepsilon_{T+1}\). Apply the EE at \(T\): \(F_y(x_T,x_{T+1})=-\beta F_x(x_{T+1},x_{T+2})\).<br>
+      (c) \(0=v'(0)=\lim_T\beta^{T+1}F_x(x_{T+1},x_{T+2})\cdot x_{T+1}\). Re-index to get \(\lim_t\beta^tF_x(x_t,x_{t+1})\cdot x_t=0\). In the growth model, \(\alpha\varepsilon_{T+1}=-\alpha k_{T+1}\) means eating a fraction \(\alpha\) of the capital stock at the (far) end. If the present value of that stock did not vanish, eating some of it would raise utility.<br>
+      (d) The variation \(\varepsilon_{T+1}=-x_{T+1}\) depends on \(T\). So the argument takes a limit of derivatives of <em>different</em> perturbation families, with no fixed \(\varepsilon\) for which \(v'(0)\) is computed. It also presumes that the scaled-down path remains feasible and that the interchange is valid. Rigorous versions need extra regularity or admissibility conditions (the 2026 slide 23).<br>
+      (e) Kuhn–Tucker for \(\max_{x_{T+1}\ge0}\beta^TF(x_T,x_{T+1})\): \(\beta^TF_y(x_T,x_{T+1})\le0\), \(x_{T+1}\ge0\), and \(\beta^TF_y(x_T,x_{T+1})\cdot x_{T+1}=0\). Substitute the infinite-horizon EE, \(\beta^TF_y(T)=-\beta^{T+1}F_x(T+1)\), and let \(T\to\infty\): \(\lim_T\beta^{T+1}F_x(x_{T+1},x_{T+2})\cdot x_{T+1}=0\). In the growth model \(F_y=-U'(c_T)\lt0\), so \(k_{T+1}=0\): leave nothing. The TC is the infinite-horizon echo of "don't die with capital", and the step from finite to infinite horizon is again heuristic.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-28-4">
+    <div class="box-title">Exercise 28.4 <span class="tag slides">Slides p.24–25</span> <span class="tag proof">Proof</span> (the difference equation and uniqueness)</div>
+    <ol class="parts" type="a">
+      <li>Let \(F\in C^2\). Give a condition under which the EE defines \(x_{t+2}=\psi(x_{t+1},x_t)\) locally, for \(m=1\) and for general \(m\). <span class="pts">(10 pts)</span></li>
+      <li>Growth model, \(F(k,k')=U(f(k)-k')\): compute \(F_{xy}\), show it is positive, and write \(\psi\) explicitly for \(U'(c)=c^{-1/\sigma}\). <span class="pts">(10 pts)</span></li>
+      <li>With \(U(c)=c\), what is \(F_{xy}\)? What replaces \(\psi\), and what does it imply for the speed of convergence? One line each. <span class="pts">(10 pts)</span></li>
+      <li>Prove that if \(X\) is convex, \(\mathrm{Gr}(\Gamma)\) is convex and \(F\) is strictly concave, there is at most one optimal path from each \(x_0\). Say where each assumption is used. <span class="pts">(15 pts)</span></li>
+      <li>Explain in two lines why the proof in (d) fails if \(F\) is only strictly quasi-concave. <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (a), differentiate \(\Phi(x_t,x_{t+1},x_{t+2})=F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})\) with respect to its last argument. For (b), solve the EE for \(c_{t+1}\) first.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Implicit function theorem: \(\partial\Phi/\partial x_{t+2}=\beta F_{xy}(x_{t+1},x_{t+2})\neq0\) (for \(m=1\)), or \(\det F_{xy}(x_{t+1},x_{t+2})\neq0\) for general \(m\), where \(F_{xy}\) is the \(m\times m\) matrix of cross-partials \(\partial^2F/\partial x_i\partial y_j\). If \(F_{xy}>0\) everywhere (\(m=1\)), \(\psi\) is globally unique where it exists.<br>
+      (b) \(F_x=U'(c)f'(k)\) with \(c=f(k)-k'\), so \(F_{xy}=\partial F_x/\partial k'=-U''(c)f'(k)>0\). The EE is \(c_t^{-1/\sigma}=\beta f'(k_{t+1})c_{t+1}^{-1/\sigma}\), so \(c_{t+1}=c_t(\beta f'(k_{t+1}))^\sigma\) and
+      $$k_{t+2}=f(k_{t+1})-\big(f(k_t)-k_{t+1}\big)\big(\beta f'(k_{t+1})\big)^\sigma .$$
+      (c) \(F_{xy}=0\), so \(\psi\) is not defined. The EE \(-1+\beta f'(k_{t+1})=0\) does not contain \(k_{t+2}\) and instead pins \(k_{t+1}=\bar k\) directly. Convergence is immediate, in one period, when \(f(k_0)\ge\bar k\).<br>
+      (d) Midpoint argument (§6). Convexity of \(X\) and of \(\mathrm{Gr}(\Gamma)\) make the midpoint path feasible. Concavity makes it at least as good date by date. Strictness at the first date where the two paths differ makes it strictly better, contradicting optimality. Finiteness of the value lets us subtract.<br>
+      (e) Quasi-concavity gives \(F(\text{mid})>\min\{F(a),F(b)\}\), not \(\ge\) the average. Summing "\(>\min\)" across dates gives no comparison with \(\frac12V^*+\frac12V^*\), since \(\sum_t\beta^tF\) need not be quasi-concave.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-28-5">
+    <div class="box-title">Exercise 28.5 <span class="tag slides">Slides p.25</span> <span class="tag exam">Exam-inspired</span> (why shooting works, and why it is fragile)</div>
+    <p>Growth model, \(F(k,k')=U(f(k)-k')\), with \(U'' \lt 0\), \(f'>0\), \(f''\lt0\), and steady state \(\beta f'(\bar k)=1\).</p>
+    <ol class="parts" type="a">
+      <li>Describe the shooting algorithm in four lines. Correct the slide's typo. <span class="pts">(5 pts)</span></li>
+      <li>Fix \(k_0\) and two guesses \(\tilde k_1>k_1\). Prove by induction that \(\tilde c_t\lt c_t\) and \(\tilde k_{t+1}>k_{t+1}\) for all \(t\) (while both paths are defined). Why does the induction hypothesis need both inequalities? <span class="pts">(15 pts)</span></li>
+      <li>Use (b) to explain why bisection on \(k_1\) converges to the optimum, and what the two kinds of failed guesses look like. Which one violates the TC, and which one is infeasible? <span class="pts">(10 pts)</span></li>
+      <li>Linearize the EE around \(\bar k\). Show that the characteristic polynomial is \(P(\lambda)=\beta F_{xy}\lambda^2+(F_{yy}+\beta F_{xx})\lambda+F_{xy}\), that \(\lambda_1\lambda_2=1/\beta\), and that \(P(1)=\beta U'(\bar c)f''(\bar k)\lt0\). Conclude that \(0\lt\lambda_1\lt1\lt1/\beta\lt\lambda_2\). <span class="pts">(15 pts)</span></li>
+      <li>A guess is off by a relative error \(\epsilon\). Roughly how many periods does the path stay near \(\bar k\), and how much does each extra correct digit buy? <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (d): \(F_x=U'f'\), \(F_y=-U'\), so \(F_{xx}=U''f'^2+U'f''\), \(F_{yy}=U''\), \(F_{xy}=-U''f'\). At the steady state \(\beta f'=1\), so \(\beta F_{xy}=-U''\). For the root locations, use \(P(0)=F_{xy}>0\), the leading coefficient \(\beta F_{xy}>0\), and \(P(1)\lt0\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Guess \(x_1\). Iterate \(x_{t+2}=\psi(x_{t+1},x_t)\) for \(t\ge0\) (the slide's "\(t\ge2\)" is a typo). Check the TC, or convergence. Revise \(x_1\) and repeat, by bisection in one dimension.<br>
+      (b) This is the induction in §7. Base: \(\tilde c_0=f(k_0)-\tilde k_1\lt c_0\). Step: \(U'(c_{t+1})=U'(c_t)/(\beta f'(k_{t+1}))\) is larger on the tilde path, because \(U'(\tilde c_t)>U'(c_t)\) and \(f'(\tilde k_{t+1})\lt f'(k_{t+1})\). So \(\tilde c_{t+1}\lt c_{t+1}\), and then \(\tilde k_{t+2}=f(\tilde k_{t+1})-\tilde c_{t+1}>k_{t+2}\). Both inequalities are needed because \(c_t=f(k_t)-k_{t+1}\) is not monotone in the pair \((k_t,k_{t+1})\): higher capital at both dates leaves the sign of \(\tilde c_t-c_t\) open.<br>
+      (c) The map from \(k_1\) to the whole path is monotone, so the set of guesses that over-accumulate is an interval \((k_1^*,\cdot]\) and the set that collapse is an interval \([\cdot,k_1^*)\). Bisection keeps one guess of each type and halves the bracket. Too high \(k_1\): capital passes \(\bar k\) and keeps rising while \(c_t\downarrow0\). The EE holds, but the TC fails, through over-accumulation. Too low \(k_1\): consumption rises, capital falls, and eventually \(f(k_t)-c_t\lt0\), which is infeasible.<br>
+      (d) Differentiate the EE: \(F_{yx}dk_t+(F_{yy}+\beta F_{xx})dk_{t+1}+\beta F_{xy}dk_{t+2}=0\). Then \(dk_t=\lambda^t\) gives \(P(\lambda)=0\), and \(\lambda_1\lambda_2=F_{xy}/(\beta F_{xy})=1/\beta\). Using the hint,
+      $$P(1)=\beta F_{xy}+F_{yy}+\beta F_{xx}+F_{xy}=-U''+U''+\beta U''f'^2+\beta U'f''-U''f'=U''f'(\beta f'-1)+\beta U'f''=\beta U'f''\lt0 .$$
+      Since \(P\) is a convex parabola with \(P(0)>0>P(1)\), one root is in \((0,1)\) and the other exceeds 1. Then \(\lambda_2=1/(\beta\lambda_1)>1/\beta\).<br>
+      (e) The deviation from the saddle path grows like \(\epsilon\lambda_2^t\), while the distance to \(\bar k\) shrinks like \(\lambda_1^t\). They meet at \(t^*\approx\ln(1/\epsilon)/\ln(\lambda_2/\lambda_1)\). Each extra digit adds \(\ln10/\ln(\lambda_2/\lambda_1)\) periods. With double precision, \(\epsilon\approx10^{-16}\) caps the horizon at a modest number of periods, about a hundred in the figure.</p>
+    </div></details>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="takeaways">
+    <h2 id="takeaways">Key takeaways</h2>
+    <ul>
+      <li>Necessity comes from one-variable FOCs: perturb the optimal path to \(x_t+\alpha\varepsilon_t\) with \(\varepsilon_0=0\), keep the perturbation feasible, and set \(v'(0)=0\).</li>
+      <li>The EE is necessary at any date where \(x_{t+1}\) can move in a neighbourhood without violating \(x_{t+1}\in\Gamma(x_t)\) or \(x_{t+2}\in\Gamma(x_{t+1})\). The proof needs no concavity, no value function and no envelope condition. At a corner it becomes an inequality; Inada conditions rule out corners.</li>
+      <li>The TC argument (\(\varepsilon_{T+1}=-x_{T+1}\)) is heuristic, because the variation changes with \(T\). It uses no concavity: concavity is for sufficiency and uniqueness.</li>
+      <li>The EE is a second-order difference equation \(x_{t+2}=\psi(x_{t+1},x_t)\), defined when \(F_{xy}\neq0\), with boundary conditions \(x_0\) and the TC. Strict concavity on a convex graph gives at most one optimum.</li>
+      <li>Shooting: guess \(x_1\), iterate the EE, check the TC, bisect. It works in the 1-D growth model because paths are ordered in the guess. It is fragile because errors grow at the unstable root \(\lambda_2=1/(\beta\lambda_1)>1/\beta\).</li>
+      <li>Formulas for the whole Part: <a href="../reference/euler-transversality-cheatsheet.html">cheatsheet</a>.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "show me a problem where the transversality condition is not necessary" or "how would I shoot backward from the steady state instead of forward from \(k_0\)?"</div>
+
+  <div class="lesson-nav">
+    <a href="0027-euler-equations-and-sufficiency.html">← Lesson 27: Euler equations and sufficiency</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0029-transversality-at-work.html">Lesson 29: Transversality at work →</a>
+  </div>
+
+</div>
+</body>
+</html>

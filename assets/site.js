@@ -17,6 +17,10 @@
     'slides-blanchard-yaari.pdf': BASE + 'AKyvihV-XhYopjk9DdiBWDk/2-OLG%20Models/Blanchard-Yari/model_of_perpetual_youth_Blanchard_Yaari_Fall2026_revised.pdf' + RL,
     'slides4-aggregation-planner.pdf': BASE + 'AMqLH94oaYUjF_lMe4al9MM/3-Aggregation%20Social%20Planner/slidesnotes3theoryincome_Fall2026_revised.pdf' + RL
   };
+  // Decks whose per-file link is unknown open their folder in the class Dropbox (no page jump)
+  var FOLDER = {
+    'slides5-euler-transversality.pdf': BASE + 'ALVspsCuMymaBs2MzSqeOwQ/4.%20Euler_Deterministic-Discrete-time?rlkey=vg06spyn2hsedldeyyaenifrn&dl=0'
+  };
   var CLASS_NOTES = BASE + 'ALVspsCuMymaBs2MzSqeOwQ?rlkey=vg06spyn2hsedldeyyaenifrn&dl=0';
   if (location.protocol === 'file:') return;
   document.addEventListener('DOMContentLoaded', function () {
@@ -24,10 +28,11 @@
       var href = a.getAttribute('href');
       var m = href.match(/sources\/([^#?]+)(?:#page=(\d+))?/);
       if (!m) return;
-      a.setAttribute('href', (DECK[m[1]] || CLASS_NOTES) + (DECK[m[1]] && m[2] ? '#page=' + m[2] : ''));
+      a.setAttribute('href', DECK[m[1]] ? DECK[m[1]] + (m[2] ? '#page=' + m[2] : '') : (FOLDER[m[1]] || CLASS_NOTES));
       a.setAttribute('target', '_blank');
       a.setAttribute('rel', 'noopener');
-      a.title = 'Opens the slides from the class Dropbox' + (m[2] ? ' at PDF page ' + m[2] : '');
+      a.title = DECK[m[1]] ? 'Opens the slides from the class Dropbox' + (m[2] ? ' at PDF page ' + m[2] : '')
+                            : 'Opens the class Dropbox folder' + (m[2] ? ' (slide ' + m[2] + ')' : '');
     });
   });
 })();

@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 27 — Euler Equations, Transversality, and Sufficiency</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part VI: Euler Equations &amp; Transversality · Lesson 27 of 32</div>
+    <h1>Euler Equations, Transversality, and Sufficiency</h1>
+    <div class="meta">Covers <a href="../sources/slides5-euler-transversality.pdf#page=11">folder 4 slides 11–18</a> · About 40 min · Prerequisites: <a href="0026-the-dynamic-optimization-problem.html">Lesson 26</a> (the problem \([X,\Gamma,F,\beta]\) and how models map into it)</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>write the Euler equation (EE) and the transversality condition (TC) for any problem in \(F(x,y)\) form, and say in one sentence what each one means economically;</li>
+      <li>derive the EE and TC of the neoclassical growth model, and rewrite its TC as "the discounted value of the capital carried forward goes to zero";</li>
+      <li>prove, step by step, that EE + TC are <em>sufficient</em> for optimality when \(F\) is concave, \(F_x\ge0\) and \(X=\mathbb R^m_+\), and say exactly which step uses which assumption;</li>
+      <li>find steady states from \(F_y(\bar x,\bar x)+\beta F_x(\bar x,\bar x)=0\), prove existence and uniqueness in the growth model, and compare \(\bar k\) with the golden rule;</li>
+      <li>answer the exam favourite: <em>what changes the steady state and what does not</em> (the form of \(U\), a transformation \(U\circ F\), a quadratic adjustment cost).</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides5-euler-transversality.pdf#page=11">Euler Equations and Transversality Conditions, slides 11–18</a>. The deck follows Stokey &amp; Lucas with Prescott, <em>Recursive Methods in Economic Dynamics</em> (1989), §4.5 "Euler Equations", pp. 97–99. Theorem 4.15 there is the sufficiency result proved below, under slightly stronger assumptions (\(F\) bounded and strictly concave, and the candidate path interior), and their Exercise 4.9 applies it to the log/Cobb–Douglas growth model of <a href="0030-closed-form-decision-rules.html">Lesson 30</a>. For a growth-oriented treatment, see Acemoglu, <em>Introduction to Modern Economic Growth</em> (2009), ch. 6, on Euler equations and transversality in discrete time.
+  </div>
+
+  <div class="notation">
+    <div class="box-title">Notation for this lesson</div>
+    <ul>
+      <li>\(F(x,y)\) is the <strong>period return</strong> (utility) from being at state \(x\) today and choosing state \(y\) for tomorrow. It is <em>not</em> a production function. \(F_x\) and \(F_y\) are its partial derivatives, which are vectors when \(m>1\). Products such as \(F_x\cdot x\) are inner products.</li>
+      <li>In the growth model, \(f(k)\equiv G(k,1)+(1-\delta)k\) is output <em>plus undepreciated capital</em>, so \(f'(k)=G_k(k,1)+1-\delta\) is the <em>gross</em> return on capital, \(1+r\). The golden rule is therefore \(f'(k)=1\), not \(f'(k)=0\).</li>
+      <li>\(\beta\in(0,1)\) is the discount factor, with \(\beta=1/(1+\rho)\). In Class Note II, \(\beta\) was the weight on old-age consumption (Lessons 8–13), and \(\alpha\) was the old-age endowment. Here \(\alpha\) will be the Cobb–Douglas capital share.</li>
+      <li>Starred variables \(\{x^*_t\}\) denote the candidate path that satisfies the EE and the TC; unstarred \(\{x_t\}\) is an arbitrary feasible alternative.</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s1">1. Where we are</h2>
+
+  <p><a href="0026-the-dynamic-optimization-problem.html">Lesson 26</a> wrote every problem in this part of the course in one form <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=3">EE p.3</a>:
+  $$V^*(x_0)=\max_{\{x_{t+1}\}_{t=0}^\infty}\ \sum_{t=0}^\infty\beta^tF(x_t,x_{t+1})\qquad\text{s.t. } x_{t+1}\in\Gamma(x_t)\ \text{ for all } t\ge0,\quad x_0\text{ given.}$$
+  This is an optimization over an infinite sequence. In a finite problem we would write first-order conditions and check second-order conditions. This lesson does the infinite-horizon version. There are <strong>first-order conditions for each date</strong>: the Euler equations. There is also a <strong>boundary condition at infinity</strong>, the transversality condition, that replaces the terminal condition of a finite problem. And there is a <strong>theorem</strong> saying that, under concavity, these conditions are enough. <a href="0028-necessity-and-the-shooting-algorithm.html">Lesson 28</a> does the converse (necessity).</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s2">2. The Euler equation and the transversality condition</h2>
+
+  <div class="definition" id="def-definition-ee-tc">
+    <div class="box-title">Definition (EE and TC) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=11">EE p.11</a></div>
+    <p>Let \(X\subseteq\mathbb R^m\), \(F\in C^1\), \(\beta\in(0,1)\). A path \(\{x_{t+1}\}_{t=0}^\infty\) satisfies the <strong>Euler equations</strong> if
+    $$F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0\qquad\text{for all }t\ge0, \tag{EE}$$
+    and the <strong>transversality condition</strong> if
+    $$\lim_{t\to\infty}\beta^t\,F_x(x_t,x_{t+1})\cdot x_t=0. \tag{TC}$$</p>
+  </div>
+
+  <div class="intuition" id="int-what-euler-equation-says">
+    <div class="box-title">What the Euler equation says</div>
+    <p>The state \(x_{t+1}\) shows up in exactly two periods of the objective: as the <em>choice</em> in \(F(x_t,x_{t+1})\) and as the <em>inherited state</em> in \(F(x_{t+1},x_{t+2})\). Raise \(x_{t+1}\) by a small \(\varepsilon\) and leave every other date alone. Today's return changes by \(F_y(x_t,x_{t+1})\,\varepsilon\), which is typically negative: carrying more capital into tomorrow means eating less today. Tomorrow's return changes by \(F_x(x_{t+1},x_{t+2})\,\varepsilon\), worth \(\beta F_x\,\varepsilon\) in today's units. At an optimum, this one-period perturbation can't help in either direction, so
+    $$\underbrace{-F_y(x_t,x_{t+1})}_{\text{marginal cost today}}=\underbrace{\beta F_x(x_{t+1},x_{t+2})}_{\text{discounted marginal benefit tomorrow}}.$$
+    This is exactly the "alternative (and simpler) proof" of <a href="0028-necessity-and-the-shooting-algorithm.html">Lesson 28</a> (slide 22). Note that it uses no value function and no envelope condition.</p>
+  </div>
+
+  <div class="intuition" id="int-what-transversality-condition-says">
+    <div class="box-title">What the transversality condition says</div>
+    <p>\(F_x(x_t,x_{t+1})\) is the marginal return of one more unit of the state at date \(t\): its <em>shadow price</em> at date \(t\), in date-\(t\) utility. Multiply by \(\beta^t\) and it is in date-0 utility. So \(\beta^tF_x\cdot x_t\) is the <strong>present value of the whole stock</strong> held at \(t\), and the TC says it must vanish in the limit <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=11">EE p.11</a>. If it stayed positive, the plan would be piling up a stock that has positive value and is never used. Consuming a bit of it at some finite date would then be better: the plan leaves value on the table. Stokey–Lucas give the market reading: in a many-sector growth model, \(F_x\) is the vector of capital-goods prices, and the TC says the present value of the capital stock, at date-\(t\) prices, goes to zero. <a href="0029-transversality-at-work.html">Lesson 29</a> builds a path that satisfies every Euler equation but violates the TC, and shows exactly how much value it wastes.</p>
+  </div>
+
+  <p>The EE is a system of \(m\) second-order difference equations in \(x_t\) (it involves \(x_t,x_{t+1},x_{t+2}\)). With \(x_0\) given, its solutions form an \(m\)-parameter family, one for each choice of \(x_1\). We need \(m\) more boundary conditions to pick one, and the TC supplies them, at \(t=\infty\). This is the logic of the shooting algorithm in <a href="0028-necessity-and-the-shooting-algorithm.html">Lesson 28</a>.</p>
+
+  <div class="theorem" id="thm-general-principle">
+    <div class="box-title">General principle <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=11">EE p.11</a></div>
+    <p>Under appropriate concavity, interiority, and regularity conditions, EE and TC are necessary and sufficient for \(\{x_{t+1}\}\) to be optimal.</p>
+  </div>
+  <p>The qualifier matters, and it is new in the 2026 deck: last year's slide stated the principle with no conditions. The two directions need <em>different</em> assumptions. Sufficiency (this lesson) needs concavity plus two sign conditions, and no interiority. Necessity (<a href="0028-necessity-and-the-shooting-algorithm.html">Lesson 28</a>) needs interiority and differentiability but no concavity, and for the TC the slides' argument is only heuristic. Exams test exactly this distinction. For example, Fall 2005 asked whether concavity is needed for the <em>necessity</em> of the TC (it is not).</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s3">3. The neoclassical growth model (slide 11 exercise)</h2>
+
+  <p>From <a href="0026-the-dynamic-optimization-problem.html">Lesson 26</a>: \(F(x,y)=U(f(x)-y)\) and \(\Gamma(x)=[0,f(x)]\), with \(c_t=f(k_t)-k_{t+1}\) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=4">EE p.4</a>. The derivatives are
+  $$F_x(k_t,k_{t+1})=U'(c_t)\,f'(k_t),\qquad F_y(k_t,k_{t+1})=-U'(c_t).$$</p>
+
+  <ol class="steps">
+    <li><strong>Euler equation.</strong> Substitute into (EE): \(-U'(c_t)+\beta U'(c_{t+1})f'(k_{t+1})=0\), i.e.
+      $$U'(c_t)=\beta\,U'(c_{t+1})\,f'(k_{t+1}),\qquad c_t=f(k_t)-k_{t+1}.$$
+      The utility cost of saving one more unit today equals the discounted utility value of the \(f'(k_{t+1})=1+r_{t+1}\) units it returns tomorrow. Written in terms of \(k\) alone it is a second-order difference equation: \(U'(f(k_t)-k_{t+1})=\beta U'(f(k_{t+1})-k_{t+2})f'(k_{t+1})\).</li>
+    <li><strong>Transversality.</strong> Substitute into (TC):
+      $$\lim_{t\to\infty}\beta^tU'(c_t)\,f'(k_t)\,k_t=0.$$</li>
+    <li><strong>An equivalent form.</strong> Along a path that satisfies the EE, the EE at date \(t-1\) gives \(\beta^tF_x(k_t,k_{t+1})=-\beta^{t-1}F_y(k_{t-1},k_t)=\beta^{t-1}U'(c_{t-1})\). So the TC is the same as
+      $$\lim_{t\to\infty}\beta^{t}\,U'(c_{t})\,k_{t+1}=0.$$
+      Read it this way: \(\beta^tU'(c_t)\) is the date-0 utility price of a unit of goods at \(t\), and \(k_{t+1}\) is what the plan sets aside at \(t\) instead of eating. The present value of the capital carried forward must vanish. This is the form you will meet in continuous time (\(\lim e^{-\rho t}\lambda(t)k(t)=0\)).</li>
+  </ol>
+
+  <div class="intuition" id="int-two-routes-same-euler-equation">
+    <div class="box-title">Two routes to the same Euler equation</div>
+    <p>You can also get the EE without substituting \(c\) out: write the Lagrangian of the sequence problem with a multiplier \(\beta^t\lambda_t\) on each period's law of motion, take FOCs in \(c_t\) (or \(i_t\)) and \(k_{t+1}\), and eliminate \(\lambda_t\). Fall 2005 asked for exactly this (Exercise 27.1), then asked for the \(F\)-route, then checked that the two agree. They must: the \(F\)-route just solves the law of motion for the control before differentiating. In the Lagrangian, \(\lambda_t\) is the shadow price of the state. The FOC for \(k_{t+1}\) says that price equals the discounted marginal product plus the discounted resale value of the undepreciated part. This is again the "\(F_x\) is a price" reading of the TC.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s4">4. A tangent line lies above a concave function (slide 13)</h2>
+
+  <p>The sufficiency proof rests on one inequality <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=13">EE p.13</a>: for a differentiable \(f:\mathbb R^K\to\mathbb R\),
+  $$f\ \text{concave}\quad\Longrightarrow\quad f(x)\le f(x^0)+\nabla f(x^0)\cdot(x-x^0)\qquad\text{for all }x,x^0. \tag{T}$$
+  In words: the <em>linear approximation at any point overestimates a concave function everywhere</em>. The figure lets you check it, and shows what goes wrong without concavity.</p>
+
+  <div class="figure" id="cv-figure">
+    <div class="controls" id="cv-ctrl">
+      <span class="name">Function:</span>
+      <button type="button" data-k="0">strictly concave</button>
+      <button type="button" data-k="1">concave, with a flat part</button>
+      <button type="button" data-k="2">not concave</button>
+    </div>
+    <div id="cv-fig"></div>
+    <div id="cv-read"></div>
+    <div class="verdict" id="cv-verdict"></div>
+    <div class="caption"><b>Interactive.</b> The <span style="color:#2a78d6">blue</span> curve is \(f\), and the black line is its tangent at the draggable point \(x^0\). <span style="color:#2a78d6">Blue shading</span> is where the tangent lies <em>above</em> \(f\) (the gap \(f(x^0)+f'(x^0)(x-x^0)-f(x)\ge0\)); <span style="color:#eb6834">orange shading</span> is where it lies below. <b>Try:</b> (1) drag \(x^0\) along the strictly concave curve: the gap is positive everywhere except at \(x^0\) itself. (2) Switch to "concave, with a flat part" and put \(x^0\) on the flat piece: the tangent coincides with \(f\) on a whole interval, so the inequality holds with equality there. (T) still holds, but strict concavity, and with it uniqueness (<a href="0028-necessity-and-the-shooting-algorithm.html">Lesson 28</a>), is lost. (3) Switch to "not concave": for most \(x^0\), orange regions appear. That is exactly where Step 1 of the sufficiency proof would fail.</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const FUN = [
+      { f: x => 2.2 * Math.log(1 + x), d: x => 2.2 / (1 + x), name: 'f(x) = 2.2 log(1+x)' },
+      { f: x => x < 4 ? x - x * x / 8 : 2, d: x => x < 4 ? 1 - x / 4 : 0, name: 'f(x) = x − x²/8, flat after 4' },
+      { f: x => 0.45 * x + 0.9 * Math.sin(x) + 0.6, d: x => 0.45 + 0.9 * Math.cos(x), name: 'f(x) = 0.45x + 0.9 sin x + 0.6' }
+    ];
+    let k = 0, x0 = 2;
+    const P = EconPlot.create('#cv-fig', { x: [0, 8], y: [-1, 6], width: 520, height: 360,
+      xlabel: 'x', ylabel: 'f(x)', xticks: 8, yticks: 7 });
+    function draw() {
+      const F = FUN[k], fx0 = F.f(x0), s = F.d(x0);
+      const T = x => fx0 + s * (x - x0);
+      P.clear();
+      // shade the gap between tangent and f, split into runs of constant sign
+      const n = 400, xs = [];
+      for (let i = 0; i <= n; i++) xs.push(8 * i / n);
+      let run = [], sign = 0, minGap = Infinity, argMin = 0;
+      const flush = () => {
+        if (run.length > 1) {
+          const pts = run.map(x => [x, T(x)]).concat(run.slice().reverse().map(x => [x, F.f(x)]));
+          P.path(pts, { close: true, color: 'none', fill: sign > 0 ? C.fillBlue : C.fillOrange });
+        }
+      };
+      xs.forEach(x => {
+        const g = T(x) - F.f(x);
+        if (g < minGap) { minGap = g; argMin = x; }
+        const sg = g > 1e-9 ? 1 : (g < -1e-9 ? -1 : 0);
+        if (sg !== 0 && sg !== sign) { flush(); run = []; sign = sg; }
+        if (sg !== 0) run.push(x);
+      });
+      flush();
+      const xl = s > 0 ? Math.min(7.2, Math.max(x0 + 0.8, x0 + (5.0 - fx0) / s)) : 7.2;
+      P.fn(T, { color: C.ink, width: 1.5, label: 'tangent at x^0', labelAt: Math.min(7.2, xl), labelDx: -6, labelDy: -10, labelAnchor: 'end' });
+      P.fn(F.f, { color: C.blue, width: 2.4, label: 'f', labelAt: 7.8, labelDx: 4, labelDy: 14 });
+      P.vline(x0, { color: C.muted });
+      P.text(x0, -1, 'x^0', { dx: 5, dy: -6, italic: true });
+      handle.move(x0, fx0);
+      EconPlot.readout('#cv-read', [
+        ['function :', F.name],
+        ['x⁰, f(x⁰), f′(x⁰) :', x0.toFixed(2) + ' , ' + fx0.toFixed(3) + ' , ' + s.toFixed(3)],
+        ['smallest gap on [0, 8] :', (Math.abs(minGap) < 5e-4 ? '0.000' : minGap.toFixed(3)) + '  at x = ' + argMin.toFixed(2)]
+      ]);
+      document.getElementById('cv-verdict').textContent = minGap > -5e-4
+        ? 'The tangent lies on or above f everywhere: inequality (T) holds at this x⁰.'
+        : 'The tangent lies below f somewhere (by the most at x = ' + argMin.toFixed(2) + '): inequality (T) fails, so f is not concave.';
+    }
+    const handle = P.drag(x0, FUN[0].f(x0), (x) => { x0 = Math.min(7.9, Math.max(0.05, x)); draw(); return [x0, FUN[k].f(x0)]; });
+    document.querySelectorAll('#cv-ctrl button').forEach(b => b.addEventListener('click', () => { k = +b.dataset.k; draw(); }));
+    draw();
+  })();
+  </script>
+
+  <p>Three ways to see (T), in increasing generality:</p>
+  <ol class="steps">
+    <li><strong>One dimension, by picture.</strong> A concave function's slope is non-increasing. To the right of \(x^0\) the function rises more slowly than the tangent does, and to the left it falls faster. Either way it ends up below the tangent.</li>
+    <li><strong>One dimension, by Taylor.</strong> If \(f\in C^2\), then \(f(x)=f(x^0)+f'(x^0)(x-x^0)+\tfrac12f''(\xi)(x-x^0)^2\) for some \(\xi\) between \(x\) and \(x^0\). Concavity means \(f''\le0\), so the remainder is \(\le0\).</li>
+    <li><strong>\(K\) dimensions, by Taylor.</strong> If \(f\in C^2\), then
+      $$f(x)=f(x^0)+\nabla f(x^0)\cdot(x-x^0)+\tfrac12(x-x^0)'\,D^2f(\xi)\,(x-x^0)$$
+      for some \(\xi\) on the segment from \(x^0\) to \(x\). A \(C^2\) function is concave if and only if its Hessian \(D^2f\) is <strong>negative semidefinite</strong> everywhere, so the quadratic form is \(\le0\).</li>
+  </ol>
+
+  <div class="warning" id="warn-slide-says-negative-definite-that">
+    <div class="box-title">The slide says "negative definite". That is too strong.</div>
+    <p>Concavity is equivalent to a negative <em>semi</em>definite Hessian. A negative definite Hessian is sufficient for <em>strict</em> concavity but not necessary: \(f(x)=-x^4\) is strictly concave yet \(f''(0)=0\). A linear function is concave with a zero Hessian. None of this matters for the inequality (semidefinite is all the Taylor argument needs), but it matters on exams that ask you to verify concavity of \(F(x,y)\). On the diagonal of an adjustment-cost problem, for instance, the Hessian is often only semidefinite (catalogued example: \(F=-ay^2-b(y-x)^4\) has \(F_{xx}=0\) and a zero determinant at \(x=y\), yet \(F\) is strictly concave).</p>
+  </div>
+
+  <p>You don't even need two derivatives. If \(f\) is concave and differentiable, then for \(\lambda\in(0,1)\), \(f(x^0+\lambda(x-x^0))\ge(1-\lambda)f(x^0)+\lambda f(x)\). Rearranging, \(\frac{f(x^0+\lambda(x-x^0))-f(x^0)}{\lambda}\ge f(x)-f(x^0)\), and letting \(\lambda\downarrow0\) the left side tends to \(\nabla f(x^0)\cdot(x-x^0)\). The converse also holds: a differentiable function satisfying (T) at every point is concave (Exercise 27.6).</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s5">5. Sufficiency: the theorem and its proof</h2>
+
+  <div class="theorem" id="thm-theorem-sufficiency-ee-tc">
+    <div class="box-title">Theorem (sufficiency of EE and TC) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=12">EE p.12</a></div>
+    <p>Assume
+    (1) \(F\) is concave in \((x,y)\) (and \(C^1\));
+    (2) \(F_x(x^*_t,x^*_{t+1})\ge0\): the state is a "good";
+    (3) \(X=\mathbb R^m_+\): states are bounded below.
+    If a feasible path \(\{x^*_{t+1}\}_{t=0}^\infty\) satisfies the EE and the TC, it is optimal.</p>
+  </div>
+
+  <div class="proof" id="pf-proof">
+    <div class="box-title">Proof <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=14">EE pp.14–17</a></div>
+    <p>Fix any feasible alternative \(\{x_{t+1}\}\) with the same initial condition \(x_0=x_0^*\), so \(x_t\ge0\) for all \(t\). Abbreviate \(F^*_x(t)\equiv F_x(x^*_t,x^*_{t+1})\) and \(F^*_y(t)\equiv F_y(x^*_t,x^*_{t+1})\), and let
+    $$D_T\equiv\sum_{t=0}^T\beta^t\big[F(x_t,x_{t+1})-F(x^*_t,x^*_{t+1})\big].$$
+    We show that \(\lim_{T\to\infty}D_T\le0\): the alternative is no better.</p>
+    <ol class="steps">
+      <li><strong>Linearize, using concavity [assumption 1].</strong> Apply (T) to \(F\) at the point \((x^*_t,x^*_{t+1})\), evaluated at \((x_t,x_{t+1})\):
+        $$F(x_t,x_{t+1})-F(x^*_t,x^*_{t+1})\le F^*_x(t)\cdot(x_t-x^*_t)+F^*_y(t)\cdot(x_{t+1}-x^*_{t+1}).$$
+        Multiply by \(\beta^t\ge0\) and sum:
+        $$D_T\le\sum_{t=0}^T\beta^t\Big[F^*_x(t)\cdot(x_t-x^*_t)+F^*_y(t)\cdot(x_{t+1}-x^*_{t+1})\Big].$$</li>
+      <li><strong>Regroup by date of the state.</strong> Write the sum out <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=15">EE p.15</a>. The \(t=0\) term \(F^*_x(0)\cdot(x_0-x^*_0)\) is zero because the initial condition is common. Each deviation \(x_{s}-x^*_{s}\) with \(1\le s\le T\) then appears exactly twice: as tomorrow's state in the date-\((s-1)\) term (coefficient \(\beta^{s-1}F^*_y(s-1)\)) and as today's state in the date-\(s\) term (coefficient \(\beta^sF^*_x(s)\)). The last deviation, \(x_{T+1}-x^*_{T+1}\), appears only once. So
+        $$D_T\le\sum_{t=0}^{T-1}\beta^t\Big[F^*_y(t)+\beta F^*_x(t+1)\Big]\cdot(x_{t+1}-x^*_{t+1})\;+\;\beta^TF^*_y(T)\cdot(x_{T+1}-x^*_{T+1}).$$</li>
+      <li><strong>Use the Euler equations.</strong> Every bracket is \(F_y(x^*_t,x^*_{t+1})+\beta F_x(x^*_{t+1},x^*_{t+2})=0\) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=16">EE p.16</a>. Only the terminal term survives:
+        $$D_T\le\beta^TF^*_y(T)\cdot(x_{T+1}-x^*_{T+1}).$$</li>
+      <li><strong>Use the Euler equation once more, at \(T\).</strong> It says \(F^*_y(T)=-\beta F^*_x(T+1)\), so
+        $$D_T\le-\beta^{T+1}F^*_x(T+1)\cdot x_{T+1}\;+\;\beta^{T+1}F^*_x(T+1)\cdot x^*_{T+1}.$$</li>
+      <li><strong>Drop the alternative's terminal stock [assumptions 2 and 3].</strong> \(F^*_x(T+1)\ge0\) and \(x_{T+1}\ge0\) give \(F^*_x(T+1)\cdot x_{T+1}\ge0\), so the first term is \(\le0\) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=17">EE p.17</a>:
+        $$D_T\le\beta^{T+1}F_x(x^*_{T+1},x^*_{T+2})\cdot x^*_{T+1}\qquad\text{for every }T.$$
+        The bound no longer involves the alternative at all.</li>
+      <li><strong>Use the TC.</strong> The right side is the TC expression at date \(T+1\), which goes to 0. Hence \(\lim_TD_T\le0\) (or \(\limsup_TD_T\le0\), if the alternative's objective has no limit): no feasible path does better than \(\{x^*_t\}\). ∎</li>
+    </ol>
+  </div>
+
+  <p>Two remarks that examiners like:</p>
+  <ul>
+    <li><strong>The TC is a condition on the candidate only.</strong> Step 5 removes the alternative from the bound, so you check \(\lim\beta^tF_x\cdot x^*_t=0\) along your proposed path, never along competitors. Stokey–Lucas note that the theorem places no restriction on \(F\) or \(\beta\) beyond these assumptions, because it applies only once a path satisfying EE and TC has been found. Showing that such a path <em>exists</em> is a separate problem.</li>
+    <li><strong>What the proof does not use.</strong> It doesn't use interiority, strict concavity, \(F_y\lt0\), Inada conditions, or compactness of \(\Gamma\). Strict concavity buys <em>uniqueness</em> of the optimum (<a href="0028-necessity-and-the-shooting-algorithm.html">Lesson 28</a>). Interiority is what makes the EE <em>necessary</em>.</li>
+  </ul>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s6">6. Why each assumption is there</h2>
+
+  <p>Each hypothesis is used in exactly one step, and each can fail in an economically meaningful way.</p>
+
+  <h3 id="s6-without-concavity-step-1">Without concavity: Step 1 fails</h3>
+  <p>Take \(\Gamma(x)=[0,1]\) and \(F(x,y)=(y-\tfrac12)^2\), a <em>convex</em> return. The constant path \(x^*_{t+1}=\tfrac12\) satisfies every EE (\(F_y=2(y-\tfrac12)=0\) and \(F_x=0\)) and the TC (\(F_x\equiv0\)), and \(X=[0,1]\subset\mathbb R_+\). Yet it is the <em>worst</em> path: \(x_{t+1}=1\) gives \(\tfrac14\) every period instead of 0. The EE is a first-order condition, and without concavity first-order conditions can pick out minima and saddles.</p>
+
+  <h3 id="s6-without-lower-bound-state">Without a lower bound on the state: Step 5 fails</h3>
+  <p>Consider the savings problem of <a href="0029-transversality-at-work.html">Lesson 29</a>: \(F(x,y)=U(w+(1+r)x-y)\) with \(\beta(1+r)=1\), where \(x\) is assets, and suppose <em>any</em> \(x\in\mathbb R\) is allowed. The candidate "consume \(c^*=w+rx_0\) forever" satisfies EE and TC. Now try \(\tilde c=c^*+\Delta\): borrow \(\Delta\) more each period and roll the debt over. Assets follow \(x_t=x_0-\Delta\frac{(1+r)^t-1}{r}\to-\infty\). Then \(\beta^{T+1}x_{T+1}\to-\Delta/r\), so the term dropped in Step 5, \(-\beta^{T+1}F_x\,x_{T+1}\), tends to \((1+r)U'(c^*)\Delta/r>0\). It is not \(\le0\), and indeed the alternative is strictly better: more consumption in every period. This is a <strong>Ponzi scheme</strong>, and it shows why problems with debt need a borrowing limit. With \(X=[x_{\text{low}},\infty)\), the proof goes through with the TC rewritten as \(\lim\beta^tF_x\cdot(x_t-x_{\text{low}})=0\) (Exercise 27.4). <a href="0029-transversality-at-work.html">Lesson 29</a> runs the mirror-image argument: a path that saves <em>too much</em> satisfies the EE but fails the TC.</p>
+
+  <h3 id="s6-without-step-5-fails">Without \(F_x\ge0\): Step 5 fails again</h3>
+  <p>If the state were a "bad" (\(F_x\lt0\)), the dropped term \(-\beta^{T+1}F_x\cdot x_{T+1}\) would be positive and large for alternatives that end with a big stock, and nothing would bound it. Strictly, what Step 5 needs is \(F_x\ge0\) <em>along the candidate path</em>. A return with \(F_x\lt0\) elsewhere is harmless. Example: \(F=-(x-y)^2\) on \(\Gamma(x)=[0,1]\). Every constant path has \(F_x=-2(x-y)=0\) and is optimal by the theorem. Here every \(x\in[0,1]\) is a steady state, a continuum, just like the savings problem of slide 28.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s7">7. Steady states (slide 18)</h2>
+
+  <div class="definition" id="def-definition-steady-state">
+    <div class="box-title">Definition (steady state) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=18">EE p.18</a></div>
+    <p>A <strong>steady state</strong> is an \(\bar x\) solving \(F_y(\bar x,\bar x)+\beta F_x(\bar x,\bar x)=0\): the EE with \(x_t=x_{t+1}=x_{t+2}=\bar x\).</p>
+  </div>
+
+  <h3 id="s7-slide-18-first-exercise">Slide 18, first exercise: when is staying at \(\bar x\) optimal?</h3>
+  <p><strong>Claim.</strong> If \(F\) is concave, \(F_x(\bar x,\bar x)\ge0\), \(X\subseteq\mathbb R^m_+\) and \(\bar x\in\Gamma(\bar x)\), then starting from \(x_0=\bar x\) the constant path \(x_{t+1}=\bar x\) is optimal.</p>
+  <ol class="steps">
+    <li><strong>EE.</strong> For every \(t\), the EE is evaluated at \((\bar x,\bar x)\) and \((\bar x,\bar x)\), so it holds by the definition of \(\bar x\).</li>
+    <li><strong>TC.</strong> \(\beta^tF_x(\bar x,\bar x)\cdot\bar x\) is a constant times \(\beta^t\), so it goes to 0. For a constant path the TC is automatic.</li>
+    <li><strong>Sufficiency.</strong> The theorem of §5 applies. ∎</li>
+  </ol>
+  <p>So "for what kind of problems" has a precise answer: <em>convex</em> ones, where EE + TC are sufficient. In non-convex problems a root of the stationary EE need not be optimal: in the \(F=(y-\frac12)^2\) example of §6, \(\bar x=\tfrac12\) solves the steady-state equation and staying there is the worst thing you can do. Fall 2005 used this definition directly: "a steady state is \(x\) such that \(x_{t+1}=x\) is optimal when \(x_0=x\)". The claim above is what makes the two definitions coincide.</p>
+
+  <h3 id="s7-slide-18-second-exercise">Slide 18, second exercise: the growth model</h3>
+  <p>At \((\bar k,\bar k)\), \(\bar c=f(\bar k)-\bar k\) and
+  $$F_y(\bar k,\bar k)+\beta F_x(\bar k,\bar k)=U'(\bar c)\big[-1+\beta f'(\bar k)\big]=0.$$
+  With \(U'>0\) the bracket must vanish:
+  $$\beta f'(\bar k)=1\quad\Longleftrightarrow\quad G_k(\bar k,1)=\frac1\beta-(1-\delta)=\rho+\delta. \tag{MGR}$$</p>
+  <ol class="steps">
+    <li><strong>Existence.</strong> \(G_k(\cdot,1)\) is continuous on \((0,\infty)\), and by Inada \(G_k\to\infty\) as \(k\to0\) and \(G_k\to0\) as \(k\to\infty\). Since \(\rho+\delta\in(0,\infty)\), the intermediate value theorem gives a solution.</li>
+    <li><strong>Uniqueness.</strong> \(G\) is strictly concave in \(k\), so \(G_k\) is strictly decreasing and crosses \(\rho+\delta\) once.</li>
+    <li><strong>Positive consumption.</strong> \(\bar c=G(\bar k,1)-\delta\bar k\). Strict concavity and \(G(0,1)=0\) give \(G(\bar k,1)>G_k(\bar k,1)\,\bar k=(\rho+\delta)\bar k>\delta\bar k\), so \(\bar c>0\) and \(\bar k\in\Gamma(\bar k)\).</li>
+    <li><strong>Optimality from \(k_0=\bar k\).</strong> \(F=U(f(x)-y)\) is concave (a concave increasing \(U\) of the concave function \(f(x)-y\)), \(F_x=U'f'>0\), and \(X=\mathbb R_+\). The first exercise applies.</li>
+    <li><strong>The trivial rest point.</strong> \(k=0\): \(f(0)=0\) makes \(\Gamma(0)=\{0\}\), so \(k_t\equiv0\) is the only feasible path from 0. It is a rest point of the dynamics but not an interior solution of the EE (with \(U'(0)=\infty\) the EE is not even defined there).</li>
+  </ol>
+
+  <div class="figure" id="ss-figure">
+    <div id="ss-ctrl"></div>
+    <div id="ss-fig"></div>
+    <div id="ss-read"></div>
+    <div class="verdict" id="ss-verdict"></div>
+    <div class="caption"><b>Interactive.</b> Technology \(G(k,1)=k^\alpha\). The horizontal axis is capital relative to the golden rule, \(k/k_{GR}\), so the golden rule always sits at 1. The <span style="color:#2a78d6">blue</span> curve is \(\beta f'(k)=\beta(\alpha k^{\alpha-1}+1-\delta)\). The steady state \(\bar k\) is where it crosses the black line at 1, and the golden rule \(k_{GR}\) is where it crosses the dashed line at \(\beta\) (that is, where \(f'=1\)). The grey band is over-accumulation, \(f'(k)\lt1\). <b>Try:</b> (1) push \(\beta\) toward 0.99: \(\bar k\) approaches \(k_{GR}\) from the left but never reaches it. (2) Raise \(\delta\): both \(\bar k\) and \(k_{GR}\) fall (see the readout). (3) Note what is <em>not</em> a slider: nothing about \(U\) enters, which is the Fall 2005 true/false item of §8.</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const P = EconPlot.create('#ss-fig', { x: [0, 1.4], y: [0.6, 1.6], width: 520, height: 360,
+      xlabel: 'k / k_{GR}', ylabel: 'β f′(k)', xticks: 7, yticks: 5 });
+    function draw(v) {
+      const { beta, alpha, delta } = v;
+      const kGR = Math.pow(alpha / delta, 1 / (1 - alpha));
+      const zbar = Math.pow((1 / beta - 1 + delta) / delta, 1 / (alpha - 1));
+      const kbar = zbar * kGR;
+      const g = z => beta * (delta * Math.pow(z, alpha - 1) + 1 - delta);
+      const zmin = Math.pow((1.6 / beta - 1 + delta) / delta, 1 / (alpha - 1));
+      P.clear();
+      P.path([[1, 0.6], [1.4, 0.6], [1.4, 1.6], [1, 1.6]], { close: true, color: 'none', fill: C.fillGray });
+      P.text(1.2, 1.53, 'over-accumulation', { anchor: 'middle', sans: true, size: 12, color: C.muted });
+      P.text(1.2, 1.47, "f′(k) < 1", { anchor: 'middle', sans: true, size: 12, color: C.muted });
+      P.hline(1, { color: C.ink, dash: null, width: 1.4 });
+      P.hline(beta, { color: C.ink, width: 1.1 });
+      P.text(0.02, beta, 'β', { dx: 2, dy: 15, italic: true });
+      P.fn(g, { color: C.blue, width: 2.4, domain: [Math.max(zmin, 0.005), 1.4], label: 'β f′(k)', labelAt: 0.12, labelDx: 10, labelDy: 4 });
+      P.vline(zbar, { color: C.orange });
+      P.vline(1, { color: C.violet });
+      P.point(zbar, 1, { color: C.orange, r: 5 });
+      P.point(1, beta, { color: C.violet, r: 5 });
+      P.text(zbar, 0.6, 'k̄', { dx: -14, dy: -8, italic: true, color: C.orange });
+      P.text(1, 0.6, 'k_{GR}', { dx: 5, dy: -8, italic: true, color: C.violet });
+      const c = k => Math.pow(k, alpha) - delta * k;
+      EconPlot.readout('#ss-read', [
+        ['k̄  (β f′ = 1) :', kbar.toFixed(3)],
+        ['k_GR  (f′ = 1) :', kGR.toFixed(3)],
+        ['k̄ / k_GR :', zbar.toFixed(3)],
+        ['c̄ ,  c_GR :', c(kbar).toFixed(3) + ' , ' + c(kGR).toFixed(3)],
+        ['net return f′(k̄) − 1 = 1/β − 1 :', (1 / beta - 1).toFixed(4)]
+      ]);
+      document.getElementById('ss-verdict').textContent =
+        'The planner stops short of the golden rule: k̄ is ' + (100 * (1 - zbar)).toFixed(1) +
+        '% below k_GR, giving up ' + (100 * (1 - c(kbar) / c(kGR))).toFixed(2) + '% of the maximal steady-state consumption because reaching it would cost consumption earlier, which is valued more.';
+    }
+    EconPlot.sliders('#ss-ctrl', [
+      { id: 'beta', label: 'β', min: 0.80, max: 0.99, step: 0.005, value: 0.95, fmt: v => (+v).toFixed(3) },
+      { id: 'alpha', label: 'α', min: 0.15, max: 0.6, step: 0.01, value: 0.33 },
+      { id: 'delta', label: 'δ', min: 0.02, max: 0.3, step: 0.01, value: 0.08 }
+    ], draw);
+  })();
+  </script>
+
+  <h3 id="s7-golden-rule-versus-modified">Golden rule versus modified golden rule</h3>
+  <p>The <strong>golden rule</strong> maximizes steady-state consumption \(c=f(k)-k\): \(f'(k_{GR})=1\), i.e. \(G_k(k_{GR},1)=\delta\). The planner's steady state (MGR) is the <strong>modified golden rule</strong> \(f'(\bar k)=1/\beta>1\). Because \(f'\) is decreasing, \(\bar k\lt k_{GR}\) for every \(\beta\lt1\). The planner deliberately stops short of the consumption-maximizing capital stock. Building the extra capital would cost consumption in the near future, which is worth more than the small steady-state gain far away. The net return at \(\bar k\) is \(f'(\bar k)-1=\rho>0\): the interest rate exceeds the growth rate (zero here).</p>
+  <p>Compare <a href="0015-olg-with-capital.html">Lesson 15</a>. In the Diamond OLG model, the <em>competitive</em> steady state can sit above the golden rule, and then the economy is dynamically inefficient and a pay-as-you-go transfer helps everyone. A planner solving this problem never puts the economy there: above \(k_{GR}\) it could eat the excess capital and have more consumption today <em>and</em> in every later period. Perpetual youth (<a href="0019-perpetual-youth-capital.html#s6-golden-rule-dynamic-efficiency">Lesson 19</a>) breaks the link in a different way: with \(p>0\), turnover of generations moves the steady state away from the modified golden rule, and it converges to it as \(p\to0\) (with \(\alpha=0\)).</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s8">8. What the steady state does not depend on (the exam favourite)</h2>
+
+  <p>Every past exam with folder-4 material asks some version of "show that the steady state does not change when…". The trick is always the same: the steady-state equation evaluates <em>both</em> terms of the EE at the <em>same</em> point \((\bar x,\bar x)\). A modification that multiplies both terms by the same positive number, or that adds terms vanishing on the diagonal, cannot move \(\bar x\).</p>
+
+  <div class="theorem" id="thm-three-invariance-results">
+    <div class="box-title">Three invariance results</div>
+    <ol class="steps">
+      <li><strong>The form of \(U\).</strong> (Fall 2005 MT, Ex. 1 Q6, in continuous time.) In the growth model the steady state solves \(U'(\bar c)[\beta f'(\bar k)-1]=0\). As long as \(U'(\bar c)>0\), \(\bar k\) depends only on \(\beta\) and technology, and so does \(\bar c=f(\bar k)-\bar k\).</li>
+      <li><strong>A concave transformation \(\tilde F=U\circ F\).</strong> (Fall 2025 MT1, Q II.5–6.) \(\tilde F_x=U'(F)F_x\) and \(\tilde F_y=U'(F)F_y\). At \((\bar x,\bar x)\) the common factor \(U'(F(\bar x,\bar x))>0\) comes out: \(\tilde F_y+\beta\tilde F_x=U'(F(\bar x,\bar x))[F_y+\beta F_x]\). Same roots.</li>
+      <li><strong>A quadratic adjustment cost \(-\frac b2(y-x)^2\).</strong> (Fall 2016 MT2, Q2 part 2.2.) The cost adds \(+b(y-x)\) to \(F_x\) and \(-b(y-x)\) to \(F_y\), and both vanish at \(y=x\). Same steady-state equation.</li>
+    </ol>
+  </div>
+
+  <div class="warning" id="warn-same-steady-state-same-dynamics">
+    <div class="box-title">Same steady state ≠ same dynamics</div>
+    <p>Off the steady state, the two EE terms are evaluated at <em>different</em> points: \(U'(F(x_t,x_{t+1}))\neq U'(F(x_{t+1},x_{t+2}))\) and \(x_{t+1}-x_t\neq x_{t+2}-x_{t+1}\). The factors no longer cancel, so the optimal <em>path</em> from \(x_0\neq\bar x\) changes. Typically convergence slows, because both modifications penalize uneven paths. Exam questions pair "show the steady state is unchanged" with "show the speed of convergence falls", and the second half is folder 5 (linearization). Exercise 27.2(d) proves the path changes.</p>
+  </div>
+
+  <p><strong>Comparative statics</strong> go through the same equation. Differentiating \(\beta f'(\bar k)=1\): \(f'\,d\beta+\beta f''\,d\bar k=0\), so \(d\bar k/d\beta=-f'(\bar k)/(\beta f''(\bar k))>0\). More patient planners accumulate more. With \(f'=G_k+1-\delta\): \(\beta(G_{kk}\,d\bar k-d\delta)=0\), so \(d\bar k/d\delta=1/G_{kk}\lt0\). In the Fall 2005 human-capital version, \(g'(\bar h)=p(\rho+\delta)\): \(\bar h\) rises with \(\beta\) and falls with \(p\) and \(\delta\) (Exercise 27.1).</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s9">9. Check yourself</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">1. In the Euler equation \(F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0\), what does \(-F_y(x_t,x_{t+1})\) measure?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Today's utility cost of more \(x_{t+1}\)</li>
+        <li class="quiz-option" data-option="b">Tomorrow's utility gain from more \(x_{t+1}\)</li>
+        <li class="quiz-option" data-option="c">The discounted value of the stock</li>
+        <li class="quiz-option" data-option="d">The price of capital at \(t+2\)</li>
+      </ul>
+      <div class="quiz-explain">\(x_{t+1}\) is chosen at \(t\) at a cost in today's return, \(F_y\le0\) typically (less consumption). Tomorrow's gain is \(\beta F_x(x_{t+1},x_{t+2})\). The discounted value of the stock is the TC expression \(\beta^tF_x\cdot x_t\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">2. In the sufficiency proof, which assumptions let you drop the term \(-\beta^{T+1}F_x(x^*_{T+1},x^*_{T+2})\cdot x_{T+1}\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">\(F_x\ge0\) together with \(x_{T+1}\ge0\)</li>
+        <li class="quiz-option" data-option="b">Joint concavity of \(F\)</li>
+        <li class="quiz-option" data-option="c">Euler equation at \(T\)</li>
+        <li class="quiz-option" data-option="d">The transversality condition itself</li>
+      </ul>
+      <div class="quiz-explain">The term is \(-(\text{non-negative})\cdot(\text{non-negative})\le0\) by assumptions 2 and 3. Concavity was used in Step 1, the EE at \(T\) in Step 4 (to create this term), and the TC in Step 6 on the term that remains.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">3. In the neoclassical growth model with Inada conditions, the steady-state capital stock \(\bar k\) depends on:</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Only \(\beta\) and the technology</li>
+        <li class="quiz-option" data-option="b">Only the curvature of \(U\)</li>
+        <li class="quiz-option" data-option="c">\(\beta\), technology and \(U\)'s curvature</li>
+        <li class="quiz-option" data-option="d">The initial capital stock \(k_0\)</li>
+      </ul>
+      <div class="quiz-explain">\(U'(\bar c)[\beta f'(\bar k)-1]=0\) gives \(\beta f'(\bar k)=1\). \(U\) drops out because both EE terms are evaluated at the same \(\bar c\). The curvature of \(U\) matters for the <em>speed</em> of convergence, not the destination.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">4. How does the planner's steady state \(\bar k\) compare with the golden rule \(k_{GR}\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Always below, because \(\beta\lt1\)</li>
+        <li class="quiz-option" data-option="b">Always above, because \(\beta\lt1\)</li>
+        <li class="quiz-option" data-option="c">Equal, both maximize consumption</li>
+        <li class="quiz-option" data-option="d">Depends on utility curvature</li>
+      </ul>
+      <div class="quiz-explain">\(f'(\bar k)=1/\beta>1=f'(k_{GR})\), and \(f'\) is decreasing, so \(\bar k\lt k_{GR}\). Only the golden rule maximizes steady-state consumption; the planner maximizes discounted utility.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">5. Replace the return \(F\) by \(U\circ F\) with \(U'>0>U''\). What changes?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The dynamics, but not the steady state</li>
+        <li class="quiz-option" data-option="b">The steady state, but not the dynamics</li>
+        <li class="quiz-option" data-option="c">Both the dynamics and the steady state</li>
+        <li class="quiz-option" data-option="d">Neither the dynamics nor the steady state</li>
+      </ul>
+      <div class="quiz-explain">On the diagonal the factor \(U'(F(\bar x,\bar x))\) is common to both EE terms and cancels. Off the diagonal the factors \(U'(F(x_t,x_{t+1}))\) and \(U'(F(x_{t+1},x_{t+2}))\) differ, so the EE, and the path, change (Fall 2025 MT1 Q II).</div>
+    </div>
+    <div class="quiz-score"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s10">10. Exercises</h2>
+
+  <p>On past exams this material is worth 13–28% of the points whenever folder 4 is covered. The recurring tasks are: write the EE and the steady-state EE; show a steady state is unchanged by some modification; derive the EE twice (Lagrangian versus \(F\)); and state which assumption each direction of the EE/TC theorem needs. Answers are expected in "one line" or "one equation" per part.</p>
+
+  <div class="box exercise" id="tf">
+    <div class="box-title">True or false? Justify. <span class="tag past">Past exam</span> <span class="tag exam">Exam-inspired</span></div>
+    <p>Answer True or False and justify in at most four lines.</p>
+    <ol class="tf-list">
+      <li>In the neoclassical growth model \(\max\sum_t\beta^tU(c_t)\), \(c_t+k_{t+1}=f(k_t)\), the steady-state level of consumption does not depend on the form of \(U\), as long as \(U\) is strictly increasing and concave. <span class="tf-src">Fall 2005 Midterm, Ex. 1 Q6 (restated in discrete time)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> The steady-state EE is \(U'(\bar c)[-1+\beta f'(\bar k)]=0\), and \(U'(\bar c)>0\) gives \(\beta f'(\bar k)=1\), which involves only \(\beta\) and \(f\). Then \(\bar c=f(\bar k)-\bar k\) is pinned down too <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=18">EE p.18</a>. (In continuous time: \(f'(\bar k)=\rho+\delta\).)</p></div></details></li>
+      <li>Let \(\bar x\) be a steady state of \(\max\sum\beta^tF(x_t,x_{t+1})\), where \(F\) is strictly concave with \(F_x>0>F_y\). Replacing \(F\) by \(U(F)\), with \(U'>0>U''\), changes the steady state. <span class="tf-src">Fall 2025 MT1, Q II.5–6</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> \(\tilde F_x=U'(F)F_x\), \(\tilde F_y=U'(F)F_y\). At \((\bar x,\bar x)\): \(\tilde F_y+\beta\tilde F_x=U'(F(\bar x,\bar x))\,[F_y+\beta F_x]=0\) since \(U'>0\). Both EE terms are evaluated at the same point, so the common factor cancels.</p></div></details></li>
+      <li>In the setting of item 2, the optimal path starting from any \(x_0\) is also unchanged, because the two problems have the same steady state and both are strictly concave. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> Off the steady state the EE of the new problem is \(U'(F(x_t,x_{t+1}))F_y(t)+\beta U'(F(x_{t+1},x_{t+2}))F_x(t+1)=0\). A path solving the old EE solves this one only if \(U'(F(x_t,x_{t+1}))=U'(F(x_{t+1},x_{t+2}))\), i.e. the period return is constant along the path, which fails during the transition. The steady state is the same; the dynamics differ (Exercise 27.2).</p></div></details></li>
+      <li>Adding a quadratic adjustment cost, \(F(x,y;b)=F(x,y)-\frac b2(y-x)^2\) with \(b>0\), lowers the steady state, because it makes holding capital more costly. <span class="tf-src">Fall 2016 MT2, Q2 part 2.2</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> \(F_x(\cdot;b)=F_x+b(y-x)\) and \(F_y(\cdot;b)=F_y-b(y-x)\). Both extra terms vanish at \(y=x\), so the steady-state equation is identical: \(x^*(b)=x^*(0)\). The cost is on <em>changing</em> the state, not on holding it; it only slows the approach.</p></div></details></li>
+      <li>A feasible path that satisfies the Euler equation at every date and the transversality condition is optimal. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False</strong> without further assumptions. Sufficiency needs \(F\) concave, \(F_x\ge0\) along the path, and states bounded below <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=12">EE p.12</a>. Counterexample: \(\Gamma(x)=[0,1]\), \(F=(y-\frac12)^2\). The path \(x_t=\frac12\) satisfies EE and TC (all derivatives are 0) but is the worst feasible path.</p></div></details></li>
+      <li>A twice-differentiable concave function has a negative definite Hessian at every point. <span class="tf-src">exam-inspired (slide 13 wording)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> Concavity is equivalent to a negative <em>semi</em>definite Hessian. \(f(x)=-x^4\) is even strictly concave with \(f''(0)=0\), and linear functions are concave with a zero Hessian. Negative definiteness is sufficient for strict concavity, not necessary.</p></div></details></li>
+      <li>Consider two growth models that differ only in the discount factor, \(\beta_1\lt\beta_2\). The steady-state capital stock is higher in the second one. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> \(f'(\bar k_i)=1/\beta_i\), so \(f'(\bar k_2)\lt f'(\bar k_1)\). Since \(f\) (including undepreciated capital) is strictly concave, \(\bar k_2>\bar k_1\). Equivalently \(d\bar k/d\beta=-f'/(\beta f'')>0\).</p></div></details></li>
+      <li>If the planner is patient enough (\(\beta\) close to 1), the steady state of the growth model lies above the golden rule, as in a dynamically inefficient Diamond economy. <span class="tf-src">exam-inspired (links Lesson 15)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> \(f'(\bar k)=1/\beta>1=f'(k_{GR})\) for every \(\beta\lt1\), so \(\bar k\lt k_{GR}\), with \(\bar k\to k_{GR}\) only as \(\beta\to1\). Over-accumulation is a feature of some <em>competitive</em> OLG equilibria (<a href="0015-olg-with-capital.html">Lesson 15</a>), never of this planner's optimum.</p></div></details></li>
+      <li>At a steady state, the optimal policy function satisfies \(g(\bar x)=0\). <span class="tf-src">exam-inspired (a circulating drill)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> A steady state is a fixed point of the policy: \(g(\bar x)=\bar x\). What is zero at \(\bar x\) is the EE residual \(F_y(\bar x,\bar x)+\beta F_x(\bar x,\bar x)\) (and, in the quadratic example of Lesson 30, \(\bar x\) itself happens to be 0).</p></div></details></li>
+      <li>To apply the sufficiency theorem, the transversality condition must be checked along every feasible alternative path, not only along the candidate. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> In Step 5 of the proof, \(F_x\ge0\) and \(x_{T+1}\ge0\) remove the alternative from the bound: \(D_T\le\beta^{T+1}F_x(x^*_{T+1},x^*_{T+2})\cdot x^*_{T+1}\). Only the candidate's TC is needed.</p></div></details></li>
+    </ol>
+  </div>
+
+  <div class="box exercise" id="ex-27-1">
+    <div class="box-title">Exercise 27.1 <span class="tag past">Past exam: Fall 2005 MT E2</span> (human capital: the Euler equation two ways)</div>
+    <p>A household maximizes \(\sum_t\beta^tu(c_t)\), \(\beta=1/(1+\rho)\). It produces \(g(h_t)\) goods from human capital \(h_t\) and receives a constant endowment \(m\) of goods each period. Goods are split between consumption and investment in human capital, which costs \(p\) goods per unit, with \(h_{t+1}=i_t+(1-\delta)h_t\) and \(h_0>0\) given. \(u\) and \(g\) are strictly increasing, strictly concave, and satisfy Inada conditions.</p>
+    <ol class="parts" type="a">
+      <li>Write the period budget constraint in terms of \(c_t,i_t,m,p,g(h_t)\). <span class="pts">(10 pts)</span></li>
+      <li>Write the Lagrangian with choice variables \(\{i_t,h_{t+1}\}\) (so consumption is not a choice variable) and multiplier \(\beta^t\lambda_t\) on the law of motion. <span class="pts">(10 pts)</span></li>
+      <li>Take the FOCs with respect to \(i_t\) and \(h_{t+1}\). <span class="pts">(10 pts)</span></li>
+      <li>Eliminate the multipliers to get one equation in \(c_t,c_{t+1},h_{t+1},\delta,p,\beta\). Interpret it in two lines. <span class="pts">(20 pts)</span></li>
+      <li>In \(F\) notation (<a href="0026-the-dynamic-optimization-problem.html">Lesson 26</a>), \(F(h,h')=u\big(g(h)+m-p(h'-(1-\delta)h)\big)\). Write \(F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0\) and check it agrees with (d). <span class="pts">(10 pts)</span></li>
+      <li>Find an implicit expression for the steady state \(\bar h\) in terms of \(g',\beta,p,\delta\). Explain in three lines how \(\bar h\) depends on each parameter. <span class="pts">(20 pts)</span></li>
+      <li>Show that if \(h_0=\bar h\), staying at \(\bar h\) forever is optimal. Name every assumption you use. <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>In (c), \(h_{t+1}\) appears in the date-\(t\) constraint (with coefficient \(-1\)) and in the date-\((t+1)\) objective and constraint. In (g), use the first exercise of slide 18 and check the three hypotheses of the sufficiency theorem.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(g(h_t)+m=c_t+p\,i_t\).<br>
+      (b) \(\mathcal L=\sum_{t\ge0}\beta^t\Big[u\big(g(h_t)+m-p\,i_t\big)+\lambda_t\big(i_t+(1-\delta)h_t-h_{t+1}\big)\Big]\).<br>
+      (c) \(i_t\): \(-p\,u'(c_t)+\lambda_t=0\). \(h_{t+1}\): \(-\beta^t\lambda_t+\beta^{t+1}\big[u'(c_{t+1})g'(h_{t+1})+\lambda_{t+1}(1-\delta)\big]=0\), i.e. \(\lambda_t=\beta\big[u'(c_{t+1})g'(h_{t+1})+(1-\delta)\lambda_{t+1}\big]\).<br>
+      (d) Substitute \(\lambda_t=pu'(c_t)\): \(p\,u'(c_t)=\beta u'(c_{t+1})\big[g'(h_{t+1})+p(1-\delta)\big]\), or
+      $$u'(c_t)=\beta\,u'(c_{t+1})\Big[1+\frac{g'(h_{t+1})}{p}-\delta\Big].$$
+      Giving up one unit of consumption buys \(1/p\) units of human capital. Next period these yield \(g'/p\) goods plus \((1-\delta)\) units of undepreciated capital, worth \(p(1-\delta)/p=1-\delta\) goods. So \(g'/p-\delta\) is the net return on human capital, and the marginal rate of substitution equals the gross return.<br>
+      (e) \(F_x(h,h')=u'(c)\big[g'(h)+p(1-\delta)\big]\) and \(F_y(h,h')=-p\,u'(c)\). The EE is \(-p\,u'(c_t)+\beta u'(c_{t+1})\big[g'(h_{t+1})+p(1-\delta)\big]=0\), identical to (d). The Lagrangian route and the \(F\)-route must agree: the \(F\)-route just substitutes the constraints first.<br>
+      (f) At a steady state, \(u'(\bar c)\big[-p+\beta(g'(\bar h)+p(1-\delta))\big]=0\), so
+      $$g'(\bar h)=p\Big(\frac1\beta-(1-\delta)\Big)=p(\rho+\delta).$$
+      \(g'\) is strictly decreasing (strict concavity), so the right side moves \(\bar h\) the other way. A higher \(\beta\) (lower \(\rho\)) lowers the required return and raises \(\bar h\). A higher \(p\) or \(\delta\) raises the required marginal product and lowers \(\bar h\). Inada conditions on \(g\) give existence, and strict concavity gives uniqueness.<br>
+      (g) Assumption 1: \(F\) is concave, since \(u\) is concave and increasing and its argument \(g(h)+m-ph'+p(1-\delta)h\) is concave in \((h,h')\). Assumption 2: \(F_x=u'(\bar c)[g'(\bar h)+p(1-\delta)]>0\). Assumption 3: \(X=\mathbb R_+\). The constant path satisfies the EE by (f) and the TC trivially, since \(\beta^tF_x(\bar h,\bar h)\bar h\to0\). So it is optimal by sufficiency. (Feasibility needs \(\bar c=g(\bar h)+m-p\delta\bar h\ge0\), which holds for instance because \(g(\bar h)\ge g'(\bar h)\bar h>p\delta\bar h\) when \(g(0)\ge0\).)</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-27-2">
+    <div class="box-title">Exercise 27.2 <span class="tag past">Past exam: Fall 2025 MT1 QII.5–6</span> <span class="tag exam">Exam-inspired (c)–(d)</span> (a concave transformation of the return)</div>
+    <p>Program 1 is \(\max\sum\beta^tF(x_t,x_{t+1})\) with \(F\) strictly concave, \(C^2\), \(F_x>0>F_y\), and a steady state \(\bar x\). Program 2 replaces \(F\) by \(\tilde F=U(F)\), with \(U\) strictly increasing and strictly concave.</p>
+    <ol class="parts" type="a">
+      <li>Compute \(\tilde F_x\) and \(\tilde F_y\). <span class="pts">(10 pts)</span></li>
+      <li>Show that \(\bar x\) is a steady state of Program 2. <span class="pts">(10 pts)</span></li>
+      <li>Show that \(\tilde F\) is concave, so that the sufficiency theorem applies to Program 2 as well (assume \(X=\mathbb R^m_+\)). <span class="pts">(5 pts)</span></li>
+      <li>Let \(\{x_t\}\) be Program 1's optimal path from some \(x_0\neq\bar x\). Show that it solves Program 2's Euler equations only if the period return \(F(x_t,x_{t+1})\) is constant along the path. Conclude that the two programs share a steady state but not, in general, their transitions. <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Chain rule: \(\tilde F_x=U'(F(x,y))F_x(x,y)\), \(\tilde F_y=U'(F(x,y))F_y(x,y)\).<br>
+      (b) \(\tilde F_y(\bar x,\bar x)+\beta\tilde F_x(\bar x,\bar x)=U'(F(\bar x,\bar x))\big[F_y(\bar x,\bar x)+\beta F_x(\bar x,\bar x)\big]=0\). Both terms carry the same factor because they are evaluated at the same point.<br>
+      (c) For \(z,z'\) in the domain and \(\lambda\in[0,1]\): \(F(\lambda z+(1-\lambda)z')\ge\lambda F(z)+(1-\lambda)F(z')\), so, \(U\) being increasing and then concave, \(U(F(\lambda z+(1-\lambda)z'))\ge U(\lambda F(z)+(1-\lambda)F(z'))\ge\lambda U(F(z))+(1-\lambda)U(F(z'))\). Also \(\tilde F_x=U'F_x>0\).<br>
+      (d) Program 1's EE gives \(F_y(x_t,x_{t+1})=-\beta F_x(x_{t+1},x_{t+2})\). Substitute into Program 2's EE: \(\beta F_x(x_{t+1},x_{t+2})\big[U'(F(x_{t+1},x_{t+2}))-U'(F(x_t,x_{t+1}))\big]=0\). Since \(F_x>0\), \(U'(F_{t+1})=U'(F_t)\), and \(U'\) strictly decreasing gives \(F(x_t,x_{t+1})=F(x_{t+1},x_{t+2})\) for all \(t\). Along a transition toward \(\bar x\) the period return changes, so this fails and the paths differ. Intuition: \(U\) adds a taste for smoothing the period return across dates, which slows the transition. The steady state, where the return is already constant, is unaffected.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-27-3">
+    <div class="box-title">Exercise 27.3 <span class="tag past">Past exam: Fall 2016 MT2 Q2 parts 2.1–2.2</span> <span class="tag exam">Exam-inspired (c)</span> (adjustment costs leave the steady state alone)</div>
+    <p>\(\Gamma(x)=\mathbb R\), \(F\) twice differentiable and strictly concave (\(F_{xx}\lt0\), \(F_{xx}F_{yy}>F_{xy}^2\)), and a unique \(x^*\) with \(F_y(x^*,x^*)+\beta F_x(x^*,x^*)=0\). For \(b\ge0\) let \(F(x,y;b)\equiv F(x,y)-\frac b2(y-x)^2\).</p>
+    <ol class="parts" type="a">
+      <li>Compute the first and second derivatives of \(F(\cdot;b)\) in terms of \(b\) and those of \(F\). <span class="pts">(20 pts)</span></li>
+      <li>Write the steady-state equation for \(F(\cdot;b)\) and show \(x^*(b)=x^*\) for all \(b\ge0\). <span class="pts">(30 pts)</span></li>
+      <li>Show that \(F(\cdot;b)\) is strictly concave for every \(b\ge0\). <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(F_x(\cdot;b)=F_x+b(y-x)\), \(F_y(\cdot;b)=F_y-b(y-x)\); \(F_{xx}(\cdot;b)=F_{xx}-b\), \(F_{yy}(\cdot;b)=F_{yy}-b\), \(F_{xy}(\cdot;b)=F_{xy}+b\).<br>
+      (b) At \(x=y=x^*(b)\) the \(b\) terms in the first derivatives vanish, so the steady-state equation is \(F_y(x,x)+\beta F_x(x,x)=0\), whose unique root is \(x^*\). The cost is paid only on changes, so it is zero at rest and so is its marginal effect.<br>
+      (c) The Hessian is \(H_b=H-b\begin{pmatrix}1&-1\\-1&1\end{pmatrix}\). The subtracted matrix is positive semidefinite (its quadratic form is \(b(v_1-v_2)^2\ge0\)), and \(H\) is negative definite, so \(v'H_bv=v'Hv-b(v_1-v_2)^2\lt0\) for \(v\neq0\). Explicitly: \(\det H_b=\det H-b\,(F_{xx}+F_{yy}+2F_{xy})\), and \(F_{xx}+F_{yy}+2F_{xy}=(1,1)H(1,1)'\lt0\), so \(\det H_b>\det H>0\).<br>
+      <em>Link:</em> with the baseline \(F=-\frac a2y^2\), this is the model of slides 32–34, solved in closed form in <a href="0030-closed-form-decision-rules.html">Lesson 30</a>. Its steady state is 0 for every \(b\).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-27-4">
+    <div class="box-title">Exercise 27.4 <span class="tag exam">Exam-inspired</span> <span class="tag proof">Proof</span> (borrowing limits and Ponzi schemes)</div>
+    <p>Let \(m=1\) and suppose \(X=[x_{\text{low}},\infty)\) for some \(x_{\text{low}}\in\mathbb R\), possibly negative. Keep assumptions 1 and 2 of the sufficiency theorem.</p>
+    <ol class="parts" type="a">
+      <li>Redo Steps 4–6 of the proof and show that EE plus the <em>modified</em> TC \(\lim_t\beta^tF_x(x_t,x_{t+1})(x_t-x_{\text{low}})=0\) are sufficient. <span class="pts">(15 pts)</span></li>
+      <li>Savings problem: \(F(x,y)=U(w+(1+r)x-y)\), \(U\) strictly concave and increasing, \(\beta(1+r)=1\), \(w>0\), with the natural borrowing limit \(x_{\text{low}}=-w/r\). Show that \(c_t=w+rx_0\) for all \(t\) is optimal for any \(x_0>-w/r\). <span class="pts">(10 pts)</span></li>
+      <li>Now drop the borrowing limit (\(X=\mathbb R\)). Show that consuming \(c^*+\Delta\) forever, \(\Delta>0\), is feasible and satisfies the EE. Compute the limit of the term dropped in Step 5. Which step of the proof fails, and what does this say about the problem? <span class="pts">(15 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>In (a), write \(x_{T+1}-x^*_{T+1}=(x_{T+1}-x_{\text{low}})-(x^*_{T+1}-x_{\text{low}})\). In (c), \(x_t=x_0-\Delta\frac{(1+r)^t-1}{r}\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Steps 1–4 are unchanged: \(D_T\le-\beta^{T+1}F^*_x(T+1)(x_{T+1}-x^*_{T+1})\). Split as in the hint: \(D_T\le-\beta^{T+1}F^*_x(T+1)(x_{T+1}-x_{\text{low}})+\beta^{T+1}F^*_x(T+1)(x^*_{T+1}-x_{\text{low}})\). The first term is \(\le0\) because \(F^*_x\ge0\) and \(x_{T+1}\ge x_{\text{low}}\). The second goes to 0 by the modified TC. With \(x_{\text{low}}=0\) this is the slide's TC.<br>
+      (b) \(F\) is concave (concave increasing \(U\) of an affine function), \(F_x=(1+r)U'(c)>0\). EE: \(-U'(c_t)+\beta(1+r)U'(c_{t+1})=0\), i.e. \(c_t=c_{t+1}\), satisfied by any constant path. With \(c=w+rx_0\), the budget gives \(x_{t+1}=(1+r)x_t+w-c=x_t\): wealth stays at \(x_0\). Modified TC: \(\beta^t(1+r)U'(c)(x_0+w/r)\to0\). So the path is optimal by (a). (Lesson 29 shows this path is the <em>only</em> optimum.)<br>
+      (c) Consumption \(c^*+\Delta\) is constant, so it satisfies the EE. The budget gives \(x_{t+1}=(1+r)x_t-rx_0-\Delta\), i.e. \(z_t\equiv x_t-x_0\) solves \(z_{t+1}=(1+r)z_t-\Delta\), so \(x_t=x_0-\Delta\frac{(1+r)^t-1}{r}\). It is feasible because \(X=\mathbb R\) imposes no limit. The dropped term is \(-\beta^{T+1}F_x\,x_{T+1}=-(1+r)U'(c^*)\,\beta^{T+1}x_{T+1}\), and \(\beta^{T+1}x_{T+1}=\beta^{T+1}x_0-\frac\Delta r(1-\beta^{T+1})\to-\Delta/r\). So the term tends to \((1+r)U'(c^*)\Delta/r>0\): <strong>Step 5 fails</strong>. In fact the alternative gives strictly more utility in every period, so \(c^*\) is not optimal. No path is optimal at all: any plan can be improved by borrowing a little more and rolling the debt over forever. Without a borrowing limit the problem has no solution, which is why every model with debt imposes one (a no-Ponzi condition).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-27-5">
+    <div class="box-title">Exercise 27.5 <span class="tag slides">Slides p.11, p.18</span> <span class="tag exam">Exam-inspired</span> (the growth model from start to finish)</div>
+    <p>\(\max\sum_t\beta^tU(c_t)\) s.t. \(c_t+k_{t+1}=f(k_t)\equiv G(k_t,1)+(1-\delta)k_t\), \(k_0>0\), with \(U\) strictly increasing, strictly concave, \(U'(0)=\infty\), and \(G\) neoclassical with Inada conditions.</p>
+    <ol class="parts" type="a">
+      <li>Write \(F\), \(F_x\), \(F_y\). Show that \(F\) is concave and \(F_x>0\). <span class="pts">(10 pts)</span></li>
+      <li>Write the EE and the TC. <span class="pts">(10 pts)</span></li>
+      <li>Show that, along a path satisfying the EE, the TC is equivalent to \(\lim_t\beta^tU'(c_t)k_{t+1}=0\). Interpret in one line. <span class="pts">(10 pts)</span></li>
+      <li>Show that there is a unique steady state \(\bar k>0\), with \(\bar c>0\). <span class="pts">(15 pts)</span></li>
+      <li>Compare \(\bar k\) with the golden-rule capital stock. One line. <span class="pts">(5 pts)</span></li>
+      <li>Compute \(d\bar k/d\beta\) and \(d\bar k/d\delta\) and sign them. <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(F(x,y)=U(f(x)-y)\), \(F_x=U'(c)f'(x)\), \(F_y=-U'(c)\). \(f(x)-y\) is concave in \((x,y)\) (\(f\) concave, \(-y\) linear), and a concave increasing function of a concave function is concave. \(F_x>0\) since \(U'>0\) and \(f'=G_k+1-\delta>0\).<br>
+      (b) \(U'(c_t)=\beta U'(c_{t+1})f'(k_{t+1})\); \(\lim_t\beta^tU'(c_t)f'(k_t)k_t=0\).<br>
+      (c) The EE at \(t-1\) gives \(\beta^tU'(c_t)f'(k_t)=\beta^{t-1}U'(c_{t-1})\). So \(\beta^tF_x(k_t,k_{t+1})k_t=\beta^{t-1}U'(c_{t-1})k_t\), and its limit is that of \(\beta^tU'(c_t)k_{t+1}\) (shift the index). It says the present utility value of the capital carried forward vanishes.<br>
+      (d) \(U'(\bar c)[\beta f'(\bar k)-1]=0\), so \(G_k(\bar k,1)=1/\beta-1+\delta\). Existence comes from Inada plus the intermediate value theorem, and uniqueness from \(G_k\) strictly decreasing. \(\bar c=G(\bar k,1)-\delta\bar k>G_k(\bar k,1)\bar k-\delta\bar k=(1/\beta-1)\bar k>0\), using strict concavity and \(G(0,1)=0\).<br>
+      (e) \(f'(\bar k)=1/\beta>1=f'(k_{GR})\), so \(\bar k\lt k_{GR}\) (the modified golden rule).<br>
+      (f) \(d\bar k/d\beta=-f'(\bar k)/(\beta f''(\bar k))=-1/(\beta^2G_{kk})>0\). \(d\bar k/d\delta=1/G_{kk}(\bar k,1)\lt0\). Neither depends on \(U\).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-27-6">
+    <div class="box-title">Exercise 27.6 <span class="tag slides">Slides p.13</span> <span class="tag proof">Proof</span> (the tangent-line inequality, both directions)</div>
+    <ol class="parts" type="a">
+      <li>Let \(f:\mathbb R^K\to\mathbb R\) be \(C^2\). Use a second-order Taylor expansion to show \(f(x)\le f(x^0)+\nabla f(x^0)\cdot(x-x^0)\) whenever \(D^2f\) is negative semidefinite everywhere. <span class="pts">(10 pts)</span></li>
+      <li>Give a strictly concave \(C^2\) function whose Hessian is not negative definite everywhere. What does this say about the slide's wording? <span class="pts">(5 pts)</span></li>
+      <li>Prove the inequality for any differentiable concave \(f\), without assuming \(C^2\). <span class="pts">(10 pts)</span></li>
+      <li>Prove the converse: if a differentiable \(f\) satisfies the inequality for all \(x,x^0\), then \(f\) is concave. <span class="pts">(10 pts)</span></li>
+      <li>In which step of the sufficiency proof is the inequality used, for which function, at which point, and evaluated where? <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(f(x)=f(x^0)+\nabla f(x^0)\cdot(x-x^0)+\frac12(x-x^0)'D^2f(\xi)(x-x^0)\) for some \(\xi\) on the segment, and the last term is \(\le0\).<br>
+      (b) \(f(x)=-x^4\): strictly concave, \(f''(0)=0\). Negative definiteness is sufficient for strict concavity, not necessary, and concavity is equivalent to semidefiniteness. The slide's "negative definite" should read "negative semidefinite".<br>
+      (c) For \(\lambda\in(0,1]\), concavity gives \(f(x^0+\lambda(x-x^0))\ge f(x^0)+\lambda[f(x)-f(x^0)]\). So \(f(x)-f(x^0)\le\frac{f(x^0+\lambda(x-x^0))-f(x^0)}{\lambda}\to\nabla f(x^0)\cdot(x-x^0)\) as \(\lambda\downarrow0\).<br>
+      (d) Let \(z=\lambda x+(1-\lambda)x'\). Apply the inequality at \(z\): \(f(x)\le f(z)+\nabla f(z)\cdot(x-z)\) and \(f(x')\le f(z)+\nabla f(z)\cdot(x'-z)\). Multiply by \(\lambda\) and \(1-\lambda\) and add. Since \(\lambda(x-z)+(1-\lambda)(x'-z)=0\), we get \(\lambda f(x)+(1-\lambda)f(x')\le f(z)\). (Geometrically: \(f\) is the lower envelope of its tangent planes, and a minimum of affine functions is concave.)<br>
+      (e) Step 1. It is applied to \(F\) as a function of \((x,y)\in\mathbb R^{2m}\), at the candidate's point \((x^*_t,x^*_{t+1})\), and evaluated at the alternative's point \((x_t,x_{t+1})\). Joint concavity in \((x,y)\) is needed, not concavity in each argument separately.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-27-7">
+    <div class="box-title">Exercise 27.7 <span class="tag exam">Exam-inspired</span> (steady states that exist, and ones that don't)</div>
+    <p>For each return function: compute \(F_x,F_y\), write the EE, and find all steady states. When there is no steady state, find the optimal path with EE + TC instead. Take \(X=\mathbb R_+\) and \(x_0>0\) throughout.</p>
+    <ol class="parts" type="a">
+      <li>\(F(k,k')=\log(Ak^\alpha-k')\), \(\Gamma(k)=[0,Ak^\alpha]\), \(\alpha\in(0,1)\). Also show \(F\) is strictly concave. <span class="pts">(15 pts)</span></li>
+      <li>Cake eating: \(F(x,y)=\log(x-y)\), \(\Gamma(x)=[0,x]\). Verify that \(x_{t+1}=\beta x_t\) is optimal. <span class="pts">(15 pts)</span></li>
+      <li>\(F(x,y)=-(x-y)^2+bx\) with \(b>0\), \(\Gamma(x)=\mathbb R_+\). Show there is no steady state, and find the optimal path. <span class="pts">(15 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (c), let \(\Delta_t=x_{t+1}-x_t\) and write the EE as a first-order difference equation in \(\Delta\). Look for a constant solution, and check the TC with a linearly growing \(x_t\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) With \(c=Ak^\alpha-k'\): \(F_x=\alpha Ak^{\alpha-1}/c\), \(F_y=-1/c\). Second derivatives: \(F_{yy}=-1/c^2\), \(F_{xy}=\alpha Ak^{\alpha-1}/c^2\), \(F_{xx}=\alpha(\alpha-1)Ak^{\alpha-2}/c-(\alpha Ak^{\alpha-1})^2/c^2\lt0\). The determinant is \(F_{xx}F_{yy}-F_{xy}^2=\alpha(1-\alpha)Ak^{\alpha-2}/c^3>0\), so \(F\) is strictly concave. EE: \(1/c_t=\alpha\beta Ak_{t+1}^{\alpha-1}/c_{t+1}\). Steady state: \(\alpha\beta A\bar k^{\alpha-1}=1\), so \(\bar k=(\alpha\beta A)^{1/(1-\alpha)}\). This is slide 35's model (100% depreciation), solved in closed form in <a href="0030-closed-form-decision-rules.html">Lesson 30</a>.<br>
+      (b) \(F_x=1/(x-y)\), \(F_y=-1/(x-y)\). EE: \(-1/c_t+\beta/c_{t+1}=0\), i.e. \(c_{t+1}=\beta c_t\). Steady state: at \(x=y\), \(c=0\) and \(F=-\infty\), so there is no interior steady state; the cake must shrink. Try \(x_{t+1}=\beta x_t\): \(c_t=(1-\beta)x_t\) and \(c_{t+1}=(1-\beta)\beta x_t=\beta c_t\) ✓. TC: \(\beta^tF_x(x_t,x_{t+1})x_t=\beta^tx_t/((1-\beta)x_t)=\beta^t/(1-\beta)\to0\) ✓. \(F\) is concave, \(F_x>0\), \(X=\mathbb R_+\), so the path is optimal by sufficiency.<br>
+      (c) \(F_x=-2(x-y)+b\), \(F_y=2(x-y)\). At \(x=y\): \(F_y+\beta F_x=\beta b>0\), never zero, so there is no steady state. The return rewards a high state (\(+bx\)), and that pull never dies out. EE: \(-2\Delta_t+\beta(2\Delta_{t+1}+b)=0\), i.e. \(\Delta_{t+1}=\Delta_t/\beta-b/2\). This is unstable (coefficient \(1/\beta>1\)), so any \(\Delta_0\) other than the fixed point \(\bar\Delta=\frac{\beta b}{2(1-\beta)}\) explodes. Take \(\Delta_t\equiv\bar\Delta\), so \(x_t=x_0+t\bar\Delta\). \(F\) is concave (its Hessian is \(\begin{pmatrix}-2&2\\2&-2\end{pmatrix}\), negative semidefinite), \(F_x=2\bar\Delta+b>0\) along the path, \(X=\mathbb R_+\). TC: \(\beta^t(2\bar\Delta+b)(x_0+t\bar\Delta)\to0\) ✓. So the state grows linearly forever, and that is optimal. The EE + TC method needs neither a steady state nor bounded paths.</p>
+    </div></details>
+  </div>
+
+  <div class="takeaways">
+    <h2 id="takeaways">Key takeaways</h2>
+    <ul>
+      <li>EE: \(F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0\), from a one-date perturbation of \(x_{t+1}\): marginal cost today equals discounted marginal benefit tomorrow. TC: \(\lim\beta^tF_x\cdot x_t=0\), so the present value of the stock vanishes and no value is left unused.</li>
+      <li>Growth model: \(U'(c_t)=\beta U'(c_{t+1})f'(k_{t+1})\), and the TC is \(\lim\beta^tU'(c_t)f'(k_t)k_t=0\), equivalently \(\lim\beta^tU'(c_t)k_{t+1}=0\).</li>
+      <li>Sufficiency: \(F\) concave (Step 1), EE (Steps 3–4), \(F_x\ge0\) and \(X=\mathbb R^m_+\) (Step 5), TC on the candidate only (Step 6). Without concavity you can land on a minimum. Without a lower bound, Ponzi schemes break the proof.</li>
+      <li>Concavity ⇔ tangent planes lie above ⇔ (for \(C^2\)) a negative <em>semi</em>definite Hessian.</li>
+      <li>Steady state: \(F_y(\bar x,\bar x)+\beta F_x(\bar x,\bar x)=0\). In convex problems, staying there from \(x_0=\bar x\) is optimal. Growth model: \(\beta f'(\bar k)=1\), unique, and below the golden rule.</li>
+      <li>The steady state ignores anything that scales both EE terms equally or vanishes on the diagonal: the form of \(U\), \(U\circ F\), and costs on \(y-x\). The dynamics do not ignore them.</li>
+    </ul>
+  </div>
+
+  <p>Reference: <a href="../reference/euler-transversality-cheatsheet.html">Euler equations &amp; transversality cheatsheet</a> · <a href="../reference/ge-glossary.html">Glossary</a>.</p>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "redo the sufficiency proof with two state variables and show where the inner products come in", "why does the TC take the form \(\lim\beta^tU'(c_t)k_{t+1}=0\) and not \(\lim k_t=0\)?", or "give me another non-concave example where EE + TC pick the wrong path".</div>
+
+  <div class="lesson-nav">
+    <a href="0026-the-dynamic-optimization-problem.html">← Lesson 26: The dynamic optimization problem</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0028-necessity-and-the-shooting-algorithm.html">Lesson 28: Necessity and the shooting algorithm →</a>
+  </div>
+
+</div>
+</body>
+</html>

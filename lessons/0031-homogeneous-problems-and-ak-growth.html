@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 31 — Homogeneous Problems and AK Growth</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part VI: Euler Equations &amp; Transversality · Lesson 31 of 32</div>
+    <h1>Homogeneous Problems and AK Growth</h1>
+    <div class="meta">Covers <a href="../sources/slides5-euler-transversality.pdf#page=38">Euler-equation slides 38–44</a> · About 40 min · Prerequisites: <a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a> (the Euler equation, transversality and sufficiency), <a href="0030-closed-form-decision-rules.html">Lesson 30</a> (guess-and-verify policies)</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>prove that when the feasible set and the return scale with the state, the optimal policy scales too, so in one dimension it is a straight line \(x_{t+1}=\bar g\,x_t\);</li>
+      <li>reduce the Euler equation and the transversality condition (TC) to a single equation in the growth factor \(\bar g\), and explain where the requirement \(\beta|\bar g|\lt1\) comes from;</li>
+      <li>show that the transversality condition by itself rules out all but one growth factor;</li>
+      <li>handle return functions homogeneous of degree \(1-\gamma\) (CRRA utility), including the log case;</li>
+      <li>solve the AK model, \(\bar g=(\beta A)^{1/\gamma}\), and show that transversality there is the same thing as positive consumption.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides5-euler-transversality.pdf#page=38">Euler Equations and Transversality Conditions, slides 38–44</a>. The textbook treatment is Stokey &amp; Lucas with Prescott, <em>Recursive Methods in Economic Dynamics</em> (1989): §4.3 "Constant Returns to Scale" (homogeneous dynamic programs and their HD1 value and policy functions), §4.5 (Euler equations; Theorem 4.15, sufficiency of the Euler equation plus transversality), and §5.9 "Investment with Constant Returns". For AK growth in a macro setting, see Acemoglu, <em>Introduction to Modern Economic Growth</em> (2009), chapter 11 (first-generation endogenous growth models, the AK model).
+  </div>
+
+  <div class="notation">
+    <div class="box-title">Notation for this lesson</div>
+    <ul>
+      <li>\(F(x,y)\) is the <strong>period return</strong> (today's state \(x\), tomorrow's state \(y\)), not a production function. Subscripts are partial derivatives: \(F_x,F_y,F_{xy},\dots\)</li>
+      <li>\(\bar g\) is a <strong>gross</strong> growth factor: \(x_{t+1}=\bar gx_t\). Net growth is \(\bar g-1\).</li>
+      <li>\(\gamma\) here is the <strong>curvature</strong> of CRRA utility, and the return is homogeneous of degree \(1-\gamma\). The same deck uses \(\gamma\) for the slope of the linear policy in the quadratic adjustment-cost model (<a href="0030-closed-form-decision-rules.html">Lesson 30</a>, slide 34), and for the <em>net</em> growth rate \(\bar g-1\) on slide 50 (<a href="0032-adjustment-costs-and-tobins-q.html">Lesson 32</a>). Three different objects.</li>
+      <li>\(\lambda>0\) is a <strong>scaling factor</strong>. It is not a Pareto weight (Part V) or a multiplier.</li>
+      <li>In the AK model, \(A\) is the <strong>gross</strong> return on capital: resources available next period per unit of capital, including undepreciated capital. With \(c+i=\tilde Ak\) and \(k'=(1-\delta)k+i\), \(A=\tilde A+1-\delta\).</li>
+      <li>\(\beta\in(0,1)\) is the discount factor. It is not the preference weight \(\beta\) of Class Note II.</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s1">1. Where we are</h2>
+
+  <p>Lessons 27–28 established when a path that satisfies the Euler equation (EE)
+  $$F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0$$
+  and the transversality condition \(\lim_t\beta^tF_x(x_t,x_{t+1})\cdot x_t=0\) is optimal. Lessons 29–30 solved examples by guessing a policy and checking both conditions. This lesson covers a whole <em>class</em> of problems where the guess is forced on us: problems with <strong>no natural scale</strong>. If doubling the state doubles everything that is feasible and doubles the payoff, the solution from \(2x_0\) must be the solution from \(x_0\) scaled by two. In one dimension that pins the policy down to a straight line through the origin, and the whole dynamic problem collapses to one equation in one number, the growth factor \(\bar g\).</p>
+
+  <p>The leading application is the <strong>AK model</strong>. In the neoclassical growth model (NGM) of Lesson 27, the marginal product of capital falls as capital accumulates, and growth stops at the steady state \(\beta f'(\bar k)=1\). In the AK model the marginal product never falls, so the economy can grow forever, at a rate chosen by preferences.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s2">2. Homogeneous problems have homogeneous policies</h2>
+
+  <div class="definition" id="def-definition-homogeneous-degree-one-hd1">
+    <div class="box-title">Definition: a homogeneous-of-degree-one (HD1) problem <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=38">EE p.38</a></div>
+    <p>The problem \([X,\Gamma,F,\beta]\) is <strong>homogeneous of degree one</strong> if for every scalar \(\lambda>0\):</p>
+    <ol>
+      <li>\(X\) is a <strong>cone</strong>: \(x\in X\Rightarrow\lambda x\in X\);</li>
+      <li>\(\Gamma\) is <strong>homogeneous</strong>: \(y\in\Gamma(x)\Rightarrow\lambda y\in\Gamma(\lambda x)\), so the graph of \(\Gamma\) is a cone;</li>
+      <li>\(F\) is <strong>HD1</strong> on the graph of \(\Gamma\): \(F(\lambda x,\lambda y)=\lambda F(x,y)\).</li>
+    </ol>
+    <p>The slide writes "for all scalar \(\lambda\)" in item 3. Read it as \(\lambda>0\). A negative \(\lambda\) would leave the cone, and multiplying the objective by a negative number turns a maximum into a minimum.</p>
+  </div>
+
+  <div class="theorem" id="thm-result-value-hd1-policy-correspondence">
+    <div class="box-title">Result: the value is HD1 and the policy correspondence is HD1 <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=38">EE p.38</a></div>
+    <p>In an HD1 problem with a finite value \(V^*\), for every \(\lambda>0\):
+    $$V^*(\lambda x_0)=\lambda V^*(x_0),\qquad y\in G(x)\iff\lambda y\in G(\lambda x),$$
+    where \(G(x)\) is the set of optimal next-period states from \(x\). If the optimizer is unique, the policy <em>function</em> satisfies \(g(\lambda x)=\lambda g(x)\). In one dimension, with \(X=\mathbb R_+\), this means \(g(x)=\bar gx\) with \(\bar g\equiv g(1)\).</p>
+  </div>
+
+  <div class="proof" id="pf-proof-filling-slide-38">
+    <div class="box-title">Proof (filling in slide 38)</div>
+    <p>Let \(\Pi(x_0)\) be the set of feasible plans \(\{x_t\}_{t\ge0}\) from \(x_0\), meaning \(x_{t+1}\in\Gamma(x_t)\) for all \(t\), and let \(U(\{x_t\})=\sum_t\beta^tF(x_t,x_{t+1})\).</p>
+    <ol class="steps">
+      <li><strong>Plans scale.</strong> If \(\{x_t\}\in\Pi(x_0)\), then \(\{\lambda x_t\}\in\Pi(\lambda x_0)\). Each \(\lambda x_t\in X\) because \(X\) is a cone, and \(\lambda x_{t+1}\in\Gamma(\lambda x_t)\) because \(\Gamma\) is homogeneous.</li>
+      <li><strong>Payoffs scale.</strong> \(U(\{\lambda x_t\})=\sum_t\beta^tF(\lambda x_t,\lambda x_{t+1})=\lambda\sum_t\beta^tF(x_t,x_{t+1})=\lambda U(\{x_t\})\), term by term.</li>
+      <li><strong>Scaling is a bijection.</strong> The map \(\{x_t\}\mapsto\{\lambda x_t\}\) sends \(\Pi(x_0)\) into \(\Pi(\lambda x_0)\), and scaling by \(1/\lambda>0\) sends \(\Pi(\lambda x_0)\) back into \(\Pi(x_0)\). So the map is onto: every plan from \(\lambda x_0\) is a scaled plan from \(x_0\).</li>
+      <li><strong>Values scale.</strong> \(V^*(\lambda x_0)=\sup_{\Pi(\lambda x_0)}U=\sup_{\{x_t\}\in\Pi(x_0)}\lambda U(\{x_t\})=\lambda V^*(x_0)\). The last step uses \(\lambda>0\): multiplying by a positive number preserves the supremum.</li>
+      <li><strong>Optimal plans scale.</strong> \(\{x^*_t\}\) attains \(V^*(x_0)\) iff \(U(\{\lambda x^*_t\})=\lambda V^*(x_0)=V^*(\lambda x_0)\), i.e. iff \(\{\lambda x^*_t\}\) is optimal from \(\lambda x_0\). Looking at the first step of the plan: \(y\in G(x)\iff\lambda y\in G(\lambda x)\).</li>
+      <li><strong>One dimension.</strong> If \(G(x)=\{g(x)\}\) is single-valued, step 5 gives \(g(\lambda x)=\lambda g(x)\). For \(x>0\), take \(\lambda=x\): \(g(x)=g(x\cdot1)=x\,g(1)\equiv\bar gx\). \(\blacksquare\)</li>
+    </ol>
+  </div>
+
+  <div class="intuition" id="int-intuition">
+    <div class="box-title">Intuition</div>
+    <p>An HD1 problem has no natural unit. Measure the state in dollars or in cents: the feasible sets and the payoffs are the same up to a relabeling, so the optimal plan must be the same up to the same relabeling. The only thing the planner chooses is a <em>proportion</em>, here the growth factor \(\bar g\). This is the dynamic analogue of a CRS firm, whose optimal input <em>ratios</em> do not depend on scale.</p>
+  </div>
+
+  <div class="warning" id="warn-hd1-not-linear-more-than">
+    <div class="box-title">HD1 is not "linear" in more than one dimension</div>
+    <p>With two states, say physical and human capital \(x=(k,h)\), the result gives \(g(\lambda k,\lambda h)=\lambda g(k,h)\), so \(g(k,h)=h\,g(k/h,1)\). The policy depends on the <em>ratio</em> \(k/h\) and scales with the level. It is linear along each ray, but in general it is not a linear map. Only in one dimension, where there is a single ray, does HD1 collapse to \(g(x)=\bar gx\). (<a href="#ex-31-5">Exercise 31.5</a> uses this for the Lucas–Uzawa model of <a href="0026-the-dynamic-optimization-problem.html">Lesson 26</a>.)</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s3">3. The Euler equation and transversality in ratios</h2>
+
+  <p><strong>Derivatives of HD1 functions are HD0.</strong> Differentiate \(F(\lambda x,\lambda y)=\lambda F(x,y)\) with respect to \(x\): \(\lambda F_x(\lambda x,\lambda y)=\lambda F_x(x,y)\), so \(F_x(\lambda x,\lambda y)=F_x(x,y)\). The same holds for \(F_y\). Taking \(\lambda=1/x_t\) and \(\lambda=1/x_{t+1}\) in the EE gives
+  <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=39">EE p.39</a>
+  $$0=F_y\Big(1,\frac{x_{t+1}}{x_t}\Big)+\beta F_x\Big(1,\frac{x_{t+2}}{x_{t+1}}\Big).$$
+  This is a first-order difference equation in the growth factors \(g_t\equiv x_{t+1}/x_t\): \(F_y(1,g_t)+\beta F_x(1,g_{t+1})=0\). The linear policy of Section 2 corresponds to a constant growth factor, \(g_t=g_{t+1}=\bar g\), which must solve
+  $$\boxed{\;F_y(1,\bar g)+\beta F_x(1,\bar g)=0.\;}$$</p>
+
+  <p><strong>Transversality.</strong> Along \(x_t=\bar g^tx_0\), the TC term is
+  $$\beta^tF_x(x_t,x_{t+1})\,x_t=\beta^tF_x(1,\bar g)\,\bar g^tx_0=(\beta\bar g)^t\,F_x(1,\bar g)\,x_0 ,$$
+  which goes to zero (with \(F_x(1,\bar g)x_0\neq0\)) iff \(\beta|\bar g|\lt1\). <strong>That is why the slides require \(\beta|\bar g|\lt1\).</strong> The same condition makes the objective finite: \(\sum_t\beta^tF(x_t,x_{t+1})=x_0F(1,\bar g)\sum_t(\beta\bar g)^t\) converges iff \(\beta|\bar g|\lt1\) (when \(F(1,\bar g)\neq0\)). Growth is allowed, even forever, but it must be slower than the rate at which the future is discounted.</p>
+
+  <p><strong>Why is it OK to guess?</strong> Two separate reasons <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=39">EE p.39</a>.</p>
+  <ul>
+    <li><em>The guess is the right shape.</em> If an optimum exists and is unique, Section 2 says it <em>is</em> linear, so restricting attention to linear policies loses nothing.</li>
+    <li><em>Sufficiency validates the guess.</em> More directly, the sufficiency theorem of <a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a> says that if \(F\) is concave, \(F_x\ge0\) and \(X=\mathbb R_+\), any path that satisfies the EE and the TC is optimal. A \(\bar g\) that solves the boxed equation with \(\beta\bar g\lt1\) passes both tests, so the guess is the optimum. No appeal to the general HD1 theorem is needed.</li>
+  </ul>
+
+  <div class="theorem" id="thm-bonus-value-function-closed-form">
+    <div class="box-title">A bonus: the value function in closed form</div>
+    <p>In an HD1 problem solved by \(\bar g\) with \(\beta\bar g\lt1\),
+    $$V^*(x_0)=\frac{F(1,\bar g)}{1-\beta\bar g}\,x_0=F_x(1,\bar g)\,x_0 .$$
+    The first equality sums the geometric series. For the second, Euler's theorem for the HD1 function \(F\) gives \(F(1,\bar g)=F_x(1,\bar g)+\bar gF_y(1,\bar g)\), and the EE gives \(F_y=-\beta F_x\), so \(F(1,\bar g)=F_x(1,\bar g)(1-\beta\bar g)\). The marginal value of the state, \(V^{*\prime}(x_0)=F_x(1,\bar g)=F_x(x_0,x_1)\), is exactly the envelope condition you will meet with Bellman equations. It is also what makes Tobin's \(q\) observable in <a href="0032-adjustment-costs-and-tobins-q.html">Lesson 32</a>: there \(V(k)/k=V'(k)\), so average \(q\) equals marginal \(q\).</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s4">4. How many growth factors can solve the Euler equation?</h2>
+
+  <p>Slide 40 asks whether the ratio EE can hold for several values of \(\bar g\). Write \(R(g)\equiv F_y(1,g)+\beta F_x(1,g)\) for the EE residual. The 2026 slides assume \(F\) is \(C^2\), concave, HD1, and <em>strictly concave in non-radial directions</em>. (The 2025 version assumed strict quasi-concavity, which is not what the argument uses.)</p>
+
+  <div class="theorem" id="thm-result-at-most-one-growth">
+    <div class="box-title">Result: at most one growth factor satisfies both the EE and the TC <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=40">EE p.40</a></div>
+    <p>Under these assumptions, for \(g>0\),
+    $$R'(g)=F_{yy}(1,g)\,(1-\beta g),$$
+    which is strictly negative on \(0\lt g\lt1/\beta\). So \(R\) has <strong>at most one</strong> root with \(\beta\bar g\lt1\), the region that transversality requires.</p>
+  </div>
+
+  <div class="proof" id="pf-proof">
+    <div class="box-title">Proof</div>
+    <ol class="steps">
+      <li><strong>Euler's theorem for \(F_x\).</strong> \(F_x\) is HD0, so \(xF_{xx}+yF_{xy}=0\). At \((1,g)\): \(F_{xx}+gF_{xy}=0\).</li>
+      <li><strong>Euler's theorem for \(F_y\).</strong> Likewise \(F_{yx}+gF_{yy}=0\), so \(F_{xy}=-g\,F_{yy}\).</li>
+      <li><strong>The Hessian is singular in the radial direction.</strong> Combining the two steps, \(F_{xx}=-gF_{xy}=g^2F_{yy}\). Hence \(F_{xx}F_{yy}=g^2F_{yy}^2=F_{xy}^2\). In matrix form, the Hessian times the ray direction \((1,g)\) is zero: moving along a ray, \(F\) is linear.</li>
+      <li><strong>Signs.</strong> The direction \((0,1)\) is not radial, so strict concavity there gives \(F_{yy}\lt0\). Then step 2 gives \(F_{xy}=-gF_{yy}>0\) for \(g>0\).</li>
+      <li><strong>Differentiate the residual.</strong> \(R'(g)=F_{yy}(1,g)+\beta F_{xy}(1,g)=F_{yy}(1,g)-\beta gF_{yy}(1,g)=F_{yy}(1,g)(1-\beta g)\).</li>
+      <li><strong>Conclude.</strong> On \((0,1/\beta)\), \(F_{yy}\lt0\) and \(1-\beta g>0\), so \(R\) is strictly decreasing and crosses zero at most once. Any root with \(\beta g\ge1\) violates the TC and cannot be optimal. \(\blacksquare\)</li>
+    </ol>
+  </div>
+
+  <p><strong>Reconciling with the slide.</strong> Slide 40 writes the same derivative as
+  $$F_{yy}+\beta\sqrt{F_{xx}F_{yy}}=|F_{yy}|\Big[-1+\beta\sqrt{F_{xx}/F_{yy}}\Big].$$
+  By step 3, \(F_{xx}/F_{yy}=g^2\), so \(\sqrt{F_{xx}/F_{yy}}=g\) for \(g>0\) and the bracket is \(-(1-\beta g)\). The two expressions agree. The slide concludes that the derivative is negative "for \(\beta\) small enough" or if \(F_{xx}/F_{yy}\lt1\), i.e. \(g\lt1\). Both are special cases of the sharper statement: the derivative is negative <em>exactly</em> where transversality holds.</p>
+
+  <div class="warning" id="warn-at-most-one-not-exactly">
+    <div class="box-title">At most one, not exactly one</div>
+    <p>The argument gives uniqueness, not existence. If returns are high relative to impatience, \(R(g)>0\) for every admissible \(g\): the planner always wants faster growth, the supremum is approached only as \(\beta g\to1\) or consumption hits zero, and no optimum exists. <a href="#ex-31-2">Exercise 31.2(e)</a> gives an example. In the AK model of Section 6, the same failure shows up as "the TC fails exactly when consumption is non-positive".</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s5">5. Returns homogeneous of degree \(1-\gamma\)</h2>
+
+  <p>HD1 returns are rare in practice: \(F=U(\cdot)\) is HD1 only if utility is linear. The useful generalization is
+  <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=41">EE p.41</a>
+  $$F(\lambda x,\lambda y)=\lambda^{1-\gamma}F(x,y)\qquad\text{for all }(x,y)\in\operatorname{Gr}\Gamma,\ \lambda>0,\ \gamma\neq1,$$
+  with the same assumptions on \(X\) and \(\Gamma\). The workhorse is \(F(x,y)=H(x,y)^{1-\gamma}/(1-\gamma)\) with \(H\) HD1, e.g. CRRA utility of a consumption level \(H\) that is CRS in today's and tomorrow's state.</p>
+
+  <ul>
+    <li><strong>The policy is still HD1.</strong> Steps 1–3 of the proof in Section 2 are unchanged. In step 4 the payoff is multiplied by \(\lambda^{1-\gamma}\), which is positive, so maximizers are still mapped to maximizers: \(y=g(x)\Rightarrow\lambda y=g(\lambda x)\) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=41">EE p.41</a>. The value is HD\((1-\gamma)\).</li>
+    <li><strong>Concavity.</strong> If \(H\) is concave and positive and \(\gamma>0\), then \(F\) is concave, since \(h\mapsto h^{1-\gamma}/(1-\gamma)\) is concave and increasing. Unlike the HD1 case, it is strictly concave along rays, which is why the slides say strict concavity requires \(\gamma>0\).</li>
+  </ul>
+
+  <p><strong>Derivatives.</strong> Differentiate \(\lambda^{1-\gamma}F(x,y)=F(\lambda x,\lambda y)\) with respect to \(x\): \(\lambda^{1-\gamma}F_x(x,y)=\lambda F_x(\lambda x,\lambda y)\), so
+  <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=42">EE p.42</a>
+  $$F_x(x,y)=\lambda^{\gamma}F_x(\lambda x,\lambda y),\qquad F_y(x,y)=\lambda^{\gamma}F_y(\lambda x,\lambda y).$$
+  The derivatives are HD\((-\gamma)\). With \(\lambda=1/x_t\) and \(\lambda=1/x_{t+1}\), the EE becomes \(x_t^{-\gamma}F_y(1,\bar g)+\beta x_{t+1}^{-\gamma}F_x(1,\bar g)=0\). Dividing by \(x_t^{-\gamma}\) and using \(x_{t+1}/x_t=\bar g\):
+  $$\boxed{\;F_y(1,\bar g)+\beta\,\bar g^{-\gamma}F_x(1,\bar g)=0.\;}$$
+  Relative to the HD1 case, the future marginal return is discounted by an extra \(\bar g^{-\gamma}\): if the state grows, tomorrow's marginal return is worth less in today's units, just as marginal utility falls when consumption grows.</p>
+
+  <p><strong>Transversality</strong> <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=43">EE p.43</a>:
+  $$\beta^tF_x(x_t,x_{t+1})\,x_t=\beta^tx_t^{-\gamma}F_x(1,\bar g)\,x_t=\beta^t(\bar g^tx_0)^{1-\gamma}F_x(1,\bar g)=\big(\beta\bar g^{1-\gamma}\big)^t\,x_0^{1-\gamma}F_x(1,\bar g),$$
+  which vanishes iff \(|\beta\bar g^{1-\gamma}|\lt1\). The slide mentions "Euler's theorem" here, but only the homogeneity of \(F_x\) is used. With \(\gamma\gt1\) and \(\bar g\ge1\), the condition holds automatically, because \(\bar g^{1-\gamma}\le1\).</p>
+
+  <div class="box notation" id="note-log-case">
+    <div class="box-title">The log case, \(\gamma=1\)</div>
+    <p>\(F=\log H\) with \(H\) HD1 is <em>not</em> homogeneous of degree zero: \(\log H(\lambda x,\lambda y)=\log\lambda+\log H(x,y)\). Scaling <em>adds</em> a constant instead of multiplying. The argument still goes through, for two reasons.</p>
+    <ul>
+      <li>From \(\lambda x_0\), the payoff of the scaled plan is \(\frac{\log\lambda}{1-\beta}+U(\{x_t\})\). Adding a constant does not change the maximizer, so the policy is still HD1.</li>
+      <li>\(F_x=H_x/H\) is HD\((-1)\), which is the \(\gamma=1\) case of the formulas above. The EE is \(F_y(1,\bar g)+\beta\bar g^{-1}F_x(1,\bar g)=0\), and the TC term is \(\beta^tF_x(1,\bar g)\), which <em>always</em> vanishes because \(\bar g^{1-\gamma}=\bar g^0=1\).</li>
+    </ul>
+    <p>This is the "logarithmic limit" on slide 41: \((H^{1-\gamma}-1)/(1-\gamma)\to\log H\) as \(\gamma\to1\), and subtracting the constant \(1/(1-\gamma)\) changes nothing.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s6">6. The AK model</h2>
+
+  <p>Output is linear in capital, \(c_t+k_{t+1}=Ak_t\) with \(A\) the gross return, and utility is CRRA, \(U(c)=c^{1-\gamma}/(1-\gamma)\) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=44">EE p.44</a>. In the notation of <a href="0026-the-dynamic-optimization-problem.html">Lesson 26</a>,
+  $$F(x,y)=U(Ax-y),\qquad\Gamma(x)=[0,Ax],\qquad X=\mathbb R_+ .$$
+  \(\Gamma\) is homogeneous, and \(F(\lambda x,\lambda y)=U(\lambda(Ax-y))=\lambda^{1-\gamma}F(x,y)\). So Section 5 applies, and the policy is \(k_{t+1}=\bar gk_t\).</p>
+
+  <p><strong>Derivatives.</strong> \(F_y=-U'(Ax-y)\) and \(F_x=U'(Ax-y)\,A\). At \(x=1,\ y=\bar g\), with \(U'(c)=c^{-\gamma}\), the boxed EE of Section 5 reads
+  $$0=-(A-\bar g)^{-\gamma}+\beta\,\bar g^{-\gamma}(A-\bar g)^{-\gamma}A\quad\Longleftrightarrow\quad1=\beta A\,\bar g^{-\gamma}\quad\Longleftrightarrow\quad\boxed{\;\bar g=(\beta A)^{1/\gamma}.\;}$$
+  Consumption is \(c_t=(A-\bar g)k_t\), so it also grows at \(\bar g\), and the boxed equation is the familiar consumption Euler equation \(\left(c_{t+1}/c_t\right)^{\gamma}=\beta A\) with a constant gross return \(A\).</p>
+
+  <div class="theorem" id="thm-ak-model-transversality-same-as">
+    <div class="box-title">In the AK model, transversality is the same as positive consumption</div>
+    <p>\(\beta\bar g^{1-\gamma}=\beta\bar g\cdot\bar g^{-\gamma}=\beta\bar g\cdot\dfrac{1}{\beta A}=\dfrac{\bar g}{A}.\) So
+    $$\text{TC}\iff\bar g\lt A\iff\frac{c_t}{Ak_t}=1-\frac{\bar g}{A}>0\iff\beta A^{1-\gamma}\lt1 .$$
+    The last form comes from raising \((\beta A)^{1/\gamma}\lt A\) to the power \(\gamma\). When it fails, the EE root asks for zero or negative consumption, and the problem has no solution. Which way it fails depends on \(\gamma\):</p>
+    <ul>
+      <li>With \(\gamma\lt1\), it fails when the return is high. Consuming a small fraction \(\varepsilon\) of resources forever then gives utility that grows without bound as \(\varepsilon\to0\).</li>
+      <li>With \(\gamma>1\), it fails when \(A\le\beta^{1/(\gamma-1)}\lt1\). Resources shrink so fast that every feasible path has utility \(-\infty\).</li>
+      <li>With log utility (\(\gamma=1\)), it never fails: \(\bar g=\beta A\lt A\).</li>
+    </ul>
+  </div>
+
+  <p><strong>Comparative statics</strong> <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=44">EE p.44</a>. Taking logs, \(\log\bar g=\frac1\gamma\log(\beta A)\). Write \(A=1+r\) and \(\beta=1/(1+\rho)\), and use \(\log(1+x)\approx x\): net growth is \(\bar g-1\approx\frac{1}{\gamma}(r-\rho)\). The intertemporal elasticity of substitution \(1/\gamma\) multiplies the gap between the return and impatience.</p>
+  <ul>
+    <li><strong>Higher \(\beta A\) raises growth</strong> for any \(\gamma\). A higher return, or more patience, makes postponing consumption more attractive, so the household saves a larger share \(\bar g/A\) and the economy grows faster.</li>
+    <li><strong>Higher \(\gamma\) lowers growth when \(\beta A>1\).</strong> With more curvature, the household dislikes uneven consumption paths, so it is less willing to accept low consumption today in exchange for high consumption later. Growth shrinks toward zero. The sign depends on \(\beta A\): if \(\beta A\lt1\), consumption optimally shrinks over time, and higher \(\gamma\) <em>raises</em> \(\bar g\) toward 1. In general, curvature pulls \(\bar g\) toward one.</li>
+  </ul>
+
+  <p><strong>No transitional dynamics.</strong> Whatever \(k_0\) is, growth is \(\bar g\) from the very first period. A poor AK economy grows exactly as fast as a rich one, and a one-time loss of capital is never made up: the level effect is permanent. Contrast the NGM, where \(f'(k)\) falls as \(k\) rises, so the EE \(\beta f'(\bar k)=1\) eventually stops capital accumulation and growth dies out (Lesson 27; also the capital lessons <a href="0015-olg-with-capital.html">15</a> and <a href="0019-perpetual-youth-capital.html">19</a>). In the AK model the marginal product never falls, so nothing stops growth. With log utility (\(\gamma=1\)) the AK policy \(k_{t+1}=\beta Ak_t\) is the \(\alpha\to1\) limit of the log/Cobb–Douglas policy \(k_{t+1}=\alpha\beta Ak_t^\alpha\) of <a href="0030-closed-form-decision-rules.html">Lesson 30</a>.</p>
+
+  <div class="figure" id="fig-ak">
+    <div id="ak-ctrl"></div>
+    <div class="figure-row">
+      <div id="ak-fig1"></div>
+      <div id="ak-fig2"></div>
+    </div>
+    <div id="ak-read"></div>
+    <div class="verdict" id="ak-verdict"></div>
+    <div class="caption"><b>Interactive.</b> <b>Left:</b> the Euler equation of the AK model. The <span style="color:#2a78d6">blue</span> curve is \(\beta A\,g^{-\gamma}\), the discounted gross return on saving one more unit, in units of today's marginal utility, when consumption grows at \(g\). The optimum \(\bar g\) is where it equals 1. The shaded area \(g\ge A\) is where consumption would be non-positive, which is exactly where transversality fails. <b>Right:</b> \(\log k_t\) from \(\log k_0=-2\): the AK economy at the chosen parameters (<span style="color:#2a78d6">blue</span>), the AK economy with log utility (<span style="color:#4a3aa7">violet, dashed</span>), and a log-utility Cobb–Douglas economy \(k_{t+1}=\alpha\beta Ak_t^{\alpha}\) with \(\alpha=0.6\) (<span style="color:#eb6834">orange</span>) whose growth dies out. <b>Try:</b> (1) raise \(\gamma\) with \(\beta A>1\): the blue curve gets steeper, \(\bar g\) falls toward 1, and the blue path flattens. (2) Lower \(A\) until \(\beta A\lt1\): now \(\bar g\lt1\), and raising \(\gamma\) pushes \(\bar g\) <em>up</em> toward 1. (3) Set \(\gamma=0.3\), \(\beta=0.97\) and \(A=1.3\): the root moves into the shaded region, and the TC fails.</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const P1 = EconPlot.create('#ak-fig1', { x: [0.6, 2.0], y: [0, 2.5], width: 420, height: 330,
+      xlabel: 'growth factor g', ylabel: 'βA g^{−γ}', xticks: 7, yticks: 5, margin: { r: 20, t: 18 } });
+    const P2 = EconPlot.create('#ak-fig2', { x: [0, 40], y: [-3, 4], width: 420, height: 330,
+      xlabel: 't', ylabel: 'log k_t', xticks: 4, yticks: 7, margin: { r: 20, t: 18 } });
+    const LOGK0 = -2, T = 40, ALPHA = 0.6;
+    function clipPath(f) {
+      const pts = [];
+      for (let t = 0; t <= T; t++) { const y = f(t); pts.push([t, (y > 4 || y < -3) ? NaN : y]); }
+      return pts;
+    }
+    function draw(v) {
+      const { beta, A, gam } = v;
+      const bA = beta * A, gbar = Math.pow(bA, 1 / gam), tcTerm = gbar / A, ok = gbar < A;
+      // left panel
+      P1.clear();
+      if (A < 2.0) P1.region((x, y) => x >= A, { fill: C.fillOrange, res: 140 });
+      if (A < 1.95) P1.text(Math.min(A + 0.04, 1.97), 2.3, 'c ≤ 0: TC fails', { sans: true, size: 12, color: '#7a3a10' });
+      P1.hline(1, { color: C.ink, dash: '4 3', width: 1.2 });
+      P1.text(1.98, 1, 'EE: = 1', { anchor: 'end', dy: -7, sans: true, size: 12 });
+      P1.vline(1, { color: C.muted, dash: '2 4', width: 1 });
+      P1.text(1, 2.32, 'no growth', { anchor: 'end', dx: -4, sans: true, size: 11, color: C.muted });
+      const gmin = Math.max(0.6, Math.pow(bA / 2.5, 1 / gam));
+      P1.fn(g => bA * Math.pow(g, -gam), { color: C.blue, width: 2.2, domain: [gmin, 2.0], ymax: 2.5 });
+      const lx = Math.min(1.9, Math.max(gmin + 0.15, 1.75));
+      P1.text(lx, bA * Math.pow(lx, -gam), 'βA g^{−γ}', { dy: -9, color: C.blue, sans: true, size: 12 });
+      if (gbar <= 2.0 && gbar >= 0.6) {
+        P1.vline(gbar, { color: C.blue, dash: '3 3', width: 1 });
+        P1.point(gbar, 1, { color: ok ? C.ink : C.orange, r: 5 });
+        P1.text(gbar, 0.08, 'ḡ', { dx: 4, italic: true, size: 14 });
+      } else {
+        P1.text(1.98, 0.25, gbar > 2 ? 'ḡ off scale →' : '← ḡ off scale', { anchor: 'end', sans: true, size: 12 });
+      }
+      // right panel
+      P2.clear();
+      P2.path(clipPath(t => LOGK0 + t * Math.log(gbar)), { color: C.blue, width: 2.2, dash: ok ? undefined : '6 4' });
+      P2.path(clipPath(t => LOGK0 + t * Math.log(bA)), { color: C.violet, width: 1.6, dash: '6 4' });
+      const kss = Math.log(ALPHA * bA) / (1 - ALPHA);
+      const cd = []; let lk = LOGK0;
+      for (let t = 0; t <= T; t++) { cd.push([t, lk]); lk = Math.log(ALPHA * bA) + ALPHA * lk; }
+      P2.path(cd, { color: C.orange, width: 2 });
+      // direct labels at the right edge, nudged apart
+      const ends = [
+        { y: LOGK0 + T * Math.log(gbar), s: 'AK, γ = ' + gam.toFixed(1), c: C.blue },
+        { y: LOGK0 + T * Math.log(bA), s: 'AK, log', c: C.violet }
+      ].filter(e => e.y <= 3.9 && e.y >= -2.9).sort((a, b) => a.y - b.y);
+      for (let i = 1; i < ends.length; i++) if (ends[i].y - ends[i - 1].y < 0.45) ends[i].y = ends[i - 1].y + 0.45;
+      ends.forEach(e => P2.text(T, Math.min(e.y, 3.85), e.s, { anchor: 'end', dy: -6, color: e.c, sans: true, size: 12 }));
+      // Cobb–Douglas label sits just above its (flat) path, early on, away from the AK lines' right ends
+      if (cd[6][1] < 3.6 && cd[6][1] > -2.9) P2.text(6, cd[6][1], 'Cobb–Douglas, α = 0.6', { dy: cd[6][1] > LOGK0 + 6 * Math.log(gbar) ? -8 : 16, color: C.orange, sans: true, size: 12 });
+      EconPlot.readout('#ak-read', [
+        ['βA :', bA.toFixed(3)],
+        ['ḡ = (βA)^{1/γ} :', gbar.toFixed(4) + '  (net growth ' + ((gbar - 1) * 100).toFixed(2) + '% per period)'],
+        ['saving rate ḡ/A :', (100 * gbar / A).toFixed(1) + '%'],
+        ['consumption share 1 − ḡ/A :', (100 * (1 - gbar / A)).toFixed(1) + '%'],
+        ['TC term βḡ^{1−γ} = ḡ/A :', tcTerm.toFixed(4)],
+        ['Cobb–Douglas steady state log k̄ :', kss.toFixed(3)]
+      ]);
+      document.getElementById('ak-verdict').textContent = ok
+        ? 'TC holds: βḡ^(1−γ) = ḡ/A = ' + tcTerm.toFixed(3) + ' < 1, so consumption is a positive share of output and k grows at ḡ from t = 0 (no transition).'
+        : 'TC fails: ḡ/A = ' + tcTerm.toFixed(3) + ' ≥ 1. The Euler root asks for non-positive consumption (the dashed blue path is not feasible), and there is no optimum: '
+          + (gam < 1 ? 'with γ < 1 and a high return, utility is unbounded above.' : 'with γ > 1 and A ≤ β^(1/(γ−1)), every feasible path has utility −∞.');
+    }
+    EconPlot.sliders('#ak-ctrl', [
+      { id: 'beta', label: 'β', min: 0.80, max: 0.99, step: 0.01, value: 0.96, fmt: v => v.toFixed(2) },
+      { id: 'A', label: 'A (gross return)', min: 0.90, max: 1.60, step: 0.01, value: 1.10, fmt: v => v.toFixed(2) },
+      { id: 'gam', label: 'γ (curvature)', min: 0.3, max: 5, step: 0.1, value: 2, fmt: v => v.toFixed(1) }
+    ], draw);
+  })();
+  </script>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s7">7. Check your understanding</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">1. One-dimensional problem: \(X\) is a cone, \(\Gamma\) is homogeneous, \(F\) is HD1, and the optimizer is unique. The optimal policy is</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">linear in x with a constant slope</li>
+        <li class="quiz-option" data-option="b">affine in x with a positive intercept</li>
+        <li class="quiz-option" data-option="c">constant, equal to the unique steady state</li>
+        <li class="quiz-option" data-option="d">concave in x and converging to zero</li>
+      </ul>
+      <div class="quiz-explain">Scaling the initial state scales every feasible plan and its payoff, so \(g(\lambda x)=\lambda g(x)\). In one dimension that means \(g(x)=g(1)\,x=\bar gx\): a ray through the origin.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">2. Why do the slides require \(\beta|\bar g|\lt1\) in an HD1 problem?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">So that the Euler equation has real roots</li>
+        <li class="quiz-option" data-option="b">So that the transversality term decays to zero</li>
+        <li class="quiz-option" data-option="c">So that the period return is strictly concave</li>
+        <li class="quiz-option" data-option="d">So that the state stays inside the cone</li>
+      </ul>
+      <div class="quiz-explain">Along \(x_t=\bar g^tx_0\) the TC term is \((\beta\bar g)^tF_x(1,\bar g)x_0\), which vanishes iff \(\beta|\bar g|\lt1\). The same condition makes the objective \(x_0F(1,\bar g)\sum_t(\beta\bar g)^t\) finite.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">3. AK model, \(U(c)=c^{1-\gamma}/(1-\gamma)\), \(\beta A>1\). Raising \(\gamma\)</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">raises growth: stronger precautionary motive for saving now</li>
+        <li class="quiz-option" data-option="b">leaves growth unchanged: only βA determines the growth</li>
+        <li class="quiz-option" data-option="c">lowers growth: less willingness to substitute over time</li>
+        <li class="quiz-option" data-option="d">lowers growth: the marginal product of capital falls</li>
+      </ul>
+      <div class="quiz-explain">\(\log\bar g=\frac1\gamma\log(\beta A)\) with \(\log(\beta A)>0\). A larger \(\gamma\) means a smaller IES \(1/\gamma\), so the household is less willing to tilt consumption toward the future. There is no uncertainty, so no precautionary motive, and the marginal product is constant at \(A\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">4. In the AK model, the transversality condition \(\beta\bar g^{1-\gamma}\lt1\) is equivalent to</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">a growth factor ḡ above one, positive growth</li>
+        <li class="quiz-option" data-option="b">an interest rate above the growth rate always</li>
+        <li class="quiz-option" data-option="c">a curvature parameter γ above one, low IES</li>
+        <li class="quiz-option" data-option="d">a strictly positive consumption share, ḡ below A</li>
+      </ul>
+      <div class="quiz-explain">Using the EE \(\bar g^{\gamma}=\beta A\): \(\beta\bar g^{1-\gamma}=\beta\bar g/(\beta A)=\bar g/A\). So the TC holds iff \(\bar g\lt A\), iff \(c/(Ak)=1-\bar g/A>0\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">5. Starting from an arbitrary \(k_0>0\), how does the AK economy reach its balanced growth path?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Immediately: it grows at ḡ from the first period</li>
+        <li class="quiz-option" data-option="b">Asymptotically: growth slows as capital approaches a steady state</li>
+        <li class="quiz-option" data-option="c">Asymptotically: growth speeds up as capital becomes more abundant</li>
+        <li class="quiz-option" data-option="d">After a finite transition whose length depends on k0</li>
+      </ul>
+      <div class="quiz-explain">The policy is \(k_{t+1}=\bar gk_t\) for every \(k_t\), so the growth rate is \(\bar g\) from \(t=0\). There are no transitional dynamics, and the level of \(k_0\) never matters for growth.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">6. With \(F=\log H(x,y)\) and \(H\) homogeneous of degree one, the dynamic problem is</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">not homogeneous, so its optimal policy is generally nonlinear</li>
+        <li class="quiz-option" data-option="b">not homogeneous, yet its optimal policy is still linear</li>
+        <li class="quiz-option" data-option="c">homogeneous of degree zero, so every policy is optimal</li>
+        <li class="quiz-option" data-option="d">homogeneous of degree one, and the transversality condition fails</li>
+      </ul>
+      <div class="quiz-explain">Scaling adds \(\log\lambda/(1-\beta)\) to every plan's payoff, which does not change the maximizer, so the policy is HD1 (linear in one dimension). \(F_x\) is HD\((-1)\), and the TC term \(\beta^tF_x(1,\bar g)\) always vanishes.</div>
+    </div>
+    <div class="quiz-score"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s8">8. Exercises</h2>
+
+  <p>No past Alvarez exam tests homogeneity or AK growth in discrete time. The closest exam material is the continuous-time Hayashi model with linear technology on a past final (<a href="0032-adjustment-costs-and-tobins-q.html">Lesson 32</a> treats it), whose constant-growth solution uses the same logic. The items below are in exam format: a T/F block with short justifications, then guided derivations with general parameters.</p>
+
+  <div class="box exercise" id="tf">
+    <div class="box-title">True or false? Justify. <span class="tag exam">Exam-inspired</span></div>
+    <p>Answer True or False and justify in at most four lines.</p>
+    <ol class="tf-list">
+      <li>Let \(X\) be a cone, \(\Gamma\) homogeneous and \(F\) HD1, with a unique optimal policy. If the state is two-dimensional, the optimal policy is a linear map, \(g(x)=Mx\) for a \(2\times2\) matrix \(M\). <span class="tf-src">exam-inspired (slide 38)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The policy is HD1, \(g(\lambda x)=\lambda g(x)\), so \(g(k,h)=h\,g(k/h,1)\). It is linear along each ray, but \(g(k/h,1)\) can be any (nonlinear) function of the ratio. Only in one dimension does HD1 force \(g(x)=\bar gx\).</p></div></details></li>
+      <li>In an HD1 problem, any \(\bar g\) that solves \(F_y(1,\bar g)+\beta F_x(1,\bar g)=0\) defines an optimal policy \(y=\bar gx\). <span class="tf-src">exam-inspired (slide 39)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The EE is not enough. The path must also satisfy the TC, \((\beta\bar g)^tF_x(1,\bar g)x_0\to0\), i.e. \(\beta|\bar g|\lt1\). Sufficiency (Lesson 27) also needs \(F\) concave and \(F_x\ge0\). A root with \(\beta\bar g\ge1\) gives an unbounded objective and is not optimal.</p></div></details></li>
+      <li>If \(F\) is \(C^2\), concave, HD1 and strictly concave in non-radial directions, the ratio Euler equation has at most one solution with \(\beta\bar g\lt1\). <span class="tf-src">exam-inspired (slide 40)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> By Euler's theorem, \(F_{xy}=-gF_{yy}\), so \(\frac{d}{dg}[F_y(1,g)+\beta F_x(1,g)]=F_{yy}(1,g)(1-\beta g)\lt0\) on \((0,1/\beta)\), since \(F_{yy}\lt0\). A strictly decreasing function crosses zero at most once. (Existence is a separate question.)</p></div></details></li>
+      <li>In the AK model with CRRA utility, a higher curvature \(\gamma\) always lowers the growth rate. <span class="tf-src">exam-inspired (slide 44)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> \(\log\bar g=\frac1\gamma\log(\beta A)\). Higher \(\gamma\) lowers \(\bar g\) only if \(\beta A>1\). If \(\beta A\lt1\), consumption optimally shrinks, and higher \(\gamma\) raises \(\bar g\) toward 1. Curvature pulls \(\bar g\) toward 1 from either side.</p></div></details></li>
+      <li>In the AK model, the policy \(k_{t+1}=(\beta A)^{1/\gamma}k_t\) always satisfies the Euler equation, but it is optimal only if \(\beta A^{1-\gamma}\lt1\). <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> The TC term is \((\beta\bar g^{1-\gamma})^t\) times a constant, and \(\beta\bar g^{1-\gamma}=\bar g/A\) using \(\bar g^\gamma=\beta A\). So the TC holds iff \(\bar g\lt A\), iff \((\beta A)^{1/\gamma}\lt A\), iff \(\beta A^{1-\gamma}\lt1\). When it fails, the policy also requires \(c=(A-\bar g)k\le0\), so it is not even feasible.</p></div></details></li>
+      <li>In the AK model an economy with low initial capital grows faster than one with high initial capital, so the two converge in levels. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> \(k_{t+1}=\bar gk_t\) for every \(k_t\), so growth does not depend on \(k_0\). There is no transition and no convergence: the ratio \(k^{\text{rich}}_t/k^{\text{poor}}_t\) stays at its initial value forever. Convergence comes from a falling marginal product, as in the NGM.</p></div></details></li>
+      <li>With \(F(x,y)=\log H(x,y)\) and \(H\) HD1, the return is not homogeneous, so the policy need not be linear in a one-dimensional problem. <span class="tf-src">exam-inspired (slide 41)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> Scaling the plan by \(\lambda\) adds \(\log\lambda/(1-\beta)\) to its payoff. That shifts all plans by the same constant, so it preserves the ranking and the policy is HD1, i.e. linear in one dimension. Equivalently, \(F_x\) is HD\((-1)\), the \(\gamma=1\) case. The TC term \(\beta^tF_x(1,\bar g)\) always vanishes.</p></div></details></li>
+      <li>If \(F\) is homogeneous of degree \(1-\gamma\) (and \(X\), \(\Gamma\) are as in the HD1 case), then \(V^*(\lambda x)=\lambda^{1-\gamma}V^*(x)\), and the optimal policy is still HD1. <span class="tf-src">exam-inspired (slide 41)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True</strong> (when \(V^*\) is finite). Scaling a plan multiplies its payoff by \(\lambda^{1-\gamma}>0\). A positive factor preserves the supremum and the set of maximizers, so the value is HD\((1-\gamma)\) while the plans themselves scale with degree one.</p></div></details></li>
+      <li>A commonly circulated review sheet writes the AK resource constraint as \(K_{t+1}=AK_t-C_t\) and calls it "the no-depreciation case". <span class="tf-src">exam-inspired (a review-sheet error)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False as a description.</strong> With net output \(\tilde AK\), investment \(I\) and depreciation \(\delta\), \(K_{t+1}=(1-\delta)K_t+\tilde AK_t-C_t=(\tilde A+1-\delta)K_t-C_t\). The form \(K_{t+1}=AK_t-C_t\) is the <em>full</em>-depreciation case \(\delta=1\) with \(A=\tilde A\), or any \(\delta\) with \(A\) read as the gross return \(\tilde A+1-\delta\). The same sheet's remark that the "speed of adjustment" to the growth path depends on frictions is also off: the AK model has no transition.</p></div></details></li>
+    </ol>
+  </div>
+
+  <div class="box exercise" id="ex-31-1">
+    <div class="box-title">Exercise 31.1 <span class="tag slides">Slides p.38</span> <span class="tag proof">Proof</span> (homogeneous problems have homogeneous solutions)</div>
+    <p>Let \([X,\Gamma,F,\beta]\) satisfy: \(X\) is a cone; \(y\in\Gamma(x)\Rightarrow\lambda y\in\Gamma(\lambda x)\); and \(F(\lambda x,\lambda y)=\lambda F(x,y)\), all for \(\lambda>0\). Assume the value \(V^*\) is finite.</p>
+    <ol class="parts" type="a">
+      <li>Show that if \(\{x_t\}\) is feasible from \(x_0\), then \(\{\lambda x_t\}\) is feasible from \(\lambda x_0\), and that its payoff is \(\lambda\) times the original payoff. <span class="pts">(10 pts)</span></li>
+      <li>Show that every feasible plan from \(\lambda x_0\) is of the form \(\{\lambda x_t\}\) for a feasible plan \(\{x_t\}\) from \(x_0\). One line. <span class="pts">(5 pts)</span></li>
+      <li>Conclude that \(V^*(\lambda x)=\lambda V^*(x)\) and that \(y\in G(x)\iff\lambda y\in G(\lambda x)\). Where do you use \(\lambda>0\)? <span class="pts">(10 pts)</span></li>
+      <li>In one dimension, with a unique optimum, show that \(g(x)=\bar gx\). What is \(\bar g\)? <span class="pts">(5 pts)</span></li>
+      <li>Show that the result survives if \(F\) is instead homogeneous of degree \(1-\gamma\), and if \(F=\log H\) with \(H\) HD1. One line each. <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (b), apply (a) with the scale \(1/\lambda\). For (e), ask what happens to the ranking of plans when every payoff is multiplied by a positive constant, or when a constant is added to every payoff.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(\lambda x_t\in X\) because \(X\) is a cone, and \(x_{t+1}\in\Gamma(x_t)\) gives \(\lambda x_{t+1}\in\Gamma(\lambda x_t)\). The payoff is \(\sum\beta^tF(\lambda x_t,\lambda x_{t+1})=\lambda\sum\beta^tF(x_t,x_{t+1})\).<br>
+      (b) If \(\{z_t\}\) is feasible from \(\lambda x_0\), then by (a) with scale \(1/\lambda\), \(\{z_t/\lambda\}\) is feasible from \(x_0\), and \(z_t=\lambda(z_t/\lambda)\).<br>
+      (c) By (a)–(b), scaling is a bijection between the two feasible sets that multiplies payoffs by \(\lambda\). So \(V^*(\lambda x_0)=\sup\lambda U=\lambda\sup U=\lambda V^*(x_0)\), where pulling \(\lambda\) out of the supremum needs \(\lambda>0\). A plan attains \(V^*(x_0)\) iff its scaled version attains \(\lambda V^*(x_0)=V^*(\lambda x_0)\). Reading off the first element of each plan, \(y\in G(x)\iff\lambda y\in G(\lambda x)\).<br>
+      (d) For \(x>0\), set \(\lambda=x\) and use the point \(1\): \(g(x)=g(x\cdot1)=x\,g(1)\). So \(\bar g=g(1)\), the optimal next-period state from \(x=1\), i.e. the gross growth factor.<br>
+      (e) Degree \(1-\gamma\): payoffs are multiplied by \(\lambda^{1-\gamma}>0\), which preserves the ranking of plans, so maximizers still scale with degree one (the value scales with degree \(1-\gamma\)). Log: payoffs from \(\lambda x_0\) are \(\log\lambda/(1-\beta)+U(\{x_t\})\), a common additive constant, so maximizers again scale.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-31-2">
+    <div class="box-title">Exercise 31.2 <span class="tag slides">Slides pp.39–40</span> <span class="tag exam">Exam-inspired</span> (the HD1 Euler equation, transversality, value and uniqueness)</div>
+    <p>Let \(F\) be \(C^2\), concave, HD1, strictly concave in non-radial directions, with \(F_x\ge0\), and \(X=\mathbb R_+\).</p>
+    <ol class="parts" type="a">
+      <li>Show that \(F_x\) and \(F_y\) are HD0, and write the Euler equation in terms of the growth factors \(x_{t+1}/x_t\) and \(x_{t+2}/x_{t+1}\). One equation. <span class="pts">(5 pts)</span></li>
+      <li>Under the guess \(x_{t+1}=\bar gx_t\), write the equation \(\bar g\) must solve and the transversality condition. Explain why \(\beta|\bar g|\lt1\) is required. <span class="pts">(10 pts)</span></li>
+      <li>Show that \(V^*(x_0)=F_x(1,\bar g)\,x_0\). Interpret: what is \(V^{*\prime}(x_0)\)? <span class="pts">(10 pts)</span></li>
+      <li>Show that \(\frac{d}{dg}\big[F_y(1,g)+\beta F_x(1,g)\big]=F_{yy}(1,g)(1-\beta g)\), and conclude that at most one \(\bar g\) satisfies both the EE and the TC. Show that this agrees with the slide's expression \(|F_{yy}|[-1+\beta\sqrt{F_{xx}/F_{yy}}]\). <span class="pts">(15 pts)</span></li>
+      <li>Let \(F(x,y)=x^{1/2}(Ax-y)^{1/2}\) on \(0\le y\le Ax\). Find \(\bar g\). For which values of \(\beta A\) is the solution admissible (\(0\lt\bar g\lt A\) and \(\beta\bar g\lt1\))? What goes wrong when \(\beta A\ge1\)? <span class="pts">(15 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>(c): sum the geometric series, then use Euler's theorem \(F(1,g)=F_x(1,g)+gF_y(1,g)\) together with the EE. (d): apply Euler's theorem to the HD0 functions \(F_x\) and \(F_y\). (e): factor \((A-g)^{-1/2}\) out of the EE residual.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Differentiating \(F(\lambda x,\lambda y)=\lambda F(x,y)\) in \(x\) gives \(F_x(\lambda x,\lambda y)=F_x(x,y)\), and likewise for \(F_y\). EE: \(F_y(1,x_{t+1}/x_t)+\beta F_x(1,x_{t+2}/x_{t+1})=0\).<br>
+      (b) \(F_y(1,\bar g)+\beta F_x(1,\bar g)=0\), and TC: \(\lim_t(\beta\bar g)^tF_x(1,\bar g)x_0=0\). Unless \(F_x(1,\bar g)x_0=0\), this requires \(\beta|\bar g|\lt1\), which also makes \(\sum_t\beta^tF=x_0F(1,\bar g)\sum_t(\beta\bar g)^t\) finite.<br>
+      (c) \(V^*(x_0)=x_0F(1,\bar g)/(1-\beta\bar g)\). Euler's theorem: \(F(1,\bar g)=F_x(1,\bar g)+\bar gF_y(1,\bar g)=F_x(1,\bar g)(1-\beta\bar g)\), using \(F_y=-\beta F_x\). So \(V^*(x_0)=F_x(1,\bar g)x_0\), and \(V^{*\prime}(x_0)=F_x(1,\bar g)=F_x(x_0,x_1)\): the marginal value of the state is its marginal return today, the envelope condition. Because \(V^*\) is linear, average and marginal value coincide.<br>
+      (d) \(F_x\) HD0 gives \(F_{xx}+gF_{xy}=0\); \(F_y\) HD0 gives \(F_{yx}+gF_{yy}=0\). So \(F_{xy}=-gF_{yy}\), and the derivative is \(F_{yy}+\beta F_{xy}=F_{yy}(1-\beta g)\). Strict concavity in the non-radial direction \((0,1)\) gives \(F_{yy}\lt0\), so the residual is strictly decreasing on \((0,1/\beta)\) and has at most one root there. Roots with \(\beta g\ge1\) violate the TC. For the slide's form: \(F_{xx}=-gF_{xy}=g^2F_{yy}\), so \(\sqrt{F_{xx}/F_{yy}}=g\) and \(|F_{yy}|[-1+\beta g]=F_{yy}(1-\beta g)\), the same expression.<br>
+      (e) With \(c=A-g\): \(F_y(1,g)=-\tfrac12c^{-1/2}\) and \(F_x(1,g)=\tfrac12c^{1/2}+\tfrac A2c^{-1/2}\). The residual is \(\tfrac12c^{-1/2}\big[-1+\beta c+\beta A\big]\). The root is \(\beta(A-\bar g)=1-\beta A\), i.e. \(\bar g=2A-1/\beta\). Admissibility: \(\bar g\lt A\iff\beta A\lt1\); \(\beta\bar g=2\beta A-1\lt1\iff\beta A\lt1\); \(\bar g>0\iff\beta A>\tfrac12\). So the solution is admissible iff \(\tfrac12\lt\beta A\lt1\). If \(\beta A\ge1\), the residual is positive on all of \((0,A)\): the planner always wants more growth, the payoff \(x_0F(1,g)/(1-\beta g)\) rises without bound as \(g\) approaches \(\min\{A,1/\beta\}\), and no optimum exists. The uniqueness result of (d) is silent about existence.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-31-3">
+    <div class="box-title">Exercise 31.3 <span class="tag slides">Slides pp.41–43</span> <span class="tag exam">Exam-inspired</span> (homogeneity of degree \(1-\gamma\))</div>
+    <p>Let \(X\), \(\Gamma\) be as in the HD1 case and \(F(\lambda x,\lambda y)=\lambda^{1-\gamma}F(x,y)\) for \(\lambda>0\), \(\gamma>0\), \(\gamma\neq1\).</p>
+    <ol class="parts" type="a">
+      <li>Show that \(F_x(x,y)=\lambda^{\gamma}F_x(\lambda x,\lambda y)\). One line. <span class="pts">(5 pts)</span></li>
+      <li>Derive the Euler equation in terms of \(\bar g\) under the guess \(x_{t+1}=\bar gx_t\). <span class="pts">(10 pts)</span></li>
+      <li>Derive the transversality condition in terms of \(\bar g\). Show that it holds automatically if \(\gamma\gt1\) and \(\bar g\ge1\). <span class="pts">(10 pts)</span></li>
+      <li>Use Euler's theorem for degree-\((1-\gamma)\) functions, \(xF_x+yF_y=(1-\gamma)F\), to show \(V^*(x_0)=\dfrac{x_0^{1-\gamma}F_x(1,\bar g)}{1-\gamma}\), and verify the envelope condition \(V^{*\prime}(x_0)=F_x(x_0,x_1)\). <span class="pts">(10 pts)</span></li>
+      <li>Redo (b) and (c) for \(F=\log H\), \(H\) HD1. <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>(a): differentiate both sides of the homogeneity identity with respect to \(x\). (b): use (a) with \(\lambda=1/x_t\) for \(F_y(x_t,x_{t+1})\) and \(\lambda=1/x_{t+1}\) for \(F_x(x_{t+1},x_{t+2})\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(\partial_x\): \(\lambda^{1-\gamma}F_x(x,y)=\lambda F_x(\lambda x,\lambda y)\). Divide by \(\lambda^{1-\gamma}\).<br>
+      (b) \(F_y(x_t,x_{t+1})=x_t^{-\gamma}F_y(1,\bar g)\) and \(F_x(x_{t+1},x_{t+2})=x_{t+1}^{-\gamma}F_x(1,\bar g)\). The EE becomes \(x_t^{-\gamma}[F_y(1,\bar g)+\beta\bar g^{-\gamma}F_x(1,\bar g)]=0\), so \(F_y(1,\bar g)+\beta\bar g^{-\gamma}F_x(1,\bar g)=0\).<br>
+      (c) \(\beta^tF_x(x_t,x_{t+1})x_t=\beta^tx_t^{1-\gamma}F_x(1,\bar g)=(\beta\bar g^{1-\gamma})^tx_0^{1-\gamma}F_x(1,\bar g)\to0\) iff \(|\beta\bar g^{1-\gamma}|\lt1\). If \(\gamma\gt1\) and \(\bar g\ge1\), then \(\bar g^{1-\gamma}\le1\) and \(\beta\bar g^{1-\gamma}\le\beta\lt1\).<br>
+      (d) \(V^*=\sum_t\beta^tx_t^{1-\gamma}F(1,\bar g)=x_0^{1-\gamma}F(1,\bar g)/(1-\beta\bar g^{1-\gamma})\). Euler's theorem at \((1,\bar g)\): \((1-\gamma)F=F_x+\bar gF_y=F_x(1-\beta\bar g^{1-\gamma})\), using the EE \(F_y=-\beta\bar g^{-\gamma}F_x\). Substituting, \(V^*=x_0^{1-\gamma}F_x(1,\bar g)/(1-\gamma)\). Then \(V^{*\prime}(x_0)=x_0^{-\gamma}F_x(1,\bar g)=F_x(x_0,\bar gx_0)\) by (a).<br>
+      (e) \(F_x=H_x/H\) is HD\((-1)\): \(F_x(x,y)=\lambda F_x(\lambda x,\lambda y)\). The EE is \(F_y(1,\bar g)+\beta\bar g^{-1}F_x(1,\bar g)=0\), the \(\gamma=1\) case of (b). The TC term is \(\beta^tx_t^{0}F_x(1,\bar g)=\beta^tF_x(1,\bar g)\to0\) always.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-31-4">
+    <div class="box-title">Exercise 31.4 <span class="tag slides">Slide p.44</span> <span class="tag exam">Exam-inspired</span> (the AK model, start to finish)</div>
+    <p>A planner maximizes \(\sum_t\beta^tU(c_t)\) with \(U(c)=c^{1-\gamma}/(1-\gamma)\), \(\gamma>0\), subject to \(c_t+k_{t+1}=Ak_t\), \(c_t\ge0\), \(k_{t+1}\ge0\), \(k_0>0\) given.</p>
+    <ol class="parts" type="a">
+      <li>Write \(F(x,y)\) and \(\Gamma(x)\), and show that \(F\) is homogeneous of degree \(1-\gamma\). <span class="pts">(5 pts)</span></li>
+      <li>Derive \(\bar g\) from the Euler equation. One line. <span class="pts">(10 pts)</span></li>
+      <li>Show that the transversality condition holds iff \(\bar g\lt A\), iff \(\beta A^{1-\gamma}\lt1\). Interpret. <span class="pts">(10 pts)</span></li>
+      <li>Find the consumption–capital ratio, the saving rate out of resources \(Ak\), and the value function \(V(k_0)\). <span class="pts">(10 pts)</span></li>
+      <li>Special case \(\gamma=\tfrac12\), i.e. \(U(c)=2\sqrt c\) up to scale: give \(\bar g\) and the TC in terms of \(\beta\) and \(A\). <span class="pts">(5 pts)</span></li>
+      <li>Give the sign of \(\partial\bar g/\partial\gamma\) and of \(\partial\bar g/\partial A\), with one line of economic intuition each. <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>(c): use the EE to replace \(\bar g^{-\gamma}\) by \(1/(\beta A)\). (d): \(c_t=Ak_t-k_{t+1}\), and use Exercise 31.3(d).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(F(x,y)=U(Ax-y)\), \(\Gamma(x)=[0,Ax]\). \(F(\lambda x,\lambda y)=(\lambda(Ax-y))^{1-\gamma}/(1-\gamma)=\lambda^{1-\gamma}F(x,y)\). \(\Gamma\) is homogeneous, and \(X=\mathbb R_+\) is a cone.<br>
+      (b) \(F_y=-(Ax-y)^{-\gamma}\), \(F_x=A(Ax-y)^{-\gamma}\). The EE \(F_y(1,\bar g)+\beta\bar g^{-\gamma}F_x(1,\bar g)=0\) gives \((A-\bar g)^{-\gamma}[-1+\beta A\bar g^{-\gamma}]=0\), so \(\bar g=(\beta A)^{1/\gamma}\).<br>
+      (c) \(\beta\bar g^{1-\gamma}=\beta\bar g\,\bar g^{-\gamma}=\bar g/A\). So the TC holds iff \(\bar g\lt A\). Raising \((\beta A)^{1/\gamma}\lt A\) to the power \(\gamma\): \(\beta A\lt A^\gamma\iff\beta A^{1-\gamma}\lt1\). Interpretation: transversality holds iff the Euler path leaves positive consumption. If not, the household would like to save "more than everything", and no optimum exists: utility is unbounded above if \(\gamma\lt1\), and \(-\infty\) on every feasible path if \(\gamma>1\) (which requires \(A\le\beta^{1/(\gamma-1)}\)).<br>
+      (d) \(c_t/k_t=A-\bar g\). Saving rate \(k_{t+1}/(Ak_t)=\bar g/A=\beta^{1/\gamma}A^{1/\gamma-1}\). Value: \(V(k_0)=\dfrac{((A-\bar g)k_0)^{1-\gamma}}{(1-\gamma)(1-\bar g/A)}\), using \(\beta\bar g^{1-\gamma}=\bar g/A\). Equivalently \(V(k_0)=k_0^{1-\gamma}A(A-\bar g)^{-\gamma}/(1-\gamma)\), from Exercise 31.3(d) with \(F_x(1,\bar g)=A(A-\bar g)^{-\gamma}\). The two agree because \(A(A-\bar g)^{-\gamma}(1-\bar g/A)=(A-\bar g)^{1-\gamma}\).<br>
+      (e) \(\bar g=(\beta A)^2\). TC: \(\bar g\lt A\iff\beta^2A\lt1\).<br>
+      (f) \(\partial\log\bar g/\partial\gamma=-\log(\beta A)/\gamma^2\): negative iff \(\beta A>1\). More curvature (lower IES) means less willingness to postpone consumption, so growth falls toward zero (and rises toward zero if \(\beta A\lt1\)). \(\partial\log\bar g/\partial A=1/(\gamma A)>0\): a higher return makes postponing consumption more rewarding, so consumption growth always rises. The income effect shows up in the saving <em>rate</em> instead. \(\bar g/A=\beta^{1/\gamma}A^{1/\gamma-1}\) rises with \(A\) only if \(\gamma\lt1\). For \(\gamma>1\), a higher return lowers the saving rate even though it raises growth.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-31-5">
+    <div class="box-title">Exercise 31.5 <span class="tag exam">Exam-inspired (builds on the human-capital model of Fall 2005 MT E2 and slide 9)</span> (balanced growth with two capital stocks)</div>
+    <p>Physical capital accumulates as \(k'=(1-\delta_k)k+i\), with \(c+i=G(k,hn)\), \(G\) CRS. Human capital accumulates as \(h'=h(1-\delta_h)+h\phi(s)\), with time \(n+s=1\). Utility is \(\sum\beta^tU(c_t)\) with \(U(c)=c^{1-\gamma}/(1-\gamma)\). The state is \(x=(k,h)\) (<a href="0026-the-dynamic-optimization-problem.html">Lesson 26</a>).</p>
+    <ol class="parts" type="a">
+      <li>Show that the graph of \(\Gamma\) is a cone: if \((k',h')\in\Gamma(k,h)\), then \((\lambda k',\lambda h')\in\Gamma(\lambda k,\lambda h)\). <span class="pts">(10 pts)</span></li>
+      <li>Show that \(F(k,h,k',h')\) is homogeneous of degree \(1-\gamma\). Hint: the time allocation \(n\) is pinned down by \(h'/h\). <span class="pts">(10 pts)</span></li>
+      <li>Conclude that the policy satisfies \(g(\lambda k,\lambda h)=\lambda g(k,h)\). Is it linear? <span class="pts">(5 pts)</span></li>
+      <li>Suppose the ratio \(\omega=k/h\) is at a value \(\omega^*\) that the policy reproduces, \(k'/h'=\omega^*\). Show that \(k\), \(h\) and \(c\) then grow at a common constant factor, and express it in terms of the optimal time spent learning \(s^*\). <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Feasibility means there is \(n\in[0,1]\) with \(0\le k'\le G(k,hn)+(1-\delta_k)k\) and \(h'=h(1-\delta_h+\phi(1-n))\). With the same \(n\), \(G(\lambda k,\lambda hn)=\lambda G(k,hn)\), so both conditions hold for \((\lambda k,\lambda h,\lambda k',\lambda h')\).<br>
+      (b) From the \(h\) equation, \(\phi(1-n)=h'/h-1+\delta_h\), so \(n=n(h'/h)\) depends only on the ratio and is unchanged by scaling. Consumption \(c=G(k,hn)+(1-\delta_k)k-k'\) is HD1 in \((k,h,k',h')\), so \(F=U(c)\) is HD\((1-\gamma)\).<br>
+      (c) By Section 5, \(g\) is HD1: \(g(k,h)=h\,g(\omega,1)\). This is linear along rays but not a linear map in general.<br>
+      (d) If \(k/h=\omega^*\) and \(k'/h'=\omega^*\), the problem next period is the current one scaled by \(h'/h\), so the same ratio and the same \(n^*\) repeat forever. Then \(h'/h=1-\delta_h+\phi(s^*)\equiv\bar g\) with \(s^*=1-n^*\), \(k'/k=(\omega^*h')/(\omega^*h)=\bar g\), and \(c\), being HD1 in the states, grows at \(\bar g\) too. The growth rate is set by how much time is spent learning, which is the engine of endogenous growth in Lucas (1988).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-31-6">
+    <div class="box-title">Exercise 31.6 <span class="tag exam">Exam-inspired</span> (AK versus the neoclassical growth model)</div>
+    <ol class="parts" type="a">
+      <li>Suppose net output is \(\tilde Ak\), \(c+i=\tilde Ak\), and \(k'=(1-\delta)k+i\). Write the resource constraint in the form \(c+k'=Ak\) and give \(A\). What is \(\bar g\)? <span class="pts">(5 pts)</span></li>
+      <li>In the NGM with \(f(k)=G(k,1)+(1-\delta)k\) (<a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a>), the EE is \(U'(c_t)=\beta f'(k_{t+1})U'(c_{t+1})\). Use it to explain in two lines why consumption growth must die out when \(f'(k)\to1-\delta\lt1/\beta\) as \(k\to\infty\). <span class="pts">(10 pts)</span></li>
+      <li>Now let \(f\) be concave with \(\lim_{k\to\infty}f'(k)=A_\infty\). Using the CRRA EE \((c_{t+1}/c_t)^{\gamma}=\beta f'(k_{t+1})\), what condition on \(A_\infty\) is necessary for consumption growth to stay bounded away from zero? What is the asymptotic growth factor? <span class="pts">(10 pts)</span></li>
+      <li>With log utility, the log/Cobb–Douglas model with full depreciation has \(k_{t+1}=\alpha\beta Ak_t^{\alpha}\) (<a href="0030-closed-form-decision-rules.html">Lesson 30</a>). Find the steady state, and show that the policy converges to the AK policy as \(\alpha\to1\). <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(c+k'=(\tilde A+1-\delta)k\), so \(A=\tilde A+1-\delta\), the gross return, and \(\bar g=(\beta(\tilde A+1-\delta))^{1/\gamma}\).<br>
+      (b) Consumption grows only while \(\beta f'(k_{t+1})>1\). As \(k\) rises, \(f'\) falls toward \(1-\delta\lt1/\beta\), so eventually \(\beta f'\le1\) and growth stops. The steady state is \(\beta f'(\bar k)=1\). Diminishing returns are what turn growth off.<br>
+      (c) Sustained growth needs \(\beta f'(k_{t+1})\) bounded above 1 along the path. Since \(f'\) decreases toward \(A_\infty\) as \(k\) grows, this requires \(\beta A_\infty>1\). (If \(\beta A_\infty=1\), consumption can rise forever but its growth rate goes to zero.) Asymptotically \(c_{t+1}/c_t\to(\beta A_\infty)^{1/\gamma}\): the economy behaves like an AK economy with \(A=A_\infty\). (This is the logic of the "convex" growth models of Jones and Manuelli, 1990.)<br>
+      (d) \(\log k_{t+1}=\log(\alpha\beta A)+\alpha\log k_t\), so \(\log\bar k=\log(\alpha\beta A)/(1-\alpha)\), and \(\log k_t\) converges geometrically at rate \(\alpha\). As \(\alpha\to1\), the policy tends to \(k_{t+1}=\beta Ak_t\), the AK policy with \(\gamma=1\) (\(\bar g=\beta A\)). Meanwhile the steady state runs off to \(\pm\infty\) (depending on whether \(\beta A\gt1\)), and convergence slows to a halt: the "steady state" becomes a balanced growth path.</p>
+    </div></details>
+  </div>
+
+  <div class="takeaways">
+    <h2 id="takeaways">Key takeaways</h2>
+    <ul>
+      <li>If \(X\) is a cone, \(\Gamma\) is homogeneous and \(F\) is HD1, then scaling the state scales every feasible plan and its payoff. So \(V^*\) is HD1 and the policy correspondence is HD1. In one dimension, \(g(x)=\bar gx\).</li>
+      <li>Derivatives of HD1 functions are HD0, so the EE becomes \(F_y(1,\bar g)+\beta F_x(1,\bar g)=0\) and the TC becomes \(\beta|\bar g|\lt1\): grow, but slower than you discount. The value is \(V^*(x)=F_x(1,\bar g)x\).</li>
+      <li>With strict concavity off rays, \(\frac{d}{dg}\text{EE}=F_{yy}(1-\beta g)\lt0\) wherever the TC holds, so transversality alone pins down at most one \(\bar g\). Existence is not guaranteed.</li>
+      <li>Degree \(1-\gamma\): \(F_x\) is HD\((-\gamma)\), the EE is \(F_y(1,\bar g)+\beta\bar g^{-\gamma}F_x(1,\bar g)=0\), and the TC is \(|\beta\bar g^{1-\gamma}|\lt1\). Log utility (\(\gamma=1\)) is not homogeneous but works the same way, and its TC always holds.</li>
+      <li>AK: \(\bar g=(\beta A)^{1/\gamma}\). The TC is equivalent to \(\bar g\lt A\), positive consumption. Growth rises with \(\beta A\), and curvature pulls \(\bar g\) toward 1. There are no transitional dynamics, because the marginal product never falls.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "why does strict concavity have to fail along rays in an HD1 problem?", "what happens to the AK model if I add an adjustment cost?" (that is <a href="0032-adjustment-costs-and-tobins-q.html">Lesson 32</a>), or "redo Exercise 31.5 with log utility". For a one-page summary, see the <a href="../reference/euler-transversality-cheatsheet.html">Euler equations &amp; transversality cheatsheet</a>.</div>
+
+  <div class="lesson-nav">
+    <a href="0030-closed-form-decision-rules.html">← Lesson 30: Closed-form decision rules</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0032-adjustment-costs-and-tobins-q.html">Lesson 32: Adjustment costs and Tobin's q →</a>
+  </div>
+
+</div>
+</body>
+</html>

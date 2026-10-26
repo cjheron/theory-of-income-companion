@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 29 — Transversality at Work: Oversaving, Ponzi Schemes and One-Period Convergence</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part VI: Euler Equations &amp; Transversality · Lesson 29 of 32</div>
+    <h1>Transversality at Work: Oversaving, Ponzi Schemes and One-Period Convergence</h1>
+    <div class="meta">Covers <a href="../sources/slides5-euler-transversality.pdf#page=26">folder 4 slides 26–31</a> · About 40 min · Prerequisites: <a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a> (the sufficiency proof), <a href="0028-necessity-and-the-shooting-algorithm.html">Lesson 28</a> (the EE as a difference equation)</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>solve the savings problem with \(\beta(1+r)=1\) from scratch. You can show that it has a unique solution and a continuum of steady states, and that every constant-consumption path satisfies the Euler equation;</li>
+      <li>compute the transversality term along an "oversaving" path that satisfies the Euler equation, show that it converges to a <em>positive</em> number, and read that number as the utility value of consumption that is never eaten;</li>
+      <li>explain the division of labour on the other side: transversality rules out oversaving, while the lower bound on the state (a borrowing limit) rules out Ponzi schemes. You can point to the line of the sufficiency proof that needs the lower bound;</li>
+      <li>solve the neoclassical growth model with linear utility: one-period convergence when feasible, and a Kuhn–Tucker corner phase (consume nothing) when not. The policy is \(g(k)=\min\{f(k),\bar k\}\).</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides5-euler-transversality.pdf#page=26">folder 4 slides 26–31</a>. For the theorem being applied, see Stokey &amp; Lucas with Prescott, <em>Recursive Methods in Economic Dynamics</em> (1989), §4.5, pp. 97–99: Theorem 4.15 (sufficiency of the Euler and transversality conditions), with its reading of the TC as "the present discounted value of the capital stock … tends to zero." For the savings problem as the permanent-income model, see R. E. Hall (1978), "Stochastic implications of the life cycle–permanent income hypothesis," <em>JPE</em> 86(6), 971–987, and the permanent-income chapters of Ljungqvist &amp; Sargent, <em>Recursive Macroeconomic Theory</em>. On why <em>necessity</em> of the TC is delicate: T. Kamihigashi (2001), "Necessity of transversality conditions for infinite horizon problems," <em>Econometrica</em> 69(4), 995–1012.
+  </div>
+
+  <div class="notation">
+    <div class="box-title">Notation for this lesson</div>
+    <ul>
+      <li>\(F(x,y)\) is the <strong>period return</strong> when today's state is \(x\) and tomorrow's is \(y\). It is not a production function. Partial derivatives: \(F_x\), \(F_y\). As in Lessons 26–28, the Euler equation (EE) is \(F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0\), and the transversality condition (TC) is \(\lim_t\beta^tF_x(x_t,x_{t+1})\cdot x_t=0\).</li>
+      <li>In the savings problem (slides 26–30), \(x_t\) is <strong>assets</strong> at the start of period \(t\), \(w\) is constant income, and \(r\) is the interest rate, with \(\beta(1+r)=1\). Then \(c_t=w+(1+r)x_t-x_{t+1}\). Nothing here is a price vector or a PAYG tax.</li>
+      <li>In the growth model (slide 31), \(f(k)\equiv G(k,1)+(1-\delta)k\) is output <em>plus undepreciated capital</em>, so \(\bar k\) solves \(\beta f'(\bar k)=1\), not \(f'(\bar k)=\) "interest rate". In the figure, \(\alpha\) is the capital share. In Class Note II it was the old-age endowment, and in Blanchard–Yaari the rate at which labour income declines.</li>
+      <li>\(\beta\) is the discount factor (in Class Note II it was a preference weight). \(\mu_t\ge0\) is a Kuhn–Tucker multiplier on \(c_t\ge0\) and has nothing to do with Lesson 23's \(\mu_i\). This deck does not use \(\theta\).</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s1">1. Why we need a worked example</h2>
+
+  <p>Lesson 27 proved that, when \(F\) is concave, \(F_x\ge0\) and the state is bounded below by zero, a path satisfying the EE and the TC is optimal. Lesson 28 showed that the EE is a <em>second-order</em> difference equation \(x_{t+2}=\psi(x_{t+1},x_t)\). With \(x_0\) given, every choice of \(x_1\) produces an EE path, so the EE alone leaves a one-parameter family of candidates. The TC is the missing boundary condition, imposed "at infinity" rather than at a finite date <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=24">EE p.24</a>.</p>
+
+  <p>The abstract statement hides what the TC actually does. Slides 26–30 make it concrete with the simplest possible problem: a consumer with constant income and an interest rate that exactly offsets impatience. <strong>In this problem every candidate path satisfies the EE, and only one satisfies the TC.</strong> Slide 31 then gives the opposite case, linear utility, in which the EE alone pins down the path and the interesting action is at a corner.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s2">2. The savings problem with \(\beta(1+r)=1\)</h2>
+
+  <p>The problem on slide 26 is <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=26">EE p.26</a>
+  $$\max_{\{x_{t+1}\}_{t\ge0}}\ \sum_{t=0}^\infty\beta^t\,U\big(w+(1+r)x_t-x_{t+1}\big),\qquad x_0\ \text{given},\qquad (1+r)\beta=1,$$
+  with \(U\) strictly increasing, strictly concave and differentiable, and \(w>0\), \(r>0\). In the notation of Lesson 26,
+  $$F(x,y)=U\big(w+(1+r)x-y\big),\qquad F_x=(1+r)\,U'(c),\qquad F_y=-U'(c),$$
+  where \(c=w+(1+r)x-y\).</p>
+
+  <h3 id="s2-what-natural-borrowing-limit">What is \(\Gamma\)? The natural borrowing limit</h3>
+
+  <p>The slide does not write \(\Gamma\), but it says "every \(x_0>-w/r\) is a steady state," and that bound is worth deriving. Suppose the consumer could borrow without limit. Then she could consume anything today and roll the debt over forever, so a constraint on debt is needed. The loosest constraint that the consumer can always honour is the <strong>natural borrowing limit</strong>: debt can be no larger than what she could repay by consuming nothing forever. If she consumes zero, her income \(w\) each period pays the interest on a debt \(D\) as long as \(rD\le w\). So the bound is
+  $$x_t\ \ge\ -\frac{w}{r}\qquad\Longleftrightarrow\qquad c=w+rx\ \ge\ 0\ \text{ is sustainable forever from }x.$$
+  So take \(X=[-w/r,\infty)\) and \(\Gamma(x)=\{y\ge -w/r:\ w+(1+r)x-y\ge0\}\). Section 4 explains why this bound is not a technicality.</p>
+
+  <h3 id="s2-euler-equation-any-constant">The Euler equation: any constant consumption</h3>
+
+  <p>Substituting the derivatives into \(F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0\):
+  $$-U'(c_t)+\beta(1+r)\,U'(c_{t+1})=0\quad\Longrightarrow\quad U'(c_t)=U'(c_{t+1})\quad\Longrightarrow\quad c_t=c_{t+1},$$
+  using \(\beta(1+r)=1\), and strict concavity (\(U'\) strictly decreasing, hence one-to-one) for the last step.</p>
+
+  <div class="intuition" id="int-interpreting-ee-slide-26-last">
+    <div class="box-title">Interpreting the EE (slide 26, last question)</div>
+    <p>Give up one unit of consumption at \(t\): utility falls by \(U'(c_t)\). Save it: it returns \(1+r\) units at \(t+1\), worth \(\beta(1+r)U'(c_{t+1})\) in date-\(t\) utility. At an optimum the two are equal. When \(\beta(1+r)=1\), the market's reward for waiting exactly offsets impatience, so the only remaining motive is <strong>smoothing</strong>: with concave \(U\), the consumer wants equal marginal utilities, hence equal consumption, at every date.</p>
+    <p>But the EE says nothing about the <em>level</em>. Any constant \(\bar c\) passes. The EE is a condition on how consumption changes between dates, and here it is satisfied by a whole family of paths.</p>
+  </div>
+
+  <h3 id="s2-every-ee-path-explicitly">Every EE path, explicitly</h3>
+
+  <p>Fix any constant \(\bar c\). The budget gives \(x_{t+1}=(1+r)x_t+w-\bar c\), a first-order linear difference equation with fixed point \(\hat x=(\bar c-w)/r\). Its solution is
+  $$x_t-\hat x=(1+r)^t\,(x_0-\hat x).$$
+  Because \(1+r>1\), assets explode at rate \(1+r\), to \(+\infty\) if \(\bar c\lt w+rx_0\) and to \(-\infty\) if \(\bar c>w+rx_0\), <em>unless</em> \(\bar c=w+rx_0\), in which case \(x_t=x_0\) forever. This is the unstable root of Lesson 28 in its simplest form: of all the EE paths, exactly one is not explosive.</p>
+
+  <div class="theorem" id="thm-solution-slide-28">
+    <div class="box-title">The solution (slide 28)</div>
+    <p>For every \(x_0>-w/r\), the unique optimal policy is
+    $$c_t^*=w+r\,x_0,\qquad x^*_{t+1}=x^*_t=x_0\quad\text{for all }t\ge0 .$$
+    The consumer eats her <strong>permanent income</strong>: income plus the interest on her financial wealth. Her wealth never changes.</p>
+  </div>
+
+  <p>Two readings of "permanent income." (i) It is the constant flow \(c\) whose present value equals total wealth. At the start of period \(t\), before consuming, total wealth is financial wealth \((1+r)x_0\) plus the present value of income, \(w\sum_{s\ge0}(1+r)^{-s}=w(1+r)/r\). A constant flow \(c\) has present value \(c(1+r)/r\). Equating the two gives \(c=rx_0+w\). (ii) It is the largest consumption that leaves wealth unchanged, so the consumer could keep it up forever.</p>
+
+  <h3 id="s2-checking-ee-tc-slide">Checking the EE and the TC (slide 28)</h3>
+
+  <p>The EE holds because consumption is constant. For the TC, \(F_x(x_t,x_{t+1})=(1+r)U'(w+rx_0)\) at every date, so
+  <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=28">EE p.28</a>
+  $$\lim_{t\to\infty}\beta^t(1+r)\,U'(w+rx_0)\,x_0=(1+r)U'(w+rx_0)\,x_0\,\lim_{t\to\infty}\beta^t=0 .$$
+  The TC holds because the term is a constant times \(\beta^t\). This is a general lesson: <strong>a path converging to a finite steady state with finite \(F_x\) automatically satisfies the TC</strong>. Transversality only bites on paths whose state grows at least as fast as \(1/\beta\).</p>
+
+  <h3 id="s2-sufficiency-theorem-applicable-shift">Is the sufficiency theorem applicable? Shift the state</h3>
+
+  <p>Lesson 27's theorem asks for \(F\) concave (yes: \(U\) concave composed with a linear function), \(F_x\ge0\) (yes: \((1+r)U'>0\)), and \(X=\mathbb R_+\). The last one fails, because \(x\) may be negative. The fix is to measure assets <em>relative to the borrowing limit</em>: let \(\hat x\equiv x+w/r\ge0\). Then
+  $$c=w+(1+r)\Big(\hat x-\frac wr\Big)-\Big(\hat y-\frac wr\Big)=(1+r)\hat x-\hat y,\qquad \hat F(\hat x,\hat y)=U\big((1+r)\hat x-\hat y\big).$$
+  This is the same problem with \(\hat X=\mathbb R_+\): income has been capitalised into wealth. Now the theorem applies verbatim. The TC in the new variable is \(\lim\beta^t(1+r)U'(c_t)(x_t+w/r)=0\), and along \(x_t=x_0\) it holds by the same calculation. So \(c^*=w+rx_0\) is optimal. (If you forbid borrowing altogether, \(X=\mathbb R_+\) and \(x_0\ge0\), the theorem applies without any shift.)</p>
+
+  <h3 id="s2-uniqueness-number-steady-states">Uniqueness and the number of steady states (slides 26 and 28)</h3>
+
+  <div class="proof" id="pf-proof-that-solution-unique">
+    <div class="box-title">Proof that the solution is unique</div>
+    <ol class="steps">
+      <li>Suppose \(\{x_t\}\) and \(\{x'_t\}\) are both optimal from the same \(x_0\) and are different. Their consumption paths must then differ at some date. If \(c_t=c'_t\) for all \(t\), the budget \(x_{t+1}=(1+r)x_t+w-c_t\) would generate the same assets from the same \(x_0\).</li>
+      <li>For \(\lambda\in(0,1)\), define the average path \(x^\lambda_t=\lambda x_t+(1-\lambda)x'_t\). It is feasible because the constraints are linear inequalities: \(x^\lambda_t\ge-w/r\), and its consumption is \(c^\lambda_t=w+(1+r)x^\lambda_t-x^\lambda_{t+1}=\lambda c_t+(1-\lambda)c'_t\ge0\).</li>
+      <li>By strict concavity, \(U(c^\lambda_t)\ge\lambda U(c_t)+(1-\lambda)U(c'_t)\) at every \(t\), with strict inequality at a date where \(c_t\ne c'_t\).</li>
+      <li>Multiply by \(\beta^t\) and sum. Both optimal values are finite, being at least the value of the feasible path \(c^*\) and bounded above by optimality. So \(\sum\beta^tU(c^\lambda_t)>\lambda V+(1-\lambda)V=V\), contradicting optimality. ∎</li>
+    </ol>
+  </div>
+
+  <p><strong>How many steady states?</strong> A steady state solves \(F_y(\bar x,\bar x)+\beta F_x(\bar x,\bar x)=0\), i.e. \(U'(w+r\bar x)\,[-1+\beta(1+r)]=0\). With \(\beta(1+r)=1\), the bracket is identically zero, so <strong>every \(\bar x>-w/r\) is a steady state</strong>: a continuum <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=28">EE p.28</a>. Contrast this with the growth model, where \(\beta f'(\bar k)=1\) has a single root because \(f'\) is strictly decreasing (Lesson 27). Here the "technology" for moving resources across time is linear (a constant return \(1+r\)), and the knife-edge \(\beta(1+r)=1\) makes the consumer indifferent about the level of wealth she holds in the long run. Uniqueness of the <em>solution</em> and multiplicity of <em>steady states</em> are compatible: from each \(x_0\) there is exactly one optimal path, and it stays at \(x_0\).</p>
+
+  <p>If \(\beta(1+r)\ne1\), the bracket never vanishes and there is <em>no</em> interior steady state. Consumption then grows or shrinks forever (Exercise 29.3).</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s3">3. A path that satisfies the EE but violates the TC</h2>
+
+  <p>Slide 27 proposes a rival policy: a constant \(\tilde c=c^*-\Delta\) with \(0\lt\Delta\lt c^*\), from the same \(x_0\) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=27">EE p.27</a>. The slide asks five questions. Here are the answers.</p>
+
+  <p><strong>Can it be optimal?</strong> No, and without any calculus: the path \(c^*\) is feasible and gives <em>more consumption at every date</em>. Since \(U\) is strictly increasing, \(c^*\) is strictly better <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=29">EE p.29</a>.</p>
+
+  <p><strong>Does it satisfy the EE?</strong> Yes. Consumption is constant, and with \(\beta(1+r)=1\) any constant path satisfies the EE (§2). Interpretation: between any two adjacent dates, the oversaver cannot gain by shifting consumption. Her mistake is not in how she allocates between \(t\) and \(t+1\), but in the level, a "global" error that no two-period perturbation detects.</p>
+
+  <p><strong>The implied assets.</strong> The budget gives
+  $$x_{t+1}=(1+r)x_t+w-(w+rx_0-\Delta)=(1+r)x_t-rx_0+\Delta .$$
+  Let \(z_t\equiv x_t-x_0\) be the <em>extra</em> assets. Then \(z_{t+1}=(1+r)z_t+\Delta\) with \(z_0=0\), and by induction (check: \((1+r)\Delta\frac{(1+r)^t-1}r+\Delta=\Delta\frac{(1+r)^{t+1}-1}r\))
+  $$z_t=\Delta\,\frac{(1+r)^t-1}{r}. \qquad\text{(slide 30)}$$
+  Assets grow without bound, at the rate \(1+r=1/\beta\).</p>
+
+  <p><strong>Does it satisfy the TC?</strong> No. Using \(\beta^t(1+r)^t=1\):
+  <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=30">EE p.30</a>
+  $$\beta^tF_x(x_t,x_{t+1})\,x_t=\beta^t(1+r)U'(\tilde c)\,(x_0+z_t)=(1+r)U'(\tilde c)\Big[\beta^tx_0+\frac{\Delta}{r}\big(1-\beta^t\big)\Big]\ \xrightarrow[t\to\infty]{}\ (1+r)\,U'(\tilde c)\,\frac{\Delta}{r}>0 .$$</p>
+
+  <div class="warning" id="warn-2026-slides-fixed-this-computation">
+    <div class="box-title">The 2026 slides fixed this computation</div>
+    <p>Last year's version of slide 30 dropped the factor \((1+r)\) in \(F_x\) and had an index slip in \(z_t\), so it reported the limit as \(U'(\tilde c)\Delta/((1+r)r)\). The 2026 slide has the correct \((1+r)U'(\tilde c)\Delta/r\). Both versions reach the same conclusion: the limit is strictly positive, so the TC fails. If you study from older notes, use the formula above.</p>
+  </div>
+
+  <div class="intuition" id="int-what-positive-limit-measures">
+    <div class="box-title">What the positive limit measures</div>
+    <p>The number \((1+r)U'(\tilde c)\Delta/r\) is not arbitrary. The oversaver gives up \(\Delta\) at every date \(t=0,1,2,\dots\). The present value of that stream is \(\sum_{t\ge0}\Delta(1+r)^{-t}=\Delta(1+r)/r\). Valued at the marginal utility \(U'(\tilde c)\), this is
+    $$U'(\tilde c)\cdot\frac{(1+r)\Delta}{r}=\lim_{t\to\infty}\beta^tF_x\,x_t .$$
+    <strong>The TC limit is the utility value of the consumption that is never eaten.</strong> The oversaver piles up wealth whose discounted marginal value stays positive forever. She is effectively "dying" with unspent wealth at infinity. The TC says an optimal plan leaves nothing of value on the table in the limit, where value is measured at the plan's own shadow prices \(\beta^tF_x\).</p>
+  </div>
+
+  <div class="figure">
+    <div id="sv-ctrl"></div>
+    <div id="sv-figA"></div>
+    <div id="sv-figB"></div>
+    <div id="sv-read"></div>
+    <div class="verdict" id="sv-verdict"></div>
+    <div class="caption"><b>Interactive.</b> Income \(w=1\), initial assets \(x_0=2\), \(\beta=1/(1+r)\), and CRRA utility \(U'(c)=c^{-\sigma}\). The <span style="color:#2a78d6">blue</span> path is the optimum \(c^*=w+rx_0\). The <span style="color:#eb6834">orange</span> path consumes the constant \(\tilde c=c^*-\Delta\), and <em>both satisfy the Euler equation</em>. Top: assets \(x_t\). Bottom: the transversality term \(\beta^tF_x\,x_t\), with the dashed line at its predicted limit \((1+r)U'(\tilde c)\Delta/r\). <b>Try:</b> (1) set \(\Delta>0\). Assets explode, and the TC term converges to the dashed line, not to zero. (2) Raise \(\Delta\) and watch the limit rise: more forgone consumption. (3) Set \(\Delta\lt0\) (overconsumption). Assets fall until they hit the borrowing limit \(-w/r\) in finite time, after which the path is infeasible; this is §4's case. (4) Change \(\sigma\): the <em>sign</em> of the limit never changes, only its size.</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const w = 1, x0 = 2, T = 80;
+    function draw(v) {
+      const r = v.r, D = v.D, sig = v.sig, beta = 1 / (1 + r);
+      const cs = w + r * x0, ct = cs - D;
+      const Up = c => Math.pow(c, -sig);
+      // simulate
+      const xo = [], xa = [], tco = [], tca = [];
+      let x = x0, hit = null;
+      for (let t = 0; t <= T; t++) {
+        xo.push([t, x0]);
+        tco.push([t, Math.pow(beta, t) * (1 + r) * Up(cs) * x0]);
+        if (hit === null) {
+          xa.push([t, x]);
+          tca.push([t, Math.pow(beta, t) * (1 + r) * Up(ct) * x]);
+          const xn = (1 + r) * x + w - ct;
+          if (xn < -w / r) hit = t + 1;
+          x = xn;
+        }
+      }
+      // panel A
+      const ys = xa.map(p => p[1]).concat([x0]);
+      let ylo = Math.min(...ys), yhi = Math.max(...ys);
+      if (D < 0) ylo = Math.min(ylo, -w / r);
+      const pad = 0.1 * (yhi - ylo || 1); ylo -= pad; yhi += pad;
+      document.getElementById('sv-figA').innerHTML = '';
+      const A = EconPlot.create('#sv-figA', { x: [0, T], y: [ylo, yhi], width: 560, height: 250, xlabel: 't', xticks: 8, yticks: 5, margin: { l: 72, t: 22 } });
+      A.text(0, yhi, 'assets x_t', { dx: 6, dy: 14, size: 14, italic: true });
+      if (D < 0) {
+        A.hline(-w / r, { color: C.muted, dash: '5 4', width: 1.3 });
+        A.text(T, -w / r, 'borrowing limit −w/r', { anchor: 'end', dy: -6, sans: true, size: 12, color: C.muted });
+      }
+      A.path(xo, { color: C.blue, width: 2.4 });
+      A.text(T * 0.45, x0, 'optimum: x_t = x_0', { anchor: 'middle', dy: D > 0 ? 14 : -7, sans: true, size: 12, color: C.blue });
+      A.path(xa, { color: C.orange, width: 2.4 });
+      const last = xa[xa.length - 1];
+      const labA = Math.abs(D) < 1e-9 ? '' : (D > 0 ? 'c̃ = c* − Δ: assets explode' : 'c̃ = c* + |Δ|: debt explodes');
+      if (labA) A.text(last[0], last[1], labA, { anchor: 'end', dx: D > 0 ? -6 : -14, dy: D > 0 ? 4 : -2, sans: true, size: 12, color: C.orange });
+      if (hit !== null) A.point(hit - 1, xa[xa.length - 1][1], { color: C.orange, r: 4, hollow: true });
+      // panel B
+      const lim = (1 + r) * Up(ct) * D / r;
+      const yb = tca.map(p => p[1]).concat(tco.map(p => p[1]), [lim, 0]);
+      let blo = Math.min(...yb), bhi = Math.max(...yb); const bp = 0.1 * (bhi - blo || 1); blo -= bp; bhi += bp;
+      document.getElementById('sv-figB').innerHTML = '';
+      const B = EconPlot.create('#sv-figB', { x: [0, T], y: [blo, bhi], width: 560, height: 250, xlabel: 't', ylabel: 'β^t F_x x_t', xticks: 8, yticks: 5, margin: { l: 72, t: 22 } });
+      B.hline(0, { color: C.ink, width: 1 });
+      if (Math.abs(D) > 1e-9 && hit === null) {
+        B.hline(lim, { color: C.orange, dash: '6 4', width: 1.3 });
+        B.text(T * 0.55, lim, 'limit (1+r)U′(c̃)Δ/r', { anchor: 'middle', dy: lim > 0 ? -7 : 16, sans: true, size: 12, color: C.orange });
+      }
+      B.path(tco, { color: C.blue, width: 2.4 });
+      B.text(T * 0.22, tco[Math.round(T * 0.22)][1], 'optimum → 0', { dx: 6, dy: -8, sans: true, size: 12, color: C.blue });
+      B.path(tca, { color: C.orange, width: 2.4 });
+      const rows = [
+        ['c* = w + r x₀ :', cs.toFixed(3)],
+        ['c̃ = c* − Δ :', ct.toFixed(3)],
+        ['predicted TC limit (1+r)U′(c̃)Δ/r :', hit === null ? lim.toFixed(3) : '—'],
+        ['TC term at t = ' + (tca.length - 1) + ' :', tca[tca.length - 1][1].toFixed(3)]
+      ];
+      if (hit !== null) rows.push(['borrowing limit crossed at t =', String(hit) + '  (formula: (1+r)^T = 1 + c*/|Δ| gives ' + (Math.log(1 + cs / (-D)) / Math.log(1 + r)).toFixed(1) + ')', 'bad']);
+      EconPlot.readout('#sv-read', rows);
+      const vd = document.getElementById('sv-verdict');
+      if (Math.abs(D) < 1e-9) vd.textContent = 'Δ = 0: the orange path is the optimum. Both TC terms decay like βᵗ.';
+      else if (D > 0) vd.textContent = 'Oversaving: the Euler equation holds at every date, yet the TC term converges to ' + lim.toFixed(3) + ' > 0. The plan is dominated by c*, which gives Δ more consumption every period.';
+      else vd.textContent = 'Overconsumption: the Euler equation holds, but debt grows at rate 1+r and crosses the natural borrowing limit at t = ' + hit + '. The path is infeasible. Without a lower bound on assets it would be a Ponzi scheme (§4).';
+    }
+    EconPlot.sliders('#sv-ctrl', [
+      { id: 'D', label: 'Δ', min: -0.3, max: 0.3, step: 0.01, value: 0.15, fmt: v => v.toFixed(2) },
+      { id: 'r', label: 'r', min: 0.01, max: 0.1, step: 0.005, value: 0.04, fmt: v => v.toFixed(3) },
+      { id: 'sig', label: 'σ', min: 0.5, max: 4, step: 0.1, value: 2, fmt: v => v.toFixed(1) }
+    ], draw);
+  })();
+  </script>
+
+  <p><strong>Interpret the TC (slide 27, last question).</strong> Putting the pieces together: the EE rules out <em>local</em> improvements (moving consumption between two adjacent dates), and the TC rules out the <em>global</em> improvement of consuming a little more at every date forever, which no finite perturbation can capture. An EE path that violates the TC from above is one that keeps accumulating assets whose discounted marginal value never dies out: it saves too much <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=29">EE p.29</a>.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s4">4. The other side: overborrowing and Ponzi schemes</h2>
+
+  <p>The slides consider \(\Delta>0\). The mirror case \(\tilde c=c^*+\Delta\) is equally instructive, and it shows what the assumption \(X=\mathbb R^m_+\) in the sufficiency theorem is for.</p>
+
+  <p><strong>The EE path with too much consumption.</strong> Now \(z_{t+1}=(1+r)z_t-\Delta\), so \(z_t=-\Delta\frac{(1+r)^t-1}{r}\): debt grows at rate \(1+r\). Distance to the borrowing limit is
+  $$x_t+\frac wr=\Big(x_0+\frac wr\Big)-\Delta\frac{(1+r)^t-1}{r}=\frac{c^*}{r}-\Delta\frac{(1+r)^t-1}{r},$$
+  which hits zero when \((1+r)^T=1+c^*/\Delta\), a <em>finite</em> date. After that, the budget would require negative consumption, so the plan is simply <strong>infeasible</strong>. The TC is not needed to rule it out; the borrowing limit does it.</p>
+
+  <p><strong>What if there were no lower bound?</strong> Let \(X=\mathbb R\), with only \(c_t\ge0\) imposed. Take the candidate \(c^*\) path, which satisfies the EE and the TC. Now consider the <em>Ponzi scheme</em>: consume \(c^*+\varepsilon\) at date 0 and \(c^*\) forever after, rolling over the debt. Then \(x_t-x_0=-\varepsilon(1+r)^{t-1}\) for \(t\ge1\). Debt never gets repaid, it just grows with interest, and the consumer is strictly better off: \(U(c^*+\varepsilon)>U(c^*)\). So <strong>without a lower bound on the state, a path satisfying the EE and the TC need not be optimal</strong>. In fact no optimum exists, since \(\varepsilon\) can be anything.</p>
+
+  <div class="proof" id="pf-where-sufficiency-proof-uses-lower">
+    <div class="box-title">Where the sufficiency proof uses the lower bound</div>
+    <ol class="steps">
+      <li>Recall the last lines of Lesson 27's proof <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=16">EE p.16</a>. For any feasible \(\{x_t\}\), after using concavity and the EE,
+      $$\sum_{t=0}^\infty\beta^t\big[F(x_t,x_{t+1})-F(x_t^*,x_{t+1}^*)\big]\ \le\ -\lim_{T\to\infty}\beta^{T+1}F_x(x^*_{T+1},x^*_{T+2})\,\big(x_{T+1}-x^*_{T+1}\big).$$</li>
+      <li>Split \(x_{T+1}-x^*_{T+1}=(x_{T+1}-\underline x)-(x^*_{T+1}-\underline x)\) for the lower bound \(\underline x\) of \(X\) (\(\underline x=0\) on the slides, \(-w/r\) here). The first piece multiplies \(-\beta^{T+1}F_x\le0\) and is \(\ge0\), so it contributes \(\le0\) and can be dropped.</li>
+      <li>What remains is \(\lim\beta^{T+1}F_x(x^*_{T+1}-\underline x)\), which is zero <em>by the TC measured from the lower bound</em>. So the right-hand side is \(\le0\), and \(x^*\) is optimal.</li>
+      <li>Without a lower bound, step 2 fails. For the Ponzi scheme, \(x_{T+1}-x^*_{T+1}=-\varepsilon(1+r)^T\), and the right-hand side of step 1 equals \(\beta^{T+1}(1+r)U'(c^*)\varepsilon(1+r)^T=U'(c^*)\varepsilon>0\). That is exactly the first-order gain from the Ponzi scheme. ∎</li>
+    </ol>
+  </div>
+
+  <div class="intuition" id="int-division-labour">
+    <div class="box-title">Division of labour</div>
+    <p><strong>The TC is a condition on the candidate; the lower bound is a restriction on the competitors.</strong> The TC rules out the candidate that saves too much: wealth with positive discounted value left over at infinity. The lower bound on the state (here the natural borrowing limit, or in a market setting a no-Ponzi condition \(\lim(1+r)^{-t}x_t\ge0\)) rules out competitors that borrow too much. The sufficiency theorem needs both, which is why it insists on \(X=\mathbb R^m_+\) and \(F_x\ge0\). In the growth model, the lower bound is physical (\(k\ge0\)) and nobody notices it. In the savings problem it carries economic content.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s5">5. Three ways to read the transversality condition</h2>
+
+  <ol class="steps">
+    <li><strong>Present value of the state at shadow prices.</strong> \(F_x(x_t,x_{t+1})\) is the marginal return of an extra unit of state at \(t\), so \(\beta^tF_x\cdot x_t\) is the date-0 value of the whole stock held at \(t\). SLP (p. 98) describe this for the many-sector growth model as "the present discounted value of the capital stock in period t, evaluated using period t market prices." The TC says this value vanishes in the limit.</li>
+    <li><strong>The limit of a finite-horizon terminal condition.</strong> With horizon \(T\) and \(x_{T+1}\ge0\), the Kuhn–Tucker condition for \(x_{T+1}\) is \(\beta^TF_y(x_T,x_{T+1})\le0\), with equality if \(x_{T+1}>0\). Hence \(\beta^TF_y(x_T,x_{T+1})\,x_{T+1}=0\): either nothing is left, or what is left has zero marginal value. Using the EE, \(\beta^TF_y=-\beta^{T+1}F_x\), and this becomes \(\beta^{T+1}F_x\,x_{T+1}=0\). The infinite-horizon TC is its limit. In the savings problem with a finite horizon, \(F_y=-U'\lt0\), so the consumer dies with \(x_{T+1}=0\) (relative to the borrowing limit).</li>
+    <li><strong>The intertemporal budget constraint holds with equality.</strong> In the savings problem the TC is equivalent to \(\lim(1+r)^{-t}(x_t+w/r)=0\), for any \(\beta\) and \(r\) (Exercise 29.3). Together with the budget, this says that the present value of consumption <em>equals</em> total wealth. An EE path that violates the TC from above satisfies the budget with strict inequality, wasting resources.</li>
+  </ol>
+
+  <p>This is also the key to the permanent-income model under uncertainty (Exercise 29.5, from the Fall 2025 final). There the EE becomes \(c_t=E_tc_{t+1}\), consumption is a martingale, and again the EE alone does not pin down the <em>level</em> of \(c_t\). The budget with the TC does.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s6">6. Linear utility in the growth model: one-period convergence</h2>
+
+  <p>Slide 31 takes the neoclassical growth model with \(U(c)=c\) <a class="slide-ref" href="../sources/slides5-euler-transversality.pdf#page=31">EE p.31</a>:
+  $$F(k,k')=f(k)-k',\qquad \Gamma(k)=[0,f(k)],\qquad f(k)=G(k,1)+(1-\delta)k,$$
+  with \(G\) strictly increasing, strictly concave and Inada in \(k\). Then \(F_x=f'(k)>0\), \(F_y=-1\), and \(F_{xy}=0\).</p>
+
+  <p><strong>The Euler equation pins down capital directly.</strong>
+  $$F_y(k_t,k_{t+1})+\beta F_x(k_{t+1},k_{t+2})=-1+\beta f'(k_{t+1})=0\quad\Longrightarrow\quad k_{t+1}=\bar k\ \text{ for every }t\ge0,\qquad \beta f'(\bar k)=1 .$$
+  Since \(F_{xy}=0\), the EE does not involve \(k_t\) or \(k_{t+2}\) at all. It is <em>not</em> a second-order difference equation, and the map \(\psi\) of Lesson 28 does not exist (it needs \(F_{xy}\ne0\)). There is no family of EE paths to choose from, and nothing for the TC to select.</p>
+
+  <div class="theorem" id="thm-claim-slide-31-first-part">
+    <div class="box-title">Claim (slide 31, first part)</div>
+    <p>If \(f(k_0)\ge\bar k\), the optimal policy sets \(k_1=\bar k\) and \(k_t=\bar k\) for all \(t\ge1\): capital reaches the steady state <strong>in one period</strong>.</p>
+  </div>
+
+  <div class="proof" id="pf-proof-via-sufficiency-slide-s">
+    <div class="box-title">Proof, via sufficiency (the slide's hint)</div>
+    <ol class="steps">
+      <li><strong>Feasible.</strong> \(c_0=f(k_0)-\bar k\ge0\) by assumption. For \(t\ge1\), \(c_t=f(\bar k)-\bar k\). This is positive because \(f\) is concave: \(f(\bar k)\ge f(0)+f'(\bar k)\bar k\ge\bar k/\beta>\bar k\).</li>
+      <li><strong>EE.</strong> \(-1+\beta f'(k_{t+1})=-1+\beta f'(\bar k)=0\) at every \(t\ge0\).</li>
+      <li><strong>TC.</strong> \(\beta^tF_x(k_t,k_{t+1})\,k_t=\beta^tf'(\bar k)\bar k=\beta^{t-1}\bar k\to0\) (for \(t\ge1\)).</li>
+      <li><strong>Hypotheses of the theorem.</strong> \(F(x,y)=f(x)-y\) is concave in \((x,y)\) (a concave function of \(x\) plus a linear function of \(y\)), \(F_x=f'>0\), and \(X=\mathbb R_+\). By Lesson 27's theorem the path is optimal.</li>
+      <li><strong>Unique.</strong> \(F\) is not strictly concave (it is linear in \(y\)), so the averaging argument needs care. If two optimal paths differed, they would differ in \(k_t\) at some \(t\ge1\), and averaging gains strictly through \(f\) at that date, by strict concavity of \(f\). ∎</li>
+    </ol>
+  </div>
+
+  <div class="intuition" id="int-why-so-fast">
+    <div class="box-title">Why so fast?</div>
+    <p>A unit of capital for \(t+1\) costs one unit of consumption at \(t\) and returns \(f'(k_{t+1})\) units at \(t+1\), worth \(\beta f'(k_{t+1})\) today. With linear utility there is <strong>no smoothing motive</strong>: the consumer does not mind a lumpy consumption path. So she invests until the marginal return equals the cost, \(\beta f'(k_{t+1})=1\), and she does it at once. With strictly concave \(U\), jumping to \(\bar k\) would require a big swing in consumption, and smoothing makes the approach gradual (Lessons 28 and 30). The steady state is the <em>same</em> either way: \(\beta f'(\bar k)=1\) does not involve \(U\). This is a past-exam favourite (Exercise 29.4(f) and the T/F block).</p>
+    <p>The same logic applies whenever \(F_{xy}=0\): if \(F(x,y)=\theta(x)-h(y)\), the optimal policy is a constant (Exercise 29.1).</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s7">7. When the jump is not feasible: the corner phase</h2>
+
+  <p>Slide 31's second question: if \(f(k_0)\lt\bar k\) and consumption must be non-negative, the consumer cannot reach \(\bar k\) in one period. The hint is Kuhn–Tucker.</p>
+
+  <p><strong>Conditions.</strong> Attach multiplier \(\beta^t\mu_t\ge0\) to \(c_t=f(k_t)-k_{t+1}\ge0\) (the constraint \(k_{t+1}\ge0\) never binds because \(f'(0)=\infty\)). The first-order condition for \(k_{t+1}\) and complementary slackness are
+  $$-(1+\mu_t)+\beta f'(k_{t+1})(1+\mu_{t+1})=0,\qquad \mu_t\ge0,\qquad \mu_t\,c_t=0 .$$
+  When \(\mu_t>0\), the consumer would like to consume <em>less</em> than zero and invest more. In terms of the EE, \(-1+\beta f'(k_{t+1})>0\) whenever \(\mu_{t+1}=0\): <strong>the EE holds as an inequality</strong>, and investing is worth more than it costs.</p>
+
+  <div class="theorem" id="thm-optimal-policy-linear-utility">
+    <div class="box-title">The optimal policy with linear utility</div>
+    <p>$$g(k)=\min\{\,f(k),\ \bar k\,\}.$$
+    From \(k_0>0\) with \(f(k_0)\lt\bar k\): consume nothing and invest everything, \(k_{t+1}=f(k_t)\), for \(t=0,\dots,T-1\), where \(T\) is the first date with \(f(k_T)\ge\bar k\). At \(T\), set \(k_{T+1}=\bar k\) and consume the surplus \(c_T=f(k_T)-\bar k\ge0\). From then on, \(c_t=f(\bar k)-\bar k\). This is a <em>most rapid approach path</em>.</p>
+  </div>
+
+  <div class="proof" id="pf-verification">
+    <div class="box-title">Verification</div>
+    <ol class="steps">
+      <li><strong>\(T\) is finite.</strong> \(f(k)-k\) is concave, \(\ge0\) at \(k=0\), and positive at \(\bar k\) (step 1 of §6), so \(f(k)>k\) on \((0,\bar k]\). The sequence \(k_{t+1}=f(k_t)\) is therefore strictly increasing while it stays below \(f^{-1}(\bar k)\). If it never crossed, it would converge to some \(k_\infty\le\bar k\) with \(f(k_\infty)=k_\infty\), contradicting \(f(k)>k\) there.</li>
+      <li><strong>Multipliers.</strong> Set \(\mu_t=0\) for \(t\ge T\). Then define \(\mu_t\) backwards from the FOC: \(1+\mu_t=\beta f'(k_{t+1})(1+\mu_{t+1})\) for \(t\lt T\).</li>
+      <li><strong>Signs.</strong> For \(t\le T-1\), \(k_{t+1}=f(k_t)\lt\bar k\) by the definition of \(T\), so \(\beta f'(k_{t+1})>\beta f'(\bar k)=1\). Starting from \(\mu_T=0\), induction gives \(1+\mu_t>1+\mu_{t+1}\ge1\), so \(\mu_t>0\), consistent with \(c_t=0\). From \(T\) on, \(\mu=0\) and the FOC is the EE \(\beta f'(\bar k)=1\).</li>
+      <li><strong>Sufficiency with corners.</strong> For any feasible path, \(\sum\beta^t(c_t-c_t^*)\le\sum\beta^t(1+\mu_t)(c_t-c^*_t)\), since \(\mu_tc^*_t=0\) and \(\mu_tc_t\ge0\). Now bound \((1+\mu_t)(c_t-c^*_t)\) by concavity of \(f\), exactly as in Lesson 27. The multiplier-weighted EE makes the sum telescope, and the terminal term vanishes by the TC, because \(\mu_t=0\) from \(T\) on. So \(\sum\beta^t(c_t-c^*_t)\le0\). ∎</li>
+    </ol>
+  </div>
+
+  <p><strong>The last corner stage.</strong> At \(T-1\), the consumer still invests everything, even though \(k_T\) may carry her well past the threshold, so that \(f(k_T)\) exceeds \(\bar k\) by a lot. Why not consume a little at \(T-1\) and land exactly on \(f(k_T)=\bar k\)? Moving \(\varepsilon\) of consumption from \(T\) to \(T-1\) gains \(\varepsilon\) at \(T-1\) and loses \(f'(k_T)\varepsilon\) at \(T\). The net is \(\varepsilon[1-\beta f'(k_T)]\lt0\), because \(k_T\lt\bar k\). With linear utility there is no reason to spread consumption out. The overshoot is eaten in one lump at \(T\), and consumption jumps from \(0\) to \(f(k_T)-\bar k\), then to \(f(\bar k)-\bar k\).</p>
+
+  <div class="figure">
+    <div id="lu-ctrl"></div>
+    <div class="figure-row">
+      <div id="lu-figA"></div>
+      <div id="lu-figB"></div>
+    </div>
+    <div id="lu-read"></div>
+    <div class="caption"><b>Interactive.</b> \(f(k)=k^\alpha+(1-\delta)k\) with \(\delta=0.1\), linear utility. Left: the policy \(g(k)=\min\{f(k),\bar k\}\) (<span style="color:#2a78d6">blue</span>), \(f(k)\) (gray dashed), and the 45° line. The staircase is the path from \(k_0\). Right: capital \(k_t\) (<span style="color:#2a78d6">blue</span>) and consumption \(c_t\) (<span style="color:#eb6834">orange</span>) over time. <b>Try:</b> (1) start with \(k_0\) above the kink: one step to \(\bar k\), with a burst of consumption at \(t=0\). (2) Drag \(k_0/\bar k\) down to 0.05. Now there are several periods of zero consumption, then a lump at \(T\), then the steady state. (3) Raise \(\beta\). Then \(\bar k\) rises and the corner phase gets longer, but convergence is still finite.</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const dl = 0.1;
+    function draw(v) {
+      const al = v.al, be = v.be;
+      const f = k => Math.pow(k, al) + (1 - dl) * k;
+      const kbar = Math.pow(al / (1 / be - 1 + dl), 1 / (1 - al));
+      const g = k => Math.min(f(k), kbar);
+      const k0 = v.k0 * kbar;
+      const N = 14, ks = [k0], cs = [];
+      for (let t = 0; t < N; t++) { const kn = g(ks[t]); cs.push(f(ks[t]) - kn); ks.push(kn); }
+      let T = 0; while (T < N && f(ks[T]) < kbar - 1e-12) T++;
+      const xmax = 1.6 * kbar;
+      document.getElementById('lu-figA').innerHTML = '';
+      const A = EconPlot.create('#lu-figA', { x: [0, xmax], y: [0, xmax], width: 330, height: 330, xlabel: 'k_t', ylabel: 'k_{t+1}', xticks: 4, yticks: 4, margin: { l: 50, t: 18, r: 14 } });
+      A.fn(k => k, { color: C.muted, width: 1, dash: '2 3' });
+      A.text(xmax * 0.93, xmax * 0.93, '45°', { anchor: 'end', dy: 14, sans: true, size: 11, color: C.muted });
+      A.fn(f, { color: C.muted, dash: '6 4', width: 1.4, domain: [0.0001, xmax] });
+      A.fn(g, { color: C.blue, width: 2.6, domain: [0.0001, xmax] });
+      A.hline(kbar, { color: C.blue, dash: '2 3', width: 1 });
+      A.text(0, kbar, 'k̄', { dx: 4, dy: -6, size: 13, color: C.blue });
+      const kink = EconPlot.bisect(k => f(k) - kbar, 1e-9, kbar);
+      A.text(kink, kbar, 'g = min{f, k̄}', { dx: 8, dy: 16, sans: true, size: 11, color: C.blue });
+      // staircase
+      const st = [[ks[0], 0]];
+      for (let t = 0; t <= Math.min(T, N - 1); t++) { st.push([ks[t], ks[t + 1]]); st.push([ks[t + 1], ks[t + 1]]); }
+      A.path(st, { color: C.orange, width: 1.4 });
+      A.point(ks[0], 0, { color: C.orange, r: 4, label: 'k₀', labelDy: -8 });
+      // time paths
+      const ymax = 1.12 * Math.max(...ks, ...cs);
+      document.getElementById('lu-figB').innerHTML = '';
+      const B = EconPlot.create('#lu-figB', { x: [0, N - 1], y: [0, ymax], width: 330, height: 330, xlabel: 't', xticks: 7, yticks: 4, margin: { l: 44, t: 18, r: 14 } });
+      B.hline(kbar, { color: C.blue, dash: '2 3', width: 1 });
+      B.path(ks.slice(0, N).map((k, t) => [t, k]), { color: C.blue, width: 2.2 });
+      ks.slice(0, N).forEach((k, t) => B.point(t, k, { color: C.blue, r: 2.6 }));
+      B.path(cs.map((c, t) => [t, c]), { color: C.orange, width: 2.2 });
+      cs.forEach((c, t) => B.point(t, c, { color: C.orange, r: 2.6 }));
+      B.text(N - 1, ks[N - 1], 'k_t', { anchor: 'end', dy: -7, size: 13, color: C.blue });
+      B.text(N - 1, cs[N - 1], 'c_t', { anchor: 'end', dy: -7, size: 13, color: C.orange });
+      EconPlot.readout('#lu-read', [
+        ['k̄ (βf′(k̄) = 1) :', kbar.toFixed(3)],
+        ['threshold f⁻¹(k̄) :', kink.toFixed(3)],
+        ['corner periods (c = 0) :', String(T)],
+        ['lump at T: c_T = f(k_T) − k̄ :', cs[Math.min(T, N - 1)].toFixed(3)],
+        ['steady-state c = f(k̄) − k̄ :', (f(kbar) - kbar).toFixed(3)]
+      ]);
+    }
+    EconPlot.sliders('#lu-ctrl', [
+      { id: 'k0', label: 'k₀/k̄', min: 0.02, max: 1.5, step: 0.01, value: 0.08, fmt: v => v.toFixed(2) },
+      { id: 'al', label: 'α', min: 0.2, max: 0.5, step: 0.01, value: 0.33, fmt: v => v.toFixed(2) },
+      { id: 'be', label: 'β', min: 0.85, max: 0.98, step: 0.005, value: 0.95, fmt: v => v.toFixed(3) }
+    ], draw);
+  })();
+  </script>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s8">8. Check yourself</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">1. In the savings problem with \(\beta(1+r)=1\), which paths satisfy the Euler equation?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Every path with constant consumption over time</li>
+        <li class="quiz-option" data-option="b">Only the path that keeps assets constant</li>
+        <li class="quiz-option" data-option="c">Only paths where assets converge to zero</li>
+        <li class="quiz-option" data-option="d">Every path whose assets stay above \(-w/r\)</li>
+      </ul>
+      <div class="quiz-explain">The EE reads \(U'(c_t)=\beta(1+r)U'(c_{t+1})=U'(c_{t+1})\), so any constant \(c\) passes, whatever its level. Keeping assets constant (\(c=w+rx_0\)) is the one that also satisfies the TC.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">2. The constant path \(\tilde c=c^*-\Delta\) with \(\Delta>0\) is not optimal because:</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">It satisfies the Euler equation but violates transversality</li>
+        <li class="quiz-option" data-option="b">It violates the Euler equation in every period</li>
+        <li class="quiz-option" data-option="c">It breaks the budget constraint in finite time</li>
+        <li class="quiz-option" data-option="d">It satisfies transversality but violates the Euler equation</li>
+      </ul>
+      <div class="quiz-explain">Constant consumption satisfies the EE. Assets grow like \((1+r)^t\), so \(\beta^tF_xx_t\to(1+r)U'(\tilde c)\Delta/r>0\). The budget is never violated: it is the opposite case, \(\tilde c=c^*+\Delta\), that hits the borrowing limit in finite time.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">3. Along the oversaving path, \(\lim_t\beta^tF_x(x_t,x_{t+1})\,x_t\) equals:</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">\(U'(\tilde{c})\) times the present value of all forgone consumption</li>
+        <li class="quiz-option" data-option="b">Zero, because \(\beta^t\to0\) always dominates any asset growth rate</li>
+        <li class="quiz-option" data-option="c">Infinity, because assets grow at the rate \(1+r\) forever</li>
+        <li class="quiz-option" data-option="d">The marginal utility of consumption times initial assets \(x_0\)</li>
+      </ul>
+      <div class="quiz-explain">The limit is \((1+r)U'(\tilde c)\Delta/r\), and \(\Delta(1+r)/r=\sum_{t\ge0}\Delta(1+r)^{-t}\) is the present value of the consumption given up. Assets grow at exactly \(1/\beta\), so \(\beta^t\) and asset growth cancel: neither zero nor infinity.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">4. Growth model with \(U(c)=c\) and \(f(k_0)\ge\bar k\). How fast does capital reach \(\bar k\)?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">In one period, whatever the curvature of \(f\)</li>
+        <li class="quiz-option" data-option="b">Asymptotically, at a rate set by the curvature</li>
+        <li class="quiz-option" data-option="c">Never: linear utility has no interior steady state</li>
+        <li class="quiz-option" data-option="d">In \(T\) periods, with \(T\) growing in \(\beta\)</li>
+      </ul>
+      <div class="quiz-explain">The EE \(-1+\beta f'(k_{t+1})=0\) pins \(k_{t+1}=\bar k\) at every date because \(F_{xy}=0\). Feasibility only requires \(c_0=f(k_0)-\bar k\ge0\). A corner phase with \(T>1\) arises only when \(f(k_0)\lt\bar k\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">5. Linear utility, \(f(k_0)\lt\bar k\). During the corner phase (\(c_t=0\)), the Euler equation:</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Holds as an inequality: investing is worth more than consuming</li>
+        <li class="quiz-option" data-option="b">Holds with equality, so the agent smooths consumption over time</li>
+        <li class="quiz-option" data-option="c">Fails, so the agent should consume and stop investing now</li>
+        <li class="quiz-option" data-option="d">Is irrelevant, because transversality alone pins down the corner path</li>
+      </ul>
+      <div class="quiz-explain">With \(k_{t+1}\lt\bar k\), \(\beta f'(k_{t+1})>1\). The Kuhn–Tucker condition \(1+\mu_t=\beta f'(k_{t+1})(1+\mu_{t+1})\) holds with \(\mu_t>0\): the agent would like negative consumption. The TC holds trivially, since the path reaches \(\bar k\) in finite time.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">6. In the savings problem (any \(\beta\) and \(r\)), the transversality condition is equivalent to:</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The present value of terminal wealth tends to zero</li>
+        <li class="quiz-option" data-option="b">Assets must eventually converge to some finite steady-state level</li>
+        <li class="quiz-option" data-option="c">Assets must stay above zero in every period forever</li>
+        <li class="quiz-option" data-option="d">Consumption must grow at the gross interest rate \(1+r\)</li>
+      </ul>
+      <div class="quiz-explain">Along an EE path, \(\beta^tU'(c_t)\propto(1+r)^{-t}\), so the TC is \(\lim(1+r)^{-t}(x_t+w/r)=0\) (Exercise 29.3). Assets may grow without bound, as long as they grow more slowly than \(1+r\). Borrowing is allowed down to \(-w/r\).</div>
+    </div>
+    <div class="quiz-score"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s9">9. Exercises</h2>
+
+  <p>On past exams this material appears as follows. The 2017/18 final asked students to characterise the policy of a separable problem \(F=\theta(x)-h(y)\), whose logic is the same as linear utility. The Fall 2005 midterm asked whether steady-state consumption depends on \(u\). The Fall 2025 final set the permanent-income model with \(\beta(1+r)=1\). The oversaving computation of slides 29–30 has not been examined yet, but the 2026 deck rewrote it, so it is a plausible target.</p>
+
+  <div class="box exercise" id="tf">
+    <div class="box-title">True or false? Justify. <span class="tag past">Past exam</span> <span class="tag exam">Exam-inspired</span></div>
+    <p>Answer True or False and justify in at most four lines.</p>
+    <ol class="tf-list">
+      <li>In the savings problem with \(\beta(1+r)=1\), every constant-consumption path satisfies the Euler equation, so the problem has infinitely many solutions. <span class="tf-src">exam-inspired (slides 26–28)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The first half is true, but the EE is only necessary. Only \(c=w+rx_0\) also satisfies the TC. Moreover, strict concavity of \(U\) gives uniqueness: the average of two distinct optimal paths would be feasible and strictly better.</p></div></details></li>
+      <li>The savings problem with \(\beta(1+r)=1\) has a unique steady state. <span class="tf-src">exam-inspired (slide 28)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> \(F_y(\bar x,\bar x)+\beta F_x(\bar x,\bar x)=U'(w+r\bar x)[\beta(1+r)-1]=0\) for <em>every</em> \(\bar x>-w/r\). The solution is unique from each \(x_0\), but every \(x_0\) is its own steady state.</p></div></details></li>
+      <li>A path that satisfies the Euler equation and converges to a finite steady state \(\bar x\), with \(F_x(\bar x,\bar x)\) finite, satisfies the transversality condition. <span class="tf-src">exam-inspired (a circulating practice question)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> \(F_x(x_t,x_{t+1})\cdot x_t\to F_x(\bar x,\bar x)\cdot\bar x\), which is finite, by continuity. Multiplied by \(\beta^t\to0\), the TC term goes to zero. The TC bites only on paths whose state grows at a rate of at least \(1/\beta\).</p></div></details></li>
+      <li>The transversality condition requires assets to converge to zero. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> It requires the <em>discounted shadow value</em> \(\beta^tF_x\cdot x_t\) to vanish. In the savings problem the optimum keeps \(x_t=x_0\ne0\) forever. With \(\beta(1+r)>1\), optimal assets can even grow without bound, just more slowly than \(1+r\).</p></div></details></li>
+      <li>The steady-state value of consumption in the neoclassical growth model does not depend on the form of the (strictly increasing, concave) utility function. <span class="tf-src">Past exam: Fall 2005 MT E1 Q6 (discrete-time version)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> At a steady state the EE reads \(U'(\bar c)[-1+\beta f'(\bar k)]=0\). With \(U'>0\), \(\beta f'(\bar k)=1\), so \(\bar k\), and hence \(\bar c=f(\bar k)-\bar k\), depend only on \(f\) and \(\beta\). Even linear \(U\) gives the same \(\bar k\). Only the speed of convergence depends on \(U\).</p></div></details></li>
+      <li>With linear utility in the growth model, capital converges to its steady state asymptotically, at a rate determined by the curvature of \(f\). <span class="tf-src">exam-inspired (slide 31)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> \(F_{xy}=0\), so the EE \(\beta f'(k_{t+1})=1\) sets \(k_{t+1}=\bar k\) directly. Convergence takes one period if \(f(k_0)\ge\bar k\), and otherwise a finite number of periods with zero consumption: \(g(k)=\min\{f(k),\bar k\}\).</p></div></details></li>
+      <li>In the savings problem, if borrowing is unrestricted (\(X=\mathbb R\)), the path \(c_t=w+rx_0\) is still optimal because it satisfies the Euler equation and the transversality condition. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> Consuming \(c^*+\varepsilon\) once and rolling the debt over forever is feasible and strictly better: a Ponzi scheme. The sufficiency theorem needs a lower bound on the state (\(X=\mathbb R^m_+\)) to discard \(\lim\beta^{T}F_x\,x_T\) for competing paths. With \(X=\mathbb R\), no optimum exists.</p></div></details></li>
+      <li>Let \(\beta(1+r)=1\) and \(u(c)=-\tfrac12(\bar c-c)^2\), with stochastic income. Then the Euler equation \(c_t=E_tc_{t+1}\) determines the level of consumption at each date. <span class="tf-src">Past exam: Fall 2025 Final Q8 (extended)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The EE only says that consumption is a martingale. Any \(c_0\) followed by \(c_t=E_tc_{t+1}\) passes. The level comes from the budget constraint together with the TC, i.e. the expected present value of consumption must equal total wealth (Exercise 29.5). This is the stochastic version of slides 26–30.</p></div></details></li>
+      <li>\(X=\Gamma(x)=\mathbb R\) and \(F(x,y)=\theta(x)-h(y)\), with \(\theta\) strictly increasing and concave, \(h\) strictly increasing and convex. The optimal policy is a constant \(g(x)=\bar x\), and \(\bar x\) rises if \(h'\) is increased at every point. <span class="tf-src">Past exam: 2017/18 Final Q3 (reworded)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False</strong> (the first half is true). The EE \(-h'(x_{t+1})+\beta\theta'(x_{t+1})=0\) gives \(x_{t+1}=\bar x\), where \(h'(\bar x)=\beta\theta'(\bar x)\). Raising \(h'\) shifts the increasing curve up, so it meets the decreasing \(\beta\theta'\) at a <em>lower</em> \(\bar x\). A commonly circulated answer says \(g\) increases; that is wrong.</p></div></details></li>
+      <li>The oversaving path \(\tilde c=c^*-\Delta\) violates the transversality condition only because \(U\) is strictly concave. With linear \(U\), the transversality term converges to zero. <span class="tf-src">exam-inspired (slide 30)</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The limit is \((1+r)U'(\tilde c)\Delta/r\), which is positive for any strictly increasing \(U\), linear included (\(U'=1\)). Curvature matters for <em>uniqueness</em> and for smoothing. Transversality fails because assets grow at the rate \(1/\beta\) and their value never dies out.</p></div></details></li>
+    </ol>
+  </div>
+
+  <div class="box exercise" id="ex-29-1">
+    <div class="box-title">Exercise 29.1 <span class="tag past">Past exam: 2017/18 Final Q3 (reworded)</span> (a separable return: one-period convergence)</div>
+    <p>Let \(X=\mathbb R\), \(\Gamma(x)=\mathbb R\), and \(F(x,y)=\theta(x)-h(y)\), where \(\theta\) is strictly increasing and concave, \(h\) is strictly increasing and convex, both \(C^2\), and at least one of them is strict. Assume there is \(\bar x\) with \(h'(\bar x)=\beta\theta'(\bar x)\).</p>
+    <ol class="parts" type="a">
+      <li>Write the Euler equation. Show that every path satisfying it has \(x_{t+1}=\bar x\) for all \(t\ge0\), whatever \(x_0\). One line. <span class="pts">(10 pts)</span></li>
+      <li>Show that \(\bar x\) is unique. Check the TC along \(x_t=\bar x\). <span class="pts">(5 pts)</span></li>
+      <li>The sufficiency theorem of Lesson 27 does not apply as stated, because \(X=\mathbb R\). Prove optimality directly by regrouping the objective as \(\theta(x_0)+\sum_{t\ge0}\beta^t[\beta\theta(x_{t+1})-h(x_{t+1})]\) (for paths along which the sums converge). <span class="pts">(10 pts)</span></li>
+      <li>How does \(\bar x\) change with \(\beta\)? If \(\theta'\) is everywhere higher? If \(h'\) is everywhere higher? <span class="pts">(10 pts)</span></li>
+      <li>Compute the value \(V(x)\) of the problem starting from \(x\). <span class="pts">(5 pts)</span></li>
+      <li>Which property of \(F\) produces one-period convergence here and in the linear-utility growth model? One line. <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (c), each bracket depends on \(x_{t+1}\) alone, so it can be maximised term by term. For (d), draw the increasing curve \(h'\) and the decreasing curve \(\beta\theta'\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(F_y(x_t,x_{t+1})=-h'(x_{t+1})\) and \(F_x(x_{t+1},x_{t+2})=\theta'(x_{t+1})\), so the EE is \(-h'(x_{t+1})+\beta\theta'(x_{t+1})=0\). It involves only \(x_{t+1}\), so \(x_{t+1}=\bar x\) at every \(t\), from any \(x_0\).<br>
+      (b) \(h'-\beta\theta'\) is strictly increasing, since \(h''\ge0\ge\theta''\) with one strict. So it has at most one zero. TC: \(\beta^t\theta'(\bar x)\bar x\to0\).<br>
+      (c) \(\sum_{t\ge0}\beta^t[\theta(x_t)-h(x_{t+1})]=\theta(x_0)+\sum_{t\ge0}[\beta^{t+1}\theta(x_{t+1})-\beta^th(x_{t+1})]=\theta(x_0)+\sum_{t\ge0}\beta^t\phi(x_{t+1})\), with \(\phi(y)\equiv\beta\theta(y)-h(y)\). \(\phi\) is strictly concave with \(\phi'(\bar x)=0\), so \(\bar x\) maximises every term at once, and no path can do better. (This argument needs neither \(X=\mathbb R_+\) nor the TC.)<br>
+      (d) Higher \(\beta\) or higher \(\theta'\) raises the decreasing curve \(\beta\theta'\), so \(\bar x\) <strong>rises</strong>. Higher \(h'\) raises the increasing curve, so \(\bar x\) <strong>falls</strong>. A commonly circulated answer says \(\bar x\) also rises with \(h'\); it does not.<br>
+      (e) \(x_0=x\) and \(x_t=\bar x\) for \(t\ge1\): \(V(x)=\theta(x)-h(\bar x)+\frac{\beta}{1-\beta}\big[\theta(\bar x)-h(\bar x)\big]\).<br>
+      (f) \(F_{xy}=0\): the marginal cost of choosing \(y\) does not depend on \(x\), and the marginal benefit of \(y\) tomorrow does not depend on the day after. So the EE pins down \(x_{t+1}\) on its own.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-29-2">
+    <div class="box-title">Exercise 29.2 <span class="tag slides">Slides pp.26–30</span> <span class="tag exam">Exam-inspired</span> (the savings problem, start to finish)</div>
+    <p>A consumer with income \(w>0\) and assets \(x_t\) solves \(\max\sum_t\beta^tU(c_t)\) subject to \(c_t=w+(1+r)x_t-x_{t+1}\), \(c_t\ge0\), with \(r>0\), \(\beta(1+r)=1\), and \(U\) strictly increasing and strictly concave.</p>
+    <ol class="parts" type="a">
+      <li>Write \(F(x,y)\), \(F_x\), \(F_y\). Derive the natural borrowing limit \(\underline x\), the lowest level of assets from which non-negative consumption can be maintained forever. <span class="pts">(10 pts)</span></li>
+      <li>Write the EE and show that it holds along every constant-consumption path. Interpret it in one line. <span class="pts">(10 pts)</span></li>
+      <li>For a constant \(\bar c\), solve for \(x_t\). Show that \(x_t\) stays bounded only if \(\bar c=w+rx_0\). <span class="pts">(10 pts)</span></li>
+      <li>For \(\tilde c=w+rx_0-\Delta\) with \(\Delta>0\), compute \(\lim\beta^tF_x(x_t,x_{t+1})x_t\). Show that it equals \(U'(\tilde c)\) times the present value of the consumption forgone. <span class="pts">(15 pts)</span></li>
+      <li>Change variables to \(\hat x=x-\underline x\). Show that the problem becomes one with \(\hat X=\mathbb R_+\) and \(\hat F(\hat x,\hat y)=U((1+r)\hat x-\hat y)\). Conclude, citing the sufficiency theorem, that \(c^*=w+rx_0\) is optimal. <span class="pts">(10 pts)</span></li>
+      <li>For \(\tilde c=w+rx_0+\Delta\) with \(\Delta>0\), find the date \(T\) at which assets reach the borrowing limit. <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(F=U(w+(1+r)x-y)\), \(F_x=(1+r)U'(c)\), \(F_y=-U'(c)\). Consumption \(c\) can be held constant at \(w+rx\) forever, and \(w+rx\ge0\iff x\ge-w/r\). Any \(x\lt-w/r\) forces debt to grow without bound even with \(c=0\). So \(\underline x=-w/r\).<br>
+      (b) \(-U'(c_t)+\beta(1+r)U'(c_{t+1})=0\iff U'(c_t)=U'(c_{t+1})\iff c_t=c_{t+1}\). The return exactly compensates impatience, so the consumer wants to smooth fully.<br>
+      (c) \(x_{t+1}=(1+r)x_t+w-\bar c\), so \(x_t=\hat x+(1+r)^t(x_0-\hat x)\) with \(\hat x=(\bar c-w)/r\). This is bounded iff \(x_0=\hat x\iff\bar c=w+rx_0\).<br>
+      (d) \(z_t=x_t-x_0=\Delta((1+r)^t-1)/r\), so \(\beta^t(1+r)U'(\tilde c)(x_0+z_t)\to(1+r)U'(\tilde c)\Delta/r\). The forgone stream \(\Delta,\Delta,\dots\) has present value \(\Delta\sum_{t\ge0}(1+r)^{-t}=\Delta(1+r)/r\). Multiply by \(U'(\tilde c)\).<br>
+      (e) \(c=w+(1+r)(\hat x-w/r)-(\hat y-w/r)=(1+r)\hat x-\hat y\), since \(w-(1+r)w/r+w/r=0\). \(\hat F\) is concave, \(\hat F_x=(1+r)U'>0\), and \(\hat X=\mathbb R_+\). The candidate \(\hat x_t=x_0+w/r\) satisfies the EE and \(\beta^t(1+r)U'(c^*)(x_0+w/r)\to0\). By the theorem it is optimal.<br>
+      (f) \(x_t+w/r=c^*/r-\Delta((1+r)^t-1)/r=0\iff(1+r)^T=1+c^*/\Delta\), i.e. \(T=\ln(1+c^*/\Delta)/\ln(1+r)\), rounded up to the next integer.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-29-3">
+    <div class="box-title">Exercise 29.3 <span class="tag exam">Exam-inspired</span> (when \(\beta(1+r)\ne1\): transversality is the budget constraint)</div>
+    <p>Same problem with \(U(c)=c^{1-\sigma}/(1-\sigma)\), \(\sigma>0\), and any \(\beta\in(0,1)\), \(r>0\) with \(\beta(1+r)^{1-\sigma}\lt1\). Let \(G\equiv(\beta(1+r))^{1/\sigma}\).</p>
+    <ol class="parts" type="a">
+      <li>Show that every EE path has \(c_{t+1}=Gc_t\). How many free constants does the EE leave? <span class="pts">(5 pts)</span></li>
+      <li>Show that along any EE path \(\beta^tF_x(x_t,x_{t+1})(x_t+w/r)=(1+r)c_0^{-\sigma}(1+r)^{-t}(x_t+w/r)\). Conclude that the TC is equivalent to \(\lim(1+r)^{-t}(x_t+w/r)=0\). <span class="pts">(10 pts)</span></li>
+      <li>Iterate the budget forward to show \(\sum_{t=0}^{T}(1+r)^{-t}c_t+(1+r)^{-T}(x_{T+1}+w/r)=(1+r)(x_0+w/r)\). Interpret the TC. <span class="pts">(10 pts)</span></li>
+      <li>Derive \(c_0=(1+r-G)(x_0+w/r)\). Check it against slide 28 when \(\beta(1+r)=1\). <span class="pts">(10 pts)</span></li>
+      <li>Show that \(x_t+w/r=c_t/(1+r-G)\). What happens to assets in the long run if \(\beta(1+r)\lt1\)? If \(\beta(1+r)>1\)? Is the TC consistent with unbounded assets? <span class="pts">(10 pts)</span></li>
+      <li>Why is the condition \(\beta(1+r)^{1-\sigma}\lt1\) needed? <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(c_t^{-\sigma}=\beta(1+r)c_{t+1}^{-\sigma}\iff c_{t+1}/c_t=(\beta(1+r))^{1/\sigma}=G\). One constant, \(c_0\): the EE is a second-order equation in \(x\), with \(x_0\) given and \(x_1\) (equivalently \(c_0\)) free.<br>
+      (b) \(F_x=(1+r)c_t^{-\sigma}=(1+r)c_0^{-\sigma}G^{-\sigma t}\), and \(\beta^tG^{-\sigma t}=\beta^t/(\beta(1+r))^t=(1+r)^{-t}\). The TC must be measured from the lower bound, as in §4. Since \((1+r)^{-t}w/r\to0\), it is equivalent to \(\lim(1+r)^{-t}x_t=0\) as well.<br>
+      (c) Write the budget as \(x_{t+1}+w/r=(1+r)(x_t+w/r)-c_t\). Divide by \((1+r)^{t+1}\), sum from \(0\) to \(T\) (the asset terms telescope), and multiply by \(1+r\). As \(T\to\infty\): PV of consumption \(+\lim(1+r)^{-T}(x_{T+1}+w/r)=\) total wealth. The TC says that the last term is zero, so the intertemporal budget holds with <em>equality</em>: nothing is wasted.<br>
+      (d) \(\sum_t(1+r)^{-t}c_0G^t=c_0(1+r)/(1+r-G)\), which is finite because \(G\lt1+r\iff\beta(1+r)^{1-\sigma}\lt1\). Setting it equal to \((1+r)(x_0+w/r)\) gives the result. With \(G=1\): \(c_0=r(x_0+w/r)=w+rx_0\). ✓<br>
+      (e) Apply (c)–(d) from date \(t\) instead of 0: \(c_t=(1+r-G)(x_t+w/r)\). Check: \(x_{t+1}+w/r=(1+r)(x_t+w/r)-c_t=c_t\big[\frac{1+r}{1+r-G}-1\big]=\frac{Gc_t}{1+r-G}=\frac{c_{t+1}}{1+r-G}\). ✓ If \(\beta(1+r)\lt1\), then \(G\lt1\), consumption shrinks to zero, and assets fall toward the borrowing limit \(-w/r\) (impatience wins). If \(\beta(1+r)>1\), assets grow without bound at rate \(G\), and the TC still holds because \(G\lt1+r\). <strong>Unbounded assets do not violate the TC; growing at rate \(1+r\) does.</strong><br>
+      (f) It makes lifetime utility finite (so the problem is well posed) and makes the present value of consumption converge. Otherwise the "optimum" would be to postpone forever. Note also that iterating the EE path forward numerically is unstable (the root \(1+r\) amplifies any error), so in practice one computes \(c_0\) from (d), not by shooting.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-29-4">
+    <div class="box-title">Exercise 29.4 <span class="tag slides">Slides p.31</span> <span class="tag exam">Exam-inspired</span> (linear utility in the growth model)</div>
+    <p>Let \(U(c)=c\), \(f(k)=G(k,1)+(1-\delta)k\) with \(G\) strictly increasing, strictly concave and Inada, \(\Gamma(k)=[0,f(k)]\), and \(\bar k\) defined by \(\beta f'(\bar k)=1\).</p>
+    <ol class="parts" type="a">
+      <li>Write \(F\), \(F_x\), \(F_y\), \(F_{xy}\). Is \(F\) concave? Strictly concave? <span class="pts">(5 pts)</span></li>
+      <li>Write the EE. Why is it not a second-order difference equation? <span class="pts">(5 pts)</span></li>
+      <li>Suppose \(f(k_0)\ge\bar k\). Verify every hypothesis of the sufficiency theorem for the path \(k_t=\bar k\), \(t\ge1\), including the TC. <span class="pts">(15 pts)</span></li>
+      <li>Suppose \(f(k_0)\lt\bar k\). Write the Kuhn–Tucker conditions with multipliers on \(c_t\ge0\). Show that "consume zero until \(f(k_T)\ge\bar k\), then jump" satisfies them with \(\mu_t>0\) during the corner phase. <span class="pts">(15 pts)</span></li>
+      <li>Show that the corner phase lasts a finite number of periods. <span class="pts">(10 pts)</span></li>
+      <li>Compare with strictly concave \(U\): what changes and what does not (steady state, speed, shape of \(c_t\))? Two lines. <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(F=f(k)-k'\), \(F_x=f'(k)>0\), \(F_y=-1\), \(F_{xy}=0\). \(F\) is concave (the Hessian is \(\mathrm{diag}(f'',0)\), negative semidefinite) but not strictly concave, because it is linear in \(k'\).<br>
+      (b) \(-1+\beta f'(k_{t+1})=0\). Since \(F_{xy}=0\), neither \(k_t\) nor \(k_{t+2}\) appears, so the equation determines \(k_{t+1}=\bar k\) on its own.<br>
+      (c) Feasible: \(c_0=f(k_0)-\bar k\ge0\), and \(c_t=f(\bar k)-\bar k>0\) because \(f(\bar k)\ge f(0)+f'(\bar k)\bar k>\bar k\). The EE holds at all \(t\). TC: \(\beta^tf'(\bar k)\bar k=\beta^{t-1}\bar k\to0\). \(F\) is concave, \(F_x\ge0\), and \(X=\mathbb R_+\). Optimal.<br>
+      (d)–(e) See §7. The multipliers satisfy \(1+\mu_t=\beta f'(k_{t+1})(1+\mu_{t+1})\), \(\mu_t\ge0\), \(\mu_tc_t=0\). Backward induction from \(\mu_T=0\), using \(\beta f'(k_{t+1})>1\) for \(k_{t+1}\lt\bar k\), gives \(\mu_t>0\). Finiteness: \(f(k)>k\) on \((0,\bar k]\), so the increasing sequence \(k_{t+1}=f(k_t)\) cannot converge below \(f^{-1}(\bar k)\).<br>
+      (f) Same \(\bar k\) (and \(\bar c\)): \(\beta f'(\bar k)=1\) does not involve \(U\). With concave \(U\), the smoothing motive makes convergence gradual (asymptotic, at a rate given by the stable root of Lesson 28 and Lesson 30), and \(c_t\) rises smoothly along the way. With linear \(U\), \(c_t\) is zero, then a lump, then constant.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-29-5">
+    <div class="box-title">Exercise 29.5 <span class="tag past">Past exam: Fall 2025 Final Q8, parts 1–3 (extended)</span> (permanent income: the EE fixes the slope, the budget and TC fix the level)</div>
+    <p>A consumer maximises \(E_0\sum_t\beta^tu(c_t)\) with \(u(c)=-\frac12(\bar c-c)^2\) (assume \(c_t\lt\bar c\) throughout), subject to \(a_{t+1}+c_t=w_t+(1+r)a_t\), with \(\beta(1+r)=1\) and income \(w_{t+1}=(1-\rho)\bar w+\rho w_t+\sigma\epsilon_{t+1}\), \(|\rho|\lt1\), where \(\epsilon\) is i.i.d. with mean zero. Impose \(\lim_TE_0(1+r)^{-T}a_{T+1}=0\).</p>
+    <ol class="parts" type="a">
+      <li>Write the stochastic Euler equation and simplify it to an equation in \(c_t\) and \(E_tc_{t+1}\). <span class="pts">(10 pts)</span></li>
+      <li>Explain in two lines why the EE alone cannot determine \(c_t\). Compare with slides 26–30. <span class="pts">(5 pts)</span></li>
+      <li>Iterating the budget and using (a), show that \(c_t=\frac{r}{1+r}\Big[(1+r)a_t+\sum_{j\ge0}(1+r)^{-j}E_tw_{t+j}\Big]\). <span class="pts">(10 pts)</span></li>
+      <li>Use the AR(1) to get \(c_t=ra_t+\bar w+\frac{r}{1+r-\rho}(w_t-\bar w)\). Is the policy linear? Does it depend on \(\sigma\)? <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(u'(c_t)=\beta(1+r)E_tu'(c_{t+1})\), so \(\bar c-c_t=E_t(\bar c-c_{t+1})\), i.e. \(c_t=E_tc_{t+1}\).<br>
+      (b) The EE restricts only <em>changes</em> in consumption (a martingale). Any starting level, followed by \(c_{t+j}\) with \(E_tc_{t+j}=c_t\), satisfies it. As in the deterministic case, too low a level means assets explode at rate \(1+r\) (the TC fails), and too high a level means a Ponzi scheme. The level is pinned down by the budget plus the terminal condition.<br>
+      (c) Iterating \(a_{t}=\frac{1}{1+r}(a_{t+1}+c_t-w_t)\) forward and using the terminal condition gives \(\sum_{j\ge0}(1+r)^{-j}E_tc_{t+j}=(1+r)a_t+\sum_{j\ge0}(1+r)^{-j}E_tw_{t+j}\). With \(E_tc_{t+j}=c_t\), the left side is \(c_t(1+r)/r\).<br>
+      (d) \(E_tw_{t+j}=\bar w+\rho^j(w_t-\bar w)\), so \(\sum_j(1+r)^{-j}E_tw_{t+j}=\bar w\frac{1+r}{r}+(w_t-\bar w)\frac{1+r}{1+r-\rho}\). Substituting gives the formula. It is linear in \((a_t,w_t)\) and independent of \(\sigma\) (certainty equivalence with quadratic utility). With \(\sigma=0\) and \(w_t=\bar w\), it is slide 28's \(c=w+rx\). A persistent income shock (\(\rho\to1\)) is consumed almost one-for-one, while a transitory one (\(\rho=0\)) is consumed only at the annuity rate \(r/(1+r)\).</p>
+    </div></details>
+  </div>
+
+  <div class="takeaways">
+    <h2 id="takeaways">Key takeaways</h2>
+    <ul>
+      <li>The EE is a local condition. In the savings problem with \(\beta(1+r)=1\), <em>every</em> constant-consumption path satisfies it. The TC selects \(c^*=w+rx_0\) (permanent income), and strict concavity makes it unique.</li>
+      <li>With \(\beta(1+r)=1\), every \(\bar x>-w/r\) is a steady state. Uniqueness of the solution and a continuum of steady states coexist.</li>
+      <li>The oversaving path \(c^*-\Delta\) satisfies the EE, but \(\beta^tF_xx_t\to(1+r)U'(\tilde c)\Delta/r>0\). That limit is the utility value of the consumption never eaten. The 2026 slide 30 has the corrected formula.</li>
+      <li>The TC rules out saving too much, and the lower bound on the state (borrowing limit, \(X=\mathbb R_+\)) rules out borrowing too much. Without the lower bound, a Ponzi scheme beats the EE+TC path. Measure the TC from the lower bound.</li>
+      <li>A path converging to a finite steady state satisfies the TC automatically. The TC bites only when the state grows at a rate of at least \(1/\beta\).</li>
+      <li>Linear utility, or any \(F\) with \(F_{xy}=0\): the EE pins down \(x_{t+1}\) directly. The growth-model policy is \(g(k)=\min\{f(k),\bar k\}\): one-period convergence, or a finite corner phase with \(c=0\) and the EE holding as an inequality. The steady state is the same as with concave \(U\).</li>
+    </ul>
+  </div>
+
+  <p>Quick reference: <a href="../reference/euler-transversality-cheatsheet.html">Euler equations &amp; transversality cheatsheet</a>.</p>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "why is necessity of the TC so hard to prove in general?", "redo §3 with a finite horizon and show where the TC comes from", or "what does the no-Ponzi condition look like in a market economy with many consumers?"</div>
+
+  <div class="lesson-nav">
+    <a href="0028-necessity-and-the-shooting-algorithm.html">← Lesson 28: Necessity and the shooting algorithm</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0030-closed-form-decision-rules.html">Lesson 30: Closed-form decision rules →</a>
+  </div>
+
+</div>
+</body>
+</html>
