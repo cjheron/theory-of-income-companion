@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 33 — Local Stability and Almost-Reciprocal Pairs</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part VII: Local Stability &amp; Linearization · Lesson 33 of 39</div>
+    <h1>Local Stability and Almost-Reciprocal Pairs</h1>
+    <div class="meta">Covers <a href="../sources/slides6-stability-linearization.pdf#page=1">Local Stability slides 1–15</a> · About 35 min · Prerequisites: <a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a> (Euler equations), <a href="0028-necessity-and-the-shooting-algorithm.html">Lesson 28</a> (the EE as a difference equation), <a href="0030-closed-form-decision-rules.html">Lesson 30</a> (quadratic F)</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>explain what \(g'(x^*)\) measures and why \(|g'(x^*)|\lt1\) is exactly the condition for local stability;</li>
+      <li>derive the quadratic \(Q(\lambda)=0\) by differentiating the Euler equation at the steady state;</li>
+      <li>state and prove the almost-reciprocal-pairs result: if \(\lambda_1\) solves \(Q=0\) then \(1/(\beta\lambda_1)\) is the other root;</li>
+      <li>identify Case I (one root inside the unit circle → locally stable) vs.\ Case II (both roots outside → unstable steady state);</li>
+      <li>apply everything to the neoclassical growth model: derive \(Q(\lambda)\) explicitly, verify that \(Q(0)>0\) and \(Q(1)\lt0\), and sign the derivative \(g'(k^*)\).</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides6-stability-linearization.pdf#page=1">Local Stability of Optimal Trajectories, Linearization, slides 1–15</a>. The rigorous treatment — using the implicit function theorem to pass from the linearization to an exact local solution — is Stokey, Lucas &amp; Prescott, <em>Recursive Methods in Economic Dynamics</em> (1989), Ch. 6, especially the analysis around steady states for interior solutions. For the neoclassical growth model, Acemoglu, <em>Introduction to Modern Economic Growth</em> (2009), Ch. 6 gives an accessible exposition of the saddle-path dynamics that this lesson sets up.
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s1">1. What local stability means</h2>
+
+  <p><a href="0028-necessity-and-the-shooting-algorithm.html">Lesson 28</a> treated the Euler equation as a second-order difference equation in \(x\) and used a shooting algorithm to find the unique solution that hits the steady state. That approach requires solving a fixed-point problem numerically. Here we ask a more targeted question: given that we <em>are</em> near the steady state \(x^*\), how fast does the optimal path converge? <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=2">Stab p.2</a></p>
+
+  <p>The optimal decision rule \(g:\mathbb R^m\to\mathbb R^m\) maps today's state to tomorrow's optimal state: \(x_{t+1}=g(x_t)\). The steady state satisfies \(x^*=g(x^*)\). For \(x_t\) near \(x^*\), write \(\xi_t\equiv x_t-x^*\) for the deviation. First-order Taylor expansion around \(x^*\):</p>
+  $$x_{t+1}-x^*=g(x_t)-g(x^*)\approx g'(x^*)(x_t-x^*)$$
+  <p>so \(\xi_{t+1}\approx g'(x^*)\xi_t\). In the scalar case \(m=1\), iterating gives \(\xi_t\approx [g'(x^*)]^t\xi_0\). This converges to zero if and only if \(|g'(x^*)|\lt1\).</p>
+
+  <div class="definition" id="def-local-stability">
+    <div class="box-title">Local stability</div>
+    <p>The steady state \(x^*\) is <strong>locally stable</strong> (locally asymptotically stable) if there is a neighbourhood \(U\) of \(x^*\) such that every trajectory starting in \(U\) converges to \(x^*\). For the linearized system \(\xi_{t+1}=g'(x^*)\xi_t\), this holds if and only if \(|g'(x^*)|\lt1\). When \(|g'(x^*)|>1\), paths starting near \(x^*\) diverge away from it; the steady state is <strong>locally unstable</strong>.</p>
+  </div>
+
+  <div class="intuition" id="int-why-derivative-matters">
+    <div class="box-title">Why \(g'(x^*)\) governs speed</div>
+    <p>The derivative \(g'(x^*)\) is a local slope: it says "starting one unit away from steady state, next period you are \(g'(x^*)\) units away." If \(|g'|\lt1\), the gap shrinks each period by a factor \(|g'|\), giving geometric convergence. If \(g'\lt0\), convergence is oscillatory: overshooting then undershooting. If \(g'=0\) (a fixed point with flat policy), you jump straight to steady state in one period. If \(|g'|>1\), the gap grows — which only matters if you happen to start exactly on the optimal path, since the EE+TC system picks the right one.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s2">2. Differentiating the Euler equation</h2>
+
+  <p>The Euler equation holds for every \(x_t\) near \(x^*\) along the optimal path <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=4">Stab p.4</a>:</p>
+  $$F_y(x_t,g(x_t))+\beta F_x(g(x_t),g(g(x_t)))=0\qquad\text{for all }x_t.$$
+  <p>Differentiate both sides with respect to \(x_t\) and evaluate at \(x^*\) (where \(g(x^*)=x^*\)):</p>
+  $$F_{yx}+F_{yy}\,g'(x^*)+\beta\big[F_{xx}+F_{xy}\,g'(x^*)\big]g'(x^*)+\beta F_{xx}=0.$$
+
+  <p>Wait — let's be careful with the chain rule on the second term. Let \(h=g(x_t)\) and \(k=g(h)\). The second term is \(\beta F_x(h,k)\), which depends on \(x_t\) through both \(h=g(x_t)\) and \(k=g(g(x_t))\):</p>
+  $$\frac{\partial}{\partial x_t}\beta F_x(g(x_t),g(g(x_t)))=\beta\big[F_{xx}\cdot g'(x_t)+F_{xy}\cdot g'(g(x_t))\cdot g'(x_t)\big].$$
+  <p>At \(x_t=x^*\), where \(g(x^*)=x^*\) and \(g'(x^*)=\lambda\) (what we're solving for):</p>
+  $$\frac{\partial}{\partial x_t}\big[\beta F_x\big]\bigg|_{x^*}=\beta(F_{xx}+F_{xy}\lambda)\lambda=\beta F_{xx}\lambda+\beta F_{xy}\lambda^2.$$
+  <p>Combining with the first term \(F_{yx}+F_{yy}\lambda\), the full derivative at \(x^*\) is zero:</p>
+  $$0=F_{yx}+F_{yy}\lambda+\beta F_{xx}\lambda+\beta F_{xy}\lambda^2=F_{yx}+[F_{yy}+\beta F_{xx}]\lambda+\beta F_{xy}\lambda^2.$$
+
+  <div class="definition" id="def-Q-lambda">
+    <div class="box-title">The quadratic \(Q(\lambda)\) <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=4">Stab p.4</a></div>
+    <p>All second derivatives are evaluated at the steady state \((x^*,x^*)\). Define</p>
+    $$Q(\lambda)\equiv\beta F_{xy}\,\lambda^2+[F_{yy}+\beta F_{xx}]\,\lambda+F_{yx}.$$
+    <p>\(g'(x^*)\) is a root of \(Q(\lambda)=0\). There are (generically) two roots; the optimal policy picks one.</p>
+  </div>
+
+  <div class="intuition" id="int-Q-interpretation">
+    <div class="box-title">Interpreting \(Q\)</div>
+    <p>Think of \(Q(\lambda)\) as the "linearized Euler equation" written as a polynomial in the slope. The steady-state Euler equation is \(F_y+\beta F_x=0\) (which is what \(Q(1)=0\) would say if the cross-partials were zero and curvatures matched). Instead, \(Q(\lambda)\) captures the full curvature of the return: \(F_{xy}\lambda^2\) is the feedback of next period's choice on current marginal costs, \(F_{yy}\lambda\) is own curvature of return in next-period state, and \(F_{xx}\lambda\) is own curvature in current state.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s3">3. Almost-reciprocal pairs</h2>
+
+  <div class="theorem" id="thm-reciprocal-pairs">
+    <div class="box-title">Theorem: almost-reciprocal pairs <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=5">Stab p.5</a></div>
+    <p>Suppose \(F_{xy}(x^*,x^*)\ne0\). If \(\lambda_1\ne0\) is a root of \(Q(\lambda)=0\), then \(\lambda_2\equiv1/(\beta\lambda_1)\) is also a root.</p>
+  </div>
+
+  <div class="proof" id="pf-reciprocal-pairs">
+    <div class="box-title">Proof</div>
+    <ol class="steps">
+      <li><strong>Write Vieta's formulas.</strong> Since \(Q\) is a monic quadratic (after dividing by \(\beta F_{xy}\)), its two roots \(\lambda_1,\lambda_2\) satisfy:
+        $$\lambda_1+\lambda_2=-\frac{F_{yy}+\beta F_{xx}}{\beta F_{xy}},\qquad \lambda_1\lambda_2=\frac{F_{yx}}{\beta F_{xy}}.$$
+      </li>
+      <li><strong>Use symmetry of mixed partials.</strong> For \(F:X\times X\to\mathbb R\) smooth, \(F_{xy}(x^*,x^*)=F_{yx}(x^*,x^*)\) (Clairaut's theorem, since the arguments are from the same space \(X\)). Therefore
+        $$\lambda_1\lambda_2=\frac{F_{xy}}{\beta F_{xy}}=\frac{1}{\beta}.$$
+      </li>
+      <li><strong>Conclude.</strong> \(\lambda_1\lambda_2=1/\beta\) says exactly that \(\lambda_2=1/(\beta\lambda_1)\). The roots come in "almost reciprocal" pairs: each is the reciprocal of \(\beta\) times the other. \(\square\)</li>
+    </ol>
+  </div>
+
+  <div class="intuition" id="int-why-reciprocal">
+    <div class="box-title">Economic interpretation of the pairing</div>
+    <p>The Euler equation is second-order because it links three periods: \(x_t\), \(x_{t+1}\), \(x_{t+2}\). Its linearization is a quadratic in the slope. The pairing \(\lambda_1\lambda_2=1/\beta\) reflects time-reversal symmetry: running the problem backwards (reversing time) replaces \(\beta\) with \(1/\beta\), swapping \(\lambda_1\) for \(\lambda_2\). This is the discrete-time analogue of the Hamiltonian structure that appears in <a href="0038-hamiltonian-linearization-and-eigenvalues.html">Lesson 38</a>.</p>
+  </div>
+
+  <div class="theorem" id="thm-two-cases">
+    <div class="box-title">Case I vs. Case II <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=6">Stab p.6</a></div>
+    <dl>
+      <dt>Case I (locally stable)</dt>
+      <dd>One root satisfies \(|\lambda_1|\lt1\). Then automatically \(|\lambda_2|=1/(\beta|\lambda_1|)>1/\beta>1\): the other root is outside the unit circle. The optimal policy has \(g'(x^*)=\lambda_1\), giving geometric convergence at rate \(\lambda_1\).</dd>
+      <dt>Case II (locally unstable)</dt>
+      <dd>Both roots satisfy \(|\lambda_i|>1\). The steady state is unstable: any path starting nearby diverges unless it starts exactly on the unstable manifold (a set of measure zero). The EE plus the TC does pick the right path, but it is not one that converges to \(x^*\).</dd>
+    </dl>
+  </div>
+
+  <div class="warning" id="warn-case-two">
+    <div class="box-title">What Case II means economically</div>
+    <p>An unstable steady state is not a problem for the existence of an optimum — the path still exists and the EE+TC still pins it down (Lessons 27–28). But it means the long-run behaviour is <em>not</em> convergence to \(x^*\). The path may converge to a cycle, or escape to a corner, or grow without bound. For models like the AK model (Lesson 31), "steady state" is a constant growth rate, not a fixed point, and stability analysis works differently.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s4">4. The neoclassical growth model</h2>
+
+  <p>Apply these results to \(F(x,y)=U(f(x)-y)\), the return to consuming \(f(x)-y\) when today's capital is \(x\) and tomorrow's is \(y\). <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=12">Stab p.12</a></p>
+
+  <h3 id="s4-derivatives">Computing the second derivatives at the steady state</h3>
+  <p>At the interior steady state \((k^*,k^*)\) with \(c^*=f(k^*)-k^*\), the Euler equation \(1=\beta f'(k^*)\) gives \(f'=1/\beta\). Write \(U'=U'(c^*)\), \(U''=U''(c^*)\), \(f'=1/\beta\), \(f''=f''(k^*)\). The first-order derivatives are:</p>
+  $$F_y=-U',\qquad F_x=U'f'.$$
+  <p>The second-order derivatives (using \(\partial^2/\partial y^2\), etc.):</p>
+  $$F_{yy}=U'',\quad F_{xx}=U''[f']^2+U'f''=\frac{U''}{\beta^2}+U'f'',\quad F_{xy}=F_{yx}=-U''f'=-\frac{U''}{\beta}.$$
+
+  <h3 id="s4-quadratic">The quadratic \(\tilde Q(\lambda)\)</h3>
+  <p>Plug into \(Q(\lambda)=\beta F_{xy}\lambda^2+[F_{yy}+\beta F_{xx}]\lambda+F_{yx}\) and divide by \(-U''>0\) (note \(U''\lt0\)):</p>
+  $$\tilde Q(\lambda)\equiv\lambda^2-\left[1+\frac{1}{\beta}+\frac{f''/f'}{U''/U'}\right]\lambda+\frac{1}{\beta}=0.$$
+  <p>Since both \(f''/f'\lt0\) and \(U''/U'\lt0\) for concave \(f\) and \(U\), the ratio \((f''/f')/(U''/U')\gt0\). Write \(\rho_f\equiv-f''/f'>0\) for the elasticity of marginal product and \(\rho_U\equiv-U''/U'>0\) for the coefficient of relative risk aversion (divided by \(c\)). Then: <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=13">Stab p.13</a></p>
+  $$\tilde Q(\lambda)=\lambda^2-\left[1+\frac{1}{\beta}+\frac{\rho_f}{\rho_U}\right]\lambda+\frac{1}{\beta}.$$
+
+  <h3 id="s4-signs">Signs confirming Case I</h3>
+  <ul>
+    <li>\(\tilde Q(0)=1/\beta>0\) — positive at zero.</li>
+    <li>\(\tilde Q(1)=1-[1+1/\beta+\rho_f/\rho_U]+1/\beta=-\rho_f/\rho_U\lt0\) — negative at one.</li>
+    <li>\(\tilde Q\) is an upward-opening parabola (leading coefficient \(+1>0\)).</li>
+  </ul>
+  <p>Therefore \(\tilde Q\) has exactly one root in \((0,1)\) and one root above \(1/\beta>1\). The optimal policy slope is the root \(\lambda_1\in(0,1)\), confirming that the neoclassical growth model's steady state is <strong>always locally stable</strong> under these standard assumptions.</p>
+
+  <div class="figure" id="fig-Q">
+    <div id="Q-ctrl"></div>
+    <div id="Q-fig"></div>
+    <div id="Q-read"></div>
+    <div class="caption"><b>Interactive.</b> The quadratic \(\tilde Q(\lambda)=\lambda^2-[1+1/\beta+\rho_f/\rho_U]\lambda+1/\beta\). The <span style="color:#2a78d6">blue</span> curve is \(\tilde Q\); the two roots are marked. <b>Try:</b> (1) Raise \(\rho_f/\rho_U\): the middle dip falls further below zero, the stable root \(\lambda_1\) rises toward 1 (slower convergence). (2) Raise \(\beta\) toward 1: \(1/\beta\to1\), the roots pinch together and the stable root approaches 1 from below.</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    const host = document.getElementById('Q-fig');
+    function draw(v) {
+      const b = v.beta, ratio = v.ratio;
+      const coeff = 1 + 1/b + ratio;
+      const disc = coeff*coeff - 4/b;
+      host.innerHTML = '';
+      const x0 = -0.1, x1 = 1/b + 0.3;
+      const Q = x => x*x - coeff*x + 1/b;
+      let ys = [];
+      for (let i = 0; i <= 100; i++) ys.push(Q(x0 + (x1-x0)*i/100));
+      let ymin = Math.min(...ys) - 0.05, ymax = Math.max(...ys) + 0.05;
+      const P = EconPlot.create(host, { x: [x0, x1], y: [ymin, ymax], width: 540, height: 320, xlabel: 'λ', ylabel: 'Q̃(λ)', xticks: 6, yticks: 5, margin: { l: 58, t: 20 } });
+      P.hline(0, { color: C.muted, dash: '4 3' });
+      P.vline(1, { color: C.muted, dash: '3 3' });
+      P.text(1, ymax, 'λ=1', { anchor: 'start', dx: 4, dy: 14, sans: true, size: 12, color: C.muted });
+      P.vline(1/b, { color: C.muted, dash: '3 3' });
+      P.text(1/b, ymax, 'λ=1/β', { anchor: 'start', dx: 4, dy: 14, sans: true, size: 12, color: C.muted });
+      P.fn(Q, { color: C.blue, width: 2.4, domain: [x0, x1], n: 300 });
+      const out = [];
+      if (disc >= 0) {
+        const l1 = (coeff - Math.sqrt(disc))/2, l2 = (coeff + Math.sqrt(disc))/2;
+        P.point(l1, 0, { color: C.orange, r: 5 });
+        P.point(l2, 0, { color: C.violet, r: 5 });
+        P.text(l1, 0, 'λ₁', { dx: -4, dy: 18, italic: true, size: 14, color: C.orange });
+        P.text(l2, 0, 'λ₂', { dx: 4, dy: 18, italic: true, size: 14, color: C.violet });
+        out.push(['λ₁ = g\'(k*) :', l1.toFixed(4)]);
+        out.push(['λ₂ = 1/(βλ₁) :', l2.toFixed(4)]);
+        out.push(['Check λ₁λ₂ = 1/β :', (l1*l2).toFixed(4) + ' vs ' + (1/b).toFixed(4)]);
+        out.push(['Convergence rate |λ₁| :', l1.toFixed(4)]);
+      } else {
+        out.push(['Roots :', 'complex (oscillatory convergence)']);
+      }
+      EconPlot.readout('#Q-read', out);
+    }
+    EconPlot.sliders('#Q-ctrl', [
+      { id: 'ratio', label: 'ρ_f/ρ_U', min: 0.05, max: 3.0, step: 0.05, value: 0.5, fmt: x => x.toFixed(2) },
+      { id: 'beta',  label: 'β',       min: 0.80, max: 0.99, step: 0.01, value: 0.95, fmt: x => x.toFixed(2) }
+    ], draw);
+  })();
+  </script>
+
+  <h3 id="s4-comparative-statics">Comparative statics of the speed of convergence</h3>
+  <p>How does \(\lambda_1=g'(k^*)\in(0,1)\) change with the curvatures of \(U\) and \(f\)? <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=14">Stab p.14</a></p>
+  <ul>
+    <li><strong>Higher \(\rho_U\) (more concave utility, higher risk aversion).</strong> The dip of \(\tilde Q\) at \(\lambda=1\) is \(-\rho_f/\rho_U\), which shrinks in absolute value. The root \(\lambda_1\) rises toward 1: convergence is slower. <em>Intuition:</em> more concave \(U\) means households want smoother consumption and return to steady state more gradually.</li>
+    <li><strong>Higher \(\rho_f\) (more concave technology, faster MPK decline).</strong> The dip at 1 deepens in absolute value, so \(\lambda_1\) falls toward 0: convergence is faster. <em>Intuition:</em> steeper MPK decline means the return to steady-state capital is stronger, pulling the economy back more sharply.</li>
+  </ul>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s5">5. Quiz</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">1. The quadratic \(Q(\lambda)=\beta F_{xy}\lambda^2+[F_{yy}+\beta F_{xx}]\lambda+F_{yx}\) is derived by:</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">evaluating the Euler equation at two different steady states</li>
+        <li class="quiz-option" data-option="b">differentiating the Euler equation with respect to \(x_t\) and evaluating at the steady state</li>
+        <li class="quiz-option" data-option="c">integrating the Euler equation over all possible steady states</li>
+        <li class="quiz-option" data-option="d">substituting \(x_{t+1}=x^*\) into the Euler equation and linearizing</li>
+      </ul>
+      <div class="quiz-explain">The EE \(F_y(x_t,g(x_t))+\beta F_x(g(x_t),g(g(x_t)))=0\) holds for all \(x_t\). Differentiating with respect to \(x_t\) and evaluating at \(x^*\) (where \(g(x^*)=x^*\)) produces the quadratic in \(\lambda=g'(x^*)\).</div>
+    </div>
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">2. The two roots \(\lambda_1,\lambda_2\) of \(Q=0\) always satisfy:</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">\(\lambda_1+\lambda_2=1/\beta\) and \(\lambda_1\lambda_2=1\)</li>
+        <li class="quiz-option" data-option="b">\(\lambda_1+\lambda_2=1\) and \(\lambda_1\lambda_2=1/\beta\)</li>
+        <li class="quiz-option" data-option="c">\(\lambda_1\lambda_2=1/\beta\) and \(\lambda_1+\lambda_2\) depends on \(F\)</li>
+        <li class="quiz-option" data-option="d">\(\lambda_1\lambda_2=\beta\) and \(\lambda_1+\lambda_2\) depends on \(F\)</li>
+      </ul>
+      <div class="quiz-explain">By Vieta: product \(=F_{yx}/(\beta F_{xy})=1/\beta\) (using \(F_{xy}=F_{yx}\)). The sum \(=-(F_{yy}+\beta F_{xx})/(\beta F_{xy})\) depends on the curvatures of \(F\). Option (d) has the product wrong: it is \(1/\beta\), not \(\beta\).</div>
+    </div>
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">3. In the neoclassical growth model, \(\tilde Q(1)=-\rho_f/\rho_U\lt0\) because:</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">\(\rho_f\) and \(\rho_U\) are both positive and divide to a positive ratio</li>
+        <li class="quiz-option" data-option="b">\(\rho_f\) is negative because technology is linear</li>
+        <li class="quiz-option" data-option="c">\(\rho_U\) is zero because utility is linear in this model</li>
+        <li class="quiz-option" data-option="d">\(\tilde Q(1)\) cannot be negative unless \(\beta\gt1\)</li>
+      </ul>
+      <div class="quiz-explain">\(\rho_f=-f''/f'\gt0\) because \(f''\lt0\) and \(f'\gt0\) (concave technology). \(\rho_U=-U''/U'\gt0\) because \(U''\lt0\) and \(U'\gt0\) (concave utility). Their ratio is positive, so \(-\rho_f/\rho_U\lt0\). This sign is what guarantees one root lies in \((0,1)\).</div>
+    </div>
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">4. If Case II holds (both roots \(|\lambda_i|\gt1\)), the steady state is:</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">globally stable, with oscillatory convergence</li>
+        <li class="quiz-option" data-option="b">globally stable, but only from one direction</li>
+        <li class="quiz-option" data-option="c">locally stable, but only on a measure-zero set</li>
+        <li class="quiz-option" data-option="d">locally unstable; nearby optimal paths diverge away from it</li>
+      </ul>
+      <div class="quiz-explain">Both roots outside the unit circle means the linearized system \(\xi_{t+1}=g'(x^*)\xi_t\) has \(|g'|>1\): deviations grow. The steady state is locally unstable. The optimum still exists (EE+TC still pin it down), but convergence to \(x^*\) fails for all starting points \(x_0\ne x^*\).</div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="tf">6. True or false?</h2>
+
+  <ol class="tf-list">
+    <li>If \(|g'(x^*)|\lt1\), the steady state is globally stable.
+      <details class="solution"><summary>Answer</summary><div class="body"><strong>False.</strong> Local stability means convergence from a neighbourhood of \(x^*\), not from every starting point. For global stability you need a global Lyapunov function argument or monotone dynamics. For example, if \(F\) is quadratic the linear decision rule is globally optimal (Exercise 33.2), but for general \(F\) the Taylor approximation is only valid near \(x^*\).</div></details>
+    </li>
+    <li>In the neoclassical growth model, \(g'(k^*)\) always lies in the interval \((0,1)\).
+      <details class="solution"><summary>Answer</summary><div class="body"><strong>True</strong> under the standard assumptions (strictly concave \(U\) and \(f\), interior steady state). The quadratic argument above shows \(\tilde Q(0)=1/\beta>0\) and \(\tilde Q(1)=-\rho_f/\rho_U\lt0\), so the smaller root is in \((0,1)\). Note: if \(U\) were linear (\(\rho_U=0\)), the analysis breaks down (see the note on linear utility in <a href="0029-transversality-at-work.html">Lesson 29</a>).</div></details>
+    </li>
+    <li>If \(\lambda\) is a root of \(Q(\lambda)=0\), then \(\beta\lambda\) is also a root.
+      <details class="solution"><summary>Answer</summary><div class="body"><strong>False.</strong> The partner of \(\lambda_1\) is \(\lambda_2=1/(\beta\lambda_1)\), not \(\beta\lambda_1\). The product of roots is \(1/\beta\), so \(\lambda_2=1/(\beta\lambda_1)\). The two are "almost reciprocal" in the sense that \(\lambda_1\lambda_2\beta=1\). Confusing \(\beta\lambda\) with \(1/(\beta\lambda)\) is a common exam mistake.</div></details>
+    </li>
+    <li>A higher discount factor \(\beta\) (more patient households) always leads to faster convergence in the neoclassical growth model.
+      <details class="solution"><summary>Answer</summary><div class="body"><strong>False.</strong> From \(\tilde Q(\lambda)=\lambda^2-[1+1/\beta+\rho_f/\rho_U]\lambda+1/\beta=0\), increasing \(\beta\) reduces \(1/\beta\), which lowers both the constant term and the coefficient in brackets. The net effect on \(\lambda_1\) is ambiguous in general. Moreover, a higher \(\beta\) shifts the steady state \(k^*\) (since \(\beta f'(k^*)=1\)), so comparing speeds at different \(\beta\) values also involves different steady states.</div></details>
+    </li>
+  </ol>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s6">7. Exercises</h2>
+
+  <div class="box exercise" id="ex-33-1">
+    <div class="box-title">Exercise 33.1 <span class="tag slides">Stab p.9</span> (zero root)</div>
+    <p>Suppose \(F_{xy}(x^*,x^*)=0\).</p>
+    <ol class="parts" type="a">
+      <li>Show that \(\lambda=0\) is a root of \(Q(\lambda)=0\). What does this imply about \(g'(x^*)\)? <span class="pts">(5 pts)</span></li>
+      <li>What is the economic interpretation of \(g'(x^*)=0\)? Under what structural assumption does \(F_{xy}=0\) hold? <span class="pts">(5 pts)</span></li>
+      <li>What happens to the almost-reciprocal-pairs result when \(F_{xy}=0\)? Is the partner of \(\lambda=0\) well-defined? <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (a), plug \(\lambda=0\) into \(Q\) and use \(F_{xy}=0\). For (b), think about what \(g'(x^*)=0\) means for the Taylor expansion \(x_{t+1}-x^*\approx g'(x^*)(x_t-x^*)\). For (c), \(1/(\beta\cdot0)\) is undefined, but look at the quadratic \(Q\) when \(F_{xy}=0\): what kind of polynomial is it?</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(Q(0)=\beta F_{xy}\cdot0+[F_{yy}+\beta F_{xx}]\cdot0+F_{yx}=F_{yx}=F_{xy}=0\). So yes, \(\lambda=0\) is a root, meaning \(g'(x^*)=0\). The Taylor approximation gives \(x_{t+1}-x^*\approx0\cdot(x_t-x^*)=0\): starting from any \(x_0\) near \(x^*\), the economy reaches the steady state <em>in one period</em>.</p>
+      <p>(b) \(g'(x^*)=0\) means the optimal policy is flat at the steady state: today's capital has no first-order effect on next period's target. This holds when \(F_{xy}=0\), which occurs when the return \(F(x,y)\) is additively separable in \(x\) and \(y\) — the marginal cost of increasing \(y\) does not depend on the level of \(x\). The investment problem without adjustment costs (\(F(x,y)=f(x)+(1-\delta)x-y\), so \(F_{xy}=0\)) is the leading example from <a href="0032-adjustment-costs-and-tobins-q.html">Lesson 32</a>.</p>
+      <p>(c) When \(F_{xy}=0\), \(Q(\lambda)=[F_{yy}+\beta F_{xx}]\lambda\) is linear, with only one finite root \(\lambda=0\). The partner \(1/(\beta\cdot0)\) is \(+\infty\), which is consistent: the "unstable root" has gone to infinity, reflecting that there is no second-period feedback. The almost-reciprocal-pairs theorem assumes \(F_{xy}\ne0\) precisely to avoid this degenerate case.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-33-2">
+    <div class="box-title">Exercise 33.2 <span class="tag slides">Stab p.11</span> (quadratic \(F\) gives an exact solution)</div>
+    <p>Suppose \(F(x,y)=ax^2+bxy+cy^2+dx+ey+f\) is quadratic. Show that the linear approximation \(x_{t+1}-x^*=g'(x^*)(x_t-x^*)\) is exact (holds for all \(x_t\), not just those near \(x^*\)), and that \(g'(x^*)=\lambda_1\) is the smaller root of \(Q(\lambda)=0\).</p>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>With quadratic \(F\), the second derivatives \(F_{xx}=2a\), \(F_{xy}=b\), \(F_{yy}=2c\) are constants, so \(Q(\lambda)\) is exactly the equation for the slope of the optimal linear policy \(g(x)=\lambda x+\mu\). Substitute \(g(x)=\lambda_1 x+\mu\) into the Euler equation and check it holds for all \(x\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>Guess a linear policy \(g(x)=\lambda x+\mu\). Substituting into the EE \(F_y(x,g(x))+\beta F_x(g(x),g(g(x)))=0\):</p>
+      <p>\(F_y(x,\lambda x+\mu)=e+b x+2c(\lambda x+\mu)\) and \(F_x(\lambda x+\mu,\lambda^2x+\lambda\mu+\mu)=d+2a(\lambda x+\mu)+b(\lambda^2x+\lambda\mu+\mu)\).</p>
+      <p>For the EE to hold for all \(x\), the coefficient of \(x\) must vanish: \(b+2c\lambda+\beta[2a\lambda+b\lambda^2]=0\), i.e. \(\beta b\lambda^2+2(c+\beta a)\lambda+b=0\). This is exactly \(Q(\lambda)=0\) (with \(F_{xy}=b\), \(F_{yy}=2c\), \(F_{xx}=2a\), \(F_{yx}=b\)). The smaller root \(\lambda_1\) gives the saddle-path slope, and since all derivatives of \(F\) are constants, the Taylor expansion is exact. The intercept \(\mu\) is then determined by the constant terms (the level of the steady state).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-33-3">
+    <div class="box-title">Exercise 33.3 <span class="tag exam">Exam-style</span> (a separable example)</div>
+    <p>Consider the problem \(\max\sum_{t=0}^\infty\beta^t\ln(x_t-y_t)\) subject to \(y_t=x_{t+1}\in[0,x_t]\), so \(F(x,y)=\ln(x-y)\).</p>
+    <ol class="parts" type="a">
+      <li>Find the steady state \(x^*\) (where \(x^*=\beta x^*\) holds from the EE). Show there is no interior steady state. What does this tell you about the applicability of the local stability analysis? <span class="pts">(5 pts)</span></li>
+      <li>Now add a production function: \(F(x,y)=\ln(f(x)-y)\) with \(f(x)=Ax^\alpha\). Find \(x^*\) and compute \(Q(\lambda)\). What is \(g'(x^*)\)? <span class="pts">(10 pts)</span></li>
+      <li>As \(\alpha\to1\) (linear technology), what happens to the stable root? Relate to the AK model of <a href="0031-homogeneous-problems-and-ak-growth.html">Lesson 31</a>. <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (a), the EE is \(-1/(x-y)+\beta(-1/(y-y'))(-1)=0\). At steady state \(y=y'=x\), so \(x-y=0\), which is not in the domain. For (b), use \(F(x,y)=\ln(f(x)-y)\) and compute \(F_{xy},F_{yy},F_{xx}\) as in §4. The steady state solves \(\beta f'(x^*)=1\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) At steady state \(x=y=x^*\), so \(x-y=0\) and \(\ln\) is undefined. There is no interior steady state. The model's solution is to consume all current resources (\(c_t=x_t-y_t>0\) with no accumulation); local stability analysis around a steady state does not apply directly.</p>
+      <p>(b) With \(F(x,y)=\ln(Ax^\alpha-y)\): let \(c=Ax^\alpha-y\). Then \(F_y=-1/c\), \(F_x=A\alpha x^{\alpha-1}/c\). The steady state: \(\beta f'(x^*)=1\Rightarrow\beta A\alpha (x^*)^{\alpha-1}=1\Rightarrow x^*=(\beta A\alpha)^{1/(1-\alpha)}\), and \(c^*=Ax^{*\alpha}-x^*=(1/\beta-1)x^*/(1-\text{something})\). Using the formulas from §4 with \(U(c)=\ln c\), so \(U'=1/c\), \(U''=-1/c^2\), \(\rho_U=-U''c/U'=1\) (log utility has unit EIS), and \(\rho_f=-f''x^*/f'=1-\alpha\): \(\tilde Q(\lambda)=\lambda^2-[1+1/\beta+(1-\alpha)/1]\lambda+1/\beta=0\). Smaller root: \(\lambda_1=g'(k^*)=\beta(1-\alpha)\) (can be verified by substitution; it is the well-known result for the Cobb-Douglas-log neoclassical model).</p>
+      <p>(c) As \(\alpha\to1\): \(\lambda_1=\beta(1-\alpha)\to0\). The stable root goes to zero, meaning any starting point converges to steady state in one period — consistent with the AK model (Lesson 31) where \(k'=\bar g k\) and the "steady state" is a balanced growth path, not a fixed point.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-33-4">
+    <div class="box-title">Exercise 33.4 <span class="tag exam">Exam-style</span> (comparative statics of stability)</div>
+    <p>In the neoclassical growth model \(F(x,y)=U(f(x)-y)\), consider two economies identical except that economy A has \(\rho_U^A=0.5\) and economy B has \(\rho_U^B=2.0\), while both have \(\rho_f=0.3\) and \(\beta=0.95\).</p>
+    <ol class="parts" type="a">
+      <li>Compute \(\tilde Q(\lambda)\) for each economy and find the stable root \(\lambda_1\) numerically. Which economy converges faster to steady state? <span class="pts">(10 pts)</span></li>
+      <li>Give a 2-sentence economic intuition for why the economy with higher \(\rho_U\) converges more slowly. <span class="pts">(5 pts)</span></li>
+      <li>Now hold \(\rho_U=1\) fixed and vary \(\rho_f\). At what value of \(\rho_f\) does \(\lambda_1=1/2\)? <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (a), \(\tilde Q(\lambda)=\lambda^2-[1+1/\beta+\rho_f/\rho_U]\lambda+1/\beta\). Use the quadratic formula. For (c), set \(\lambda_1\lambda_2=1/\beta\) and \(\lambda_1=1/2\) to get \(\lambda_2=2/\beta\). Then \(\lambda_1+\lambda_2=1+1/\beta+\rho_f/\rho_U\) gives \(\rho_f\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Economy A: \(\tilde Q_A(\lambda)=\lambda^2-[1+1/0.95+0.3/0.5]\lambda+1/0.95=\lambda^2-2.653\lambda+1.053\). Roots: \(\lambda_1\approx0.586\). Economy B: \(\tilde Q_B(\lambda)=\lambda^2-[1+1/0.95+0.3/2]\lambda+1/0.95=\lambda^2-2.203\lambda+1.053\). Roots: \(\lambda_1\approx0.730\). Economy A converges faster (lower \(\lambda_1\)).</p>
+      <p>(b) With higher \(\rho_U\), households have a stronger desire to smooth consumption over time. When the economy is away from steady state, they spread the adjustment over many periods rather than making large jumps, so convergence is slower.</p>
+      <p>(c) If \(\lambda_1=1/2\), then \(\lambda_2=2/\beta=2/0.95\approx2.105\). Sum: \(1/2+2/0.95=1+1/\beta+\rho_f/1=1+1/0.95+\rho_f\). So \(\rho_f=1/2+2/0.95-1-1/0.95=1/2+1/0.95-1=1/2+(1/0.95-1)=0.5+0.0526\approx0.553\).</p>
+    </div></details>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="takeaways">
+    <h2 id="takeaways">Key takeaways</h2>
+    <ul>
+      <li>The optimal decision rule \(g(x)\) with \(g(x^*)=x^*\) has slope \(g'(x^*)\) that governs local stability: stable iff \(|g'(x^*)|\lt1\).</li>
+      <li>Differentiating the Euler equation at the steady state produces the quadratic \(Q(\lambda)=\beta F_{xy}\lambda^2+[F_{yy}+\beta F_{xx}]\lambda+F_{yx}=0\), which \(g'(x^*)\) must satisfy.</li>
+      <li>The two roots always satisfy \(\lambda_1\lambda_2=1/\beta\) (product of roots = \(F_{yx}/(\beta F_{xy})=1/\beta\) by symmetry of mixed partials). This "almost-reciprocal" pairing means one root is inside the unit circle iff the other is outside.</li>
+      <li>Case I (one root \(|\lambda|\lt1\)): locally stable, convergence at rate \(\lambda_1\). Case II (both roots \(|\lambda|>1\)): unstable steady state.</li>
+      <li>Neoclassical growth model: \(\tilde Q(0)=1/\beta>0\) and \(\tilde Q(1)=-\rho_f/\rho_U\lt0\), so always Case I. Speed of convergence: lower with high \(\rho_U\) (smooth consumption), higher with high \(\rho_f\) (steep MPK decline).</li>
+      <li>When \(F_{xy}=0\) (additively separable \(F\)), the quadratic degenerates: \(\lambda=0\) is the only finite root, meaning convergence in one period (the frictionless investment benchmark of Lesson 32).</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything about this lesson. Good questions: "Why does the product of roots equal \(1/\beta\) and not \(\beta\)?", "How does this relate to the phase diagram of the neoclassical model?", or "What happens if the two roots are complex conjugates?"</div>
+
+  <div class="lesson-nav">
+    <a href="0032-adjustment-costs-and-tobins-q.html">← Lesson 32: Adjustment costs and Tobin's q</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0034-stable-subspaces-and-linear-systems.html">Lesson 34: Stable subspaces and linear systems →</a>
+  </div>
+
+</div>
+</body>
+</html>

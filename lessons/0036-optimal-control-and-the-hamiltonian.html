@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 36 — Optimal Control and the Hamiltonian</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part VIII: Continuous-Time Optimal Control · Lesson 36 of 39</div>
+    <h1>Optimal Control and the Hamiltonian</h1>
+    <div class="meta">Covers <a href="../sources/slides7-hamiltonian.pdf#page=1">Hamiltonian slides 1–20</a> · About 40 min · Prerequisites: <a href="0027-euler-equations-and-sufficiency.html">Lesson 27</a> (discrete-time Euler equations), <a href="0035-linearizing-the-dpp-and-decision-rules.html">Lesson 35</a> (linearization)</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>write a continuous-time optimal control problem: identify the state \(x\in\mathbb R^m\), the control \(u\in\mathbb R^n\), the flow return \(h\), and the law of motion \(g\);</li>
+      <li>define the current-value Hamiltonian \(H(x,u,\lambda)=h(x,u)+\lambda'g(x,u)\) and interpret the costate \(\lambda(t)\) as a shadow price;</li>
+      <li>state the three first-order conditions (\(H_u=0\), \(\dot\lambda=\rho\lambda-H_x\), \(\dot x=H_\lambda\)) and the transversality condition, and explain where each comes from;</li>
+      <li>sketch the Lagrangian proof: attach the multiplier \(e^{-\rho t}\lambda(t)\) to the constraint, integrate by parts, and differentiate;</li>
+      <li>define the maximized Hamiltonian \(H^*(x,\lambda)=\max_u H\) and state the envelope derivatives \(H^*_x=H_x\) and \(H^*_\lambda=\dot x\).</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides7-hamiltonian.pdf#page=1">Maximum Principle, Hamiltonian — Deterministic Continuous Time Problems</a>, slides 1–20. The standard reference for the maximum principle is L. Pontryagin et al. (1962), <em>The Mathematical Theory of Optimal Processes</em>; for the economics treatment see D. Acemoglu, <em>Introduction to Modern Economic Growth</em> (2009), ch. 7, or the compact account in R. Barro &amp; X. Sala-i-Martin, <em>Economic Growth</em> (2004), Appendix A. The Lagrangian proof by integration by parts is a heuristic derivation in the spirit of the slides; the rigorous treatment requires additional technical conditions. Formulas for this part of the course are collected in the <a href="../reference/hamiltonian-cheatsheet.html">Hamiltonian cheatsheet</a>.
+  </div>
+
+  <div class="notation">
+    <div class="box-title">Notation for Part VIII</div>
+    <ul>
+      <li><strong>Continuous time.</strong> Time is \(t\in[0,\infty)\). Dots denote time derivatives: \(\dot x(t)=dx/dt\). We suppress the argument \(t\) when clear.</li>
+      <li><strong>State and control.</strong> \(x\in X\subseteq\mathbb R^m\) is the state vector (predetermined stocks). \(u\in U\subseteq\mathbb R^n\) is the control vector (freely chosen flows at each instant).</li>
+      <li><strong>Costate.</strong> \(\lambda\in\mathbb R^m\) is the costate (co-state, adjoint) variable. It is the continuous-time analogue of the discrete-time Lagrange multiplier on the transition equation. The present-value costate is \(e^{-\rho t}\lambda(t)\).</li>
+      <li><strong>Subscripts.</strong> \(H_u\), \(H_x\), \(H_\lambda\) denote partial derivatives (vectors or matrices). \(H^*\) is the <em>maximized</em> Hamiltonian; \(H\) without a star is the Hamiltonian evaluated at a specific \(u\).</li>
+      <li><strong>Hamiltonian vs. Euler-equation notation.</strong> The continuous-time Euler equation (slide 13) is \(\rho F_x(x,\dot x)+F_{xx}\dot x+F_{x\dot x}\ddot x=0\); the Hamiltonian approach makes it a first-order system in \((x,\lambda)\), which is easier to linearize.</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s1">1. The continuous-time optimal control problem</h2>
+
+  <p>Everything in Parts VI–VII used discrete time. Now time is continuous. The planner chooses a path of controls \(\{u(t)\}_{t\ge0}\) to maximize the present value of the flow return \(h\), subject to the state \(x\) evolving according to a differential equation <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=3">Ham p.3</a>:</p>
+
+  $$V^*(x_0)=\max_{\{u(t)\}_{t\ge0}}\lim_{T\to\infty}\int_0^T e^{-\rho t}h(x(t),u(t))\,dt$$
+  $$\text{subject to}\quad\dot x(t)=g(x(t),u(t)),\quad x(0)=x_0\text{ given},\quad u(t)\in U.$$
+
+  <p>The ingredients:</p>
+  <ul>
+    <li><strong>State</strong> \(x(t)\in X\subseteq\mathbb R^m\): stocks that carry information across time — capital, wealth, pollution. The state has an initial condition \(x(0)=x_0\) and evolves through the differential equation; it cannot jump.</li>
+    <li><strong>Control</strong> \(u(t)\in U\subseteq\mathbb R^n\): flows chosen freely at each instant — consumption, investment, labour. There is no initial condition; the planner picks it at every \(t\).</li>
+    <li><strong>Flow return</strong> \(h(x,u)\): the per-unit-time contribution to the objective at time \(t\), evaluated at present value by the discount factor \(e^{-\rho t}\).</li>
+    <li><strong>Law of motion</strong> \(g(x,u)\): how the state changes at rate \(\dot x=g\). This is the continuous-time analogue of \(x_{t+1}=g(x_t,u_t)\).</li>
+  </ul>
+
+  <div class="intuition" id="int-discrete-to-continuous">
+    <div class="box-title">From discrete to continuous time</div>
+    <p>In the discrete-time problem of Lessons 26–32, the state at \(t+1\) depends on \(x_t\) and the choice \(y\in\Gamma(x_t)\). In continuous time the same logic applies at every instant: the rate of change \(\dot x=g(x,u)\) plays the role of "where next-period capital goes." The discount factor \(e^{-\rho t}\) is the continuous limit of \(\beta^t=e^{t\ln\beta}\), with \(\rho=-\ln\beta\approx 1-\beta\) for small discount rates. The key new element is that the state equation is now a differential equation, which allows the Hamiltonian and calculus-of-variations machinery.</p>
+  </div>
+
+  <p><strong>Standard example.</strong> The neoclassical growth model in continuous time. State: capital \(k\). Control: consumption \(c\). Flow return: \(h(k,c)=U(c)\). Law of motion: \(\dot k=g(k,c)=f(k)-\delta k-c\). The problem is <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=12">Ham p.12</a>:</p>
+  $$V^*(k_0)=\max_{\{c(t)\ge0\}}\int_0^\infty e^{-\rho t}U(c(t))\,dt\quad\text{s.t. }\dot k=f(k)-\delta k-c,\quad k(0)=k_0.$$
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s2">2. The Hamiltonian and the costate</h2>
+
+  <p>The Hamiltonian converts the constrained dynamic problem into a family of static problems. For each \(t\), attach the multiplier \(\lambda(t)\in\mathbb R^m\) — the <strong>costate</strong> — to the constraint \(\dot x=g(x,u)\) <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=4">Ham p.4</a>:</p>
+
+  <div class="definition" id="def-hamiltonian">
+    <div class="box-title">Definition: the current-value Hamiltonian</div>
+    $$H(x,u,\lambda)=h(x,u)+\lambda'g(x,u)=h(x,u)+\sum_{i=1}^m\lambda_i g^i(x,u).$$
+    <p>\(\lambda(t)\in\mathbb R^m\) is the costate variable (or adjoint). \(e^{-\rho t}\lambda_i(t)\) is the marginal value at time \(0\) of a unit increase in state \(x_i\) at time \(t\). The Hamiltonian adds the flow return \(h\) to the value of the state's rate of change \(\lambda'g\), just as a present-value Lagrangian would.</p>
+  </div>
+
+  <div class="intuition" id="int-costate-asset-price">
+    <div class="box-title">The costate as an asset price</div>
+    <p>Think of \(\lambda(t)\) as the price of the state: the marginal value to the planner of an extra unit of \(x\) right now. The costate equation (§3) says \(\dot\lambda=\rho\lambda-H_x\). Rearranging: \(\rho\lambda=H_x+\dot\lambda\). This is a no-arbitrage condition: the required rate of return \(\rho\) on the "asset" \(\lambda\) equals its dividend \(H_x\) (the marginal value of the state in producing \(h\) and \(g\)) plus its capital gain \(\dot\lambda\). This is exactly the formula \(\rho P=D+\dot P\) for a stock with price \(P\), dividend \(D\), and capital gain \(\dot P\). In the neoclassical model, \(\lambda=U'(c)\) and the costate equation becomes the Keynes-Ramsey rule.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s3">3. First-order conditions and transversality</h2>
+
+  <p>Under regularity and concavity conditions, the following are necessary and sufficient for optimality <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=5">Ham p.5</a>:</p>
+
+  <div class="theorem" id="thm-maximum-principle">
+    <div class="box-title">The Maximum Principle (Pontryagin)</div>
+    <p>Let \(u^*(t)\) and \(x^*(t)\) be optimal. There exists a costate path \(\lambda(t)\) such that for all \(t\ge0\):</p>
+    <ol>
+      <li><strong>Static optimality (control):</strong> \(H_u(x^*,u^*,\lambda)=0\) \([\,n\times1]\). Equivalently, \(u^*=\arg\max_{u\in U}H(x^*,u,\lambda)\) for each \(t\).</li>
+      <li><strong>Costate equation (the EE):</strong> \(\dot\lambda(t)=\rho\lambda(t)-H_x(x^*,u^*,\lambda)\) \([\,m\times1]\).</li>
+      <li><strong>State equation:</strong> \(\dot x(t)=H_\lambda(x^*,u^*,\lambda)=g(x^*,u^*)\) \([\,m\times1]\).</li>
+      <li><strong>Transversality condition:</strong> \(\displaystyle\lim_{T\to\infty}e^{-\rho T}\lambda(T)'\,x(T)=0\).</li>
+    </ol>
+  </div>
+
+  <p>Three things to notice:</p>
+  <ul>
+    <li><strong>Condition 1 is static.</strong> At each instant \(t\), the planner maximizes \(H\) over \(u\) holding \((x,\lambda)\) fixed. The dynamic problem has been converted to an infinite sequence of static problems.</li>
+    <li><strong>Condition 2 is the EE in continuous time.</strong> Compare with the discrete-time Euler equation \(F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0\). In both, the costate evolves to reflect the declining marginal value of the state.</li>
+    <li><strong>The TC eliminates over-accumulation.</strong> Just as in discrete time (\(\lim\beta^tF_x x_t=0\)), the TC rules out paths that accumulate too much of the state forever. It is the boundary condition that pins down \(\lambda(0)\).</li>
+  </ul>
+
+  <p><strong>Neoclassical growth, fully worked.</strong> With \(h=U(c)\) and \(g=f(k)-\delta k-c\) <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=12">Ham p.12</a>:</p>
+  <ul>
+    <li>\(H(k,c,\lambda)=U(c)+\lambda(f(k)-\delta k-c)\).</li>
+    <li>(1) \(H_c=U'(c)-\lambda=0\implies\lambda=U'(c)\).</li>
+    <li>(2) \(\dot\lambda=\rho\lambda-H_k=\rho\lambda-\lambda(f'(k)-\delta)=\lambda(\rho+\delta-f'(k))\).</li>
+    <li>(3) \(\dot k=H_\lambda=f(k)-\delta k-c\).</li>
+    <li>Eliminating \(\lambda\): differentiate \(\lambda=U'(c)\) to get \(\dot\lambda=U''(c)\dot c\). Substituting into (2): \(U''(c)\dot c=U'(c)(\rho+\delta-f'(k))\), i.e. \(\dot c/c=\big(f'(k)-\rho-\delta\big)/\sigma(c)\), the <strong>Keynes-Ramsey rule</strong>, where \(\sigma(c)=-cU''/U'>0\) is the elasticity of intertemporal substitution.</li>
+  </ul>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s4">4. The Lagrangian proof</h2>
+
+  <p>Here is a heuristic derivation showing where the conditions come from <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=8">Ham p.8</a>. Form the Lagrangian by attaching the multiplier \(e^{-\rho t}\lambda(t)\) to the constraint \(g(x,u)-\dot x=0\):</p>
+
+  $$\mathcal{L}=\lim_{T\to\infty}\int_0^T e^{-\rho t}h(x,u)\,dt+\lim_{T\to\infty}\int_0^T e^{-\rho t}\lambda'[g(x,u)-\dot x]\,dt.$$
+
+  <p>The second integral contains \(\dot x\). Integrate by parts: \(\int_0^T e^{-\rho t}\lambda'\dot x\,dt=e^{-\rho t}\lambda'x\Big|_0^T+\int_0^T(\rho e^{-\rho t}\lambda'-e^{-\rho t}\dot\lambda')\,x\,dt\). Substituting back:</p>
+
+  $$\mathcal{L}=\lim_{T\to\infty}\int_0^T e^{-\rho t}\big[h(x,u)+\lambda'g(x,u)-\rho\lambda'x+\dot\lambda'x\big]\,dt-\lim_{T\to\infty}e^{-\rho T}\lambda'x+\lambda(0)'x_0.$$
+
+  <p>Now stationarity of \(\mathcal{L}\):</p>
+
+  <div class="proof" id="pf-lagrangian-derivation">
+    <div class="box-title">Derivation of the FOCs</div>
+    <ol class="steps">
+      <li><strong>Stationarity in \(u\).</strong> \(d\mathcal{L}/du(t)=e^{-\rho t}[h_u+\lambda'g_u]=0\), giving \(H_u(x,u,\lambda)=0\).</li>
+      <li><strong>Stationarity in \(x(t)\) for \(t>0\).</strong> \(d\mathcal{L}/dx(t)=e^{-\rho t}[h_x+\lambda'g_x-\rho\lambda'+\dot\lambda']=0\). Transposing: \(\dot\lambda=\rho\lambda-h_x-\lambda'g_x=\rho\lambda-H_x\). This is the costate equation.</li>
+      <li><strong>Transversality.</strong> The boundary term \(\lim_{T\to\infty}e^{-\rho T}\lambda'x=0\) must vanish for the Lagrangian to be well-defined. This is the TC.</li>
+      <li><strong>The state equation</strong> \(\dot x=g(x,u)=H_\lambda\) is not a stationarity condition but the original constraint, which has been enforced.</li>
+    </ol>
+  </div>
+
+  <div class="warning" id="warn-heuristic">
+    <div class="box-title">This proof is a heuristic</div>
+    <p>Differentiating inside the integral requires regularity conditions (continuous \(\lambda\), absolute integrability of the terms). The rigorous proof of the maximum principle uses a more careful perturbation argument. See Acemoglu ch. 7 for a detailed treatment. The slides use this approach as an intuition for where the conditions come from, not as a rigorous proof.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s5">5. The maximized Hamiltonian</h2>
+
+  <p>Define the <strong>maximized Hamiltonian</strong> (also called the value function in \(u\)) <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=16">Ham p.16</a>:</p>
+
+  <div class="definition" id="def-maximized-hamiltonian">
+    <div class="box-title">Definition: the maximized Hamiltonian</div>
+    $$H^*(x,\lambda)\equiv\max_{u\in U}H(x,u,\lambda),\quad\text{achieved at }u^*(x,\lambda).$$
+  </div>
+
+  <p>The envelope theorem gives the derivatives of \(H^*\):</p>
+  $$H^*_x(x,\lambda)=H_x(x,u^*(x,\lambda),\lambda)=h_x+\lambda'g_x,$$
+  $$H^*_\lambda(x,\lambda)=H_\lambda(x,u^*(x,\lambda),\lambda)=g(x,u^*(x,\lambda))=\dot x.$$
+
+  <p>So the system \(\dot\lambda=\rho\lambda-H^*_x\) and \(\dot x=H^*_\lambda\) describes the optimal path in terms of only \((x,\lambda)\) — the control \(u^*\) has been substituted out. This is the form we will linearize in Lesson 38.</p>
+
+  <p><strong>Properties of \(H^*\):</strong></p>
+  <ul>
+    <li>\(H^*\) is <strong>convex in \(\lambda\)</strong>: it is the maximum of functions \(h(x,u)+\lambda'g(x,u)\) that are linear in \(\lambda\). By a conjugacy argument, \(H^*_{\lambda\lambda}\ge0\).</li>
+    <li>\(H^*\) is <strong>concave in \(x\)</strong> if \(H(x,u,\lambda)\) is jointly concave in \((x,u)\) for the relevant \(\lambda\). Under concavity, the FOCs plus TC are sufficient.</li>
+  </ul>
+
+  <p><strong>Neoclassical growth: \(H^*\) worked out.</strong> The FOC gives \(c^*(\lambda)=(U')^{-1}(\lambda)\). Substituting:</p>
+  $$H^*(k,\lambda)=U(c^*(\lambda))+\lambda(f(k)-\delta k-c^*(\lambda)).$$
+  <p>Derivatives: \(H^*_k=\lambda(f'(k)-\delta)\), \(H^*_\lambda=f(k)-\delta k-c^*(\lambda)=\dot k\). Second derivatives: \(H^*_{kk}=\lambda f''(k)\lt0\) (negative when \(\lambda=U'(c)>0\) and \(f''\lt0\)), \(H^*_{\lambda\lambda}=-1/U''(c^*(\lambda))>0\), \(H^*_{k\lambda}=f'(k)-\delta\).</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s6">6. Quiz</h2>
+
+  <div class="quiz-section">
+
+    <div class="quiz-question" data-correct="b">
+      <p class="quiz-title">The costate \(e^{-\rho t}\lambda(t)\) measures:</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The rate of change of the control at time \(t\)</li>
+        <li class="quiz-option" data-option="b">The shadow price of the state at time zero</li>
+        <li class="quiz-option" data-option="c">The marginal product of capital at time \(t\)</li>
+        <li class="quiz-option" data-option="d">The discounted flow return at the optimum</li>
+      </ul>
+      <div class="quiz-explain">\(e^{-\rho t}\lambda(t)\) is the present-value (time-0) shadow price of a marginal unit of the state \(x\) at time \(t\): the extra objective value at time 0 from having one more unit of \(x\) available at time \(t\). \(\lambda(t)\) itself is the current-value shadow price at time \(t\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <p class="quiz-title">Which first-order condition corresponds to static optimality in the control?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The condition \(H_u(x,u,\lambda)=0\) at every \(t\)</li>
+        <li class="quiz-option" data-option="b">The condition \(\dot\lambda=\rho\lambda-H_x\) at every \(t\)</li>
+        <li class="quiz-option" data-option="c">The condition \(\dot x=H_\lambda=g(x,u)\) at every \(t\)</li>
+        <li class="quiz-option" data-option="d">The condition \(\lim e^{-\rho T}\lambda'x=0\) as \(T\to\infty\)</li>
+      </ul>
+      <div class="quiz-explain">\(H_u=0\) is the first-order condition for maximizing \(H\) over \(u\) at each instant, holding \((x,\lambda)\) fixed. It is "static" because the choice of \(u\) has no dynamic consequences beyond its effect through \(g\), which is already captured in \(\lambda'g\). The others are the costate equation, state equation, and transversality.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <p class="quiz-title">Why is \(H^*(x,\lambda)\) convex in \(\lambda\)?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Because \(h\) is a concave function of the control</li>
+        <li class="quiz-option" data-option="b">Because the feasibility set \(U\) is convex and bounded</li>
+        <li class="quiz-option" data-option="c">Because the law of motion \(g\) is convex in the state</li>
+        <li class="quiz-option" data-option="d">Because it is the pointwise maximum of linear functions</li>
+      </ul>
+      <div class="quiz-explain">\(H^*(x,\lambda)=\max_u[h(x,u)+\lambda'g(x,u)]\) is the supremum over \(u\) of functions that are linear in \(\lambda\). The maximum of any family of linear (hence convex) functions is convex. This is the same logic as the profit function being convex in prices.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <p class="quiz-title">In the Keynes-Ramsey rule \(\dot c/c=(f'(k)-\rho-\delta)/\sigma\), what does \(\sigma\) measure?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The marginal propensity to save from income</li>
+        <li class="quiz-option" data-option="b">The inverse of the coefficient of relative risk aversion</li>
+        <li class="quiz-option" data-option="c">The elasticity of intertemporal substitution in consumption</li>
+        <li class="quiz-option" data-option="d">The rate of depreciation of physical capital stock</li>
+      </ul>
+      <div class="quiz-explain">\(\sigma(c)=-U'(c)/(cU''(c))=-1/[cU''(c)/U'(c)]\) is the elasticity of intertemporal substitution (EIS): how much the household is willing to substitute consumption over time in response to a higher return. The coefficient of relative risk aversion is \(-cU''/U'=1/\sigma\). For \(U(c)=c^{1-1/\sigma}/(1-1/\sigma)\), the EIS is the constant \(\sigma\).</div>
+    </div>
+
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s7">7. True or False</h2>
+
+  <div class="box exercise" id="tf">
+    <div class="box-title">True or False — justify in one or two lines</div>
+    <ol class="tf-list">
+      <li>The costate \(\lambda(t)\) is always non-negative along an optimal path. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The costate is the shadow price of the state, which can be negative. For example, if the state were a pollutant stock, adding more of it is harmful, so \(\lambda\lt0\). In the neoclassical growth model \(\lambda=U'(c)>0\), but that is a special case, not a general rule.</p></div></details></li>
+      <li>The Hamiltonian \(H(x,u,\lambda)\) must equal zero along an optimal interior path. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> Along an optimal path of an autonomous problem, \(e^{-\rho t}H(x^*,u^*,\lambda)\) is constant (not necessarily zero). This is the analogue of the Hamiltonian being conserved in physics. \(H=0\) holds in problems with a finite horizon \(T\) and free terminal time, as a transversality condition in control — a different setting from the infinite-horizon discounted problem here.</p></div></details></li>
+      <li>The transversality condition \(\lim_{T\to\infty}e^{-\rho T}\lambda'x=0\) rules out over-accumulation of the state. <span class="tf-src">Ham p.5</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> In the neoclassical growth model, it rules out the "over-saving" path: accumulating capital forever at a rate that makes \(\beta^T\lambda_Tk_T\not\to0\). Just as in the discrete-time case (Lesson 29), paths that over-save satisfy the Euler equation but not the TC, and cannot be optimal. The TC is the boundary condition that selects the saddle path.</p></div></details></li>
+      <li>If \(h\) and \(g\) are both linear in \(u\), then \(H_u=0\) gives a unique optimal control at each \(t\). <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> If \(H=h+\lambda'g\) is linear in \(u\), then \(H_u\) is a constant (independent of \(u\)), so \(H_u=0\) either holds for all \(u\) (indeterminate) or for none (corner solution). An interior maximizer of \(H\) over \(u\) requires that \(H\) be strictly concave in \(u\), i.e. \(H_{uu}\prec0\). The LQR case (Lesson 39) with \(h\) quadratic and \(g\) linear achieves this.</p></div></details></li>
+      <li>The maximized Hamiltonian \(H^*(x,\lambda)=\max_u H\) satisfies \(H^*_\lambda=\dot x\) along the optimal path. <span class="tf-src">Ham p.16</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> By the envelope theorem, \(H^*_\lambda=\partial H/\partial\lambda|_{u=u^*}=g(x,u^*)=\dot x\). The maximization over \(u\) holds \(\lambda\) fixed, and the derivative of the optimal value with respect to the parameter \(\lambda\) equals the derivative of the objective at the optimal \(u^*\).</p></div></details></li>
+    </ol>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s8">8. Exercises</h2>
+
+  <div class="box exercise" id="ex-36-1">
+    <div class="box-title">Exercise 36.1 <span class="tag slides">Ham p.12</span> <span class="tag slides">Ham p.18</span> (neoclassical growth)</div>
+    <p>The neoclassical growth model: \(h(k,c)=U(c)\), \(g(k,c)=f(k)-\delta k-c\), where \(U\) is strictly increasing, strictly concave, and satisfies Inada conditions; \(f\) is strictly increasing, strictly concave, and satisfies Inada conditions.</p>
+    <ol class="parts" type="a">
+      <li>Write \(H(k,c,\lambda)\) and find the optimal control \(c^*(\lambda)\) from \(H_c=0\). What regularity condition on \(U\) ensures the FOC gives a unique interior \(c^*\)? <span class="pts">(10 pts)</span></li>
+      <li>Write the costate equation \(\dot\lambda=\rho\lambda-H_k\). Using \(\lambda=U'(c)\), derive the Keynes-Ramsey rule \(\dot c/c=(f'(k)-\rho-\delta)/\sigma(c)\). <span class="pts">(10 pts)</span></li>
+      <li>Write the maximized Hamiltonian \(H^*(k,\lambda)\). Compute \(H^*_{kk}\), \(H^*_{\lambda\lambda}\) and \(H^*_{k\lambda}\). Check the signs, given \(\lambda>0\). <span class="pts">(10 pts)</span></li>
+      <li>Interpret \(\lambda\) as the marginal utility of consumption. Write the costate equation as \(\dot\lambda/\lambda=\rho-(f'(k)-\delta)\). What condition on \(f'(k)\) makes \(\lambda\) grow over time? Give economic intuition: when would you save more? <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (b), differentiate \(\lambda=U'(c)\) with respect to \(t\): \(\dot\lambda=U''(c)\dot c\). Substitute into the costate equation and divide by \(\lambda=U'(c)\) to get \(U''(c)\dot c/U'(c)=\rho-(f'(k)-\delta)\). The EIS is \(\sigma=-U'/(cU'')\), so \(\dot c/c=\sigma[f'(k)-\rho-\delta]\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(H=U(c)+\lambda(f(k)-\delta k-c)\). \(H_c=U'(c)-\lambda=0\implies c^*(\lambda)=(U')^{-1}(\lambda)\). This is well-defined and unique iff \(U'\) is strictly decreasing, i.e. \(U''\lt0\) (strict concavity). Inada ensures \(c^*>0\).</p>
+      <p>(b) \(H_k=\lambda(f'(k)-\delta)\). Costate: \(\dot\lambda=\rho\lambda-\lambda(f'(k)-\delta)=\lambda(\rho+\delta-f'(k))\). Differentiating \(\lambda=U'(c)\): \(\dot\lambda=U''(c)\dot c\). So \(U''(c)\dot c=U'(c)(\rho+\delta-f'(k))\). Dividing: \(\dot c/c=-U'/(cU'')\cdot(\rho+\delta-f'(k))=\sigma(c)(f'(k)-\rho-\delta)\), which is the Keynes-Ramsey rule.</p>
+      <p>(c) \(H^*(k,\lambda)=U(c^*(\lambda))+\lambda(f(k)-\delta k-c^*(\lambda))\). Using the envelope: \(H^*_{kk}=\lambda f''(k)\lt0\) (since \(\lambda=U'(c)>0\) and \(f''\lt0\)). \(H^*_{\lambda\lambda}=-1/U''(c^*(\lambda))>0\) (since \(U''\lt0\)). \(H^*_{k\lambda}=f'(k)-\delta\gt0\) (since \(f'\gt\delta\) in a productive economy).</p>
+      <p>(d) From (b): \(\dot\lambda/\lambda=\rho-(f'(k)-\delta)\). The costate grows (\(\dot\lambda>0\)) when \(f'(k)-\delta\lt\rho\), i.e. the net return on capital is less than the discount rate. Intuition: if capital is so scarce that its return exceeds \(\rho\), save more (increase \(k\)) → the marginal utility of consumption \(\lambda\) falls → \(\dot\lambda\lt0\). If capital is abundant and its return is below \(\rho\), dissave → \(\lambda\) rises.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-36-2">
+    <div class="box-title">Exercise 36.2 <span class="tag slides">Ham p.17</span> (variable labor supply)</div>
+    <p>Extend the growth model: add labor supply \(\ell\in[0,1]\) as a second control. The flow return is \(h(k,c,\ell)=U(c,1-\ell)\) (utility of consumption and leisure \(1-\ell\)). The law of motion is \(\dot k=f(k,\ell)-\delta k-c\) where \(f\) has constant returns in \((k,\ell)\).</p>
+    <ol class="parts" type="a">
+      <li>Write \(H(k,c,\ell,\lambda)\). Write the two FOCs \(H_c=0\) and \(H_\ell=0\). <span class="pts">(10 pts)</span></li>
+      <li>Interpret the condition \(H_\ell=0\): what static efficiency condition does it deliver? <span class="pts">(5 pts)</span></li>
+      <li>Write the costate equation. Show that it still reduces to \(\dot\lambda/\lambda=\rho+\delta-f_k(k,\ell^*)\) where \(\ell^*\) is the optimal labor. <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (b), \(H_\ell=0\) gives \(-U_{1-\ell}+\lambda f_\ell=0\), where \(U_{1-\ell}=-\partial U/\partial\ell\) is the marginal utility of leisure. This says the marginal utility of leisure equals the shadow price of capital times the marginal product of labor.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(H=U(c,1-\ell)+\lambda(f(k,\ell)-\delta k-c)\). \(H_c=U_c-\lambda=0\implies\lambda=U_c\). \(H_\ell=-U_{1-\ell}+\lambda f_\ell=0\implies U_{1-\ell}=\lambda f_\ell\).</p>
+      <p>(b) The condition says "the MRS between leisure and consumption equals the marginal product of labor": \(U_{1-\ell}/U_c=f_\ell\). This is the intratemporal efficiency condition: at each instant, labor supply equalizes the marginal rate of substitution to the wage \(f_\ell\). It is the continuous-time analogue of the static labor supply condition.</p>
+      <p>(c) \(\dot\lambda=\rho\lambda-H_k=\rho\lambda-\lambda(f_k(k,\ell^*)-\delta)\). Dividing by \(\lambda\): \(\dot\lambda/\lambda=\rho+\delta-f_k(k,\ell^*)\). The costate equation has the same structure as before, with \(f_k\) evaluated at the optimal labor supply.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-36-3">
+    <div class="box-title">Exercise 36.3 <span class="tag exam">Exam-style</span> (optimal savings)</div>
+    <p>A household chooses consumption \(c(t)\ge0\) to maximize \(\int_0^\infty e^{-\rho t}U(c)\,dt\) subject to \(\dot a=ra+y-c\), where \(a(t)\) is wealth, \(r\) is a constant interest rate, and \(y\) is constant labor income. Assume \(\rho>r\) (impatience exceeds the return).</p>
+    <ol class="parts" type="a">
+      <li>Write the Hamiltonian \(H(a,c,\lambda)\) and derive the three FOCs. <span class="pts">(10 pts)</span></li>
+      <li>Show that the costate equation gives \(\dot\lambda=(\rho-r)\lambda\). Solve for \(\lambda(t)\) given \(\lambda(0)\). <span class="pts">(5 pts)</span></li>
+      <li>Using \(\lambda=U'(c)\), derive the consumption growth equation. What sign does it have when \(\rho>r\)? <span class="pts">(5 pts)</span></li>
+      <li>Verify the transversality condition: show that \(e^{-\rho t}\lambda(t)a(t)\to0\) as \(t\to\infty\) requires the household's intertemporal budget to hold (the NPV of spending equals initial wealth plus NPV of income). <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (b), \(H_a=r\lambda\). For (d), integrate the budget constraint \(\dot a=ra+y-c\) using the integrating factor \(e^{-rt}\), and use the TC to eliminate the boundary term at infinity.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(H=U(c)+\lambda(ra+y-c)\). \(H_c=U'(c)-\lambda=0\implies\lambda=U'(c)\). Costate: \(\dot\lambda=\rho\lambda-H_a=\rho\lambda-r\lambda=(\rho-r)\lambda\). State: \(\dot a=H_\lambda=ra+y-c\).</p>
+      <p>(b) \(\dot\lambda=(\rho-r)\lambda\implies\lambda(t)=\lambda(0)e^{(\rho-r)t}\). Since \(\rho>r\), the costate grows: the marginal utility of wealth rises over time (the household is impatient and needs to be "compensated" for saving).</p>
+      <p>(c) From \(\lambda=U'(c)\): \(\dot\lambda=U''(c)\dot c\). Costate equation: \(U''(c)\dot c=(\rho-r)U'(c)\), so \(\dot c/c=\sigma(c)(\rho-r)\cdot(-1)=-\sigma(c)(\rho-r)\lt0\) since \(U''\lt0\). Wait: more carefully: \(\dot c/c=\sigma\cdot(r-\rho)\lt0\) when \(\rho>r\). Consumption declines over time — the impatient household front-loads consumption.</p>
+      <p>(d) The TC gives \(\lim_{t\to\infty}e^{-\rho t}\lambda(t)a(t)=\lim e^{-\rho t}e^{(\rho-r)t}\lambda(0)a(t)=\lambda(0)\lim e^{-rt}a(t)=0\). This requires \(e^{-rt}a(t)\to0\). Integrating the budget \(\dot a=ra+y-c\) with the integrating factor \(e^{-rt}\): \(d(e^{-rt}a)/dt=e^{-rt}(y-c)\). Integrating from 0 to \(T\) and using \(e^{-rT}a(T)\to0\): \(-a(0)=\int_0^\infty e^{-rt}(y-c)\,dt\), i.e. \(a_0+\int_0^\infty e^{-rt}y\,dt=\int_0^\infty e^{-rt}c\,dt\), the intertemporal budget constraint.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-36-4">
+    <div class="box-title">Exercise 36.4 <span class="tag proof">Proof</span> (integration by parts)</div>
+    <p>Using the integration-by-parts formula \(\int_a^b p\,dq=pq\big|_a^b-\int_a^b q\,dp\), derive the costate equation \(\dot\lambda=\rho\lambda-H_x\) from the Lagrangian stationarity condition \(d\mathcal{L}/dx(t)=0\). Write out all steps carefully, specifying what \(p\), \(q\), \(dp\) and \(dq\) are in the integration by parts.</p>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>Set \(p(t)=e^{-\rho t}\lambda(t)\) and \(q(t)=x(t)\). Then \(dp=e^{-\rho t}(\dot\lambda-\rho\lambda)\,dt\) and \(dq=\dot x\,dt\). The integral \(\int e^{-\rho t}\lambda\dot x\,dt=e^{-\rho t}\lambda x\big|_0^T-\int x e^{-\rho t}(\dot\lambda-\rho\lambda)\,dt\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>The Lagrangian term involving \(\dot x\) is \(-\int_0^T e^{-\rho t}\lambda'(t)\dot x(t)\,dt\). Let \(p(t)=e^{-\rho t}\lambda(t)\), \(q(t)=x(t)\), so \(dp=(e^{-\rho t}\dot\lambda-\rho e^{-\rho t}\lambda)\,dt\) and \(dq=\dot x\,dt\). Integration by parts:</p>
+      $$\int_0^T e^{-\rho t}\lambda\dot x\,dt=e^{-\rho t}\lambda x\Big|_0^T-\int_0^T(e^{-\rho t}\dot\lambda-\rho e^{-\rho t}\lambda)x\,dt.$$
+      <p>The full Lagrangian (dropping constants) is \(\int_0^\infty e^{-\rho t}[h(x,u)+\lambda'g(x,u)]\,dt-\int_0^\infty e^{-\rho t}\lambda'\dot x\,dt\). After IBP:</p>
+      $$\mathcal{L}=\int_0^\infty e^{-\rho t}\big[h+\lambda'g-(-\dot\lambda+\rho\lambda)'x\big]\,dt-\lim_{T\to\infty}e^{-\rho T}\lambda'x+\lambda(0)'x_0.$$
+      <p>Setting \(d\mathcal{L}/dx(t)=0\): \(e^{-\rho t}[h_x+\lambda'g_x-(-\dot\lambda+\rho\lambda)']= 0\). Transposing: \(h_x+\lambda'g_x=\rho\lambda-\dot\lambda\)i.e. \(\dot\lambda=\rho\lambda-h_x-\lambda'g_x=\rho\lambda-H_x\). \(\square\)</p>
+    </div></details>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="takeaways">
+    <h2 id="takeaways">Key takeaways</h2>
+    <ul>
+      <li>The continuous-time optimal control problem has state \(x\in\mathbb R^m\) (predetermined), control \(u\in\mathbb R^n\) (freely chosen), flow return \(h\), and law of motion \(\dot x=g\). The discount rate is \(\rho=-\ln\beta\).</li>
+      <li>The Hamiltonian \(H(x,u,\lambda)=h(x,u)+\lambda'g(x,u)\) converts the dynamic problem into a static problem at each instant. The costate \(\lambda(t)\) is the shadow price of the state; \(e^{-\rho t}\lambda(t)\) is its present value at time 0.</li>
+      <li>The three first-order conditions are (1) \(H_u=0\) (static optimality), (2) \(\dot\lambda=\rho\lambda-H_x\) (costate/EE), (3) \(\dot x=H_\lambda=g\) (state equation). The TC \(\lim e^{-\rho T}\lambda'x=0\) rules out over-accumulation.</li>
+      <li>The Lagrangian proof: attach \(e^{-\rho t}\lambda\) to the constraint, integrate by parts to move \(\dot x\) off, and differentiate with respect to \(x\) and \(u\). The boundary term gives the TC.</li>
+      <li>The maximized Hamiltonian \(H^*(x,\lambda)=\max_u H\) satisfies \(H^*_x=H_x\) and \(H^*_\lambda=\dot x\). It is convex in \(\lambda\) and, under concavity, concave in \(x\). In Lesson 38, we linearize around the steady state using \(H^*\).</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "explain why the costate satisfies the no-arbitrage condition", "why does \(H^*\) being convex in \(\lambda\) matter for the saddle-path property?", or "what is the difference between the maximum principle and the Hamilton-Jacobi-Bellman equation?"</div>
+
+  <div class="lesson-nav">
+    <a href="0035-linearizing-the-dpp-and-decision-rules.html">← Lesson 35: Linearizing the DPP and decision rules</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0037-steady-state-and-phase-diagrams.html">Lesson 37: Steady state and phase diagrams →</a>
+  </div>
+
+</div>
+</body>
+</html>

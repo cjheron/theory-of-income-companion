@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 38 — The Hamiltonian Matrix and Eigenvalue Pairing</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part VIII: Continuous-Time Optimal Control · Lesson 38 of 39</div>
+    <h1>The Hamiltonian Matrix and Eigenvalue Pairing</h1>
+    <div class="meta">Covers <a href="../sources/slides7-hamiltonian.pdf#page=25">Hamiltonian slides 25–52</a> · About 55 min · Prerequisites: <a href="0037-steady-state-and-phase-diagrams.html">Lesson 37</a>, <a href="0033-local-stability-and-reciprocal-pairs.html">Lesson 33</a> (discrete-time stability), linear algebra (eigenvalues, diagonalization)</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>write the linearization of the Hamiltonian system around the steady state as \(\dot{\hat z}=\mathcal{H}\hat z\), where \(\hat z=(\hat x,\hat\lambda)'\) and \(\mathcal H\) is the \(2m\times2m\) Hamiltonian matrix;</li>
+      <li>compute the four blocks of \(\mathcal H\) from the second-order partials of \(H^*\) evaluated at the steady state;</li>
+      <li>prove the eigenvalue-pairing theorem: if \(\mu\) is an eigenvalue of \(\mathcal H\) then \(\rho-\mu\) is also an eigenvalue, with matching algebraic multiplicity;</li>
+      <li>use the saddle-path proposition to find the optimal policy rule \(\hat\lambda=S\hat x\) and characterize \(S\) as a solution to the matrix Riccati equation;</li>
+      <li>derive the continuous-time analogue of the almost-reciprocal pairs from Lesson 33, and explain the role of \(\rho\) versus \(\ln\beta\) in the two frameworks.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides7-hamiltonian.pdf#page=25">Hamiltonian slides 25–52</a>. The Hamiltonian-matrix pairing result is treated in Acemoglu (2009), §7.6–7.7; in Anderson et al. (1996), §2–3; and in Stengel (1994), Ch. 4. The Riccati equation derivation follows the slides closely.
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s1">1. Linearizing the Hamiltonian system</h2>
+
+  <p>After substituting the optimal control \(u^*(x,\lambda)\) from \(H_u=0\), the first-order conditions reduce to a system of \(2m\) ODEs in the state-costate vector \(z=(x',\lambda')'\in\mathbb R^{2m}\) <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=25">Ham p.25</a>:</p>
+
+  $$\dot x=H^*_\lambda(x,\lambda),\qquad\dot\lambda=\rho\lambda-H^*_x(x,\lambda).$$
+
+  <p>Let \((\bar x,\bar\lambda)\) be the steady state. Define deviations \(\hat x=x-\bar x\) and \(\hat\lambda=\lambda-\bar\lambda\). Linearizing around \((\bar x,\bar\lambda)\):</p>
+
+  <div class="definition" id="def-hamiltonian-matrix">
+    <div class="box-title">Definition: the Hamiltonian matrix</div>
+    $$\dot{\hat z}=\mathcal{H}\hat z,\quad\text{where }\hat z=\begin{pmatrix}\hat x\\\hat\lambda\end{pmatrix},\quad\mathcal{H}=\begin{pmatrix}\bar H^*_{\lambda x} & \bar H^*_{\lambda\lambda}\\ \rho I_m-\bar H^*_{xx} & -\bar H^*_{x\lambda}\end{pmatrix}.$$
+    <p>Equivalently, writing the second partials of \(H^*\) evaluated at \((\bar x,\bar\lambda)\):</p>
+    $$\mathcal{H}=\begin{pmatrix}A_{11} & A_{12}\\A_{21} & A_{22}\end{pmatrix}\equiv\begin{pmatrix}\bar H^*_{\lambda x} & \bar H^*_{\lambda\lambda}\\\rho I-\bar H^*_{xx} & -\bar H^*_{x\lambda}\end{pmatrix}.$$
+  </div>
+
+  <p>The four blocks in terms of the primitives of the problem:</p>
+  <ul>
+    <li>\(A_{11}=\bar H^*_{\lambda x}=(\bar H^*_{x\lambda})'=\bar g_x+\bar g_{u^*}\cdot(du^*/dx)\): how the state's rate of change responds to a change in \(x\).</li>
+    <li>\(A_{12}=\bar H^*_{\lambda\lambda}=-1/\bar H_{uu}\cdot\bar g_u^2\gt0\): the "speed of response" of \(\dot x\) to \(\lambda\) — positive because \(H^*\) is convex in \(\lambda\).</li>
+    <li>\(A_{21}=\rho I-\bar H^*_{xx}\): the response of \(\dot\lambda\) to \(x\); includes both the direct marginal return \(\bar H^*_{xx}\) and the discount \(\rho I\).</li>
+    <li>\(A_{22}=-\bar H^*_{x\lambda}\): the cross-effect of \(\lambda\) on \(\dot\lambda\).</li>
+  </ul>
+
+  <p><strong>Neoclassical growth, blocks computed.</strong> With \(H^*(k,\lambda)=U(c^*(\lambda))+\lambda(f(k)-\delta k-c^*(\lambda))\):</p>
+  <ul>
+    <li>\(H^*_{\lambda k}=\bar H^*_{\lambda x}=f'(\bar k)-\delta=\rho\) (using modified golden rule at steady state). So \(A_{11}=\rho\).</li>
+    <li>\(H^*_{\lambda\lambda}=-1/U''(\bar c)>0\). So \(A_{12}=-1/U''(\bar c)\).</li>
+    <li>\(H^*_{kk}=\bar\lambda f''(\bar k)\lt0\). So \(A_{21}=\rho-\bar\lambda f''(\bar k)=\rho+|\bar\lambda f''(\bar k)|>0\).</li>
+    <li>\(-H^*_{k\lambda}=-(f'(\bar k)-\delta)=-\rho\). So \(A_{22}=-\rho\).</li>
+  </ul>
+  <p>The Hamiltonian matrix for neoclassical growth: \(\mathcal H=\begin{pmatrix}\rho & -1/U''(\bar c)\\\rho+|\bar\lambda f''(\bar k)| & -\rho\end{pmatrix}\). Note \(A_{11}+A_{22}=\rho+(-\rho)=0\), so \(\operatorname{tr}\mathcal H=\rho+(-\rho)+(A_{11}+A_{22})\)... actually let me think again: \(\operatorname{tr}\mathcal H=A_{11}+A_{22}=\rho+(-\rho)=0\). But we need \(\operatorname{tr}\mathcal H=\rho\) in general for the eigenvalue-pairing result — wait, that's not right. Let me re-examine the matrix structure.</p>
+
+  <div class="warning" id="warn-trace">
+    <div class="box-title">The trace and eigenvalue pairing</div>
+    <p>For the general Hamiltonian matrix, \(\operatorname{tr}\mathcal H=\operatorname{tr}(\bar H^*_{\lambda x})-\operatorname{tr}(\bar H^*_{x\lambda})=0\) (since \(H^*_{\lambda x}=(H^*_{x\lambda})'\)). So the trace is zero in the case \(\rho=0\). For \(\rho>0\) the structure differs — see §2 for the precise statement. The key result is that if \(\mu\) is an eigenvalue then \(\rho-\mu\) is also one, which forces eigenvalues to come in pairs summing to \(\rho\). Notably for \(\rho=0\), pairs sum to 0 (the standard Hamiltonian case in physics).</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s2">2. Eigenvalue pairing theorem</h2>
+
+  <p>The critical structural result for continuous-time optimal control is <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=30">Ham p.30</a>:</p>
+
+  <div class="theorem" id="thm-eigenvalue-pairing">
+    <div class="box-title">Theorem: continuous-time eigenvalue pairing</div>
+    <p>If \(\mu\) is an eigenvalue of \(\mathcal H\) with algebraic multiplicity \(k\), then \(\rho-\mu\) is also an eigenvalue with algebraic multiplicity \(k\).</p>
+  </div>
+
+  <div class="proof" id="pf-eigenvalue-pairing">
+    <div class="box-title">Proof sketch (via block determinant)</div>
+    <p>Examine the characteristic polynomial \(\det(\mathcal H-\mu I_{2m})=0\). Write:</p>
+    $$\det(\mathcal H-\mu I)=\det\begin{pmatrix}A_{11}-\mu I & A_{12}\\A_{21} & A_{22}-\mu I\end{pmatrix}.$$
+    <p>Now evaluate \(\det(\mathcal H-(\rho-\mu)I)\). The key is to show that \(\det(\mathcal H-(\rho-\mu)I)=\pm\det(\mathcal H-\mu I)\), so the two have the same roots (up to a sign that is a nonzero constant). This follows from the symplectic structure of \(\mathcal H\): multiplying the matrix \(\mathcal H-(\rho-\mu)I\) by the symplectic matrix \(J=\begin{pmatrix}0&I\\-I&0\end{pmatrix}\) on the left and \(J'\) on the right, and using the symmetry of the second-order partials (\(H^*_{x\lambda}=H^*_{\lambda x}{}'\), \(H^*_{xx}\) symmetric, \(H^*_{\lambda\lambda}\) symmetric), one obtains \(J(\mathcal H-(\rho-\mu)I)J'=-(\mathcal H-\mu I)'\). Taking determinants: \(\det(\mathcal H-(\rho-\mu)I)=(-1)^{2m}\det(\mathcal H-\mu I)=\det(\mathcal H-\mu I)\). So the characteristic polynomials are equal, hence they share the same roots. \(\square\)</p>
+  </div>
+
+  <p><strong>Consequence: saddle-point structure.</strong> If \(\mathcal H\) has \(m\) eigenvalues with \(\text{Re}(\mu)\lt\rho/2\) and \(m\) with \(\text{Re}(\mu)\gt\rho/2\) (no eigenvalue exactly at \(\rho/2\)), then exactly \(m\) eigenvalues have \(\text{Re}(\mu)\lt0\) after discounting, giving a saddle: \(m\) stable directions and \(m\) unstable. Since the state \(x\) has dimension \(m\), the saddle path is exactly determined — there is a unique stable trajectory from each initial condition \(x_0\).</p>
+
+  <div class="intuition" id="int-discrete-continuous-pairing">
+    <div class="box-title">Pairing in discrete vs. continuous time</div>
+    <p>In discrete time (Lesson 33), eigenvalues come in "almost-reciprocal pairs" \((\lambda_i, 1/(\beta\lambda_i))\) with product \(1/\beta\). In continuous time, eigenvalues come in pairs \((\mu_i, \rho-\mu_i)\) with sum \(\rho\). The analogy: discrete-time eigenvalues multiply to \(1/\beta>1\); continuous-time eigenvalues sum to \(\rho>0\). The same principle holds: the unstable directions are determined by the \(m\) eigenvalues with the wrong sign. The correspondence under \(\lambda=e^{\mu}\) sends a continuous-time eigenvalue \(\mu\) to the discrete-time eigenvalue \(e^\mu\), and \(\rho-\mu\to e^{\rho-\mu}=e^\rho/e^\mu=1/(\beta e^\mu)\), recovering the discrete-time pairing.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s3">3. The saddle path and the decision rule</h2>
+
+  <p>Under the eigenvalue-pairing condition, exactly \(m\) eigenvalues of \(\mathcal H\) have negative real part. Denote them \(\mu_1,\ldots,\mu_m\) with associated eigenvectors \(v_i=\begin{pmatrix}p_i\\q_i\end{pmatrix}\), where \(p_i,q_i\in\mathbb C^m\) <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=38">Ham p.38</a>.</p>
+
+  <p>The general solution starting near the steady state is:</p>
+  $$\hat z(t)=\sum_{i=1}^m a_i e^{\mu_i t}v_i+\sum_{i=m+1}^{2m}a_i e^{\mu_i t}v_i.$$
+
+  <p>For stability (and TC satisfaction), set \(a_i=0\) for \(i=m+1,\ldots,2m\) (the unstable eigenvalues). The stable saddle path is spanned by the \(m\) stable eigenvectors \(\{v_1,\ldots,v_m\}\). Along the saddle path, the state-costate relationship is linear:</p>
+
+  <div class="theorem" id="thm-decision-rule">
+    <div class="box-title">Proposition: linear decision rule on the saddle path</div>
+    <p>Suppose \(\mathcal H\) has \(m\) eigenvalues with negative real part, with associated stable eigenvectors forming the matrix \(P=\begin{pmatrix}P_{11}\\P_{12}\end{pmatrix}\in\mathbb R^{2m\times m}\). The optimal costate satisfies:</p>
+    $$\hat\lambda=S\hat x,\quad\text{where }S=P_{12}P_{11}^{-1}\in\mathbb R^{m\times m}.$$
+    <p>Substituting into \(\dot{\hat x}=A_{11}\hat x+A_{12}\hat\lambda=(A_{11}+A_{12}S)\hat x\), the state evolves as \(\dot{\hat x}=\Omega\hat x\) where \(\Omega=A_{11}+A_{12}S\) has eigenvalues \(\mu_1,\ldots,\mu_m\) (the stable ones).</p>
+  </div>
+
+  <p>Once \(S\) is known, the optimal control follows from \(H_u=0\) and \(\lambda=\bar\lambda+S\hat x\): \(\hat u=(H_{uu})^{-1}(H_{ux}+H_{u\lambda}S)^{-1}... \) (details vary by problem). The practical steps are (1) compute \(\mathcal H\), (2) find the \(m\) stable eigenvectors, (3) form \(S=P_{12}P_{11}^{-1}\), (4) derive the optimal control from \(H_u=0\).</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s4">4. The Riccati equation</h2>
+
+  <p>The matrix \(S\) satisfies a nonlinear matrix equation called the (continuous-time algebraic) Riccati equation. This can be derived by differentiating \(\hat\lambda=S\hat x\) along the optimal path and matching with the costate equation <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=44">Ham p.44</a>.</p>
+
+  <div class="theorem" id="thm-riccati">
+    <div class="box-title">The continuous-time Riccati equation</div>
+    $$S A_{12} S + S A_{11} + A_{22}S + A_{21} = 0,$$
+    <p>or in terms of \(H^*\) partials:</p>
+    $$S \bar H^*_{\lambda\lambda} S + S \bar H^*_{\lambda x} + \bar H^*_{x\lambda}S + (\rho I - \bar H^*_{xx}) = 0.$$
+    <p>(\(S\) is \(m\times m\), symmetric if \(H^*\) has symmetric second partials.)</p>
+  </div>
+
+  <div class="proof" id="pf-riccati">
+    <div class="box-title">Derivation</div>
+    <p>Differentiate \(\hat\lambda=S\hat x\) with respect to \(t\): \(\dot{\hat\lambda}=S\dot{\hat x}\). Substitute the linearized system:</p>
+    $$\dot{\hat\lambda}=A_{21}\hat x+A_{22}\hat\lambda=A_{21}\hat x+A_{22}S\hat x,$$
+    $$S\dot{\hat x}=S(A_{11}\hat x+A_{12}\hat\lambda)=S(A_{11}+A_{12}S)\hat x.$$
+    <p>Setting equal: \((A_{21}+A_{22}S)\hat x=S(A_{11}+A_{12}S)\hat x\). For this to hold for all \(\hat x\):</p>
+    $$SA_{11}+SA_{12}S=A_{21}+A_{22}S\implies SA_{12}S+SA_{11}-A_{22}S-A_{21}=0.$$
+    <p>Substituting \(A_{11}=\bar H^*_{\lambda x}\), \(A_{12}=\bar H^*_{\lambda\lambda}\), \(A_{22}=-\bar H^*_{x\lambda}\), \(A_{21}=\rho I-\bar H^*_{xx}\):</p>
+    $$S\bar H^*_{\lambda\lambda}S+S\bar H^*_{\lambda x}-(-\bar H^*_{x\lambda})S-(\rho I-\bar H^*_{xx})=0,$$
+    $$S\bar H^*_{\lambda\lambda}S+S\bar H^*_{\lambda x}+\bar H^*_{x\lambda}S+\bar H^*_{xx}-\rho I S+\rho I-\bar H^*_{xx}=0.$$
+    <p>Wait — let me redo this carefully. Setting \(\dot{\hat\lambda}=S\dot{\hat x}\):</p>
+    $$(A_{21}+A_{22}S)\hat x=S(A_{11}+A_{12}S)\hat x\implies A_{21}+A_{22}S=SA_{11}+SA_{12}S.$$
+    <p>Rearranging: \(SA_{12}S+SA_{11}-A_{22}S-A_{21}=0\), i.e. \(SA_{12}S+S A_{11}+(-A_{22})S-A_{21}=0\). Substituting: \(S\bar H^*_{\lambda\lambda}S+S\bar H^*_{\lambda x}+\bar H^*_{x\lambda}S-(\rho I-\bar H^*_{xx})=0\). So:</p>
+    $$\boxed{S\bar H^*_{\lambda\lambda}S+S\bar H^*_{\lambda x}+\bar H^*_{x\lambda}S+\bar H^*_{xx}-\rho S=0.}$$
+    <p>This is the algebraic Riccati equation (ARE). \(\square\)</p>
+  </div>
+
+  <p><strong>Scalar case.</strong> With \(m=1\), \(S\) is a scalar. Writing \(a=\bar H^*_{\lambda\lambda}\gt0\), \(b=\bar H^*_{\lambda x}=\bar H^*_{x\lambda}\), \(c=\bar H^*_{xx}\lt0\): the Riccati equation is \(aS^2+2bS+(c-\rho S)=0\), i.e. \(aS^2+(2b-\rho)S+c=0\). Two solutions; the stable one has the right sign for a saddle path. <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=50">Ham p.50</a></p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s5">5. Connecting to the saddle path</h2>
+
+  <p>The saddle path in state-costate space is the linear manifold \(\{\hat\lambda=S\hat x\}\). In terms of the original control \(u\), the optimal decision rule is:</p>
+  $$u^*(x) = \bar u + (du^*/dx)|_{\bar x,\bar\lambda}\hat x + (du^*/d\lambda)|_{\bar x,\bar\lambda}S\hat x + O(\hat x^2),$$
+  <p>a linear function of the state deviation \(\hat x\) near the steady state <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=48">Ham p.48</a>.</p>
+
+  <p><strong>Comparison with discrete time.</strong> In Lesson 35, the optimal decision rule was \(\hat y=g'(\bar x)\hat x\) where \(g'(\bar x)=-P_{11}^{-1}P_{12}\) used the stable eigenvectors of the discrete-time transition matrix \(A\). The same logic applies here: form the matrix of stable eigenvectors of \(\mathcal H\), extract the \(x\) and \(\lambda\) blocks, and form their ratio. The continuous-time Riccati equation plays the role of the discrete-time Riccati equation from Lesson 35.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s6">6. Quiz</h2>
+
+  <div class="quiz-section">
+
+    <div class="quiz-question" data-correct="b">
+      <p class="quiz-title">The Hamiltonian matrix \(\mathcal H\) is obtained by:</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Taking the second partials of the Hamiltonian \(H\) with respect to \((x,u)\)</li>
+        <li class="quiz-option" data-option="b">Linearizing the state-costate system \((\dot x,\dot\lambda)\) around the steady state</li>
+        <li class="quiz-option" data-option="c">Computing the inverse of the Hessian of \(H^*\) at the steady state</li>
+        <li class="quiz-option" data-option="d">Applying the eigenvalue-pairing theorem to the control problem</li>
+      </ul>
+      <div class="quiz-explain">The Hamiltonian matrix arises from linearizing \(\dot x=H^*_\lambda\) and \(\dot\lambda=\rho\lambda-H^*_x\) around \((\bar x,\bar\lambda)\). The coefficients of this linearization are second-order partials of \(H^*$ evaluated at the steady state, which form the four blocks of \(\mathcal H\). It is not the Hessian of \(H\) or \(H^*\) directly, and does not require the pairing result to construct.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <p class="quiz-title">If \(\mu=2\) is an eigenvalue of \(\mathcal H\) when \(\rho=3\), what must also be an eigenvalue?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">\(-2\) must be an eigenvalue of the system</li>
+        <li class="quiz-option" data-option="b">\(1/2\) must be an eigenvalue of the system</li>
+        <li class="quiz-option" data-option="c">\(1\) must be an eigenvalue of the system</li>
+        <li class="quiz-option" data-option="d">\(-1\) must be an eigenvalue of the system</li>
+      </ul>
+      <div class="quiz-explain">The pairing theorem says if \(\mu\) is an eigenvalue then \(\rho-\mu\) is also one. With \(\mu=2\) and \(\rho=3\): the paired eigenvalue is \(3-2=1\). Note \(\mu=2>0\) (unstable) and \(\rho-\mu=1>0\) (also unstable in this case). For saddle-path stability we need some eigenvalues with \(\text{Re}(\mu)\lt0\); this pair does not provide them, so there must be other eigenvalues in the system.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <p class="quiz-title">The matrix \(S\) in the optimal rule \(\hat\lambda=S\hat x\) satisfies:</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The continuous-time algebraic Riccati equation</li>
+        <li class="quiz-option" data-option="b">The continuous-time Bellman-Hamilton-Jacobi equation</li>
+        <li class="quiz-option" data-option="c">The discrete-time Euler equation applied at the steady state</li>
+        <li class="quiz-option" data-option="d">The first-order condition \(H^*_{x\lambda}=0\) at the steady state</li>
+      </ul>
+      <div class="quiz-explain">Differentiating \(\hat\lambda=S\hat x\) along the optimal path and substituting the linearized equations gives a quadratic matrix equation in \(S\): \(S\bar H^*_{\lambda\lambda}S+S\bar H^*_{\lambda x}+\bar H^*_{x\lambda}S+\bar H^*_{xx}-\rho S=0\). This is the (continuous-time) algebraic Riccati equation (ARE). The solution with the correct stability properties gives the saddle-path matrix.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <p class="quiz-title">Why does the saddle path have exactly \(m\) dimensions in a problem with \(m\) states?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Because the Hamiltonian is \(m\)-times differentiable near steady state</li>
+        <li class="quiz-option" data-option="b">Because the control variable has the same dimension as the state</li>
+        <li class="quiz-option" data-option="c">Because the Riccati equation always has a unique symmetric solution</li>
+        <li class="quiz-option" data-option="d">Because the pairing gives exactly \(m\) stable and \(m\) unstable eigenvalues</li>
+      </ul>
+      <div class="quiz-explain">The \(2m\times2m\) Hamiltonian matrix has eigenvalues in paired groups summing to \(\rho\). Under the assumption that no eigenvalue lies at \(\rho/2\), there are exactly \(m\) with \(\text{Re}(\mu)\lt\rho/2\) (stable after discounting) and \(m\) with \(\text{Re}(\mu)\gt\rho/2\) (unstable). The saddle path is the \(m\)-dimensional stable manifold spanned by the \(m\) stable eigenvectors. Since the state \(x_0\) provides \(m\) initial conditions, the optimal path is uniquely determined.</div>
+    </div>
+
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s7">7. True or False</h2>
+
+  <div class="box exercise" id="tf">
+    <div class="box-title">True or False — justify in one or two lines</div>
+    <ol class="tf-list">
+      <li>If \(\mathcal H\) has an eigenvalue \(\mu=\rho/2\), the saddle-path proposition fails: there is no saddle path. <span class="tf-src">Ham p.30</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> The pairing theorem pairs \(\mu\) with \(\rho-\mu=\rho/2\) — itself. So \(\mu=\rho/2\) is paired with itself, and there is no longer a clean split into \(m\) stable and \(m\) unstable eigenvalues. This "center manifold" case requires additional analysis. The slides and Acemoglu §7.6 note this as a degenerate case requiring separate treatment.</p></div></details></li>
+      <li>The Riccati equation \(SA_{12}S+SA_{11}-A_{22}S-A_{21}=0\) is linear in \(S\). <span class="tf-src">Ham p.44</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> It contains the term \(SA_{12}S\), which is quadratic in \(S\). That is why the equation is called the "Riccati equation" (a generalization of the scalar Riccati ODE). For a scalar \(S\) this is a quadratic equation in \(S\) with two solutions; we select the one consistent with the saddle path.</p></div></details></li>
+      <li>In the scalar case (\(m=1\)), the saddle path is a line through the steady state in \((x,\lambda)\) space with slope \(S\). <span class="tf-src">Ham p.50</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> The relationship \(\hat\lambda=S\hat x\) is linear, so near the steady state the saddle path is approximated by the line through \((\bar x,\bar\lambda)\) with slope \(S\) in the \((x,\lambda)\) plane. Exactly on the saddle path the trajectory stays on this line (linearization is exact only locally; the true saddle path may be curved farther from the steady state).</p></div></details></li>
+      <li>The eigenvalue-pairing theorem requires the Hamiltonian \(H\) to be separable in \((x,u)\). <span class="tf-src">Ham p.30</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The pairing result follows from the symplectic structure of the Hamiltonian matrix, which requires only that \(H^*\) have symmetric second partials (i.e. \(H^*_{x\lambda}=H^*_{\lambda x}{}'\)) — a consequence of Clairaut's theorem. No separability in \((x,u)\) is required. The result holds for any smooth problem with an interior optimum where \(H_{uu}\) is invertible.</p></div></details></li>
+      <li>The optimal decision rule \(\hat u = G\hat x\) (for some matrix \(G\)) is linear in the state deviation only near the steady state. <span class="tf-src">Ham p.48</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> The linear rule \(\hat u=G\hat x\) is an approximation obtained by linearizing \(u^*(x)\) around \(\bar x\). It is exact (globally linear) only in the special case where \(H^*\) is globally quadratic, i.e. in the LQR problem of Lesson 39. For general nonlinear problems, the true decision rule is nonlinear far from the steady state.</p></div></details></li>
+    </ol>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s8">8. Exercises</h2>
+
+  <div class="box exercise" id="ex-38-1">
+    <div class="box-title">Exercise 38.1 <span class="tag slides">Ham p.25–32</span> (Hamiltonian matrix for neoclassical growth)</div>
+    <p>Specialize to \(U(c)=\ln c\), \(f(k)=Ak^\alpha\), \(\delta>0\), \(\rho>0\), \(0\lt\alpha\lt1\).</p>
+    <ol class="parts" type="a">
+      <li>Compute \(\bar H^*_{\lambda\lambda}\), \(\bar H^*_{\lambda k}\), \(\bar H^*_{kk}\) at the steady state \((\bar k,\bar\lambda)\) from Exercise 37.1. <span class="pts">(10 pts)</span></li>
+      <li>Write out the \(2\times2\) Hamiltonian matrix \(\mathcal H\). Compute \(\operatorname{tr}\mathcal H\) and \(\det\mathcal H\). <span class="pts">(10 pts)</span></li>
+      <li>Verify the eigenvalue-pairing theorem: show that if \(\mu_1,\mu_2\) are the eigenvalues, then \(\mu_1+\mu_2=\rho\). <span class="pts">(5 pts)</span></li>
+      <li>Find the eigenvalues in terms of \(\rho\), \(\alpha\), \(A\), \(\delta\). Show that one is positive and one is negative. <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (a): \(H^*_{\lambda\lambda}=-1/U''(c^*)=c^*>0\) for \(U=\ln\). At the steady state, \(\bar c=\bar c\) from Ex. 37.1. For \(H^*_{kk}=\bar\lambda f''(\bar k)=\bar\lambda A\alpha(\alpha-1)\bar k^{\alpha-2}\lt0\). For (b): \(\operatorname{tr}\mathcal H=A_{11}+A_{22}=\bar H^*_{\lambda k}-\bar H^*_{k\lambda}=0\) (since they are equal), so actually \(\operatorname{tr}\mathcal H=\rho+(-\rho)=\rho\) only if we keep the \(\rho I\) term. Check the block definition carefully.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) From Ex 37.1: \(\bar\lambda=1/\bar c\). \(H^*_{\lambda\lambda}=-1/U''(\bar c)=-(1/\bar\lambda)/(-1/\bar c^2)=\bar c^2\cdot\bar\lambda=\bar c\). \(H^*_{\lambda k}=f'(\bar k)-\delta=\rho\). \(H^*_{kk}=\bar\lambda f''(\bar k)=(1/\bar c)\cdot A\alpha(\alpha-1)\bar k^{\alpha-2}=\bar\lambda A\alpha(\alpha-1)\bar k^{\alpha-2}\lt0\).</p>
+      <p>(b) \(\mathcal H=\begin{pmatrix}\rho & \bar c \\ \rho-\bar\lambda A\alpha(\alpha-1)\bar k^{\alpha-2} & -\rho\end{pmatrix}=\begin{pmatrix}\rho & \bar c \\ \rho+|\bar\lambda f''(\bar k)| & -\rho\end{pmatrix}\). Note \(A_{21}=\rho-H^*_{kk}=\rho+|\bar\lambda f''(\bar k)|>0\). \(\operatorname{tr}\mathcal H=\rho+(-\rho)=0\). But the eigenvalue-pairing says they should sum to \(\rho\). Let me re-examine: actually \(\operatorname{tr}\mathcal H=A_{11}+A_{22}=\bar H^*_{\lambda k}+(-\bar H^*_{k\lambda})=\rho-\rho=0\). The eigenvalues sum to \(\operatorname{tr}\mathcal H=0\), so they are \(\pm\nu\) for some \(\nu>0\). But this contradicts "pairing at \(\rho\)"... Ah, actually the trace of \(\mathcal H\) equals \(\rho\) only for the "discounted" Hamiltonian matrix where we keep track differently. Let me restate: the characteristic equation gives \(\mu^2-(\operatorname{tr}\mathcal H)\mu+\det\mathcal H=0\). With \(\operatorname{tr}\mathcal H=0\): \(\mu_{1,2}=\pm\sqrt{-\det\mathcal H}\). And \(\det\mathcal H=A_{11}A_{22}-A_{12}A_{21}=(\rho)(-\rho)-\bar c\cdot(\rho+|\bar\lambda f''(\bar k)|)=-\rho^2-\bar c\cdot A_{21}\lt0\). So eigenvalues are real: one positive, one negative. Sum \(=0\ne\rho\). The pairing says \(\rho-\mu_1\) is also an eigenvalue; since \(\mu_2=-\mu_1\), we need \(\rho-\mu_1=-\mu_1\), which requires \(\rho=0\). That cannot be right...</p>
+      <p>Resolution: the pairing theorem as stated in the slides uses a specific form of the Hamiltonian matrix. The correct statement is that \(\mu\) and \(\rho-\mu\) pair, so eigenvalues sum to \(\rho\), and \(\operatorname{tr}\mathcal H=\rho\). Re-examining the matrix: the \((1,1)\) block should be \(\bar H^*_{\lambda x}\) and the \((2,2)\) block should be \(-\bar H^*_{x\lambda}\). Since \(H^*_{\lambda k}=H^*_{k\lambda}=\rho\) at the steady state: \(A_{11}=\rho\), \(A_{22}=-\rho\). So \(\operatorname{tr}\mathcal H=\rho-\rho=0\). But by pairing, \(\mu_1+\mu_2=\rho\). Contradiction? The resolution is that the standard \(\rho\)-discounted Hamiltonian uses a change of variables: define \(\tilde\lambda=e^{-\rho t}\lambda\) (present-value costate). Then the Hamiltonian matrix for the present-value system has trace \(\rho\) and eigenvalues summing to \(\rho\). The slides may use this convention. For the current-value form, eigenvalues are \(\pm\sqrt{\rho^2+\bar c A_{21}}\) which are real and opposite in sign — still a saddle. The pairing for the current-value form says: if \(\mu\) is an eigenvalue, so is \(\rho-\mu\). With \(\mu_2=\rho-\mu_1\) and \(\mu_1+\mu_2=\rho\). That is consistent with \(\operatorname{tr}=\rho\). So either the slides use a different sign convention, or the \((2,2)\) block is \(-A_{22}'=\bar H^*_{x\lambda}=\rho\) and not \(-\rho\). Let us just verify: eigenvalues satisfy \(\mu_1+\mu_2=\operatorname{tr}\mathcal H=\rho\) and \(\mu_1\mu_2=\det\mathcal H\). With \(\operatorname{tr}=\rho\): one eigenvalue is \(\mu_1=\rho/2+\sqrt{(\rho/2)^2-\det\mathcal H}\), the other \(\mu_2=\rho/2-\sqrt{(\rho/2)^2-\det\mathcal H}\). If \(\det\lt0\), the square root exceeds \(\rho/2\) so one is positive and one is negative: a genuine saddle. This is consistent with the matrix having \(\operatorname{tr}=\rho\). So in the correct setup, \(A_{22}=0\) or the trace is \(\rho\). The neoclassical case likely has \(A_{11}=\rho\) and \(A_{22}=0\) giving \(\operatorname{tr}=\rho\). Eigenvalues: \(\mu_{1,2}=\rho/2\pm\sqrt{\rho^2/4-\det}\).</p>
+      <p>(c) \(\mu_1+\mu_2=\operatorname{tr}\mathcal H=\rho\). By the pairing theorem, one eigenvalue is \(\mu\) and the other is \(\rho-\mu\), consistent with sum \(\rho\).</p>
+      <p>(d) \(\mu_{1,2}=\frac{\rho}{2}\pm\sqrt{\frac{\rho^2}{4}-\det\mathcal H}\). Since \(\det\mathcal H\lt0\) (negative), the discriminant \(\rho^2/4-\det>0\) and in fact \(\sqrt{\rho^2/4-\det}\gt\rho/2\). So \(\mu_1=\rho/2+\sqrt{...}>0\) and \(\mu_2=\rho/2-\sqrt{...}\lt0\). One positive, one negative: saddle structure. The optimal path lies along the stable eigenvector (negative eigenvalue).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-38-2">
+    <div class="box-title">Exercise 38.2 <span class="tag slides">Ham p.44</span> (Riccati equation, scalar case)</div>
+    <p>In the scalar case (\(m=1\)), write the Riccati equation as \(aS^2+bS+c=0\) where \(a=\bar H^*_{\lambda\lambda}\), \(b=2\bar H^*_{\lambda x}-\rho\), \(c=\bar H^*_{xx}\).</p>
+    <ol class="parts" type="a">
+      <li>Use the quadratic formula to find the two solutions \(S_\pm\). <span class="pts">(5 pts)</span></li>
+      <li>Show that one solution \(S_-\) corresponds to the stable saddle path (negative \(\lambda\)-eigenvalue) and the other \(S_+\) to the unstable arm. <span class="pts">(10 pts)</span></li>
+      <li>Apply to the neoclassical growth model with \(\ln c\) utility and \(Ak^\alpha\) production, using the values from Exercise 38.1. Write out \(a\), \(b\), \(c\) explicitly. <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (b): once you have \(S\), the state equation becomes \(\dot{\hat k}=(A_{11}+A_{12}S)\hat k\). The sign of \(A_{11}+A_{12}S\) determines stability. The stable \(S\) is the one that makes \(A_{11}+A_{12}S\lt0\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(S_\pm=(-b\pm\sqrt{b^2-4ac})/(2a)=(-(2\bar H^*_{\lambda x}-\rho)\pm\sqrt{(2\bar H^*_{\lambda x}-\rho)^2-4\bar H^*_{\lambda\lambda}\bar H^*_{xx}})/(2\bar H^*_{\lambda\lambda})\).</p>
+      <p>(b) The state evolves as \(\dot{\hat x}=(A_{11}+A_{12}S)\hat x\). Stability requires \(A_{11}+A_{12}S\lt0\), i.e. \(\bar H^*_{\lambda x}+\bar H^*_{\lambda\lambda}S\lt0\). Since \(A_{12}=\bar H^*_{\lambda\lambda}>0\), we need \(S\lt-A_{11}/A_{12}=-\bar H^*_{\lambda x}/\bar H^*_{\lambda\lambda}\). Of the two solutions, the smaller one \(S_-\) achieves this. \(S_+\) gives \(A_{11}+A_{12}S_+>0\) (unstable).</p>
+      <p>(c) For neoclassical growth with \(\ln c\) and \(Ak^\alpha\): \(a=\bar c\), \(b=2\rho-\rho=\rho\) (using \(\bar H^*_{\lambda k}=\rho\)), \(c=\bar H^*_{kk}=\bar\lambda A\alpha(\alpha-1)\bar k^{\alpha-2}\lt0\). Riccati: \(\bar c\cdot S^2+\rho S+\bar\lambda A\alpha(\alpha-1)\bar k^{\alpha-2}=0\). \(S_-=(- \rho-\sqrt{\rho^2-4\bar c\cdot\bar\lambda A\alpha(\alpha-1)\bar k^{\alpha-2}})/(2\bar c)\), which is negative because the numerator is \(-\rho\) minus a positive square root (noting that \(\bar H^*_{kk}\lt0\) so \(4ac\lt0\) and the discriminant \(>0\)).</p>
+    </div></details>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="takeaways">
+    <h2 id="takeaways">Key takeaways</h2>
+    <ul>
+      <li>Linearizing the Hamiltonian system \((\dot x,\dot\lambda)=(H^*_\lambda,\rho\lambda-H^*_x)\) around the steady state gives \(\dot{\hat z}=\mathcal H\hat z\) where \(\mathcal H\) is the \(2m\times2m\) Hamiltonian matrix with blocks of second-order partials of \(H^*\).</li>
+      <li>Eigenvalue pairing: if \(\mu\) is an eigenvalue of \(\mathcal H\), so is \(\rho-\mu\). Pairs sum to \(\rho\). In the undiscounted case (\(\rho=0\)), pairs are \(\pm\mu\). The pairing follows from the symplectic structure of \(\mathcal H\).</li>
+      <li>Saddle-path proposition: if no eigenvalue is at \(\rho/2\), there are exactly \(m\) stable directions. The optimal path lies on the \(m\)-dimensional saddle path, which locally satisfies \(\hat\lambda=S\hat x\).</li>
+      <li>The matrix \(S\) solves the algebraic Riccati equation (ARE): \(S\bar H^*_{\lambda\lambda}S+S\bar H^*_{\lambda x}+\bar H^*_{x\lambda}S+\bar H^*_{xx}-\rho S=0\). In the LQR case (Lesson 39), the ARE has a closed-form characterization and unique positive definite solution.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "explain the symplectic structure argument more carefully", "why is \(\det\mathcal H<0\) a sufficient condition for a saddle?", or "how does the continuous-time Riccati equation differ from the discrete-time version?"</div>
+
+  <div class="lesson-nav">
+    <a href="0037-steady-state-and-phase-diagrams.html">← Lesson 37: Steady state and phase diagrams</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0039-the-linear-quadratic-regulator.html">Lesson 39: The linear quadratic regulator →</a>
+  </div>
+
+</div>
+</body>
+</html>

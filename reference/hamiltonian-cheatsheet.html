@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hamiltonian (Continuous-Time Control) Cheatsheet — Theory of Income</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <style>
+    .sheet { font-size: 0.9rem; line-height: 1.55; }
+    .sheet h2 { font-size: 1.05rem; margin-top: 1.4rem; }
+    .sheet .box { padding: 0.6rem 0.9rem; margin: 0.6rem 0; }
+    .sheet ol, .sheet ul { margin-top: 0.2rem; margin-bottom: 0.2rem; }
+    .sheet li { margin: 0.15rem 0; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.2rem; }
+    @media (max-width: 700px) { .two { grid-template-columns: 1fr; } }
+    .sheet table.simple { font-size: 0.82rem; margin: 0.5rem 0; width: 100%; }
+    .sheet table.simple td, .sheet table.simple th { padding: 0.25rem 0.5rem; vertical-align: top; }
+    .see { font-family: var(--font-sans); font-size: 0.72rem; color: var(--muted); }
+    .see a { color: var(--accent); }
+  </style>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page sheet">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Reference · Folder 7</div>
+    <h1>Continuous-Time Optimal Control: Cheatsheet</h1>
+    <div class="meta">Maximum principle and Hamiltonian; steady state and phase diagrams; Hamiltonian matrix and eigenvalue pairing; saddle path and Riccati equation; the Linear Quadratic Regulator. Lessons <a href="../lessons/0036-optimal-control-and-the-hamiltonian.html">36</a>–<a href="../lessons/0039-the-linear-quadratic-regulator.html">39</a> · <a href="../sources/slides7-hamiltonian.pdf">Slides</a> · <a href="ge-glossary.html">Glossary</a> · <a href="../index.html">Index</a></div>
+  </div>
+
+  <div class="box mustknow" id="mt2">
+    <div class="box-title">Exam must-know (final). Not on Midterm 1 or Midterm 2.</div>
+    <div class="two">
+      <div>
+        <p><b>Be able to write from a blank page</b></p>
+        <ol>
+          <li>Set up the Hamiltonian: \(H(x,u,\lambda)=h(x,u)+\lambda'g(x,u)\). Three FOCs: \(H_u=0\), \(\dot\lambda=\rho\lambda-H_x\), \(\dot x=H_\lambda\). TC: \(\lim e^{-\rho t}\lambda'x=0\).</li>
+          <li>Neoclassical growth: \(H=U(c)+\lambda(f(k)-\delta k-c)\); FOC \(\lambda=U'(c)\); costate \(\dot\lambda=\rho\lambda-\lambda(f'(k)-\delta)\); Keynes-Ramsey: \(\dot c/c=\sigma(f'(k)-\rho-\delta)\).</li>
+          <li>Steady state: \(\dot x=\dot\lambda=0\). Modified golden rule: \(f'(\bar k)=\rho+\delta\). Costate: \(\bar\lambda=H_x/\rho\).</li>
+          <li>Hamiltonian matrix \(\mathcal H=\begin{pmatrix}\bar H^*_{\lambda x}&\bar H^*_{\lambda\lambda}\\\rho I-\bar H^*_{xx}&-\bar H^*_{x\lambda}\end{pmatrix}\). Eigenvalue pairing: \(\mu\) is an eigenvalue \(\iff\) \(\rho-\mu\) is. For a \(2m\times2m\) system, \(m\) stable and \(m\) unstable eigenvalues (generic).</li>
+          <li>Decision rule \(\hat\lambda=S\hat x\); \(S\) solves the ARE: \(S\bar H^*_{\lambda\lambda}S+S\bar H^*_{\lambda x}+\bar H^*_{x\lambda}S+\bar H^*_{xx}-\rho S=0\).</li>
+          <li>LQR: \(h=\frac12(x'Qx+u'Ru+2x'Nu)\), \(\dot x=Ax+Bu\). FOC: \(u^*=-R^{-1}(N'x+B'\lambda)\). Constant \(\mathcal H\). Policy: \(u^*(x)=Gx=-R^{-1}(N'+B'S)x\). Value function: \(V^*(x)=x'Sx/2\).</li>
+        </ol>
+      </div>
+      <div>
+        <p><b>Key facts and past-exam traps</b></p>
+        <ul>
+          <li><b>Costate sign:</b> \(\lambda(t)\ge0\) is NOT guaranteed in general — only when the state is a good (like capital). For pollutant stocks, \(\lambda\lt0\).</li>
+          <li><b>Modified vs. golden rule:</b> \(f'(\bar k)=\rho+\delta\) (\(\bar k\) less than golden-rule \(k_G\)). Higher \(\rho\) → lower \(\bar k\). "Golden rule" sets \(\rho=0\) and maximizes long-run consumption.</li>
+          <li><b>Phase diagram arrows:</b> \(\dot c=0\) locus is vertical at \(\bar k\). \(\dot k=0\) locus is \(c=f(k)-\delta k\), an inverted-U peaking at the golden rule \(k_G\). Above the \(\dot k=0\) locus: \(\dot k\lt0\). Right of \(\bar k\): \(\dot c>0\). Arrow directions determine saddle-path slope.</li>
+          <li><b>Pairing theorem (continuous time):</b> eigenvalues of \(\mathcal H\) sum in pairs to \(\rho\). In discrete time, they multiply in pairs to \(1/\beta\). Different but analogous structures.</li>
+          <li><b>Riccati equation is quadratic in \(S\):</b> the \(S\bar H^*_{\lambda\lambda}S\) term is quadratic. Two solutions; the stabilizing one makes closed-loop eigenvalues stable.</li>
+          <li><b>LQR value function:</b> \(V^*(x)=x'Sx/2\) is exact (not just a local approximation) because the dynamics are globally linear. For nonlinear models, this is only a local approximation after log-linearization.</li>
+          <li><b>TC in continuous time:</b> \(\lim_{T\to\infty}e^{-\rho T}\lambda'x=0\), not \(\lim\lambda'x=0\). The discount factor matters.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="see">Exam format: continuous-time problems usually appear as one or two parts of a final exam question, often following a discrete-time problem on the same model. Expect to (1) write the Hamiltonian and FOCs, (2) derive the Keynes-Ramsey rule, (3) draw the phase diagram, (4) characterize the steady state, and sometimes (5) set up and interpret the Hamiltonian matrix. The LQR may appear as a "solve the following LQR problem" with an explicit ARE to solve.</p>
+  </div>
+
+  <!-- ─────────────────────────── -->
+  <h2>The optimal control problem and the Hamiltonian <span class="see"><a href="../lessons/0036-optimal-control-and-the-hamiltonian.html">L36</a> · <a href="../sources/slides7-hamiltonian.pdf#page=3">Ham p.3–20</a></span></h2>
+  <div class="two">
+    <div>
+      <p><b>Problem.</b> State \(x\in\mathbb R^m\), control \(u\in\mathbb R^n\), flow return \(h\), law of motion \(\dot x=g\):</p>
+      $$V^*(x_0)=\max_{\{u(t)\}}\int_0^\infty e^{-\rho t}h(x,u)\,dt\quad\text{s.t.}\quad\dot x=g(x,u),\ x(0)=x_0.$$
+      <p><b>Hamiltonian.</b> Costate \(\lambda(t)\in\mathbb R^m\):</p>
+      $$H(x,u,\lambda)=h(x,u)+\lambda'g(x,u).$$
+      <p><b>Three first-order conditions:</b></p>
+      <ol>
+        <li>\(H_u=0\) — static optimality (control)</li>
+        <li>\(\dot\lambda=\rho\lambda-H_x\) — costate / EE</li>
+        <li>\(\dot x=H_\lambda=g(x,u)\) — state equation</li>
+      </ol>
+      <p><b>Transversality:</b> \(\displaystyle\lim_{T\to\infty}e^{-\rho T}\lambda(T)'x(T)=0\).</p>
+    </div>
+    <div>
+      <p><b>Costate interpretation.</b> \(\lambda(t)\) is the current-value shadow price of \(x\) at time \(t\). \(e^{-\rho t}\lambda(t)\) is the present-value shadow price at time 0. No-arbitrage: \(\rho\lambda=H_x+\dot\lambda\) (required return = dividend + capital gain).</p>
+      <p><b>Maximized Hamiltonian.</b> \(H^*(x,\lambda)=\max_u H(x,u,\lambda)\), achieved at \(u^*(x,\lambda)\). Envelope derivatives:</p>
+      $$H^*_x=H_x(x,u^*,\lambda),\qquad H^*_\lambda=g(x,u^*)=\dot x.$$
+      <p>Properties: \(H^*\) is convex in \(\lambda\) (sup of linear functions), concave in \(x\) (under concavity of \(H\)).</p>
+      <p><b>Lagrangian proof sketch.</b> Attach \(e^{-\rho t}\lambda\) to the constraint \(g-\dot x=0\); integrate by parts to move \(\dot x\); differentiate in \(u\) and \(x\). Stationarity in \(u\) gives \(H_u=0\); stationarity in \(x\) gives \(\dot\lambda=\rho\lambda-H_x\); boundary term gives TC.</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── -->
+  <h2>Neoclassical growth: steady state and phase diagram <span class="see"><a href="../lessons/0037-steady-state-and-phase-diagrams.html">L37</a> · <a href="../sources/slides7-hamiltonian.pdf#page=21">Ham p.21–24</a></span></h2>
+  <div class="two">
+    <div>
+      <p><b>Model:</b> \(h=U(c)\), \(g=f(k)-\delta k-c\), \(\dot k=f(k)-\delta k-c\), \(\dot c/c=\sigma(f'(k)-\rho-\delta)\), \(\sigma=-U'/(cU'')\).</p>
+      <table class="simple">
+        <tr><th>Condition</th><th>Equation</th></tr>
+        <tr><td>Modified golden rule</td><td>\(f'(\bar k)=\rho+\delta\)</td></tr>
+        <tr><td>Resource constraint</td><td>\(\bar c=f(\bar k)-\delta\bar k\)</td></tr>
+        <tr><td>Costate</td><td>\(\bar\lambda=U'(\bar c)\)</td></tr>
+        <tr><td>Golden rule</td><td>\(f'(k_G)=\delta\), \(\bar k\lt k_G\)</td></tr>
+      </table>
+      <p><b>Log utility / Cobb-Douglas:</b> \(U=\ln c\), \(f=Ak^\alpha\). \(\bar k=(A\alpha/(\rho+\delta))^{1/(1-\alpha)}\), \(\bar c=\bar k(\rho+(1-\alpha)\delta)/\alpha\), \(\bar\lambda=1/\bar c\). EIS \(\sigma=1\). KR rule: \(\dot c/c=A\alpha k^{\alpha-1}-\rho-\delta\).</p>
+    </div>
+    <div>
+      <p><b>Phase diagram in \((c,k)\) space.</b></p>
+      <ul>
+        <li>\(\dot k=0\): \(c=f(k)-\delta k\). Inverted-U, peak at \(k_G\).</li>
+        <li>\(\dot c=0\): vertical line at \(k=\bar k\).</li>
+        <li>Above \(\dot k=0\) locus: \(\dot k\lt0\).</li>
+        <li>Right of \(\bar k\): \(\dot c>0\) (since \(f'\lt\rho+\delta\)).</li>
+      </ul>
+      <p><b>Saddle paths:</b> the two arms of the saddle — one approaching \((\bar k,\bar c)\) from the lower-left (sub-steady-state capital) and one from the upper-right (over-accumulated capital). Paths above the saddle: feasibility violated. Paths below: TC violated (over-accumulation).</p>
+      <p><b>Comparative statics:</b> higher \(\rho\) → vertical \(\dot c=0\) locus shifts left → lower \(\bar k\), lower \(\bar c\). On impact, consumption jumps up and capital falls to new lower steady state.</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── -->
+  <h2>Hamiltonian matrix, eigenvalue pairing, and the saddle path <span class="see"><a href="../lessons/0038-hamiltonian-linearization-and-eigenvalues.html">L38</a> · <a href="../sources/slides7-hamiltonian.pdf#page=25">Ham p.25–52</a></span></h2>
+  <div class="two">
+    <div>
+      <p><b>The Hamiltonian matrix.</b> Linearize \((\dot x,\dot\lambda)=(H^*_\lambda,\rho\lambda-H^*_x)\) at \((\bar x,\bar\lambda)\):</p>
+      $$\mathcal H=\begin{pmatrix}\bar H^*_{\lambda x}&\bar H^*_{\lambda\lambda}\\\rho I-\bar H^*_{xx}&-\bar H^*_{x\lambda}\end{pmatrix}\in\mathbb R^{2m\times2m}.$$
+      <p><b>Eigenvalue pairing theorem.</b> If \(\mu\) is an eigenvalue of \(\mathcal H\), so is \(\rho-\mu\) (same multiplicity). Proof: symplectic structure of \(\mathcal H\) implies characteristic polynomials at \(\mu\) and \(\rho-\mu\) are equal.</p>
+      <p><b>Saddle-point property.</b> If no eigenvalue at \(\rho/2\): exactly \(m\) eigenvalues have \(\text{Re}(\mu)\lt0\), exactly \(m\) have \(\text{Re}(\mu)>0\). The optimal path lies on the \(m\)-dimensional stable manifold — uniquely determined by initial \(x_0\).</p>
+      <table class="simple">
+        <tr><th>Block</th><th>Expression</th><th>Sign (neoclassical)</th></tr>
+        <tr><td>\(A_{11}=\bar H^*_{\lambda x}\)</td><td>\(f'(\bar k)-\delta=\rho\)</td><td>\(\rho>0\)</td></tr>
+        <tr><td>\(A_{12}=\bar H^*_{\lambda\lambda}\)</td><td>\(-1/U''(\bar c)\)</td><td>\(>0\)</td></tr>
+        <tr><td>\(A_{21}=\rho I-\bar H^*_{xx}\)</td><td>\(\rho-\bar\lambda f''(\bar k)\)</td><td>\(>0\)</td></tr>
+        <tr><td>\(A_{22}=-\bar H^*_{x\lambda}\)</td><td>\(-\rho\)</td><td>\(-\rho\)</td></tr>
+      </table>
+    </div>
+    <div>
+      <p><b>Decision rule.</b> On the saddle path: \(\hat\lambda(t)=S\hat x(t)\) where \(S\in\mathbb R^{m\times m}\). Built from stable eigenvectors \(\binom{P_{11}}{P_{12}}\): \(S=P_{12}P_{11}^{-1}\). State dynamics: \(\dot{\hat x}=(A_{11}+A_{12}S)\hat x\), eigenvalues = stable ones of \(\mathcal H\).</p>
+      <p><b>Algebraic Riccati equation (ARE).</b> Setting \(\dot\lambda=S\dot x\) along the optimal path:</p>
+      $$SA_{12}S+SA_{11}-A_{22}S-A_{21}=0,$$
+      <p>or in terms of \(H^*\) partials:</p>
+      $$S\bar H^*_{\lambda\lambda}S+S\bar H^*_{\lambda x}+\bar H^*_{x\lambda}S+\bar H^*_{xx}-\rho S=0.$$
+      <p><b>Scalar ARE</b> (\(m=1\)): \(aS^2+(2b-\rho)S+c=0\) where \(a=\bar H^*_{\lambda\lambda}>0\), \(b=\bar H^*_{\lambda x}\), \(c=\bar H^*_{xx}\lt0\). Two roots; stabilizing root \(S_-\) makes closed-loop eigenvalue \(A_{11}+A_{12}S_-\lt0\).</p>
+      <p><b>Comparison with discrete time (folder 5):</b></p>
+      <table class="simple">
+        <tr><th></th><th>Discrete (L33–35)</th><th>Continuous (L36–39)</th></tr>
+        <tr><td>Pairs</td><td>\((\lambda,1/(\beta\lambda))\)</td><td>\((\mu,\rho-\mu)\)</td></tr>
+        <tr><td>Stability</td><td>\(|\lambda|\lt1\)</td><td>\(\text{Re}(\mu)\lt0\)</td></tr>
+        <tr><td>Rule</td><td>\(g'(\bar x)=-P_{11}^{-1}P_{12}\)</td><td>\(S=P_{12}P_{11}^{-1}\)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── -->
+  <h2>The Linear Quadratic Regulator (LQR) <span class="see"><a href="../lessons/0039-the-linear-quadratic-regulator.html">L39</a> · <a href="../sources/slides7-hamiltonian.pdf#page=53">Ham p.53–63</a></span></h2>
+  <div class="two">
+    <div>
+      <p><b>Problem.</b></p>
+      $$\max\int_0^\infty e^{-\rho t}\frac{1}{2}(x'Qx+u'Ru+2x'Nu)\,dt\quad\text{s.t.}\quad\dot x=Ax+Bu,$$
+      <p>with \(R\prec0\) (strict concavity in \(u\)), \(Q\preceq0\).</p>
+      <p><b>FOC:</b> \(u^*=-R^{-1}(N'x+B'\lambda)\). Let \(\tilde A=A-BR^{-1}N'\), \(\tilde Q=Q-NR^{-1}N'\).</p>
+      <p><b>LQR Hamiltonian matrix (constant):</b></p>
+      $$\mathcal H=\begin{pmatrix}\tilde A&-BR^{-1}B'\\-\tilde Q&\rho I-\tilde A'\end{pmatrix}.$$
+      <p><b>LQR ARE:</b></p>
+      $$-S(BR^{-1}B')S+S\tilde A+\tilde A'S-\rho S+\tilde Q=0.$$
+      <p><b>Policy and value function:</b></p>
+      $$u^*(x)=Gx,\quad G=-R^{-1}(N'+B'S),\quad V^*(x)=\tfrac12 x'Sx.$$
+    </div>
+    <div>
+      <p><b>Scalar LQR</b> (\(m=n=1\), \(N=0\)): \(\max\int e^{-\rho t}\frac12(qx^2+ru^2)\,dt\) s.t. \(\dot x=ax+bu\).</p>
+      <table class="simple">
+        <tr><th>Quantity</th><th>Formula</th></tr>
+        <tr><td>FOC</td><td>\(u^*=-b\lambda/r\)</td></tr>
+        <tr><td>\(\mathcal H\)</td><td>\(\begin{pmatrix}a&-b^2/r\\-q&\rho-a\end{pmatrix}\)</td></tr>
+        <tr><td>ARE</td><td>\((-b^2/r)S^2+(2a-\rho)S+q=0\)</td></tr>
+        <tr><td>\(S_\pm\)</td><td>\(\frac{(2a-\rho)\pm\sqrt{(2a-\rho)^2+4(b^2/r)q}}{-2b^2/r}\)</td></tr>
+        <tr><td>Policy</td><td>\(u^*=(-bS_-/r)\,x=Gx\)</td></tr>
+        <tr><td>Eigenvalue</td><td>\(\mu=a-b^2 S_-/r\lt0\)</td></tr>
+        <tr><td>Value fn</td><td>\(V^*(x_0)=S_- x_0^2/2\)</td></tr>
+        <tr><td>State path</td><td>\(x(t)=x_0 e^{\mu t}\to0\)</td></tr>
+      </table>
+      <p><b>Key insight:</b> for the LQR the Hamiltonian matrix is constant, so the saddle-path analysis is exact and global. The ARE has a unique stabilizing solution \(S\) (negative semidefinite for the maximization). Log-linearize a nonlinear model → LQR → extract \(S\) and linear policy functions (Blanchard-Kahn method).</p>
+    </div>
+  </div>
+
+  <p class="see">See also: <a href="stability-linearization-cheatsheet.html">Stability &amp; linearization cheatsheet</a> (folder 5) · <a href="euler-transversality-cheatsheet.html">Euler equations &amp; transversality cheatsheet</a> (folder 4) · <a href="ge-glossary.html">Glossary</a></p>
+
+</div>
+</body>
+</html>

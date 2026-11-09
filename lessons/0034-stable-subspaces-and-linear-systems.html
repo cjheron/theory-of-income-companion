@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 34 — Stable Subspaces and Linear Systems</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part VII: Local Stability &amp; Linearization · Lesson 34 of 39</div>
+    <h1>Stable Subspaces and Linear Systems</h1>
+    <div class="meta">Covers <a href="../sources/slides6-stability-linearization.pdf#page=16">Local Stability slides 16–29</a> · About 35 min · Prerequisites: <a href="0033-local-stability-and-reciprocal-pairs.html">Lesson 33</a> (stability and almost-reciprocal pairs), linear algebra: eigenvalues, eigenvectors, diagonalization</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>write the linearized system \(y_{t+1}=Ay_t\) in terms of the Jacobian \(A\) of the vector-valued optimal policy;</li>
+      <li>diagonalize \(A=P^{-1}\Lambda P\) and solve the transformed system \(z_{i,t+1}=\lambda_i z_{i,t}\) in closed form;</li>
+      <li>define the stable subspace \(E^s\) as the span of eigenvectors with \(|\lambda_i|\lt1\) and state the convergence condition;</li>
+      <li>count the degrees of freedom for initial conditions and state the three canonical cases: all stable, all unstable, and the saddle-point case;</li>
+      <li>describe the Jordan decomposition and explain why stability still requires \(|\lambda_k|\lt1\) for each Jordan block.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides6-stability-linearization.pdf#page=16">Local Stability of Optimal Trajectories, Linearization, slides 16–29</a>. The underlying linear algebra is covered in any first graduate linear algebra text; a readable reference with an economics focus is Strang, <em>Linear Algebra and Its Applications</em> (5th ed.), Ch. 5–6. For the connection to dynamics, Luenberger, <em>Introduction to Dynamic Systems</em> (1979), Ch. 5, gives an excellent treatment of stable subspaces and the Jordan form in discrete time.
+  </div>
+
+  <div class="notation">
+    <div class="box-title">Notation for this lesson</div>
+    <ul>
+      <li>\(n\) — number of state variables in the multi-dimensional problem.</li>
+      <li>\(\xi_t\equiv x_t-x^*\in\mathbb R^n\) — deviation from steady state at date \(t\).</li>
+      <li>\(A\in\mathbb R^{n\times n}\) — Jacobian of the optimal policy at the steady state: \(A=Dg(x^*)\).</li>
+      <li>\(\lambda_1,\ldots,\lambda_n\) — eigenvalues of \(A\) (counted with multiplicity).</li>
+      <li>\(E^s\) — stable subspace (span of eigenvectors/generalized eigenvectors with \(|\lambda_i|\lt1\)).</li>
+      <li>\(m\) — dimension of \(E^s\) = number of eigenvalues (counted with multiplicity) inside the unit circle.</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s1">1. The multi-dimensional linearized system</h2>
+
+  <p>In Lesson 33 we linearized the scalar policy \(g(x)\) to get \(\xi_{t+1}\approx g'(x^*)\xi_t\). With \(n\) state variables, the optimal policy is a vector-valued function \(g:\mathbb R^n\to\mathbb R^n\), and the linearization is a matrix equation. <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=16">Stab p.16</a></p>
+
+  <p>Taylor-expanding \(g\) around \(x^*\):</p>
+  $$x_{t+1}-x^*=g(x_t)-g(x^*)\approx Dg(x^*)(x_t-x^*)$$
+  <p>where \(Dg(x^*)\) is the \(n\times n\) Jacobian matrix. Writing \(y_t\equiv x_t-x^*\):</p>
+  $$y_{t+1}=Ay_t,\qquad A\equiv Dg(x^*)\in\mathbb R^{n\times n}.$$
+  <p>The sequence \(\{y_t\}_{t\ge0}\) is a linear, time-invariant (LTI) dynamical system. The question "does \(x_t\to x^*\)?" becomes "does \(y_t\to0\)?".</p>
+
+  <div class="intuition" id="int-jacobian-interpretation">
+    <div class="box-title">What \(A\) encodes</div>
+    <p>Entry \(A_{ij}\) is the first-order effect of a small increase in state \(j\) today on optimal state \(i\) tomorrow. When \(n=1\), \(A=[g'(x^*)]\) and we recover the scalar case. When \(n=2\) (say capital \(k\) and bonds \(b\)), \(A\) captures cross-effects: how being above steady-state capital changes the speed of bond adjustment.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s2">2. Diagonalizing the system</h2>
+
+  <p>Suppose \(A\) has \(n\) linearly independent eigenvectors \(v_1,\ldots,v_n\) with eigenvalues \(\lambda_1,\ldots,\lambda_n\). Write the full eigenvector decomposition as \(AP=P\Lambda\) where: <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=17">Stab p.17</a></p>
+  <ul>
+    <li>\(P=[v_1|\cdots|v_n]\) — the \(n\times n\) matrix of column eigenvectors,</li>
+    <li>\(\Lambda=\text{diag}(\lambda_1,\ldots,\lambda_n)\) — diagonal matrix of eigenvalues.</li>
+  </ul>
+  <p>Equivalently, \(A=P\Lambda P^{-1}\) (since \(P\) is invertible). Define the transformed variable:</p>
+  $$z_t\equiv P^{-1}y_t.$$
+  <p>Then \(y_{t+1}=Ay_t\) becomes \(Pz_{t+1}=P\Lambda P^{-1}Pz_t=P\Lambda z_t\), so:</p>
+  $$z_{t+1}=\Lambda z_t.$$
+  <p>This is \(n\) independent scalar equations:</p>
+  $$z_{i,t+1}=\lambda_i\, z_{i,t},\quad i=1,\ldots,n.$$
+
+  <p>Each scalar equation solves explicitly: \(z_{i,t}=\lambda_i^t\, z_{i,0}\). Therefore:</p>
+  $$y_t=Pz_t=\sum_{i=1}^n z_{i,0}\,\lambda_i^t\, v_i.$$
+
+  <div class="theorem" id="thm-convergence-cond">
+    <div class="box-title">Convergence condition <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=18">Stab p.18</a></div>
+    <p>\(y_t\to0\) as \(t\to\infty\) if and only if \(z_{i,0}=0\) for every \(i\) with \(|\lambda_i|\ge1\).</p>
+    <ul>
+      <li>For \(|\lambda_i|\lt1\): \(\lambda_i^t\to0\), so component \(z_{i,0}v_i\lambda_i^t\to0\) regardless of \(z_{i,0}\).</li>
+      <li>For \(|\lambda_i|\ge1\): \(|\lambda_i|^t\ge1\) for all \(t\); if \(z_{i,0}\ne0\) this component does not vanish.</li>
+    </ul>
+  </div>
+
+  <p>The condition \(z_{i,0}=0\) for all \(i\) with \(|\lambda_i|\ge1\) is a constraint on the initial deviation \(y_0=x_0-x^*\). Let \(m\) be the number of eigenvalues strictly inside the unit circle. Then there are \(n-m\) eigenvalues with \(|\lambda_i|\ge1\), and convergence requires \(n-m\) independent linear constraints on \(y_0\).</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s3">3. The stable subspace \(E^s\)</h2>
+
+  <div class="definition" id="def-stable-subspace">
+    <div class="box-title">Stable subspace \(E^s\) <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=20">Stab p.20</a></div>
+    <p>The <strong>stable subspace</strong> of \(A\) is the linear span of eigenvectors corresponding to eigenvalues with modulus strictly less than one:</p>
+    $$E^s\equiv\text{span}\{v_i:|\lambda_i|\lt1\}.$$
+    <p>\(\dim(E^s)=m\) (the number of stable eigenvalues, counted with multiplicity). An initial condition \(y_0\) leads to \(y_t\to0\) if and only if \(y_0\in E^s\).</p>
+  </div>
+
+  <div class="intuition" id="int-stable-subspace-geometry">
+    <div class="box-title">Geometric picture in \(\mathbb R^2\)</div>
+    <p>Suppose \(n=2\) with \(\lambda_1\in(-1,1)\) and \(\lambda_2>1\). The stable subspace \(E^s\) is the line through the origin spanned by \(v_1\). Points on this line converge to the origin; all other points diverge. The "saddle" shape familiar from neoclassical growth phase diagrams is exactly the \(n=2\) case of this structure — except there the phase plane depicts \((k_t,c_t)\), and the stable manifold is the optimal path.</p>
+  </div>
+
+  <div class="figure" id="fig-stable-subspace">
+    <div id="ss-ctrl"></div>
+    <div id="ss-fig"></div>
+    <div class="caption"><b>Interactive.</b> The 2D linear system \(y_{t+1}=Ay_t\) with \(A=P\Lambda P^{-1}\). <span style="color:#2a78d6">Blue arrows</span>: the stable eigenvector \(v_1\) (trajectories on this line converge). <span style="color:#d64b2a">Red arrows</span>: the unstable eigenvector \(v_2\) (trajectories diverge). <span style="color:#27ae60">Green path</span>: a trajectory starting on \(E^s\) (converges). <span style="color:#8e44ad">Purple path</span>: a trajectory starting off \(E^s\) (diverges). Adjust \(\lambda_1\) and \(\lambda_2\); watch how the phase portrait changes when both eigenvalues are inside or outside the unit circle.</div>
+  </div>
+
+  <script>
+  (function () {
+    const C = EconPlot.C;
+    function draw(v) {
+      const l1 = v.lam1, l2 = v.lam2;
+      const theta = v.angle * Math.PI / 180;
+      const cosT = Math.cos(theta), sinT = Math.sin(theta);
+      // Eigenvectors: v1 = [cos(theta), sin(theta)], v2 = [-sin(theta), cos(theta)]
+      const P = [[cosT, -sinT], [sinT, cosT]];
+      // A = P * diag(l1, l2) * P^{-1}; since P is orthogonal, P^{-1} = P^T
+      // A = [[l1*cosT^2 + l2*sinT^2, (l1-l2)*cosT*sinT], [(l1-l2)*cosT*sinT, l1*sinT^2 + l2*cosT^2]]
+      function applyA(yx, yz) { // apply A to [yx, yz]
+        const ax = l1*cosT*cosT + l2*sinT*sinT; // A[0][0]
+        const ab = (l1 - l2)*cosT*sinT;         // A[0][1] = A[1][0]
+        const ad = l1*sinT*sinT + l2*cosT*cosT; // A[1][1]
+        return [ax*yx + ab*yz, ab*yx + ad*yz];
+      }
+      const host = document.getElementById('ss-fig');
+      host.innerHTML = '';
+      const rng = 2.5;
+      const PP = EconPlot.create(host, { x: [-rng, rng], y: [-rng, rng], width: 400, height: 400, xlabel: 'y₁', ylabel: 'y₂', xticks: 5, yticks: 5, margin: { l: 50, t: 15 } });
+      // Draw stable eigenvector line
+      PP.line([-rng*cosT, rng*cosT], [-rng*sinT, rng*sinT], { color: C.blue, dash: '5 4', width: 1.5 });
+      PP.text(rng*cosT*0.9, rng*sinT*0.9, 'E^s', { dx: 6, sans: true, size: 13, color: C.blue });
+      // Draw unstable eigenvector line
+      PP.line([rng*sinT, -rng*sinT], [-rng*cosT, rng*cosT], { color: C.red, dash: '5 4', width: 1.5 });
+      PP.text(-rng*sinT*0.9, rng*cosT*0.9, 'E^u', { dx: 6, sans: true, size: 13, color: C.red });
+      // Green trajectory on E^s: start at 2*v1
+      const gsX = [], gsY = [];
+      let gx = 2*cosT, gy = 2*sinT;
+      for (let t = 0; t <= 12; t++) { gsX.push(gx); gsY.push(gy); [gx, gy] = applyA(gx, gy); }
+      PP.path(gsX, gsY, { color: '#27ae60', width: 2 });
+      // Purple trajectory off E^s: start at [1.5, 1.0]
+      const psX = [], psY = [];
+      let px = 1.5, py = 1.0;
+      for (let t = 0; t <= 8 && Math.abs(px) < rng && Math.abs(py) < rng; t++) { psX.push(px); psY.push(py); [px, py] = applyA(px, py); }
+      PP.path(psX, psY, { color: C.violet, width: 2 });
+      PP.hline(0, { color: C.muted, dash: '2 2' });
+      PP.vline(0, { color: C.muted, dash: '2 2' });
+      const out = [['λ₁ (stable):', l1.toFixed(2)], ['λ₂:', l2.toFixed(2)], ['dim(E^s):', Math.abs(l1) < 1 ? '1' : (Math.abs(l2) < 1 ? '1' : '0')], ['Saddle-point:', (Math.abs(l1) < 1 && Math.abs(l2) > 1) || (Math.abs(l1) > 1 && Math.abs(l2) < 1) ? 'Yes' : 'No']];
+      EconPlot.readout('#ss-fig', out, { attach: true });
+    }
+    EconPlot.sliders('#ss-ctrl', [
+      { id: 'lam1', label: 'λ₁', min: -1.5, max: 1.5, step: 0.05, value: 0.6, fmt: x => x.toFixed(2) },
+      { id: 'lam2', label: 'λ₂', min: -2.0, max: 2.0, step: 0.05, value: 1.3, fmt: x => x.toFixed(2) },
+      { id: 'angle', label: 'angle (°)', min: 0, max: 90, step: 5, value: 30, fmt: x => x.toFixed(0) }
+    ], draw);
+  })();
+  </script>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s4">4. Three canonical cases</h2>
+
+  <p>The dimension \(m\) of \(E^s\) determines the nature of the dynamics. <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=20">Stab p.20</a></p>
+
+  <div class="definition" id="def-three-cases">
+    <div class="box-title">Three cases</div>
+    <dl>
+      <dt>Case \(m=n\): globally stable steady state</dt>
+      <dd>All \(n\) eigenvalues satisfy \(|\lambda_i|\lt1\). Every initial condition \(y_0\in\mathbb R^n\) converges to 0. The optimal path starting from any \(x_0\) near \(x^*\) converges to \(x^*\). <em>No constraints on \(x_0\).</em></dd>
+
+      <dt>Case \(m=0\): globally unstable steady state</dt>
+      <dd>All \(n\) eigenvalues satisfy \(|\lambda_i|\ge1\). Only the trivial initial condition \(y_0=0\) (i.e., \(x_0=x^*\)) converges. Any other starting point diverges. <em>All \(n\) components of \(x_0\) are constrained to equal \(x_i^*\).</em></dd>
+
+      <dt>Case \(0\lt m\lt n\): saddle-point</dt>
+      <dd>There are \(m\) stable eigenvalues and \(n-m\) unstable. Convergence requires \(y_0\in E^s\), which imposes \(n-m\) independent constraints on the \(n\) components of \(y_0=x_0-x^*\). If \(x_0\) is a free initial condition (not chosen by the planner), there are generically \(n-m\) components of \(x_0\) that must jump to satisfy these constraints. If \(m=n/2\), the problem is called a <em>saddle-point problem</em>: exactly half the eigenvalues are stable.</dd>
+    </dl>
+  </div>
+
+  <div class="intuition" id="int-saddle-economics">
+    <div class="box-title">Saddle-point property in macro</div>
+    <p>In the neoclassical growth model with \(n=2\) (capital \(k\) and consumption \(c\)), the state vector is \((k,c)\). Capital \(k\) is predetermined (set by previous investment decisions); \(c\) is a "jump variable" chosen at each instant. The saddle-point property says \(m=1\): one eigenvalue inside the unit circle. The convergence condition imposes one constraint on \((k_0, c_0)\): given \(k_0\), there is exactly one \(c_0\) that puts \((k_0,c_0)\) on the stable manifold. This one-dimensional stable manifold is the saddle path of the phase diagram.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s5">5. Counting constraints and free initial conditions</h2>
+
+  <p>To make the counting precise, we need to distinguish between <em>predetermined</em> and <em>jump</em> variables. <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=21">Stab p.21</a></p>
+
+  <p>In a problem with \(n\) state variables, suppose \(k\) of them are <em>predetermined</em> at \(t=0\) (their initial values are fixed by history or endowments) and \(n-k\) are <em>jump variables</em> (control variables that can be freely chosen at \(t=0\)). The convergence condition \(y_0\in E^s\) imposes \(n-m\) linear constraints. For a unique stable path:</p>
+  $$(\text{number of constraints}) = (\text{number of free initial conditions}) \quad\Leftrightarrow\quad n-m=n-k \quad\Leftrightarrow\quad m=k.$$
+
+  <p>So the problem is <strong>determinate</strong> (has a unique stable path) when the number of stable eigenvalues equals the number of predetermined variables. When \(m>k\) there are multiple stable paths (indeterminacy); when \(m\lt k\) there is no stable path generically.</p>
+
+  <div class="theorem" id="thm-blanchard-kahn">
+    <div class="box-title">Blanchard–Kahn condition (discrete time)</div>
+    <p>A system \(y_{t+1}=Ay_t\) with \(k\) predetermined variables and \(n-k\) jump variables has a unique locally stable solution if and only if \(A\) has exactly \(k\) eigenvalues strictly inside the unit circle (i.e., \(m=k\)). This is the discrete-time version of the Blanchard–Kahn (1980) determinacy condition.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s6">6. Jordan decomposition (advanced)</h2>
+
+  <p>The analysis in §2 assumed \(A\) has \(n\) linearly independent eigenvectors. This fails when eigenvalues have algebraic multiplicity greater than geometric multiplicity — i.e., when \(A\) is not diagonalizable. The Jordan decomposition handles the general case. <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=25">Stab p.25</a></p>
+
+  <div class="definition" id="def-jordan-form">
+    <div class="box-title">Jordan form</div>
+    <p>Every real matrix \(A\) is similar to a block-diagonal matrix \(J\): there exists invertible \(P\) such that \(A=PJP^{-1}\), where \(J=\text{diag}(J_1,\ldots,J_r)\) and each Jordan block is:</p>
+    $$J_k=\begin{pmatrix}\lambda_k&1&&\\&\lambda_k&\ddots&\\&&\ddots&1\\&&&\lambda_k\end{pmatrix}\in\mathbb R^{s_k\times s_k}.$$
+    <p>A Jordan block of size \(s_k>1\) arises when the eigenspace for \(\lambda_k\) is defective (dimension less than algebraic multiplicity \(s_k\)).</p>
+  </div>
+
+  <p>For a \(2\times2\) Jordan block with eigenvalue \(\lambda_k\):</p>
+  $$J_k^t=\begin{pmatrix}\lambda_k&1\\0&\lambda_k\end{pmatrix}^t=\lambda_k^{t-1}\begin{pmatrix}\lambda_k&t\\0&\lambda_k\end{pmatrix}=\begin{pmatrix}\lambda_k^t&t\lambda_k^{t-1}\\0&\lambda_k^t\end{pmatrix}.$$
+  <p>The key insight: \(t\lambda_k^{t-1}\to0\) as \(t\to\infty\) if and only if \(|\lambda_k|\lt1\). The \(t\) factor (polynomial growth) is dominated by the exponential decay \(|\lambda_k|^t\). Therefore: <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=27">Stab p.27</a></p>
+
+  <div class="theorem" id="thm-jordan-stability">
+    <div class="box-title">Stability under Jordan form</div>
+    <p>The system \(y_{t+1}=Ay_t\) is stable (all trajectories \(y_t\to0\)) if and only if all eigenvalues of \(A\) satisfy \(|\lambda_k|\lt1\). The size of Jordan blocks does not affect the stability criterion — only the eigenvalue moduli matter. For convergence at rate \(O(\rho^t)\) with \(\rho\lt1\), we need all eigenvalues to satisfy \(|\lambda_k|\le\rho\).</p>
+  </div>
+
+  <div class="intuition" id="int-jordan-why">
+    <div class="box-title">Why Jordan blocks don't change the criterion</div>
+    <p>A Jordan block causes polynomial amplification: a deviation \(y_0\) in the generalized eigenspace of \(\lambda_k\) produces a trajectory \(\sim t^{s_k-1}\lambda_k^t\) in norm. But \(t^p\lambda_k^t\to0\) for any polynomial power \(p\) whenever \(|\lambda_k|\lt1\). The exponential beats the polynomial. This is the same reason that \(e^{-t}\cdot t^p\to0\) for any fixed \(p\) in continuous time.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s7">7. Quiz</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">1. The stable subspace \(E^s\) is:</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">the full space \(\mathbb R^n\) whenever the steady state is a minimum</li>
+        <li class="quiz-option" data-option="b">the set of initial conditions where the Euler equation is satisfied</li>
+        <li class="quiz-option" data-option="c">the span of eigenvectors of \(A=Dg(x^*)\) with \(|\lambda_i|\lt1\)</li>
+        <li class="quiz-option" data-option="d">the orthogonal complement of the unstable eigenspace of \(A\)</li>
+      </ul>
+      <div class="quiz-explain">\(E^s\) is the span of eigenvectors (and generalized eigenvectors, in the Jordan-block case) corresponding to eigenvalues strictly inside the unit circle. Option (d) is wrong: the stable and unstable subspaces are not generally orthogonal (unless \(A\) is symmetric). Option (b) describes the entire trajectory, not just the initial condition.</div>
+    </div>
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">2. For the 2D system \(y_{t+1}=Ay_t\) with \(\lambda_1=0.4\) and \(\lambda_2=1.5\), the Blanchard–Kahn condition for a unique stable path requires:</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">both initial conditions \(y_{1,0}\) and \(y_{2,0}\) to be predetermined</li>
+        <li class="quiz-option" data-option="b">exactly one variable to be predetermined and one to be a jump variable</li>
+        <li class="quiz-option" data-option="c">both variables to be jump variables, with no constraints on initial conditions</li>
+        <li class="quiz-option" data-option="d">the eigenvalues to satisfy \(\lambda_1\lambda_2=1\) which fails here</li>
+      </ul>
+      <div class="quiz-explain">There is \(m=1\) stable eigenvalue (\(\lambda_1=0.4\)). The Blanchard–Kahn condition requires \(m=k\) where \(k\) is the number of predetermined variables. So exactly \(k=1\) predetermined variable and \(n-k=1\) jump variable. The jump variable absorbs the one convergence constraint.</div>
+    </div>
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">3. Under diagonalization \(A=P\Lambda P^{-1}\), the transformed variable \(z_t=P^{-1}y_t\) evolves as:</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">\(z_{t+1}=P^{-1}z_t\) — mixed by the inverse eigenvector matrix</li>
+        <li class="quiz-option" data-option="b">\(z_{t+1}=\Lambda^{-1}z_t\) — governed by the inverse eigenvalues</li>
+        <li class="quiz-option" data-option="c">\(z_{t+1}=Pz_t\) — mixed by the eigenvector matrix</li>
+        <li class="quiz-option" data-option="d">\(z_{t+1}=\Lambda z_t\) — \(n\) independent scalar equations \(z_{i,t+1}=\lambda_i z_{i,t}\)</li>
+      </ul>
+      <div class="quiz-explain">Substituting: \(z_{t+1}=P^{-1}y_{t+1}=P^{-1}Ay_t=P^{-1}(P\Lambda P^{-1})y_t=\Lambda P^{-1}y_t=\Lambda z_t\). So \(z_{t+1}=\Lambda z_t\), which is \(n\) independent scalar equations — this is the whole point of the transformation.</div>
+    </div>
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">4. A \(3\times3\) Jordan block with eigenvalue \(\lambda=-0.5\) produces trajectories of the form:</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">oscillating with amplitude shrinking at rate \(t^2(-0.5)^t\to0\)</li>
+        <li class="quiz-option" data-option="b">diverging at rate \(t^2(-0.5)^{-t}\to\infty\)</li>
+        <li class="quiz-option" data-option="c">converging to a cycle of period 2 at amplitude 1</li>
+        <li class="quiz-option" data-option="d">constant at the initial value since \(|\lambda|\lt1\)</li>
+      </ul>
+      <div class="quiz-explain">\(J^t_{3\times3}\) produces terms up to \(t^2\lambda^{t-2}\). For \(\lambda=-0.5\): sign alternates (oscillating) and \(t^2\cdot0.5^t\to0\). Option (c) is wrong — a cycle requires eigenvalues on the unit circle. Option (d) is wrong — Jordan blocks produce polynomial growth in \(t\), not constants, though both decay.</div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="tf">8. True or false?</h2>
+
+  <ol class="tf-list">
+    <li>If \(A\) has two eigenvalues inside the unit circle and one outside, then the initial condition \(y_0\) must satisfy 2 independent constraints for the trajectory to converge.
+      <details class="solution"><summary>Answer</summary><div class="body"><strong>False.</strong> With \(n=3\) states, \(m=2\) stable eigenvalues, and \(n-m=1\) unstable eigenvalue, convergence requires \(n-m=1\) constraint on \(y_0\) (not 2). The constraint zeros out the component along the unstable eigenvector; the two stable components can be non-zero and still converge.</div></details>
+    </li>
+    <li>If a matrix is not diagonalizable (i.e., has a Jordan block), then its stable subspace is not well defined.
+      <details class="solution"><summary>Answer</summary><div class="body"><strong>False.</strong> The stable subspace is well defined in the Jordan-form case too: it is the span of generalized eigenvectors corresponding to eigenvalues with \(|\lambda_k|\lt1\). The only change from the diagonalizable case is that "eigenvectors" must be replaced by "generalized eigenvectors" (chains associated with Jordan blocks).</div></details>
+    </li>
+    <li>The Blanchard–Kahn condition \(m=k\) guarantees global stability (convergence from any starting point).
+      <details class="solution"><summary>Answer</summary><div class="body"><strong>False.</strong> The Blanchard–Kahn condition guarantees <em>local</em> uniqueness of a stable path — given any set of predetermined initial conditions, there is a unique choice of jump variables that places the system on \(E^s\). But \(E^s\) is a local object (defined by the Jacobian at the steady state), so this is only a local result. Global stability requires separate analysis.</div></details>
+    </li>
+    <li>The solution \(y_t=\sum_{i=1}^n z_{i,0}\lambda_i^t v_i\) shows that only the unstable eigendirections determine long-run behavior.
+      <details class="solution"><summary>Answer</summary><div class="body"><strong>False, sort of.</strong> In the long run, stable directions (\(|\lambda_i|\lt1\)) vanish so the unstable directions dominate if \(z_{i,0}\ne0\) for any unstable \(\lambda_i\). But on the optimal path, we set \(z_{i,0}=0\) for all unstable \(i\): the optimal path lies in \(E^s\), so long-run behavior is governed entirely by the stable eigendirections. The statement mixes unconditional and conditional behavior.</div></details>
+    </li>
+  </ol>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s8">9. Exercises</h2>
+
+  <div class="box exercise" id="ex-34-1">
+    <div class="box-title">Exercise 34.1 <span class="tag slides">Stab p.19</span> (finding the stable subspace)</div>
+    <p>Let \(A=\begin{pmatrix}0.3&0.4\\0&1.2\end{pmatrix}\).</p>
+    <ol class="parts" type="a">
+      <li>Find the eigenvalues and eigenvectors of \(A\). <span class="pts">(5 pts)</span></li>
+      <li>Write down the stable subspace \(E^s\) explicitly as a subspace of \(\mathbb R^2\). <span class="pts">(5 pts)</span></li>
+      <li>Find the initial condition \((y_{1,0},y_{2,0})\) on \(E^s\) with \(y_{1,0}=1\). What must \(y_{2,0}\) be? <span class="pts">(5 pts)</span></li>
+      <li>Verify by computing \(y_1=Ay_0\), \(y_2=Ay_1\), \(y_3=Ay_2\) explicitly. Do the components decay at rate \(\lambda_1=0.3\)? <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>\(A\) is upper triangular so the eigenvalues are the diagonal entries. For the stable eigenvector (eigenvalue 0.3), solve \((A-0.3I)v=0\). For the stable subspace: any scalar multiple of this eigenvector.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Since \(A\) is upper triangular, \(\lambda_1=0.3\) and \(\lambda_2=1.2\). Eigenvector for \(\lambda_1=0.3\): \((A-0.3I)v=0\Rightarrow\begin{pmatrix}0&0.4\\0&0.9\end{pmatrix}v=0\Rightarrow v_1=\begin{pmatrix}1\\0\end{pmatrix}\). Eigenvector for \(\lambda_2=1.2\): \((A-1.2I)v=0\Rightarrow\begin{pmatrix}-0.9&0.4\\0&0\end{pmatrix}v=0\Rightarrow v_2=\begin{pmatrix}4\\9\end{pmatrix}\) (or any multiple).</p>
+      <p>(b) \(E^s=\text{span}\{v_1\}=\{(c,0):c\in\mathbb R\}\) — the \(y_1\)-axis.</p>
+      <p>(c) For \(y_0\in E^s\) with \(y_{1,0}=1\): \(y_0=(1,0)\), so \(y_{2,0}=0\).</p>
+      <p>(d) \(y_1=A(1,0)^T=(0.3,0)^T\); \(y_2=A(0.3,0)^T=(0.09,0)^T\); \(y_3=A(0.09,0)^T=(0.027,0)^T\). Yes: \(y_{1,t}=0.3^t\to0\) and \(y_{2,t}=0\) throughout.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-34-2">
+    <div class="box-title">Exercise 34.2 <span class="tag exam">Exam-style</span> (Blanchard–Kahn counting)</div>
+    <p>An economy has three state variables: capital stock \(k\), government debt \(b\), and consumption \(c\). The linearized system around the steady state has Jacobian \(A\) with eigenvalues \(\lambda_1=0.5\), \(\lambda_2=0.7\), \(\lambda_3=1.4\).</p>
+    <ol class="parts" type="a">
+      <li>How many predetermined variables must there be for the Blanchard–Kahn condition to hold? Which of \((k,b,c)\) are likely predetermined? <span class="pts">(5 pts)</span></li>
+      <li>Describe what the stable manifold looks like geometrically in this 3D system. <span class="pts">(5 pts)</span></li>
+      <li>Now suppose the government changes policy and the new Jacobian has eigenvalues \(0.5, 0.7, 0.8\). Is the system still determinate? What happens to any jump variable? <span class="pts">(5 pts)</span></li>
+      <li>And if the new eigenvalues are \(0.5, 1.2, 1.4\)? Is the system still determinate? <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>Blanchard–Kahn: number of stable eigenvalues (\(|\lambda_i|\lt1\)) must equal number of predetermined variables. Capital \(k\) and debt \(b\) are stock variables (predetermined by history); consumption \(c\) is a flow (jump variable).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(m=2\) eigenvalues inside the unit circle (0.5 and 0.7). Blanchard–Kahn requires \(k=m=2\) predetermined variables. Capital \(k\) and government debt \(b\) are stocks set by past decisions — they are predetermined. Consumption \(c\) is the jump variable chosen at each date.</p>
+      <p>(b) The stable manifold \(E^s\) is a 2-dimensional subspace (plane through the origin in \(\mathbb R^3\)) spanned by the two stable eigenvectors of \(A\). For given \((k_0-k^*, b_0-b^*)\), there is a unique \(c_0-c^*\) on this plane — that is the equilibrium jump.</p>
+      <p>(c) All three eigenvalues are now inside the unit circle: \(m=3\). With still \(k=2\) predetermined variables, \(m=3>k=2\): indeterminacy. There are infinitely many stable paths — the economy can jump to multiple different \(c_0\) values and still converge. Policy is too passive to pin down a unique path.</p>
+      <p>(d) Now \(m=1\) (only eigenvalue 0.5 is inside the unit circle). With \(k=2\) predetermined variables but only \(m=1\) stable eigenvalue: \(m=1\lt k=2\). The convergence condition imposes \(n-m=2\) constraints, but there is only \(n-k=1\) free jump variable — one too few. Generically, no stable path exists. The policy creates an explosive equilibrium.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-34-3">
+    <div class="box-title">Exercise 34.3 <span class="tag slides">Stab p.26</span> (Jordan block computation)</div>
+    <p>Let \(A=\begin{pmatrix}0.6&1\\0&0.6\end{pmatrix}\) — a \(2\times2\) Jordan block with \(\lambda=0.6\).</p>
+    <ol class="parts" type="a">
+      <li>Compute \(A^t\) exactly. <span class="pts">(5 pts)</span></li>
+      <li>Starting from \(y_0=(1,1)^T\), compute the trajectory \(y_t=A^ty_0\) and verify that \(y_t\to0\). At what rate does the second component \(y_{2,t}\) converge? <span class="pts">(5 pts)</span></li>
+      <li>Contrast with what would happen if \(A=\begin{pmatrix}1.4&1\\0&1.4\end{pmatrix}\). <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For a Jordan block \(J=\lambda I+N\) where \(N\) is the nilpotent shift, \(J^t=\sum_{k=0}^{s-1}\binom{t}{k}\lambda^{t-k}N^k\). For a \(2\times2\) block: \(J^t=\begin{pmatrix}\lambda^t & t\lambda^{t-1}\\0&\lambda^t\end{pmatrix}\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(A^t=\begin{pmatrix}0.6^t&t\cdot0.6^{t-1}\\0&0.6^t\end{pmatrix}\).</p>
+      <p>(b) \(y_t=A^t(1,1)^T=\begin{pmatrix}0.6^t+t\cdot0.6^{t-1}\\0.6^t\end{pmatrix}\). Component 2: \(y_{2,t}=0.6^t\to0\). Component 1: \(y_{1,t}=0.6^{t-1}(0.6+t)=0.6^{t-1}(0.6+t)\). Since \(t\to\infty\) but \(0.6^{t-1}\) shrinks faster (exponential beats polynomial), \(y_{1,t}\to0\). Rate: for large \(t\), \(y_{1,t}\approx t\cdot0.6^{t-1}\), which decays at rate slightly slower than \(0.6^t\) but still \(\to0\).</p>
+      <p>(c) With \(\lambda=1.4\): \(A^t=\begin{pmatrix}1.4^t&t\cdot1.4^{t-1}\\0&1.4^t\end{pmatrix}\). Now \(1.4^t\to\infty\), so \(y_t\to\infty\) for any \(y_0\ne0\). The polynomial factor \(t\) is dominated by the exponential growth \(1.4^t\). The steady state is unstable.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-34-4">
+    <div class="box-title">Exercise 34.4 <span class="tag exam">Exam-style</span> (complex eigenvalues)</div>
+    <p>Suppose the Jacobian \(A\) has complex eigenvalues \(\lambda_{1,2}=\rho e^{\pm i\theta}\) where \(\rho>0\) and \(\theta\ne0,\pi\).</p>
+    <ol class="parts" type="a">
+      <li>Show that \(|\lambda_{1,2}|=\rho\). What is the stability condition? <span class="pts">(3 pts)</span></li>
+      <li>What is the qualitative behavior of a trajectory starting near the steady state when \(\rho\lt1\)? <span class="pts">(5 pts)</span></li>
+      <li>In the neoclassical growth model, can the eigenvalue \(\lambda_1=g'(k^*)\) be complex? Relate to the sign of the discriminant of \(\tilde Q(\lambda)\) in Lesson 33. <span class="pts">(7 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>Recall \(|e^{i\theta}|=1\), so \(|\rho e^{i\theta}|=\rho\). For the trajectory: use \(A^t v\sim\rho^t[\cos(t\theta)w_1+\sin(t\theta)w_2]\) for real vectors \(w_1,w_2\). For (c): the discriminant of \(\tilde Q\) is \([1+1/\beta+\rho_f/\rho_U]^2-4/\beta\). What is its sign?</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(|\rho e^{i\theta}|=\rho|e^{i\theta}|=\rho\). Stability requires \(\rho\lt1\).</p>
+      <p>(b) With \(\rho\lt1\): the trajectory spirals inward toward the steady state, oscillating with period \(2\pi/\theta\) while decaying geometrically at rate \(\rho^t\). Each deviation changes sign roughly every \(\pi/\theta\) periods. This is called "damped oscillatory convergence."</p>
+      <p>(c) The discriminant of \(\tilde Q(\lambda)=\lambda^2-[1+1/\beta+\rho_f/\rho_U]\lambda+1/\beta\) is \(\Delta=[1+1/\beta+\rho_f/\rho_U]^2-4/\beta\). For typical parameter values (\(\beta\approx0.95\), \(\rho_f/\rho_U>0\)), the coefficient in brackets is at least \(1+1/0.95\approx2.05\), so \(\Delta\gt(2.05)^2-4/0.95=4.20-4.21\approx-0.01\). This can be negative! When \(\Delta\lt0\), the roots are complex conjugates \(\lambda_{1,2}=\mu\pm i\nu\) with modulus \(\sqrt{\mu^2+\nu^2}=\sqrt{1/\beta}\approx\sqrt{1.053}=1.026>1\) — both roots outside the unit circle, so this would be Case II in Lesson 33. However, we showed \(\tilde Q(1)\lt0\), which is inconsistent with complex roots: a real upward parabola with \(\tilde Q(0)>0\) and \(\tilde Q(1)\lt0\) must have two real roots with one in \((0,1)\). So in the standard neoclassical model with log utility and Cobb-Douglas technology, \(\Delta>0\) and \(g'(k^*)\) is real.</p>
+    </div></details>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="takeaways">
+    <h2 id="takeaways">Key takeaways</h2>
+    <ul>
+      <li>The linearized system \(y_{t+1}=Ay_t\) with \(A=Dg(x^*)\) reduces to \(n\) independent scalar equations \(z_{i,t+1}=\lambda_iz_{i,t}\) after diagonalization \(z_t=P^{-1}y_t\).</li>
+      <li>Convergence \(y_t\to0\) requires \(z_{i,0}=0\) for each eigenvalue \(|\lambda_i|\ge1\). This imposes \(n-m\) constraints on \(y_0\), where \(m=\dim(E^s)\) is the number of stable eigenvalues.</li>
+      <li>Three cases: (i) \(m=n\) — all eigenvalues stable, every initial condition converges; (ii) \(m=0\) — all unstable, only \(x_0=x^*\) converges; (iii) \(0\lt m\lt n\) — saddle-point, convergence requires \(y_0\in E^s\).</li>
+      <li>Blanchard–Kahn: for a unique stable path, the number of stable eigenvalues must equal the number of predetermined state variables (\(m=k\)).</li>
+      <li>Jordan form: non-diagonalizable matrices produce polynomial-times-exponential trajectories (\(t^p\lambda^t\)), but stability still requires \(|\lambda|\lt1\). The polynomial factor cannot overcome exponential decay.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything about this lesson. Good questions: "What does the stable manifold look like in 3D?", "How does Blanchard–Kahn connect to sunspot equilibria?", or "When does the Jordan form actually arise in economic models?"</div>
+
+  <div class="lesson-nav">
+    <a href="0033-local-stability-and-reciprocal-pairs.html">← Lesson 33: Local stability and almost-reciprocal pairs</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0035-linearizing-the-dpp-and-decision-rules.html">Lesson 35: Linearizing the DPP and decision rules →</a>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,7 +1,7 @@
 # Resources
 
 ## Course materials (primary)
-- **Alvarez lecture slides, Fall 2026**: class Dropbox folder "class notes pdf files for students" (https://www.dropbox.com/scl/fo/fn9xoskx6ud23pimgo82p/ALVspsCuMymaBs2MzSqeOwQ?rlkey=vg06spyn2hsedldeyyaenifrn&dl=0). Folders 1–4 are copied to `./sources/`.
+- **Alvarez lecture slides, Fall 2026**: class Dropbox folder "class notes pdf files for students" (https://www.dropbox.com/scl/fo/fn9xoskx6ud23pimgo82p/ALVspsCuMymaBs2MzSqeOwQ?rlkey=vg06spyn2hsedldeyyaenifrn&dl=0). Folders 1–5 and 7 are copied to `./sources/` (folder 6 not yet added).
 - **First-Year Notes** (past exams): shared among the cohort. The link is kept in private notes, not published here.
 
 ## General Equilibrium & Welfare Theorems
@@ -31,6 +31,18 @@
 - **Acemoglu, *Introduction to Modern Economic Growth*** (2009), ch. 6 (discrete-time dynamic programming, Euler equations, transversality) and ch. 11 (AK model).
 - **Kamihigashi (2001)**, "Necessity of Transversality Conditions for Infinite Horizon Problems", *Econometrica* 69(4): 995–1012. When the TC is necessary.
 - **Hayashi (1982)**, "Tobin's Marginal q and Average q: A Neoclassical Interpretation", *Econometrica* 50(1): 213–224. Average q equals marginal q under constant returns.
+
+## Local Stability and Linearization (folder 5)
+- **Stokey & Lucas with Prescott (1989), *Recursive Methods in Economic Dynamics***, Ch. 6: local stability of optimal trajectories, linearization around the steady state, almost-reciprocal pairs for discrete-time problems. The primary source the slides follow.
+- **Blanchard & Kahn (1980)**, "The Solution of Linear Difference Models under Rational Expectations", *Econometrica* 48(5): 1305–1311. Conditions for determinacy (unique stable path) of linear rational-expectations systems — the saddle-point property stated and checked.
+- **King, Plosser & Rebelo (2002)**, "Production, growth and business cycles: Technical appendix", *Computational Economics*: linearization of the neoclassical growth model, computation of g′(k*) in practice.
+
+## Continuous-Time Optimal Control and Hamiltonian (folder 7)
+- **Pontryagin, Boltyanskii, Gamkrelidze & Mishchenko (1962), *The Mathematical Theory of Optimal Processes***: the original statement of the maximum principle. Historical reference.
+- **Acemoglu, *Introduction to Modern Economic Growth*** (2009), Ch. 7: continuous-time optimal control, Hamiltonian, phase diagrams for the neoclassical growth model, linearization and local stability; rigorous and comprehensive.
+- **Kamihigashi (2001)**: see Euler equations entry — also applies to continuous-time TC.
+- **Anderson, Hansen, McGrattan & Sargent (1996)**, "Mechanics of Forming and Estimating Dynamic Linear Economies", in *Frontiers of Business Cycle Research* (ed. Cooley): thorough LQR treatment with Riccati equation and applications.
+- **Stengel (1994), *Optimal Control and Estimation*** (Dover): engineering-oriented LQR reference with accessible proofs of the algebraic Riccati equation.
 
 ## Community
 - **Classmates / TA sessions**: the best place to test proofs aloud; consider a weekly prelim study group.

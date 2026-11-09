@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 37 — Steady State and Phase Diagrams</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part VIII: Continuous-Time Optimal Control · Lesson 37 of 39</div>
+    <h1>Steady State and Phase Diagrams</h1>
+    <div class="meta">Covers <a href="../sources/slides7-hamiltonian.pdf#page=21">Hamiltonian slides 21–24</a> · About 25 min · Prerequisites: <a href="0036-optimal-control-and-the-hamiltonian.html">Lesson 36</a> (Hamiltonian and FOCs)</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>find the steady state \((\bar x,\bar u,\bar\lambda)\) of the optimal control system by setting \(\dot x=0\) and \(\dot\lambda=0\);</li>
+      <li>derive the steady-state costate value \(\bar\lambda=H_x/\rho\) and interpret it as the capitalized value of the state's marginal return;</li>
+      <li>draw the phase diagram in \((\lambda,k)\) space: locate the two nullclines, determine their slopes, and identify the saddle-path direction;</li>
+      <li>convert the \((\lambda,k)\) phase diagram into the \((c,k)\) diagram for the neoclassical model using \(\lambda=U'(c)\) and the Keynes-Ramsey rule;</li>
+      <li>argue informally why the optimal path must lie on the saddle path, and distinguish it from explosive or over-saving paths.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides7-hamiltonian.pdf#page=21">Maximum Principle — slides 21–24</a>. See also Acemoglu (2009), §7.3–7.4 for the \((c,k)\) phase diagram and saddle-path argument; Barro &amp; Sala-i-Martin (2004), Appendix A.4. The notation here uses the current-value form.
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s1">1. Finding the steady state</h2>
+
+  <p>A <strong>steady state</strong> is a rest point of the optimal system: a triple \((\bar x,\bar u,\bar\lambda)\) where \(\dot x=0\) and \(\dot\lambda=0\) simultaneously <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=21">Ham p.21</a>. The three FOCs plus the steady-state conditions give a system to solve:</p>
+
+  <div class="theorem" id="thm-steady-state">
+    <div class="box-title">Steady-state conditions</div>
+    <ol>
+      <li><strong>Optimal control:</strong> \(H_u(\bar x,\bar u,\bar\lambda)=0\) — determines \(\bar u\) given \((\bar x,\bar\lambda)\).</li>
+      <li><strong>Stationary state:</strong> \(\dot x=g(\bar x,\bar u)=0\) — the state does not change.</li>
+      <li><strong>Stationary costate:</strong> \(\dot\lambda=\rho\bar\lambda-H_x(\bar x,\bar u,\bar\lambda)=0\implies\bar\lambda=H_x(\bar x,\bar u,\bar\lambda)/\rho\).</li>
+    </ol>
+  </div>
+
+  <p>The third condition, \(\bar\lambda=H_x/\rho\), says the steady-state costate equals the return on the state divided by the discount rate — the capitalized value of the marginal return. This is a no-arbitrage condition: the asset \(\bar\lambda\) earns exactly its required return at the steady state, with zero capital gain (\(\dot\lambda=0\)).</p>
+
+  <p><strong>Neoclassical growth: steady state.</strong> The conditions are <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=22">Ham p.22</a>:</p>
+  <ul>
+    <li>\(H_c=U'(\bar c)-\bar\lambda=0\implies\bar\lambda=U'(\bar c)\).</li>
+    <li>\(\dot k=f(\bar k)-\delta\bar k-\bar c=0\implies\bar c=f(\bar k)-\delta\bar k\).</li>
+    <li>\(\dot\lambda=\bar\lambda(\rho+\delta-f'(\bar k))=0\implies f'(\bar k)=\rho+\delta\). This is the <strong>modified golden rule</strong>: steady-state capital equalizes the net return on capital to the discount rate.</li>
+  </ul>
+
+  <p>Three equations in three unknowns \((\bar k,\bar c,\bar\lambda)\): (1) gives \(\bar\lambda\) once \(\bar c\) is known; (2) and (3) jointly determine \((\bar k,\bar c)\) from \(f'(\bar k)=\rho+\delta\) and \(\bar c=f(\bar k)-\delta\bar k\).</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s2">2. Phase diagram in \((\lambda,k)\) space</h2>
+
+  <p>The optimal system reduces to a two-dimensional ODE in \((k(t),\lambda(t))\) after substituting the optimal \(u^*(k,\lambda)\) from \(H_u=0\) <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=23">Ham p.23</a>:</p>
+  $$\dot k=H^*_\lambda(k,\lambda)=g(k,u^*(k,\lambda)),\qquad\dot\lambda=\rho\lambda-H^*_x(k,\lambda).$$
+
+  <p>To draw the phase diagram, find the two <strong>nullclines</strong>:</p>
+  <ul>
+    <li><strong>\(\dot k=0\) locus</strong>: the set of \((k,\lambda)\) with \(g(k,u^*(k,\lambda))=0\). In the neoclassical model: \(c^*(\lambda)=f(k)-\delta k\), so \(\lambda=U'(f(k)-\delta k)\). As \(k\) increases, \(f(k)-\delta k\) first increases then decreases (inverted-U), so \(\lambda=U'(c)\) first decreases then increases (U-shape if \(U''\lt0\)). The steady state \(\bar k\) is the top of the \(f(k)-\delta k\) curve.</li>
+    <li><strong>\(\dot\lambda=0\) locus</strong>: the set where \(\rho\lambda=H^*_x(k,\lambda)\). In the neoclassical model: \(\dot\lambda=0\iff f'(k)-\delta=\rho\), which pins down \(\bar k\) and is a vertical line at \(k=\bar k\).</li>
+  </ul>
+
+  <p>The phase diagram arrows: (i) Above the \(\dot k=0\) locus, \(c^*\gt f(k)-\delta k\), so \(\dot k\lt0\) (capital falling). Below, \(\dot k>0\) (capital rising). (ii) To the right of \(\bar k\), \(f'(k)\lt\rho+\delta\), so \(\dot\lambda\gt0\) (costate rising — high capital → low return → rising marginal value). To the left, \(\dot\lambda\lt0\).</p>
+
+  <p>The steady state has a <strong>saddle structure</strong>: the two arms of the saddle path, one stable (the optimal path) and one unstable, divide the phase plane into four regions. The optimal path is the unique trajectory approaching the steady state.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s3">3. The \((c,k)\) phase diagram and the Keynes-Ramsey rule</h2>
+
+  <p>For the neoclassical model, we can eliminate \(\lambda\) and work in \((c,k)\) space using \(\lambda=U'(c)\) and the Keynes-Ramsey rule <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=24">Ham p.24</a>:</p>
+  $$\dot k=f(k)-\delta k-c,\qquad\dot c=\sigma(c)(f'(k)-\rho-\delta)\,c,$$
+
+  <p>where \(\sigma(c)=-U'(c)/(cU''(c))>0\) is the EIS. Nullclines:</p>
+  <ul>
+    <li><strong>\(\dot k=0\):</strong> \(c=f(k)-\delta k\). This is the feasibility frontier: consumption equals net output. It is an inverted-U in \((k,c)\) space, with a peak at the golden-rule capital \(k_G\) where \(f'(k_G)=\delta\).</li>
+    <li><strong>\(\dot c=0\):</strong> \(f'(k)=\rho+\delta\). This is a vertical line at \(k=\bar k\lt k_G\) (the modified golden rule is below the golden rule because of discounting). Along this line, consumption can be anything; it is not determined by \(\dot c=0\) alone.</li>
+  </ul>
+
+  <div class="intuition" id="int-saddle-path-argument">
+    <div class="box-title">Why the optimal path is the saddle path</div>
+    <p>Paths that start above the saddle path (too much consumption initially) eventually hit \(c=0\) or violate \(c\ge0\). Paths that start below (too little consumption) eventually have \(c\to\infty\) faster than the discount factor falls, violating the transversality condition \(\lim e^{-\rho t}\lambda k\to0\). Only the saddle path satisfies both the Euler equation and the TC. This is the continuous-time analogue of the discrete-time shooting algorithm of Lesson 28.</p>
+  </div>
+
+  <p><strong>Reading the phase diagram.</strong> Four regions separated by the two nullclines:</p>
+  <ul>
+    <li>Upper-left (\(k\lt\bar k\), \(c\gt\dot k=0\) locus): \(\dot k\lt0\), \(\dot c\lt0\) — both falling. Path spirals toward \((0,0)\), not to the steady state.</li>
+    <li>Upper-right (\(k\gt\bar k\), \(c\gt\dot k=0\) locus): \(\dot k\lt0\), \(\dot c\gt0\) — capital falling, consumption rising. Overshoots.</li>
+    <li>Lower-left (\(k\lt\bar k\), \(c\lt\dot k=0\) locus): \(\dot k\gt0\), \(\dot c\lt0\). Capital rising, consumption falling.</li>
+    <li>Lower-right (\(k\gt\bar k\), \(c\lt\dot k=0\) locus): \(\dot k\gt0\), \(\dot c\gt0\). Both rising, toward \((k_G\to\infty,0)\) on the golden-rule path — over-accumulation, ruled out by TC.</li>
+  </ul>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s4">4. Quiz</h2>
+
+  <div class="quiz-section">
+
+    <div class="quiz-question" data-correct="c">
+      <p class="quiz-title">The modified golden rule \(f'(\bar k)=\rho+\delta\) says:</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Capital is at the maximum of the feasibility frontier</li>
+        <li class="quiz-option" data-option="b">Consumption grows at the fastest sustainable rate</li>
+        <li class="quiz-option" data-option="c">The net return on capital equals the discount rate</li>
+        <li class="quiz-option" data-option="d">The costate equals the marginal product of capital</li>
+      </ul>
+      <div class="quiz-explain">\(f'(\bar k)-\delta=\rho\): the net return on capital (marginal product minus depreciation) equals the household's discount rate. This is \(\dot\lambda/\lambda=0\) written out for the neoclassical model. The "golden" rule without discounting (\(\rho=0\)) would give \(f'(k_G)=\delta\), producing higher steady-state capital; discounting lowers \(\bar k\) below the golden-rule level.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="b">
+      <p class="quiz-title">Why is the \(\dot c=0\) nullcline a vertical line in \((c,k)\) space?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Because consumption is constant at all capital levels</li>
+        <li class="quiz-option" data-option="b">Because \(\dot c=0\) requires only a fixed capital level</li>
+        <li class="quiz-option" data-option="c">Because the EIS is constant and independent of capital</li>
+        <li class="quiz-option" data-option="d">Because the costate is proportional to consumption always</li>
+      </ul>
+      <div class="quiz-explain">The Keynes-Ramsey rule is \(\dot c=\sigma(c)(f'(k)-\rho-\delta)c\). Setting \(\dot c=0\) (with \(c>0\) and \(\sigma>0\)) requires \(f'(k)=\rho+\delta\), which pins down \(\bar k\) irrespective of \(c\). The locus is therefore a vertical line at \(k=\bar k\): any consumption level is consistent with \(\dot c=0\) as long as \(k=\bar k\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <p class="quiz-title">Starting above the saddle path with too much initial consumption leads to:</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Capital eventually falling to zero or violating feasibility</li>
+        <li class="quiz-option" data-option="b">Convergence to a higher steady state with more capital</li>
+        <li class="quiz-option" data-option="c">Oscillations around the modified golden rule capital level</li>
+        <li class="quiz-option" data-option="d">Faster growth as households invest all windfall gains</li>
+      </ul>
+      <div class="quiz-explain">If consumption starts above the saddle path, the household dissaves too fast: \(\dot k=f(k)-\delta k-c\lt0\) all along the path. Capital keeps falling and eventually hits zero; feasibility is violated. The TC cannot be satisfied. These paths are ruled out as optimal — only the saddle path satisfies both the EE and the TC.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <p class="quiz-title">Why is steady-state capital under the modified golden rule less than the golden-rule capital \(k_G\)?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Because production is decreasing returns at high capital</li>
+        <li class="quiz-option" data-option="b">Because the feasibility frontier has an interior maximum</li>
+        <li class="quiz-option" data-option="c">Because depreciation reduces the net return at high capital</li>
+        <li class="quiz-option" data-option="d">Because discounting makes the household impatient and undersave</li>
+      </ul>
+      <div class="quiz-explain">The golden rule \(f'(k_G)=\delta\) maximizes long-run consumption \(f(k)-\delta k\) but ignores discounting. The modified golden rule \(f'(\bar k)=\rho+\delta\) adds the discount rate \(\rho>0\) to the right-hand side, requiring a higher marginal product — achievable only at lower capital. The impatient household accumulates less capital than the golden-rule planner who cares equally about all future periods.</div>
+    </div>
+
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s5">5. True or False</h2>
+
+  <div class="box exercise" id="tf">
+    <div class="box-title">True or False — justify in one or two lines</div>
+    <ol class="tf-list">
+      <li>At the steady state of the neoclassical model, consumption equals gross output. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> At the steady state, \(\dot k=0\) requires \(\bar c=f(\bar k)-\delta\bar k\), i.e. consumption equals <em>net</em> output (gross output minus depreciation). Consumption equals gross output only if \(\delta=0\).</p></div></details></li>
+      <li>A path that starts below the saddle path satisfies the EE but violates the TC if the economy is initially below steady-state capital. <span class="tf-src">Ham p.23</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True (generically).</strong> Below the saddle path, consumption is too low; capital keeps rising past the steady state and converges to the golden-rule or beyond, with \(e^{-\rho t}\lambda k\not\to0\). The TC fails. The EE is satisfied everywhere on the phase diagram (the vector field comes from the EE); the TC is the boundary condition that selects the saddle path among all EE-satisfying paths.</p></div></details></li>
+      <li>The steady-state costate satisfies \(\bar\lambda=H_x(\bar x,\bar u,\bar\lambda)/\rho\) for all optimal control problems. <span class="tf-src">Ham p.21</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> Setting \(\dot\lambda=0\) in the costate equation \(\dot\lambda=\rho\lambda-H_x\) gives \(\rho\bar\lambda=H_x(\bar x,\bar u,\bar\lambda)\), hence \(\bar\lambda=H_x/\rho\). This is a consequence of the FOCs and holds for any optimal control problem with an interior steady state.</p></div></details></li>
+      <li>In the \((c,k)\) phase diagram for neoclassical growth, the \(\dot k=0\) locus is upward-sloping everywhere. <span class="tf-src">exam-inspired</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The \(\dot k=0\) locus is \(c=f(k)-\delta k\). Its slope is \(dc/dk=f'(k)-\delta\), which is positive for \(k\lt k_G\) and negative for \(k\gt k_G\). The locus is an inverted-U, not monotone. The steady state \(\bar k\lt k_G\) is on the upward-sloping part.</p></div></details></li>
+    </ol>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s6">6. Exercises</h2>
+
+  <div class="box exercise" id="ex-37-1">
+    <div class="box-title">Exercise 37.1 <span class="tag slides">Ham p.21–24</span> (neoclassical steady state)</div>
+    <p>Specialize to \(U(c)=\ln c\) and \(f(k)=Ak^\alpha\), \(\delta>0\), \(\rho>0\), \(0\lt\alpha\lt1\).</p>
+    <ol class="parts" type="a">
+      <li>Solve for the steady-state \((\bar k,\bar c,\bar\lambda)\) explicitly. <span class="pts">(10 pts)</span></li>
+      <li>What is the EIS for \(U(c)=\ln c\)? Write the Keynes-Ramsey rule in this case. <span class="pts">(5 pts)</span></li>
+      <li>Describe the \(\dot c=0\) and \(\dot k=0\) loci in \((c,k)\) space. How does \(\rho\) affect \(\bar k\)? <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (a): \(f'(\bar k)=\rho+\delta\) gives \(A\alpha\bar k^{\alpha-1}=\rho+\delta\), so \(\bar k=(A\alpha/(\rho+\delta))^{1/(1-\alpha)}\). Then \(\bar c=A\bar k^\alpha-\delta\bar k\). And \(\bar\lambda=1/\bar c\) from \(U'(\bar c)=1/\bar c\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Modified golden rule: \(A\alpha\bar k^{\alpha-1}=\rho+\delta\implies\bar k=\left(\frac{A\alpha}{\rho+\delta}\right)^{1/(1-\alpha)}\). Then \(\bar c=A\bar k^\alpha-\delta\bar k=\bar k(A\bar k^{\alpha-1}-\delta)=\bar k\big(\frac{\rho+\delta}{\alpha}-\delta\big)=\bar k\cdot\frac{\rho+(1-\alpha)\delta}{\alpha}\). And \(\bar\lambda=U'(\bar c)=1/\bar c\).</p>
+      <p>(b) \(U(c)=\ln c\implies U'=1/c\), \(U''=-1/c^2\). EIS: \(\sigma=-U'/(cU'')=-1/c\cdot c\cdot(-1/c^2)^{-1}=1\). Wait: \(\sigma=-U'/(cU'')=-(1/c)/(c\cdot(-1/c^2))=-(1/c)/(-1/c)=1\). So \(\sigma=1\). Keynes-Ramsey: \(\dot c/c=f'(k)-\rho-\delta=A\alpha k^{\alpha-1}-\rho-\delta\).</p>
+      <p>(c) \(\dot c=0\): vertical line at \(\bar k=(A\alpha/(\rho+\delta))^{1/(1-\alpha)}\). Higher \(\rho\implies\) smaller \(\bar k\) (more impatient → less capital). \(\dot k=0\): \(c=Ak^\alpha-\delta k\), an inverted-U with peak at \(k_G=(A\alpha/\delta)^{1/(1-\alpha)}\gt\bar k\).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-37-2">
+    <div class="box-title">Exercise 37.2 <span class="tag exam">Exam-style</span> (comparative statics)</div>
+    <p>In the neoclassical model with general \(U\) and \(f\), suppose the discount rate rises from \(\rho\) to \(\rho'>\rho\).</p>
+    <ol class="parts" type="a">
+      <li>How does the steady-state capital change? Use the modified golden rule. <span class="pts">(5 pts)</span></li>
+      <li>How does the phase diagram shift? Which nullcline moves, and in which direction? <span class="pts">(5 pts)</span></li>
+      <li>Describe the transition: does the household immediately consume more, less, or the same? <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(f'(\bar k)=\rho+\delta\). Higher \(\rho\) requires higher \(f'(\bar k)\), hence lower \(\bar k\) (since \(f''\lt0\)). Steady-state capital falls.</p>
+      <p>(b) The \(\dot c=0\) locus (vertical at \(\bar k\)) shifts left. The \(\dot k=0\) locus (\(c=f(k)-\delta k\)) is unchanged (it does not depend on \(\rho\)). The new steady state has lower \(\bar k\) and lower \(\bar c\) (since \(\bar c=f(\bar k)-\delta\bar k\) decreases with \(\bar k\) when \(\bar k\lt k_G\)).</p>
+      <p>(c) The household immediately jumps to the new saddle path. Since the new steady state has lower capital, the household must dissave: consumption jumps up on impact (a point above the original saddle path but on the new one). Then consumption and capital both fall toward the new lower steady state. Intuition: a more impatient household consumes more now and runs down its capital stock.</p>
+    </div></details>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="takeaways">
+    <h2 id="takeaways">Key takeaways</h2>
+    <ul>
+      <li>The steady state \((\bar x,\bar u,\bar\lambda)\) requires \(\dot x=0\) and \(\dot\lambda=0\). The costate satisfies \(\bar\lambda=H_x/\rho\): capitalized marginal return on the state.</li>
+      <li>For neoclassical growth: the modified golden rule \(f'(\bar k)=\rho+\delta\) pins down \(\bar k\); then \(\bar c=f(\bar k)-\delta\bar k\) and \(\bar\lambda=U'(\bar c)\). Higher discounting lowers steady-state capital.</li>
+      <li>The phase diagram in \((k,\lambda)\) or \((c,k)\) has two nullclines. In neoclassical growth: the \(\dot c=0\) locus is vertical at \(\bar k\); the \(\dot k=0\) locus is an inverted-U (\(c=f(k)-\delta k\)).</li>
+      <li>The steady state is a saddle: one stable arm (the optimal saddle path) and one unstable arm. Paths above the saddle path violate feasibility; paths below violate the TC. The optimal path is unique.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "explain why the \(\dot c=0\) locus is vertical", "how does the saddle path change when depreciation rises?", or "why is the modified golden rule different from the golden rule?"</div>
+
+  <div class="lesson-nav">
+    <a href="0036-optimal-control-and-the-hamiltonian.html">← Lesson 36: Optimal control and the Hamiltonian</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0038-hamiltonian-linearization-and-eigenvalues.html">Lesson 38: Hamiltonian linearization and eigenvalues →</a>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 39 — The Linear Quadratic Regulator</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part VIII: Continuous-Time Optimal Control · Lesson 39 of 39</div>
+    <h1>The Linear Quadratic Regulator</h1>
+    <div class="meta">Covers <a href="../sources/slides7-hamiltonian.pdf#page=53">Hamiltonian slides 53–63</a> · About 35 min · Prerequisites: <a href="0038-hamiltonian-linearization-and-eigenvalues.html">Lesson 38</a> (Hamiltonian matrix, Riccati equation)</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>write the Linear Quadratic Regulator (LQR) problem: quadratic return \(h\) and linear law of motion \(g=Ax+Bu\);</li>
+      <li>derive the optimal control \(u^*=-R^{-1}(N'x+B'\lambda)\) from the FOC \(H_u=0\);</li>
+      <li>show that the Hamiltonian matrix \(\mathcal H\) is constant for the LQR problem (independent of the state);</li>
+      <li>state the algebraic Riccati equation (ARE) for the LQR and interpret \(S\) as the coefficient matrix of the quadratic value function \(V^*(x)=x'Sx/2\);</li>
+      <li>solve the scalar LQR and find the optimal feedback rule and policy function explicitly.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides7-hamiltonian.pdf#page=53">Hamiltonian slides 53–63</a>. Standard references: Anderson et al. (1996), §2–4; Stengel (1994), Ch. 4; Sargent, <em>Macroeconomic Theory</em> (2nd ed., 1987), Appendix on linear-quadratic control. The LQR arises naturally in log-linearized models and is the basis for the Blanchard-Kahn determinacy conditions.
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s1">1. The LQR problem</h2>
+
+  <p>The LQR is the special case of the continuous-time optimal control problem where the flow return is quadratic and the law of motion is linear <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=53">Ham p.53</a>:</p>
+
+  <div class="definition" id="def-lqr">
+    <div class="box-title">Definition: the Linear Quadratic Regulator</div>
+    $$V^*(x_0)=\max_{\{u(t)\}}\int_0^\infty e^{-\rho t}h(x,u)\,dt\quad\text{s.t.}\quad\dot x=Ax+Bu,$$
+    where:
+    $$h(x,u)=\frac{1}{2}(x'Qx+u'Ru+2x'Nu),$$
+    <p>with \(A\in\mathbb R^{m\times m}\) (state transition), \(B\in\mathbb R^{m\times n}\) (control-to-state), \(Q\in\mathbb R^{m\times m}\) symmetric (state cost), \(R\in\mathbb R^{n\times n}\) symmetric negative definite (control cost, \(R\prec0\) for a maximization), and \(N\in\mathbb R^{m\times n}\) (cross-term). The state \(x\in\mathbb R^m\) and control \(u\in\mathbb R^n\).</p>
+  </div>
+
+  <div class="intuition" id="int-lqr-motivation">
+    <div class="box-title">Why the LQR matters in macroeconomics</div>
+    <p>Log-linearizing a nonlinear model around a steady state produces a system with quadratic return and linear dynamics — exactly the LQR. The LQR has a closed-form solution: a linear feedback rule \(u^*=Gx\). This is why log-linearized macro models have linear policy functions. The Hamiltonian matrix is constant (independent of the state), so the eigenvalue-pairing analysis of Lesson 38 applies globally, not just locally. The ARE has a unique positive-semidefinite solution \(S\), and the value function is exactly quadratic: \(V^*(x)=x'Sx/2+\text{const}\). The LQR is the foundation for solving linear rational expectations models (Blanchard-Kahn, Klein) and linear-quadratic dynamic games.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s2">2. Optimal control and the Hamiltonian</h2>
+
+  <p>The Hamiltonian for the LQR is <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=55">Ham p.55</a>:</p>
+  $$H(x,u,\lambda)=h(x,u)+\lambda'(Ax+Bu)=\frac{1}{2}(x'Qx+u'Ru+2x'Nu)+\lambda'(Ax+Bu).$$
+
+  <p>The FOC \(H_u=0\):</p>
+  $$H_u=Ru+N'x+B'\lambda=0\implies u^*=-R^{-1}(N'x+B'\lambda).$$
+
+  <p>This is the <strong>linear feedback rule</strong>: the optimal control is a linear function of both the state \(x\) and the costate \(\lambda\). The matrix \(R^{-1}\) exists because \(R\prec0\) (or \(R\prec0\) for a strict maximum; conventionally \(R\prec0\) since we maximize and need \(H_{uu}=R\prec0\)).</p>
+
+  <div class="warning" id="warn-sign-R">
+    <div class="box-title">Sign conventions for \(Q\) and \(R\)</div>
+    <p>For a maximization problem, we need \(H\) strictly concave in \(u\), so \(H_{uu}=R\prec0\). The standard economics convention has \(Q\) negative semidefinite (the flow return in the state penalizes deviations) and \(R\) negative definite (control cost). Some engineering texts use a minimization convention with \(Q\succeq0\) and \(R\succ0\); our slides follow the economic maximization form.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s3">3. The constant Hamiltonian matrix</h2>
+
+  <p>Substituting \(u^*=-R^{-1}(N'x+B'\lambda)\) into the law of motion and costate equation:</p>
+  $$\dot x=Ax+B(-R^{-1}N'x-R^{-1}B'\lambda)=(A-BR^{-1}N')x+(-BR^{-1}B')\lambda,$$
+  $$\dot\lambda=\rho\lambda-H_x=\rho\lambda-(Qx+Nu^*+A'\lambda)=\rho\lambda-Qx-N(-R^{-1}N'x-R^{-1}B'\lambda)-A'\lambda.$$
+  $$\dot\lambda=-(Q-NR^{-1}N')x+(\rho I-A'+NR^{-1}B')\lambda.$$
+
+  <p>This gives the system \(\begin{pmatrix}\dot x\\\dot\lambda\end{pmatrix}=\mathcal H\begin{pmatrix}x\\\lambda\end{pmatrix}\) with <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=57">Ham p.57</a>:</p>
+
+  <div class="theorem" id="thm-lqr-hamiltonian-matrix">
+    <div class="box-title">LQR Hamiltonian matrix (constant)</div>
+    $$\mathcal H=\begin{pmatrix}A-BR^{-1}N' & -BR^{-1}B'\\-(Q-NR^{-1}N') & \rho I-(A-BR^{-1}N')'\end{pmatrix}.$$
+    <p>Notably, \(\mathcal H\) is <strong>constant</strong>: it does not depend on \(x\) or \(\lambda\). The LQR is therefore a globally linear system, and the saddle-path analysis of Lesson 38 applies exactly (not just as a local approximation). The eigenvalue pairing holds globally.</p>
+  </div>
+
+  <p>The four blocks in terms of original primitives: let \(\tilde A=A-BR^{-1}N'\), \(\tilde Q=Q-NR^{-1}N'\). Then:</p>
+  $$\mathcal H=\begin{pmatrix}\tilde A & -BR^{-1}B'\\-\tilde Q & \rho I-\tilde A'\end{pmatrix}.$$
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s4">4. The algebraic Riccati equation and the value function</h2>
+
+  <p>Since the Hamiltonian matrix is constant, the optimal policy is globally of the form \(\lambda=Sx\) for a constant matrix \(S\) <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=59">Ham p.59</a>. Applying the Riccati equation from Lesson 38:</p>
+
+  <div class="theorem" id="thm-lqr-are">
+    <div class="box-title">The LQR algebraic Riccati equation</div>
+    $$(-BR^{-1}B')S+\tilde AS+S\tilde A'+(-\tilde Q)-\rho S=0.$$
+    <p>Or expanding in terms of the original matrices:</p>
+    $$-BR^{-1}B'S^2-(BR^{-1}N')S+S(A-BR^{-1}N')'-Q+NR^{-1}N'-\rho S=0.$$
+    <p>Wait — the standard form is obtained by substituting the LQR blocks into the general ARE \(SA_{12}S+SA_{11}-A_{22}S-A_{21}=0\). With \(A_{12}=-BR^{-1}B'\), \(A_{11}=\tilde A\), \(A_{22}=\rho I-\tilde A'\), \(A_{21}=-\tilde Q\):</p>
+    $$S(-BR^{-1}B')S+S\tilde A-(\rho I-\tilde A')S-(-\tilde Q)=0,$$
+    $$\boxed{-S(BR^{-1}B')S+S\tilde A+\tilde A'S-\rho S+\tilde Q=0.}$$
+  </div>
+
+  <p><strong>The value function is quadratic.</strong> A key property of the LQR is that the optimal value function takes the form <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=61">Ham p.61</a>:</p>
+  $$V^*(x_0)=\frac{1}{2}x_0'Sx_0,$$
+  <p>where \(S\) is the symmetric positive semi-definite solution to the ARE (the "stabilizing solution"). The costate is then \(\lambda(t)=V^*_x(x(t))=Sx(t)\), consistent with \(\lambda=Sx\). Since the value function is quadratic and the dynamics are linear, the optimal policy rule \(u^*(x)\) is globally linear:</p>
+  $$u^*(x)=-R^{-1}(N'+B'S)x\equiv Gx,\quad G=-R^{-1}(N'+B'S).$$
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s5">5. Scalar LQR example</h2>
+
+  <p>Specialize to \(m=n=1\), \(N=0\): <a class="slide-ref" href="../sources/slides7-hamiltonian.pdf#page=62">Ham p.62</a></p>
+  $$\max\int_0^\infty e^{-\rho t}\frac{1}{2}(qx^2+ru^2)\,dt\quad\text{s.t.}\quad\dot x=ax+bu,$$
+  <p>where \(q\le0\), \(r\lt0\) (negative for maximization), \(a,b\in\mathbb R\). The Hamiltonian: \(H=\frac12(qx^2+ru^2)+\lambda(ax+bu)\). FOC: \(H_u=ru+b\lambda=0\implies u^*=-b\lambda/r\). The Hamiltonian matrix:</p>
+  $$\mathcal H=\begin{pmatrix}a & -b^2/r\\ -q & \rho-a\end{pmatrix}.$$
+
+  <p>The ARE (scalar, \(S\) is a number): \(-S(b^2/r)S+2aS-\rho S+q=0\), i.e. \((-b^2/r)S^2+(2a-\rho)S+q=0\). Two solutions:</p>
+  $$S_\pm=\frac{-(2a-\rho)\pm\sqrt{(2a-\rho)^2+4(b^2/r)q}}{2(-b^2/r)}=\frac{(2a-\rho)\mp\sqrt{(2a-\rho)^2+4(b^2/r)q}}{2(b^2/r)}.$$
+
+  <p>Select the stabilizing solution \(S_-\) (the one with the larger absolute value, corresponding to the stable eigenvalue). The optimal policy: \(u^*=-b S_-/r\cdot x=G\cdot x\) where \(G=-bS_-/r\).</p>
+
+  <div class="intuition" id="int-lqr-global">
+    <div class="box-title">LQR as a global solution</div>
+    <p>The key advantage of the LQR over the general nonlinear case is that the feedback rule \(u^*(x)=Gx\) is exact and global — not just a local approximation. The ARE gives a unique stabilizing \(S\), and the value function is exactly \(V^*(x)=\frac12 x'Sx\). No shooting algorithm is needed: solve the ARE once, extract \(S\), and the entire optimal path is determined. This is why LQR methods dominate computational macro: log-linearize the model, extract \(\mathcal H\), solve the ARE, and read off the linear policy functions.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s6">6. Quiz</h2>
+
+  <div class="quiz-section">
+
+    <div class="quiz-question" data-correct="b">
+      <p class="quiz-title">Why does the LQR have a globally linear optimal policy rule?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Because the state space is bounded for all initial conditions</li>
+        <li class="quiz-option" data-option="b">Because the Hamiltonian matrix is constant and the dynamics linear</li>
+        <li class="quiz-option" data-option="c">Because the eigenvalue pairing holds only for linear systems</li>
+        <li class="quiz-option" data-option="d">Because the value function is always quadratic in continuous time</li>
+      </ul>
+      <div class="quiz-explain">The key is that after substituting the optimal \(u^*\), the system \(\dot z=\mathcal H z\) has a constant coefficient matrix \(\mathcal H\). With linear dynamics, the relationship \(\lambda=Sx\) is an exact (not approximate) characterization of the saddle path, valid globally. The quadratic value function and linear policy rule are consequences of the linear-quadratic structure, not of continuous time per se.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <p class="quiz-title">What determines the optimal control in the LQR from \(H_u=0\)?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">A linear function of the state \(x\) and costate \(\lambda\)</li>
+        <li class="quiz-option" data-option="b">A quadratic function of state deviations from the steady state</li>
+        <li class="quiz-option" data-option="c">A nonlinear function through the envelope condition \(H_u=\rho H\)</li>
+        <li class="quiz-option" data-option="d">An implicit equation solved by the shooting algorithm only</li>
+      </ul>
+      <div class="quiz-explain">\(H_u=Ru+N'x+B'\lambda=0\implies u^*=-R^{-1}(N'x+B'\lambda)\), which is linear in \((x,\lambda)\). After substituting \(\lambda=Sx\) (the saddle path), this becomes linear in \(x\) alone: \(u^*=-R^{-1}(N'+B'S)x=Gx\). No shooting is needed.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <p class="quiz-title">The ARE for the LQR arises from which condition?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Setting the eigenvalues of \(\mathcal H\) to equal \(\rho/2\)</li>
+        <li class="quiz-option" data-option="b">Differentiating the value function along the optimal control path</li>
+        <li class="quiz-option" data-option="c">Requiring \(\dot\lambda=S\dot x\) to hold along the saddle path</li>
+        <li class="quiz-option" data-option="d">Applying the transversality condition to the costate equation</li>
+      </ul>
+      <div class="quiz-explain">Differentiating \(\lambda=Sx\): \(\dot\lambda=S\dot x\). Substituting the linearized equations for \(\dot\lambda\) and \(\dot x\) gives a matrix equation in \(S\) with an \(S^2\) term: the ARE. The same derivation works for the general nonlinear case (giving the local Riccati), but for the LQR the matrix \(\mathcal H\) is constant so the same \(S\) solves the equation globally.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <p class="quiz-title">The stabilizing solution to the ARE corresponds to:</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The larger of the two roots of the scalar Riccati equation</li>
+        <li class="quiz-option" data-option="b">The unique positive definite solution to the quadratic equation</li>
+        <li class="quiz-option" data-option="c">The solution that maximizes the eigenvalue of the state matrix</li>
+        <li class="quiz-option" data-option="d">The solution that makes the closed-loop eigenvalue \(A+BG\) stable</li>
+      </ul>
+      <div class="quiz-explain">The stabilizing solution \(S\) is defined by the property that the closed-loop state matrix \(\tilde A+(-BR^{-1}B')S=A-BR^{-1}(N'+B'S)\) has eigenvalues with negative real part — i.e., the feedback rule \(u=Gx=-R^{-1}(N'+B'S)x\) stabilizes the state dynamics. Of the two solutions to the scalar ARE, this is the one that places the eigenvalue to the left of zero.</div>
+    </div>
+
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s7">7. True or False</h2>
+
+  <div class="box exercise" id="tf">
+    <div class="box-title">True or False — justify in one or two lines</div>
+    <ol class="tf-list">
+      <li>For the LQR, the optimal policy function is linear in the initial state \(x_0\). <span class="tf-src">Ham p.61</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> The optimal control is \(u^*(x)=Gx=-R^{-1}(N'+B'S)x\), a linear map from the current state to the control. Since \(S\) is a constant (not a function of \(x\)), the entire policy rule is globally linear. The state path \(x(t)\) evolves as \(\dot x=(\tilde A+BG)x\), a linear ODE whose solution is linear in \(x_0\).</p></div></details></li>
+      <li>The LQR value function satisfies \(V^*(x)=x'Sx\) where \(S\) is positive definite for a maximization problem. <span class="tf-src">Ham p.61</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True (with sign caveat).</strong> The value function is \(V^*(x)=x'Sx/2\). For a maximization, \(V^*\le0\) (since the return is penalized — \(h\le0\) for deviations from the origin when \(Q\preceq0\) and \(R\prec0\)). The matrix \(S\) in the value function is negative semidefinite: \(S\preceq0\) (not positive definite). Some texts write the minimization version with \(S\succeq0\); check the sign convention of the specific problem.</p></div></details></li>
+      <li>If \(N=0\) in the LQR, the optimal control depends only on the costate \(\lambda\) and not directly on the state \(x\). <span class="tf-src">Ham p.55</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> With \(N=0\): \(H_u=Ru+B'\lambda=0\implies u^*=-R^{-1}B'\lambda\). The control depends on \(\lambda\) but not directly on \(x\). However, since along the saddle path \(\lambda=Sx\), the control is ultimately a linear function of \(x\) via \(u^*=-R^{-1}B'Sx\). The direct dependence on \(x\) is removed but the indirect dependence through \(\lambda\) remains.</p></div></details></li>
+      <li>The LQR gives a local approximation to the optimal policy near the steady state of a nonlinear problem. <span class="tf-src">Ham p.57</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True in application, false for the pure LQR itself.</strong> When one log-linearizes a nonlinear model around its steady state and sets up the resulting linear-quadratic problem, the LQR solution is an approximation (valid near the steady state) to the true nonlinear optimal policy. For the LQR model with globally linear dynamics and globally quadratic return, the solution is exact. The approximation error arises from the log-linearization step, not from the LQR method itself.</p></div></details></li>
+    </ol>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s8">8. Exercises</h2>
+
+  <div class="box exercise" id="ex-39-1">
+    <div class="box-title">Exercise 39.1 <span class="tag slides">Ham p.62</span> (scalar LQR, fully worked)</div>
+    <p>Solve the scalar LQR: \(\max\int_0^\infty e^{-\rho t}\frac12(qx^2+ru^2)\,dt\) s.t. \(\dot x=ax+bu\), with \(q\lt0\), \(r\lt0\), and parameters satisfying \(a^2>-\rho a+qb^2/r\) (saddle-point condition; you need not prove this).</p>
+    <ol class="parts" type="a">
+      <li>Write \(H(x,u,\lambda)\) and derive \(u^*\). Substitute into \(\dot x\) and the costate equation to find the system \((\dot x,\dot\lambda)\) as a linear ODE. Write the Hamiltonian matrix. <span class="pts">(10 pts)</span></li>
+      <li>Write the scalar ARE: \((-b^2/r)S^2+(2a-\rho)S+q=0\). Solve for \(S_\pm\). Which one is stabilizing? <span class="pts">(10 pts)</span></li>
+      <li>Find the closed-loop eigenvalue \(\mu=a+b\cdot(-b/r)\cdot S_-=a-b^2 S_-/r\). Verify it is negative. <span class="pts">(5 pts)</span></li>
+      <li>Write the optimal policy \(u^*(x)=Gx\) and the optimal state path \(x(t)=x_0 e^{\mu t}\). <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (b): \(S_\pm=\frac{(2a-\rho)\pm\sqrt{(2a-\rho)^2+4(b^2/r)q}}{-2b^2/r}\). Note \(r\lt0\) so \(-b^2/r>0\) and \(4(b^2/r)q>0\) (since \(q\lt0\)). The discriminant is \((2a-\rho)^2+4(b^2/r)q>(2a-\rho)^2>0\) under the saddle-point condition. The stabilizing solution is the one making the state eigenvalue negative.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(H=\frac12(qx^2+ru^2)+\lambda(ax+bu)\). \(H_u=ru+b\lambda=0\implies u^*=-b\lambda/r\). \(\dot x=ax+bu^*=ax-b^2\lambda/r\). Costate: \(\dot\lambda=\rho\lambda-H_x=\rho\lambda-qx-a\lambda=(\rho-a)\lambda-qx\). System: \(\begin{pmatrix}\dot x\\\dot\lambda\end{pmatrix}=\begin{pmatrix}a & -b^2/r\\-q & \rho-a\end{pmatrix}\begin{pmatrix}x\\\lambda\end{pmatrix}\). Hamiltonian matrix: \(\mathcal H=\begin{pmatrix}a&-b^2/r\\-q&\rho-a\end{pmatrix}\).</p>
+      <p>(b) Setting \(\lambda=Sx\) in the system: the ARE is \((-b^2/r)S^2+(2a-\rho)S+q=0\). Multiply through by \(-r/b^2>0\): \(S^2-(2a-\rho)(r/b^2)S+q(-r/b^2)=0\). \(S_\pm=\frac{(2a-\rho)\pm\sqrt{(2a-\rho)^2-4(-b^2/r)q}}{-2b^2/r}=\frac{(2a-\rho)\pm\sqrt{(2a-\rho)^2+4(b^2/r)q}}{-2b^2/r}\). Stabilizing: the closed-loop eigenvalue is \(\mu=a-b^2S/r\). For \(\mu\lt0\): \(S\gt ar/b^2\). Since \(r\lt0\) and \(b^2>0\), \(ar/b^2\lt0\) if \(a>0\). The stabilizing root is \(S_-\) (the one with the minus sign in the numerator), which gives the smaller closed-loop eigenvalue.</p>
+      <p>(c) \(\mu=a-b^2 S_-/r\). With \(S_-\) as derived: since the discriminant \(>|2a-\rho|\), the numerator of \(S_-\) has sign that makes \(\mu\lt0\). (Explicitly: \(\mu\lt0\iff b^2 S_-/r\gt a\iff S_-\gt ar/b^2\); since \(r\lt0\) this is \(S_-\gt ar/b^2\), satisfied by the stabilizing root under the saddle-point condition.)</p>
+      <p>(d) Policy: \(u^*(x)=-b S_-/r\cdot x=Gx\) where \(G=-bS_-/r\). State path: \(x(t)=x_0 e^{\mu t}\to0\) as \(t\to\infty\) since \(\mu\lt0\). Costate: \(\lambda(t)=S_- x(t)=S_- x_0 e^{\mu t}\). Check TC: \(e^{-\rho t}\lambda(t) x(t)=e^{-\rho t}S_- x_0^2 e^{2\mu t}=S_- x_0^2 e^{(2\mu-\rho)t}\to0\) since \(2\mu-\rho\lt0\) (\(\mu\lt0\lt\rho\implies2\mu\lt0\lt\rho\)). TC satisfied.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-39-2">
+    <div class="box-title">Exercise 39.2 <span class="tag proof">Proof</span> (quadratic value function)</div>
+    <p>Prove that the value function of the scalar LQR problem in Exercise 39.1 is \(V^*(x_0)=S_- x_0^2/2\).</p>
+    <ol class="parts" type="a">
+      <li>Using the optimal path \(x^*(t)=x_0 e^{\mu t}\) and \(u^*(t)=Gx^*(t)=Gx_0 e^{\mu t}\), compute the integral \(V^*(x_0)=\int_0^\infty e^{-\rho t}\frac12(q x_0^2 e^{2\mu t}+r G^2 x_0^2 e^{2\mu t})\,dt\). <span class="pts">(10 pts)</span></li>
+      <li>Evaluate the integral (noting \(2\mu-\rho\lt0\)) and simplify to show \(V^*(x_0)=\frac{x_0^2}{2}\cdot\frac{q+rG^2}{-(2\mu-\rho)}=\frac{S_- x_0^2}{2}\). <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (b): the integral is \(\frac{x_0^2(q+rG^2)}{2}\int_0^\infty e^{(2\mu-\rho)t}\,dt=\frac{x_0^2(q+rG^2)}{2}\cdot\frac{1}{\rho-2\mu}\). It remains to show \((q+rG^2)/(\rho-2\mu)=S_-\). Use \(G=-bS_-/r\) and the ARE to simplify.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(V^*(x_0)=\int_0^\infty e^{-\rho t}\frac12(qx_0^2 e^{2\mu t}+r(Gx_0 e^{\mu t})^2)\,dt=\frac{x_0^2}{2}(q+rG^2)\int_0^\infty e^{(2\mu-\rho)t}\,dt\).</p>
+      <p>(b) \(\int_0^\infty e^{(2\mu-\rho)t}\,dt=\frac{1}{\rho-2\mu}\) (finite since \(2\mu-\rho\lt0\)). So \(V^*(x_0)=\frac{x_0^2(q+rG^2)}{2(\rho-2\mu)}\). Now \(G=-bS_-/r\), so \(rG^2=r(bS_-/r)^2=b^2 S_-^2/r\). Thus \(q+rG^2=q+b^2 S_-^2/r\). And \(\mu=a-b^2 S_-/r\implies\rho-2\mu=\rho-2a+2b^2S_-/r\). Using the ARE: \((-b^2/r)S_-^2+(2a-\rho)S_-+q=0\implies q+b^2 S_-^2/r=(q+b^2 S_-^2/r)\) and \((2a-\rho)S_-+q=-b^2 S_-^2/r\cdot(-1)\)... Let me verify directly: \(\frac{q+b^2 S_-^2/r}{\rho-2a+2b^2 S_-/r}\). From the ARE: \(q=(-(- b^2/r))S_-^2-(2a-\rho)S_-=(-b^2/r)S_-^2+(\rho-2a)S_-\). Wait: \((-b^2/r)S_-^2+(2a-\rho)S_-+q=0\implies q=(b^2/r)S_-^2+(-(2a-\rho))S_-=(b^2/r)S_-^2+(\rho-2a)S_-\). So \(q+b^2 S_-^2/r=2(b^2/r)S_-^2+(\rho-2a)S_-=S_-\cdot(2b^2 S_-/r+\rho-2a)=S_-(\rho-2a+2b^2 S_-/r)=S_-(\rho-2\mu)\). Therefore \(V^*(x_0)=\frac{x_0^2}{2(\rho-2\mu)}\cdot S_-(\rho-2\mu)=\frac{S_- x_0^2}{2}\). \(\square\)</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-39-3">
+    <div class="box-title">Exercise 39.3 <span class="tag exam">Exam-style</span> (AK model as LQR)</div>
+    <p>The AK model in continuous time: \(\max\int_0^\infty e^{-\rho t}\ln c\,dt\) s.t. \(\dot k=Ak-c-\delta k=(A-\delta)k-c\).</p>
+    <ol class="parts" type="a">
+      <li>Log-linearize around the balanced growth path (BGP) with growth rate \(g=(A-\delta-\rho)\). Let \(\hat k=\ln k/\bar k\) and \(\hat c=\ln c/\bar c\). Write the linearized system \((\dot{\hat k},\dot{\hat c})\). <span class="pts">(10 pts)</span></li>
+      <li>Identify the LQR structure: what are \(A\), \(B\), \(Q\), \(R\) for the log-linearized system? (Note: the AK model does not have a finite steady state; the BGP plays its role.) <span class="pts">(5 pts)</span></li>
+      <li>What feature of the AK model makes this problem degenerate or special compared to the standard LQR? (Hint: think about the eigenvalue of the state transition.) <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Along the BGP, \(k(t)=k_0 e^{gt}\) and \(c(t)=c_0 e^{gt}\) with \(g=A-\delta-\rho\) and \(c_0=(A-\delta-g)k_0=\rho k_0\). Define \(\hat k=k/\bar k-1\approx\ln(k/\bar k)\) for small deviations. The Keynes-Ramsey rule (since \(\sigma=1\) for \(\ln c\)): \(\dot c/c=A-\delta-\rho=g\), and \(\dot k=( A-\delta)k-c\). Along the BGP, \(\hat c=\hat k\) always (from the resource constraint linearized). The linearized system: \(\dot{\hat k}=(A-\delta)\hat k-(\bar c/\bar k)\hat c=(A-\delta-\rho)\hat k=g\hat k\) (since \(\bar c/\bar k=\rho\) and using \(\hat c=\hat k\) on the saddle path). Similarly \(\dot{\hat c}=g\hat c\). Both grow at rate \(g\), so the saddle path is \(\hat c=\hat k\).</p>
+      <p>(b) The linearized system (with \(\hat c\) as control, \(\hat k\) as state): \(\dot{\hat k}=(A-\delta)\hat k-\rho\hat c\). So \(A=(A-\delta)\), \(B=-\rho\) (or \(B=-\bar c/\bar k=-\rho\)). The return function near the BGP (for \(\ln c\)): \(\ln c\approx\ln\bar c+\hat c-\hat c^2/2+\ldots\); the quadratic approximation gives \(h\approx \text{const}+\hat c-\hat c^2/2\), which is not purely quadratic in deviations — the \(\ln\) utility has a linear term unless we subtract the constant. The standard LQR requires a purely quadratic return; for the AK/\(\ln\) model, the linear term can be handled by completing the square.</p>
+      <p>(c) The state eigenvalue along the BGP is \(g=A-\delta-\rho>0\) (for sustained growth). This means the uncontrolled state is explosive — the saddle-path stability requires the control to exactly offset this instability. Standard LQR theory requires the closed-loop eigenvalue \(\mu\lt0\), which still holds: \(\mu=g-(b^2/r)S_-\lt0\). The AK model is "degenerate" in having a purely explosive open-loop eigenvalue; in the neoclassical model, the eigenvalue depends on the curvature of \(f\).</p>
+    </div></details>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="takeaways">
+    <h2 id="takeaways">Key takeaways</h2>
+    <ul>
+      <li>The LQR has quadratic return \(h=\frac12(x'Qx+u'Ru+2x'Nu)\) and linear law of motion \(\dot x=Ax+Bu\). The optimal control from \(H_u=0\) is linear: \(u^*=-R^{-1}(N'x+B'\lambda)\).</li>
+      <li>The Hamiltonian matrix \(\mathcal H\) is constant (independent of \(x\)). The saddle-path analysis of Lesson 38 applies exactly and globally, not just locally.</li>
+      <li>The optimal policy rule is globally linear: \(u^*(x)=Gx=-R^{-1}(N'+B'S)x\). The matrix \(S\) solves the algebraic Riccati equation (ARE): \(-S(BR^{-1}B')S+S\tilde A+\tilde A'S-\rho S+\tilde Q=0\), where \(\tilde A=A-BR^{-1}N'\), \(\tilde Q=Q-NR^{-1}N'\).</li>
+      <li>The value function is exactly quadratic: \(V^*(x_0)=x_0'Sx_0/2\). The stabilizing solution \(S\) to the ARE is the unique solution that makes the closed-loop eigenvalues stable (negative real part).</li>
+      <li>In macro applications: log-linearize a nonlinear model to get the LQR structure; solve the ARE once to get linear policy functions valid near the steady state. This is the foundation of the Blanchard-Kahn method.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "explain how the ARE is related to the Riccati ODE", "how does the LQR solve a Blanchard-Kahn model?", or "what is the stochastic LQR and how does certainty equivalence apply?"</div>
+
+  <div class="lesson-nav">
+    <a href="0038-hamiltonian-linearization-and-eigenvalues.html">← Lesson 38: Hamiltonian linearization and eigenvalues</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="../reference/hamiltonian-cheatsheet.html">Part VIII cheatsheet →</a>
+  </div>
+
+</div>
+</body>
+</html>

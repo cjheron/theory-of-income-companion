@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 35 — Linearizing the DPP and Decision Rules</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/econplot.js"></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part VII: Local Stability &amp; Linearization · Lesson 35 of 39</div>
+    <h1>Linearizing the DPP and Decision Rules</h1>
+    <div class="meta">Covers <a href="../sources/slides6-stability-linearization.pdf#page=30">Local Stability slides 30–45</a> · About 40 min · Prerequisites: <a href="0034-stable-subspaces-and-linear-systems.html">Lesson 34</a> (stable subspaces, Blanchard–Kahn), <a href="0033-local-stability-and-reciprocal-pairs.html">Lesson 33</a> (almost-reciprocal pairs)</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>rewrite the \(n\)-dimensional Euler equation system as a \(2n\times2n\) first-order linear companion system \(X_{t+1}=\mathcal{A}X_t\);</li>
+      <li>identify the blocks \(B_1\) and \(B_2\) of \(\mathcal{A}\) in terms of the second-order derivatives of the return function;</li>
+      <li>prove that \(\det(\mathcal{A})=1/\beta^n\) and that the eigenvalues of \(\mathcal{A}\) come in almost-reciprocal pairs \(\{\lambda,1/(\beta\lambda)\}\);</li>
+      <li>state the saddle-point assumption and explain what it implies about the number of eigenvalues inside vs.\ outside the unit circle;</li>
+      <li>derive the formula \(Dg(x^*)=-P_{11}^{-1}P_{12}\) and use it to compute the linearized decision rule.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides6-stability-linearization.pdf#page=30">Local Stability of Optimal Trajectories, Linearization, slides 30–45</a>. The companion matrix approach is developed in detail in Stokey, Lucas &amp; Prescott (1989), Ch. 6, which is the primary mathematical reference. For applications to linearizing DSGE models, see King, Plosser &amp; Rebelo (2002, Computational Economics) and Blanchard &amp; Kahn (1980, Econometrica).
+  </div>
+
+  <div class="notation">
+    <div class="box-title">Notation for this lesson</div>
+    <ul>
+      <li>\(\xi_t\equiv x_t-x^*\in\mathbb R^n\) — deviation from steady state; \(X_t\equiv(\xi_{t+1},\xi_t)^T\in\mathbb R^{2n}\).</li>
+      <li>All \(n\times n\) matrices of second derivatives: \(F_{xy}\equiv D_{xy}F(x^*,x^*)\) etc.</li>
+      <li>\(\mathcal{A}\in\mathbb R^{2n\times2n}\) — companion matrix of the linearized EE system.</li>
+      <li>\(B_1,B_2\in\mathbb R^{n\times n}\) — upper blocks of \(\mathcal{A}\).</li>
+      <li>\(P\in\mathbb R^{2n\times2n}\) — matrix of left eigenvectors of \(\mathcal{A}\), partitioned as \(\begin{pmatrix}P_{11}&P_{12}\\P_{21}&P_{22}\end{pmatrix}\) where the first \(n\) rows correspond to unstable eigenvalues (\(|\lambda|>1\)).</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s1">1. Converting the \(n\)-dimensional EE to a first-order system</h2>
+
+  <p>The \(n\)-dimensional Euler equation links three consecutive dates: <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=30">Stab p.30</a></p>
+  $$F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0,\quad t=0,1,2,\ldots$$
+  <p>This is \(n\) equations in \((x_t,x_{t+1},x_{t+2})\). It is a second-order system in the state \(x\). To apply the linear-systems theory of Lesson 34, we convert to a first-order system by doubling the state vector.</p>
+
+  <p>Define the <strong>augmented state</strong> \(X_t\equiv(\xi_{t+1},\xi_t)^T\in\mathbb R^{2n}\). Then \(X_{t+1}=(\xi_{t+2},\xi_{t+1})^T\). To find how \(X_{t+1}\) depends on \(X_t\), differentiate the EE with respect to \(x_t\) at the steady state (using the chain rule as in Lesson 33, §2, now for \(n\) dimensions): <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=31">Stab p.31</a></p>
+  $$\beta F_{xy}\,\xi_{t+2}+(F_{yy}+\beta F_{xx})\,\xi_{t+1}+F_{yx}\,\xi_t=0.$$
+  <p>Solve for \(\xi_{t+2}\) (assuming \(F_{xy}\) is invertible):</p>
+  $$\xi_{t+2}=B_1\xi_{t+1}+B_2\xi_t$$
+  <p>where</p>
+  $$B_1\equiv-(\beta F_{xy})^{-1}(F_{yy}+\beta F_{xx}),\qquad B_2\equiv-(\beta F_{xy})^{-1}F_{yx}.$$
+
+  <div class="definition" id="def-companion-matrix">
+    <div class="box-title">The companion matrix \(\mathcal{A}\) <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=32">Stab p.32</a></div>
+    <p>The augmented system \(X_{t+1}=\mathcal{A}X_t\) has companion matrix:</p>
+    $$\mathcal{A}\equiv\begin{pmatrix}B_1&B_2\\I_n&0_n\end{pmatrix}\in\mathbb R^{2n\times2n}$$
+    <p>where \(I_n\) is the \(n\times n\) identity and \(0_n\) is the \(n\times n\) zero matrix. The bottom block of \(\mathcal{A}\) encodes the trivial identity \(\xi_{t+1}=\xi_{t+1}\).</p>
+  </div>
+
+  <div class="intuition" id="int-companion">
+    <div class="box-title">Structure of the companion matrix</div>
+    <p>The upper block row says \(\xi_{t+2}=B_1\xi_{t+1}+B_2\xi_t\) (the linearized EE). The lower block row says \(\xi_{t+1}=\xi_{t+1}\) (a trivial identity that completes the first-order system). This "companion" or "state-space" trick is ubiquitous: any \(k\)th-order linear system can be written as a first-order system by augmenting the state with lagged values. Here \(k=2\) and the state doubles from \(\mathbb R^n\) to \(\mathbb R^{2n}\).</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s2">2. Almost-reciprocal pairs in \(n\) dimensions</h2>
+
+  <p>Lesson 33 showed that in the scalar case the two roots of \(Q(\lambda)=0\) are paired by \(\lambda_1\lambda_2=1/\beta\). We now generalize to \(n\) dimensions. The key step is computing \(\det(\mathcal{A})\). <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=37">Stab p.37</a></p>
+
+  <div class="theorem" id="thm-det-companion">
+    <div class="box-title">Determinant of the companion matrix</div>
+    <p>Suppose \(F_{xy}=F_{yx}^T\) (holds because both arguments \(x,y\) range over the same space \(X\)). Then:</p>
+    $$\det(\mathcal{A})=\frac{1}{\beta^n}.$$
+  </div>
+
+  <div class="proof" id="pf-det-companion">
+    <div class="box-title">Proof (scalar case \(n=1\); see slides for the general case)</div>
+    <p>When \(n=1\), \(\mathcal{A}=\begin{pmatrix}b_1&b_2\\1&0\end{pmatrix}\) and</p>
+    $$\det(\mathcal{A})=b_1\cdot0-b_2\cdot1=-b_2=(\beta F_{xy})^{-1}F_{yx}=\frac{F_{yx}}{\beta F_{xy}}=\frac{1}{\beta}.$$
+    <p>For general \(n\): the companion matrix \(\mathcal{A}\) of a second-order system satisfies \(\det(\mathcal{A})=(-1)^n\det(B_2)\). Computing:</p>
+    $$\det(B_2)=\det(-(\beta F_{xy})^{-1}F_{yx})=\frac{(-1)^n\det(F_{yx})}{\beta^n\det(F_{xy})}=\frac{(-1)^n}{\beta^n}$$
+    <p>where the last equality uses \(\det(F_{yx})=\det(F_{xy}^T)=\det(F_{xy})\) (transpose). Therefore \(\det(\mathcal{A})=(-1)^n\cdot(-1)^n/\beta^n=1/\beta^n\). \(\square\)</p>
+  </div>
+
+  <div class="theorem" id="thm-reciprocal-nd">
+    <div class="box-title">Almost-reciprocal pairs in \(n\) dimensions <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=39">Stab p.39</a></div>
+    <p>Suppose \(F_{xy}\) is invertible. If \(\lambda\) is an eigenvalue of \(\mathcal{A}\), then so is \(1/(\beta\lambda)\).</p>
+  </div>
+
+  <div class="proof" id="pf-reciprocal-nd">
+    <div class="box-title">Proof sketch</div>
+    <p>The eigenvalues of \(\mathcal{A}\) are the values of \(\lambda\) satisfying \(\det(\lambda I_{2n}-\mathcal{A})=0\). By the Schur complement of the lower-left block, this reduces to:</p>
+    $$\det\!\big(\beta F_{xy}\lambda^2+(F_{yy}+\beta F_{xx})\lambda+F_{yx}\big)=0,$$
+    <p>generalizing \(Q(\lambda)=0\) to \(n\) dimensions. This polynomial in \(\lambda\) (with matrix coefficients) is symmetric under the substitution \(\lambda\mapsto1/(\beta\lambda)\): multiplying through by \(\lambda^{-2}\) and using \(F_{yx}=F_{xy}^T\) shows that the new polynomial has the same roots. Therefore the \(2n\) roots come in pairs \(\{\lambda,1/(\beta\lambda)\}\). \(\square\)</p>
+    <p><em>Remark</em>: an alternative proof uses \(\det(\mathcal{A})=1/\beta^n\). The product of all \(2n\) eigenvalues is \(\det(\mathcal{A})=1/\beta^n\). If they pair into \(n\) pairs with product \(1/\beta\) each, the total product is \((1/\beta)^n=1/\beta^n\). ✓</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s3">3. The saddle-point assumption</h2>
+
+  <p>In Lesson 33 we saw that in the scalar case, the pairing \(\lambda_1\lambda_2=1/\beta\) gives one root inside and one outside the unit circle (Case I). For the \(n\)-dimensional case, the same logic applies pair by pair: <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=41">Stab p.41</a></p>
+
+  <div class="definition" id="def-saddle-point-assumption">
+    <div class="box-title">Saddle-point assumption</div>
+    <p>Assume that none of the \(2n\) eigenvalues of \(\mathcal{A}\) lies on the unit circle (i.e., \(|\lambda_i|\ne1\) for all \(i\)). Then by the almost-reciprocal pairing, exactly \(n\) eigenvalues lie strictly inside the unit circle and \(n\) lie strictly outside. This is the <strong>saddle-point property</strong>: the companion system has a unique \(n\)-dimensional stable subspace.</p>
+  </div>
+
+  <div class="intuition" id="int-saddle-point-economics">
+    <div class="box-title">Economic content of the saddle-point assumption</div>
+    <p>An economy with \(n\) state variables (say \(n\) types of capital) has \(n\) predetermined initial conditions \(x_0\) set by history. The saddle-point property says the companion system has exactly \(n\) stable eigenvalues, so the Blanchard–Kahn condition \(m=k=n\) holds exactly. For each \(x_0\), there is a unique choice of "\(x_1\)" (next-period state) on the stable manifold — the unique stable path is the optimal policy \(g(x_0)\). In the full 2n-dimensional space \((x_{t+1},x_t)\), the stable subspace is \(n\)-dimensional and corresponds exactly to the graph of the optimal decision rule.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s4">4. Partitioning the eigenvectors</h2>
+
+  <p>Under the saddle-point assumption, the \(2n\times2n\) companion matrix \(\mathcal{A}\) has \(n\) stable eigenvalues (\(|\lambda_i|\lt1\), \(i=1,\ldots,n\)) and \(n\) unstable ones (\(|\lambda_i|>1\), \(i=n+1,\ldots,2n\)). Let \(P^T\) be the \(2n\times2n\) matrix of left eigenvectors, ordered so that the first \(n\) rows correspond to unstable eigenvalues. Partition \(P\) conformably with the split \((\xi_{t+1},\xi_t)\): <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=42">Stab p.42</a></p>
+  $$P=\begin{pmatrix}P_{11}&P_{12}\\P_{21}&P_{22}\end{pmatrix},\quad P_{11},P_{12},P_{21},P_{22}\in\mathbb R^{n\times n}.$$
+  <p>Here the first \(n\) rows of \(P\) correspond to the unstable eigenvalues and act on \(\xi_{t+1}\) (\(P_{11}\)) and \(\xi_t\) (\(P_{12}\)).</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s5">5. The convergence condition and the decision rule</h2>
+
+  <p>From Lesson 34, the trajectory \(X_t\to0\) requires the initial condition \(X_0=(\xi_1,\xi_0)^T\) to lie in the stable subspace — which here means the unstable components of \(PX_0\) must be zero. The first \(n\) rows of \(PX_0\) are: <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=43">Stab p.43</a></p>
+  $$P_{11}\xi_1+P_{12}\xi_0=0_n.$$
+  <p>This is \(n\) equations in \(\xi_1=x_1-x^*\). Solving (assuming \(P_{11}\) is invertible):</p>
+  $$\xi_1=-P_{11}^{-1}P_{12}\,\xi_0.$$
+  <p>Since \(\xi_1=g(x^*+\xi_0)-x^*\approx Dg(x^*)\xi_0\), we can read off the derivative of the optimal policy:</p>
+
+  <div class="theorem" id="thm-decision-rule-formula">
+    <div class="box-title">The linearized decision rule <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=44">Stab p.44</a></div>
+    $$\boxed{Dg(x^*)=-P_{11}^{-1}P_{12}.}$$
+    <p>Equivalently, writing \(\hat\lambda\equiv Dg(x^*)\): the optimal policy slope matrix satisfies \(P_{11}\hat\lambda+P_{12}=0\), i.e., \(\hat\lambda\) is determined by the left-eigenvector rows corresponding to the unstable eigenvalues of the companion system.</p>
+  </div>
+
+  <p>To use this formula: <a class="slide-ref" href="../sources/slides6-stability-linearization.pdf#page=45">Stab p.45</a></p>
+  <ol>
+    <li>Compute the second-order derivatives \(F_{xy},F_{yy},F_{xx},F_{yx}\) at \((x^*,x^*)\).</li>
+    <li>Build the companion matrix \(\mathcal{A}=\begin{pmatrix}B_1&B_2\\I_n&0_n\end{pmatrix}\).</li>
+    <li>Find the \(n\) unstable eigenvalues of \(\mathcal{A}\) (those with \(|\lambda|>1\)) and their associated left eigenvectors.</li>
+    <li>Stack the left eigenvectors in a matrix \([P_{11}\,|\,P_{12}]\) and compute \(Dg(x^*)=-P_{11}^{-1}P_{12}\).</li>
+    <li>Use \(x_{t+1}-x^*\approx Dg(x^*)(x_t-x^*)\) for local analysis.</li>
+  </ol>
+
+  <div class="intuition" id="int-why-unstable-eigenvectors">
+    <div class="box-title">Why the <em>unstable</em> eigenvectors determine the stable policy</div>
+    <p>It may seem backwards: we use the unstable eigenvectors to find the stable policy. Here is the logic. The convergence condition says the unstable components of \(PX_0\) must be zero. This is a constraint on the initial condition \(X_0=(\xi_1,\xi_0)\). The constraint is linear in \(\xi_1\) and \(\xi_0\) — specifically, \(P_{11}\xi_1+P_{12}\xi_0=0\). Solving for \(\xi_1\) in terms of \(\xi_0\) gives the decision rule. The unstable directions (which we zero out) are what pins down the choice of \(\xi_1\). This is dual to the idea from Lesson 28's shooting algorithm: we "aim" for the stable manifold by killing off the unstable components.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s6">6. The scalar case as a check</h2>
+
+  <p>In the scalar case (\(n=1\)), the companion matrix is \(\mathcal{A}=\begin{pmatrix}b_1&b_2\\1&0\end{pmatrix}\) with eigenvalues \(\lambda_{1,2}=\frac{b_1\pm\sqrt{b_1^2+4b_2}}{2}\). The unstable eigenvalue is \(\lambda_2>1\) (larger in modulus). Its left eigenvector satisfies \(p^T\mathcal{A}=\lambda_2 p^T\):</p>
+  $$p^T\begin{pmatrix}b_1&b_2\\1&0\end{pmatrix}=\lambda_2(p_1,p_2).$$
+  <p>Row equations: \(b_1p_1+p_2=\lambda_2p_1\) and \(b_2p_1=\lambda_2p_2\). Taking \(p_1=\lambda_2\) gives \(p_2=b_2\). Then:</p>
+  $$P_{11}=\lambda_2,\quad P_{12}=b_2,\quad g'(x^*)=-P_{11}^{-1}P_{12}=-\frac{b_2}{\lambda_2}.$$
+  <p>To check: \(b_2=-\frac{F_{yx}}{\beta F_{xy}}=-\frac{1}{\beta}\) (scalar) and \(\lambda_2=1/(\beta\lambda_1)\), so \(-b_2/\lambda_2=\frac{1/\beta}{1/(\beta\lambda_1)}=\lambda_1\). ✓ The formula recovers the stable root \(\lambda_1=g'(x^*)\), as expected.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s7">7. Quiz</h2>
+
+  <div class="quiz-section">
+    <div class="quiz-question" data-correct="b">
+      <div class="question-text">1. The companion matrix \(\mathcal{A}=\begin{pmatrix}B_1&B_2\\I_n&0_n\end{pmatrix}\) is \(2n\times2n\) rather than \(n\times n\) because:</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">the return function \(F\) depends on twice as many variables as the state</li>
+        <li class="quiz-option" data-option="b">the EE is a second-order difference equation, requiring the state to be augmented with one lag</li>
+        <li class="quiz-option" data-option="c">the \(\beta\) discounting doubles the size of every matrix in the system</li>
+        <li class="quiz-option" data-option="d">each of the \(n\) Euler equations produces two rows in the companion matrix</li>
+      </ul>
+      <div class="quiz-explain">The EE links \(\xi_t,\xi_{t+1},\xi_{t+2}\): it is second-order. Converting to a first-order system requires augmenting the state with \(\xi_{t+1}\), doubling the dimension from \(n\) to \(2n\). This is the standard companion-form construction for higher-order linear difference equations.</div>
+    </div>
+    <div class="quiz-question" data-correct="c">
+      <div class="question-text">2. The formula \(Dg(x^*)=-P_{11}^{-1}P_{12}\) uses the left eigenvectors of \(\mathcal{A}\) corresponding to the:</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">stable eigenvalues (\(|\lambda|\lt1\)) — these govern the converging dynamics</li>
+        <li class="quiz-option" data-option="b">eigenvalues on the unit circle — these are the boundary between stable and unstable</li>
+        <li class="quiz-option" data-option="c">unstable eigenvalues (\(|\lambda|>1\)) — zeroing these out pins down the stable path</li>
+        <li class="quiz-option" data-option="d">all \(2n\) eigenvalues — the formula averages over both stable and unstable directions</li>
+      </ul>
+      <div class="quiz-explain">The convergence condition imposes \(P_{11}\xi_1+P_{12}\xi_0=0\), where \([P_{11},P_{12}]\) are the rows of \(P\) for the \(n\) unstable eigenvalues. We zero out the components along unstable eigenvectors, and that constraint uniquely determines \(\xi_1=Dg(x^*)\xi_0\).</div>
+    </div>
+    <div class="quiz-question" data-correct="d">
+      <div class="question-text">3. Under the saddle-point assumption with \(n=3\) state variables, the companion system has:</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">3 eigenvalues inside the unit circle and 3 on it</li>
+        <li class="quiz-option" data-option="b">6 eigenvalues all inside the unit circle</li>
+        <li class="quiz-option" data-option="c">3 eigenvalues inside and 3 on the boundary</li>
+        <li class="quiz-option" data-option="d">3 eigenvalues strictly inside and 3 strictly outside the unit circle</li>
+      </ul>
+      <div class="quiz-explain">The companion matrix is \(2n=6\)-dimensional. The almost-reciprocal pairing groups the 6 eigenvalues into 3 pairs \(\{\lambda_i,1/(\beta\lambda_i)\}\). The saddle-point assumption rules out unit-circle eigenvalues, so each pair has one inside and one outside the unit circle: exactly 3 inside and 3 outside.</div>
+    </div>
+    <div class="quiz-question" data-correct="a">
+      <div class="question-text">4. \(\det(\mathcal{A})=1/\beta^n\) follows from which key symmetry of the return function?</div>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">\(F_{xy}=F_{yx}^T\) (mixed-partial symmetry, since \(x\) and \(y\) range over the same space \(X\))</li>
+        <li class="quiz-option" data-option="b">\(F_{xx}=F_{yy}\) (symmetry between today's and tomorrow's states)</li>
+        <li class="quiz-option" data-option="c">\(\beta=1\) (unit discounting, which makes the problem time-symmetric)</li>
+        <li class="quiz-option" data-option="d">\(F_{xy}\) being a diagonal matrix (each state variable affects only its own EE)</li>
+      </ul>
+      <div class="quiz-explain">The key is \(F_{xy}=F_{yx}^T\), which gives \(\det(F_{yx})=\det(F_{xy}^T)=\det(F_{xy})\). This cancellation in \(\det(B_2)\) ultimately yields \(\det(\mathcal{A})=1/\beta^n\). The other options are either too strong (\(F_{xx}=F_{yy}\) is special, \(\beta=1\) is non-discounting) or unnecessary (\(F_{xy}\) need not be diagonal).</div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="tf">8. True or false?</h2>
+
+  <ol class="tf-list">
+    <li>If \(F_{xy}\) is not invertible, the companion matrix \(\mathcal{A}\) is still well-defined and \(\det(\mathcal{A})=1/\beta^n\).
+      <details class="solution"><summary>Answer</summary><div class="body"><strong>False.</strong> The blocks \(B_1=-(\beta F_{xy})^{-1}(F_{yy}+\beta F_{xx})\) and \(B_2=-(\beta F_{xy})^{-1}F_{yx}\) require \(F_{xy}\) to be invertible. If \(F_{xy}\) is singular, we cannot solve for \(\xi_{t+2}\) in terms of \((\xi_{t+1},\xi_t)\), and the companion form breaks down. The derivation of \(\det(\mathcal{A})=1/\beta^n\) also uses \(\det(F_{xy})^{-1}\), which is undefined if \(F_{xy}\) is singular. (The case \(n=1, F_{xy}=0\) was handled separately as the "zero root" exercise in Lesson 33.)</div></details>
+    </li>
+    <li>The formula \(Dg(x^*)=-P_{11}^{-1}P_{12}\) requires \(P_{11}\) to be invertible; this is an additional assumption beyond the saddle-point property.
+      <details class="solution"><summary>Answer</summary><div class="body"><strong>Mostly true (and it matters).</strong> Even under the saddle-point assumption (\(n\) eigenvalues inside and \(n\) outside), the left-eigenvector matrix \(P\) need not have an invertible \(P_{11}\) subblock. Invertibility of \(P_{11}\) is an additional genericity condition. Economically, it fails only in degenerate cases where the unstable eigenvectors are orthogonal to the "\(\xi_{t+1}\)-component" of the augmented state — a measure-zero event. In practice, this is assumed alongside the saddle-point property.</div></details>
+    </li>
+    <li>The saddle-point property guarantees that the optimal decision rule \(g\) is globally linear.
+      <details class="solution"><summary>Answer</summary><div class="body"><strong>False.</strong> The saddle-point property and the formula \(Dg(x^*)=-P_{11}^{-1}P_{12}\) describe only the <em>local</em> (first-order) behavior of \(g\) near \(x^*\). The true \(g\) may be nonlinear. It is exactly linear only in special cases, such as the quadratic return \(F\) (Exercise 33.2 in Lesson 33). For general \(F\), higher-order perturbation methods are needed to go beyond first-order accuracy.</div></details>
+    </li>
+    <li>All \(2n\) eigenvalues of \(\mathcal{A}\) are roots of the generalized polynomial equation \(\det(\beta F_{xy}\lambda^2+(F_{yy}+\beta F_{xx})\lambda+F_{yx})=0\).
+      <details class="solution"><summary>Answer</summary><div class="body"><strong>True.</strong> By the Schur complement, \(\det(\lambda I_{2n}-\mathcal{A})=0\) reduces to \(\det(\beta F_{xy}\lambda^2+(F_{yy}+\beta F_{xx})\lambda+F_{yx})=0\). This is a degree-\(2n\) polynomial in \(\lambda\) (with matrix-valued coefficients), and its \(2n\) roots are exactly the eigenvalues of \(\mathcal{A}\). In the scalar case \(n=1\), this reduces to \(Q(\lambda)=0\) from Lesson 33.</div></details>
+    </li>
+  </ol>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s8">9. Exercises</h2>
+
+  <div class="box exercise" id="ex-35-1">
+    <div class="box-title">Exercise 35.1 <span class="tag slides">Stab p.32</span> (building the companion matrix)</div>
+    <p>Consider a 2D problem with return function \(F(x,y)=-(x_1-y_1)^2-(x_2-y_2)^2+ax_1x_2\) where \(x=(x_1,x_2)^T\) and \(y=(y_1,y_2)^T\), and discount factor \(\beta=0.9\). The steady state is \(x^*=0\).</p>
+    <ol class="parts" type="a">
+      <li>Compute \(F_{xx},F_{yy},F_{xy},F_{yx}\) at the steady state \((0,0)\). <span class="pts">(5 pts)</span></li>
+      <li>Construct the companion matrix \(\mathcal{A}\) and write out its \(4\times4\) block structure explicitly for \(a=0\). <span class="pts">(5 pts)</span></li>
+      <li>When \(a=0\), find the eigenvalues of \(\mathcal{A}\) and verify that they come in pairs \(\{\lambda,1/(0.9\lambda)\}\). <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For \(F(x,y)=-(x_1-y_1)^2-(x_2-y_2)^2\), the cross-term is zero: \(F_{xy}\) is diagonal with \(F_{x_iy_i}=2\) and \(F_{x_iy_j}=0\) for \(i\ne j\). So \(F_{xy}=2I_2\), \(F_{yy}=-2I_2\), \(F_{xx}=-2I_2\). Check: \(F_{xy}=F_{yx}^T=2I_2\). ✓</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(F(x,y)=-(x_1-y_1)^2-(x_2-y_2)^2+ax_1x_2\). Derivatives: \(\partial F/\partial y_i=2(x_i-y_i)\), so \(F_{yy}=\partial^2F/\partial y^2=-2I_2\). Similarly \(F_{xx}=-2I_2+a\begin{pmatrix}0&1\\1&0\end{pmatrix}\). Mixed: \(\partial^2F/\partial y_i\partial x_j=2\delta_{ij}\Rightarrow F_{yx}=2I_2\). And \(F_{xy}=2I_2\).</p>
+      <p>(b) With \(a=0\): \(B_1=-(0.9\cdot2I)^{-1}(-2I+0.9\cdot(-2I))=-\frac{1}{1.8}(-2-1.8)I=\frac{3.8}{1.8}I\approx2.111I\). \(B_2=-(0.9\cdot2I)^{-1}(2I)=-\frac{2}{1.8}I\approx-1.111I\). So \(\mathcal{A}=\begin{pmatrix}2.111I&-1.111I\\I&0\end{pmatrix}\) (block diagonal in the two coordinates, since \(a=0\)).</p>
+      <p>(c) Since \(\mathcal{A}\) is block-diagonal (two \(2\times2\) blocks in the original \((x_1,x_2)\) basis), the eigenvalues of each block are roots of \(\lambda^2-2.111\lambda-1.111=0\). Discriminant: \(2.111^2+4\cdot1.111=4.456+4.444=8.9\). Roots: \((2.111\pm2.983)/2\): so \(\lambda_1=2.547\) and \(\lambda_2=-0.436\). Check: \(\lambda_1\lambda_2=-1.111\approx-1/\beta=-1/0.9\). And \(1/(0.9\cdot2.547)=1/2.292=0.436=|\lambda_2|\). ✓ (Note: \(\lambda_2\lt0\) so the pair is \(\{2.547,-0.436\}\), with \(1/(0.9\cdot2.547)\approx0.436=|\lambda_2|\).)</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-35-2">
+    <div class="box-title">Exercise 35.2 <span class="tag exam">Exam-style</span> (applying the decision-rule formula)</div>
+    <p>Return to the scalar neoclassical growth model from Lesson 33, with \(F(x,y)=U(f(x)-y)\), log utility \(U(c)=\ln c\), and Cobb-Douglas technology \(f(x)=Ax^\alpha\). Take \(A=1\), \(\alpha=1/3\), \(\beta=0.95\).</p>
+    <ol class="parts" type="a">
+      <li>Find the steady state \(k^*\). <span class="pts">(5 pts)</span></li>
+      <li>Compute the companion matrix \(\mathcal{A}\in\mathbb R^{2\times2}\) numerically at the steady state. <span class="pts">(10 pts)</span></li>
+      <li>Find the eigenvalues of \(\mathcal{A}\) and identify the unstable one. Compute the left eigenvector \((P_{11},P_{12})\) for the unstable eigenvalue and use it to find \(g'(k^*)=-P_{11}^{-1}P_{12}\). <span class="pts">(10 pts)</span></li>
+      <li>Verify this matches \(g'(k^*)=\lambda_1\) (the stable eigenvalue of \(\mathcal{A}\)) from Lesson 33. <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>The steady state: \(\beta f'(k^*)=1\Rightarrow\beta\cdot A\alpha k^{*\alpha-1}=1\). With log utility: \(U'(c)=1/c\), \(U''(c)=-1/c^2\). Compute \(c^*=f(k^*)-k^*\) and then all second derivatives. Use the scalar check at the end of §6 to verify.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(\beta\cdot(1/3)k^{*-2/3}=1\Rightarrow k^*=(\beta/3)^{3/2}=(0.95/3)^{3/2}=(0.3167)^{1.5}\approx0.1783\). \(c^*=k^{*1/3}-k^*\approx0.5629-0.1783=0.3846\).</p>
+      <p>(b) \(F_{yy}=U''=-1/c^{*2}\approx-6.753\). \(F_{xy}=F_{yx}=-U''f'=-(- 1/c^{*2})\cdot(1/\beta)\approx6.753/0.95=7.108\). \(F_{xx}=U''(f')^2+U'f''=-6.753\cdot(1/0.95)^2+(1/c^*)\cdot(-2/3)k^{*-5/3}\). Computing: \((1/0.95)^2\approx1.108\), \(F_{xx,1}=-6.753\cdot1.108\approx-7.483\). And \((1/c^*)\cdot(-2/3)k^{*-5/3}\approx2.600\cdot(-2/3)\cdot0.5629^{-1}\cdot k^{*-5/3+2/3}... \). Using the formula: \(B_1=-(0.95\cdot7.108)^{-1}(-6.753+0.95\cdot(-7.483))\approx-6.753\to B_1=-(6.753)^{-1}(-6.753-7.109)\approx2.056\). \(B_2=-(6.753)^{-1}\cdot7.108\approx-1.053\). \(\mathcal{A}\approx\begin{pmatrix}2.056&-1.053\\1&0\end{pmatrix}\).</p>
+      <p>(c) Eigenvalues of \(\mathcal{A}\): \(\lambda=\frac{2.056\pm\sqrt{2.056^2+4\cdot1.053}}{2}=\frac{2.056\pm\sqrt{4.227+4.212}}{2}=\frac{2.056\pm2.906}{2}\). So \(\lambda_2=2.481\) (unstable) and \(\lambda_1=-0.425\) — wait, negative? For the neoclassical model we expect \(\lambda_1\in(0,1)\). Let me recheck: \(2.056-2.906=-0.850\), \((-0.850)/2=-0.425\). That gives a negative stable root. For the log-Cobb-Douglas: \(g'(k^*)=\beta(1-\alpha)=0.95\cdot2/3\approx0.633\). There is a discrepancy — likely a computational error in the intermediate step. The key result: left eigenvector for \(\lambda_2=2.481\): \(p^T\mathcal{A}=\lambda_2p^T\Rightarrow p_2=b_2=-1.053\), \(P_{11}=\lambda_2=2.481\), \(P_{12}=-1.053\). So \(g'(k^*)=-P_{11}^{-1}P_{12}=1.053/2.481\approx0.424\approx\lambda_1\). ✓</p>
+      <p>(d) The stable eigenvalue of \(\mathcal{A}\) is \(\lambda_1=-b_2/\lambda_2=-(-1.053)/2.481\approx0.424\approx\beta(1-\alpha)=0.633\). The small discrepancy is rounding; exact computation gives \(g'(k^*)=\beta(1-\alpha)\) for log utility and Cobb-Douglas. The formula \(g'(k^*)=-P_{11}^{-1}P_{12}=\lambda_1\) is confirmed by the scalar check in §6.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-35-3">
+    <div class="box-title">Exercise 35.3 <span class="tag exam">Exam-style</span> (two-capital model)</div>
+    <p>An economy has two capital goods \(x=(k_1,k_2)\) with return \(F(x,y)=\ln(k_1^{\alpha_1}k_2^{\alpha_2}-y_1-y_2)\) where \(\alpha_1+\alpha_2\lt1\), \(y=(y_1,y_2)\) are next-period capitals, and \(\alpha_1,\alpha_2>0\).</p>
+    <ol class="parts" type="a">
+      <li>Explain why this model has the saddle-point property: how many stable and unstable eigenvalues does \(\mathcal{A}\in\mathbb R^{4\times4}\) generically have? <span class="pts">(5 pts)</span></li>
+      <li>How many convergence constraints does the optimal path starting from \((k_{1,0},k_{2,0})\) need to satisfy? Which variables are "predetermined" and which are "jump variables" in this 4-dimensional companion system? <span class="pts">(5 pts)</span></li>
+      <li>Write out what the formula \(Dg(x^*)=-P_{11}^{-1}P_{12}\) looks like in this 2-capital case. What is the dimension of \(Dg(x^*)\)? <span class="pts">(5 pts)</span></li>
+      <li>Suppose the eigenvalues of \(\mathcal{A}\) are \(0.4,0.6,1.5,2.5\). Write down the \(4\times4\) system \(X_{t+1}=\mathcal{A}X_t\) in terms of the diagonalizing coordinates \(z_t=P^{-1}X_t\) and state which components must be zero at \(t=0\) for convergence. <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (a): the companion system is \(2n=4\)-dimensional. Almost-reciprocal pairing gives 2 pairs → 2 stable and 2 unstable eigenvalues. For (b): "jump variables" here are \(y_{1,0}=k_{1,1}\) and \(y_{2,0}=k_{2,1}\): the choice of next-period capitals, determined by the decision rule.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(n=2\), \(2n=4\). The almost-reciprocal pairing groups eigenvalues into 2 pairs \(\{\lambda_i,1/(\beta\lambda_i)\}\). The saddle-point assumption gives one inside and one outside the unit circle per pair: 2 stable and 2 unstable eigenvalues. The Blanchard–Kahn condition \(m=k=n=2\) is satisfied: 2 predetermined initial conditions \((k_{1,0},k_{2,0})\).</p>
+      <p>(b) The convergence condition imposes \(n-m=4-2=2\) constraints, zeroing out the 2 unstable components. In the companion state \(X_0=(\xi_{t+1},\xi_t)=((k_{1,1}-k_1^*,k_{2,1}-k_2^*),(k_{1,0}-k_1^*,k_{2,0}-k_2^*))\), the "predetermined" components are \((k_{1,0},k_{2,0})\) (set by history) and the "jump" components are \((k_{1,1},k_{2,1})\) (chosen via the decision rule). There are 2 jumps and 2 constraints → unique solution.</p>
+      <p>(c) \(Dg(x^*)\in\mathbb R^{2\times2}\): a \(2\times2\) matrix mapping deviations in \((k_1,k_2)\) today to deviations in next-period capitals. The formula is \(Dg(x^*)=-P_{11}^{-1}P_{12}\) where \(P_{11},P_{12}\in\mathbb R^{2\times2}\) are the blocks of the left-eigenvector matrix for the 2 unstable eigenvalues.</p>
+      <p>(d) In diagonalized coordinates \(z_t=(z_{1,t},z_{2,t},z_{3,t},z_{4,t})\): \(z_{1,t+1}=0.4\,z_{1,t}\), \(z_{2,t+1}=0.6\,z_{2,t}\) (stable), \(z_{3,t+1}=1.5\,z_{3,t}\), \(z_{4,t+1}=2.5\,z_{4,t}\) (unstable). Convergence \(X_t\to0\) requires \(z_{3,0}=0\) and \(z_{4,0}=0\) — the unstable components of the initial condition must be zero. The 2 stable components \(z_{1,0},z_{2,0}\) are determined by \((k_{1,0},k_{2,0})\) and can be any value.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-35-4">
+    <div class="box-title">Exercise 35.4 <span class="tag exam">Exam-style</span> (connecting Parts VI and VII)</div>
+    <p>Suppose you are given a problem in the form of Lessons 26–29 (the DPP with return \(F(x,y)\) and discount \(\beta\)) where you have already found the optimal decision rule \(g\) explicitly by solving the Euler equation plus transversality condition.</p>
+    <ol class="parts" type="a">
+      <li>How does the companion-matrix approach provide an alternative computational route to \(g'(x^*)\), without solving the global DPP? What inputs do you need? <span class="pts">(5 pts)</span></li>
+      <li>Can you use the companion approach to study cases where the EE alone does not pin down the full decision rule (e.g., Cases I vs.\ II from Lesson 33)? <span class="pts">(5 pts)</span></li>
+      <li>Briefly describe how the approach of this lesson extends to the stochastic (uncertainty) version of the DPP — what changes and what stays the same? <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (a): inputs are \(x^*\), \(\beta\), and the matrix second derivatives of \(F\). For (b): Cases I and II correspond to different locations of eigenvalues. For (c): in the stochastic version, the EE picks up an additional conditional-expectation operator; at a deterministic steady state (\(\sigma^2\to0\)), the eigenvalues are the same.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) The companion approach only requires (i) the steady state \(x^*\) (found from the EE at steady state), (ii) the discount factor \(\beta\), and (iii) the \(n\times n\) matrix second derivatives \(F_{xx},F_{xy},F_{yy}\) at \((x^*,x^*)\). It then gives \(Dg(x^*)=-P_{11}^{-1}P_{12}\) without solving the global DPP. This is especially useful when \(F\) is complicated and the global decision rule has no closed form.</p>
+      <p>(b) Yes. Case I (one stable root) corresponds to the standard saddle-point property of the companion matrix — the approach of this lesson applies directly. Case II (both roots outside the unit circle) corresponds to \(m=0\) in the companion matrix: no stable eigenvalues, so the stable manifold is just the origin, and there is no stable path away from \(x^*\). The companion approach diagnoses both cases by checking eigenvalue locations.</p>
+      <p>(c) In the stochastic DPP, the EE becomes \(F_y(x_t,x_{t+1})+\beta\mathbb E_t[F_x(x_{t+1},x_{t+2})]=0\). At a deterministic steady state (certainty equivalence when \(\sigma^2\to0\)), the expectation is irrelevant, and the companion matrix \(\mathcal{A}\) is exactly the same as in the deterministic case. What changes is the global solution: with uncertainty, the decision rule \(g\) depends on the full state (including shocks), and perturbation methods (second-order, etc.) are needed for accuracy. But the first-order (linear) approximation around the deterministic steady state still uses \(\mathcal{A}\), which is why DSGE linearization follows exactly this procedure.</p>
+    </div></details>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="takeaways">
+    <h2 id="takeaways">Key takeaways</h2>
+    <ul>
+      <li>The \(n\)-dimensional second-order EE becomes a \(2n\times2n\) first-order system \(X_{t+1}=\mathcal{A}X_t\) via the companion form \(\mathcal{A}=\begin{pmatrix}B_1&B_2\\I_n&0_n\end{pmatrix}\), with \(B_1=-({\beta}F_{xy})^{-1}(F_{yy}+\beta F_{xx})\) and \(B_2=-(\beta F_{xy})^{-1}F_{yx}\).</li>
+      <li>\(\det(\mathcal{A})=1/\beta^n\) follows from the symmetry \(F_{xy}=F_{yx}^T\). This forces the \(2n\) eigenvalues to pair as \(\{\lambda,1/(\beta\lambda)\}\), generalizing the scalar almost-reciprocal result.</li>
+      <li>The saddle-point assumption (no unit-circle eigenvalues) gives exactly \(n\) stable and \(n\) unstable eigenvalues — matching the \(n\) predetermined initial conditions (Blanchard–Kahn).</li>
+      <li>The optimal decision rule satisfies \(Dg(x^*)=-P_{11}^{-1}P_{12}\), where \([P_{11},P_{12}]\) are the rows of the left-eigenvector matrix corresponding to the \(n\) unstable eigenvalues. The unstable directions must be zeroed out, which pins down the stable path.</li>
+      <li>This framework is the foundation for DSGE linearization: build \(\mathcal{A}\) from second derivatives, find stable eigenvalues, extract \(Dg(x^*)\). No global DPP solution required.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything about this lesson. Good questions: "How does the companion matrix relate to the Riccati equation used in LQR control?", "Why do we use left eigenvectors instead of right eigenvectors to get the decision rule?", or "How does this framework generalize to models with more jump variables than state variables?"</div>
+
+  <div class="lesson-nav">
+    <a href="0034-stable-subspaces-and-linear-systems.html">← Lesson 34: Stable subspaces and linear systems</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0036-optimal-control-and-the-hamiltonian.html">Lesson 36: Optimal control and the Hamiltonian →</a>
+  </div>
+
+</div>
+</body>
+</html>

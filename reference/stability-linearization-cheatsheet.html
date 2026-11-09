@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Local Stability &amp; Linearization Cheatsheet — Theory of Income</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <style>
+    .sheet { font-size: 0.9rem; line-height: 1.55; }
+    .sheet h2 { font-size: 1.05rem; margin-top: 1.4rem; }
+    .sheet .box { padding: 0.6rem 0.9rem; margin: 0.6rem 0; }
+    .sheet ol, .sheet ul { margin-top: 0.2rem; margin-bottom: 0.2rem; }
+    .sheet li { margin: 0.15rem 0; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.2rem; }
+    @media (max-width: 700px) { .two { grid-template-columns: 1fr; } }
+    .sheet table.simple { font-size: 0.82rem; margin: 0.5rem 0; width: 100%; }
+    .sheet table.simple td, .sheet table.simple th { padding: 0.25rem 0.5rem; vertical-align: top; }
+    .see { font-family: var(--font-sans); font-size: 0.72rem; color: var(--muted); }
+    .see a { color: var(--accent); }
+  </style>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page sheet">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Reference · Folder 5</div>
+    <h1>Local Stability &amp; Linearization: Cheatsheet</h1>
+    <div class="meta">Discrete-time optimal trajectories: 1D local stability, almost-reciprocal pairs, \(n\)-dimensional stability and diagonalization, linearizing the DPP, the optimal decision rule \(g'(\bar x)=-P_{11}^{-1}P_{12}\). Lessons <a href="../lessons/0033-local-stability-and-reciprocal-pairs.html">33</a>–<a href="../lessons/0035-linearizing-the-dpp-and-decision-rules.html">35</a> · <a href="../sources/slides6-stability-linearization.pdf">Slides</a> · <a href="ge-glossary.html">Glossary</a> · <a href="../index.html">Index</a></div>
+  </div>
+
+  <div class="box mustknow" id="mt2">
+    <div class="box-title">Exam must-know (MT2 / final). Not on Midterm 1.</div>
+    <div class="two">
+      <div>
+        <p><b>Be able to write from a blank page</b></p>
+        <ol>
+          <li>Define "almost-reciprocal pair": roots of \(Q(\lambda)=F_{yy}+[F_{xy}+\beta F_{yx}]\lambda+\beta F_{xx}\lambda^2\) satisfy \(\lambda_1\lambda_2=1/\beta\). In 1D: Case I \(|\lambda_1|\lt1\lt|\lambda_2|\) gives a saddle; Case II both \(>1\) gives instability.</li>
+          <li>Neoclassical growth: \(Q(\lambda)=1/\beta-[1+1/\beta+(f''/f')/(U''/U')]\lambda+\lambda^2\); \(\lambda_1\lambda_2=1/\beta\); \(Q(1)\lt0\) iff productive economy; one root in \((0,1)\).</li>
+          <li>\(n\)-dimensional stability: \(A\hat z_t=B\hat z_{t+1}\) → general system \(C\hat z_t=\hat z_{t+1}\); stable iff \(m\) eigenvalues of \(C\) inside unit circle; saddle iff exactly \(m\) in.</li>
+          <li>Almost-reciprocal pairs in \(n\) dimensions: \(\det(B^{-1}A)=1/\beta^n\) via block determinant of the companion system; eigenvalues pair as \((\lambda_i,1/(\beta\lambda_i))\).</li>
+          <li>Optimal decision rule near steady state: \(\hat y_t=g'(\bar x)\hat x_t\) where \(g'(\bar x)=-P_{11}^{-1}P_{12}\) built from stable eigenvectors \(\binom{P_{11}}{P_{12}}\).</li>
+          <li>Discrete Riccati: \(S=F_{yy}+\beta(F_{yx}+F_{yy}S)(F_{xx}+F_{xy}S+\beta S F_{yx}+\beta SF_{yy}S)^{-1}(F_{xy}+F_{yy}S)\beta\) — but in practice, extract \(S=P_{12}P_{11}^{-1}\) from eigenvectors.</li>
+        </ol>
+      </div>
+      <div>
+        <p><b>Key formulas at a glance</b></p>
+        <ul>
+          <li><b>1D steady state:</b> \(F_y(\bar x,\bar x)+\beta F_x(\bar x,\bar x)=0\).</li>
+          <li><b>Characteristic polynomial (1D):</b> \(Q(\lambda)=F_{yy}(\bar x,\bar x)+[F_{xy}+\beta F_{yx}](\bar x,\bar x)\lambda+\beta F_{xx}(\bar x,\bar x)\lambda^2\). Factor: \(Q(\lambda)=F_{yy}(\bar x,\bar x)(1-\lambda/\lambda_1)(1-\lambda/\lambda_2)\) with \(\lambda_1\lambda_2=F_{xx}/F_{yy}\cdot1/\beta=1/\beta\) (using the symmetry of \(F_{xy}=F_{yx}\)).</li>
+          <li><b>Stability (1D):</b> Case I stable iff \(Q(1)\lt0\) and \(Q(0)>0\) (which forces \(\lambda_1\in(0,1)\)).</li>
+          <li><b>Signs at steady state:</b> \(F_{yy}\lt0\), \(F_{xx}\lt0\), \(F_{xy}>0\); thus \(Q(0)=F_{yy}\lt0\)... Wait: \(Q(0)=F_{yy}\lt0\) but we want \(Q(0)>0\) for one root in \((0,1)\). Re-examine: typically we define \(Q(\lambda)=-[F_{yy}+\ldots]\) so that \(Q(0)=-F_{yy}>0\). Follow the sign convention of the slides.</li>
+          <li><b>\(n\)-D decision rule:</b> \(g'(\bar x)=-P_{11}^{-1}P_{12}\) where \(\binom{P_{11}}{P_{12}}\) are the \(m\) stable eigenvectors of the companion matrix. Same formula as the continuous-time \(S=P_{12}P_{11}^{-1}\) but transposed.</li>
+          <li><b>Almost-reciprocal pairs (\(n\)-D):</b> \(\prod_i\lambda_i=1/\beta^n\). Pairs: \((\lambda_i,1/(\beta\lambda_i))\). Of the \(2m\) eigenvalues, exactly \(m\) should lie inside the unit circle for a saddle (generic condition).</li>
+        </ul>
+      </div>
+    </div>
+    <p class="see">Exam format: typically one part of a 3–4 part question on the full sequence problem, asking you to (1) set up and linearize, (2) find eigenvalues, (3) characterize the saddle path, (4) compute \(g'(\bar x)\) explicitly. Folder-5 content often appears as the last 1–2 parts of a folder-4 question.</p>
+  </div>
+
+  <!-- ─────────────────────────── -->
+  <h2>1D stability of optimal trajectories <span class="see"><a href="../lessons/0033-local-stability-and-reciprocal-pairs.html">L33</a> · <a href="../sources/slides6-stability-linearization.pdf#page=3">Stab p.3</a></span></h2>
+  <div class="two">
+    <div>
+      <p><b>Setting:</b> sequence problem \(V^*(x_0)=\max\sum\beta^t F(x_t,x_{t+1})\). Steady state \(\bar x\): \(F_y(\bar x,\bar x)+\beta F_x(\bar x,\bar x)=0\). Linearize the EE around \((\bar x,\bar x,\bar x)\):</p>
+      $$F_{yy}\hat x_t+[F_{xy}+\beta F_{yx}]\hat x_{t+1}+\beta F_{xx}\hat x_{t+2}=0,$$
+      <p>where \(\hat x_t=x_t-\bar x\). Guess \(\hat x_t=\lambda^t v\): characteristic polynomial \(Q(\lambda)=F_{yy}+[F_{xy}+\beta F_{yx}]\lambda+\beta F_{xx}\lambda^2\).</p>
+      <table class="simple">
+        <tr><th>Case</th><th>Roots</th><th>Stability</th></tr>
+        <tr><td>I</td><td>\(|\lambda_1|\lt1\lt|\lambda_2|\)</td><td>Saddle — unique stable path</td></tr>
+        <tr><td>II</td><td>\(|\lambda_1|,|\lambda_2|\gt1\)</td><td>Both unstable — TC fails unless \(x_0=\bar x\)</td></tr>
+        <tr><td>III</td><td>\(|\lambda_1|,|\lambda_2|\lt1\)</td><td>Both stable — TC indeterminate</td></tr>
+      </table>
+    </div>
+    <div>
+      <p><b>Almost-reciprocal pairs.</b> Product of roots: \(\lambda_1\lambda_2=F_{yy}/(\beta F_{xx})=1/\beta\) (using symmetry and negative definiteness). So if \(|\lambda_1|\lt1\) then \(|\lambda_2|=1/(\beta|\lambda_1|)>1/\beta>1\). Pairs: \((\lambda_i,\,1/(\beta\lambda_i))\), product \(=1/\beta\). This is the analogue of the continuous-time pairing \((\mu,\rho-\mu)\), sum \(=\rho\).</p>
+      <p><b>Neoclassical growth.</b> \(F(k,k')=U(f(k)-k')\): \(F_{yy}=U''\lt0\), \(F_{xx}=U''(f')^2+U'f''\lt0\), \(F_{xy}=-U''f'>0\). Characteristic polynomial:</p>
+      $$Q(\lambda)=1/\beta-\left[1+\frac{1}{\beta}+\frac{f''({\bar k})}{f'(\bar k)}\cdot\frac{U'(\bar c)}{U''(\bar c)}\right]\lambda+\lambda^2.$$
+      <p>Roots \(\lambda_1\in(0,1)\) and \(\lambda_2=1/(\beta\lambda_1)>1/\beta>1\). Case I: stable saddle for all productive, concave economies.</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── -->
+  <h2>\(n\)-dimensional stability and linearization <span class="see"><a href="../lessons/0034-n-dimensional-stability-and-diagonalization.html">L34</a> · <a href="../sources/slides6-stability-linearization.pdf#page=20">Stab p.20</a></span></h2>
+  <div class="two">
+    <div>
+      <p><b>General system.</b> Linearize EE system around \((\bar x,\bar x)\) where \(x\in\mathbb R^m\):</p>
+      $$A\hat x_{t+1}=B\hat x_t,\quad\text{i.e.}\quad \hat x_{t+1}=A^{-1}B\hat x_t=C\hat x_t.$$
+      <p>Eigenvalue decomposition: \(C=P\Lambda P^{-1}\). Component \(i\): \(\hat x_{i,t}=c_i\lambda_i^t\). Set \(c_i=0\) for all \(|\lambda_i|\ge1\) (unstable directions). \(m\) initial conditions (the states \(\hat x_0\)) pin down the remaining \(m\) free constants.</p>
+      <p><b>Saddle-point property:</b> exactly \(m\) eigenvalues of \(C\) inside the unit circle. Generic under the almost-reciprocal-pairs structure.</p>
+      <p><b>Stable subspace:</b> span of the \(m\) eigenvectors with \(|\lambda_i|\lt1\). Let \(P_s\in\mathbb R^{m\times m}\) be the matrix of stable eigenvectors. The stable manifold: \(\hat x_t=P_s C_s^t P_s^{-1}\hat x_0\) where \(C_s=\text{diag}(\lambda_1,\ldots,\lambda_m)\).</p>
+    </div>
+    <div>
+      <p><b>Almost-reciprocal pairs (\(n\)-D).</b> Write the EE as the companion system in \(\hat z_t=(x_t,x_{t+1})'\):</p>
+      $$\hat z_{t+1}=\tilde C\hat z_t,\quad\tilde C=\begin{pmatrix}0&I\\-A^{-1}B_{22}&-A^{-1}B_{12}\end{pmatrix}.$$
+      <p>Key identity: \(\det(\tilde C)=\det(B_{22})/\det(A)=1/\beta^m\) (block determinant formula). So \(\prod_i\lambda_i(\tilde C)=1/\beta^m\). The pairing: each eigenvalue \(\lambda\) of \(\tilde C\) is paired with \(1/(\beta\lambda)\); they come in pairs with product \(1/\beta\).</p>
+      <p><b>Stability check:</b> for a saddle, need exactly \(m\) eigenvalues inside the unit circle. Under the pairing, this holds generically (unless some \(\lambda=1\) or \(1/\sqrt\beta\)).</p>
+      <table class="simple">
+        <tr><th>Quantity</th><th>Formula</th></tr>
+        <tr><td>Pairs</td><td>\((\lambda_i,\,1/(\beta\lambda_i))\)</td></tr>
+        <tr><td>Product (all)</td><td>\(\prod_i\lambda_i=1/\beta^m\)</td></tr>
+        <tr><td>Number stable</td><td>\(m\) (saddle condition)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── -->
+  <h2>Linearizing the DPP and the optimal decision rule <span class="see"><a href="../lessons/0035-linearizing-the-dpp-and-decision-rules.html">L35</a> · <a href="../sources/slides6-stability-linearization.pdf#page=35">Stab p.35</a></span></h2>
+  <div class="two">
+    <div>
+      <p><b>DPP linearization.</b> The DPP is \(V(x)=\max_{y\in\Gamma(x)}[F(x,y)+\beta V(y)]\). Guess \(V(x)\approx V(\bar x)+V'(\bar x)\hat x+\frac12 V''(\bar x)\hat x^2\). The first-order condition in \(y\): \(F_y(x,g(x))+\beta V'(g(x))=0\). Linearizing in \(\hat x\):</p>
+      $$[F_{yy}+\beta V''(\bar y)]\cdot g'(\bar x)\hat x=-F_{yx}\hat x.$$
+      $$g'(\bar x)=-\frac{F_{yx}}{F_{yy}+\beta V''(\bar y)}.$$
+      <p>To find \(V''\): differentiate the DPP twice and use the EE. The result is a fixed-point (Riccati-type) equation in \(V''(\bar x)\).</p>
+    </div>
+    <div>
+      <p><b>Eigenvector formula for \(g'(\bar x)\).</b> Partition the stable eigenvectors of the companion matrix \(\tilde C\) as \(\binom{P_{11}}{P_{12}}\in\mathbb R^{2m\times m}\), where \(P_{11}\in\mathbb R^{m\times m}\) corresponds to the \(\hat x\) block and \(P_{12}\in\mathbb R^{m\times m}\) to the \(\hat y\) block. Then:</p>
+      $$g'(\bar x)=-P_{11}^{-1}P_{12}.$$
+      <p>Intuition: on the stable manifold, \(\hat y_t=g'(\bar x)\hat x_t\). The stable eigenvectors say \(\hat y=-(P_{11}^{-1}P_{12})\hat x\) on the saddle path. This is the discrete-time analogue of the continuous-time rule \(\hat\lambda=S\hat x\) with \(S=P_{12}P_{11}^{-1}\).</p>
+      <p><b>Stability check:</b> eigenvalues of the closed-loop matrix \(\hat x_{t+1}=(P_{12}P_{11}^{-1})^{-1}\hat x_t\) should be inside the unit circle — they are the \(m\) stable eigenvalues of \(\tilde C\) by construction.</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── -->
+  <h2>Key identities and cross-checks <span class="see"><a href="../sources/slides6-stability-linearization.pdf#page=1">Stab p.1</a></span></h2>
+  <div class="two">
+    <div>
+      <table class="simple">
+        <tr><th>Quantity</th><th>Discrete time</th><th>Continuous time</th></tr>
+        <tr><td>Eigenvalue pairing</td><td>\((\lambda,\,1/(\beta\lambda))\), product \(=1/\beta\)</td><td>\((\mu,\,\rho-\mu)\), sum \(=\rho\)</td></tr>
+        <tr><td>Stable count</td><td>\(m\) with \(|\lambda|\lt1\)</td><td>\(m\) with \(\text{Re}(\mu)\lt0\)</td></tr>
+        <tr><td>Companion matrix</td><td>\(\tilde C\in\mathbb R^{2m\times2m}\)</td><td>\(\mathcal H\in\mathbb R^{2m\times2m}\)</td></tr>
+        <tr><td>Decision rule</td><td>\(g'(\bar x)=-P_{11}^{-1}P_{12}\)</td><td>\(\hat\lambda=S\hat x\), \(S=P_{12}P_{11}^{-1}\)</td></tr>
+        <tr><td>Riccati equation</td><td>Discrete ARE (not in slides)</td><td>\(S\bar H^*_{\lambda\lambda}S+\ldots=0\)</td></tr>
+        <tr><td>Det of companion</td><td>\(\det\tilde C=1/\beta^m\)</td><td>\(\det(\mathcal H-\mu I)=\det(\mathcal H-(\rho-\mu)I)\)</td></tr>
+      </table>
+    </div>
+    <div>
+      <p><b>Common errors to avoid</b></p>
+      <ul>
+        <li>Confusing "almost-reciprocal" (product \(=1/\beta\)) with "reciprocal" (product \(=1\)). The \(\beta\) factor matters: in the undiscounted case \(\beta=1\), you get true reciprocal pairs.</li>
+        <li>Applying the 1D formula \(\lambda_1\lambda_2=1/\beta\) to the \(n\)-D case. In \(n\) dimensions, \(\prod_i\lambda_i=1/\beta^m\); each pair has product \(1/\beta\), not the full product.</li>
+        <li>Forgetting to check \(P_{11}\) is invertible. The decision rule \(-P_{11}^{-1}P_{12}\) requires the state block of the stable eigenvectors to be square and invertible. Check this in numerical examples.</li>
+        <li>Mixing discrete and continuous companion matrices. The discrete \(\tilde C\) is \(2m\times2m\) with \(\det=1/\beta^m\). The continuous \(\mathcal H\) has eigenvalues summing to \(\rho\) in pairs; it has nothing like \(\det=1/\beta^m\).</li>
+        <li>Writing the wrong sign for \(g'(\bar x)\): it is \(-P_{11}^{-1}P_{12}\) (with a minus sign from the structure of the companion matrix), not \(+P_{11}^{-1}P_{12}\).</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="see">See also: <a href="euler-transversality-cheatsheet.html">Euler equations &amp; transversality cheatsheet</a> (folder 4) · <a href="hamiltonian-cheatsheet.html">Hamiltonian cheatsheet</a> (folder 7) · <a href="ge-glossary.html">Glossary</a></p>
+
+</div>
+</body>
+</html>

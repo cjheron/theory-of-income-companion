@@ -19,7 +19,9 @@
   };
   // Decks whose per-file link is unknown open their folder in the class Dropbox (no page jump)
   var FOLDER = {
-    'slides5-euler-transversality.pdf': BASE + 'ALVspsCuMymaBs2MzSqeOwQ/4.%20Euler_Deterministic-Discrete-time?rlkey=vg06spyn2hsedldeyyaenifrn&dl=0'
+    'slides5-euler-transversality.pdf': BASE + 'ALVspsCuMymaBs2MzSqeOwQ/4.%20Euler_Deterministic-Discrete-time?rlkey=vg06spyn2hsedldeyyaenifrn&dl=0',
+    'slides6-stability-linearization.pdf': BASE + 'ALVspsCuMymaBs2MzSqeOwQ?rlkey=vg06spyn2hsedldeyyaenifrn&dl=0',
+    'slides7-hamiltonian.pdf': BASE + 'ALVspsCuMymaBs2MzSqeOwQ?rlkey=vg06spyn2hsedldeyyaenifrn&dl=0'
   };
   var CLASS_NOTES = BASE + 'ALVspsCuMymaBs2MzSqeOwQ?rlkey=vg06spyn2hsedldeyyaenifrn&dl=0';
   if (location.protocol === 'file:') return;
