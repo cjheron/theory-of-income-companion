@@ -87,6 +87,41 @@
     <p>Think of \(\lambda(t)\) as the price of the state: the marginal value to the planner of an extra unit of \(x\) right now. The costate equation (§3) says \(\dot\lambda=\rho\lambda-H_x\). Rearranging: \(\rho\lambda=H_x+\dot\lambda\). This is a no-arbitrage condition: the required rate of return \(\rho\) on the "asset" \(\lambda\) equals its dividend \(H_x\) (the marginal value of the state in producing \(h\) and \(g\)) plus its capital gain \(\dot\lambda\). This is exactly the formula \(\rho P=D+\dot P\) for a stock with price \(P\), dividend \(D\), and capital gain \(\dot P\). In the neoclassical model, \(\lambda=U'(c)\) and the costate equation becomes the Keynes-Ramsey rule.</p>
   </div>
 
+  <div class="figure" id="hamiltonian-fig-wrap">
+    <p class="fig-caption"><strong>Figure 36.1</strong> — Neoclassical Hamiltonian \(H(c)=\ln c+\lambda(f(k)-\delta k-c)\) as a function of consumption, with \(f(k)=k^{0.33}\) and \(\delta=0.05\). The optimal \(c^*=1/\lambda\) (orange) maximises \(H\) at the point where the dashed horizontal tangent touches the curve. Raising \(\lambda\) (more urgent saving) lowers \(c^*\); raising \(k\) shifts the whole curve up without moving the maximiser.</p>
+    <div id="hamiltonian-fig"></div>
+    <div id="hamiltonian-ctrl"></div>
+  </div>
+  <script>
+  (function () {
+    var C = EconPlot.C;
+    var host = document.getElementById('hamiltonian-fig');
+    function draw(v) {
+      var lam = v.lambda, alpha = 0.33, delta = 0.05, k = v.k;
+      var net = Math.pow(k, alpha) - delta * k;
+      var cstar = 1 / lam;
+      var Hstar = Math.log(cstar) + lam * (net - cstar);
+      var cmax = Math.max(cstar * 2.4, 0.5);
+      if (net <= 0.01) { host.innerHTML = '<p style="padding:1rem;color:#888">k too small — no feasible consumption</p>'; return; }
+      cmax = Math.min(cmax, net * 0.995, 8);
+      var cmin = 0.03;
+      var Hlo = Math.log(cmin) + lam * (net - cmin);
+      var ylo = Math.min(Hlo, Hstar - 1.8), yhi = Hstar + 0.9;
+      host.innerHTML = '';
+      var P = EconPlot.create(host, { x: [cmin, cmax], y: [ylo, yhi], width: 520, height: 300, xlabel: 'c', ylabel: 'H(c)', xticks: 5, yticks: 4 });
+      P.fn(function (c) { return Math.log(c) + lam * (net - c); }, { color: C.blue, n: 220, label: 'H(c)', labelAt: cmax * 0.15 });
+      P.vline(cstar, { color: C.orange, dash: '6 3' });
+      P.segment(cmin, Hstar, cmax * 0.9, Hstar, { color: C.muted, dash: '4 2', width: 1 });
+      P.point(cstar, Hstar, { color: C.orange, r: 5, label: 'c∗=1/λ', labelDx: 8, labelDy: -5 });
+      P.text(cmax * 0.55, yhi - (yhi - ylo) * 0.09, 'H_c = 1/c − λ = 0  ⇒  c∗ = 1/λ', { anchor: 'start', color: C.muted });
+    }
+    EconPlot.sliders('#hamiltonian-ctrl', [
+      { id: 'lambda', label: 'λ  (costate / shadow price)', min: 0.4, max: 4, step: 0.1, value: 1.0, fmt: function (v) { return v.toFixed(1); } },
+      { id: 'k',      label: 'k  (capital stock)',              min: 0.5, max: 4, step: 0.1, value: 1.5, fmt: function (v) { return v.toFixed(1); } }
+    ], draw);
+  })();
+  </script>
+
   <!-- ─────────────────────────────────────────── -->
   <h2 id="s3">3. First-order conditions and transversality</h2>
 

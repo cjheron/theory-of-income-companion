@@ -23,7 +23,7 @@
   <div class="goal">
     <strong>By the end you can:</strong>
     <ol>
-      <li>write the linearization of the Hamiltonian system around the steady state as \(\dot{\hat z}=\mathcal{H}\hat z\), where \(\hat z=(\hat x,\hat\lambda)'\) and \(\mathcal H\) is the \(2m\times2m\) Hamiltonian matrix;</li>
+      <li>write the linearization of the Hamiltonian system around the steady state as \(\dot{\hat z}=\mathcal{H}\hat z\), where \(\hat z=(\hat\lambda,\hat x)'\) and \(\mathcal H\) is the \(2m\times2m\) Hamiltonian matrix;</li>
       <li>compute the four blocks of \(\mathcal H\) from the second-order partials of \(H^*\) evaluated at the steady state;</li>
       <li>prove the eigenvalue-pairing theorem: if \(\mu\) is an eigenvalue of \(\mathcal H\) then \(\rho-\mu\) is also an eigenvalue, with matching algebraic multiplicity;</li>
       <li>use the saddle-path proposition to find the optimal policy rule \(\hat\lambda=S\hat x\) and characterize \(S\) as a solution to the matrix Riccati equation;</li>
@@ -47,32 +47,27 @@
 
   <div class="definition" id="def-hamiltonian-matrix">
     <div class="box-title">Definition: the Hamiltonian matrix</div>
-    $$\dot{\hat z}=\mathcal{H}\hat z,\quad\text{where }\hat z=\begin{pmatrix}\hat x\\\hat\lambda\end{pmatrix},\quad\mathcal{H}=\begin{pmatrix}\bar H^*_{\lambda x} & \bar H^*_{\lambda\lambda}\\ \rho I_m-\bar H^*_{xx} & -\bar H^*_{x\lambda}\end{pmatrix}.$$
+    $$\dot{\hat z}=\mathcal{H}\hat z,\quad\text{where }\hat z=\begin{pmatrix}\hat\lambda\\\hat x\end{pmatrix},\quad\mathcal{H}=\begin{pmatrix}\rho I_m-\bar H^*_{x\lambda} & -\bar H^*_{xx}\\ \bar H^*_{\lambda\lambda} & \bar H^*_{\lambda x}\end{pmatrix}.$$
     <p>Equivalently, writing the second partials of \(H^*\) evaluated at \((\bar x,\bar\lambda)\):</p>
-    $$\mathcal{H}=\begin{pmatrix}A_{11} & A_{12}\\A_{21} & A_{22}\end{pmatrix}\equiv\begin{pmatrix}\bar H^*_{\lambda x} & \bar H^*_{\lambda\lambda}\\\rho I-\bar H^*_{xx} & -\bar H^*_{x\lambda}\end{pmatrix}.$$
+    $$\mathcal{H}=\begin{pmatrix}A_{11} & A_{12}\\A_{21} & A_{22}\end{pmatrix}\equiv\begin{pmatrix}\rho I_m-\bar H^*_{x\lambda} & -\bar H^*_{xx}\\ \bar H^*_{\lambda\lambda} & \bar H^*_{\lambda x}\end{pmatrix}.$$
   </div>
 
   <p>The four blocks in terms of the primitives of the problem:</p>
   <ul>
-    <li>\(A_{11}=\bar H^*_{\lambda x}=(\bar H^*_{x\lambda})'=\bar g_x+\bar g_{u^*}\cdot(du^*/dx)\): how the state's rate of change responds to a change in \(x\).</li>
-    <li>\(A_{12}=\bar H^*_{\lambda\lambda}=-1/\bar H_{uu}\cdot\bar g_u^2\gt0\): the "speed of response" of \(\dot x\) to \(\lambda\) — positive because \(H^*\) is convex in \(\lambda\).</li>
-    <li>\(A_{21}=\rho I-\bar H^*_{xx}\): the response of \(\dot\lambda\) to \(x\); includes both the direct marginal return \(\bar H^*_{xx}\) and the discount \(\rho I\).</li>
-    <li>\(A_{22}=-\bar H^*_{x\lambda}\): the cross-effect of \(\lambda\) on \(\dot\lambda\).</li>
+    <li>\(A_{11}=\rho I_m-\bar H^*_{x\lambda}\): combines the discount rate with the cross-partial of \(H^*\) in \((x,\lambda)\). At the modified golden rule, \(\bar H^*_{x\lambda}=\rho I_m\), so \(A_{11}=0\) for the neoclassical model.</li>
+    <li>\(A_{12}=-\bar H^*_{xx}\): negative Hessian of \(H^*\) in the state; positive semidefinite in well-behaved problems since \(H^*_{xx}\preceq0\).</li>
+    <li>\(A_{21}=\bar H^*_{\lambda\lambda}\gt0\): Hessian of \(H^*\) in \(\lambda\); positive because \(H^*\) is convex in \(\lambda\) (it is a pointwise max over linear functions of \(\lambda\)).</li>
+    <li>\(A_{22}=\bar H^*_{\lambda x}=(A_{11}+\rho I_m)'\): the cross-partial; equals \(\rho I_m\) at the neoclassical steady state.</li>
   </ul>
 
-  <p><strong>Neoclassical growth, blocks computed.</strong> With \(H^*(k,\lambda)=U(c^*(\lambda))+\lambda(f(k)-\delta k-c^*(\lambda))\):</p>
+  <p><strong>Neoclassical growth, blocks computed.</strong> With \(H^*(k,\lambda)=\ln(c^*(\lambda))+\lambda(f(k)-\delta k-c^*(\lambda))\), where \(c^*(\lambda)=1/\lambda\) (from \(U'(c)=\lambda\) for log utility):</p>
   <ul>
-    <li>\(H^*_{\lambda k}=\bar H^*_{\lambda x}=f'(\bar k)-\delta=\rho\) (using modified golden rule at steady state). So \(A_{11}=\rho\).</li>
-    <li>\(H^*_{\lambda\lambda}=-1/U''(\bar c)>0\). So \(A_{12}=-1/U''(\bar c)\).</li>
-    <li>\(H^*_{kk}=\bar\lambda f''(\bar k)\lt0\). So \(A_{21}=\rho-\bar\lambda f''(\bar k)=\rho+|\bar\lambda f''(\bar k)|>0\).</li>
-    <li>\(-H^*_{k\lambda}=-(f'(\bar k)-\delta)=-\rho\). So \(A_{22}=-\rho\).</li>
+    <li>\(A_{11}=\rho-\bar H^*_{k\lambda}=\rho-(f'(\bar k)-\delta)=\rho-\rho=0\). The discount rate and the net return on capital exactly cancel at the modified golden rule.</li>
+    <li>\(A_{12}=-\bar H^*_{kk}=-\bar\lambda f''(\bar k)>0\). Positive because \(f''<0\) and \(\bar\lambda>0\).</li>
+    <li>\(A_{21}=\bar H^*_{\lambda\lambda}=1/\bar\lambda^2=\bar c^2>0\). Positive because \(H^*\) is convex in \(\lambda\).</li>
+    <li>\(A_{22}=\bar H^*_{\lambda k}=f'(\bar k)-\delta=\rho\). Equals \(\rho\) by the modified golden rule.</li>
   </ul>
-  <p>The Hamiltonian matrix for neoclassical growth: \(\mathcal H=\begin{pmatrix}\rho & -1/U''(\bar c)\\\rho+|\bar\lambda f''(\bar k)| & -\rho\end{pmatrix}\). Note \(A_{11}+A_{22}=\rho+(-\rho)=0\), so \(\operatorname{tr}\mathcal H=\rho+(-\rho)+(A_{11}+A_{22})\)... actually let me think again: \(\operatorname{tr}\mathcal H=A_{11}+A_{22}=\rho+(-\rho)=0\). But we need \(\operatorname{tr}\mathcal H=\rho\) in general for the eigenvalue-pairing result — wait, that's not right. Let me re-examine the matrix structure.</p>
-
-  <div class="warning" id="warn-trace">
-    <div class="box-title">The trace and eigenvalue pairing</div>
-    <p>For the general Hamiltonian matrix, \(\operatorname{tr}\mathcal H=\operatorname{tr}(\bar H^*_{\lambda x})-\operatorname{tr}(\bar H^*_{x\lambda})=0\) (since \(H^*_{\lambda x}=(H^*_{x\lambda})'\)). So the trace is zero in the case \(\rho=0\). For \(\rho>0\) the structure differs — see §2 for the precise statement. The key result is that if \(\mu\) is an eigenvalue then \(\rho-\mu\) is also one, which forces eigenvalues to come in pairs summing to \(\rho\). Notably for \(\rho=0\), pairs sum to 0 (the standard Hamiltonian case in physics).</p>
-  </div>
+  <p>The neoclassical Hamiltonian matrix: \(\mathcal H=\begin{pmatrix}0 & -\bar\lambda f''(\bar k)\\ \bar c^2 & \rho\end{pmatrix}\). Note \(\operatorname{tr}\mathcal H=0+\rho=\rho\) and \(\det\mathcal H=\bar\lambda f''(\bar k)\cdot\bar c^2\lt0\) (saddle), consistent with the eigenvalue-pairing theorem below.</p>
 
   <!-- ─────────────────────────────────────────── -->
   <h2 id="s2">2. Eigenvalue pairing theorem</h2>
@@ -97,6 +92,40 @@
     <div class="box-title">Pairing in discrete vs. continuous time</div>
     <p>In discrete time (Lesson 33), eigenvalues come in "almost-reciprocal pairs" \((\lambda_i, 1/(\beta\lambda_i))\) with product \(1/\beta\). In continuous time, eigenvalues come in pairs \((\mu_i, \rho-\mu_i)\) with sum \(\rho\). The analogy: discrete-time eigenvalues multiply to \(1/\beta>1\); continuous-time eigenvalues sum to \(\rho>0\). The same principle holds: the unstable directions are determined by the \(m\) eigenvalues with the wrong sign. The correspondence under \(\lambda=e^{\mu}\) sends a continuous-time eigenvalue \(\mu\) to the discrete-time eigenvalue \(e^\mu\), and \(\rho-\mu\to e^{\rho-\mu}=e^\rho/e^\mu=1/(\beta e^\mu)\), recovering the discrete-time pairing.</p>
   </div>
+
+  <div class="figure" id="eigen-fig-wrap">
+    <p class="fig-caption"><strong>Figure 38.1</strong> — Characteristic polynomial \(p(\mu)=\mu^2-\rho\mu+\det\mathcal H\) of the Hamiltonian matrix. The two roots \(\mu_\pm\) always sum to \(\rho\) (eigenvalue pairing) and are real when \(\det\mathcal H\lt0\) (saddle case). Increasing \(\rho\) shifts both roots right while keeping their sum fixed; more negative \(\det\mathcal H\) spreads the roots further apart.</p>
+    <div id="eigen-fig"></div>
+    <div id="eigen-ctrl"></div>
+  </div>
+  <script>
+  (function () {
+    var C = EconPlot.C;
+    var host = document.getElementById('eigen-fig');
+    function draw(v) {
+      var rho = v.rho, negdet = v.negdet;
+      var det  = -negdet;
+      var disc = rho * rho / 4 - det;
+      var mu1  = rho / 2 + Math.sqrt(disc);
+      var mu2  = rho / 2 - Math.sqrt(disc);
+      var xlo = Math.min(mu2 - 0.5, -1.5), xhi = Math.max(mu1 + 0.5, 2.5);
+      host.innerHTML = '';
+      var P = EconPlot.create(host, { x: [xlo, xhi], y: [-1.2, 3.5], width: 520, height: 300, xlabel: 'μ', ylabel: 'p(μ)', xticks: 6, yticks: 5 });
+      P.fn(function (mu) { return mu * mu - rho * mu + det; }, { color: C.blue, label: 'p(μ)', labelAt: xhi - 0.4 });
+      P.hline(0, { color: C.muted, dash: '4 2', width: 1 });
+      P.vline(rho / 2, { color: C.aqua, dash: '5 3' });
+      P.text(rho / 2, 3.1, 'ρ/2', { color: C.aqua, anchor: 'middle' });
+      P.point(mu1, 0, { color: C.orange, r: 6, label: 'μ₊=' + mu1.toFixed(2), labelDy: -13 });
+      P.point(mu2, 0, { color: C.orange, r: 6, label: 'μ₋=' + mu2.toFixed(2), labelDy: -13 });
+      P.text(xlo + 0.2, 3.1, 'μ₊+μ₋ = ' + (mu1 + mu2).toFixed(2) + ' = ρ', { anchor: 'start', color: C.ink });
+      P.text(xlo + 0.2, 2.6, 'det ℋ = ' + det.toFixed(2) + ' < 0 (saddle)', { anchor: 'start', color: C.muted });
+    }
+    EconPlot.sliders('#eigen-ctrl', [
+      { id: 'rho',    label: 'ρ  (discount rate)',            min: 0.5, max: 3.0, step: 0.25, value: 1.5, fmt: function (v) { return v.toFixed(2); } },
+      { id: 'negdet', label: '−det ℋ  (> 0 for saddle)', min: 0.1, max: 3.0, step: 0.1,  value: 1.0, fmt: function (v) { return v.toFixed(1); } }
+    ], draw);
+  })();
+  </script>
 
   <!-- ─────────────────────────────────────────── -->
   <h2 id="s3">3. The saddle path and the decision rule</h2>
@@ -132,17 +161,13 @@
 
   <div class="proof" id="pf-riccati">
     <div class="box-title">Derivation</div>
-    <p>Differentiate \(\hat\lambda=S\hat x\) with respect to \(t\): \(\dot{\hat\lambda}=S\dot{\hat x}\). Substitute the linearized system:</p>
-    $$\dot{\hat\lambda}=A_{21}\hat x+A_{22}\hat\lambda=A_{21}\hat x+A_{22}S\hat x,$$
-    $$S\dot{\hat x}=S(A_{11}\hat x+A_{12}\hat\lambda)=S(A_{11}+A_{12}S)\hat x.$$
-    <p>Setting equal: \((A_{21}+A_{22}S)\hat x=S(A_{11}+A_{12}S)\hat x\). For this to hold for all \(\hat x\):</p>
-    $$SA_{11}+SA_{12}S=A_{21}+A_{22}S\implies SA_{12}S+SA_{11}-A_{22}S-A_{21}=0.$$
-    <p>Substituting \(A_{11}=\bar H^*_{\lambda x}\), \(A_{12}=\bar H^*_{\lambda\lambda}\), \(A_{22}=-\bar H^*_{x\lambda}\), \(A_{21}=\rho I-\bar H^*_{xx}\):</p>
-    $$S\bar H^*_{\lambda\lambda}S+S\bar H^*_{\lambda x}-(-\bar H^*_{x\lambda})S-(\rho I-\bar H^*_{xx})=0,$$
-    $$S\bar H^*_{\lambda\lambda}S+S\bar H^*_{\lambda x}+\bar H^*_{x\lambda}S+\bar H^*_{xx}-\rho I S+\rho I-\bar H^*_{xx}=0.$$
-    <p>Wait — let me redo this carefully. Setting \(\dot{\hat\lambda}=S\dot{\hat x}\):</p>
-    $$(A_{21}+A_{22}S)\hat x=S(A_{11}+A_{12}S)\hat x\implies A_{21}+A_{22}S=SA_{11}+SA_{12}S.$$
-    <p>Rearranging: \(SA_{12}S+SA_{11}-A_{22}S-A_{21}=0\), i.e. \(SA_{12}S+S A_{11}+(-A_{22})S-A_{21}=0\). Substituting: \(S\bar H^*_{\lambda\lambda}S+S\bar H^*_{\lambda x}+\bar H^*_{x\lambda}S-(\rho I-\bar H^*_{xx})=0\). So:</p>
+    <p>Differentiate \(\hat\lambda=S\hat x\) along the optimal path: \(\dot{\hat\lambda}=S\dot{\hat x}\). The linearized system (with \(\hat z=(\hat\lambda,\hat x)'\)) gives:</p>
+    $$\dot{\hat\lambda}=A_{11}\hat\lambda+A_{12}\hat x=(A_{11}S+A_{12})\hat x,$$
+    $$S\dot{\hat x}=S(A_{21}\hat\lambda+A_{22}\hat x)=S(A_{21}S+A_{22})\hat x.$$
+    <p>Setting equal for all \(\hat x\): \(A_{11}S+A_{12}=SA_{21}S+SA_{22}\). Rearranging:</p>
+    $$SA_{21}S+SA_{22}-A_{11}S-A_{12}=0.$$
+    <p>Substituting \(A_{11}=\rho I-\bar H^*_{x\lambda}\), \(A_{12}=-\bar H^*_{xx}\), \(A_{21}=\bar H^*_{\lambda\lambda}\), \(A_{22}=\bar H^*_{\lambda x}\):</p>
+    $$S\bar H^*_{\lambda\lambda}S+S\bar H^*_{\lambda x}-(\rho I-\bar H^*_{x\lambda})S-(-\bar H^*_{xx})=0.$$
     $$\boxed{S\bar H^*_{\lambda\lambda}S+S\bar H^*_{\lambda x}+\bar H^*_{x\lambda}S+\bar H^*_{xx}-\rho S=0.}$$
     <p>This is the algebraic Riccati equation (ARE). \(\square\)</p>
   </div>
@@ -240,13 +265,19 @@
       <li>Verify the eigenvalue-pairing theorem: show that if \(\mu_1,\mu_2\) are the eigenvalues, then \(\mu_1+\mu_2=\rho\). <span class="pts">(5 pts)</span></li>
       <li>Find the eigenvalues in terms of \(\rho\), \(\alpha\), \(A\), \(\delta\). Show that one is positive and one is negative. <span class="pts">(10 pts)</span></li>
     </ol>
-    <details class="hint"><summary>Hint</summary><div class="body"><p>For (a): \(H^*_{\lambda\lambda}=-1/U''(c^*)=c^*>0\) for \(U=\ln\). At the steady state, \(\bar c=\bar c\) from Ex. 37.1. For \(H^*_{kk}=\bar\lambda f''(\bar k)=\bar\lambda A\alpha(\alpha-1)\bar k^{\alpha-2}\lt0\). For (b): \(\operatorname{tr}\mathcal H=A_{11}+A_{22}=\bar H^*_{\lambda k}-\bar H^*_{k\lambda}=0\) (since they are equal), so actually \(\operatorname{tr}\mathcal H=\rho+(-\rho)=\rho\) only if we keep the \(\rho I\) term. Check the block definition carefully.</p></div></details>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (a): \(H^*_{\lambda\lambda}=d^2H^*/d\lambda^2=1/\bar\lambda^2=\bar c^2\) (since \(\bar\lambda=1/\bar c\)); equivalently \(-1/U''(\bar c)=\bar c^2>0\) for \(U=\ln\). For \(H^*_{kk}=\bar\lambda f''(\bar k)\lt0\). For (b): with \(\hat z=(\hat\lambda,\hat k)'\), use \(A_{11}=\rho-\bar H^*_{k\lambda}\) and \(A_{22}=\bar H^*_{\lambda k}=\rho\). The \(\rho I\) in \(A_{11}\) cancels \(H^*_{k\lambda}=\rho\) to give \(A_{11}=0\); then \(\operatorname{tr}\mathcal H=A_{11}+A_{22}=0+\rho=\rho\).</p></div></details>
     <details class="solution"><summary>Show solution</summary><div class="body">
-      <p>(a) From Ex 37.1: \(\bar\lambda=1/\bar c\). \(H^*_{\lambda\lambda}=-1/U''(\bar c)=-(1/\bar\lambda)/(-1/\bar c^2)=\bar c^2\cdot\bar\lambda=\bar c\). \(H^*_{\lambda k}=f'(\bar k)-\delta=\rho\). \(H^*_{kk}=\bar\lambda f''(\bar k)=(1/\bar c)\cdot A\alpha(\alpha-1)\bar k^{\alpha-2}=\bar\lambda A\alpha(\alpha-1)\bar k^{\alpha-2}\lt0\).</p>
-      <p>(b) \(\mathcal H=\begin{pmatrix}\rho & \bar c \\ \rho-\bar\lambda A\alpha(\alpha-1)\bar k^{\alpha-2} & -\rho\end{pmatrix}=\begin{pmatrix}\rho & \bar c \\ \rho+|\bar\lambda f''(\bar k)| & -\rho\end{pmatrix}\). Note \(A_{21}=\rho-H^*_{kk}=\rho+|\bar\lambda f''(\bar k)|>0\). \(\operatorname{tr}\mathcal H=\rho+(-\rho)=0\). But the eigenvalue-pairing says they should sum to \(\rho\). Let me re-examine: actually \(\operatorname{tr}\mathcal H=A_{11}+A_{22}=\bar H^*_{\lambda k}+(-\bar H^*_{k\lambda})=\rho-\rho=0\). The eigenvalues sum to \(\operatorname{tr}\mathcal H=0\), so they are \(\pm\nu\) for some \(\nu>0\). But this contradicts "pairing at \(\rho\)"... Ah, actually the trace of \(\mathcal H\) equals \(\rho\) only for the "discounted" Hamiltonian matrix where we keep track differently. Let me restate: the characteristic equation gives \(\mu^2-(\operatorname{tr}\mathcal H)\mu+\det\mathcal H=0\). With \(\operatorname{tr}\mathcal H=0\): \(\mu_{1,2}=\pm\sqrt{-\det\mathcal H}\). And \(\det\mathcal H=A_{11}A_{22}-A_{12}A_{21}=(\rho)(-\rho)-\bar c\cdot(\rho+|\bar\lambda f''(\bar k)|)=-\rho^2-\bar c\cdot A_{21}\lt0\). So eigenvalues are real: one positive, one negative. Sum \(=0\ne\rho\). The pairing says \(\rho-\mu_1\) is also an eigenvalue; since \(\mu_2=-\mu_1\), we need \(\rho-\mu_1=-\mu_1\), which requires \(\rho=0\). That cannot be right...</p>
-      <p>Resolution: the pairing theorem as stated in the slides uses a specific form of the Hamiltonian matrix. The correct statement is that \(\mu\) and \(\rho-\mu\) pair, so eigenvalues sum to \(\rho\), and \(\operatorname{tr}\mathcal H=\rho\). Re-examining the matrix: the \((1,1)\) block should be \(\bar H^*_{\lambda x}\) and the \((2,2)\) block should be \(-\bar H^*_{x\lambda}\). Since \(H^*_{\lambda k}=H^*_{k\lambda}=\rho\) at the steady state: \(A_{11}=\rho\), \(A_{22}=-\rho\). So \(\operatorname{tr}\mathcal H=\rho-\rho=0\). But by pairing, \(\mu_1+\mu_2=\rho\). Contradiction? The resolution is that the standard \(\rho\)-discounted Hamiltonian uses a change of variables: define \(\tilde\lambda=e^{-\rho t}\lambda\) (present-value costate). Then the Hamiltonian matrix for the present-value system has trace \(\rho\) and eigenvalues summing to \(\rho\). The slides may use this convention. For the current-value form, eigenvalues are \(\pm\sqrt{\rho^2+\bar c A_{21}}\) which are real and opposite in sign — still a saddle. The pairing for the current-value form says: if \(\mu\) is an eigenvalue, so is \(\rho-\mu\). With \(\mu_2=\rho-\mu_1\) and \(\mu_1+\mu_2=\rho\). That is consistent with \(\operatorname{tr}=\rho\). So either the slides use a different sign convention, or the \((2,2)\) block is \(-A_{22}'=\bar H^*_{x\lambda}=\rho\) and not \(-\rho\). Let us just verify: eigenvalues satisfy \(\mu_1+\mu_2=\operatorname{tr}\mathcal H=\rho\) and \(\mu_1\mu_2=\det\mathcal H\). With \(\operatorname{tr}=\rho\): one eigenvalue is \(\mu_1=\rho/2+\sqrt{(\rho/2)^2-\det\mathcal H}\), the other \(\mu_2=\rho/2-\sqrt{(\rho/2)^2-\det\mathcal H}\). If \(\det\lt0\), the square root exceeds \(\rho/2\) so one is positive and one is negative: a genuine saddle. This is consistent with the matrix having \(\operatorname{tr}=\rho\). So in the correct setup, \(A_{22}=0\) or the trace is \(\rho\). The neoclassical case likely has \(A_{11}=\rho\) and \(A_{22}=0\) giving \(\operatorname{tr}=\rho\). Eigenvalues: \(\mu_{1,2}=\rho/2\pm\sqrt{\rho^2/4-\det}\).</p>
-      <p>(c) \(\mu_1+\mu_2=\operatorname{tr}\mathcal H=\rho\). By the pairing theorem, one eigenvalue is \(\mu\) and the other is \(\rho-\mu\), consistent with sum \(\rho\).</p>
-      <p>(d) \(\mu_{1,2}=\frac{\rho}{2}\pm\sqrt{\frac{\rho^2}{4}-\det\mathcal H}\). Since \(\det\mathcal H\lt0\) (negative), the discriminant \(\rho^2/4-\det>0\) and in fact \(\sqrt{\rho^2/4-\det}\gt\rho/2\). So \(\mu_1=\rho/2+\sqrt{...}>0\) and \(\mu_2=\rho/2-\sqrt{...}\lt0\). One positive, one negative: saddle structure. The optimal path lies along the stable eigenvector (negative eigenvalue).</p>
+      <p>(a) From Ex 37.1: \(\bar\lambda=U'(\bar c)=1/\bar c\). Computing the second partials of \(H^*\) at \((\bar k,\bar\lambda)\):</p>
+      <ul>
+        <li>\(\bar H^*_{\lambda\lambda}=\frac{d^2H^*}{d\lambda^2}=\frac{d}{d\lambda}(f(\bar k)-\delta\bar k-c^*(\lambda))=-\frac{dc^*}{d\lambda}=\frac{1}{\lambda^2}\Big|_{\bar\lambda}=\bar c^2\gt0\).</li>
+        <li>\(\bar H^*_{\lambda k}=\frac{d}{dk}H^*_\lambda\big|_{\bar k}=\frac{d}{dk}(f(k)-\delta k)\big|_{\bar k}=f'(\bar k)-\delta=\rho\) (modified golden rule).</li>
+        <li>\(\bar H^*_{kk}=\bar\lambda f''(\bar k)=\frac{1}{\bar c}\cdot A\alpha(\alpha-1)\bar k^{\alpha-2}\lt0\) (since \(f''<0\) and \(\bar\lambda>0\)).</li>
+      </ul>
+      <p>(b) Using \(\hat z=(\hat\lambda,\hat k)'\) ordering (as in the slides):</p>
+      $$\mathcal H=\begin{pmatrix}\rho-\bar H^*_{k\lambda} & -\bar H^*_{kk}\\ \bar H^*_{\lambda\lambda} & \bar H^*_{\lambda k}\end{pmatrix}=\begin{pmatrix}\rho-\rho & -\bar\lambda f''(\bar k)\\ \bar c^2 & \rho\end{pmatrix}=\begin{pmatrix}0 & -\bar\lambda f''(\bar k)\\ \bar c^2 & \rho\end{pmatrix}.$$
+      <p>\(\operatorname{tr}\mathcal H=0+\rho=\rho\). \(\det\mathcal H=0\cdot\rho-(-\bar\lambda f''(\bar k))\cdot\bar c^2=\bar\lambda f''(\bar k)\bar c^2\lt0\) (saddle).</p>
+      <p>(c) \(\mu_1+\mu_2=\operatorname{tr}\mathcal H=\rho\). By the eigenvalue-pairing theorem, if \(\mu\) is an eigenvalue then \(\rho-\mu\) is also one, so eigenvalues must sum to \(\rho\). \(\operatorname{tr}=\rho\) confirms this. \(\square\)</p>
+      <p>(d) \(\mu_{1,2}=\frac{\rho}{2}\pm\sqrt{\frac{\rho^2}{4}-\det\mathcal H}=\frac{\rho}{2}\pm\sqrt{\frac{\rho^2}{4}+|\bar\lambda f''(\bar k)|\bar c^2}\). Since \(\det\mathcal H\lt0\), the discriminant exceeds \(\rho^2/4\), so \(\mu_1=\rho/2+\sqrt{...}\gt\rho\gt0\) and \(\mu_2=\rho/2-\sqrt{...}\lt0\). One positive, one negative: genuine saddle structure. The optimal path lies along the stable eigenvector (negative eigenvalue direction).</p>
     </div></details>
   </div>
 
@@ -262,7 +293,7 @@
     <details class="solution"><summary>Show solution</summary><div class="body">
       <p>(a) \(S_\pm=(-b\pm\sqrt{b^2-4ac})/(2a)=(-(2\bar H^*_{\lambda x}-\rho)\pm\sqrt{(2\bar H^*_{\lambda x}-\rho)^2-4\bar H^*_{\lambda\lambda}\bar H^*_{xx}})/(2\bar H^*_{\lambda\lambda})\).</p>
       <p>(b) The state evolves as \(\dot{\hat x}=(A_{11}+A_{12}S)\hat x\). Stability requires \(A_{11}+A_{12}S\lt0\), i.e. \(\bar H^*_{\lambda x}+\bar H^*_{\lambda\lambda}S\lt0\). Since \(A_{12}=\bar H^*_{\lambda\lambda}>0\), we need \(S\lt-A_{11}/A_{12}=-\bar H^*_{\lambda x}/\bar H^*_{\lambda\lambda}\). Of the two solutions, the smaller one \(S_-\) achieves this. \(S_+\) gives \(A_{11}+A_{12}S_+>0\) (unstable).</p>
-      <p>(c) For neoclassical growth with \(\ln c\) and \(Ak^\alpha\): \(a=\bar c\), \(b=2\rho-\rho=\rho\) (using \(\bar H^*_{\lambda k}=\rho\)), \(c=\bar H^*_{kk}=\bar\lambda A\alpha(\alpha-1)\bar k^{\alpha-2}\lt0\). Riccati: \(\bar c\cdot S^2+\rho S+\bar\lambda A\alpha(\alpha-1)\bar k^{\alpha-2}=0\). \(S_-=(- \rho-\sqrt{\rho^2-4\bar c\cdot\bar\lambda A\alpha(\alpha-1)\bar k^{\alpha-2}})/(2\bar c)\), which is negative because the numerator is \(-\rho\) minus a positive square root (noting that \(\bar H^*_{kk}\lt0\) so \(4ac\lt0\) and the discriminant \(>0\)).</p>
+      <p>(c) For neoclassical growth with \(\ln c\) and \(Ak^\alpha\): \(a=\bar c^2\) (from \(\bar H^*_{\lambda\lambda}=\bar c^2\)), \(b=2\rho-\rho=\rho\) (using \(\bar H^*_{\lambda k}=\rho\)), \(c=\bar H^*_{kk}=\bar\lambda A\alpha(\alpha-1)\bar k^{\alpha-2}\lt0\). Riccati: \(\bar c^2\cdot S^2+\rho S+\bar\lambda A\alpha(\alpha-1)\bar k^{\alpha-2}=0\). \(S_-=(-\rho-\sqrt{\rho^2-4\bar c^2\cdot\bar\lambda A\alpha(\alpha-1)\bar k^{\alpha-2}})/(2\bar c^2)\), which is negative because the numerator is \(-\rho\) minus a positive square root (noting that \(\bar H^*_{kk}\lt0\) so \(4ac\lt0\) and the discriminant \(>0\)).</p>
     </div></details>
   </div>
 

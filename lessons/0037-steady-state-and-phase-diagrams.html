@@ -102,6 +102,71 @@
     <li>Lower-right (\(k\gt\bar k\), \(c\lt\dot k=0\) locus): \(\dot k\gt0\), \(\dot c\gt0\). Both rising, toward \((k_G\to\infty,0)\) on the golden-rule path — over-accumulation, ruled out by TC.</li>
   </ul>
 
+  <div class="figure" id="phase-fig-wrap">
+    <p class="fig-caption"><strong>Figure 37.1</strong> — The \((c,k)\) phase diagram for the neoclassical model (\(f(k)=k^{0.33}\), \(\ln c\) utility, \(\delta=0.05\)). Blue curve: \(\dot k=0\) locus \(c=f(k)-\delta k\). Orange vertical: \(\dot c=0\) at \(\bar k\). Dashed teal: saddle path (computed numerically). Grey arrows: direction field. Raise \(\rho\) to see how the \(\dot c=0\) locus shifts left and steady-state capital falls.</p>
+    <div id="phase-fig"></div>
+    <div id="phase-ctrl"></div>
+  </div>
+  <script>
+  (function () {
+    var C = EconPlot.C;
+    var host = document.getElementById('phase-fig');
+    function draw(v) {
+      var rho = v.rho, alpha = 0.33, delta = 0.05;
+      var kbar = Math.pow(alpha / (rho + delta), 1 / (1 - alpha));
+      var cbar = Math.pow(kbar, alpha) - delta * kbar;
+      var kG   = Math.pow(alpha / delta, 1 / (1 - alpha));
+      var cG   = Math.pow(kG, alpha) - delta * kG;
+      var kmax = kG * 1.25, cmax = cG * 1.18;
+      host.innerHTML = '';
+      var P = EconPlot.create(host, { x: [0, kmax], y: [0, cmax], width: 560, height: 390, xlabel: 'k', ylabel: 'c', xticks: 5, yticks: 5 });
+
+      P.fn(function (k) { return Math.pow(k, alpha) - delta * k; }, { color: C.blue, domain: [0.001, kG * 1.001], label: 'k̇=0', labelAt: kG * 0.5, labelDy: -10 });
+      P.vline(kbar, { color: C.orange, label: 'ċ=0', labelDy: -12 });
+
+      var fpp     = alpha * (alpha - 1) * Math.pow(kbar, alpha - 2);
+      var detJ    = cbar * fpp;
+      var disc    = rho * rho / 4 - detJ;
+      var mu_plus = rho / 2 + Math.sqrt(disc);
+      var eps = 0.006 * kbar, dt = 0.025;
+
+      function backward(k0, c0, nmax) {
+        var pts = [], k = k0, c = c0;
+        for (var i = 0; i < nmax; i++) {
+          pts.push([k, c]);
+          var kdot = Math.pow(k, alpha) - delta * k - c;
+          var cdot = c * (alpha * Math.pow(k, alpha - 1) - rho - delta);
+          k -= dt * kdot;
+          c -= dt * cdot;
+          if (k <= 0.001 || c <= 0 || k > kmax * 1.4 || c > cmax * 1.5) break;
+        }
+        return pts;
+      }
+
+      var left   = backward(kbar - eps, cbar - mu_plus * eps, 500).reverse();
+      var right  = backward(kbar + eps, cbar + mu_plus * eps, 500);
+      var saddle = left.concat([[kbar, cbar]]).concat(right);
+      P.path(saddle, { color: C.aqua, width: 2.5, dash: '8 4' });
+      P.text(kbar * 0.28, cbar * 0.62, 'saddle path', { color: C.aqua, anchor: 'start' });
+
+      var sc = kmax * 0.045;
+      [[kbar * 0.38, cmax * 0.28], [kbar * 0.38, cbar * 0.32],
+       [kbar * 1.55, cmax * 0.52], [kbar * 1.55, cbar * 0.33]].forEach(function (pt) {
+        var k = pt[0], c = pt[1];
+        var kdot = Math.pow(k, alpha) - delta * k - c;
+        var cdot = c * (alpha * Math.pow(k, alpha - 1) - rho - delta);
+        var len  = Math.sqrt(kdot * kdot + cdot * cdot) || 1;
+        P.arrow(k, c, k + (kdot / len) * sc, c + (cdot / len) * sc, { color: C.muted, width: 1.5 });
+      });
+
+      P.point(kbar, cbar, { r: 5, color: '#1a1a1a', label: '(̄k,̄c)', labelDx: 8 });
+    }
+    EconPlot.sliders('#phase-ctrl', [
+      { id: 'rho', label: 'ρ  (discount rate)', min: 0.02, max: 0.15, step: 0.01, value: 0.05, fmt: function (v) { return v.toFixed(2); } }
+    ], draw);
+  })();
+  </script>
+
   <!-- ─────────────────────────────────────────── -->
   <h2 id="s4">4. Quiz</h2>
 
