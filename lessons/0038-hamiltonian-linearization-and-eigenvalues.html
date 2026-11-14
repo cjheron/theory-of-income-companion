@@ -297,6 +297,27 @@
     </div></details>
   </div>
 
+  <div class="box exercise" id="ex-38-3">
+    <div class="box-title">Exercise 38.3 <span class="tag past">Past exam</span> (LQR Hamiltonian matrix and eigenvalue pairing)</div>
+    <p>Scalar LQR: state \(x\in\mathbb R\), control \(u\in\mathbb R\). Period return \(h(x,u)=-\tfrac12 qx^2-\tfrac12 ru^2\) with \(q,r>0\). Law of motion \(\dot x=ax+bu\). Discount rate \(\rho>0\).</p>
+    <ol class="parts" type="a">
+      <li>Write the Hamiltonian \(H(x,u,\lambda)\) and find \(u^*(x,\lambda)\) from the FOC. Write \(\dot x\) in terms of \((x,\lambda)\). <span class="pts">(5 pts)</span></li>
+      <li>Write the costate equation \(\dot\lambda\) in terms of \((x,\lambda)\) after substituting \(u^*\). <span class="pts">(5 pts)</span></li>
+      <li>Write the \(2\times2\) Hamiltonian matrix \(\mathcal H\) for the linearized system \((\dot{\hat\lambda},\dot{\hat x})'=\mathcal H(\hat\lambda,\hat x)'\). Identify each block \(A_{ij}\) with the appropriate partial of \(\bar H^*\). <span class="pts">(10 pts)</span></li>
+      <li>Compute \(\operatorname{tr}\mathcal H\) and \(\det\mathcal H\). Verify the eigenvalue pairing theorem: show algebraically that if \(\mu\) is an eigenvalue, so is \(\rho-\mu\). <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Solution</summary><div class="body">
+      <ol class="parts" type="a">
+        <li><strong>Answer.</strong> \(H=-\tfrac12 qx^2-\tfrac12 ru^2+\lambda(ax+bu)\). FOC: \(H_u=-ru+b\lambda=0\), so \(u^*(x,\lambda)=(b/r)\lambda\). Then \(\dot x=ax+(b^2/r)\lambda\).</li>
+        <li><strong>Answer.</strong> \(\dot\lambda=\rho\lambda-H_x=\rho\lambda+qx-a\lambda=(\rho-a)\lambda+qx\).</li>
+        <li><strong>Answer.</strong> With \(\hat z=(\hat\lambda,\hat x)'\):
+          $$\mathcal H=\begin{pmatrix}\rho-a & q\\ b^2/r & a\end{pmatrix}.$$
+          \(A_{11}=\rho-\bar H^*_{x\lambda}=\rho-a\); \(A_{12}=-\bar H^*_{xx}=q\) (since \(H^*_{xx}=-q\) after plugging \(u^*\)); \(A_{21}=\bar H^*_{\lambda\lambda}=b^2/r\) (since \(\partial^2 H^*/\partial\lambda^2=b^2/r\)); \(A_{22}=\bar H^*_{\lambda x}=a\).</li>
+        <li><strong>Answer.</strong> \(\operatorname{tr}\mathcal H=(\rho-a)+a=\rho\). \(\det\mathcal H=a(\rho-a)-q(b^2/r)\). The characteristic polynomial is \(p(\mu)=\mu^2-\rho\mu+\det\mathcal H\). Check pairing: \(p(\rho-\mu)=(\rho-\mu)^2-\rho(\rho-\mu)+\det\mathcal H=\mu^2-\rho\mu+\det\mathcal H=p(\mu)\). So \(\rho-\mu\) is a root whenever \(\mu\) is. \(\square\)</li>
+      </ol>
+    </div></details>
+  </div>
+
   <!-- ─────────────────────────────────────────── -->
   <div class="takeaways">
     <h2 id="takeaways">Key takeaways</h2>

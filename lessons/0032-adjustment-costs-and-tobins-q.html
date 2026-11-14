@@ -565,6 +565,25 @@
     </div></details>
   </div>
 
+  <div class="box exercise" id="ex-32-6">
+    <div class="box-title">Exercise 32.6 — Variable labor supply: Hamiltonian and Bellman <span class="tag past">Past exam</span></div>
+    <p>A social planner maximizes \(\int_0^\infty e^{-\rho t}U(c(t),\ell(t))\,dt\) where \(c\) is consumption and \(\ell=1-n\) is leisure (\(n\) is labor). Capital accumulates as \(\dot k=F(k,n)-\delta k-c\). The functions \(U\) and \(F\) satisfy standard concavity and Inada conditions.</p>
+    <ol type="a">
+      <li>Write the current-value Hamiltonian \(H(k,c,n,\lambda)\). Identify the state, controls, and costate.</li>
+      <li>Write the two first-order conditions \(H_c=0\) and \(H_n=0\).</li>
+      <li>Write the continuous-time Bellman equation \(\rho V(k)=\ldots\) for this problem.</li>
+      <li>What static efficiency condition does (b) imply between the marginal rate of substitution \(U_\ell/U_c\) and technology?</li>
+    </ol>
+    <details class="solution"><summary>Solution</summary><div class="body">
+      <ol type="a">
+        <li><strong>Answer.</strong> \(H=U(c,1-n)+\lambda[F(k,n)-\delta k-c]\). State: \(k\). Controls: \(c,n\). Costate: \(\lambda\).</li>
+        <li><strong>Answer.</strong> \(H_c=U_c(c,\ell)-\lambda=0\) so \(U_c=\lambda\); and \(H_n=-U_\ell(c,\ell)+\lambda F_n(k,n)=0\) so \(U_\ell=\lambda F_n\).</li>
+        <li><strong>Answer.</strong> \(\rho V(k)=\max_{c,n}\bigl\{U(c,1-n)+V'(k)[F(k,n)-\delta k-c]\bigr\}.\)</li>
+        <li><strong>Answer.</strong> Dividing the two FOCs: \(\dfrac{U_\ell}{U_c}=F_n(k,n)\). The household's MRS between leisure and consumption equals the marginal product of labor — the same static efficiency condition as in a competitive Arrow-Debreu equilibrium. The capital accumulation path then follows the Euler equation (costate law of motion), separating the intra-period and inter-temporal margins.</li>
+      </ol>
+    </div></details>
+  </div>
+
   <div class="takeaways">
     <h2 id="takeaways">Key takeaways</h2>
     <ul>

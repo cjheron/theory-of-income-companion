@@ -301,6 +301,27 @@
     </div></details>
   </div>
 
+  <div class="box exercise" id="ex-39-4">
+    <div class="box-title">Exercise 39.4 <span class="tag past">Past exam</span> (LQR with non-zero steady state)</div>
+    <p>Scalar LQR with affine terms: \(h(x,u)=-\tfrac12 qx^2-\tfrac12 ru^2+L_x x+L_u u\) (\(q,r>0\)), and \(\dot x=L_g+ax+bu\). Let \(S\) denote the stabilizing root of the ARE.</p>
+    <ol class="parts" type="a">
+      <li>Find \(u^*(x,\lambda)\) from the FOC \(H_u=0\). <span class="pts">(5 pts)</span></li>
+      <li>Write the full 2D ODE system \((\dot\lambda,\dot x)\) in terms of \((\lambda,x)\) after substituting \(u^*\). <span class="pts">(10 pts)</span></li>
+      <li>Suppose \(L_x=L_u=L_g=0\). What is the steady state \((\bar\lambda,\bar x)\)? <span class="pts">(5 pts)</span></li>
+      <li>Now suppose the affine terms are non-zero. Does \((\bar\lambda,\bar x)=(0,0)\) remain a steady state? What stays the same compared to the \(L=0\) case, and what changes? <span class="pts">(10 pts)</span></li>
+      <li>Using \(\bar\lambda=S\bar x\), find an expression for \(\bar x\) in terms of \(a,b,r,S,L_g,L_u\). <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Solution</summary><div class="body">
+      <ol class="parts" type="a">
+        <li><strong>Answer.</strong> \(H_u=-ru+L_u+b\lambda=0\), so \(u^*(x,\lambda)=(b\lambda+L_u)/r\).</li>
+        <li><strong>Answer.</strong> Costate: \(\dot\lambda=\rho\lambda-H_x=(\rho-a)\lambda+qx-L_x-(b/r)N\cdot\lambda\). With \(N=0\): \(\dot\lambda=(\rho-a)\lambda+qx-L_x\). State: \(\dot x=L_g+ax+b\cdot(b\lambda+L_u)/r=L_g+(b/r)L_u+ax+(b^2/r)\lambda\).</li>
+        <li><strong>Answer.</strong> With \(L_x=L_u=L_g=0\), set \(\dot\lambda=\dot x=0\): \((\rho-a)\bar\lambda+q\bar x=0\) and \(a\bar x+(b^2/r)\bar\lambda=0\). The unique solution is \(\bar\lambda=\bar x=0\). (The Hamiltonian matrix is invertible since \(\det\mathcal H\ne0\).)</li>
+        <li><strong>Answer.</strong> No — with nonzero affine terms, \((0,0)\) no longer satisfies the system. The steady state shifts to some \((\bar\lambda,\bar x)\ne(0,0)\) determined by the affine terms. What stays the same: the deviations \((\hat\lambda,\hat x)=(\lambda-\bar\lambda,x-\bar x)\) obey exactly the same homogeneous ODE system (same Hamiltonian matrix, same eigenvalues, same ARE and solution \(S\)). What changes: the location of the steady state — only a level effect.</li>
+        <li><strong>Answer.</strong> At steady state, \(\dot x=0\): \(L_g+(b/r)L_u+a\bar x+(b^2/r)\bar\lambda=0\). Substituting \(\bar\lambda=S\bar x\): \(L_g+(b/r)L_u+[a+(b^2/r)S]\bar x=0\). Solving: \(\bar x=-\dfrac{L_g+(b/r)L_u}{a+b^2 S/r}\). Note the denominator \(a+b^2 S/r=\mu\lt0\) (the stable closed-loop eigenvalue), so the sign of \(\bar x\) depends on the affine terms.</li>
+      </ol>
+    </div></details>
+  </div>
+
   <!-- ─────────────────────────────────────────── -->
   <div class="takeaways">
     <h2 id="takeaways">Key takeaways</h2>

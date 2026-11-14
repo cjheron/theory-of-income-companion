@@ -346,6 +346,27 @@
     </div></details>
   </div>
 
+  <div class="box exercise" id="ex-36-5">
+    <div class="box-title">Exercise 36.5 <span class="tag past">Past exam</span> (neoclassical growth, full Hamiltonian workout)</div>
+    <p>A planner solves \(\max\int_0^\infty e^{-\rho t}\ln c\,dt\) subject to \(\dot k=Ak^\alpha-\delta k-c\), \(k(0)=k_0\) given, with \(\alpha\in(0,1)\), \(\delta>0\), \(\rho>0\).</p>
+    <ol class="parts" type="a">
+      <li>Write down the current-value Hamiltonian \(H(k,c,\lambda)\). <span class="pts">(5 pts)</span></li>
+      <li>Write the first-order condition \(H_c=0\). What is the optimal control \(c^*(\lambda)\)? <span class="pts">(5 pts)</span></li>
+      <li>Write the costate equation \(\dot\lambda=\rho\lambda-H_k\) and the law of motion \(\dot k=H_\lambda\). <span class="pts">(10 pts)</span></li>
+      <li>Write the transversality condition. <span class="pts">(5 pts)</span></li>
+      <li>Give a one-sentence economic interpretation of \(\lambda(t)\). <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Solution</summary><div class="body">
+      <ol class="parts" type="a">
+        <li><strong>Answer.</strong> \(H(k,c,\lambda)=\ln c+\lambda(Ak^\alpha-\delta k-c)\).</li>
+        <li><strong>Answer.</strong> \(H_c=1/c-\lambda=0\), so \(c^*(\lambda)=1/\lambda\). At the optimum, the marginal utility of consumption equals the shadow price of capital.</li>
+        <li><strong>Answer.</strong> \(\dot\lambda=\rho\lambda-H_k=\rho\lambda-\lambda(A\alpha k^{\alpha-1}-\delta)=\lambda[\rho-(A\alpha k^{\alpha-1}-\delta)]\); and \(\dot k=Ak^\alpha-\delta k-c\).</li>
+        <li><strong>Answer.</strong> \(\displaystyle\lim_{t\to\infty}e^{-\rho t}\lambda(t)k(t)=0\). This rules out paths where the household over-accumulates capital — equivalently, where the present value of the shadow price of capital does not vanish.</li>
+        <li><strong>Answer.</strong> \(\lambda(t)\) is the shadow value (marginal utility) of a unit of capital at time \(t\): how much discounted lifetime utility the planner gains from a marginal increase in \(k(t)\). Since \(c^*=1/\lambda\) and \(U'(c)=1/c\), we have \(\lambda=U'(c^*)\) — the costate equals marginal utility of consumption.</li>
+      </ol>
+    </div></details>
+  </div>
+
   <!-- ─────────────────────────────────────────── -->
   <div class="takeaways">
     <h2 id="takeaways">Key takeaways</h2>

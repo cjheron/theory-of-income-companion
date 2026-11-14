@@ -621,6 +621,28 @@
     </div></details>
   </div>
 
+  <div class="box exercise" id="ex-30-gs">
+    <div class="box-title">Exercise 30.GS — Guess-and-verify with log utility <span class="tag past">Past exam</span></div>
+    <p>Consider a neoclassical growth model in discrete time with full depreciation (\(\delta=1\)), Cobb-Douglas production \(F(k)=Ak^\alpha\), and log utility \(U(c)=\log c\). The planner's problem is
+    $$V(k)=\max_{0\le k'\le Ak^\alpha}\bigl[\log(Ak^\alpha-k')+\beta V(k')\bigr].$$</p>
+    <ol type="a">
+      <li>Guess \(V(k)=b_0+b_1\log k\) for constants \(b_0,b_1\) to be determined. Write the first-order condition for \(k'\).</li>
+      <li>Find the optimal \(k'\) as a function of \(k\) and \(b_1\).</li>
+      <li>Substitute your answer into the Bellman equation and collect coefficients of \(\log k\) to find \(b_1\). What is the implied savings rate \(k'/(Ak^\alpha)\)?</li>
+    </ol>
+    <details class="solution"><summary>Solution</summary><div class="body">
+      <ol type="a">
+        <li><strong>Answer.</strong> FOC: \(\displaystyle-\frac{1}{Ak^\alpha-k'}+\frac{\beta b_1}{k'}=0\), i.e. \(\beta b_1(Ak^\alpha-k')=k'\).</li>
+        <li><strong>Answer.</strong> Solving for \(k'\): \(k'=\dfrac{\beta b_1 Ak^\alpha}{1+\beta b_1}\).</li>
+        <li><strong>Answer.</strong> Consumption \(c=Ak^\alpha-k'=\dfrac{Ak^\alpha}{1+\beta b_1}\). Substituting into the Bellman and expanding:
+        $$b_0+b_1\log k = \log\!\Bigl(\tfrac{A}{1+\beta b_1}\Bigr)+\alpha\log k + \beta b_0+\beta b_1\log\!\Bigl(\tfrac{\beta b_1 A}{1+\beta b_1}\Bigr)+\alpha\beta b_1\log k.$$
+        Matching coefficients of \(\log k\): \(b_1=\alpha+\alpha\beta b_1\), so \(b_1(1-\alpha\beta)=\alpha\) and
+        $$\boxed{b_1=\frac{\alpha}{1-\alpha\beta}.}$$
+        Savings rate: \(k'/(Ak^\alpha)=\beta b_1/(1+\beta b_1)=\alpha\beta\). The household saves a constant fraction \(\alpha\beta\) of output — independent of \(k\). This is the hallmark of the log-Cobb-Douglas case.</li>
+      </ol>
+    </div></details>
+  </div>
+
   <div class="takeaways">
     <h2 id="takeaways">Key takeaways</h2>
     <ul>

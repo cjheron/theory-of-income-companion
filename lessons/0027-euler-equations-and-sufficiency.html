@@ -585,6 +585,25 @@
     </div></details>
   </div>
 
+  <div class="box exercise" id="ex-27-8">
+    <div class="box-title">Exercise 27.8 — Intertemporal budget constraint <span class="tag past">Past exam</span></div>
+    <p>An infinitely-lived household earns wage \(w(t)\) per unit time and rents capital at the competitive rate \(v(t)\). Let \(p(t)=\exp\!\bigl(-\int_0^t r(s)\,ds\bigr)\) be the present-value price of a unit of consumption at time \(t\). Capital accumulates as \(\dot k=x-\delta k\) where \(x(t)\) is investment, and the household starts with \(k(0)=k_0\). Feasibility requires \(c(t)+x(t)=v(t)k(t)+w(t)\).</p>
+    <ol type="a">
+      <li>Write the present-value intertemporal budget constraint: total present-value expenditures equal total present-value income. (Leave investment \(x\) in the expression — do not yet substitute the law of motion.)</li>
+      <li>Substitute the law of motion \(x=\dot k+\delta k\) and apply integration by parts to \(\int_0^\infty p(t)\dot k(t)\,dt\). Using the fact that \(\dot p(t)=-r(t)p(t)\), simplify. Your expression should contain the boundary term \(\lim_{T\to\infty}p(T)k(T)\).</li>
+    </ol>
+    <details class="solution"><summary>Solution</summary><div class="body">
+      <ol type="a">
+        <li><strong>Answer.</strong> Multiplying feasibility by \(p(t)\) and integrating: \(\int_0^\infty p(t)[c(t)+x(t)]\,dt = \int_0^\infty p(t)[v(t)k(t)+w(t)]\,dt.\)</li>
+        <li><strong>Answer.</strong> Substitute \(x=\dot k+\delta k\). Integration by parts on \(\int p\dot k\,dt\):
+        $$\int_0^\infty p(t)\dot k(t)\,dt = \bigl[p(t)k(t)\bigr]_0^\infty - \int_0^\infty \dot p(t)k(t)\,dt = \lim_{T\to\infty}p(T)k(T) - k_0 + \int_0^\infty r(t)p(t)k(t)\,dt.$$
+        Substituting back and collecting terms in \(k\):
+        $$\lim_{T\to\infty}p(T)k(T) - k_0 + \int_0^\infty p(t)\bigl[c(t)+(v(t)-r(t)-\delta)k(t)\bigr]\,dt = \int_0^\infty p(t)w(t)\,dt.$$
+        This is the full intertemporal budget constraint before imposing no-arbitrage or transversality (see Exercise 29.6).</li>
+      </ol>
+    </div></details>
+  </div>
+
   <div class="takeaways">
     <h2 id="takeaways">Key takeaways</h2>
     <ul>

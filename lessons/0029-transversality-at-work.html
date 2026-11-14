@@ -610,6 +610,27 @@
     </div></details>
   </div>
 
+  <div class="box exercise" id="ex-29-6">
+    <div class="box-title">Exercise 29.6 — No-arbitrage and the solvency constraint <span class="tag past">Past exam</span></div>
+    <p>Continue with the setup from Exercise 27.8: an infinitely-lived household with capital \(k\), wage income \(w(t)\), rental rate \(v(t)\), interest rate \(r(t)\), and intertemporal budget constraint
+    $$\lim_{T\to\infty}p(T)k(T) - k_0 + \int_0^\infty p(t)\bigl[c(t)+(v(t)-r(t)-\delta)k(t)\bigr]\,dt = \int_0^\infty p(t)w(t)\,dt.$$</p>
+    <ol type="a">
+      <li>At an interior optimum where the household holds a positive stock of capital for all \(t\), what must \(v(t)-r(t)-\delta\) equal? Explain briefly why.</li>
+      <li>Using your answer to (a), simplify the expression above. Your result should not contain capital or investment.</li>
+      <li>What does the transversality condition \(\lim_{T\to\infty}p(T)k(T)=0\) add? Write the final intertemporal budget constraint.</li>
+    </ol>
+    <details class="solution"><summary>Solution</summary><div class="body">
+      <ol type="a">
+        <li><strong>Answer.</strong> \(v(t)-r(t)-\delta=0\). If the net return on capital \(v-\delta\) exceeded the interest rate \(r\), the household could borrow unlimited amounts at rate \(r\) and invest at the higher rate — an arbitrage. If \(v-\delta\lt r\), it would hold zero capital. Interior optimum requires \(v=r+\delta\).</li>
+        <li><strong>Answer.</strong> With \(v=r+\delta\), the integrand term \((v-r-\delta)k=0\) vanishes. The budget constraint becomes:
+        $$\lim_{T\to\infty}p(T)k(T) + \int_0^\infty p(t)c(t)\,dt = k_0 + \int_0^\infty p(t)w(t)\,dt.$$</li>
+        <li><strong>Answer.</strong> The TC \(\lim p(T)k(T)=0\) rules out over-accumulation (saving paths that leave value on the table at infinity). Setting that boundary term to zero gives the final <em>solvency constraint</em>:
+        $$\int_0^\infty p(t)c(t)\,dt = k_0 + \int_0^\infty p(t)w(t)\,dt.$$
+        Present-value consumption equals initial wealth plus present-value labor income. This is the continuous-time analogue of the TC-based budget constraint in Lesson 29, and it rules out Ponzi schemes.</li>
+      </ol>
+    </div></details>
+  </div>
+
   <div class="takeaways">
     <h2 id="takeaways">Key takeaways</h2>
     <ul>

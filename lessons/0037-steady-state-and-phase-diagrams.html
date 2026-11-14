@@ -269,6 +269,23 @@
     </div></details>
   </div>
 
+  <div class="box exercise" id="ex-37-3">
+    <div class="box-title">Exercise 37.3 <span class="tag past">Past exam</span> (variable labor supply)</div>
+    <p>A planner maximizes \(\int_0^\infty e^{-\rho t}U(c(t),\ell(t))\,dt\) subject to \(\dot k+c=F(k,n)-\delta k\) and \(\ell+n=1\), with \(U\) strictly concave and \(F\) neoclassical. Here \(c\ge0\) is consumption, \(\ell\in[0,1]\) is leisure, and \(n=1-\ell\) is labor. The state is \(k\); the controls are \(c\) and \(n\).</p>
+    <ol class="parts" type="a">
+      <li>Write the current-value Hamiltonian and derive the two first-order conditions (w.r.t. \(c\) and \(n\)). What static efficiency condition does the \(n\)-FOC imply? <span class="pts">(10 pts)</span></li>
+      <li>Write the three equations that \((\bar k,\bar c,\bar n)\) must satisfy at a steady state (\(\dot k=0\), \(\dot\lambda=0\), plus the FOCs). <span class="pts">(10 pts)</span></li>
+      <li>Write the continuous-time Bellman equation \(\rho V(k)=\max_{c,n}\{\ldots\}\). <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Solution</summary><div class="body">
+      <ol class="parts" type="a">
+        <li><strong>Answer.</strong> \(H(k,c,n,\lambda)=U(c,1-n)+\lambda[F(k,n)-\delta k-c]\). FOC w.r.t. \(c\): \(H_c=U_c(c,\ell)-\lambda=0\), so \(\lambda=U_c\). FOC w.r.t. \(n\): \(H_n=-U_\ell(c,1-n)+\lambda F_n(k,n)=0\), so \(U_\ell/U_c=F_n\). This is the static efficiency condition: the marginal rate of substitution between leisure and consumption equals the marginal product of labor (the wage).</li>
+        <li><strong>Answer.</strong> At the steady state, \(\dot k=0\) gives feasibility \(F(\bar k,\bar n)-\delta\bar k=\bar c\). The costate equation \(\dot\lambda=\rho\lambda-H_k=\rho\lambda-\lambda F_k\). Setting \(\dot\lambda=0\): \(F_k(\bar k,\bar n)=\rho+\delta\) (modified golden rule). Combined with the two FOCs at the steady state: \(U_c(\bar c,\bar\ell)=\bar\lambda\) and \(U_\ell(\bar c,\bar\ell)/U_c(\bar c,\bar\ell)=F_n(\bar k,\bar n)\). These four equations (modified golden rule, feasibility, and two FOCs) pin down \((\bar k,\bar c,\bar n,\bar\lambda)\).</li>
+        <li><strong>Answer.</strong> \(\rho V(k)=\max_{c,n}\bigl\{U(c,1-n)+V'(k)[F(k,n)-\delta k-c]\bigr\}\).</li>
+      </ol>
+    </div></details>
+  </div>
+
   <!-- ─────────────────────────────────────────── -->
   <div class="takeaways">
     <h2 id="takeaways">Key takeaways</h2>
