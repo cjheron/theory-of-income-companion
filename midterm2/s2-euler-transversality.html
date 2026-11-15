@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MT2 · Session 2: Euler Equations &amp; Transversality — Theory of Income</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/exam.js" defer></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Midterm 2 Study Guide · Session 2 of 5</div>
+    <h1>Session 2: Euler Equations &amp; Transversality</h1>
+    <div class="meta">Lessons 26–32 · 2 problems · ~65 min · <a href="index.html">Study-guide hub</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>Instructions.</strong> Work on paper before revealing. The first problem is long (9 parts) and mirrors a past MT1 exactly — this topic crossed over from MT1 to MT2 coverage. The second is a shorter Tobin's q Hamiltonian problem adapted from a past final.
+  </div>
+
+  <div class="xq-score"></div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PROBLEM 1 · Speed of convergence and intertemporal substitution
+       Adapted from Fall 2025 Theory of Income MT1, Question 2
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="xq" id="s2-eu-01" data-kind="derive"
+       data-study="../lessons/0033-local-stability-and-reciprocal-pairs.html#def-Q-lambda|L33 §2 · The quadratic Q(λ) ;; ../lessons/0033-local-stability-and-reciprocal-pairs.html#thm-two-cases|L33 §3 · Two cases ;; ../lessons/0027-euler-equations-and-sufficiency.html#s2|L27 §2 · The Euler equation">
+
+    <div class="xq-src">
+      <span class="tag past" style="background:#7a3a10;color:#fff;font-family:var(--font-sans);font-size:0.7rem;padding:0.05rem 0.4rem;border-radius:3px">Past exam · Fall 2025 MT1 Q2 (adapted)</span>
+      <span class="pts">70 pts · ~40 min</span>
+    </div>
+
+    <div class="xq-stem">
+      <p>Consider <strong>Program 1</strong>:</p>
+      $$V(x_0) = \max_{\{x_{t+1}\}_{t=0}^\infty} \sum_{t=0}^\infty \beta^t F(x_t, x_{t+1})$$
+      <p>where \(F\) is strictly concave, twice differentiable, \(F_x > 0\), \(F_y \lt 0\), and the cross-derivative \(F_{xy} > 0\). Let \(y = g(x)\) be the optimal policy rule at the optimum. The Euler equation evaluated on the optimal path is \(F_y(x, g(x)) + \beta F_x(g(x), g(g(x))) = 0\). Let \(\bar x\) be a steady state, so \(\bar x = g(\bar x)\), which implies \(F_y(\bar x,\bar x) + \beta F_x(\bar x,\bar x) = 0\). Differentiating the Euler equation with respect to \(x\) and evaluating at \(\bar x\) yields that \(g'(\bar x)\) solves:</p>
+      $$Q(\lambda) \equiv 1 + b\lambda + \beta\lambda^2 = 0 \qquad \text{where}\quad b \equiv \frac{F_{yy}(\bar x,\bar x) + \beta F_{xx}(\bar x,\bar x)}{F_{xy}(\bar x,\bar x)}$$
+      <p>The two roots \(\lambda_1, \lambda_2\) satisfy \(\lambda_1\lambda_2 = 1/\beta\). Let \(\lambda_1\) be the root with smallest absolute value, so \(g'(\bar x) = \lambda_1\).</p>
+
+      <ol>
+        <li>(10 pts) Show that if \(F_{xy} > 0\), then \(b \lt 0\) and \(\lambda_1, \lambda_2 > 0\).</li>
+        <li>(10 pts) Show that \(\lambda_1 = g'(\bar x) \in (0,1)\) if and only if \(1 + b + \beta \lt 0\).</li>
+        <li>(10 pts) Show that \(\lambda_1 = g'(\bar x) = \dfrac{-b - \sqrt{b^2 - 4\beta}}{2\beta}\). [Hint: apply the quadratic formula and argue \(\lambda_1\) is the smaller root.]</li>
+        <li>(10 pts) Use your answer to (3) to show that \(g'(\bar x)\) is increasing in \(b\).</li>
+      </ol>
+
+      <p>Now consider <strong>Program 2</strong>:</p>
+      $$\tilde V(x_0) = \max_{\{x_{t+1}\}_{t=0}^\infty} \sum_{t=0}^\infty \beta^t \tilde F(x_t, x_{t+1}), \qquad \tilde F(x,y) = U[F(x,y)]$$
+      <p>where \(U' > 0\) and \(U'' \lt 0\) (a strictly increasing, strictly concave transformation of \(F\)). Let \(\tilde g(x)\) be the optimal policy rule and \(\tilde b\) the corresponding coefficient. Define \(\gamma \equiv -U''(F(\bar x,\bar x))/U'(F(\bar x,\bar x)) > 0\).</p>
+
+      <ol start="5">
+        <li>(10 pts) Compute \(\tilde F_{xx}\), \(\tilde F_{yy}\), and \(\tilde F_{xy}\) in terms of derivatives of \(U\) and \(F\).</li>
+        <li>(10 pts) Express \(\tilde b\) using the definition \(b \equiv (F_{yy}+\beta F_{xx})/F_{xy}\), the expression for \(\gamma\), and your formulas from (5). Rearrange to get \(\tilde b - b = -\alpha(1+\beta+b)/(1+\alpha)\) for some \(\alpha > 0\). [Hint: use the steady-state condition \(F_y = -\beta F_x\) to eliminate \(F_y\).] Conclude that \(\tilde b > b\).</li>
+        <li>(10 pts, 2 lines) Use (4) and (6) to explain intuitively why the speed of convergence is slower for Program 2 than for Program 1.</li>
+      </ol>
+    </div>
+
+    <div class="xq-solution">
+      <p><strong>1.</strong> <em>Sign of \(b\)</em>: Strict concavity of \(F\) gives \(F_{xx} \lt 0\) and \(F_{yy} \lt 0\), so their sum is negative. With \(F_{xy} > 0\) in the denominator, \(b \lt 0\). <em>Sign of roots</em>: \(Q(\lambda) = 1 + b\lambda + \beta\lambda^2\) with \(\beta > 0\). By Vieta's formulas, \(\lambda_1 + \lambda_2 = -b/\beta > 0\) (since \(b \lt 0\)) and \(\lambda_1\lambda_2 = 1/\beta > 0\). Roots share the same sign (product positive), and their sum is positive, so both are positive.</p>
+
+      <p><strong>2.</strong> \(Q\) is a upward-opening quadratic (\(\beta > 0\)) with positive roots. \(Q(1) = 1 + b + \beta\). Since both roots are positive and their product is \(1/\beta > 1\) (for \(\beta \lt 1\)), if \(Q(1) \lt 0\) then \(1\) lies between the two roots, so \(\lambda_1 \lt 1 \lt \lambda_2\). Since \(\lambda_1 > 0\), we have \(\lambda_1 \in (0,1)\). Conversely, if \(1 + b + \beta \ge 0\), then \(1\) is not between the roots, so \(\lambda_1 \notin (0,1)\).</p>
+
+      <p><strong>3.</strong> From the quadratic formula: \(\lambda_i = \dfrac{-b \pm \sqrt{b^2 - 4\beta}}{2\beta}\). Since \(b \lt 0\) (so \(-b > 0\)), both roots are positive. The minus sign gives the smaller root: \(\lambda_1 = \dfrac{-b - \sqrt{b^2 - 4\beta}}{2\beta}\). (Verify: for \(b \lt 0\), \(-b > \sqrt{b^2-4\beta}\) only if \(b^2 > b^2-4\beta\), i.e., \(\beta > 0\). ✓)</p>
+
+      <p><strong>4.</strong> Differentiating \(\lambda_1\) with respect to \(b\):
+      $$\frac{\partial\lambda_1}{\partial b} = \frac{1}{2\beta}\left(-1 + \frac{b}{\sqrt{b^2-4\beta}}\right) = \frac{1}{2\beta}\cdot\frac{-\sqrt{b^2-4\beta}+b}{\sqrt{b^2-4\beta}}$$
+      Since \(b \lt 0\), we have \(b = -|b|\), so numerator is \(-\sqrt{b^2-4\beta} - |b| \lt 0\). Wait — that gives negative, contradicting "increasing in \(b\)". Let me redo: the numerator is \(-1 + b/\sqrt{b^2-4\beta}\). With \(b \lt 0\), \(b/\sqrt{b^2-4\beta} \lt 0\), so the bracket is \(-1 + (\text{negative}) \lt 0\). But we divide by \(2\beta > 0\), so \(\partial\lambda_1/\partial b \lt 0\). That means \(\lambda_1\) is <em>decreasing</em> in \(b\). Re-read the problem: "increasing in \(b\)" — let me check the original. The original says \(\partial g'(\bar x)/\partial b > 0\). Let me recompute:
+      $$\frac{\partial\lambda_1}{\partial b} = \frac{1}{2\beta}\left(-1 - \frac{b}{\sqrt{b^2-4\beta}}\right)$$
+      Wait, \(\lambda_1 = (-b - \sqrt{b^2-4\beta})/(2\beta)\). Differentiating w.r.t. \(b\):
+      $$\frac{\partial\lambda_1}{\partial b} = \frac{1}{2\beta}\left(-1 - \frac{2b}{2\sqrt{b^2-4\beta}}\right) = \frac{1}{2\beta}\left(-1 - \frac{b}{\sqrt{b^2-4\beta}}\right)$$
+      With \(b \lt 0\): \(-b/\sqrt{b^2-4\beta} > 0\) and \(> 1\) iff \(b^2 > b^2 - 4\beta\) iff \(\beta > 0\). ✓ So \(-b/\sqrt{b^2-4\beta} > 1\), hence \(-1 + (-b/\sqrt{b^2-4\beta}) > 0\), i.e., \(\partial\lambda_1/\partial b = \dfrac{1}{2\beta}\dfrac{-\sqrt{b^2-4\beta}-b}{\sqrt{b^2-4\beta}}\). With \(b \lt 0\): \(-b > 0\), so \(-b > \sqrt{b^2-4\beta}\) iff \(b^2 > b^2-4\beta\) iff \(\beta > 0\). So numerator is \(-\sqrt{b^2-4\beta}+|b|>0\). Therefore \(\partial\lambda_1/\partial b > 0\): \(g'(\bar x) = \lambda_1\) is increasing in \(b\).</p>
+
+      <p><strong>5.</strong>
+      $$\tilde F_x = U'(F)\cdot F_x, \quad \tilde F_y = U'(F)\cdot F_y$$
+      $$\tilde F_{xx} = U''(F)\cdot F_x^2 + U'(F)\cdot F_{xx}, \quad \tilde F_{yy} = U''(F)\cdot F_y^2 + U'(F)\cdot F_{yy}$$
+      $$\tilde F_{xy} = U''(F)\cdot F_xF_y + U'(F)\cdot F_{xy}$$</p>
+
+      <p><strong>6.</strong>
+      $$\tilde b = \frac{\tilde F_{yy} + \beta\tilde F_{xx}}{\tilde F_{xy}} = \frac{U''(F_y^2+\beta F_x^2) + U'(F_{yy}+\beta F_{xx})}{U''F_xF_y + U'F_{xy}}$$
+      Divide numerator and denominator by \(U'F_{xy}\). Using the SS condition \(F_y = -\beta F_x\):
+      $$\tilde b = \frac{-\gamma(F_y^2+\beta F_x^2)/F_{xy} + b}{-\gamma F_xF_y/F_{xy}+1} = \frac{-\gamma\beta F_x^2(1+\beta)/F_{xy} + b}{\gamma\beta F_x^2/F_{xy}+1}$$
+      Let \(\alpha = \gamma\beta F_x^2/F_{xy} > 0\). Then \(\tilde b = (-(1+\beta)\alpha + b)/(1+\alpha)\). And:
+      $$\tilde b - b = \frac{-(1+\beta)\alpha + b - b(1+\alpha)}{1+\alpha} = \frac{-(1+\beta)\alpha - b\alpha}{1+\alpha} = \frac{-\alpha(1+\beta+b)}{1+\alpha}$$
+      Since \(\lambda_1\in(0,1)\) requires \(1+b+\beta \lt 0\), we have \(\tilde b - b = -\alpha(1+\beta+b)/(1+\alpha) > 0\). So \(\tilde b > b\). ✓</p>
+
+      <p><strong>7.</strong> From (4), \(g'(\bar x)\) is increasing in \(b\), and from (6), \(\tilde b > b\). Therefore \(\tilde g'(\bar x) > g'(\bar x)\). Since \(\tilde g'(\bar x)\) is closer to 1 (but still below it), the economy under Program 2 converges more slowly to the steady state. <em>Intuition</em>: a concave transformation \(U\) reduces the marginal gain from deviating from the steady state — the diminishing returns make the agent more willing to stay away from \(\bar x\) for longer, since catching up quickly isn't worth as much. This creates an extra "smoothing motive" that slows convergence.</p>
+
+      <div class="rubric">
+        (1) 5 pts for sign of \(b\), 5 pts for signs of \(\lambda_1,\lambda_2\). (2) The key step is \(Q(1)=1+b+\beta\) and \(1\) between roots iff \(Q(1)\lt0\). (3) Quadratic formula + argument that minus sign gives smaller root. (4) The derivative computation with correct signs. (5) All three second derivatives. (6) Correct expression for \(\tilde b\), correct sign of \(\tilde b - b\). (7) Chain of inequalities and intuition about smoothing motive.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PROBLEM 2 · Hayashi's version of Tobin's q
+       Adapted from Theory of Income Final 2010/11, Question 1
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="xq" id="s2-eu-02" data-kind="derive"
+       data-study="../lessons/0032-adjustment-costs-and-tobins-q.html#s2|L32 §2 · Tobin's q and the Hamiltonian ;; ../lessons/0036-optimal-control-and-the-hamiltonian.html#s3|L36 §3 · FOCs and transversality ;; ../lessons/0037-steady-state-and-phase-diagrams.html#s3|L37 §3 · Reading phase diagrams">
+
+    <div class="xq-src">
+      <span class="tag past" style="background:#7a3a10;color:#fff;font-family:var(--font-sans);font-size:0.7rem;padding:0.05rem 0.4rem;border-radius:3px">Past exam · Final 2010/11 Q1 (adapted)</span>
+      <span class="pts">60 pts · ~25 min</span>
+    </div>
+
+    <div class="xq-stem">
+      <p>A firm maximizes the present discounted value of profits. Its gross revenue in period \(t\) is \(f(k(t)) = Ak(t)\) (linear in capital, with \(A > \rho > 0\)). Capital depreciates at rate \(\delta = 0\), so \(\dot k(t) = i(t)\). Investment incurs an adjustment cost: net profit at time \(t\) is \(Ak - i - i\,\phi(i/k)\), where \(\phi \ge 0\), \(\phi' > 0\), \(2\phi'(x) + x\phi''(x) > 0\), \(\phi(0)=\phi'(0)=0\), and \(1+\phi(\rho) + \rho\phi'(\rho) > (A+\rho^2\phi'(\rho))/\rho\). The firm maximizes \(\int_0^\infty e^{-\rho t}[Ak(t) - i(t) - i(t)\phi(i(t)/k(t))]\,dt\).</p>
+
+      <ol>
+        <li>(10 pts, 1 line) Write the current-value Hamiltonian \(\mathcal H(k, i, q)\), using \(q\) for the co-state variable on \(k\).</li>
+        <li>(10 pts, 2 lines) Write the FOC for investment \(i\) (\(\mathcal H_i = 0\)) and show it can be written as \(q = 1 + \phi(x) + x\phi'(x)\), where \(x = i/k\) is the investment rate.</li>
+        <li>(10 pts, 1 line) Write the costate equation for \(\dot q\). Simplify to get \(\dot q = \rho q - A - x^2\phi'(x)\).</li>
+        <li>(10 pts, 2 lines) Specialize to the balanced growth path where \(x = i/k\) is constant and \(\dot q = 0\). Write the two equations that determine the equilibrium \((x^*, q^*)\).</li>
+        <li>(10 pts, 2 lines) Sketch the two curves from (4) in \((x, q)\) space. Mark which curve corresponds to \(\mathcal H_i = 0\) and which to \(\dot q = 0\). Which is steeper? Which lies above the other at \(x=0\)?</li>
+        <li>(10 pts, 2 lines) Interpret \(v(k)\) (the value function). What is the economic interpretation of \(q = v'(k)\)? Using your answer, show that \(v(k)\) is linear in \(k\).</li>
+      </ol>
+    </div>
+
+    <div class="xq-solution">
+      <p><strong>1.</strong> \(\mathcal H(k, i, q) = Ak - i - i\phi(i/k) + qi\).</p>
+
+      <p><strong>2.</strong> \(\mathcal H_i = -1 - \phi(i/k) - (i/k)\phi'(i/k) + q = 0\), so \(q = 1 + \phi(x) + x\phi'(x)\) where \(x = i/k\). ✓</p>
+
+      <p><strong>3.</strong> Costate: \(\dot q = \rho q - \mathcal H_k\). \(\mathcal H_k = A + (i/k^2)i\phi'(i/k) = A + x^2\phi'(x)\) (using \(\partial[i\phi(i/k)]/\partial k = -i^2\phi'(i/k)/k^2 = -x^2\phi'(x)\)... actually \(\partial[i\phi(i/k)]/\partial k = i \cdot \phi'(i/k) \cdot (-i/k^2) = -x^2\phi'(x)\)). So \(\mathcal H_k = A - (-x^2\phi'(x)) = A + x^2\phi'(x)\). Thus \(\dot q = \rho q - A - x^2\phi'(x)\). ✓</p>
+
+      <p><strong>4.</strong> Setting \(\dot q = 0\): \(q = (A + x^2\phi'(x))/\rho\). And from (2): \(q = 1 + \phi(x) + x\phi'(x)\). These are the two equations. Two equations in two unknowns \((x,q)\).</p>
+
+      <p><strong>5.</strong> Let \(q_1(x) = 1 + \phi(x) + x\phi'(x)\) (\(\mathcal H_i = 0\) locus) and \(q_2(x) = (A+x^2\phi'(x))/\rho\) (\(\dot q=0\) locus). At \(x=0\): \(q_1(0)=1\) and \(q_2(0)=A/\rho > 1\) (since \(A > \rho\)). So \(\dot q = 0\) lies above \(\mathcal H_i = 0\) at the origin. Both curves are increasing in \(x\). \(q_1' = 2\phi'(x)+x\phi''(x) > 0\) by assumption. \(q_2' = 2x\phi'(x)+x^2\phi''(x)/\rho = x(2\phi'+x\phi'')/\rho\). By the given condition \(1+\phi(\rho)+\rho\phi'(\rho) > (A+\rho^2\phi'(\rho))/\rho\), which means \(q_1(\rho) > q_2(\rho)\), so the \(\mathcal H_i=0\) curve eventually rises above the \(\dot q=0\) curve. The intersection gives \(x^*\). The \(\mathcal H_i=0\) curve is steeper.</p>
+
+      <p><strong>6.</strong> \(v(k_0) = \int_0^\infty e^{-\rho t}[Ak-i-i\phi(x)]\,dt\) is the maximized value of profits, which equals the market value of the firm's equity. \(q = v'(k)\) is Tobin's q: the ratio of the market value of an additional unit of installed capital to its replacement cost (here replacement cost is 1). Since on the balanced growth path \(\dot q = 0\) (q is constant) and \(k\) grows at rate \(x^*\), we have \(v''(k) = dq/dk = \dot q/\dot k = 0/i = 0\). So \(v\) is linear in \(k\): \(v(k) = qk\). The ratio \(v(k)/k = q\) is Tobin's average q, which here equals marginal q.</p>
+
+      <div class="rubric">
+        (1) Correct Hamiltonian with q as costate on k. (2) Differentiate w.r.t. i and simplify — get \(q = 1+\phi(x)+x\phi'(x)\). (3) Use costate formula and simplify — final expression \(\dot q = \rho q - A - x^2\phi'(x)\). (4) Set \(\dot q=0\), report both equations. (5) Correct intercepts, correct ordering at \(x=0\), steepness comparison. (6) Linearity via \(\dot q=0\) gives \(v''=0\), interpretation of \(q=v'(k)\).
+      </div>
+    </div>
+  </div>
+
+  <div class="xq-score"></div>
+
+  <div class="lesson-nav">
+    <a href="s1-aggregation.html">← Session 1</a>
+    <a href="s3-linearization.html">Session 3: Linearization →</a>
+  </div>
+
+</div>
+</body>
+</html>

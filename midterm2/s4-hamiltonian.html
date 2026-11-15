@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MT2 · Session 4: The Hamiltonian — Theory of Income</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/exam.js" defer></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Midterm 2 Study Guide · Session 4 of 5</div>
+    <h1>Session 4: The Hamiltonian</h1>
+    <div class="meta">Lessons 36–39 · 2 problems · ~75 min · <a href="index.html">Study-guide hub</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>Instructions.</strong> This is the heaviest session. Problem 1 builds the NCG Hamiltonian from scratch and walks through every step — this is the core of Fall 2025 MT2 Q1. Problem 2 covers phase diagrams and fiscal shocks — the kind of comparative-statics question that appeared on past finals. Work both problems without notes.
+  </div>
+
+  <div class="xq-score"></div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PROBLEM 1 · The NCG Hamiltonian from scratch
+       Adapted from Fall 2025 MT2 Q1
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="xq" id="s4-ham-01" data-kind="derive"
+       data-study="../lessons/0036-optimal-control-and-the-hamiltonian.html#s2|L36 §2 · The Hamiltonian and costate ;; ../lessons/0036-optimal-control-and-the-hamiltonian.html#thm-maximum-principle|L36 §3 · FOCs and transversality ;; ../lessons/0037-steady-state-and-phase-diagrams.html#s2|L37 §2 · Steady state ;; ../lessons/0036-optimal-control-and-the-hamiltonian.html#s5|L36 §5 · The maximized Hamiltonian">
+
+    <div class="xq-src">
+      <span class="tag past" style="background:#7a3a10;color:#fff;font-family:var(--font-sans);font-size:0.7rem;padding:0.05rem 0.4rem;border-radius:3px">Past exam · Fall 2025 MT2 Q1 (adapted)</span>
+      <span class="pts">80 pts · ~40 min</span>
+    </div>
+
+    <div class="xq-stem">
+      <p>A planner maximizes \(\int_0^\infty e^{-\rho t}U(c(t))\,dt\) subject to \(\dot k(t) = F(k(t), A) - \delta k(t) - c(t)\) and \(k(0) = k_0 > 0\). Here \(c(t)\) is consumption (the control), \(k(t)\) is capital (the state), \(A\) is TFP (exogenous), \(\delta > 0\) is the depreciation rate, \(\rho > 0\) is the discount rate. Assume \(U' > 0\), \(U'' \lt 0\), \(F_k > 0\), \(F_{kk} \lt 0\), standard Inada conditions, and that \(F_k(\bar k, A) = \rho + \delta\) has a unique solution \(\bar k\).</p>
+
+      <ol>
+        <li>(5 pts, 1 line) Write the current-value Hamiltonian \(\mathcal H(k, c, \lambda)\).</li>
+        <li>(10 pts, 2 lines) Write the first-order condition \(\partial\mathcal H/\partial c = 0\). What is the economic interpretation of the co-state variable \(\lambda(t)\)?</li>
+        <li>(10 pts, 1 line) Write the costate equation \(\dot\lambda = \rho\lambda - \partial\mathcal H/\partial k\). Simplify it.</li>
+        <li>(5 pts, 1 line) Write the transversality condition. What does it rule out?</li>
+        <li>(10 pts, 2 lines) Using the FOC from (2) and the costate equation from (3), derive the consumption Euler equation: an expression for \(\dot c / c\) (or equivalently \(\dot c\)) as a function of \(c\), \(k\), and the model parameters. [Hint: differentiate \(U'(c) = \lambda\) with respect to time.]</li>
+        <li>(10 pts, 1 line) Characterize the steady state: write the two equations that define \((\bar c, \bar k)\). Interpret the modified golden rule.</li>
+        <li>(10 pts, 2 lines) Write the Hamilton–Jacobi–Bellman equation \(\rho V(k) = \max_c \{U(c) + V'(k)\dot k\}\). Using the envelope theorem (or the FOC), show that \(V'(k) = \lambda(t)\) along the optimal path.</li>
+        <li>(20 pts, 3 lines) Now suppose \(F(k, A) = Ak^\alpha\) and \(U(c) = \log c\). Show that the steady-state capital per worker satisfies \(\bar k = \bigl(\alpha A / (\rho + \delta)\bigr)^{1/(1-\alpha)}\). Compute the steady-state consumption \(\bar c\). Show that the shadow price at the steady state satisfies \(\bar\lambda = 1/\bar c\).</li>
+      </ol>
+    </div>
+
+    <div class="xq-solution">
+      <p><strong>1.</strong> \(\mathcal H(k, c, \lambda) = U(c) + \lambda[F(k,A) - \delta k - c]\).</p>
+
+      <p><strong>2.</strong> FOC: \(\partial\mathcal H/\partial c = U'(c) - \lambda = 0\), so \(U'(c(t)) = \lambda(t)\). The co-state \(\lambda(t)\) is the shadow price of capital at time \(t\): the present value (in utility terms) of an additional unit of capital at date \(t\). By the envelope theorem it also equals \(V'(k(t))\), the marginal value of capital in the value function.</p>
+
+      <p><strong>3.</strong> \(\dot\lambda = \rho\lambda - \partial\mathcal H/\partial k = \rho\lambda - \lambda(F_k(k,A) - \delta)\). Dividing by \(\lambda > 0\): \(\dot\lambda/\lambda = \rho - F_k(k,A) + \delta\).</p>
+
+      <p><strong>4.</strong> Transversality condition: \(\displaystyle\lim_{T\to\infty} e^{-\rho T}\lambda(T)k(T) = 0\). This rules out paths where the agent over-accumulates capital without bound ("Ponzi schemes") — the shadow value of terminal capital must be negligible.</p>
+
+      <p><strong>5.</strong> Differentiate \(U'(c(t)) = \lambda(t)\) w.r.t. \(t\): \(U''(c)\dot c = \dot\lambda\). Substituting the costate equation \(\dot\lambda = \rho\lambda - \lambda(F_k-\delta) = \lambda(\rho - F_k + \delta)\) and using \(\lambda = U'(c)\):
+      $$U''(c)\dot c = U'(c)(\rho - F_k(k,A) + \delta)$$
+      $$\frac{\dot c}{c} = \frac{U'(c)}{-cU''(c)}(F_k(k,A) - \delta - \rho) = \frac{1}{\sigma(c)}(F_k(k,A) - \delta - \rho)$$
+      where \(\sigma(c) = -cU''(c)/U'(c) > 0\) is the coefficient of relative risk aversion (or equivalently, the inverse of the elasticity of intertemporal substitution).</p>
+
+      <p><strong>6.</strong> Setting \(\dot c = 0\) and \(\dot k = 0\):
+      <br>\(\dot c = 0\): \(F_k(\bar k, A) = \rho + \delta\) — the modified golden rule (net marginal product of capital equals the discount rate).
+      <br>\(\dot k = 0\): \(\bar c = F(\bar k, A) - \delta\bar k\) — consumption equals net output.
+      <br>Interpretation: at the steady state, the gross return on capital exactly compensates agents for waiting (at rate \(\rho\)) and for depreciation (at rate \(\delta\)).</p>
+
+      <p><strong>7.</strong> HJB: \(\rho V(k) = \max_c\{U(c) + V'(k)(F(k,A)-\delta k-c)\}\). The FOC w.r.t. \(c\): \(U'(c) = V'(k)\). But from the Hamiltonian FOC \(U'(c) = \lambda\). So \(V'(k) = \lambda\) at every point on the optimal path. ✓ (The HJB is the continuous-time analog of the Bellman equation; differentiating the HJB w.r.t. \(k\) and using the costate equation yields the costate equation for \(\lambda\).)</p>
+
+      <p><strong>8.</strong> With \(F(k,A) = Ak^\alpha\) and \(F_k = \alpha Ak^{\alpha-1}\): the modified golden rule \(F_k(\bar k, A) = \rho + \delta\) gives:
+      $$\alpha A\bar k^{\alpha-1} = \rho + \delta \implies \bar k^{\alpha-1} = \frac{\rho+\delta}{\alpha A} \implies \bar k = \left(\frac{\alpha A}{\rho+\delta}\right)^{1/(1-\alpha)}$$
+      Steady-state consumption: \(\bar c = A\bar k^\alpha - \delta\bar k\). With \(U(c)=\log c\), \(U'(\bar c)=1/\bar c\), so \(\bar\lambda = U'(\bar c) = 1/\bar c\). ✓</p>
+
+      <div class="rubric">
+        (1) Correct form of \(\mathcal H\). (2) FOC \(U'(c)=\lambda\) + economic interpretation as shadow price. (3) Costate equation simplified to \(\dot\lambda/\lambda = \rho - F_k + \delta\). (4) TC stated correctly + "rules out Ponzi/over-accumulation". (5) Full derivation via chain rule; correct expression. (6) Both SS equations; modified golden rule interpretation. (7) HJB stated correctly; \(V'(k)=\lambda\) shown. (8) All three results with correct algebra.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PROBLEM 2 · Phase diagrams and government spending shocks
+       Adapted from Theory of Income 2017/18 Final, Question 1
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="xq" id="s4-ham-02" data-kind="derive"
+       data-study="../lessons/0037-steady-state-and-phase-diagrams.html#s3|L37 §3 · Phase diagrams ;; ../lessons/0037-steady-state-and-phase-diagrams.html#s4|L37 §4 · Reading the saddle path ;; ../lessons/0036-optimal-control-and-the-hamiltonian.html#s3|L36 §3 · Transversality and boundary conditions">
+
+    <div class="xq-src">
+      <span class="tag past" style="background:#7a3a10;color:#fff;font-family:var(--font-sans);font-size:0.7rem;padding:0.05rem 0.4rem;border-radius:3px">Past exam · 2017/18 Final Q1 (adapted)</span>
+      <span class="pts">80 pts · ~35 min</span>
+    </div>
+
+    <div class="xq-stem">
+      <p>A planner maximizes \(\int_0^\infty e^{-\rho t}u(c(t))\,dt\) subject to \(\dot k(t) = f(k(t)) - c(t) - g(t)\) where \(g(t) \ge 0\) is government spending (taken as given by the planner). The production function \(f\) is strictly concave and satisfies Inada conditions; \(u\) is strictly increasing and strictly concave; \(\rho > 0\). The optimal system satisfies:</p>
+      $$\frac{\dot c}{c} = \frac{1}{\sigma}(f'(k) - \rho), \quad \dot k = f(k) - c - g$$
+      <p>where \(\sigma = -cu''/u' > 0\). The \(\dot c = 0\) locus is the vertical line \(f'(k^*) = \rho\) (independent of \(g\)); the \(\dot k = 0\) locus is \(c = f(k) - g\). Denote the unique steady-state capital as \(k^*\) and consumption as \(c^*(g) = f(k^*) - g\).</p>
+
+      <ol>
+        <li>(10 pts, full page) Draw the phase diagram in \((k, c)\) space for \(g = \bar g > 0\). Label clearly: (a) the \(\dot c = 0\) locus (vertical line at \(k^*\)), (b) the \(\dot k = 0\) locus (concave curve shifted down by \(\bar g\)), (c) the saddle path (upward-sloping through the steady state \((k^*, c^*(\bar g))\)), and (d) the direction of arrows in each region.</li>
+        <li>(15 pts) <strong>Permanent unexpected increase in \(g\) at \(t=0\).</strong> Suppose \(k(0)=k^*\) (the economy is at the old steady state with \(g=0\)) and at \(t=0\) government spending permanently jumps to \(\bar g > 0\). Describe what happens to: (a) the steady-state capital \(k^*\), (b) the new steady-state consumption \(c^*(\bar g)\), and (c) the impact response — does consumption jump up or down at \(t=0\)? Sketch the time path of \(k(t)\) and \(c(t)\).</li>
+        <li>(20 pts) <strong>Transitory unexpected increase in \(g\).</strong> Suppose \(k(0)=k^*\) and \(g(t) = \bar g > 0\) for \(t \in [0, \tau)\), returning to \(g=0\) at \(t=\tau\). Draw a phase diagram showing both \(\dot k=0\) loci (for \(g=0\) and \(g=\bar g\)) and the saddle paths for each system. Indicate the optimal trajectory before and after \(\tau\). [Hint: use three principles — (i) two separate sets of direction equations, one before and one after \(\tau\); (ii) consumption is continuous at \(\tau\); (iii) after \(\tau\), the system must follow the saddle path of the \(g=0\) system.]</li>
+        <li>(15 pts) <strong>Transitory shock (continued).</strong> Sketch the time paths of \(k(t)\) and \(c(t)\) for the transitory shock. Mark \(t=0\) and \(t=\tau\) clearly. Compare the impact drop in consumption at \(t=0\) for the transitory shock versus the permanent shock from (2). Which causes a larger drop in \(c\) at \(t=0\)?</li>
+        <li>(20 pts) <strong>News of a future permanent increase.</strong> Now suppose the economy is at the \(g=0\) steady state at \(t=0\). At \(t=0\) it is announced that government spending will permanently jump to \(\bar g\) at date \(\tau > 0\) (so \(g(t) = 0\) for \(t \in [0,\tau)\) and \(g(t)=\bar g\) for \(t \ge \tau\)). (a) Does \(k(t)\) jump at \(t=0\)? (b) Does \(c(t)\) jump at \(t=0\)? (c) Describe qualitatively what happens between \(0\) and \(\tau\) and after \(\tau\).</li>
+      </ol>
+    </div>
+
+    <div class="xq-solution">
+      <p><strong>1.</strong> <em>Phase diagram:</em></p>
+      <ul>
+        <li>\(\dot c = 0\) locus: vertical line at \(k = k^*\) where \(f'(k^*)=\rho\). To the left of this line, \(f'(k) > \rho\), so \(\dot c > 0\) (c rising); to the right, \(\dot c \lt 0\) (c falling).</li>
+        <li>\(\dot k = 0\) locus: \(c = f(k) - \bar g\), a hump-shaped (strictly concave) curve lying \(\bar g\) below the production function. It passes through \((k^*, c^*(\bar g)) = (k^*, f(k^*)-\bar g)\). Above this curve \(\dot k \lt 0\); below, \(\dot k > 0\).</li>
+        <li>Saddle path: upward-sloping curve passing through \((k^*, c^*(\bar g))\). Points to the upper-left of the steady state have \(\dot k \lt 0\) and \(\dot c > 0\); points to the lower-right have \(\dot k > 0\) and \(\dot c \lt 0\).</li>
+      </ul>
+
+      <p><strong>2.</strong> <em>Permanent shock:</em>
+      <br>(a) \(k^*\) is unchanged — the \(\dot c = 0\) locus \(f'(k^*)=\rho\) does not involve \(g\).
+      <br>(b) \(c^*(\bar g) = f(k^*) - \bar g \lt f(k^*) = c^*(0)\): steady-state consumption falls.
+      <br>(c) At \(t=0\), \(k(0) = k^*\) is fixed (capital cannot jump). Consumption must jump immediately onto the new saddle path. Since the new saddle path passes through \((k^*, c^*(\bar g))\) and is upward-sloping, the economy is already at \(k^*\), so consumption must jump <em>down</em> to \(c^*(\bar g)\) instantaneously. After that, both \(k\) and \(c\) remain at their steady-state values: \(k(t)=k^*\) and \(c(t)=c^*(\bar g)\) for all \(t \ge 0\). Time paths: \(k\) stays flat; \(c\) drops discretely at \(t=0\) and stays flat.</p>
+
+      <p><strong>3.</strong> <em>Transitory shock (phase diagram):</em> Draw both \(\dot k=0\) loci: the high curve \(c=f(k)\) for \(g=0\) and the low curve \(c=f(k)-\bar g\) for \(g=\bar g\). The saddle path of the \(g=\bar g\) system passes through \((k^*, c^*(\bar g))\); the saddle path of the \(g=0\) system passes through \((k^*, f(k^*))\). At \(t=0\), \(k(0)=k^*\) and consumption jumps to a point on the \(g=\bar g\) flow — but not all the way to \(c^*(\bar g)\), since the shock is temporary. The optimal trajectory satisfies: (i) for \(t\in[0,\tau)\), use the direction field of the \(g=\bar g\) system (moving up and left since it is below the \(g=\bar g\) saddle path and capital is not accumulating — in fact \(\dot k = f(k)-c-\bar g\)). (ii) At \(t=\tau\), \(c\) is continuous. (iii) After \(\tau\), the trajectory must lie on the saddle path of the \(g=0\) system. So the initial consumption jump is chosen so that the path hits the \(g=0\) saddle path exactly at \(t=\tau\).</p>
+
+      <p><strong>4.</strong> Time paths: \(c(t)\) jumps down at \(t=0\) (but less than the permanent shock, since the shock is known to be temporary), then rises toward the original steady state between \(0\) and \(\tau\) (moving along the \(g=\bar g\) flow up and to the left in the phase diagram). Capital \(k(t)\) falls during \([0,\tau]\) (crowded out by \(g\)), then recovers after \(\tau\). At \(t=\tau\) both variables are continuous. After \(\tau\), \((k,c)\) slide along the \(g=0\) saddle path back to \((k^*, f(k^*))\).
+      <br><em>Comparison:</em> The transitory shock causes a <em>smaller</em> drop in consumption at \(t=0\). Intuitively, with a permanent shock, consumption must fall all the way to the new steady-state level immediately. With a transitory shock, consumers know spending will ease, so they smooth by cutting consumption less today.</p>
+
+      <p><strong>5.</strong> <em>News of future permanent shock:</em>
+      <br>(a) \(k\) cannot jump at \(t=0\) — it is a state variable (capital takes time to build).
+      <br>(b) \(c\) <em>does</em> jump at \(t=0\). Rational forward-looking agents anticipate the future tax burden and reduce consumption immediately. The jump must be chosen so that by \(t=\tau\), the economy reaches the new saddle path of the \(g=\bar g\) system exactly.
+      <br>(c) Between \(0\) and \(\tau\): the system evolves under the \(g=0\) direction field (since \(g=0\) now), but consumption is below the \(g=0\) saddle path, so capital gradually accumulates (the economy is below the \(\dot k=0\) locus of the \(g=0\) system). Consumption rises slightly. At \(\tau\), both variables are continuous and the path hits the \(g=\bar g\) saddle path. After \(\tau\), the economy slides down the \(g=\bar g\) saddle path toward \((k^*, c^*(\bar g))\): capital runs down and consumption falls.</p>
+
+      <div class="rubric">
+        (1) All four labeled elements in the phase diagram, correct direction arrows. (2) (a) \(k^*\) unchanged — 5 pts; (b) \(c^*\) falls — 5 pts; (c) immediate jump to new steady state — 5 pts. Time paths — 5 pts. (3) Both loci drawn; correct initial jump (between the two saddle paths); three principles stated/used. (4) Smaller impact drop for transitory; correct time paths; correct comparison. (5) \(k\) doesn't jump; \(c\) jumps down; qualitative description of dynamics in each phase.
+      </div>
+    </div>
+  </div>
+
+  <div class="xq-score"></div>
+
+  <div class="lesson-nav">
+    <a href="s3-linearization.html">← Session 3</a>
+    <a href="s5-mock-midterm.html">Session 5: Mock midterm →</a>
+  </div>
+
+</div>
+</body>
+</html>

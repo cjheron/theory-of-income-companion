@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MT2 · Session 1: Aggregation — Theory of Income</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/exam.js" defer></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Midterm 2 Study Guide · Session 1 of 5</div>
+    <h1>Session 1: Aggregation</h1>
+    <div class="meta">Lessons 21–25 · 2 problems · ~50 min · <a href="index.html">Study-guide hub</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>Instructions.</strong> Work each problem on paper before revealing the solution. Enforce the line limits — if the exam says "1 line", a 5-line derivation would lose points. After revealing, self-grade honestly. The rubric tells you what earns full credit vs. partial.
+  </div>
+
+  <div class="xq-score"></div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PROBLEM 1 · Aggregation and the representative agent
+       Adapted from Spring 2023 Theory of Income Midterm 1, Question 1
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="xq" id="s1-agg-01" data-kind="derive"
+       data-study="../lessons/0022-representative-agent-and-planner-focs.html#s5|L22 §5 · Planner's FOCs ;; ../lessons/0023-negishi-weights-and-welfare-theorems.html#s3|L23 §3 · Reading the dictionary ;; ../lessons/0024-gorman-aggregation.html#s2|L24 §2 · Gorman form">
+
+    <div class="xq-src">
+      <span class="tag past" style="background:#7a3a10;color:#fff;font-family:var(--font-sans);font-size:0.7rem;padding:0.05rem 0.4rem;border-radius:3px">Past exam · Spring 2023 MT1 Q1 (adapted)</span>
+      <span class="pts">60 pts · ~30 min</span>
+    </div>
+
+    <div class="xq-stem">
+      <p>Pure exchange economy with \(I\) agents and \(m\) goods. Each agent \(i = 1,\dots,I\) has utility</p>
+      $$u^i(x^i) = -\sum_{l=1}^m \pi_l \frac{(\theta^i_l - x^i_l)^{1+\sigma}}{1+\sigma}$$
+      <p>where \(\pi_l > 0\), \(\sigma > 0\), and \(\theta^i_l > 0\). The consumption set is \(X^i = \{x \in \mathbb R^m : x_l \le \theta^i_l \text{ for all } l\}\). The feasibility constraint for good \(l\) is \(\sum_{i=1}^I x^i_l = \bar e_l\). Define aggregate satiation points \(\bar\theta_l \equiv \sum_{i=1}^I \theta^i_l\). The planner maximizes \(\sum_{i=1}^I \lambda_i u^i(x^i)\) subject to feasibility, using weights \(\lambda_i > 0\).</p>
+
+      <ol>
+        <li>(5 pts, 1 line) Show that \(u^i\) is strictly increasing and strictly concave on \(X^i\).</li>
+        <li>(5 pts, 1 line) For what value of \(\sigma\) is \(u^i\) a quadratic function?</li>
+        <li>(5 pts, 1 line) What is the economic interpretation of \(\theta^i_l\)?</li>
+        <li>(5 pts, 1 line) Write the first-order condition for \(x^i_l\) in the planner's problem. Use \(\gamma_l\) for the multiplier on the feasibility constraint for good \(l\).</li>
+        <li>(5 pts, 1 line) Solve for \(x^i_l - \theta^i_l\) as a function of \(\gamma_l\), \(\pi_l\), \(\lambda_i\), and \(\sigma\).</li>
+        <li>(5 pts, 1 line) Using feasibility and your answer to (5), find an expression for \(\gamma_l\) as a function of \(\pi_l\), \(\bar\theta_l - \bar e_l\), \(\sigma\), and the vector \(\{\lambda_j\}\).</li>
+        <li>(5 pts, 1 line) Using (5) and (6), write \(x^i_l - \theta^i_l\) in terms of \(\bar e_l - \bar\theta_l\), \(\sigma\), \(\lambda_i\), and \(\{\lambda_j\}\). Your expression should not involve \(\gamma_l\).</li>
+        <li>(5 pts, 2 lines) Write the answer to (7) as \(x^i_l - \theta^i_l = \delta^i(\bar e_l - \bar\theta_l)\). Give a formula for \(\delta^i > 0\) and show \(\sum_i \delta^i = 1\). Show that \(x^i_l\) is increasing in \(\lambda_i\).</li>
+        <li>(5 pts, 1 line) Consider the special case of a single consumer with \(\theta = \bar\theta\). Write this representative agent's utility \(\bar u(\bar x)\) and compute its partial derivatives at \(\bar x = \bar e\).</li>
+        <li>(5 pts, 2 lines) Using (9), compare \(\partial\bar u/\partial x_l\,/\,\partial\bar u/\partial x_k\) with \(\gamma_l/\gamma_k\). Are they equal? What does this say about strong (Gorman) aggregation?</li>
+        <li>(5 pts, 2 lines) Find the equilibrium price ratio \(p_l/p_k\) as a function of \(\bar\theta_l - \bar e_l\) and \(\bar\theta_k - \bar e_k\). Is this ratio increasing or decreasing in \(\bar e_l\)?</li>
+      </ol>
+    </div>
+
+    <div class="xq-solution">
+      <p><strong>1.</strong> On \(X^i\), we have \(\theta^i_l - x^i_l \ge 0\). The \(l\)-th term is \(v(x^i_l) = -\pi_l(\theta^i_l - x^i_l)^{1+\sigma}/(1+\sigma)\), which has \(v' = \pi_l(\theta^i_l - x^i_l)^\sigma > 0\) (strictly increasing) and \(v'' = -\sigma\pi_l(\theta^i_l - x^i_l)^{\sigma-1} \le 0\), strictly negative for \(x^i_l \lt \theta^i_l\) (strictly concave). Summing over \(l\) preserves both properties.</p>
+
+      <p><strong>2.</strong> \(\sigma = 1\) gives \(v(x^i_l) = -\pi_l(\theta^i_l - x^i_l)^2/2\), a quadratic.</p>
+
+      <p><strong>3.</strong> \(\theta^i_l\) is the satiation point (bliss point) for good \(l\) for agent \(i\): the point at which consuming more of good \(l\) gives no additional utility. Beyond it, \(u^i\) would decrease (but \(X^i\) prevents reaching it).</p>
+
+      <p><strong>4.</strong> \(\pi_l(\theta^i_l - x^i_l)^\sigma \lambda_i = \gamma_l\).</p>
+
+      <p><strong>5.</strong> \(x^i_l - \theta^i_l = -\bigl(\gamma_l/(\pi_l\lambda_i)\bigr)^{1/\sigma}\).</p>
+
+      <p><strong>6.</strong> Sum (5) over \(i\) and use \(\sum_i x^i_l = \bar e_l\):
+      $$\bar e_l - \bar\theta_l = -\bigl(\gamma_l/\pi_l\bigr)^{1/\sigma}\sum_j (1/\lambda_j)^{1/\sigma}$$
+      Solving: \(\gamma_l = \pi_l \cdot \dfrac{(\bar\theta_l - \bar e_l)^\sigma}{\bigl(\sum_j (1/\lambda_j)^{1/\sigma}\bigr)^\sigma}\).</p>
+
+      <p><strong>7.</strong> Substituting back into (5):
+      $$x^i_l - \theta^i_l = (\bar e_l - \bar\theta_l)\cdot \frac{(1/\lambda_i)^{1/\sigma}}{\sum_j(1/\lambda_j)^{1/\sigma}}$$</p>
+
+      <p><strong>8.</strong> So \(\delta^i = (1/\lambda_i)^{1/\sigma}/\sum_j(1/\lambda_j)^{1/\sigma} > 0\) and \(\sum_i\delta^i = 1\) by construction. Since \((1/\lambda_i)^{1/\sigma}\) is decreasing in \(\lambda_i\), a higher \(\lambda_i\) gives a smaller \(\delta^i\), so \(x^i_l = \theta^i_l + \delta^i(\bar e_l - \bar\theta_l)\) is closer to \(\theta^i_l\). Wait — from the FOC \(\lambda_i\) assigns more weight to agent \(i\), so they get more. Re-check: \(\delta^i = (1/\lambda_i)^{1/\sigma}/\text{const}\) is decreasing in \(\lambda_i\), so \(x^i_l - \theta^i_l\) is decreasing in \(\lambda_i\). But \(\bar e_l - \bar\theta_l \lt 0\) (since agents consume below their bliss points), so \(x^i_l = \theta^i_l + \delta^i(\bar e_l - \bar\theta_l)\), and a smaller \(\delta^i\) (from higher \(\lambda_i\)) means \(x^i_l\) is closer to \(\theta^i_l\) — higher. So \(x^i_l\) is increasing in \(\lambda_i\). ✓</p>
+
+      <p><strong>9.</strong> \(\bar u(\bar x) = -\sum_l \pi_l(\bar\theta_l - \bar x_l)^{1+\sigma}/(1+\sigma)\). At \(\bar x = \bar e\): \(\partial\bar u/\partial x_l = \pi_l(\bar\theta_l - \bar e_l)^\sigma\).</p>
+
+      <p><strong>10.</strong> From (6), \(\gamma_l = \pi_l(\bar\theta_l - \bar e_l)^\sigma/\bigl(\sum_j(1/\lambda_j)^{1/\sigma}\bigr)^\sigma\). So:
+      $$\frac{\partial\bar u/\partial x_l}{\partial\bar u/\partial x_k} = \frac{\pi_l(\bar\theta_l-\bar e_l)^\sigma}{\pi_k(\bar\theta_k-\bar e_k)^\sigma} = \frac{\gamma_l}{\gamma_k}$$
+      They are equal. This means the representative agent's MRS between any two goods equals the planner's shadow price ratio, confirming that the competitive equilibrium can be decentralized via the representative agent. Strong (Gorman) aggregation holds: equilibrium prices depend only on the aggregate endowments \(\bar e_l\), not on how endowments are distributed across agents.</p>
+
+      <p><strong>11.</strong> In the competitive equilibrium, \(p_l/p_k = \gamma_l/\gamma_k\) (up to normalization):
+      $$\frac{p_l}{p_k} = \frac{\pi_l}{\pi_k}\left(\frac{\bar\theta_l - \bar e_l}{\bar\theta_k - \bar e_k}\right)^\sigma$$
+      This is decreasing in \(\bar e_l\) (a larger endowment of good \(l\) reduces its scarcity and lowers its relative price) and increasing in \(\bar e_k\).</p>
+
+      <div class="rubric">
+        <b>Full credit per part:</b> (1) Both monotonicity and concavity with correct sign of derivative. (2) \(\sigma=1\). (3) Satiation/bliss point. (4) Exact FOC with \(\lambda_i\). (5) Correct sign and exponent. (6) Correct expression for \(\gamma_l\). (7) Correct substitution, no \(\gamma_l\). (8) Formula for \(\delta^i\), \(\sum\delta^i=1\), and correct comparative-static direction. (9) Correct representative utility and marginal utility. (10) Equality confirmed, strong aggregation conclusion. (11) Correct ratio formula and decreasing in \(\bar e_l\).
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PROBLEM 2 · OLG with heterogeneous agents
+       Adapted from Spring 2023 Theory of Income Midterm 1, Question 2
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="xq" id="s1-agg-02" data-kind="derive"
+       data-study="../lessons/0024-gorman-aggregation.html#s3|L24 §3 · OLG and aggregation ;; ../lessons/0022-representative-agent-and-planner-focs.html#s3|L22 §3 · From many agents to one">
+
+    <div class="xq-src">
+      <span class="tag past" style="background:#7a3a10;color:#fff;font-family:var(--font-sans);font-size:0.7rem;padding:0.05rem 0.4rem;border-radius:3px">Past exam · Spring 2023 MT1 Q2 (adapted)</span>
+      <span class="pts">40 pts · ~20 min</span>
+    </div>
+
+    <div class="xq-stem">
+      <p>Use the economy of Problem 1 to analyze a two-period OLG model. Time runs \(t = 1, 2, \dots\). Each cohort born at \(t\) has \(I\) agents with types \(i = 1,\dots,I\). There are two goods: \(l = y\) (consumption when young, at date \(t\)) and \(l = o\) (consumption when old, at date \(t+1\)). Agent \(i\) in cohort \(t\) has utility</p>
+      $$u^{t,i}(x^{t,i}_t, x^{t,i}_{t+1}) = -\pi_y\frac{(\theta^i_y - x^{t,i}_t)^{1+\sigma}}{1+\sigma} - \pi_o\frac{(\theta^i_o - x^{t,i}_{t+1})^{1+\sigma}}{1+\sigma}$$
+      <p>Endowments are the same for every cohort: \(e^{t,i}_t = \alpha^i_y\) when young and \(e^{t,i}_{t+1} = \alpha^i_o\) when old. The initial old (cohort 0) have utility linear in their old consumption. Define: \(\bar\alpha_y = \sum_i \alpha^i_y\), \(\bar\alpha_o = \sum_i \alpha^i_o\), \(\bar\theta_y = \sum_i\theta^i_y\), \(\bar\theta_o = \sum_i\theta^i_o\).</p>
+
+      <ol>
+        <li>(5 pts, 1 line) Is the equilibrium equal to autarky? Is the interest rate constant over time? Briefly justify each answer.</li>
+        <li>(10 pts, 2 lines) Apply the aggregation result from Problem 1 to treat the cohort as a single representative agent with satiation point \((\bar\theta_y, \bar\theta_o)\) and endowment \((\bar\alpha_y, \bar\alpha_o)\). Write the representative agent's optimality condition (MRS = gross interest rate) and use it to solve for the gross interest rate \(1/(1+r_t)\) in equilibrium. Your answer should depend on \(\pi_o, \pi_y, \bar\theta_o - \bar\alpha_o, \bar\theta_y - \bar\alpha_y\), and \(\sigma\).</li>
+        <li>(10 pts, 2 lines) Suppose \(\pi_o \lt \pi_y\) and \(\bar\alpha_y = \bar\alpha_o = \bar\alpha\) and \(\bar\theta_y = \bar\theta_o = \bar\theta\). Is the interest rate positive or negative? Is the allocation Pareto optimal?</li>
+        <li>(5 pts, 1 line) Suppose endowments are heterogeneous: \(\alpha^i_y\) differs across agents but \(\bar\alpha_y\) is unchanged. Does the equilibrium interest rate change? Does the allocation of each agent change?</li>
+        <li>(10 pts, 2 lines) Suppose \(\pi_o \lt \pi_y\) and \(\bar\alpha_y = \bar\alpha_o\), \(\bar\theta_y = \bar\theta_o\). Consider introducing a PAYG social security scheme: each young agent pays tax \(\tau\), each old agent receives \((1+n)\tau\) where \(n > 0\) is the population growth rate. Does this make the initial old better off? Does it make all subsequent generations better or worse off? Justify briefly.</li>
+      </ol>
+    </div>
+
+    <div class="xq-solution">
+      <p><strong>1.</strong> <em>Autarky?</em> No. The initial old have nobody to repay them, so they consume their endowment. But the young, by the aggregation result, will generally want to trade across periods if the equilibrium interest rate is not exactly the autarky MRS. <em>Interest rate constant?</em> Yes. Since endowments and preferences are the same for every cohort (and by aggregation the equilibrium is as if there is a single representative agent per cohort), the equilibrium interest rate is determined by that representative agent's MRS at the endowment and does not change over time.</p>
+
+      <p><strong>2.</strong> By Problem 1, the representative agent has utility \(\bar u(x_y, x_o) = -\pi_y(\bar\theta_y - x_y)^{1+\sigma}/(1+\sigma) - \pi_o(\bar\theta_o - x_o)^{1+\sigma}/(1+\sigma)\). In equilibrium the representative young agent consumes \(\bar x_y = \bar\alpha_y\) and \(\bar x_o = \bar\alpha_o\). The optimality condition is MRS = gross interest rate:
+      $$\frac{\partial\bar u/\partial x_y}{\partial\bar u/\partial x_o} = \frac{\pi_y(\bar\theta_y - \bar\alpha_y)^\sigma}{\pi_o(\bar\theta_o - \bar\alpha_o)^\sigma} = 1 + r$$
+      So the gross interest rate satisfies \(\dfrac{p_{t+1}}{p_t} = \dfrac{1}{1+r_t} = \dfrac{\pi_o(\bar\theta_o - \bar\alpha_o)^\sigma}{\pi_y(\bar\theta_y - \bar\alpha_y)^\sigma}\).</p>
+
+      <p><strong>3.</strong> With \(\bar\alpha_y = \bar\alpha_o = \bar\alpha\) and \(\bar\theta_y = \bar\theta_o = \bar\theta\), the gross interest rate reduces to \(1/(1+r) = \pi_o/\pi_y\). Since \(\pi_o \lt \pi_y\), we have \(\pi_o/\pi_y \lt 1\), hence \(1/(1+r) \lt 1\), so \(1+r > 1\) and \(r > 0\). With \(r > 0\) (and no population growth in this question), the aggregate endowment has finite value and the 1WT applies: the allocation is Pareto optimal.</p>
+
+      <p><strong>4.</strong> By the aggregation result from Problem 1, equilibrium prices depend only on aggregate endowments \((\bar\alpha_y, \bar\alpha_o)\), not on the distribution \(\{\alpha^i_y\}\). So the interest rate does not change. However, each individual agent's allocation does change: from (8) of Problem 1, \(x^i_l - \theta^i_l = \delta^i(\bar e_l - \bar\theta_l)\), where \(\delta^i\) depends on \(\lambda_i\). Since \(\lambda_i\) are determined by the equilibrium income levels, and incomes depend on \(\alpha^i_y\), individual allocations do adjust when endowments are redistributed.</p>
+
+      <p><strong>5.</strong> The initial old receive \(\tau\) from the first generation of young, making them strictly better off. For every subsequent generation born at \(t \ge 1\), the PAYG scheme reduces their young income by \(\tau\) and raises their old income by \((1+n)\tau\). The PAYG rate of return is \(1+n\). Since \(r > 0\) and there is no population growth within the question (let's say \(n=0\) for simplicity), the market return \(1+r > 1+n = 1\), so the PAYG return is below the market return: each subsequent generation is worse off (they would prefer to invest in the market). With \(n > 0\) and \(r > 0\): since \(\pi_o \lt \pi_y\) with equal endowments and satiation points implies \(r > 0\), and if \(r > n\), then every generation born after the scheme is introduced is worse off.</p>
+
+      <div class="rubric">
+        (1) 2.5 pts each: autarky (No, initial old can't trade) + constant rate (Yes, identical cohorts). (2) Full credit: correct MRS formula and correct expression for \(1/(1+r)\). (3) Full credit: correct sign of \(r\), Pareto optimality via 1WT or finite-value argument. (4) Full credit: prices don't change (aggregation), allocations do change. (5) Full credit: initial old better off + correct comparison \(r\) vs \(n\) for subsequent generations.
+      </div>
+    </div>
+  </div>
+
+  <div class="xq-score"></div>
+
+  <div class="lesson-nav">
+    <a href="index.html">← Study-guide hub</a>
+    <a href="s2-euler-transversality.html">Session 2: Euler equations →</a>
+  </div>
+
+</div>
+</body>
+</html>

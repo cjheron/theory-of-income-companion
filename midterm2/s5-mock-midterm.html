@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MT2 · Session 5: Mock Midterm — Theory of Income</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/exam.js" defer></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Midterm 2 Study Guide · Session 5 of 5 · Mock Midterm</div>
+    <h1>Session 5: Mock Midterm</h1>
+    <div class="meta">90 minutes, closed book · ~200 points · Format modelled on Fall 2025 MT2 and 2015/16 MT2 · <a href="index.html">Study-guide hub</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>Instructions.</strong> Treat this as the real thing: phone away, notes closed, paper and pen only. Press <b>Start the clock</b>. Work each problem in order; each part says "1 line" or "2 lines" — stay within that limit. When time is up (or when you press <b>Finish and grade</b>), reveal the solutions and self-grade against the rubrics. Misses join your review queue.
+    <ul>
+      <li><b>Question I</b> (80 pts): OLG with heterogeneous agents and aggregation. Budget ~35 minutes.</li>
+      <li><b>Question II</b> (120 pts): Continuous-time optimal control with two controls (capital utilization model). Budget ~55 minutes.</li>
+    </ul>
+  </div>
+
+  <div class="xq-exam" data-minutes="90">
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       QUESTION I · OLG with heterogeneous agents
+       Adapted from Spring 2023 MT1 Q2 (OLG block) and 2017/18 MT1
+       ═══════════════════════════════════════════════════════════════ -->
+
+  <h2 id="q1">Question I: OLG with Heterogeneous Agents (80 points)</h2>
+  <p>Time is discrete, \(t = 1, 2, \ldots\). Each period a cohort of \(I\) agents is born; each lives for two periods. Agent \(i\) in cohort \(t\) has utility</p>
+  $$u^{t,i}(c^i_t, c^i_{t+1}) = -\pi_y \frac{(\theta^i_y - c^i_t)^{1+\sigma}}{1+\sigma} - \pi_o \frac{(\theta^i_o - c^i_{t+1})^{1+\sigma}}{1+\sigma}$$
+  <p>where \(\pi_y, \pi_o, \sigma > 0\) and \(\theta^i_y, \theta^i_o > 0\). Agent \(i\) has endowment \(\alpha^i_y > 0\) when young and \(\alpha^i_o > 0\) when old. Denote aggregate endowments and satiation points: \(\bar\alpha_y = \sum_i \alpha^i_y\), \(\bar\alpha_o = \sum_i \alpha^i_o\), \(\bar\theta_y = \sum_i \theta^i_y\), \(\bar\theta_o = \sum_i \theta^i_o\). Assume all cohorts have the same distribution of types. The initial old (cohort 0) have utility \(u^{0,i}(c^i_1) = c^i_1\). Each answer should be at most the stated number of lines.</p>
+
+  <div class="xq" id="s5-mock-01" data-kind="derive"
+       data-study="../lessons/0024-gorman-aggregation.html#s3|L24 §3 · OLG and aggregation ;; ../lessons/0022-representative-agent-and-planner-focs.html#s5|L22 §5 · Planner FOCs ;; ../lessons/0023-negishi-weights-and-welfare-theorems.html#s3|L23 §3 · Reading the dictionary">
+
+    <div class="xq-src"><span class="pts">80 pts</span></div>
+
+    <div class="xq-stem">
+      <ol>
+        <li>(5 pts, 1 line) Is the equilibrium equal to autarky? Justify in one sentence.</li>
+        <li>(5 pts, 1 line) Is the equilibrium interest rate constant over time? Justify in one sentence.</li>
+        <li>(10 pts, 2 lines) By the aggregation result shown in class (take it as given), the cohort behaves as a representative agent with satiation points \(\bar\theta_y, \bar\theta_o\) and endowments \(\bar\alpha_y, \bar\alpha_o\). Write the representative agent's optimality condition (MRS equals gross interest rate) and solve for the gross interest rate \(1 + r\).</li>
+        <li>(10 pts, 2 lines) Suppose \(\pi_o \lt \pi_y\), \(\bar\alpha_y = \bar\alpha_o = \bar\alpha\), and \(\bar\theta_y = \bar\theta_o = \bar\theta\). Determine the sign of \(r\). Is the equilibrium allocation Pareto optimal? Justify each answer.</li>
+        <li>(10 pts, 2 lines) Consider introducing a small PAYG social security scheme under the conditions in (4): each young pays tax \(\tau > 0\) and each old receives \((1+n)\tau\), where \(n > 0\) is the population growth rate. Without any calculation, state whether each of the following groups is better or worse off: (a) the initial old, (b) each generation born after the reform. Justify using the comparison between \(r\) and \(n\).</li>
+        <li>(20 pts, 3 lines) Now suppose the endowment distribution changes: \(\alpha^i_y\) differs across agents but \(\bar\alpha_y\) is unchanged. \(\alpha^i_o = \bar\alpha_o / I\) for all \(i\). (a) Does the equilibrium interest rate change? (b) Does the allocation of each individual agent change? Justify both answers using the aggregation result.</li>
+        <li>(20 pts, 3 lines) Continuing from (6): suppose agent \(j\) has a much higher \(\alpha^j_y\) than average. Write the market-clearing condition at \(t=1\) and use it to argue that agent \(j\)'s equilibrium consumption when young, \(c^j_1\), is higher than average. [Hint: use the sharing rule \(x^i_l - \theta^i_l = \delta^i(\bar e_l - \bar\theta_l)\) with \(\delta^i\) depending on agent \(i\)'s income share in equilibrium.]</li>
+      </ol>
+    </div>
+
+    <div class="xq-solution">
+      <p><strong>1.</strong> No. The initial old can only consume their endowment (no one will repay them), but the young generally have incentive to trade across periods if the market interest rate differs from their autarky MRS.</p>
+
+      <p><strong>2.</strong> Yes. Since preferences and endowments are identical across cohorts, the equilibrium is stationary: the same interest rate clears the market at every date.</p>
+
+      <p><strong>3.</strong> The representative agent maximizes \(\bar u(c_y, c_o) = -\pi_y(\bar\theta_y - c_y)^{1+\sigma}/(1+\sigma) - \pi_o(\bar\theta_o - c_o)^{1+\sigma}/(1+\sigma)\). In equilibrium \(c_y = \bar\alpha_y\) and \(c_o = \bar\alpha_o\). The optimality condition MRS = \(1+r\) gives:
+      $$1+r = \frac{\partial\bar u/\partial c_y}{\partial\bar u/\partial c_o} = \frac{\pi_y(\bar\theta_y - \bar\alpha_y)^\sigma}{\pi_o(\bar\theta_o - \bar\alpha_o)^\sigma}$$</p>
+
+      <p><strong>4.</strong> With \(\bar\alpha_y = \bar\alpha_o = \bar\alpha\) and \(\bar\theta_y = \bar\theta_o = \bar\theta\):
+      $$1 + r = \frac{\pi_y}{\pi_o} > 1 \quad(\text{since }\pi_o \lt \pi_y)$$
+      so \(r > 0\). With \(r > 0 > n\) ... actually we don't know \(n\) here. With \(r > 0\) and \(n > 0\), we need to compare them. But in the pure-exchange OLG, Pareto optimality follows from the 1WT when the aggregate endowment has finite present value. The aggregate endowment grows at rate \(n\) while prices fall at rate \(1/(1+r)\), so its value is \(\sum_{t\ge1}(1+n)^{t-1}/(1+r)^{t-1}\), finite iff \(r > n\). We need to know if \(r > n\). If \(r > n\), the 1WT applies and the allocation is PO. If \(r \lt n\) it may not be. With the given parameters only (\(\pi_o \lt \pi_y\), equal endowments and satiation points), \(r > 0\), and if additionally \(r > n\), the allocation is Pareto optimal.</p>
+
+      <p><strong>5.</strong> (a) The initial old receive \(\tau\) in transfers from the young, making them strictly better off. (b) Each subsequent generation pays \(\tau\) young and receives \((1+n)\tau\) old — the PAYG rate of return is \(1+n\). Since \(r > n\) (from the conditions above, as argued in (4) assuming \(r > n\)), the market return exceeds the PAYG return, so every generation born after the reform is <em>worse off</em>. They would do better saving in the market.</p>
+
+      <p><strong>6.</strong> (a) By aggregation, the equilibrium interest rate \(1+r\) depends only on aggregate endowments \((\bar\alpha_y, \bar\alpha_o)\) and aggregate satiation points \((\bar\theta_y, \bar\theta_o)\), not on how endowments are distributed. So \(r\) does not change. (b) Individual allocations do change. The sharing rule \(x^i_l - \theta^i_l = \delta^i(\bar e_l - \bar\theta_l)\) has \(\delta^i\) depending on agent \(i\)'s Negishi weight \(\lambda_i\), which in turn depends on their income. Since income \(\alpha^i_y + \alpha^i_o/(1+r)\) varies across agents (even though prices don't change), individual allocations adjust when the endowment distribution changes.</p>
+
+      <p><strong>7.</strong> Market clearing at \(t=1\): \(\sum_i c^i_1 + \sum_{i,\text{old}} c^{i,0}_1 = \sum_i \alpha^i_y + \sum_i \alpha^0_o\), i.e., aggregate consumption equals aggregate endowment. By the sharing rule:
+      $$c^j_1 = \theta^j_y + \delta^j(\bar\alpha_y - \bar\theta_y)$$
+      where \(\delta^j\) depends on agent \(j\)'s income. Since \(\alpha^j_y\) is high, agent \(j\)'s wealth (income) is high, giving a higher Negishi weight \(\lambda_j\) in the competitive equilibrium — hence a larger \(\delta^j\). With \(\bar\alpha_y \lt \bar\theta_y\) (all agents consume below satiation), \(\bar\alpha_y - \bar\theta_y \lt 0\), so a larger \(\delta^j\) moves \(c^j_1\) further from \(\theta^j_y\) in the direction of the aggregate... wait, let me be careful. \(c^j_1 - \theta^j_1 = \delta^j(\bar\alpha_y - \bar\theta_y) \lt 0\), and a wealthier agent has higher \(\lambda_j\), which gives lower \(\delta^j = (1/\lambda_j)^{1/\sigma}/\sum_k(1/\lambda_k)^{1/\sigma}\). Lower \(\delta^j\) means \(c^j_1\) is closer to \(\theta^j_1\) — but that means higher consumption (since \(c^j_1 = \theta^j_1 - |\delta^j(\bar\theta - \bar\alpha)|)\). So \(c^j_1\) is indeed higher for wealthier agent \(j\). ✓</p>
+
+      <div class="rubric">
+        (1) 5 pts: "No; the initial old have no one to repay them." (2) 5 pts: "Yes; identical cohorts → stationary equilibrium." (3) 10 pts: Correct MRS and formula for \(1+r\). (4) 10 pts: \(r>0\) with correct algebra; PO argument using 1WT + finite-value condition. (5) 10 pts: Initial old better off (5); subsequent gens worse off via \(r>n\) comparison (5). (6) 20 pts: Price unchanged (10, with aggregation argument); allocations change (10, income effect). (7) 20 pts: Correct market-clearing condition (5); sharing rule applied (10); direction of \(c^j_1\) relative to average (5).
+      </div>
+    </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       QUESTION II · Capital utilization and the Hamiltonian
+       Adapted from Theory of Income 2015/16 MT2
+       ═══════════════════════════════════════════════════════════════ -->
+
+  <h2 id="q2">Question II: Capital Utilization Rate (120 points)</h2>
+  <p>Output per person at time \(t\) is \(f(k, u)\) where \(k\) is capital per person and \(u \in (0,1]\) is the capital utilization rate. Laws of motion: \(\dot k = x - \delta(u)k\) and \(c + x = f(k, u)\), so net output is \(\dot k = f(k,u) - \delta(u)k - c\). The planner maximizes \(\int_0^\infty e^{-\rho t}U(c)\,dt\) with controls \((c, u)\) and state \(k\).</p>
+  <p><strong>Assumptions:</strong> (a) \(f(\cdot, u)\) increasing, concave in \(u\); (b) \(f(k, \cdot)\) strictly increasing, strictly concave in \(k\), Inada; (c) \(f_{uk} \lt 0\); (d) \(\delta(u)\) positive, increasing, convex in \(u\); (e) \(U' > 0\), \(U'' \lt 0\), Inada.</p>
+  <p>Each answer should be at most the stated number of lines.</p>
+
+  <div class="xq" id="s5-mock-02" data-kind="derive"
+       data-study="../lessons/0036-optimal-control-and-the-hamiltonian.html#s2|L36 §2 · Hamiltonian with two controls ;; ../lessons/0036-optimal-control-and-the-hamiltonian.html#thm-maximum-principle|L36 §3 · FOCs ;; ../lessons/0037-steady-state-and-phase-diagrams.html#s2|L37 §2 · Steady state">
+
+    <div class="xq-src"><span class="pts">120 pts</span></div>
+
+    <div class="xq-stem">
+      <ol>
+        <li>(5 pts, 1 line) Combine the two laws of motion to write \(c\) as a function of \(k\), \(u\), and \(\dot k\). Call this \(c(k, u, \dot k)\).</li>
+        <li>(5 pts, 1 line) Is \(u^*\) a function of \(\dot k\)? Briefly justify using the structure of the control problem.</li>
+        <li>(10 pts, 1 line) Write the first-order condition for \(u^*\) (the optimal utilization rate as a function of \(k\)).</li>
+        <li>(15 pts, 2 lines) Show that \(u^*(k)\) is decreasing in \(k\). [Hint: totally differentiate the FOC from (3) with respect to \(k\).] Provide the economic intuition in one sentence.</li>
+        <li>(5 pts, 1 line) Define \(g(k) = \max_u [f(k,u) - \delta(u)k]\). Using the envelope theorem, write \(g'(k)\).</li>
+        <li>(5 pts, 1 line) Show that \(g'(0) > 0\) and that \(g\) is concave.</li>
+        <li>(10 pts, 1 line) Write the current-value Hamiltonian \(\mathcal H(k, c, u, \lambda)\), using \(\lambda\) for the co-state on \(k\).</li>
+        <li>(10 pts, 1 line) Write the FOC for \(c\) and the FOC for \(u\). Simplify the FOC for \(u\).</li>
+        <li>(10 pts, 1 line) Write the costate equation for \(\dot\lambda\).</li>
+        <li>(15 pts, 2 lines) Using the FOC for \(c\) and the costate equation, derive the consumption Euler equation (expression for \(\dot c / c\)) and the three steady-state conditions for \((\bar u, \bar k/A, \bar c/A)\) if \(f(k,u) = F(ku, A)\) is CRS (so \(f(k,u) = A\cdot F(ku/A, 1)\)). [Hint: use Euler's theorem.]</li>
+        <li>(15 pts, 2 lines) Using your answer to (1) and the result \(u^*(k)\) from (4): show that the original problem simplifies to \(\max_c \int e^{-\rho t} U(c)\,dt\) subject to \(\dot k = g(k) - c\). This is the standard Cass–Koopmans model. Is the steady state unique? Is it locally stable?</li>
+        <li>(15 pts, 2 lines) At the steady state from (11), suppose there is a permanent unexpected increase in productivity \(A\). Compare the new and old steady-state levels of \(\bar k\), \(\bar u\), and \(\bar c\). Then describe the transition path of \(u(t)\): does it jump at \(t=0\)? Does it return to \(\bar u\) over time?</li>
+      </ol>
+    </div>
+
+    <div class="xq-solution">
+      <p><strong>1.</strong> From \(c + x = f(k,u)\) and \(\dot k = x - \delta(u)k\), so \(x = \dot k + \delta(u)k\). Thus:
+      $$c(k, u, \dot k) = f(k, u) - \delta(u)k - \dot k$$</p>
+
+      <p><strong>2.</strong> No. The term \(\dot k\) enters \(c\) as a level shift: maximizing \(c\) w.r.t. \(u\) (or equivalently maximizing net output \(f(k,u)-\delta(u)k\)) is independent of \(\dot k\). So \(u^*\) depends only on \(k\).</p>
+
+      <p><strong>3.</strong> Maximize \(f(k,u)-\delta(u)k\) w.r.t. \(u\): FOC is \(f_u(k,u) = \delta'(u)k\).</p>
+
+      <p><strong>4.</strong> Totally differentiate the FOC \(f_u(k,u^*(k)) = \delta'(u^*(k))k\) w.r.t. \(k\):
+      $$f_{uk} + f_{uu}\cdot u^*_k = \delta''(u^*)u^*_k \cdot k + \delta'(u^*)$$
+      Solve for \(u^*_k = (f_{uk} - \delta'(u^*))/(\delta''(u^*)k - f_{uu})\). Numerator: \(f_{uk} \lt 0\) (assumption c) and \(\delta'(u^*) > 0\), so numerator \(\lt 0\). Denominator: \(\delta''(u^*) > 0\) (convex \(\delta\)) and \(f_{uu} \lt 0\) (concave in \(u\)), so denominator \(> 0\). Thus \(u^*_k \lt 0\). Intuition: when \(k\) is large, the depreciation cost \(\delta(u)k\) is large, so it pays to use capital less intensively.</p>
+
+      <p><strong>5.</strong> By the envelope theorem: \(g'(k) = f_k(k, u^*(k)) - \delta(u^*(k))\).</p>
+
+      <p><strong>6.</strong> At \(k=0\): \(g'(0) = f_k(0, u^*(0)) - \delta(u^*(0))\). By the Inada condition, \(f_k(0, u^*(0)) \to +\infty\), and \(\delta(u^*(0))\) is finite, so \(g'(0) > 0\). Concavity: \(g''(k) = f_{kk} + f_{ku}u^*_k - \delta'(u^*)u^*_k\). Since \(f_{kk} \lt 0\) and both remaining terms are smaller order, \(g'' \lt 0\). (Alternatively, \(g\) is a supremum of concave functions in \(k\), hence concave.)</p>
+
+      <p><strong>7.</strong> \(\mathcal H(k, c, u, \lambda) = U(c) + \lambda[f(k,u) - \delta(u)k - c]\).</p>
+
+      <p><strong>8.</strong> FOC for \(c\): \(U'(c) = \lambda\). FOC for \(u\): \(\lambda[f_u(k,u) - \delta'(u)k] = 0\), so \(f_u(k,u) = \delta'(u)k\) (same as (3), confirming optimality).</p>
+
+      <p><strong>9.</strong> Costate equation: \(\dot\lambda = \rho\lambda - \mathcal H_k = \rho\lambda - \lambda[f_k(k,u) - \delta(u)]\). Dividing by \(\lambda\): \(\dot\lambda/\lambda = \rho - f_k(k,u) + \delta(u)\).</p>
+
+      <p><strong>10.</strong> Euler equation (same derivation as Session 4 Problem 1): \(\dot c/c = (1/\sigma(c))(f_k(k,u^*(k)) - \delta(u^*(k)) - \rho) = (1/\sigma(c))(g'(k) - \rho)\). For the CRS case \(f(k,u)=F(ku,A)\): \(f_k = F_1 u\), \(f_u = F_1 k\), \(f_{uk}=F_1+F_{11}ku\). Using Euler: \(F(ku,A) = F_1(ku,A)\cdot ku + F_A \cdot A\) (not exactly right for CRS). With CRTS in \((k,u)\): \(f(k,u)=A\cdot F(ku/A,1)\), so the three steady-state equations (from \(\dot c=0\), \(\dot k=0\), and FOC for \(u\)):
+      $$u F_1\!\left(u\frac{\bar k}{A},1\right) = \delta(\bar u)+\rho, \quad \bar c = f(\bar k,\bar u)-\delta(\bar u)\bar k, \quad F_1\!\left(u\frac{\bar k}{A},1\right) = \delta'(\bar u)$$
+      Three equations in \(\bar u\), \(\bar k/A\), and \(\bar c/A\).</p>
+
+      <p><strong>11.</strong> Since \(u^*\) is chosen optimally at every instant, the problem reduces to \(\max_c \int e^{-\rho t}U(c)\,dt\) subject to \(\dot k = g(k)-c\), where \(g(k) = \max_u[f(k,u)-\delta(u)k]\). This is exactly the Cass–Koopmans model. Since \(g\) is strictly concave with \(g'(0)=+\infty\) (Inada) and \(g'(\infty) \lt 0\) (from \(f_k\to0\)), there is a unique steady state \(\bar k\) satisfying \(g'(\bar k)=\rho\). It is locally stable (saddle point, one negative eigenvalue).</p>
+
+      <p><strong>12.</strong> With a higher \(A\): \(g(k,A)=\max_u[f(k,u,A)-\delta(u)k]\) shifts up. The \(\dot c=0\) condition \(g'(\bar k)=\rho\) is now satisfied at a higher \(\bar k' > \bar k\) (more productive, so more capital at the modified golden rule). Steady-state consumption also rises: \(\bar c' = g(\bar k', A') - \rho\bar k' > \bar c\). Steady-state utilization \(\bar u\): from the FOC \(f_u = \delta'(u)k\), a higher \(k\) (at the same \(u\)) increases the RHS, so utilization falls — \(\bar u' \lt \bar u\). Transition path: at \(t=0\), \(k(0)=\bar k\) is fixed (can't jump). \(u(t)\) is a control variable, so it can jump. At impact, \(u\) jumps <em>up</em> (utilization rises) because the increase in \(A\) makes capital more productive, and \(k\) is still at the old low level (from (4), \(u^*(k)\) is decreasing in \(k\), so with \(k\) still low, utilization is high). Over time as \(k\) rises toward \(\bar k'\), \(u(t)\) falls back down to \(\bar u' \lt \bar u\). So \(u\) jumps up then declines over time.</p>
+
+      <div class="rubric">
+        (1) Correct expression for \(c\). (2) No; \(\dot k\) is a level effect that doesn't affect the max over \(u\). (3) Correct FOC \(f_u = \delta'(u)k\). (4) Implicit function theorem applied correctly; correct signs; correct intuition. (5) Envelope theorem: \(g'(k)=f_k-\delta(u^*)\). (6) Inada for \(g'(0)>0\); \(g'' \lt 0\) with argument. (7) Correct Hamiltonian with both controls. (8) Both FOCs correct. (9) Correct costate equation. (10) Correct Euler equation; three SS equations. (11) Reduction to Cass-Koopmans; uniqueness and stability. (12) \(\bar k\) higher, \(\bar c\) higher, \(\bar u\) lower; \(u\) jumps up then falls.
+      </div>
+    </div>
+
+  </div><!-- end xq-exam -->
+
+  <div class="xq-score"></div>
+
+  <div class="lesson-nav">
+    <a href="s4-hamiltonian.html">← Session 4</a>
+    <a href="index.html">Study-guide hub →</a>
+  </div>
+
+</div>
+</body>
+</html>

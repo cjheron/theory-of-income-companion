@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Midterm 2 Study Guide — Theory of Income</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/exam.js" defer></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Midterm 2 Study Guide · Fall 2026</div>
+    <h1>Midterm 2: Four Sessions, Four to Five Hours</h1>
+    <div class="meta">Covers Aggregation (Lessons 21–25), Euler equations &amp; transversality (Lessons 26–32), Local stability &amp; linearization (Lessons 33–35), and the Hamiltonian (Lessons 36–39) · <a href="../index.html">Course index</a></div>
+  </div>
+
+  <div class="goal">
+    <strong>How this guide works.</strong> Each session is one or two long problems drawn directly from past midterms and finals, reformatted for self-study. Work on paper as if it were the real exam — number your answers, enforce the line limits, and don't look at the solution until you're done. Then reveal and self-grade against the rubric. Misses join your review queue below. Session 4 is a timed mock (90 min).
+    <ul>
+      <li><b>Aggregation</b> (Session 1) is the most algebraically intensive and has the richest past-exam record. Do not skip the derivation sub-parts even if the conclusion seems obvious.</li>
+      <li><b>Euler equations &amp; transversality</b> (Session 2) connects the discrete-time tools in Folder 5 to the continuous-time Hamiltonian. The speed-of-convergence problem has appeared on MT1 in past years, so it is fair game.</li>
+      <li><b>Linearization</b> (Session 3) is short but technically precise — eigenvalue signs and the Hamiltonian matrix are reliable exam territory.</li>
+      <li><b>Hamiltonian</b> (Session 4 and the mock) is the heaviest folder and appeared on both the Fall 2025 midterm 2 and many prior finals. Budget the most time there.</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="schedule">1. The schedule</h2>
+  <table class="simple plan">
+    <tr><th>Session</th><th>Content</th><th>Time</th></tr>
+    <tr><td><a href="s1-aggregation.html">S1</a></td><td>Aggregation — Gorman form, planner's FOCs, sharing rules, OLG aggregation and equilibrium prices</td><td>~50 min</td></tr>
+    <tr><td><a href="s2-euler-transversality.html">S2</a></td><td>Euler equations &amp; transversality — speed of convergence, concave transformations, Tobin's q</td><td>~65 min</td></tr>
+    <tr><td><a href="s3-linearization.html">S3</a></td><td>Local stability &amp; linearization — Hamiltonian matrix, eigenvalues, saddle-path direction</td><td>~45 min</td></tr>
+    <tr><td><a href="s4-hamiltonian.html">S4</a></td><td>The Hamiltonian — NCG model from scratch, costate, transversality, phase diagrams, fiscal shocks</td><td>~75 min</td></tr>
+    <tr><td><a href="s5-mock-midterm.html">S5</a></td><td>Mock midterm — timed 90 minutes, then 30 min grading</td><td>~120 min</td></tr>
+  </table>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="dashboard">2. Your progress and review queue</h2>
+  <p>Updates live as you answer. For derive questions, mark yourself correct only if your derivation matches the model answer step by step — not just the final expression.</p>
+  <div class="xq-dashboard"
+       data-pages="s1-aggregation.html|Session 1 · Aggregation ;; s2-euler-transversality.html|Session 2 · Euler equations &amp; transversality ;; s3-linearization.html|Session 3 · Local stability &amp; linearization ;; s4-hamiltonian.html|Session 4 · The Hamiltonian ;; s5-mock-midterm.html|Session 5 · Mock midterm"
+       data-totals="2,2,1,2,2"></div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="sessions">3. The sessions</h2>
+  <ol class="toc">
+    <li><span class="num">S1</span><span><a href="s1-aggregation.html">Aggregation</a> <span class="desc">· Lessons 21–25 · 2 problems · ~50 min · adapted from Spring 2023 MT1 and Fall 2025 MT1</span></span></li>
+    <li><span class="num">S2</span><span><a href="s2-euler-transversality.html">Euler equations &amp; transversality</a> <span class="desc">· Lessons 26–32 · 2 problems · ~65 min · adapted from Fall 2025 MT1 Q2 and Final 2010/11</span></span></li>
+    <li><span class="num">S3</span><span><a href="s3-linearization.html">Local stability &amp; linearization</a> <span class="desc">· Lessons 33–35 · 1 problem · ~45 min · Hamiltonian matrix, saddle-point structure</span></span></li>
+    <li><span class="num">S4</span><span><a href="s4-hamiltonian.html">The Hamiltonian</a> <span class="desc">· Lessons 36–39 · 2 problems · ~75 min · adapted from Fall 2025 MT2 Q1 and 2017/18 Final Q1</span></span></li>
+    <li><span class="num">S5</span><span><a href="s5-mock-midterm.html">Mock midterm</a> <span class="desc">· timed, ~200 points · 90 min + 30 min review · adapted from Spring 2023 MT1 Q2 and 2015/16 MT2</span></span></li>
+  </ol>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="format">4. What past exams tell us</h2>
+  <p>Alvarez MT2s are long guided derivations. Each part specifies a point value and a line limit ("1 line", "2 lines", "maximum 3 lines"). Work within those limits — on the real exam, writing more than permitted can cost you points. The table below summarizes the most-tested themes across all past MT2s and finals that overlap with MT2 coverage:</p>
+  <table class="simple">
+    <tr><th>Theme</th><th>Exams</th><th>Covered in</th></tr>
+    <tr><td>Gorman aggregation: planner FOC, sharing rule \(\delta^i\), representative agent</td><td>Spring 2023 MT1, Fall 2025 MT1 TF</td><td>S1, S5</td></tr>
+    <tr><td>OLG with heterogeneous agents: interest rate from representative agent</td><td>Spring 2023 MT1 Q2, 2017/18 MT1</td><td>S1, S5</td></tr>
+    <tr><td>Speed of convergence: \(Q(\lambda)\), \(g'(\bar x)=\lambda_1\), concave transformation slows adjustment</td><td>Fall 2025 MT1 Q2 (9 parts)</td><td>S2, S3</td></tr>
+    <tr><td>Tobin's q: Hamiltonian, \(\mathcal H_i = 0\), costate, \((x,q)\) phase diagram, \(v(k)\) linear</td><td>Final 2010/11 Q1</td><td>S2</td></tr>
+    <tr><td>NCG Hamiltonian: define \(\mathcal H\), FOC, costate, TC, Euler equation, SS, Bellman/HJB</td><td>Fall 2025 MT2 Q1, 2015/16 MT2, 2016/17 MT2</td><td>S4, S5</td></tr>
+    <tr><td>Phase diagrams: \(\dot c = 0\) and \(\dot k = 0\) loci, saddle path, permanent vs transitory shocks</td><td>2017/18 Final Q1 (4 parts)</td><td>S4</td></tr>
+    <tr><td>Capital utilization / two controls: FOC for each control, costate, normalized SS</td><td>2015/16 MT2 (17 parts)</td><td>S5</td></tr>
+    <tr><td>Hamiltonian matrix linearization: \(\text{tr}(\mathcal H)=\rho\), \(\det(\mathcal H)\lt 0\), stable eigenvector</td><td>Fall 2025 MT2 Q2, Lessons 38–39</td><td>S3</td></tr>
+  </table>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="traps">5. Common errors to avoid</h2>
+  <ul>
+    <li><b>Sharing rule confusion.</b> The planner's sharing rule \(\delta^i\) depends on \(\lambda_i\) and \(\sigma\) but is the same for every good \(l\). Many students re-derive it for each good — do it once and invoke the result. <a href="../lessons/0023-negishi-weights-and-welfare-theorems.html#s3">L23 §3</a></li>
+    <li><b>Getting the Hamiltonian matrix ordering wrong.</b> With \(\hat z = (\hat\lambda, \hat k)'\), the matrix is \(\mathcal H = \begin{pmatrix}\rho - H^*_{k\lambda} & -H^*_{kk} \\ H^*_{\lambda\lambda} & H^*_{\lambda k}\end{pmatrix}\). With \(\hat z = (\hat k, \hat\lambda)'\) the blocks swap. Many past exams (and solutions floating around) use the wrong ordering. <a href="../lessons/0038-hamiltonian-linearization-and-eigenvalues.html#s3">L38 §3</a></li>
+    <li><b>Forgetting transversality.</b> In a Hamiltonian problem, writing the FOC and costate is not enough — you need TC \(\lim_{T\to\infty} e^{-\rho T}\lambda(T)k(T) = 0\). It is what pins the initial shadow price. <a href="../lessons/0036-optimal-control-and-the-hamiltonian.html#s3">L36 §3</a></li>
+    <li><b>Using the wrong sign for the costate equation.</b> The costate equation is \(\dot\lambda = \rho\lambda - \partial\mathcal H/\partial k\), not \(\dot\lambda = -\partial\mathcal H/\partial k\). The \(\rho\lambda\) term accounts for the discount rate. <a href="../lessons/0036-optimal-control-and-the-hamiltonian.html#thm-maximum-principle">L36 §3</a></li>
+    <li><b>Permanent government shock changes \(k^*\).</b> It does not. The \(\dot c = 0\) locus is \(f'(k^*) = \rho\), which is independent of \(g\). Only the \(\dot k = 0\) locus (and hence \(c^*\)) shifts. <a href="../lessons/0037-steady-state-and-phase-diagrams.html#s3">L37 §3</a></li>
+    <li><b>Speed of convergence \(g'(\bar x)\) is \(\lambda_1\), not \(b\).</b> It is the smaller eigenvalue of the quadratic \(Q(\lambda) = 1 + b\lambda + \beta\lambda^2\), not \(b\) itself. And \(\lambda_1\) is increasing in \(b\), so a less negative \(b\) means slower convergence. <a href="../lessons/0033-local-stability-and-reciprocal-pairs.html#def-Q-lambda">L33 §2</a></li>
+  </ul>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="cheatsheets">6. Cheatsheets</h2>
+  <ul>
+    <li><a href="../reference/aggregation-cheatsheet.html">Aggregation &amp; representative agent</a> (Lessons 21–25)</li>
+    <li><a href="../reference/euler-cheatsheet.html">Euler equations &amp; transversality</a> (Lessons 26–32)</li>
+    <li><a href="../reference/hamiltonian-cheatsheet.html">Hamiltonian &amp; optimal control</a> (Lessons 36–39)</li>
+    <li><a href="../reference/ge-glossary.html">Glossary</a></li>
+  </ul>
+
+  <div class="ask-teacher">💬 <strong>Stuck?</strong> Ask me anything: "grade my answer to part 3", "give me a hint on the sharing rule", "explain why the saddle path slopes upward". Paste your work and I'll tell you what's right and what's missing.</div>
+
+  <div class="lesson-nav">
+    <a href="../index.html">← Course index</a>
+    <a href="s1-aggregation.html">Start: Session 1 →</a>
+  </div>
+
+</div>
+</body>
+</html>
