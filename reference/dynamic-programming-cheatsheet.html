@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dynamic Programming Cheatsheet — Theory of Income</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <style>
+    .sheet { font-size: 0.9rem; line-height: 1.55; }
+    .sheet h2 { font-size: 1.05rem; margin-top: 1.4rem; }
+    .sheet .box { padding: 0.6rem 0.9rem; margin: 0.6rem 0; }
+    .sheet ol, .sheet ul { margin-top: 0.2rem; margin-bottom: 0.2rem; }
+    .sheet li { margin: 0.15rem 0; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.2rem; }
+    @media (max-width: 700px) { .two { grid-template-columns: 1fr; } }
+    .sheet table.simple { font-size: 0.82rem; margin: 0.5rem 0; width: 100%; }
+    .sheet table.simple td, .sheet table.simple th { padding: 0.25rem 0.5rem; vertical-align: top; }
+    .see { font-family: var(--font-sans); font-size: 0.72rem; color: var(--muted); }
+    .see a { color: var(--accent); }
+  </style>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page sheet">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Reference · Folders 8–9</div>
+    <h1>Dynamic Programming: Deterministic and Stochastic</h1>
+    <div class="meta">Bellman equation and Principle of Optimality; Contraction Mapping Theorem; Blackwell conditions; properties of V*; Benveniste–Scheinkman; Euler equations; guess-and-verify; HJB equation; stochastic Bellman; Feller property; stochastic Euler; LQ stochastic DP and certainty equivalence. Lessons <a href="../lessons/0040-principle-of-optimality-and-bellman-equation.html">40</a>–<a href="../lessons/0044-lq-stochastic-dp-and-certainty-equivalence.html">44</a> · <a href="../sources/slides8-dynamic-programming.pdf">Slides 8</a> · <a href="../sources/slides9-stochastic-dp.pdf">Slides 9</a> · <a href="ge-glossary.html">Glossary</a> · <a href="../index.html">Index</a></div>
+  </div>
+
+  <div class="box mustknow" id="final">
+    <div class="box-title">Exam must-know (final). Not on Midterm 1 or Midterm 2.</div>
+    <div class="two">
+      <div>
+        <p><b>Deterministic DP: be able to write from a blank page</b></p>
+        <ol>
+          <li><b>Sequence problem:</b> \(V^*(x_0)=\max_{\{x_{t+1}\}}\sum_{t=0}^\infty\beta^t F(x_t,x_{t+1})\) s.t. \(x_{t+1}\in\Gamma(x_t)\).</li>
+          <li><b>Bellman equation:</b> \(V(x)=\max_{y\in\Gamma(x)}\{F(x,y)+\beta V(y)\}\). The Principle of Optimality: \(V=V^*\).</li>
+          <li><b>Benveniste–Scheinkman:</b> \(V'(x)=F_x(x,g(x))\). Does NOT require \(g\) to be differentiable.</li>
+          <li><b>Euler equation (from Bellman):</b> \(F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0\). For neoclassical growth: \(U'(c_t)=\beta U'(c_{t+1})f'(k_{t+1})\).</li>
+          <li><b>Continuous-time Bellman (HJB):</b> \(\rho V(x)=\max_u\{h(x,u)+V'(x)g(x,u)\}\). Costate identification: \(\lambda(t)=V'(x(t))\).</li>
+          <li><b>Guess-and-verify:</b> guess \(V(x)=a+b\log x\) or \(V(x)=-c/2\, x^2\); substitute into Bellman; match coefficients.</li>
+        </ol>
+      </div>
+      <div>
+        <p><b>Stochastic DP: be able to write from a blank page</b></p>
+        <ol>
+          <li><b>Stochastic Bellman:</b> \(V(x,z)=\max_{x'\in\Gamma(x,z)}\{F(x,x',z)+\beta E[V(x',z')\mid z]\}\). \(z\) is Markov.</li>
+          <li><b>Stochastic Euler:</b> \(0=F_y(x_t,x_{t+1},z_t)+\beta E_t[F_x(x_{t+1},x_{t+2},z_{t+1})]\).</li>
+          <li><b>Certainty equivalence (LQ):</b> policy \(y=G_x x+G_z z\); \(G_x\) is INDEPENDENT of \(\Sigma\) and \(A\). Same as the deterministic case with \(\Sigma=0\).</li>
+          <li><b>Riccati equation:</b> \(V_{xx}=F_{xx}-F_{xy}(F_{yy}+\beta V_{xx})^{-1}F_{yx}\). Fixed point of \(T(P)=F_{xx}-F_{xy}(F_{yy}+\beta P)^{-1}F_{yx}\).</li>
+          <li><b>Shock response:</b> \(G_z=-(F_{yy}+\beta V_{xx})^{-1}(F_{yz}+\beta V_{xz}A)\), where \(V_{xz}=F_{xz}+F_{xy}G_z\) simultaneously.</li>
+        </ol>
+        <p><b>Key traps</b></p>
+        <ul>
+          <li><b>Principle of Optimality ≠ global optimality:</b> V* satisfies the Bellman, but other functions may too. Uniqueness requires CMT conditions.</li>
+          <li><b>Benveniste–Scheinkman:</b> V' = F_x(x,g(x)), NOT F_x + F_y g'(x). The g'(x) terms cancel via the FOC.</li>
+          <li><b>CE in stochastic LQ:</b> G_x is independent of Σ AND of A. Only G_z depends on A.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── -->
+  <h2>Sequence problem and the Bellman equation <span class="see"><a href="../lessons/0040-principle-of-optimality-and-bellman-equation.html">L40</a> · <a href="../sources/slides8-dynamic-programming.pdf#page=2">Det DP p.2–10</a></span></h2>
+  <div class="two">
+    <div>
+      <p><b>Sequence problem.</b> State \(x_t\in X\), feasibility \(\Gamma:X\rightrightarrows X\), discount \(\beta\in(0,1)\):</p>
+      $$V^*(x_0)=\max_{\{x_{t+1}\}_{t=0}^\infty}\sum_{t=0}^\infty\beta^t F(x_t,x_{t+1})\quad\text{s.t.}\ x_{t+1}\in\Gamma(x_t),\ x_0\ \text{given.}$$
+      <p>Equivalent: \(V^*(x_0)=\max_{x^\infty\in\Pi^\infty(x_0)}u(\{x_{t+1}\})\) where \(u=\lim_{T\to\infty}\sum_{t=0}^T\beta^t F\).</p>
+      <p><b>Bellman (recursive) problem.</b> Find \(V:X\to\mathbb R\) s.t.:</p>
+      $$V(x)=\max_{y\in\Gamma(x)}\{F(x,y)+\beta V(y)\}.$$
+      <p>The maximizer is \(g(x)\): \(V(x)=F(x,g(x))+\beta V(g(x))\).</p>
+    </div>
+    <div>
+      <p><b>Principle of Optimality.</b> Under the maintained existence conditions:</p>
+      $$V^*(x)=V(x)\quad\text{for all }x\in X.$$
+      <p>Once we know \(V\) and \(g\), we solve the problem for ANY \(x_0\in X\) in one step.</p>
+      <p><b>Sketch proof (bounded \(F\)).</b> If \(|F|\leq B\): (1) \(|\beta^T V(x_T)|\leq\beta^T B/(1-\beta)\to0\); (2) substituting the Bellman recursion forward and taking \(T\to\infty\) gives \(V(x_0)\geq u(\cdot)\) for all plans; (3) equality is achieved by the plan \(x_{t+1}^*=g(x_t^*)\), giving \(V(x_0)\leq V^*(x_0)\). Conclusion: \(V=V^*\).</p>
+      <p><b>Advantages of DP.</b> (1) Shocks: easy to handle via the state space. (2) Guess-and-verify: a corollary of CMT — any function in a T-invariant subspace is a candidate. (3) Computational: iterate \(T^n V_0\to V^*\) at geometric rate \(\beta\). (4) Discrete choice and non-convex problems. (5) Easier interpretation of shadow prices via the value function.</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── -->
+  <h2>Contraction Mapping Theorem and Blackwell's conditions <span class="see"><a href="../lessons/0041-contraction-mapping-and-properties-of-v.html">L41</a> · <a href="../sources/slides8-dynamic-programming.pdf#page=11">Det DP p.11–20</a></span></h2>
+  <div class="two">
+    <div>
+      <p><b>Setting.</b> \(S=\{f:X\to\mathbb R\text{ continuous and bounded}\}\), \(\rho(f,g)=\|f-g\|=\sup_{x\in X}|f(x)-g(x)|\). \(S\) is complete.</p>
+      <p><b>Contraction.</b> \(T:S\to S\) is a contraction with modulus \(\beta\in(0,1)\) if \(\rho(Tf,Tg)\leq\beta\rho(f,g)\) for all \(f,g\in S\).</p>
+      <p><b>CMT.</b> Unique fixed point \(s^*=Ts^*\); \(\rho(T^n s_0,s^*)\leq\beta^n\rho(s_0,s^*)\) for any \(s_0\in S\).</p>
+      <p><b>Corollary.</b> If \(S'\subset S\) closed and \(TS'\subset S'\), then \(s^*\in S'\). Useful for showing V* inherits properties (monotone, concave, …).</p>
+    </div>
+    <div>
+      <p><b>Blackwell's sufficient conditions.</b> Let \(T:S\to S\). If:</p>
+      <ol>
+        <li><b>Monotonicity:</b> \(f\leq g\Rightarrow Tf\leq Tg\), and</li>
+        <li><b>Discounting:</b> \(T(f+a)\leq Tf+\beta a\) for all \(a\in\mathbb R_+\),</li>
+      </ol>
+      <p>then T is a contraction with modulus \(\beta\).</p>
+      <p><b>Proof.</b> Write \(f=g+(f-g)\leq g+\|f-g\|\). By monotonicity: \(Tf\leq T(g+\|f-g\|)\leq Tg+\beta\|f-g\|\). Reversing roles: \(Tg\leq Tf+\beta\|f-g\|\). Thus \(\|Tf-Tg\|\leq\beta\|f-g\|\). \(\square\)</p>
+      <p><b>Bellman operator:</b> \((Tv)(x)=\max_{y\in\Gamma(x)}\{F(x,y)+\beta v(y)\}\). T maps S into S (Theorem of Max + continuity of \(\Gamma\)). Blackwell: (1) T monotone — if \(v\leq f\), old maximizer \(g\) gives \(Tv\leq Tf\); (2) T discounts: \(T(v+a)(x)=Tv(x)+\beta a\). Both satisfied \(\Rightarrow\) T is a contraction.</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── -->
+  <h2>Properties of V*: monotonicity and concavity <span class="see"><a href="../lessons/0041-contraction-mapping-and-properties-of-v.html">L41</a> · <a href="../sources/slides8-dynamic-programming.pdf#page=19">Det DP p.19–20</a></span></h2>
+  <div class="two">
+    <div>
+      <p><b>Monotonicity of V*.</b> Assume \(F(\cdot,y)\) is increasing and \(\Gamma\) is increasing (\(x\leq x'\Rightarrow\Gamma(x)\subset\Gamma(x')\)). Then \(V^*\) is increasing.</p>
+      <p><b>Proof sketch.</b> Let \(S'=\{\)increasing functions in \(S\}\). Show \(TS'\subset S'\): if \(f\) is increasing and \(x\leq x'\), then at the maximizer \(g(x)\in\Gamma(x)\subset\Gamma(x')\), \(Tf(x')=\max_{y\in\Gamma(x')}\{F(x',y)+\beta f(y)\}\geq F(x',g(x))+\beta f(g(x))\geq F(x,g(x))+\beta f(g(x))=Tf(x)\). By the Corollary, \(V^*\in S'\).</p>
+    </div>
+    <div>
+      <p><b>Concavity of V*.</b> Assume X convex, \(\Gamma\) convex-valued (\(y\in\Gamma(x)\), \(y'\in\Gamma(x')\Rightarrow y^\theta\in\Gamma(x^\theta)\) for \(x^\theta=\theta x+(1-\theta)x'\)), and F concave in (x,y). Then \(V^*\) is concave.</p>
+      <p><b>Proof sketch.</b> Let \(S''=\{\)concave functions in \(S\}\). Show \(TS''\subset S''\): for concave \(f\) and \(x^\theta=\theta x+(1-\theta)x'\), use the \(\theta\)-mixture plan \(y^\theta=\theta g(x)+(1-\theta)g(x')\in\Gamma(x^\theta)\). Then \(Tf(x^\theta)\geq F(x^\theta,y^\theta)+\beta f(y^\theta)\geq\theta[F(x,g(x))+\beta f(g(x))]+(1-\theta)[F(x',g(x'))+\beta f(g(x'))]=\theta Tf(x)+(1-\theta)Tf(x')\). By the Corollary, \(V^*\in S''\).</p>
+      <p><b>Strictly concave V*.</b> If F strictly concave jointly in (x,y), then V* is strictly concave and g is single-valued (the maximizer is unique).</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── -->
+  <h2>Benveniste–Scheinkman and Euler equations <span class="see"><a href="../lessons/0042-envelope-euler-equations-and-continuous-time-dp.html">L42</a> · <a href="../sources/slides8-dynamic-programming.pdf#page=21">Det DP p.21–28</a></span></h2>
+  <div class="two">
+    <div>
+      <p><b>Benveniste–Scheinkman (B-S) theorem.</b> Assume F is C¹ and the optimal policy satisfies \((x,g(x))\in\text{Int}(\text{Gr}(\Gamma))\). Then V* is differentiable and:</p>
+      $$V'(x)=F_x(x,g(x)).$$
+      <p>Key: does NOT require g to be differentiable. The \(F_y g'(x)\) terms cancel by the FOC.</p>
+      <p><b>Derivation (heuristic).</b> Differentiate \(V(x)=F(x,g(x))+\beta V(g(x))\):
+      \(V'=F_x+F_y g'+\beta V'(g)g'=F_x+[F_y+\beta V'(g)]g'=F_x\) (since FOC \(F_y+\beta V'(g)=0\)).</p>
+      <p><b>Euler equations from Bellman.</b> FOC: \(F_y(x,g(x))+\beta V'(g(x))=0\). B-S: \(V'(x)=F_x(x,g(x))\). Combine:
+      $$F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0.$$
+      This is the same Euler equation derived from the sequence problem — the DP approach recovers it.</p>
+    </div>
+    <div>
+      <p><b>Neoclassical growth.</b> \(F(k,k')=U(f(k)-k')\): \(F_y=-U'(c)\), \(F_x=U'(c)f'(k)\). Euler: \(U'(c_t)=\beta U'(c_{t+1})f'(k_{t+1})\) ✓</p>
+      <p><b>Guess-and-verify.</b> A powerful method enabled by the Corollary of CMT: if V is in a T-invariant subspace, it must be V*.</p>
+      <table class="simple">
+        <tr><th>Model</th><th>Guess V(x)</th><th>Policy g(x)</th></tr>
+        <tr><td>Log utility, CD, 100% dep.</td><td>\(A+B\log x\), \(B=\alpha/(1-\alpha\beta)\)</td><td>\(g(x)=\alpha\beta x^\alpha\)</td></tr>
+        <tr><td>Adjustment cost</td><td>\(-c/2\, x^2\)</td><td>\(g(x)=bx/(a+b+\beta c)\)</td></tr>
+        <tr><td>Savings, \((1+r)\beta=1\)</td><td>\(U(w+rx)/(1-\beta)\)</td><td>\(g(x)=x\)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── -->
+  <h2>Continuous-time Bellman (HJB) and the Maximum Principle <span class="see"><a href="../lessons/0042-envelope-euler-equations-and-continuous-time-dp.html">L42</a> · <a href="../sources/slides8-dynamic-programming.pdf#page=32">Det DP p.32–39</a></span></h2>
+  <div class="two">
+    <div>
+      <p><b>HJB equation.</b> State \(x\in X\), control \(u\in U\), flow return h, law of motion \(\dot x=g(x,u)\), discount \(\rho\):</p>
+      $$\rho V(x)=\max_{u\in U}\{h(x,u)+V'(x)g(x,u)\}.$$
+      <p>The optimal control \(u^*(x)\) satisfies the FOC:
+      \(0=h_u(x,u^*(x))+V'(x)g_u(x,u^*(x))\).</p>
+      <p><b>Derivation.</b> Write the Bellman equation with period length \(\Delta\). Taylor-expand \(V(x_{t+\Delta})\approx V(x_t)+V'(x_t)\Delta g(x,u)+o(\Delta)\). Divide by \(\Delta\) and let \(\Delta\to0\).</p>
+    </div>
+    <div>
+      <p><b>Connection to the Maximum Principle.</b> Along the optimal path: \(\lambda(t)=V'(x(t))\). Differentiate \(\lambda=V'(x)\): \(\dot\lambda=V''(x)\dot x=V''g(x,u^*)\). Differentiating the HJB w.r.t. x and simplifying (using FOC to cancel \(u^*\) derivative terms):</p>
+      $$\dot\lambda=\rho\lambda-h_x(x,u^*)-\lambda g_x(x,u^*)=\rho\lambda-H_x.$$
+      <p>This is exactly the costate equation of the Maximum Principle. So the Hamiltonian and HJB are equivalent formulations: \(\lambda(t)=V'(x(t))\) identifies the costate with the marginal value of the state.</p>
+      <table class="simple">
+        <tr><th>Concept</th><th>Hamiltonian (MP)</th><th>HJB (DP)</th></tr>
+        <tr><td>Optimality</td><td>\(H_u=0\)</td><td>FOC in HJB</td></tr>
+        <tr><td>Costate</td><td>\(\dot\lambda=\rho\lambda-H_x\)</td><td>\(\lambda=V'(x)\) implicit</td></tr>
+        <tr><td>Shadow price</td><td>\(\lambda\) exogenous</td><td>\(\lambda=V'\) derived</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── -->
+  <h2>Stochastic Bellman equation and Markov processes <span class="see"><a href="../lessons/0043-stochastic-bellman-equation.html">L43</a> · <a href="../sources/slides9-stochastic-dp.pdf#page=2">Stoch DP p.2–14</a></span></h2>
+  <div class="two">
+    <div>
+      <p><b>Markov process \(z_t\in Z\).</b></p>
+      <ul>
+        <li><b>Finite state:</b> \(Q(z'|z)=\Pr\{z_{t+1}=z'\mid z_t=z\}\); matrix \(P\), \(P_{ij}=Q(\zeta_j|\zeta_i)\), rows sum to 1; \(t\)-step: \(Q_t=P^t\).</li>
+        <li><b>Continuous state:</b> \(z_{t+1}=\mu(z_t)+\sigma(z_t)e_{t+1}\), \(e_t\) i.i.d.; \(F(a|z)=H((a-\mu(z))/\sigma(z))\).</li>
+      </ul>
+      <p><b>Stochastic Bellman operator.</b> Value function \(V:X\times Z\to\mathbb R\):</p>
+      $$(TV)(x,z)=\max_{x'\in\Gamma(x,z)}\left\{F(x,x',z)+\beta\int_Z V(x',z')Q(dz'|z)\right\}.$$
+      <p>Principle of Optimality: \(V=TV\iff V=V^*\). Proof similar to deterministic case.</p>
+    </div>
+    <div>
+      <p><b>Feller property.</b> If \(f:Z\to\mathbb R\) is continuous, then \(Ef(\cdot)\equiv\int f(z')Q(dz'|\cdot)\) is continuous. Preserves continuity and monotonicity; used to show V*(x,z) is continuous and monotone in z.</p>
+      <p><b>Envelope and FOC.</b> With \(g(x,z)\in\text{Int}\,\Gamma(x,z)\):</p>
+      $$0=F_y(x,g(x,z),z)+\beta E[V_x(g(x,z),z')\mid z],\qquad V_x(x,z)=F_x(x,g(x,z),z).$$
+      <p><b>Stochastic Euler equation.</b> Combine FOC and envelope:</p>
+      $$0=F_y(x_t,x_{t+1},z_t)+\beta E_t[F_x(x_{t+1},x_{t+2},z_{t+1})].$$
+      <p><b>Transversality condition.</b>
+      \(\displaystyle\lim_{T\to\infty}\beta^T\int F_x(x_T,x_{T+1},z_T)\cdot x_T\cdot Q^{(T)}(dz^T|z_0)=0.\)
+      Economic meaning: the present-value marginal value of the state times the state → 0 at infinity.</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── -->
+  <h2>LQ stochastic DP and certainty equivalence <span class="see"><a href="../lessons/0044-lq-stochastic-dp-and-certainty-equivalence.html">L44</a> · <a href="../sources/slides9-stochastic-dp.pdf#page=15">Stoch DP p.15–26</a></span></h2>
+  <div class="two">
+    <div>
+      <p><b>LQ problem.</b> Quadratic return in \((x,y,z)\), normalized around steady state:</p>
+      $$F(x,y,z)=\tfrac{1}{2}[x'F_{xx}x+y'F_{yy}y+2x'F_{xy}y+2x'F_{xz}z+2y'F_{yz}z].$$
+      <p>Exogenous shock: \(z_{t+1}=Az_t+\Sigma^{1/2}e_{t+1}\), \(e_t\) i.i.d., \(E[e_t]=0\), \(E[e_te_t']=I_k\).</p>
+      <p><b>Value function guess.</b> \(V(x,z)=\frac12 x'V_{xx}x+x'V_{xz}z+\frac12 z'V_{zz}z+v_0\). The \(V_{zz}\) and \(v_0\) terms don't affect the choice of \(y\).</p>
+      <p><b>Optimal policy (linear decision rule).</b>
+      $$y=G_x x+G_z z,\quad G_x=-(F_{yy}+\beta V_{xx})^{-1}F_{yx},\quad G_z=-(F_{yy}+\beta V_{xx})^{-1}(F_{yz}+\beta V_{xz}A).$$</p>
+    </div>
+    <div>
+      <p><b>Certainty equivalence.</b> \(G_x\) is independent of \(\Sigma\) (the variance of shocks) AND of \(A\) (the persistence of shocks). Proof: since \(E[e]=0\), the \(\Sigma\) terms vanish from the FOC and the x-coefficient equations are identical to the deterministic case.</p>
+      <p><b>Discrete-time Riccati equation.</b>
+      $$V_{xx}=F_{xx}-F_{xy}(F_{yy}+\beta V_{xx})^{-1}F_{yx}.$$
+      Operator \(T(P)=F_{xx}-F_{xy}(F_{yy}+\beta P)^{-1}F_{yx}\). Fixed point: \(V_{xx}=P^*=T(P^*)\). \(T^m(P)\) = value function of \(m\)-horizon problem with terminal cost \(\frac12 x'Px\).</p>
+      <p><b>Solving for V_xz and G_z.</b> Two linear equations:
+      \(G_z=-(F_{yy}+\beta V_{xx})^{-1}(F_{yz}+\beta V_{xz}A)\) and \(V_{xz}=F_{xz}+F_{xy}G_z\). Given \(V_{xx}\), solve jointly for \((G_z,V_{xz})\).</p>
+      <p><b>LQ as approximation.</b> As \(\Sigma\to0\): the LQ problem approximates a nonlinear model to first order around the steady state. The linear policy functions \((G_x,G_z)\) describe local first-order dynamics even when the true F is not quadratic.</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── -->
+  <h2>Notation and comparison across folders <span class="see">Lessons 33–44</span></h2>
+  <div class="two">
+    <div>
+      <table class="simple">
+        <tr><th>Symbol</th><th>Meaning in Folders 8–9</th><th>Conflict</th></tr>
+        <tr><td>\(\beta\)</td><td>Discount factor</td><td>Also costate in discrete-time problems (Folder 4). Here \(\beta\) is ALWAYS the discount factor.</td></tr>
+        <tr><td>\(V\)</td><td>Value function</td><td>In SLP, also used for the dual of the utility possibility set (Folder 3). Context distinguishes.</td></tr>
+        <tr><td>\(g(x)\)</td><td>Optimal policy (decision rule)</td><td>In continuous time (Folder 7), g is the law of motion of the state. Here g is the optimal next-state choice.</td></tr>
+        <tr><td>\(T\)</td><td>Bellman operator</td><td>In Folder 9 Riccati: T(P) is the Riccati operator, not the Bellman operator.</td></tr>
+        <tr><td>\(\lambda\)</td><td>Costate (HJB connection)</td><td>In Folder 7, \(\lambda\) is the costate. In Folder 5, \(\lambda\) is an eigenvalue. In HJB (Det DP p.37): \(\lambda(t)=V'(x(t))\) identifies them.</td></tr>
+        <tr><td>\(S\)</td><td>Space of bounded functions; also Riccati solution in continuous-time ARE (L38)</td><td>Distinguished by context: S as function space vs S as matrix.</td></tr>
+      </table>
+    </div>
+    <div>
+      <p><b>Comparison: discrete vs continuous time</b></p>
+      <table class="simple">
+        <tr><th></th><th>Discrete (L40–43)</th><th>Continuous (L36–39, L42)</th></tr>
+        <tr><td>Bellman</td><td>\(V(x)=\max\{F+\beta V(y)\}\)</td><td>\(\rho V=\max\{h+V'g\}\)</td></tr>
+        <tr><td>Costate</td><td>\(\lambda_t=\beta V'(x_t)\) (via FOC)</td><td>\(\lambda(t)=V'(x(t))\)</td></tr>
+        <tr><td>Euler</td><td>\(F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})=0\)</td><td>\(\dot\lambda=\rho\lambda-H_x\)</td></tr>
+        <tr><td>TC</td><td>\(\lim\beta^T x_T F_x(x_T,\ldots)=0\)</td><td>\(\lim e^{-\rho T}\lambda x=0\)</td></tr>
+      </table>
+      <p><b>Comparison: stochastic vs deterministic (LQ)</b></p>
+      <table class="simple">
+        <tr><th></th><th>Deterministic</th><th>Stochastic LQ</th></tr>
+        <tr><td>Policy \(G_x\)</td><td>Same Riccati</td><td>SAME (certainty equiv.)</td></tr>
+        <tr><td>Policy \(G_z\)</td><td>N/A</td><td>Depends on A, V_{xz}</td></tr>
+        <tr><td>Welfare</td><td>\(\frac12 x'V_{xx}x+\ldots\)</td><td>+ \(\frac12 z'V_{zz}z+v_0\) (Σ-dep.)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="lesson-nav">
+    <a href="../lessons/0040-principle-of-optimality-and-bellman-equation.html">← Lesson 40</a>
+    <a href="../index.html">Course index</a>
+    <a href="ge-glossary.html">Glossary</a>
+    <a href="../lessons/0044-lq-stochastic-dp-and-certainty-equivalence.html">Lesson 44 →</a>
+  </div>
+
+</div>
+</body>
+</html>

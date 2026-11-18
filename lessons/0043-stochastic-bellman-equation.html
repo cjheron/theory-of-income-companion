@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 43 — Stochastic Bellman Equation and Markov Processes</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part X: Stochastic Dynamic Programming · Lesson 43 of 44</div>
+    <h1>Stochastic Bellman Equation and Markov Processes</h1>
+    <div class="meta">Covers <a href="../sources/slides9-stochastic-dp.pdf#page=2">Stochastic DP slides 2–14</a> · About 40 min · Prerequisites: <a href="0042-envelope-euler-equations-and-continuous-time-dp.html">Lesson 42</a> (Bellman equation, Euler equations)</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>represent an exogenous shock as a first-order Markov process — both finite-state (transition matrix \(P\)) and continuous-state (CDF \(F(a|z)\));</li>
+      <li>write the stochastic Bellman operator \((TV)(x,z)=\max_{x'\in\Gamma(x,z)}\{F(x,x',z)+\beta\int V(x',z')\,Q(dz'|z)\}\);</li>
+      <li>state the Feller property and explain why it preserves continuity and monotonicity under expectation;</li>
+      <li>derive the stochastic Euler equation \(0=F_y(x_t,x_{t+1},z_t)+\beta E_t[F_x(x_{t+1},x_{t+2},z_{t+1})]\) from the FOC and envelope;</li>
+      <li>state the stochastic transversality condition and explain its economic meaning.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides9-stochastic-dp.pdf#page=2">Stochastic DP slides 2–14</a>. Standard references: Stokey, Lucas, and Prescott, <em>Recursive Methods in Economic Dynamics</em> (SLP), Chapters 8–9; Ljungqvist &amp; Sargent, <em>Recursive Macroeconomic Theory</em> (4th ed.), Chapter 2.
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s1">1. Markov processes</h2>
+
+  <p>We want to introduce uncertainty into the dynamic programming framework. The key modelling choice is to represent the exogenous shock as a <strong>first-order Markov process</strong>: the probability distribution of tomorrow's shock depends only on today's shock, not on the full history <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=3">Stoch p.3</a>.</p>
+
+  <div class="definition" id="def-markov">
+    <div class="box-title">Definition: First-order Markov process</div>
+    <p>An exogenous stochastic process \(\{z_t\}_{t\ge0}\), \(z_t\in Z\), is <strong>first-order Markov</strong> if for all \(t\ge0\) and all measurable sets \(A\subseteq Z\),</p>
+    $$\Pr\{z_{t+1}\in A\mid z_t,z_{t-1},\ldots,z_0\}=\Pr\{z_{t+1}\in A\mid z_t\}\equiv Q(A\mid z_t).$$
+    <p>The function \(Q:Z\times\mathcal B(Z)\to[0,1]\) is called the <strong>transition probability</strong> (or stochastic kernel). For each fixed \(z\), \(Q(\cdot\mid z)\) is a probability measure on \(Z\).</p>
+    <p><strong>Finite state space.</strong> When \(Z=\{\zeta_1,\ldots,\zeta_n\}\), we can represent \(Q\) as an \(n\times n\) transition matrix \(P\) with entries</p>
+    $$P_{ij}=Q(z'=\zeta_j\mid z=\zeta_i)\ge0,\qquad\sum_{j=1}^n P_{ij}=1\text{ for each }i.$$
+    <p>Row \(i\) of \(P\) is the probability distribution over next-period states when the current state is \(\zeta_i\).</p>
+    <p><strong>Continuous state space.</strong> When \(Z=[\underline z,\bar z]\subseteq\mathbb R^n\), a leading example is the <strong>AR(1) with heteroskedasticity</strong>:</p>
+    $$z_{t+1}=\mu(z_t)+\sigma(z_t)\,e_{t+1},\quad\{e_t\}\text{ i.i.d.},\;E[e_t]=0,\;E[e_t^2]=1,$$
+    <p>where \(\mu:Z\to\mathbb R\) and \(\sigma:Z\to\mathbb R_{++}\). If \(e_{t+1}\) has CDF \(H\), then the conditional CDF of \(z_{t+1}\) given \(z_t=z\) is</p>
+    $$F(a\mid z)=\Pr\{z_{t+1}\le a\mid z_t=z\}=H\!\left(\frac{a-\mu(z)}{\sigma(z)}\right).$$
+  </div>
+
+  <div class="intuition" id="int-markov-sufficiency">
+    <div class="box-title">Why the Markov property is enough</div>
+    <p>The Markov property is a <em>sufficient statistic</em> condition: once you know the current shock \(z_t\), the entire past history \((z_{t-1},z_{t-2},\ldots)\) adds no information about the future. This is enormously convenient: the agent never needs to remember the full history to make optimal decisions. It is why dynamic programming — a recursive method that only tracks the current state — can characterize the full solution. Any AR(p) or higher-order process can be converted to a first-order Markov process by expanding the state to include enough lags.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s2">2. Computing expectations under a Markov process</h2>
+
+  <p>Once we have the transition kernel \(Q\), we can compute multi-step expectations <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=4">Stoch p.4</a>.</p>
+
+  <p><strong>History.</strong> Define the history up to date \(t\) as \(z^t\equiv(z_0,z_1,\ldots,z_t)\). The joint probability of a history conditional on \(z_0\) factorizes as:</p>
+  $$Q^{(t)}(z^t\mid z_0)=\prod_{s=0}^{t-1}Q(z_{s+1}\mid z_s).$$
+
+  <p><strong>Finite state chain.</strong> For a function \(\phi:Z\to\mathbb R\), represent it as a column vector \(\phi=(\phi_1,\ldots,\phi_n)'\) where \(\phi_j=\phi(\zeta_j)\). Then <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=5">Stoch p.5</a>:</p>
+  $$E[\phi(z_t)\mid z_0=\zeta_i]=\sum_{j=1}^n\phi_j\,[P^t]_{ij}.$$
+  <p>That is, the \(t\)-step expectation operator is \(P^t\), the \(t\)-th power of the transition matrix. For a function of the history, expectations are computed by summing over \((z_1,\ldots,z_t)\in Z^t\) using \(Q^{(t)}\).</p>
+
+  <p><strong>Continuous state.</strong> For the AR(1) example with \(Z\subseteq\mathbb R\) <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=6">Stoch p.6</a>:</p>
+  $$E[\phi(z_{t+1})\mid z_t=z]=\int_{z'\in Z}\phi(z')\,Q(dz'\mid z).$$
+  <p>When \(Q(dz'\mid z)=F'(z'\mid z)\,dz'\), this is an ordinary integral. For the AR(1) with \(e\sim H\):</p>
+  $$E[\phi(z_{t+1})\mid z_t=z]=\int\phi(\mu(z)+\sigma(z)e)\,dH(e).$$
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s3">3. The decision problem with uncertainty</h2>
+
+  <p>The agent now faces a stochastic environment. At each date \(t\), the state is the pair \((x_t,z_t)\), where \(x_t\in X\) is the endogenous state (chosen by the agent) and \(z_t\in Z\) is the exogenous shock <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=7">Stoch p.7</a>.</p>
+
+  <p><strong>Timing:</strong></p>
+  <ol>
+    <li>The agent observes \((x_t,z_t)\).</li>
+    <li>The agent chooses \(x_{t+1}\in\Gamma(x_t,z_t)\), where the feasibility correspondence now depends on the shock.</li>
+    <li>Nature draws \(z_{t+1}\) from \(Q(\cdot\mid z_t)\).</li>
+    <li>Period return \(F(x_t,x_{t+1},z_t)\) is realized.</li>
+  </ol>
+
+  <p>The agent's objective is expected discounted utility <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=8">Stoch p.8</a>:</p>
+  $$V^*(x_0,z_0)=\max_{\{x_{t+1}(z^t)\}}\sum_{t=0}^\infty\beta^t E\bigl[F(x_t(z^{t-1}),x_{t+1}(z^t),z_t)\bigm|z_0\bigr],$$
+  <p>subject to \(x_{t+1}(z^t)\in\Gamma(x_t(z^{t-1}),z_t)\) for all \(t\ge0\) and all histories \(z^t\in Z^{t+1}\), with \((x_0,z_0)\) given.</p>
+
+  <p>Note that \(x_{t+1}(z^t)\) depends on the full history \(z^t=(z_0,\ldots,z_t)\), since all past shocks may be relevant to current decisions in principle. A key result (from regularity conditions the course takes as given) is that the optimal policy can be written as a <strong>Markov policy</strong>: \(x_{t+1}=g(x_t,z_t)\), depending only on the current state <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=7">Stoch p.7</a>.</p>
+
+  <div class="notation" id="note-history">
+    <div class="box-title">Notation: history dependence vs. Markov policy</div>
+    <p>In the stochastic case, \(x_t\) depends on the history \(z^{t-1}=(z_0,\ldots,z_{t-1})\): we sometimes write \(x_t(z^{t-1})\) to emphasize this. The optimal Markov policy \(g(x,z)\) suppresses this history dependence — it uses only the current state \((x,z)\). The fact that such a policy is optimal (and not just a simplification) is a consequence of the Markov structure of \(z\) and regularity conditions on \(\Gamma\) and \(F\); we do not prove it here.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s4">4. The stochastic Bellman operator</h2>
+
+  <p>By the same logic as the deterministic case, we look for a function \(V:X\times Z\to\mathbb R\) satisfying a recursive equation — the <strong>stochastic Bellman equation</strong> <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=10">Stoch p.10</a>.</p>
+
+  <div class="definition" id="def-stoch-bellman">
+    <div class="box-title">Definition: Stochastic Bellman operator</div>
+    <p>Define the operator \(T\) on bounded functions \(V:X\times Z\to\mathbb R\) by</p>
+    $$(TV)(x,z)=\max_{x'\in\Gamma(x,z)}\left\{F(x,x',z)+\beta\int_{z'\in Z}V(x',z')\,Q(dz'\mid z)\right\}.$$
+    <p>Equivalently, writing the expectation operator as \(E[\cdot\mid z]\):</p>
+    $$(TV)(x,z)=\max_{x'\in\Gamma(x,z)}\bigl\{F(x,x',z)+\beta E[V(x',z')\mid z]\bigr\}.$$
+    <p>The <strong>stochastic Bellman equation</strong> is the fixed-point condition \(V=TV\), i.e.</p>
+    $$V(x,z)=\max_{x'\in\Gamma(x,z)}\left\{F(x,x',z)+\beta\int V(x',z')\,Q(dz'\mid z)\right\}\quad\text{for all }(x,z)\in X\times Z.$$
+  </div>
+
+  <div class="theorem" id="thm-poo-stoch">
+    <div class="box-title">Theorem: Principle of Optimality (stochastic)</div>
+    <p>Under the standard boundedness and existence conditions (maintained throughout), the principle of optimality holds: \(V=TV\) if and only if \(V=V^*\), where \(V^*\) is the optimal value function of the sequence problem. In particular:</p>
+    <ol>
+      <li>The Bellman operator \(T\) has a unique fixed point \(V^*\) in the space of bounded continuous functions on \(X\times Z\).</li>
+      <li>Iterations \(T^n V_0\) converge to \(V^*\) for any starting function \(V_0\).</li>
+    </ol>
+    <p>The proof is entirely analogous to the deterministic case: \(T\) satisfies the Blackwell sufficient conditions (monotonicity and discounting) and is therefore a contraction on the sup-norm metric space.</p>
+  </div>
+
+  <div class="intuition" id="int-stoch-bellman">
+    <div class="box-title">Why the same logic works</div>
+    <p>The key step in the deterministic principle of optimality was approximating the infinite-horizon value arbitrarily well by finite-horizon truncations, using the discount factor to bound the tail. Exactly the same argument works here: the expectation operator is linear and bounded, so \(\beta^T E[V(x_T,z_T)]\to0\) as \(T\to\infty\) under boundedness. The stochastic structure affects the continuation value \(\beta\int V(x',z')Q(dz'|z)\) but not the logic of the approximation.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s5">5. The Feller property</h2>
+
+  <p>To establish continuity and monotonicity of \(V^*(x,z)\) in the shock \(z\), we need a property of the transition kernel \(Q\) that ensures the expectation operator preserves these properties <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=12">Stoch p.12</a>.</p>
+
+  <div class="definition" id="def-feller">
+    <div class="box-title">Definition: Feller property</div>
+    <p>For a function \(\phi:Z\to\mathbb R\), define the <strong>conditional expectation operator</strong>:</p>
+    $$(E\phi)(z)\equiv\int_{z'\in Z}\phi(z')\,Q(dz'\mid z).$$
+    <p>The transition probability \(Q\) has the <strong>Feller property</strong> if: whenever \(\phi\) is continuous and bounded, \(E\phi\) is also continuous and bounded.</p>
+  </div>
+
+  <div class="theorem" id="thm-feller-props">
+    <div class="box-title">Theorem: Properties of Q</div>
+    <p>Let \(Q\) be a transition probability on \(Z\).</p>
+    <ol>
+      <li><strong>Feller (continuity):</strong> If \(Q\) has the Feller property, then whenever \(\phi:Z\to\mathbb R\) is continuous, the function \(z\mapsto E[\phi(z')\mid z]\) is also continuous in \(z\). This can be used to establish that \(V^*(x,z)\) is continuous in \(z\).</li>
+      <li><strong>Monotonicity:</strong> If \(\phi:Z\to\mathbb R\) is monotone (say increasing), and \(Q(\cdot\mid z)\) is first-order stochastically increasing in \(z\) — meaning higher \(z\) puts more probability on higher \(z'\) — then \(E[\phi(z')\mid z]\) is also increasing in \(z\). This can be used to establish that \(V^*(x,z)\) is increasing in \(z\).</li>
+    </ol>
+    <p>The AR(1) example \(z_{t+1}=\mu(z_t)+\sigma(z_t)e_{t+1}\) has the Feller property whenever \(\mu\) is continuous; it satisfies first-order stochastic dominance in \(z\) whenever \(\mu\) is increasing.</p>
+  </div>
+
+  <div class="intuition" id="int-feller">
+    <div class="box-title">Economic interpretation of Feller</div>
+    <p>The Feller property says that the expectation operator is a "smoothing" operation in the shock space: a continuous promise about the future maps to a continuous present valuation. Without this, small changes in the current shock \(z\) could cause the continuation value to jump discontinuously, which would prevent us from using calculus to derive optimality conditions. In practice, most standard Markov processes used in macro (AR(1) for TFP, Markov chain approximations, etc.) satisfy Feller.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s6">6. Envelope condition and first-order conditions</h2>
+
+  <p>Assume \(F(\cdot,\cdot,z)\) is differentiable, the feasibility correspondence \(\Gamma\) is smooth, and the optimal policy \(g(x,z)\in\text{Int}\,\Gamma(x,z)\) (interior solution). Then we can differentiate the Bellman equation <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=13">Stoch p.13</a>.</p>
+
+  <p><strong>First-order condition.</strong> Differentiating the right-hand side of the Bellman equation with respect to \(x'\) and evaluating at \(x'=g(x,z)\):</p>
+  $$0=F_y(x,g(x,z),z)+\beta\int_{z'\in Z}V_x(g(x,z),z')\,Q(dz'\mid z),$$
+  <p>where the subscript \(y\) on \(F\) denotes the derivative with respect to the second argument (next period's state), and \(V_x\) is the derivative of the value function with respect to the first argument.</p>
+
+  <p><strong>Envelope condition.</strong> Differentiating the Bellman equation with respect to \(x\) (the current state) and applying the envelope theorem — the derivative of the max equals the partial derivative of the objective, since at the optimum \(g(x,z)\) the derivative with respect to \(x\) through \(x'\) is zero by the FOC:</p>
+  $$V_x(x,z)=F_x(x,g(x,z),z),$$
+  <p>where the subscript \(x\) on \(F\) denotes the derivative with respect to the first argument (current state). This is the stochastic analogue of the Benveniste–Scheinkman theorem: the derivative of the value function equals the partial derivative of the return with respect to the current state, holding the control fixed at its optimal value.</p>
+
+  <div class="intuition" id="int-env-stoch">
+    <div class="box-title">Why the envelope holds in the stochastic case</div>
+    <p>The logic is identical to the deterministic case: changing \(x\) by \(\epsilon\) has two effects on the right-hand side of the Bellman equation — a direct effect through \(F_x\) and an indirect effect through the optimal choice \(g(x,z)\) changing. By the first-order condition, the indirect effect is zero at the optimum (the envelope principle). The expectation \(\beta\int V_x(g,z')Q(dz'|z)\) does not involve \(x\) directly, so it disappears from the derivative with respect to \(x\). What remains is exactly \(F_x(x,g(x,z),z)\).</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s7">7. The stochastic Euler equation</h2>
+
+  <p>Combining the FOC and the envelope condition eliminates \(V_x\) and gives the central optimality condition for stochastic problems <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=13">Stoch p.13</a>.</p>
+
+  <p>From the envelope: \(V_x(g(x,z),z')=F_x(g(x,z),g(g(x,z),z'),z')\). Substituting into the FOC:</p>
+  $$0=F_y(x,g(x,z),z)+\beta\int F_x(g(x,z),g(g(x,z),z'),z')\,Q(dz'\mid z).$$
+
+  <p>Rewriting in time-index notation with \(x_t\equiv x\), \(x_{t+1}\equiv g(x_t,z_t)\), \(x_{t+2}\equiv g(x_{t+1},z_{t+1})\):</p>
+
+  <div class="theorem" id="thm-stoch-euler">
+    <div class="box-title">Theorem: Stochastic Euler equation</div>
+    $$0=F_y(x_t,x_{t+1},z_t)+\beta E_t\bigl[F_x(x_{t+1},x_{t+2},z_{t+1})\bigr],$$
+    <p>for all histories \(z^t=(z_0,\ldots,z_t)\) and all \(t\ge1\), where \(E_t[\cdot]\equiv E[\cdot\mid z^t]\). Equivalently:</p>
+    $$0=F_y(x_t,x_{t+1},z_t)+\beta E_t\bigl[F_x(x_{t+1},x_{t+2},z_{t+1})\bigr],\quad\text{for all }z^t\text{ and }t\ge1.$$
+  </div>
+
+  <div class="intuition" id="int-stoch-euler">
+    <div class="box-title">Economic interpretation</div>
+    <p>The stochastic Euler equation says that you cannot gain by shifting one unit of the state variable across adjacent periods, even after integrating over uncertainty. The left term \(F_y\) is the marginal cost of transferring a unit of \(x\) from period \(t\) to \(t+1\) (the foregone period-\(t\) return from having less state). The right term \(\beta E_t[F_x]\) is the expected present-value marginal benefit in period \(t+1\). At the optimum these balance exactly — not in every realization of \(z_{t+1}\), but in expectation conditional on the current information \(z^t\). This is a stochastic Ramsey condition: "smooth consumption optimally given current information".</p>
+  </div>
+
+  <p><strong>Example: neoclassical growth.</strong> With \(F(k,k',z)=U(zf(k)-k')\), the envelope gives \(V_k=U'(c)zf'(k)\) and the FOC gives \(U'(c_t)=\beta E_t[V_k(k_{t+1},z_{t+1})]\), so the stochastic Euler is:</p>
+  $$U'(c_t)=\beta E_t\bigl[U'(c_{t+1})\,z_{t+1}f'(k_{t+1})\bigr].$$
+  <p>This is the familiar stochastic consumption Euler equation: the marginal utility today equals the expected discounted marginal utility tomorrow times the gross return.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s8">8. Transversality condition</h2>
+
+  <p>Just as in the deterministic case, the Euler equation alone is necessary but not sufficient for optimality. We also need a transversality condition (TC) that rules out "oversaving" paths that satisfy the Euler equation but accumulate unlimited wealth <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=14">Stoch p.14</a>.</p>
+
+  <div class="theorem" id="thm-tc">
+    <div class="box-title">Theorem: Stochastic transversality condition</div>
+    <p>Under regularity conditions (maintained), the stochastic TC is:</p>
+    $$0=\lim_{T\to\infty}\beta^T\int_{(z_1,\ldots,z_T)\in Z^T}F_x\bigl(x_T(z^{T-1}),x_{T+1}(z^T),z_T\bigr)\cdot x_T(z^{T-1})\cdot Q^{(T)}(dz^T\mid z_0),$$
+    <p>where the integral is over all histories and \(Q^{(T)}(dz^T|z_0)=\prod_{s=0}^{T-1}Q(dz_{s+1}|z_s)\). In words: the expected present-discounted value of the shadow price of the state times the state itself goes to zero as the horizon grows.</p>
+  </div>
+
+  <div class="intuition" id="int-tc-stoch">
+    <div class="box-title">Economic meaning of the stochastic TC</div>
+    <p>The TC rules out "Ponzi schemes" and "oversaving" paths. If \(\beta^T E_0[F_x(x_T,x_{T+1},z_T)\cdot x_T]>0\) in the limit, the agent is permanently holding assets whose marginal value is positive — they could increase welfare by planning to consume some of that wealth at some point in the future. The TC says that in the optimal plan, all the wealth is eventually "spoken for" in terms of its contribution to the agent's welfare. The stochastic version integrates this condition over all possible future histories, since the state \(x_T\) depends on the realized history \(z^{T-1}\).</p>
+  </div>
+
+  <div class="warning" id="warn-tc-regularity">
+    <div class="box-title">Technical note on the stochastic TC</div>
+    <p>The stochastic transversality condition requires additional regularity conditions beyond the deterministic case: integrability of the integrand (so that the integral is well-defined), admissibility of the strategy (so that expected utility is finite), and additional measurability conditions. The economic argument for why the TC must hold is the same as in the deterministic case, but a fully rigorous proof requires these conditions, which are beyond the scope of this course. See SLP Chapter 9 for a complete treatment.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s9">9. Quiz</h2>
+
+  <div class="quiz-section">
+
+    <div class="quiz-question" data-correct="b">
+      <p class="quiz-title">Which statement correctly describes the first-order Markov property?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The transition probability depends on the current and previous period's shock</li>
+        <li class="quiz-option" data-option="b">The distribution of tomorrow's shock depends only on today's shock, not the full history</li>
+        <li class="quiz-option" data-option="c">The shock is independent and identically distributed across periods</li>
+        <li class="quiz-option" data-option="d">The transition matrix has eigenvalues all equal to one</li>
+      </ul>
+      <div class="quiz-explain">The first-order Markov property says \(\Pr\{z_{t+1}\in A\mid z_t,z_{t-1},\ldots\}=\Pr\{z_{t+1}\in A\mid z_t\}\): only \(z_t\) matters for predicting \(z_{t+1}\). This is what makes dynamic programming feasible — the current state is a sufficient statistic for future shocks. i.i.d. is the special case where \(Q(\cdot|z)\) does not depend on \(z\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <p class="quiz-title">In the stochastic Bellman equation, what is the role of \(\beta\int V(x',z')Q(dz'|z)\)?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The period return from the shock \(z\) net of the investment cost</li>
+        <li class="quiz-option" data-option="b">The deterministic continuation value evaluated at the optimal next state</li>
+        <li class="quiz-option" data-option="c">The discounted expected continuation value over all possible next-period shocks</li>
+        <li class="quiz-option" data-option="d">The value of holding the state fixed and waiting for a better shock</li>
+      </ul>
+      <div class="quiz-explain">\(\beta\int V(x',z')Q(dz'|z)\) is the expected value of being in state \(x'\) next period, where the expectation is taken over all possible realizations of \(z'\) weighted by the transition probability \(Q(dz'|z)\), and discounted by \(\beta\). This is the stochastic analogue of the deterministic \(\beta V(x')\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <p class="quiz-title">The Feller property of the transition kernel \(Q\) ensures what?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The stationary distribution of the Markov chain is unique</li>
+        <li class="quiz-option" data-option="b">The optimal policy function is monotone in the shock \(z\)</li>
+        <li class="quiz-option" data-option="c">The transition matrix has spectral radius strictly less than one</li>
+        <li class="quiz-option" data-option="d">The expectation of a continuous function of the shock is continuous in the current shock</li>
+      </ul>
+      <div class="quiz-explain">The Feller property says: if \(\phi\) is continuous and bounded, then \(z\mapsto E[\phi(z')|z]=\int\phi(z')Q(dz'|z)\) is also continuous in \(z\). This allows us to conclude that the value function \(V^*(x,z)\) is continuous in \(z\), which in turn is needed to apply the envelope theorem. Without Feller, continuity of the value function in \(z\) is not guaranteed.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <p class="quiz-title">The stochastic Euler equation differs from the deterministic Euler in that the right-hand side contains:</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">A conditional expectation \(E_t[\cdot]\) of the next-period marginal return</li>
+        <li class="quiz-option" data-option="b">The maximized value of the Bellman equation at the next period's state</li>
+        <li class="quiz-option" data-option="c">A costate variable for the resource constraint at each history</li>
+        <li class="quiz-option" data-option="d">The variance of the marginal return as a risk adjustment</li>
+      </ul>
+      <div class="quiz-explain">In the deterministic case, the Euler is \(0=F_y(x_t,x_{t+1})+\beta F_x(x_{t+1},x_{t+2})\) — no expectation. In the stochastic case, \(x_{t+2}\) is not known at date \(t\) (it depends on \(z_{t+1}\), which is realized between \(t\) and \(t+2\)), so the marginal return becomes a random variable and the condition involves its conditional expectation: \(0=F_y(x_t,x_{t+1},z_t)+\beta E_t[F_x(x_{t+1},x_{t+2},z_{t+1})]\).</div>
+    </div>
+
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s10">10. True or False</h2>
+
+  <div class="box exercise" id="tf">
+    <div class="box-title">True or False — justify in one or two lines</div>
+    <ol class="tf-list">
+      <li>An i.i.d. shock process is a special case of a first-order Markov process. <span class="tf-src">Stoch p.3</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> An i.i.d. process has \(\Pr\{z_{t+1}\in A\mid z_t,\ldots\}=\Pr\{z_{t+1}\in A\}\), which is the same as \(Q(A\mid z)=Q(A)\) — a transition kernel that does not depend on the current state. This trivially satisfies the first-order Markov condition \(\Pr\{z_{t+1}\in A\mid z_t,\ldots\}=Q(A\mid z_t)\).</p></div></details></li>
+      <li>The Principle of Optimality fails for stochastic problems, since the agent cannot foresee which history will be realized. <span class="tf-src">Stoch p.11</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The Principle of Optimality holds for stochastic problems under the same boundedness and existence conditions as the deterministic case. The key is that the value function \(V^*(x,z)\) is defined as the value of the optimal strategy from state \((x,z)\) — it already incorporates all future uncertainty. The fact that future shocks are unknown does not prevent the recursive characterization \(V^*=TV^*\); it just means the continuation value is an expected value rather than a certain value.</p></div></details></li>
+      <li>The stochastic Euler equation must hold state-by-state: \(F_y(x_t,x_{t+1},z_t)+\beta F_x(x_{t+1},x_{t+2},z_{t+1})=0\) for every realization of \(z_{t+1}\). <span class="tf-src">Stoch p.13</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The stochastic Euler holds in <em>conditional expectation</em>: \(0=F_y(x_t,x_{t+1},z_t)+\beta E_t[F_x(x_{t+1},x_{t+2},z_{t+1})]\). It is an expectational condition, not a state-by-state condition. For a fixed realization \(z_{t+1}\), the expression inside the expectation will generally not be zero — the agent cannot perfectly equate marginal costs and benefits in each realization, only on average given current information.</p></div></details></li>
+      <li>If the shock \(z\) is known to be constant forever (\(z_t=\bar z\) for all \(t\)), the stochastic Euler equation reduces to the deterministic Euler equation. <span class="tf-src">Stoch p.13</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> When \(z_t=\bar z\) for all \(t\), the conditional expectation collapses to certainty: \(E_t[F_x(x_{t+1},x_{t+2},z_{t+1})]=F_x(x_{t+1},x_{t+2},\bar z)\). The stochastic Euler becomes \(0=F_y(x_t,x_{t+1},\bar z)+\beta F_x(x_{t+1},x_{t+2},\bar z)\), which is exactly the deterministic Euler equation with \(F(x,x')=F(x,x',\bar z)\). The stochastic and deterministic formulations are consistent.</p></div></details></li>
+    </ol>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s11">11. Exercises</h2>
+
+  <div class="box exercise" id="ex-43-1">
+    <div class="box-title">Exercise 43.1 <span class="tag slides">Stoch p.5</span> (finite Markov chain)</div>
+    <p>Let \(Z=\{\zeta_1,\zeta_2\}\) with transition matrix \(P=\begin{pmatrix}p & 1-p\\ q & 1-q\end{pmatrix}\), \(p,q\in(0,1)\). Let \(\phi=(\phi_1,\phi_2)'\) be a function on \(Z\).</p>
+    <ol class="parts" type="a">
+      <li>Show that \(E[\phi(z_2)\mid z_0=\zeta_i]=[P^2\phi]_i\). (Hint: condition on \(z_1\) and apply the Markov property twice.) <span class="pts">(10 pts)</span></li>
+      <li>Find the stationary distribution \(\pi=(\pi_1,\pi_2)'\) satisfying \(\pi'P=\pi'\) and \(\pi_1+\pi_2=1\). <span class="pts">(10 pts)</span></li>
+      <li>What does \(E[\phi(z_t)\mid z_0=\zeta_1]\) converge to as \(t\to\infty\)? Under what condition on \(p\) and \(q\) does convergence occur? <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (a): \(E[\phi(z_2)|z_0=\zeta_i]=\sum_j E[\phi(z_2)|z_1=\zeta_j]P_{ij}=\sum_j [P\phi]_j P_{ij}=[P\cdot P\phi]_i=[P^2\phi]_i\). For (b): \(\pi'P=\pi'\) gives \(p\pi_1+q\pi_2=\pi_1\) (first component), so \((p-1)\pi_1+q\pi_2=0\), i.e. \(\pi_1/\pi_2=q/(1-p)\). For (c): a \(2\times2\) chain with \(p,q\in(0,1)\) is ergodic (irreducible and aperiodic), so \(P^t\to\mathbf{1}\pi'\) and \([P^t\phi]_i\to\pi'\phi=\pi_1\phi_1+\pi_2\phi_2\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) By the law of iterated expectations and the Markov property:
+      $$E[\phi(z_2)|z_0=\zeta_i]=\sum_j E[\phi(z_2)|z_1=\zeta_j]\cdot\Pr\{z_1=\zeta_j|z_0=\zeta_i\}=\sum_j [P\phi]_j\cdot P_{ij}=[P^2\phi]_i.$$
+      By induction, \(E[\phi(z_t)|z_0=\zeta_i]=[P^t\phi]_i\). \(\square\)</p>
+      <p>(b) \(\pi'P=\pi'\) with \(\pi_1+\pi_2=1\). From row 1: \(p\pi_1+(1-q)\pi_2=\pi_2\implies p\pi_1=q\pi_2\implies\pi_1/\pi_2=q/p\). Wait, more carefully: \(p\pi_1+q\pi_2=\pi_1\implies(p-1)\pi_1=-q\pi_2\implies(1-p)\pi_1=q\pi_2\). With \(\pi_1+\pi_2=1\): \(\pi_1=q/(1-p+q)\) and \(\pi_2=(1-p)/(1-p+q)\). Check: \(\pi_1+\pi_2=[q+(1-p)]/(1-p+q)=1\). \(\square\)</p>
+      <p>(c) When \(p,q\in(0,1)\), the chain is irreducible (can transition between both states in one step) and aperiodic (stays in state 1 with probability \(p>0\)). By the ergodic theorem, \([P^t\phi]_i\to\pi_1\phi_1+\pi_2\phi_2\) for all starting states \(i\). So \(E[\phi(z_t)|z_0=\zeta_1]\to\pi_1\phi_1+\pi_2\phi_2=\frac{q\phi_1+(1-p)\phi_2}{1-p+q}\). Convergence fails if \(p=1\) and \(q=1\) (absorbing states without reaching the other) or if the chain is periodic.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-43-2">
+    <div class="box-title">Exercise 43.2 <span class="tag exam">Exam-style</span> (stochastic neoclassical growth)</div>
+    <p>Consider the stochastic neoclassical growth model: \(F(k,k',z)=U(zf(k)-k')\), \(\Gamma(k,z)=[0,zf(k)]\), where \(z_t\) is a first-order Markov process, \(U\) is strictly increasing and strictly concave, and \(f\) is a neoclassical production function.</p>
+    <ol class="parts" type="a">
+      <li>Write the stochastic Bellman equation. What is the state space? What is the choice variable? <span class="pts">(5 pts)</span></li>
+      <li>Write the stochastic Euler equation. Identify each term economically. <span class="pts">(10 pts)</span></li>
+      <li>What happens to the stochastic Euler equation in the special case \(z_{t+1}=z_t=z\) for all \(t\) (no uncertainty)? Does your answer match the deterministic Euler equation from the sequence problem? <span class="pts">(10 pts)</span></li>
+      <li>Suppose the shock \(z_{t+1}=z_t=1\) but the agent incorrectly believes \(z_{t+1}\) is random. Does the optimal policy change? Why or why not? <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (b): with \(F_y(k,k',z)=-U'(zf(k)-k')\) and \(F_x(k,k',z)=U'(zf(k)-k')zf'(k)\), the stochastic Euler becomes \(U'(c_t)=\beta E_t[U'(c_{t+1})z_{t+1}f'(k_{t+1})]\). For (c): with no uncertainty, \(E_t[\cdot]\) is just the value at \(z_{t+1}=z\), and the Euler becomes the standard deterministic condition.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) State space: \((k,z)\in\mathbb R_+\times Z\). Choice: \(k'\in[0,zf(k)]\). Bellman equation:
+      $$V(k,z)=\max_{k'\in[0,zf(k)]}\left\{U(zf(k)-k')+\beta\int V(k',z')\,Q(dz'\mid z)\right\}.$$</p>
+      <p>(b) With \(c_t=z_t f(k_t)-k_{t+1}\): \(F_y(k,k',z)=\partial U(zf(k)-k')/\partial k'=-U'(c)\) and \(F_x(k,k',z)=U'(c)\cdot zf'(k)\). The stochastic Euler:
+      $$0=-U'(c_t)+\beta E_t[U'(c_{t+1})z_{t+1}f'(k_{t+1})],$$
+      $$\text{i.e.,}\quad U'(c_t)=\beta E_t\bigl[U'(c_{t+1})\cdot z_{t+1}f'(k_{t+1})\bigr].$$
+      Left side: marginal utility of consuming one more unit today. Right side: expected discounted marginal utility of investing one unit (which produces \(z_{t+1}f'(k_{t+1})\) units tomorrow). At the optimum these are equal.</p>
+      <p>(c) With \(z_{t+1}=z\) for all \(t\): the expectation collapses, \(E_t[U'(c_{t+1})zf'(k_{t+1})]=U'(c_{t+1})zf'(k_{t+1})\), and the Euler becomes \(U'(c_t)=\beta U'(c_{t+1})zf'(k_{t+1})\). This is exactly the deterministic Euler equation with \(F(k,k')=U(zf(k)-k')\). The two formulations are consistent.</p>
+      <p>(d) If \(z_{t+1}=1\) always but the agent believes it is random, the agent's perceived Euler equation involves an expectation, but since \(z_{t+1}=1\) is known with certainty (the agent just doesn't know it), the expectation equals the realized value. The optimal policy is therefore the same as if the agent knew \(z=1\). The mistake in beliefs does not affect outcomes when the perceived uncertainty turns out to be zero; the policies "happen to coincide". This is a special case of certainty equivalence (which will be studied in Lesson 44).</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-43-3">
+    <div class="box-title">Exercise 43.3 <span class="tag proof">Proof</span> (stochastic envelope theorem)</div>
+    <p>Prove the envelope condition \(V_x(x,z)=F_x(x,g(x,z),z)\) in the stochastic case by differentiating the Bellman equation with respect to \(x\) and applying the first-order condition.</p>
+    <ol class="parts" type="a">
+      <li>Write the Bellman equation \(V(x,z)=F(x,g(x,z),z)+\beta\int V(g(x,z),z')\,Q(dz'\mid z)\). Differentiate both sides with respect to \(x\). <span class="pts">(5 pts)</span></li>
+      <li>Your expression from (a) should contain a term involving \(g'(x)\) (the derivative of the optimal policy with respect to the current state). Write out this term. <span class="pts">(5 pts)</span></li>
+      <li>Apply the FOC \(0=F_y(x,g(x,z),z)+\beta\int V_x(g(x,z),z')\,Q(dz'\mid z)\) to show that the terms multiplied by \(g'(x)\) sum to zero. Conclude that \(V_x(x,z)=F_x(x,g(x,z),z)\). <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>Differentiating \(F(x,g(x,z),z)\) with respect to \(x\) gives \(F_x+F_y g'(x)\). Differentiating \(\beta\int V(g(x,z),z')Q(dz'|z)\) with respect to \(x\) gives \(\beta\int V_x(g(x,z),z')Q(dz'|z)\cdot g'(x)\). Both terms contain \(g'(x)\), and their coefficient is exactly the FOC (which equals zero).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Differentiating both sides of the Bellman equation \(V(x,z)=F(x,g(x,z),z)+\beta\int V(g(x,z),z')Q(dz'|z)\) with respect to \(x\):</p>
+      $$V_x(x,z)=F_x(x,g(x,z),z)+F_y(x,g(x,z),z)\cdot g'(x)+\beta\int V_x(g(x,z),z')\,Q(dz'\mid z)\cdot g'(x).$$
+      <p>(b) The terms involving \(g'(x)\) are:</p>
+      $$g'(x)\cdot\left[F_y(x,g(x,z),z)+\beta\int V_x(g(x,z),z')\,Q(dz'\mid z)\right].$$
+      <p>(c) The first-order condition for the maximization in the Bellman equation is exactly:</p>
+      $$0=F_y(x,g(x,z),z)+\beta\int V_x(g(x,z),z')\,Q(dz'\mid z).$$
+      <p>Therefore the bracket in (b) equals zero, and the \(g'(x)\) terms cancel:</p>
+      $$V_x(x,z)=F_x(x,g(x,z),z).\quad\square$$
+      <p>Note: this argument requires \(g\) to be differentiable with respect to \(x\), which follows from the differentiability of \(F\) and the implicit function theorem under standard conditions (the same conditions needed for the Benveniste–Scheinkman theorem in the deterministic case).</p>
+    </div></details>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="takeaways">
+    <h2 id="takeaways">Key takeaways</h2>
+    <ul>
+      <li>A first-order Markov process \(\{z_t\}\) is characterized by a transition kernel \(Q(dz'|z)\): the distribution of \(z_{t+1}\) given \(z_t=z\). For finite \(Z\), \(Q\) is a row-stochastic matrix \(P\). For continuous \(Z\), a leading case is \(z_{t+1}=\mu(z_t)+\sigma(z_t)e_{t+1}\) with i.i.d. innovations.</li>
+      <li>The stochastic Bellman operator is \((TV)(x,z)=\max_{x'\in\Gamma(x,z)}\{F(x,x',z)+\beta\int V(x',z')Q(dz'|z)\}\). Under standard conditions, \(T\) is a contraction and its unique fixed point is the optimal value function \(V^*\).</li>
+      <li>The Feller property (\(Q\) maps continuous functions to continuous functions) is needed to establish continuity of \(V^*\) in \(z\). First-order stochastic dominance of \(Q\) in \(z\) gives monotonicity of \(V^*\) in \(z\).</li>
+      <li>The stochastic envelope condition is \(V_x(x,z)=F_x(x,g(x,z),z)\): the same form as the deterministic Benveniste–Scheinkman theorem. Proof: differentiate the Bellman equation; the \(g'(x)\) terms cancel by the FOC.</li>
+      <li>The stochastic Euler equation is \(0=F_y(x_t,x_{t+1},z_t)+\beta E_t[F_x(x_{t+1},x_{t+2},z_{t+1})]\): the same optimality tradeoff as the deterministic case, but now the marginal benefit of investing is taken in conditional expectation over all future realizations of \(z_{t+1}\).</li>
+      <li>The stochastic transversality condition requires \(\beta^T E_0[F_x(x_T,x_{T+1},z_T)\cdot x_T]\to0\): the present-value shadow price of the state times the state must vanish. This rules out "oversaving" paths. It requires additional regularity (integrability, admissibility) beyond the deterministic case.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "what is the stationary distribution of a Markov chain, and why does it matter?", "how is the stochastic Euler different from the deterministic one for the consumption-savings problem?", or "explain why optimal policy can be Markov even though histories matter".</div>
+
+  <div class="lesson-nav">
+    <a href="0042-envelope-euler-equations-and-continuous-time-dp.html">← Lesson 42: Envelope theorem, Euler equations, and continuous-time DP</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0044-lq-stochastic-dp-and-certainty-equivalence.html">Lesson 44: LQ stochastic DP and certainty equivalence →</a>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 40 — The Principle of Optimality and the Bellman Equation</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part IX: Deterministic Dynamic Programming · Lesson 40 of 44</div>
+    <h1>The Principle of Optimality and the Bellman Equation</h1>
+    <div class="meta">Covers <a href="../sources/slides8-dynamic-programming.pdf#page=2">Det DP slides 2–10</a> · About 35 min · Prerequisites: <a href="0039-the-linear-quadratic-regulator.html">Lesson 39</a> (Hamiltonian, LQR)</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>write the sequence problem \(V^*(x_0)=\max\sum_{t=0}^\infty\beta^t F(x_t,x_{t+1})\) subject to \(x_{t+1}\in\Gamma(x_t)\) and explain each object;</li>
+      <li>write the Bellman equation \(V(x)=\max_{y\in\Gamma(x)}\{F(x,y)+\beta V(y)\}\) and explain what it means for a function to satisfy a functional equation;</li>
+      <li>state the Principle of Optimality: \(V^*(x)=V(x)\) for all \(x\);</li>
+      <li>sketch the bounded-case argument showing \(V\geq V^*\) and \(V\leq V^*\) using forward substitution of the Bellman recursion;</li>
+      <li>list the main advantages of the dynamic programming approach over the sequence problem.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides8-dynamic-programming.pdf#page=2">Deterministic DP slides 2–10</a>. Standard reference: Stokey, Lucas with Prescott (SLP), <em>Recursive Methods in Economic Dynamics</em> (1989), Chapters 4–5. The slides flag SLP throughout as "RMED."
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s1">1. The sequence problem</h2>
+
+  <p>Dynamic programming begins with a decision-maker who chooses an infinite sequence of states. Let \(X\) be the state space and \(\Gamma:X\to X\) a <em>feasibility correspondence</em>: from state \(x\), the next period state must lie in \(\Gamma(x)\). The agent maximizes a discounted sum of period returns. <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=3">Det DP p.3</a></p>
+
+  <div class="definition" id="def-sequence">
+    <div class="box-title">Definition: the sequence problem</div>
+    <p>Define histories and feasible plans:</p>
+    $$x^t \equiv (x_0, x_1, \ldots, x_t),$$
+    $$\Pi^t(x_0) \equiv \{(x_0, x_1, \ldots, x_t) : x_{s+1}\in\Gamma(x_s),\; s=0,\ldots,t-1\},$$
+    $$\Pi^\infty(x_0) \equiv \{x^\infty : x_{s+1}\in\Gamma(x_s)\text{ for all }s\geq0\}.$$
+    <p>The payoff to a plan \(\{x_{t+1}\}\) is:</p>
+    $$u(\{x_{t+1}\}) \equiv \lim_{T\to\infty}\sum_{t=0}^T \beta^t F(x_t, x_{t+1}).$$
+    <p>The <strong>sequence problem</strong> is:</p>
+    $$V^*(x_0) = \max_{x^\infty\in\Pi^\infty(x_0)}\, u(\{x_{t+1}\}),$$
+    <p>where \(\beta\in(0,1)\) is the discount factor and \(F:X\times X\to\mathbb{R}\) is the period return function. The initial state \(x_0\in X\) is given.</p>
+  </div>
+
+  <p>This is an infinite-dimensional optimization problem: we choose a function \(t\mapsto x_t\) from the integers to \(X\). The state at each date is both a choice variable (from \(t\geq1\)) and a constraint (it must lie in the previous period's feasibility set). This makes the problem hard to work with directly — the Bellman approach reduces it to a two-period problem.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s2">2. The Bellman equation</h2>
+
+  <p>Instead of choosing an entire infinite sequence at once, the Bellman equation asks: what is the best payoff when you are in state \(x\) today, choose \(y\in\Gamma(x)\) today, and then act optimally forever after? <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=4">Det DP p.4</a></p>
+
+  <div class="definition" id="def-bellman">
+    <div class="box-title">Definition: the Bellman equation</div>
+    <p>The <strong>recursive problem</strong> (Bellman equation) is to find a function \(V:X\to\mathbb{R}\) such that:</p>
+    $$V(x) = \max_{y\in\Gamma(x)}\{F(x,y)+\beta V(y)\} \tag{BE}$$
+    <p>for all \(x\in X\). Notice that \(V\) appears on both sides: (BE) is a <em>functional equation</em> — its solution is a function, not a number.</p>
+    <p>If the maximizer is unique, write it \(g(x)\): the <strong>optimal policy function</strong>. Then:</p>
+    $$V(x) = F(x, g(x)) + \beta V(g(x)).$$
+  </div>
+
+  <div class="intuition" id="int-two-period">
+    <div class="box-title">Why the Bellman is effectively a two-period problem</div>
+    <p>Suppose you somehow knew the function \(V\). Then finding the optimal action from state \(x\) requires solving only a two-period problem: pay \(F(x,y)\) today and receive continuation value \(\beta V(y)\). The infinite horizon collapses to a one-step maximization. The key insight is that once we find \(V\) and \(g\), we have solved the problem for <em>every</em> initial condition \(x_0\in X\) simultaneously. The sequence problem requires a fresh solution for each \(x_0\); the Bellman equation solves everything at once.</p>
+  </div>
+
+  <div class="warning" id="warn-existence">
+    <div class="box-title">This is not a proof of existence</div>
+    <p>Throughout this lesson we <em>assume</em> that all relevant maxima exist and that the value functions are well-defined. We also assume that any sequence satisfying the Bellman recursion is indeed optimal. A rigorous proof of equivalence between the sequence and recursive problems requires additional regularity conditions (continuity of \(F\), compactness of \(\Gamma\), etc.) and uses the Contraction Mapping Theorem, treated in Lesson 41. See SLP Chapters 4–5 (RMED) for the full treatment.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s3">3. The Principle of Optimality</h2>
+
+  <p>The fundamental result connecting the two formulations is: <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=5">Det DP p.5</a></p>
+
+  <div class="theorem" id="thm-poo">
+    <div class="box-title">Theorem: Principle of Optimality</div>
+    <p>Under the maintained regularity conditions,</p>
+    $$V^*(x) = V(x) \quad\text{for all } x\in X.$$
+    <p>That is, the value function of the sequence problem equals the value function of the recursive (Bellman) problem. Moreover, the optimal policy from the sequence problem satisfies the Bellman equation, and conversely, iterating the Bellman policy \(g\) from any \(x_0\) generates an optimal sequence.</p>
+  </div>
+
+  <p>Why is this progress? Because once we have \(V\) and \(g\) — solutions to the two-period problem (BE) — we have the solution to the infinitely-dimensional sequence problem for <em>any</em> initial condition. The Principle of Optimality is Bellman's (1957) key insight.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s4">4. Sketch proof of the Principle of Optimality</h2>
+
+  <p>We work in the bounded case: assume \(|F(x,y)|\leq B\lt\infty\) for all \((y,x)\in Gr(\Gamma)\). This implies \(|u(\{x_{t+1}\})|\leq B/(1-\beta)\) and \(|V(x)|\leq B/(1-\beta)\). It also implies the terminal condition \(\lim_{T\to\infty}\beta^T V(x_T)=0\) for any feasible sequence. <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=7">Det DP p.7</a></p>
+
+  <div class="proof" id="pf-poo">
+    <div class="box-title">Sketch proof: \(V=V^*\) in the bounded case</div>
+    <p><strong>Part 1: \(V(x_0)\geq V^*(x_0)\).</strong></p>
+    <ol>
+      <li>Since \(V\) satisfies (BE), for any \(x_0\) and any feasible \(x_1\in\Gamma(x_0)\):
+        $$V(x_0) \geq F(x_0,x_1)+\beta V(x_1).$$</li>
+      <li>Apply the same inequality at \(x_1\): \(V(x_1)\geq F(x_1,x_2)+\beta V(x_2)\). Substitute back:
+        $$V(x_0) \geq F(x_0,x_1)+\beta F(x_1,x_2)+\beta^2 V(x_2).$$</li>
+      <li>Iterate \(T\) times: for any \(x^T\in\Pi^T(x_0)\),
+        $$V(x_0) \geq \sum_{t=0}^{T-1}\beta^t F(x_t,x_{t+1})+\beta^T V(x_T).$$</li>
+      <li>As \(T\to\infty\): \(\beta^T V(x_T)\to0\) (bounded case), so \(V(x_0)\geq u(\{x_{t+1}\})\) for every feasible plan. Taking the supremum over all plans: \(V(x_0)\geq V^*(x_0)\).</li>
+    </ol>
+    <p><strong>Part 2: \(V(x_0)\leq V^*(x_0)\).</strong></p>
+    <ol>
+      <li>By definition of (BE), there exists \(x_1^*=g(x_0)\in\Gamma(x_0)\) such that
+        $$V(x_0) = F(x_0,x_1^*)+\beta V(x_1^*).$$</li>
+      <li>Apply the same at \(x_1^*\): \(V(x_1^*)=F(x_1^*,x_2^*)+\beta V(x_2^*)\). Substituting:
+        $$V(x_0) = F(x_0,x_1^*)+\beta F(x_1^*,x_2^*)+\beta^2 V(x_2^*).$$</li>
+      <li>Iterate: for all \(T\),
+        $$V(x_0) = \sum_{t=0}^{T-1}\beta^t F(x_t^*,x_{t+1}^*)+\beta^T V(x_T^*).$$</li>
+      <li>As \(T\to\infty\): \(\beta^T V(x_T^*)\to0\), so \(V(x_0)=u(\{x_{t+1}^*\})\leq V^*(x_0)\).</li>
+    </ol>
+    <p><strong>Conclusion:</strong> \(V(x_0)\geq V^*(x_0)\) and \(V(x_0)\leq V^*(x_0)\) together give \(V(x_0)=V^*(x_0)\) for all \(x_0\). The plan \(\{x_t^*\}\) generated by iterating \(g\) is optimal. \(\square\)</p>
+    <p><em>Note:</em> This sketch contains the main idea of a rigorous proof. It is not a proof because we have not established that \(V\) satisfying (BE) exists, nor that the maxima are attained. See SLP for the complete treatment.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s5">5. Advantages of dynamic programming</h2>
+
+  <p>Why bother with the Bellman equation when we could work with the sequence problem directly? The slides list six advantages: <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=10">Det DP p.10</a></p>
+
+  <ul>
+    <li><strong>Much easier with shocks.</strong> When there is an exogenous stochastic state variable \(z_t\), the state space for the sequence problem explodes (you must track the entire history of shocks). The Bellman equation just adds \(z\) to the state: \(V(x,z)=\max_{y\in\Gamma(x,z)}\{F(x,y,z)+\beta\mathbb{E}[V(y,z')]\}\). This is covered in Lesson 43.</li>
+    <li><strong>Guess and verify.</strong> A corollary of the Contraction Mapping Theorem (Lesson 41): if you can guess a function \(V\) and verify that \(TV=V\) (i.e. that \(V\) satisfies BE), then \(V=V^*\) automatically. This technique delivers closed-form solutions for log utility and Cobb-Douglas production, as we show in Lesson 42.</li>
+    <li><strong>Computational ability.</strong> Value-function iteration — repeatedly applying the Bellman operator \(T\) starting from any bounded \(v_0\) — converges to \(V^*\). The CMT gives a contraction rate \(\beta^n\) after \(n\) iterations.</li>
+    <li><strong>Discrete choice and non-convex problems.</strong> The sequence approach relies on first-order conditions and concavity. The Bellman equation works even when \(\Gamma\) is not convex or \(F\) is not concave — just maximize over \(\Gamma(x)\) directly.</li>
+    <li><strong>Easier to interpret.</strong> The value function \(V(x)\) is the agent's discounted lifetime utility starting from \(x\). It has a clear economic meaning (marginal value of a unit of state, envelope condition, etc.) and connects directly to the Hamiltonian via \(\lambda(t)=V'(x(t))\) in continuous time.</li>
+  </ul>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s6">6. Quiz</h2>
+
+  <div class="quiz-section">
+
+    <div class="quiz-question" data-correct="b">
+      <p class="quiz-title">The Bellman equation is called a "functional equation" because:</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">It is a function of the discount factor β only</li>
+        <li class="quiz-option" data-option="b">Its unknown is a function V, not a number or vector</li>
+        <li class="quiz-option" data-option="c">It functions as an approximation to the sequence problem</li>
+        <li class="quiz-option" data-option="d">It has a functional form that is concave in the state</li>
+      </ul>
+      <div class="quiz-explain">The equation \(V(x)=\max_{y\in\Gamma(x)}\{F(x,y)+\beta V(y)\}\) must hold for all \(x\in X\). The unknown is the entire function \(V:X\to\mathbb{R}\). Solving it means finding a function, not a number — this is what makes it a functional equation. The standard tools for such equations include fixed-point theorems (like CMT).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <p class="quiz-title">The Principle of Optimality states that V*(x) = V(x). Why is this useful?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">It proves the value function exists for all bounded problems</li>
+        <li class="quiz-option" data-option="b">It shows the discount factor must be less than one always</li>
+        <li class="quiz-option" data-option="c">Solving the two-period Bellman solves every initial condition</li>
+        <li class="quiz-option" data-option="d">It gives a closed-form for the optimal policy directly always</li>
+      </ul>
+      <div class="quiz-explain">Once we find \(V\) satisfying (BE) — a two-period maximization for each \(x\) — we have \(V=V^*\) everywhere. The optimal path from any \(x_0\) is obtained by iterating the policy \(g\). The sequence problem would require re-solving for each \(x_0\) separately; the Bellman equation solves everything at once.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <p class="quiz-title">In the bounded-case sketch proof, why does β^T V(x_T) → 0 as T → ∞?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Because |V| ≤ B/(1−β) is finite and β^T → 0 for β∈(0,1)</li>
+        <li class="quiz-option" data-option="b">Because the state x_T converges to zero for large time T</li>
+        <li class="quiz-option" data-option="c">Because the period return F converges to zero as T grows</li>
+        <li class="quiz-option" data-option="d">Because the optimal policy g(x) is eventually zero always</li>
+      </ul>
+      <div class="quiz-explain">The bounded assumption gives \(|V(x)|\leq B/(1-\beta)\) uniformly in \(x\). Therefore \(|\beta^T V(x_T)|\leq \beta^T B/(1-\beta)\to0\) since \(\beta\in(0,1)\). The state \(x_T\) need not go to zero — only the discounted terminal value needs to vanish. This is the analogue of the transversality condition in the sequence approach.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <p class="quiz-title">Which advantage of DP is most important for handling stochastic models?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">DP delivers closed-form solutions for log utility directly</li>
+        <li class="quiz-option" data-option="b">DP makes the problem two-dimensional regardless of shocks</li>
+        <li class="quiz-option" data-option="c">DP requires no expectations operator in the Bellman equation</li>
+        <li class="quiz-option" data-option="d">DP lets you add shocks to the state without changing structure</li>
+      </ul>
+      <div class="quiz-explain">In a stochastic model with shock \(z_t\), the Bellman state simply becomes \((x,z)\): \(V(x,z)=\max\{F(x,y,z)+\beta\mathbb{E}[V(y,z')]\}\). The structure is identical to the deterministic case — only the expectation operator appears inside. The sequence problem, by contrast, would require conditioning on the entire history of shocks, making it vastly more complex.</div>
+    </div>
+
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s7">7. True or False</h2>
+
+  <div class="box exercise" id="tf">
+    <div class="box-title">True or False — justify in one or two lines</div>
+    <ol class="tf-list">
+      <li>The Bellman equation always has a unique solution \(V\). <span class="tf-src">Det DP p.4</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The Bellman equation is a functional equation; without additional structure it may have many solutions or none. Under the conditions of the Contraction Mapping Theorem (F bounded, Γ compact-valued and continuous — covered in Lesson 41), the Bellman operator is a contraction and has a unique fixed point \(V^*\). Without these conditions, uniqueness can fail.</p></div></details></li>
+
+      <li>The Principle of Optimality says that every plan that is optimal from \(x_0\) is also optimal from every continuation state \(x_t\). <span class="tf-src">Det DP p.5</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True, with care.</strong> If \(\{x_t^*\}\) is optimal for the sequence problem from \(x_0\), then the continuation plan \(\{x_{t+s}^*\}_{s\geq0}\) is optimal from \(x_t^*\) for every \(t\). This is the "no regret" property of dynamic programming. It follows from \(V^*=V\): the Bellman policy \(g\) is optimal at every state, so iterating it from any \(x_t\) is optimal.</p></div></details></li>
+
+      <li>The sequence problem and the Bellman equation are always equivalent without any assumptions on \(F\) or \(\Gamma\). <span class="tf-src">Det DP p.2</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The slides explicitly state that "a rigorous equivalence between the sequence and recursive problems requires additional regularity conditions." In the bounded case, the sketch proof works, but in unbounded cases (AK growth, CRRA with \(k\to\infty\)) additional conditions (Inada conditions, growth bounds, interiority) are needed. See SLP Chapter 4.</p></div></details></li>
+
+      <li>If we can find a function \(V\) that satisfies the Bellman equation (BE), then \(V=V^*\). <span class="tf-src">Det DP p.5</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True, under the maintained conditions.</strong> The sketch proof shows: (1) any \(V\) satisfying (BE) satisfies \(V\geq V^*\) (since iterating BE gives an upper bound on any plan's payoff); (2) \(V\leq V^*\) (since iterating \(g\) achieves exactly \(V\)). Together: \(V=V^*\). This is the basis of the guess-and-verify technique — if your guess satisfies BE, you're done.</p></div></details></li>
+    </ol>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s8">8. Exercises</h2>
+
+  <div class="box exercise" id="ex-40-1">
+    <div class="box-title">Exercise 40.1 <span class="tag slides">Det DP p.27</span> (savings problem, guess and verify)</div>
+    <p>An agent with wealth \(x\) at the start of a period receives wages \(w>0\) and earns gross return \(1+r\) on savings. The budget constraint is:</p>
+    $$y + c = x(1+r) + w,$$
+    <p>where \(y\) is next period's wealth (savings chosen today) and \(c\) is consumption. The agent maximizes \(\sum_{t=0}^\infty\beta^t U(c_t)\), where \(U\) is strictly increasing, strictly concave, and \(C^2\). Assume \((1+r)\beta=1\) and \(w>0\).</p>
+    <ol class="parts" type="a">
+      <li>Write the Bellman equation for this problem. What is the state variable? What is the control? What is \(\Gamma(x)\)? <span class="pts">(10 pts)</span></li>
+      <li>Guess that \(V(x)=A + B\cdot U(w+rx)\) for some constants \(A,B\) to be determined. Verify this guess by substituting into the Bellman equation and finding \(A\) and \(B\). <span class="pts">(15 pts)</span></li>
+      <li>Find the optimal policy \(g(x)\) (next period's wealth) and consumption rule \(c(x)\). Interpret. <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (b): the FOC for \(y\) is \(-U'(c)+\beta(1+r)V'(y)=0\). With \((1+r)\beta=1\), this becomes \(U'(c)=V'(y)\). Try the guess \(g(x)=x\) (constant wealth). Then \(c=w+rx\). Substitute into the Bellman equation and check consistency.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) State: \(x\) (beginning-of-period wealth). Control: \(y\in\Gamma(x)=\{y:0\leq y\leq x(1+r)+w\}\) (next period's wealth, equivalently consumption \(c=x(1+r)+w-y\geq0\)). Bellman equation:</p>
+      $$V(x) = \max_{y\in[0,\,x(1+r)+w]}\{U(x(1+r)+w-y)+\beta V(y)\}.$$
+      <p>(b) Guess \(g(x)=x\), i.e. \(c(x)=w+rx\). Check the FOC: \(U'(c)=\beta(1+r)V'(y)\). With the guess, \(c=w+rx\) and \(V'(y)=V'(x)\). So we need \(U'(w+rx)=\beta(1+r)V'(x)\). If \(V(x)=A+B\cdot U(w+rx)\), then \(V'(x)=Br\cdot U'(w+rx)\). Substituting: \(U'(w+rx)=\beta(1+r)Br\cdot U'(w+rx)\implies 1=\beta(1+r)Br\implies B=\frac{1}{\beta(1+r)r}=\frac{1}{r}\) (using \(\beta(1+r)=1\)).</p>
+      <p>Now verify the value equation: \(V(x)=U(c)+\beta V(y)=U(w+rx)+\beta V(x)\). So \(V(x)-\beta V(x)=U(w+rx)\implies V(x)=U(w+rx)/(1-\beta)\). This matches the guess with \(B=1/(1-\beta)\) and \(A=0\). Note: the two expressions for \(B\) are consistent only if \(r=1-\beta\), which is a special case. In general, the guess \(V(x)=U(w+rx)/(1-\beta)\) works directly (set \(B=1/(1-\beta)\), \(A=0\)) when \(g(x)=x\) is optimal, which requires \((1+r)\beta=1\).</p>
+      <p>(c) Optimal policy: \(g(x)=x\) — wealth is constant. Consumption: \(c(x)=w+rx\) — consume the entire income flow (wages plus interest). This is the "permanent income" result: when the interest rate exactly offsets time preference, the agent neither saves nor dissaves.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-40-2">
+    <div class="box-title">Exercise 40.2 <span class="tag exam">Exam-style</span> (neoclassical growth, Bellman structure)</div>
+    <p>Consider the neoclassical growth model: \(F(k,k')=U(f(k)-k')\), \(\Gamma(k)=[0,f(k)]\), where \(f\) is a neoclassical production function and \(U\) is a strictly concave utility function.</p>
+    <ol class="parts" type="a">
+      <li>Write the Bellman equation for this problem. <span class="pts">(5 pts)</span></li>
+      <li>What is the state variable and what is the control? <span class="pts">(5 pts)</span></li>
+      <li>What does the Principle of Optimality say about the optimal path \(\{k_t^*\}\) generated by iterating the policy \(g\)? <span class="pts">(10 pts)</span></li>
+      <li>Write the first-order condition and envelope condition. Combine them to derive the discrete-time Euler equation \(U'(c_t)=\beta U'(c_{t+1})f'(k_{t+1})\). <span class="pts">(15 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Bellman equation:</p>
+      $$V(k) = \max_{k'\in[0,f(k)]}\{U(f(k)-k')+\beta V(k')\}.$$
+      <p>(b) State: \(k\) (capital stock). Control: \(k'\) (next period's capital, equivalently consumption \(c=f(k)-k'\)).</p>
+      <p>(c) The Principle of Optimality says \(V^*(k)=V(k)\) for all \(k\), and the path generated by \(k_{t+1}^*=g(k_t^*)\) is optimal from \(k_0^*\). Moreover, the continuation path \(\{k_{t+s}^*\}_{s\geq0}\) is optimal from \(k_t^*\) for every \(t\geq0\). The agent cannot improve by deviating at any date \(t\) — there is no regret along the optimal path.</p>
+      <p>(d) FOC for \(k'\): \(-U'(f(k)-k')+\beta V'(k')=0\implies U'(c)=\beta V'(k')\). Envelope condition: \(V'(k)=U'(f(k)-g(k))\cdot f'(k)=U'(c)\cdot f'(k)\). Applying the envelope at \(k'\): \(V'(k')=U'(c_{t+1})f'(k_{t+1})\). Substituting into the FOC: \(U'(c_t)=\beta U'(c_{t+1})f'(k_{t+1})\). This is the standard Euler equation: the marginal cost of investing one more unit today equals the discounted marginal benefit tomorrow.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-40-3">
+    <div class="box-title">Exercise 40.3 <span class="tag proof">Proof</span> (sketch proof without boundedness)</div>
+    <p>The bounded-case proof relies on \(\beta^T V(x_T)\to0\). Consider the AK growth model where \(f(k)=Ak\) and \(U(c)=\ln c\). Along the optimal path \(k_t^*=k_0(1+g)^t\) for some growth rate \(g>0\).</p>
+    <ol class="parts" type="a">
+      <li>Show that \(V^*(k)\) in the AK model is not bounded: \(|V^*(k)|\to\infty\) as \(k\to\infty\). <span class="pts">(5 pts)</span></li>
+      <li>Does \(\beta^T V^*(k_T^*)\to0\) along the optimal path? Compute \(\beta^T V^*(k_T^*)\) explicitly using \(V^*(k)=a+b\ln k\) (which you may assume) and \(k_T^*=k_0(1+g)^T\). <span class="pts">(10 pts)</span></li>
+      <li>What additional condition on \(\beta\) and \(g\) ensures \(\beta^T V^*(k_T^*)\to0\)? Relate this to the transversality condition from Lesson 29. <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (b): \(V^*(k_T^*)=a+b\ln(k_0(1+g)^T)=a+b\ln k_0+bT\ln(1+g)\). So \(\beta^T V^*(k_T^*)=\beta^T[a+b\ln k_0+bT\ln(1+g)]\). For this to go to zero you need \(\beta^T\to0\) faster than \(T\) grows, which requires only \(\beta\in(0,1)\) since \(\beta^T T\to0\) for any \(\beta\in(0,1)\).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) With \(V^*(k)=a+b\ln k\), as \(k\to\infty\), \(V^*(k)\to\infty\). The function is unbounded above, so the bounded-case proof does not apply directly.</p>
+      <p>(b) \(\beta^T V^*(k_T^*)=\beta^T[a+b\ln k_0+bT\ln(1+g)]\). As \(T\to\infty\): \(\beta^T(a+b\ln k_0)\to0\) since \(\beta\in(0,1)\). And \(\beta^T\cdot bT\ln(1+g)\to0\) since \(\lim_{T\to\infty}T\beta^T=0\) for any \(\beta\in(0,1)\) (exponential decay dominates linear growth). Therefore \(\beta^T V^*(k_T^*)\to0\) even though \(V^*\) is unbounded.</p>
+      <p>(c) The condition is \(\beta(1+g)<1\) — equivalently, the discount factor \(\beta\) discounts sufficiently fast relative to the growth rate \(g\). This is exactly the transversality condition \(\lim_{T\to\infty}\beta^T\lambda_T k_T=0\) from Lesson 29, where \(\lambda_T=U'(c_T)/f'(k_T)\sim\text{const}\cdot(1+g)^{-T}\), so the product is \(\sim\beta^T(1+g)^{-T}(1+g)^T=\beta^T\to0\).</p>
+    </div></details>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="takeaways">
+    <h2 id="takeaways">Key takeaways</h2>
+    <ul>
+      <li>The <strong>sequence problem</strong> \(V^*(x_0)=\max\sum\beta^t F(x_t,x_{t+1})\) is infinite-dimensional; the <strong>Bellman equation</strong> \(V(x)=\max_{y\in\Gamma(x)}\{F(x,y)+\beta V(y)\}\) is a two-period functional equation.</li>
+      <li>The <strong>Principle of Optimality</strong> (\(V^*=V\)) says these two formulations are equivalent. Solving the Bellman equation once delivers the optimal policy \(g(x)\) for every initial condition.</li>
+      <li>The sketch proof proceeds by: (1) iterating the Bellman inequality forward to show \(V\geq V^*\); (2) showing that iterating the Bellman policy \(g\) achieves exactly \(V\), so \(V\leq V^*\). The terminal condition \(\beta^T V(x_T)\to0\) plays the role of the transversality condition.</li>
+      <li><strong>Key advantages of DP</strong>: (i) handles stochastic shocks cleanly by adding to the state; (ii) guess-and-verify delivers closed-form solutions; (iii) value-function iteration converges; (iv) works for non-convex/discrete problems; (v) value function has clear economic interpretation as marginal value of state.</li>
+      <li>The Bellman equation is studied via the Bellman operator \(T\): \((Tv)(x)=\max_{y\in\Gamma(x)}\{F(x,y)+\beta v(y)\}\). The Contraction Mapping Theorem (Lesson 41) establishes existence, uniqueness, and convergence of \(T^n v\to V^*\).</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "what happens to the Bellman equation when \(\beta=1\)?", "how does the Bellman equation relate to the Hamiltonian from Lesson 36?", or "can you show me a case where the Principle of Optimality fails?"</div>
+
+  <div class="lesson-nav">
+    <a href="0039-the-linear-quadratic-regulator.html">← Lesson 39: The linear quadratic regulator</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0041-contraction-mapping-and-properties-of-v.html">Lesson 41: Contraction mapping and properties of V* →</a>
+  </div>
+
+</div>
+</body>
+</html>

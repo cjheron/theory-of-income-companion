@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 42 — The Envelope Theorem, Euler Equations, and Continuous-Time DP</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part IX: Deterministic Dynamic Programming · Lesson 42 of 44</div>
+    <h1>The Envelope Theorem, Euler Equations, and Continuous-Time DP</h1>
+    <div class="meta">Covers <a href="../sources/slides8-dynamic-programming.pdf#page=21">Det DP slides 21–39</a> · About 40 min · Prerequisites: <a href="0041-contraction-mapping-and-properties-of-v.html">Lesson 41</a> (properties of V*)</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>derive \(V'(x) = F_x(x, g(x))\) (Benveniste–Scheinkman theorem) by differentiating the Bellman equation and using the first-order condition;</li>
+      <li>obtain the Euler equation \(F_y(x, g(x)) + \beta F_x(g(x), g(g(x))) = 0\) by combining the FOC and the envelope;</li>
+      <li>solve guess-and-verify examples: the adjustment cost model and log-utility Cobb–Douglas growth;</li>
+      <li>derive the continuous-time Bellman (HJB) equation \(\rho V(x) = \max_u\{h(x,u) + V'(x)g(x,u)\}\);</li>
+      <li>connect the HJB to the Maximum Principle: \(\lambda(t) = V'(x(t))\) identifies the costate with the marginal value of the state.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides8-dynamic-programming.pdf#page=21">Deterministic DP slides 21–39</a>. Standard references: Stokey, Lucas &amp; Prescott (SLP), Chapters 4–5; Acemoglu, <em>Introduction to Modern Economic Growth</em>, Chapter 7 (continuous-time DP).
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s1">1. The envelope argument</h2>
+
+  <p>Recall the Bellman equation and its unique fixed-point value function \(V^*\). The slides use \(V\) for \(V^*\) throughout. With \(g(x)\) denoting the optimal policy (the maximizer of the right-hand side), the Bellman equation evaluated at the optimum is <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=21">Det DP p.21</a>:</p>
+
+  $$V(x) = F(x, g(x)) + \beta V(g(x)).$$
+
+  <p>Suppose \(V\) is differentiable and that \(g\) is differentiable at \(x\), and that \((x, g(x)) \in \mathrm{Int}(\mathrm{Gr}(\Gamma))\) (the pair is in the interior of the feasible set). Differentiating both sides with respect to \(x\):</p>
+
+  $$V'(x) = F_x(x, g(x)) + F_y(x, g(x))\,g'(x) + \beta V'(g(x))\,g'(x).$$
+
+  <p>Factor out \(g'(x)\):</p>
+
+  $$V'(x) = F_x(x, g(x)) + \bigl[F_y(x, g(x)) + \beta V'(g(x))\bigr]\,g'(x).$$
+
+  <p>The first-order condition for the maximization in the Bellman equation is:</p>
+
+  $$F_y(x, g(x)) + \beta V'(g(x)) = 0.$$
+
+  <p>Substituting, the entire bracketed term vanishes, leaving:</p>
+
+  $$\boxed{V'(x) = F_x(x, g(x)).}$$
+
+  <div class="intuition" id="int-envelope-meaning">
+    <div class="box-title">Why the envelope result is so useful</div>
+    <p>The standard "envelope theorem" from static optimization says: when you differentiate an optimized value with respect to a parameter, you can ignore the indirect effect through the choice variable (because the first-order condition sets the choice derivative to zero). Here, \(x\) is both the state <em>and</em> the first argument of \(F\). The result says \(V'(x) = F_x\): the marginal value of the state equals the direct marginal effect of the state on the return, evaluated at the optimum — even though a higher \(x\) also affects future capital via \(g(x)\). The indirect channel is killed by the FOC. This makes V differentiable and gives us an expression for the derivative without needing to know \(g'\).</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s2">2. Benveniste–Scheinkman theorem</h2>
+
+  <div class="theorem" id="thm-bs">
+    <div class="box-title">Theorem (Benveniste–Scheinkman)</div>
+    <p>Assume \(F(\cdot, y)\) is \(C^1\) and that \((x, g(x)) \in \mathrm{Int}(\mathrm{Gr}(\Gamma))\) for all \(x\) in an open set. Then the value function \(V\) is differentiable at \(x\) and:</p>
+    $$V'(x) = F_x(x, g(x)).$$
+    <p><em>Crucially, this theorem does NOT require \(g\) to be differentiable.</em> It establishes the differentiability of \(V\) at the same time as it gives the formula for \(V'\).</p>
+  </div>
+
+  <div class="proof" id="pf-bs">
+    <div class="box-title">Proof sketch (numbered steps)</div>
+    <ol class="steps">
+      <li><strong>Setup.</strong> Fix \(x\) and let \(x' = x + \epsilon\) for small \(\epsilon\). By definition of \(V\) and the feasibility of using policy \(g(x)\) at state \(x'\) (using interiority):
+        $$V(x') \geq F(x', g(x)) + \beta V(g(x)).$$</li>
+      <li><strong>Upper bound.</strong> Similarly, the policy \(g(x')\) is feasible at \(x\), so:
+        $$V(x) \geq F(x, g(x')) + \beta V(g(x')).$$</li>
+      <li><strong>Squeeze.</strong> Combining:
+        $$V(x') - V(x) \geq F(x', g(x)) - F(x, g(x))$$
+        and
+        $$V(x') - V(x) \leq F(x', g(x')) - F(x, g(x')).$$</li>
+      <li><strong>Divide by \(\epsilon\) and take limits.</strong> As \(\epsilon \to 0$, both bounds converge to $F_x(x, g(x))$ by the differentiability of \(F\). (The right bound uses the fact that \(g(x') \to g(x)\) by continuity of \(g\), which follows from the theorem of the maximum.) Therefore \(V'(x) = F_x(x, g(x))\). \(\square\)</li>
+    </ol>
+  </div>
+
+  <div class="warning" id="warn-bs-g">
+    <div class="box-title">The theorem does not require \(g\) to be differentiable</div>
+    <p>The heuristic derivation in Section 1 assumed \(g\) is differentiable so we could write \(g'(x)\). The B-S theorem proves the conclusion without that assumption — the squeeze in Step 3 avoids differentiating through \(g\). The differentiability of \(V\) is a conclusion, not an assumption. The same logic is "the key for the envelope theorem in general" (slide p.22).</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s3">3. Euler equations from the Bellman</h2>
+
+  <p>The B-S theorem and the Bellman FOC together give the Euler equation directly. <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=23">Det DP p.23</a></p>
+
+  <p><strong>FOC at \(x\):</strong></p>
+  $$0 = F_y(x, g(x)) + \beta V'(g(x)).$$
+
+  <p><strong>Apply B-S at the next state \(g(x)\):</strong></p>
+  $$V'(g(x)) = F_x(g(x),\, g(g(x))).$$
+
+  <p>Substitute the second into the first:</p>
+
+  <div class="theorem" id="thm-euler-bellman">
+    <div class="box-title">Euler equation from the Bellman</div>
+    $$F_y(x, g(x)) + \beta F_x\bigl(g(x),\, g(g(x))\bigr) = 0.$$
+    <p>This is the same Euler equation one derives from the sequence problem using variations — but here it falls out of two lines of algebra once we have the envelope result. No need to perturb a plan.</p>
+  </div>
+
+  <p><strong>Neoclassical growth model example.</strong> <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=24">Det DP p.24</a> Here \(F(k, k') = U(f(k) - k')\) and the feasibility constraint is \(0 \leq k' \leq f(k)\). The FOC is:</p>
+  $$-U'(f(k) - g(k)) + \beta V'(g(k)) = 0 \implies U'(f(k)-g(k)) = \beta V'(g(k)).$$
+  <p>The B-S theorem gives \(V'(k) = F_x(k,g(k)) = U'(f(k)-g(k))\,f'(k)\). Substituting into the FOC:</p>
+  $$U'(c_t) = \beta U'(c_{t+1})\,f'(k_{t+1}),$$
+  <p>the standard Euler equation, where \(c_t = f(k_t) - k_{t+1}\). This is a clean route to a result that took calculus-of-variations arguments in the sequence problem.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s4">4. Guess-and-verify: adjustment cost model</h2>
+
+  <p>Guess-and-verify is a systematic way to solve the Bellman equation when the functional form suggests a particular shape for \(V\). The strategy: guess a parametric form for \(V\), substitute into the Bellman, solve the maximization, and check that the resulting equations can be satisfied — which pins down the unknown parameters. <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=29">Det DP p.29</a></p>
+
+  <p><strong>Setup.</strong></p>
+  $$F(x, y) = -\frac{a}{2}y^2 - \frac{b}{2}(y - x)^2, \qquad \Gamma(x) = \mathbb{R}, \quad a, b > 0.$$
+
+  <div class="intuition" id="int-adj-cost">
+    <div class="box-title">Economic interpretation</div>
+    <p>Think of \(y\) as next-period capital stock and \(x\) as current capital. The term \(-\frac{a}{2}y^2\) is a direct cost of holding capital (e.g., maintenance). The term \(-\frac{b}{2}(y-x)^2\) is an <em>adjustment cost</em>: changing the capital stock is costly, with cost proportional to the squared change. The agent wants to keep \(y\) small (cost of capital) but also wants \(y \approx x\) (adjustment cost). The Bellman solution will reveal the optimal trade-off.</p>
+  </div>
+
+  <p><strong>Guess:</strong> \(V(x) = -\frac{c}{2}x^2\) for some \(c > 0\) to be determined.</p>
+
+  <p><strong>FOC.</strong> Maximize \(-\frac{a}{2}y^2 - \frac{b}{2}(y-x)^2 + \beta(-\frac{c}{2})y^2\) over \(y \in \mathbb{R}\):</p>
+  $$\frac{d}{dy}\bigl[-\tfrac{a}{2}y^2 - \tfrac{b}{2}(y-x)^2 - \tfrac{\beta c}{2}y^2\bigr] = -(a+\beta c)y - b(y-x) = 0,$$
+  $$y^*(x) = \frac{b}{a + b + \beta c}\,x.$$
+
+  <p><strong>Verify.</strong> Substitute \(y^*(x)\) and the guess \(V(y) = -\frac{c}{2}y^2\) into the Bellman:</p>
+  $$-\frac{c}{2}x^2 = -\frac{a}{2}\left(\frac{b}{a+b+\beta c}\right)^2 x^2 - \frac{b}{2}\left(\frac{b}{a+b+\beta c}-1\right)^2 x^2 - \frac{\beta c}{2}\left(\frac{b}{a+b+\beta c}\right)^2 x^2.$$
+
+  <p>Let \(D = a + b + \beta c\). The right side equals:</p>
+  $$-\frac{x^2}{2D^2}\left[(a+\beta c)b^2 + b(D-b)^2\right] = -\frac{x^2}{2D^2}\left[(a+\beta c)b^2 + b(a+\beta c)^2\right] = -\frac{x^2(a+\beta c)b(b + a+\beta c)}{2D^2} = -\frac{x^2(a+\beta c)b}{2D}.$$
+
+  <p>Matching with \(-\frac{c}{2}x^2\):</p>
+  $$c = \frac{(a + \beta c)\,b}{a + b + \beta c}.$$
+
+  <p>Cross-multiplying: \(c(a + b + \beta c) = (a + \beta c)b\), giving \(ca + cb + \beta c^2 = ab + \beta cb\), i.e.:</p>
+  $$\beta c^2 + c(a + b - \beta b) - ab = 0 \implies \beta c^2 + c\bigl(a + b(1-\beta)\bigr) - ab = 0.$$
+
+  <p>This is a quadratic in \(c\). The positive root is the economically relevant solution (since \(V(x) = -\frac{c}{2}x^2\) must be bounded — we need \(c > 0\)):</p>
+  $$c = \frac{-\bigl(a + b(1-\beta)\bigr) + \sqrt{\bigl(a + b(1-\beta)\bigr)^2 + 4\beta ab}}{2\beta}.$$
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s5">5. Guess-and-verify: log-utility Cobb–Douglas</h2>
+
+  <p><a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=30">Det DP p.30</a></p>
+
+  <p><strong>Setup.</strong> Neoclassical growth model with log utility and 100% depreciation:</p>
+  $$F(x, y) = \log(x^\alpha - y), \qquad \Gamma(x) = [0, x^\alpha], \quad \alpha \in (0,1).$$
+
+  <div class="intuition" id="int-log-cd">
+    <div class="box-title">Why 100% depreciation simplifies things</div>
+    <p>With full depreciation, next-period capital equals this-period investment, so the feasibility constraint is simply \(c + k' \leq f(k) = k^\alpha\) with \(c = k^\alpha - k'\). The return \(F(k, k') = \log(k^\alpha - k')\) is a function of both \(k\) and \(k'\). The Cobb–Douglas + log utility combination produces a value function that is log in \(k\), which is why the guess \(V(k) = A + B\log k\) succeeds.</p>
+  </div>
+
+  <p><strong>Guess:</strong> \(V(x) = A + B\log x\) for constants \(A, B\) to be determined.</p>
+
+  <p><strong>FOC.</strong> Maximize \(\log(x^\alpha - y) + \beta(A + B\log y)\) over \(y \in (0, x^\alpha)\):</p>
+  $$\frac{-1}{x^\alpha - y} + \frac{\beta B}{y} = 0 \implies y = \frac{\beta B}{1 + \beta B}\,x^\alpha.$$
+
+  <p>So consumption is \(c^* = x^\alpha - y^* = \frac{1}{1+\beta B}x^\alpha\) and \(g(x) = \frac{\beta B}{1+\beta B}x^\alpha\).</p>
+
+  <p><strong>Verify — matching \(\log x\) coefficient.</strong> Substitute into the Bellman:</p>
+  $$A + B\log x = \log\!\left(\frac{x^\alpha}{1+\beta B}\right) + \beta\!\left(A + B\log\!\left(\frac{\beta B}{1+\beta B}x^\alpha\right)\right).$$
+
+  <p>The \(\log x\) terms on the right: \(\alpha\log x + \beta B\alpha\log x = \alpha(1+\beta B)\log x\). Matching with the left-hand side gives:</p>
+  $$B = \alpha(1 + \beta B) \implies B = \frac{\alpha}{1 - \alpha\beta}.$$
+
+  <p>The constant terms: \(A = -\log(1+\beta B) + \beta A + \beta B\log\!\frac{\beta B}{1+\beta B}\), from which \(A = \frac{1}{1-\beta}\left[-\log(1+\beta B) + \beta B\log\!\frac{\beta B}{1+\beta B}\right]\). The key result is that \(A\) is pinned down (though we won't simplify it further). The optimal policy is:</p>
+  $$g(x) = \frac{\beta B}{1+\beta B}x^\alpha = \frac{\frac{\alpha\beta}{1-\alpha\beta}}{1 + \frac{\alpha\beta}{1-\alpha\beta}}x^\alpha = \alpha\beta\, x^\alpha.$$
+
+  <p>So saving is a constant fraction \(\alpha\beta\) of output, and consumption is \((1-\alpha\beta)x^\alpha\). This is the celebrated exact solution to the neoclassical growth model.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s6">6. Guess-and-verify: CES-CRRA (optional)</h2>
+
+  <p><a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=31">Det DP p.31</a> This example generalizes the log-CD case by allowing \(\sigma \neq 1\) (CRRA) and \(\rho \neq 1\) (CES capital). With 100% depreciation:</p>
+  $$f(k) = \bigl[\alpha k^{1-1/\rho} + (1-\alpha)^{1-1/\rho}\bigr]^{1/(1-1/\rho)}, \qquad U(c) = \frac{c^{1-1/\sigma}-1}{1-1/\sigma}.$$
+
+  <p>One looks for a solution of the form \(g(k) = a\,f(k)\) for some constant \(a \in (0,1)\) (a constant investment rate). The slide shows that a solution of this type exists when \(\sigma = \rho\) — the elasticity of substitution between capital types equals the intertemporal elasticity of substitution. When \(\sigma = \rho = 1\) the problem reduces to the log-CD case with \(a = \alpha\beta\).</p>
+
+  <div class="intuition" id="int-ces-crra">
+    <div class="box-title">Why \(\sigma = \rho\) is special</div>
+    <p>The savings rate \(a\) is determined by a fixed-point condition. When \(\sigma \neq \rho\), the income and substitution effects of changes in the return to saving do not cancel, so the constant-savings-rate guess fails. When \(\sigma = \rho\), they cancel: the intertemporal elasticity of substitution exactly offsets the capital-composition elasticity. This is a deep reason why CES + CRRA with equal elasticities is so tractable in growth models.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s7">7. Continuous-time Bellman equation (HJB)</h2>
+
+  <p>Now we move from discrete to continuous time. The derivation uses the control-state formulation with period length \(\Delta\). <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=32">Det DP p.32</a></p>
+
+  <p><strong>Setup.</strong> The discrete Bellman equation with period \(\Delta\) is:</p>
+  $$V(x_t) = \max_{u_t \in U}\left\{\Delta\,h(x_t, u_t) + \frac{1}{1+\Delta\rho}\,V(x_{t+\Delta})\right\},$$
+  <p>subject to the law of motion \(x_{t+\Delta} = x_t + \Delta\,g(x_t, u_t)\). Here \(h\) is the flow return per unit time and \(\frac{1}{1+\Delta\rho}\) is the discount factor over a period of length \(\Delta\).</p>
+
+  <p><strong>Taylor expansion.</strong> <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=33">Det DP p.33</a> Expand \(V(x_{t+\Delta})\) around \(x_t\):</p>
+  $$V(x_{t+\Delta}) = V(x_t + \Delta g(x_t, u_t)) = V(x_t) + V'(x_t)\,\Delta g(x_t, u_t) + o(\Delta g).$$
+
+  <p>Substitute into the Bellman and multiply both sides by \((1+\Delta\rho)\):</p>
+  $$(1+\Delta\rho)V(x_t) = \max_{u}\left\{(1+\Delta\rho)\Delta h + V(x_t) + V'(x_t)\Delta g + o(\Delta g)\right\}.$$
+
+  <p>Cancel \(V(x_t)\) from both sides and divide by \(\Delta\): <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=34">Det DP p.34</a></p>
+  $$\rho V(x_t) = \max_{u}\left\{(1+\Delta\rho)h + V'(x_t)g + o(\Delta g)/\Delta\right\}.$$
+
+  <p><strong>Take \(\Delta \to 0\).</strong> <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=35">Det DP p.35</a> The term \((1+\Delta\rho)h \to h\) and \(o(\Delta g)/\Delta \to 0\) under regularity conditions (the limit of the max w.r.t. \(u\) equals the max of the limit). We obtain:</p>
+
+  <div class="definition" id="def-hjb">
+    <div class="box-title">Definition: Hamilton–Jacobi–Bellman equation (continuous time)</div>
+    $$\rho V(x) = \max_{u \in U}\bigl\{h(x, u) + V'(x)\,g(x, u)\bigr\}. \tag{3}$$
+    <p>This is a functional equation in \(V: X \to \mathbb{R}\). Its solution — if it exists and is differentiable — is the value function \(V^*(x) = \int_0^\infty e^{-\rho t} h(x(t), u(t))\,dt\) evaluated at the optimum.</p>
+  </div>
+
+  <div class="warning" id="warn-hjb-heuristic">
+    <div class="box-title">The continuous-time derivation is heuristic</div>
+    <p>The passage from the discrete to the continuous Bellman requires exchanging the limit and the max, and assumes differentiability of \(V\). A rigorous treatment requires showing that the value function of the continuous problem equals the value function derived from the HJB, which needs additional regularity conditions (uniform convergence arguments) beyond the scope of this course. See Fleming and Soner (2006) for a rigorous treatment via viscosity solutions.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s8">8. FOC and summary of the HJB system</h2>
+
+  <p>Under differentiability and interiority, the maximization in equation (3) can be characterized by a first-order condition. <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=36">Det DP p.36</a></p>
+
+  <p>Let \(u^*(x)\) denote the optimal control. The two functional equations summarizing the continuous-time DP are:</p>
+
+  $$\rho V(x) = h(x, u^*(x)) + V'(x)\,g(x, u^*(x)) \tag{4}$$
+
+  $$0 = h_u(x, u^*(x)) + V'(x)\,g_u(x, u^*(x)) \tag{5}$$
+
+  <p>Equation (4) is the HJB (Bellman) evaluated at the optimal control. Equation (5) is the first-order condition for \(u\) — analogous to the discrete-time Bellman FOC. These are two functional equations whose unknown solutions are the functions \(V: X \to \mathbb{R}\) and \(u^*: X \to U\).</p>
+
+  <div class="intuition" id="int-hjb-interpretation">
+    <div class="box-title">Interpreting the HJB</div>
+    <p>Equation (4) has an asset-pricing interpretation: think of \(V(x)\) as the price of an asset that pays flow return \(h(x, u^*(x))\) and has capital gain \(V'(x)\dot{x} = V'(x)g(x, u^*(x))\). Then the HJB says the return on the asset \(\rho V = \text{dividend} + \text{capital gain}\) — exactly the standard no-arbitrage condition. The optimal control equates the marginal cost of control to its marginal return in terms of capital gain.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s9">9. Connection to the Maximum Principle</h2>
+
+  <p>The continuous-time DP and the Maximum Principle (Hamiltonian) approach are equivalent under regularity conditions. The bridge is a simple identification. <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=37">Det DP p.37</a></p>
+
+  <div class="theorem" id="thm-connection">
+    <div class="box-title">Theorem: HJB ⟺ Maximum Principle</div>
+    <p>Under the differentiability and interiority conditions maintained above, along any optimal path \(x^*(t)\):</p>
+    $$\lambda(t) = V'(x^*(t)).$$
+    <p>That is, the costate variable in the Maximum Principle equals the derivative of the value function — the marginal value of the state. Equation (5) is then equivalent to \(H_u(x, u, \lambda) = 0\), and equation (4) differentiates to give the costate equation \(\dot\lambda = \rho\lambda - H_x\).</p>
+  </div>
+
+  <div class="proof" id="pf-connection">
+    <div class="box-title">Derivation (connecting HJB to costate equation)</div>
+    <ol class="steps">
+      <li><strong>Identify the costate.</strong> Set \(\lambda(t) \equiv V'(x^*(t))\). Differentiating with respect to time: \(\dot\lambda = V''(x^*)\,\dot x^* = V''(x^*)\,g(x^*, u^*)\).</li>
+      <li><strong>Differentiate equation (4) with respect to \(x\).</strong> Differentiating \(\rho V(x) = h(x, u^*(x)) + V'(x)g(x, u^*(x))\) w.r.t. \(x\) and applying the envelope (using equation (5) to eliminate the \(u^*_x\) terms):
+        $$\rho V'(x) = h_x(x, u^*) + V''(x)\,g(x, u^*) + V'(x)\,g_x(x, u^*).$$</li>
+      <li><strong>Substitute \(\lambda = V'\) and \(\dot\lambda = V''g\).</strong>
+        $$\rho\lambda = h_x + \dot\lambda + \lambda\,g_x,$$
+        which rearranges to:
+        $$\dot\lambda = \rho\lambda - h_x - \lambda\,g_x = \rho\lambda - H_x(x, u, \lambda),$$
+        where \(H(x, u, \lambda) = h(x,u) + \lambda\,g(x,u)\) is the current-value Hamiltonian. This is exactly the costate equation from the Maximum Principle. \(\square\)</li>
+    </ol>
+  </div>
+
+  <div class="intuition" id="int-lambda-interpretation">
+    <div class="box-title">\(\lambda(t)\) as the shadow price of the state</div>
+    <p>The identification \(\lambda(t) = V'(x(t))\) gives an economic interpretation of the costate: it is the marginal value (shadow price) of an extra unit of the state variable. For the neoclassical growth model, \(\lambda(t) = V'(k(t)) = U'(c(t))\) (by the envelope result) — the shadow price of capital equals the marginal utility of consumption. This is consistent with the "discounted value of future consumption" interpretation of the costate we used in Part VIII.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s10">10. Quiz</h2>
+
+  <div class="quiz-section">
+
+    <div class="quiz-question" data-correct="b">
+      <p class="quiz-title">The Benveniste–Scheinkman theorem gives \(V'(x) = F_x(x,g(x))\). What makes the indirect effect through \(g(x)\) vanish?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The concavity of \(V\) implies the cross-derivative \(F_{xy}\) is zero</li>
+        <li class="quiz-option" data-option="b">The first-order condition \(F_y + \beta V'(g(x)) = 0\) zeros the indirect term</li>
+        <li class="quiz-option" data-option="c">The policy function \(g\) is constant so its derivative does not matter</li>
+        <li class="quiz-option" data-option="d">The discounting term \(\beta\) makes future effects negligible</li>
+      </ul>
+      <div class="quiz-explain">Differentiating the Bellman at the optimum gives \(V'(x) = F_x + [F_y + \beta V'(g(x))]g'(x)\). The bracket is exactly the FOC, which equals zero at the optimum. The indirect channel \(g'(x)\) is multiplied by zero — the envelope argument works because optimality kills the indirect effect. Concavity and discounting are not the operative mechanism here.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <p class="quiz-title">In the log-utility Cobb–Douglas model with 100% depreciation, the savings rate \(g(k)/f(k)\) is:</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Increasing in \(k\) due to higher future productivity</li>
+        <li class="quiz-option" data-option="b">Decreasing in \(k\) because of diminishing marginal utility</li>
+        <li class="quiz-option" data-option="c">Constant at \(\alpha\beta\) regardless of \(k\)</li>
+        <li class="quiz-option" data-option="d">Equal to \(\alpha/(1-\alpha\beta)\) times the interest rate</li>
+      </ul>
+      <div class="quiz-explain">The guess-and-verify derivation gives \(g(k) = \alpha\beta\,k^\alpha = \alpha\beta\,f(k)\). The saving rate \(g/f = \alpha\beta\) is a constant independent of \(k\). This is a special property of log utility + Cobb–Douglas: income and substitution effects exactly cancel so the savings rate is pinned down by the product of the capital share \(\alpha\) and the discount factor \(\beta\).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <p class="quiz-title">The HJB equation \(\rho V(x)=\max_u\{h+V'g\}\) has which asset-pricing interpretation?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The value must equal the present discounted value of costs</li>
+        <li class="quiz-option" data-option="b">The control must maximize the net present value of profits</li>
+        <li class="quiz-option" data-option="c">The discount rate must equal the internal rate of return on investment</li>
+        <li class="quiz-option" data-option="d">The required return \(\rho V\) equals the flow payoff plus the capital gain</li>
+      </ul>
+      <div class="quiz-explain">The HJB says \(\rho V = h + V'\dot x\). Think of \(V(x)\) as an asset price: its required return at rate \(\rho\) must equal its dividend (flow return \(h\)) plus its capital gain (\(V'\dot x\), the rate of change of the asset value). This is exactly the standard no-arbitrage pricing equation. Deviations from optimality show up as arbitrage opportunities — the optimal control eliminates them.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <p class="quiz-title">The identification \(\lambda(t)=V'(x(t))\) means the costate equation \(\dot\lambda = \rho\lambda - H_x\) follows from:</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Differentiating the HJB with respect to \(x\) and substituting \(\lambda=V'\)</li>
+        <li class="quiz-option" data-option="b">Applying the transversality condition to the terminal state</li>
+        <li class="quiz-option" data-option="c">Differentiating the optimal state path with respect to initial conditions</li>
+        <li class="quiz-option" data-option="d">Setting the maximized Hamiltonian constant along the optimal path</li>
+      </ul>
+      <div class="quiz-explain">Differentiate \(\rho V(x) = h(x,u^*) + V'(x)g(x,u^*)\) with respect to \(x\); the envelope kills the \(u^*_x\) terms. The result is \(\rho V'=h_x+V''g+V'g_x\). Substituting \(\lambda=V'\) and \(\dot\lambda=V''\dot x=V''g\) gives \(\rho\lambda=h_x+\dot\lambda+\lambda g_x\), i.e. \(\dot\lambda=\rho\lambda-h_x-\lambda g_x=\rho\lambda-H_x\). The costate equation is the derivative of the HJB.</div>
+    </div>
+
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s11">11. True or False</h2>
+
+  <div class="box exercise" id="tf">
+    <div class="box-title">True or False — justify in one or two lines</div>
+    <ol class="tf-list">
+      <li>The B-S theorem requires the optimal policy function \(g\) to be differentiable. <span class="tf-src">Det DP p.22</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> The B-S theorem establishes the differentiability of \(V\) <em>without</em> assuming \(g\) is differentiable. The heuristic derivation in Section 1 uses \(g'\) (which requires that assumption), but the formal theorem uses a squeeze argument that avoids differentiating through \(g\). The key assumptions are: \(F\) is \(C^1\), \(V\) exists and is continuous, and the optimum is in the interior of the feasible set.</p></div></details></li>
+      <li>In the log-utility Cobb–Douglas model with 100% depreciation and capital share \(\alpha\), the optimal savings rate is \(\alpha\beta\). <span class="tf-src">Det DP p.30</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> From the guess-and-verify: \(g(k) = \alpha\beta\,k^\alpha\) and \(f(k)=k^\alpha\), so \(g(k)/f(k)=\alpha\beta\). This follows from \(B = \alpha/(1-\alpha\beta)\) and the formula \(g(k)=[\beta B/(1+\beta B)]k^\alpha=\alpha\beta\,k^\alpha\). The savings rate is a product of the capital share and the discount factor.</p></div></details></li>
+      <li>The HJB equation is equivalent to the Maximum Principle whenever \(V\) is differentiable. <span class="tf-src">Det DP p.37</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True (under regularity conditions).</strong> When \(V\) is differentiable, we can identify \(\lambda(t)=V'(x(t))\), and both the FOC \(H_u=0\) (from equation 5) and the costate equation \(\dot\lambda=\rho\lambda-H_x\) (from differentiating the HJB w.r.t. \(x\)) follow directly. The two formulations — DP and Maximum Principle — are mathematically equivalent when \(V\) is differentiable. The DP formulation additionally gives the value function, which the Maximum Principle does not directly provide.</p></div></details></li>
+      <li>For the continuous-time neoclassical growth model, the envelope condition \(V'(k)=\lambda\) together with the FOC \(1/c=\lambda\) implies \(V'(k)=1/c(k)\). <span class="tf-src">Det DP p.36</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> The FOC for the HJB is \(h_u + V'(k)g_u=0\). With \(h(k,c)=\log c\) and \(g(k,c)=f(k)-\delta k-c\), we get \(1/c+V'(k)(-1)=0\), i.e. \(V'(k)=1/c\). The shadow price of capital equals the marginal utility of consumption — an extra unit of capital allows one more unit of consumption (at the margin), which is worth \(1/c\) utils.</p></div></details></li>
+    </ol>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s12">12. Exercises</h2>
+
+  <div class="box exercise" id="ex-42-1">
+    <div class="box-title">Exercise 42.1 <span class="tag slides">Det DP p.25</span> (monotone policy)</div>
+    <p>Assume \(X = \mathbb{R}_+\), \(\Gamma(x) = \mathbb{R}\), \(F\) is \(C^2\), \(F_x \geq 0\), \(F_y \leq 0\), and \(F\) is strictly concave. Under maintained interiority conditions, show that the optimal policy \(g\) is nondecreasing: \(g'(x) \geq 0\) for all \(x\).</p>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>Differentiate the FOC \(F_y(x, g(x)) + \beta V'(g(x)) = 0\) with respect to \(x\). Apply the B-S theorem to substitute for \(V''\). Then determine the sign of \(g'(x)\) in terms of \(F_{xy}\) evaluated along the optimum.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p><strong>Step 1: Differentiate the FOC.</strong> The FOC is \(F_y(x,g(x)) + \beta V'(g(x)) = 0\). Differentiating w.r.t. \(x\):</p>
+      $$F_{yx}(x,g) + F_{yy}(x,g)g'(x) + \beta V''(g(x))g'(x) = 0.$$
+      <p><strong>Step 2: Express \(V''\).</strong> From the B-S theorem, \(V'(x)=F_x(x,g(x))\). Differentiating: \(V''(x)=F_{xx}(x,g)+F_{xy}(x,g)g'(x)\). Evaluating at \(g(x)\): \(V''(g(x)) = F_{xx}(g,g(g)) + F_{xy}(g,g(g))g'(g)\). This introduces \(g'\) evaluated at the next state, which complicates the argument. A simpler approach: use the second-order condition instead.</p>
+      <p><strong>Alternative: use the second-order conditions directly.</strong> Let \(\Phi(x,y) = F_y(x,y) + \beta V'(y)\) so the FOC is \(\Phi(x,g(x))=0\). By the implicit function theorem: \(g'(x) = -\Phi_x/\Phi_y\). Now \(\Phi_x = F_{yx}(x,g)\) and \(\Phi_y = F_{yy}(x,g) + \beta V''(g)\). The second-order condition for a maximum requires \(\Phi_y < 0\) (since \(V\) is concave, \(V''\leq 0\), and \(F_{yy}<0\) by strict concavity of \(F\) in \(y\)). Therefore:
+      $$g'(x) = -\frac{F_{yx}(x,g(x))}{F_{yy}(x,g(x))+\beta V''(g(x))}.$$
+      If \(F_{xy} \geq 0\) (the cross-partial is nonnegative — a higher state makes the marginal cost of investment lower), then \(-F_{yx}/\Phi_y \geq 0\) since \(\Phi_y < 0\). Hence \(g'(x) \geq 0\). The sign of \(F_{xy}\) is the key: when a higher state reduces the marginal cost of output (makes it more productive to increase next-period capital), the optimal policy is to invest more. \(\square\)</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-42-2">
+    <div class="box-title">Exercise 42.2 <span class="tag slides">Det DP p.27</span> (savings with \((1+r)\beta=1\))</div>
+    <p>Consider the savings problem: an agent with wealth \(x\) at the start of a period receives wages \(w > 0\) and can save at gross rate \((1+r)\). The budget constraint is \(c + y = x(1+r) + w\) where \(y\) is beginning-of-next-period wealth. Let \((1+r)\beta = 1\), \(w > 0\), and let \(U\) be strictly increasing, strictly concave, \(C^2\), and unbounded above. Write the Bellman equation and show that \(c(x) = w + rx\), \(g(x) = x\), \(V(x) = U(w+rx)/(1-\beta)\).</p>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>Guess \(V(x) = \psi(x)/(1-\beta)\) for some function \(\psi\). Substitute into the Bellman and check whether a linear decision rule works. The key condition \((1+r)\beta=1\) implies the agent is indifferent about timing (the return exactly offsets impatience), which pins down the optimal savings.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p><strong>Bellman:</strong> \(V(x) = \max_{c,y \geq 0:\, c+y=x(1+r)+w} U(c) + \beta V(y)\).</p>
+      <p><strong>Guess and verify.</strong> Guess \(V(x) = U(w+rx)/(1-\beta)\). Then \(V'(x) = rU'(w+rx)/(1-\beta)\). The FOC: \(U'(c) = \beta V'(y) = \beta r U'(w+ry)/(1-\beta)\). With \(\beta(1+r)=1 \implies \beta r = 1-\beta\), so \(\beta r/(1-\beta)=1\), giving \(U'(c) = U'(w+ry)\), which means \(c = w + ry\) (since \(U\) is strictly concave, \(U'\) is strictly decreasing and hence injective).</p>
+      <p><strong>Use the budget constraint.</strong> \(c + y = x(1+r)+w\) and \(c = w+ry\), so \(w+ry+y=x(1+r)+w\), i.e. \((1+r)y=x(1+r)\), hence \(y=x\). Then \(c = w+rx\). Check: \(c+g(x)=w+rx+x=(1+r)x+w\). ✓</p>
+      <p><strong>Verify the value function.</strong> Substituting:
+      $$V(x) = U(w+rx) + \beta V(x) = U(w+rx) + \frac{\beta}{1-\beta}U(w+rx) = \frac{U(w+rx)}{1-\beta}.$$
+      ✓ The guess is verified. The intuition: with \((1+r)\beta=1\), the agent is exactly indifferent at the margin between consuming today and tomorrow, so the optimal policy is to maintain a constant wealth level \(g(x)=x\) while consuming only labor income plus interest \(c=w+rx\). \(\square\)</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-42-3">
+    <div class="box-title">Exercise 42.3 <span class="tag exam">Exam-style</span> (HJB for neoclassical growth)</div>
+    <p>The continuous-time neoclassical growth model with CRRA utility:
+    $$\max\int_0^\infty e^{-\rho t}\frac{c^{1-1/\sigma}-1}{1-1/\sigma}\,dt \quad\text{s.t.}\quad \dot k = f(k) - \delta k - c,$$
+    where \(f\) is strictly increasing, strictly concave, and satisfies Inada conditions.</p>
+    <ol class="parts" type="a">
+      <li>Write the HJB equation for this problem and state the first-order condition for \(c\). <span class="pts">(10 pts)</span></li>
+      <li>Apply the envelope result to find \(V'(k)\) in terms of model primitives. Use the identification \(\lambda = V'(k)\) to interpret the costate. <span class="pts">(10 pts)</span></li>
+      <li>Derive the consumption Euler equation (Ramsey rule): \(\dot c/c = \sigma(f'(k)-\delta-\rho)\). <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (c): differentiate the FOC w.r.t. time. Use the fact that along the optimal path, \(\dot\lambda = \rho\lambda - V'(k)f'(k) + V'(k)\delta\) from the costate equation (derived by differentiating the HJB w.r.t. \(k\)). Then connect \(\dot\lambda\) to \(\dot c\) via the FOC.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <ol class="parts" type="a">
+        <li><strong>HJB:</strong> \(\rho V(k) = \max_c\left\{\frac{c^{1-1/\sigma}-1}{1-1/\sigma} + V'(k)(f(k)-\delta k-c)\right\}\). <strong>FOC for \(c\):</strong> \(c^{-1/\sigma} = V'(k)\), i.e. \(c = (V'(k))^{-\sigma}\).</li>
+        <li><strong>Envelope.</strong> Differentiate the HJB w.r.t. \(k\): \(\rho V'(k) = V'(k)(f'(k)-\delta) + V''(k)\dot k\). Along the optimal path this gives the costate equation \(\dot\lambda = \rho\lambda - \lambda(f'(k)-\delta)\), where \(\lambda = V'(k)\). Interpretation: \(\lambda\) is the shadow price of capital — an extra unit of capital at time \(t\) generates future consumption (via its marginal product \(f'(k)\) net of depreciation \(\delta\)) whose discounted value is \(\lambda\).</li>
+        <li><strong>Ramsey rule.</strong> From the FOC: \(c^{-1/\sigma} = \lambda\). Differentiating w.r.t. time: \(-\frac{1}{\sigma}c^{-1/\sigma-1}\dot c = \dot\lambda\). The costate equation gives \(\dot\lambda = \rho\lambda - (f'(k)-\delta)\lambda = (\rho - f'(k)+\delta)\lambda\). Substituting:
+        $$-\frac{1}{\sigma}c^{-1/\sigma-1}\dot c = (\rho-f'(k)+\delta)\lambda = (\rho-f'(k)+\delta)c^{-1/\sigma}.$$
+        Divide both sides by \(-c^{-1/\sigma-1}/\sigma\):
+        $$\dot c = \sigma(f'(k)-\delta-\rho)\,c,\quad\text{i.e.}\quad\frac{\dot c}{c}=\sigma(f'(k)-\delta-\rho).\quad\square$$</li>
+      </ol>
+    </div></details>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="takeaways">
+    <h2 id="takeaways">Key takeaways</h2>
+    <ul>
+      <li><strong>Benveniste–Scheinkman:</strong> \(V'(x) = F_x(x, g(x))\). The indirect effect through \(g(x)\) vanishes because the FOC zeroes out the bracket \([F_y + \beta V'(g)]\). The theorem does NOT require \(g\) to be differentiable.</li>
+      <li><strong>Euler equation from Bellman:</strong> FOC + B-S gives \(F_y(x,g(x)) + \beta F_x(g(x), g(g(x))) = 0\). For the neoclassical growth model this recovers \(U'(c_t) = \beta U'(c_{t+1})f'(k_{t+1})\).</li>
+      <li><strong>Guess-and-verify:</strong> works when the period return and feasibility constraint suggest a functional form for \(V\). Log utility + Cobb–Douglas gives \(V(k)=A+B\log k\) with savings rate \(\alpha\beta\). The quadratic return gives \(V(x)=-\frac{c}{2}x^2\) with \(c\) solved from a quadratic equation.</li>
+      <li><strong>HJB equation:</strong> \(\rho V(x) = \max_u\{h(x,u) + V'(x)g(x,u)\}\). Derived as the continuous-time limit of the discrete Bellman. Interpretation: required return = flow payoff + capital gain (no-arbitrage condition).</li>
+      <li><strong>Connection to Maximum Principle:</strong> \(\lambda(t) = V'(x(t))\). The costate is the marginal value of the state. The HJB differentiated w.r.t. \(x\) gives the costate equation \(\dot\lambda = \rho\lambda - H_x\). The two formulations are equivalent under differentiability.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "explain why the savings rate is \(\alpha\beta\) for log-CD", "how does the HJB relate to the Hamilton-Jacobi equation in physics?", or "when does guess-and-verify fail and what do you do instead?"</div>
+
+  <div class="lesson-nav">
+    <a href="0041-contraction-mapping-and-properties-of-v.html">← Lesson 41: Contraction mapping and properties of V*</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0043-stochastic-bellman-equation.html">Lesson 43: Stochastic Bellman equation and Markov processes →</a>
+  </div>
+
+</div>
+</body>
+</html>

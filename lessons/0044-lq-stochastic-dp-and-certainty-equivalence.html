@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 44 — LQ Stochastic DP and Certainty Equivalence</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part X: Stochastic Dynamic Programming · Lesson 44 of 44</div>
+    <h1>LQ Stochastic DP and Certainty Equivalence</h1>
+    <div class="meta">Covers <a href="../sources/slides9-stochastic-dp.pdf#page=15">Stochastic DP slides 15–26</a> · About 35 min · Prerequisites: <a href="0043-stochastic-bellman-equation.html">Lesson 43</a> (stochastic Bellman, Markov processes), <a href="0039-the-linear-quadratic-regulator.html">Lesson 39</a> (LQR)</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>write the linear-quadratic (LQ) stochastic DP problem: quadratic return \(F\) in \((x,y,z)\) and linear law of motion \(z_{t+1}=Az_t+\Sigma^{1/2}e_{t+1}\);</li>
+      <li>guess and verify that the value function is quadratic: \(V(x,z)=\tfrac12 x'V_{xx}x+x'V_{xz}z+\tfrac12 z'V_{zz}z+v_0\);</li>
+      <li>state and prove certainty equivalence: the optimal policy matrix \(G_x\) (the coefficient on \(x\) in \(y=G_x x+G_z z\)) is independent of the variance matrix \(\Sigma\);</li>
+      <li>derive the discrete-time Riccati equation \(V_{xx}=F_{xx}-F_{xy}(F_{yy}+\beta V_{xx})^{-1}F_{yx}\) and solve it as a fixed point \(T(P)=P^*\);</li>
+      <li>compute \(G_z\) (response to shocks) and \(V_{xz}\) (cross-partial of the value function).</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides9-stochastic-dp.pdf#page=15">Stochastic DP slides 15–26</a>. Standard references: Stokey, Lucas &amp; Prescott (SLP), Chapter 11; Sargent, <em>Macroeconomic Theory</em> (2nd ed.), Chapter 1 (LQ dynamic programming and certainty equivalence).
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s1">1. The LQ stochastic problem</h2>
+
+  <p>The linear-quadratic (LQ) stochastic DP is the special case of the stochastic Bellman problem (Lesson 43) where the return function is <em>quadratic</em> in \((x,y,z)\) and the exogenous state follows a <em>linear</em> Markov process <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=15">Stoch p.15</a>:</p>
+
+  <div class="definition" id="def-lq">
+    <div class="box-title">Definition: LQ Stochastic DP</div>
+    <p>The state is \((x_t, z_t)\in X\times Z\) where \(x\) is the endogenous state (chosen by the agent) and \(z\) is an exogenous shock. The agent chooses \(y_{t+1}=x_{t+1}\in\Gamma(x_t,z_t)\). The problem is:</p>
+    $$V^*(x,z)=\max_{\{y_{t+1}\}}\sum_{t=0}^\infty \beta^t E\bigl[F(x_t,y_{t+1},z_t)\,\big|\,x_0=x,\,z_0=z\bigr],$$
+    <p>subject to \(y_{t+1}\in\Gamma(x_t,z_t)\) for all \(t\), where:</p>
+    <ol>
+      <li><strong>Quadratic return:</strong> \(F(x,y,z)\) is quadratic in \((x,y,z)\) — see Section 2 for the explicit form.</li>
+      <li><strong>Linear shock dynamics:</strong> \(z_{t+1}=Az_t+\Sigma^{1/2}e_{t+1}\), where \(\{e_t\}\) are i.i.d. with \(E[e_t]=0\) and \(E[e_t e_t']=I_k\).</li>
+      <li><strong>Normalization:</strong> steady state is \(x=0\), \(z=0\); no constant or linear terms in \(F\) (deviations from steady state).</li>
+    </ol>
+  </div>
+
+  <div class="intuition" id="int-lq-motivation">
+    <div class="box-title">Why LQ matters in macroeconomics</div>
+    <p>Log-linearizing a nonlinear model around its deterministic steady state produces a system with quadratic return and linear dynamics — exactly the LQ setting. Under certainty equivalence, the optimal decision rule is <em>the same</em> whether the economy is deterministic or stochastic; only the welfare (value function) changes. This means the entire toolkit of Lessons 33–39 (linearization, eigenvalue pairing, Riccati, LQR) carries over to stochastic models. It is the foundation of Blanchard-Kahn-Klein solution methods and the workhorse of computational macroeconomics.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s2">2. More details on the LQ setting</h2>
+
+  <p>The return function takes the explicit quadratic form <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=16">Stoch p.16</a>:</p>
+  $$F(x,y,z)=\tfrac{1}{2}\bigl[x'F_{xx}x+y'F_{yy}y+2x'F_{xy}y+2x'F_{xz}z+2y'F_{yz}z\bigr].$$
+
+  <p>Here:</p>
+  <ul>
+    <li>\(x\in\mathbb{R}^n\) is the endogenous state, \(y\in\mathbb{R}^n\) is the choice (next-period state), \(z\in\mathbb{R}^k\) is the shock.</li>
+    <li>\(F_{xx},F_{yy}\) are \(n\times n\) matrices, \(F_{xy}\) is \(n\times n\), \(F_{xz}\) is \(n\times k\), \(F_{yz}\) is \(n\times k\).</li>
+    <li>No constant terms and no linear terms: the normalization around the steady state \((x,y,z)=(0,0,0)\) means first-order terms vanish.</li>
+    <li>No quadratic term in \(z\) alone (\(z'F_{zz}z\)) in the return function — this simplifies the analysis but the value function <em>will</em> acquire such a term via the stochastic continuation value.</li>
+  </ul>
+
+  <p>The law of motion for the exogenous state is <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=16">Stoch p.16</a>:</p>
+  $$z_{t+1}=Az_t+\Sigma^{1/2}e_{t+1},$$
+  <p>where \(A\) is a \(k\times k\) matrix, \(\Sigma\) is a \(k\times k\) variance-covariance matrix, and \(\{e_t\}\) are i.i.d. with \(E[e_t]=0\) and \(E[e_t e_t']=I_k\).</p>
+
+  <div class="notation">
+    <div class="box-title">Notation: \(G_x\), \(G_z\) versus LQR \(G\)</div>
+    <p>In this lesson, \(G_x\) and \(G_z\) are \(n\times n\) and \(n\times k\) matrices giving the linear decision rule \(y=G_x x+G_z z\). These play the same role as \(G=-R^{-1}(N'+B'S)\) from Lesson 39 (the continuous-time LQR), but the discrete-time notation separates the response to the endogenous state from the response to shocks. The Riccati fixed point here is \(V_{xx}=P^*\) (a matrix equation), analogous to the scalar ARE \(S=\) stabilizing root in Lesson 39.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s3">3. Quadratic value function guess</h2>
+
+  <p>By the analogy with the deterministic LQR (Lesson 39), we guess that the value function is quadratic in \((x,z)\) <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=17">Stoch p.17</a>:</p>
+
+  <div class="definition" id="def-quad-vf">
+    <div class="box-title">Guess: quadratic value function</div>
+    $$V(x,z)=\tfrac{1}{2}x'V_{xx}x+x'V_{xz}z+\tfrac{1}{2}z'V_{zz}z+v_0,$$
+    <p>where \(V_{xx}\) is an \(n\times n\) symmetric matrix, \(V_{xz}\) is \(n\times k\), \(V_{zz}\) is \(k\times k\) symmetric, and \(v_0\) is a scalar constant.</p>
+    <p><strong>Key observation:</strong> \(V_{zz}\) and \(v_0\) do not appear in \(\partial V/\partial y\). The agent chooses \(y=x'\) to maximize; \(V_{zz}\) and \(v_0\) affect the level of welfare but not the marginal return to the choice variable. We therefore suppress them when deriving the optimal decision rule — they will be pinned down at the end.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s4">4. Certainty equivalence</h2>
+
+  <p>Substitute the quadratic guess into the stochastic Bellman equation. The right-hand side is <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=18">Stoch p.18</a>:</p>
+  $$V(x,z)=\max_y\Bigl\{F(x,y,z)+\beta E_{z'|z}\bigl[V(y,z')\bigr]\Bigr\}.$$
+
+  <p>Expanding the expectation using the quadratic guess and \(z'=Az+\Sigma^{1/2}e\):</p>
+  $$E\bigl[V(y,z')\bigr]=E\bigl[\tfrac12 y'V_{xx}y+y'V_{xz}z'+\ldots\bigr]=\tfrac12 y'V_{xx}y+y'V_{xz}E[z']+\ldots=\tfrac12 y'V_{xx}y+y'V_{xz}Az+\text{const},$$
+  <p>where we used \(E[z']=Az\) and \(E[\Sigma^{1/2}e]=0\). The variance \(\Sigma\) affects only the constant terms (through \(V_{zz}\) and \(v_0\)) but not the terms that depend on \(y\).</p>
+
+  <p>The objective relevant for the choice of \(y\) is therefore:</p>
+  $$\max_y\;\tfrac12\bigl[x'F_{xx}x+y'F_{yy}y+2x'F_{xy}y+2x'F_{xz}z+2y'F_{yz}z\bigr]+\beta\bigl[\tfrac12 y'V_{xx}y+y'V_{xz}Az\bigr].$$
+
+  <p>The first-order condition \(\partial/\partial y=0\) gives <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=18">Stoch p.18</a>:</p>
+  $$(F_{yy}+\beta V_{xx})y+F_{yx}x+(F_{yz}+\beta V_{xz}A)z=0,$$
+  <p>which yields the linear decision rule:</p>
+  $$\boxed{y=G_x x+G_z z,\quad G_x=-(F_{yy}+\beta V_{xx})^{-1}F_{yx},\quad G_z=-(F_{yy}+\beta V_{xx})^{-1}(F_{yz}+\beta V_{xz}A).}$$
+
+  <div class="theorem" id="thm-ce">
+    <div class="box-title">Theorem: Certainty Equivalence</div>
+    <p>In the LQ stochastic DP, the optimal policy matrix \(G_x\) is <strong>independent of the shock variance \(\Sigma\)</strong>. Moreover, \(G_x\) is also independent of the matrix \(A\) governing shock persistence. The matrices \(V_{xx}\) and \(G_x\) solve exactly the same equations as in the deterministic case (\(\Sigma=0\), \(z\equiv 0\)).</p>
+  </div>
+
+  <div class="proof" id="pf-ce">
+    <div class="box-title">Proof of Certainty Equivalence</div>
+    <ol class="steps">
+      <li><strong>Variance drops from the FOC.</strong> The key step is that \(E[\Sigma^{1/2}e]=0\). When we differentiate the Bellman with respect to \(y\), the continuation value contributes \(\beta E[V_x(y,z')]=\beta E[V_{xx}y+V_{xz}z']=\beta V_{xx}y+\beta V_{xz}Az\). The \(\Sigma\) matrix appears only in \(E[V_{xz}\Sigma^{1/2}e]=V_{xz}\Sigma^{1/2}E[e]=0\). So \(\Sigma\) is entirely absent from the FOC.</li>
+      <li><strong>Independence from \(A\) (setting \(z=0\)).</strong> Setting \(z=0\), the FOC reduces to \((F_{yy}+\beta V_{xx})y+F_{yx}x=0\), giving \(G_x=-(F_{yy}+\beta V_{xx})^{-1}F_{yx}\). This equation does not involve \(A\) at all, so \(G_x\) is independent of shock persistence.</li>
+      <li><strong>Same equation as the deterministic case.</strong> In the deterministic problem with \(z\equiv 0\), the Bellman is \(V(x)=\max_y\{F(x,y,0)+\beta V(y)\}\), which has the same FOC \((F_{yy}+\beta V_{xx})y+F_{yx}x=0\). The stochastic and deterministic problems yield identical \(G_x\) and \(V_{xx}\). \(\square\)</li>
+    </ol>
+  </div>
+
+  <div class="intuition" id="int-ce">
+    <div class="box-title">Economic intuition for certainty equivalence</div>
+    <p>Shocks \(z\) enter the law of motion linearly and the return quadratically. At the margin (first derivative), the expectation of the shock is zero, so its variance does not affect marginal costs or benefits of different choices. The agent responds to the <em>current</em> realization of \(z\), not to its distribution. Variance \(\Sigma\) matters only for the <em>level</em> of welfare (through higher-order terms in the value function), not for the shape of the decision rule. This is why log-linearized macro models can be solved as if they were deterministic — the same policy function applies.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s5">5. \(G_x\) is independent of \(\Sigma\) and \(A\): the full argument</h2>
+
+  <p>To make the independence argument completely explicit, we compare coefficients on the quadratic terms in \(x\) only <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=20">Stoch p.20</a>.</p>
+
+  <p>In the stochastic problem, the value function satisfies \(V(x,0)=\tfrac12 x'V_{xx}x\) when \(z=0\). Substituting back into the Bellman at \(z=0\) and matching the \(x'x\) coefficient:</p>
+  $$\tfrac12 x'V_{xx}x=\max_y\;\tfrac12 x'F_{xx}x+x'F_{xy}y+\tfrac12 y'F_{yy}y+\tfrac12\beta y'V_{xx}y.$$
+
+  <p>The optimal \(y=G_x x\) for some \(G_x\). Substituting and collecting terms:</p>
+  $$\tfrac12 x'V_{xx}x=\tfrac12 x'\bigl[F_{xx}+F_{xy}G_x\bigr]x+\tfrac12 x'G_x'F_{yy}G_x x+\tfrac12\beta x'G_x'V_{xx}G_x x.$$
+
+  <p>This is an equation in the matrix \(V_{xx}\) that must hold for all \(x\) — an entirely deterministic matrix equation. Neither \(\Sigma\) nor \(A\) appears. Hence \(V_{xx}\) and \(G_x\) are determined by the deterministic problem.</p>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s6">6. The Riccati equation for \(V_{xx}\)</h2>
+
+  <p>From the FOC at \(z=0\): \(G_x=-(F_{yy}+\beta V_{xx})^{-1}F_{yx}\). From the envelope condition \(V_{xx}=F_{xx}+F_{xy}G_x\) (differentiating the Bellman twice with respect to \(x\) at \(y=G_x x\)) <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=21">Stoch p.21</a>:</p>
+
+  $$V_{xx}=F_{xx}+F_{xy}G_x=F_{xx}+F_{xy}\bigl[-(F_{yy}+\beta V_{xx})^{-1}F_{yx}\bigr].$$
+
+  <div class="theorem" id="thm-riccati">
+    <div class="box-title">Theorem: Discrete-Time Riccati Equation</div>
+    $$\boxed{V_{xx}=F_{xx}-F_{xy}(F_{yy}+\beta V_{xx})^{-1}F_{yx}.}$$
+    <p>This is the discrete-time analogue of the algebraic Riccati equation (ARE) from Lesson 39. It is a fixed-point equation in the \(n\times n\) symmetric matrix \(V_{xx}\). Under standard concavity conditions (\(F_{yy}+\beta V_{xx}\prec 0\) at the solution), it has a unique negative-semidefinite solution.</p>
+  </div>
+
+  <div class="intuition" id="int-riccati-duality">
+    <div class="box-title">Duality with the continuous-time ARE</div>
+    <p>The continuous-time LQR (Lesson 39) has ARE: \(-S(BR^{-1}B')S+S\tilde A+\tilde A'S-\rho S+\tilde Q=0\). The discrete-time Riccati is \(V_{xx}=F_{xx}-F_{xy}(F_{yy}+\beta V_{xx})^{-1}F_{yx}\), i.e. \(T(V_{xx})=V_{xx}\). Both express: the marginal value of the state equals the direct marginal return plus the discounted continuation, with the optimal choice of the control substituted out. The quadratic structure makes this a matrix equation in the second derivative of the value function.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s7">7. The \(T\) operator and the Riccati as a fixed point</h2>
+
+  <p>Define the Riccati operator <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=22">Stoch p.22</a>:</p>
+
+  <div class="theorem" id="thm-t-operator">
+    <div class="box-title">Theorem: Riccati \(T\) Operator</div>
+    $$T(P)=F_{xx}-F_{xy}(F_{yy}+\beta P)^{-1}F_{yx},$$
+    <p>acting on symmetric \(n\times n\) matrices. The key properties are:</p>
+    <ul>
+      <li><strong>Interpretation:</strong> \(T^m(P)\) is the coefficient matrix of the quadratic value function of an \(m\)-horizon problem with terminal value function \(\tfrac12 x'Px\). Specifically, if \(V_0(x)=\tfrac12 x'Px\), then \(V_m(x)=\tfrac12 x'T^m(P)x\).</li>
+      <li><strong>Fixed point:</strong> The infinite-horizon value function has coefficient \(V_{xx}=P^*=T(P^*)\). Under standard conditions (monotonicity and discounting), iterations \(P_{m+1}=T(P_m)\) converge to \(P^*\) for any initial \(P_0\) in the relevant domain.</li>
+      <li><strong>Contraction:</strong> By the same logic as the Blackwell contraction in deterministic DP (Lesson 41), the Bellman operator is a contraction in the sup norm. For the LQ case, this carries over to the Riccati \(T\) being a contraction on the space of negative-semidefinite matrices.</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s8">8. Computing \(G_z\) and \(V_{xz}\)</h2>
+
+  <p>Once \(V_{xx}\) and \(G_x\) are found from the Riccati, we can compute the response to shocks. The FOC with \(z\ne0\) gives <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=24">Stoch p.24</a>:</p>
+  $$G_z=-(F_{yy}+\beta V_{xx})^{-1}(F_{yz}+\beta V_{xz}A).$$
+
+  <p>The envelope condition comparing \(x'z\) cross-terms gives:</p>
+  $$V_{xz}=F_{xz}+F_{xy}G_z.$$
+
+  <p>These are <strong>two linear equations in two unknowns</strong> \((G_z, V_{xz})\). Substituting the expression for \(G_z\) into the second equation:</p>
+  $$V_{xz}=F_{xz}+F_{xy}\bigl[-(F_{yy}+\beta V_{xx})^{-1}(F_{yz}+\beta V_{xz}A)\bigr],$$
+  $$V_{xz}=F_{xz}-F_{xy}(F_{yy}+\beta V_{xx})^{-1}F_{yz}-F_{xy}(F_{yy}+\beta V_{xx})^{-1}\beta V_{xz}A.$$
+
+  <p>Let \(M=-(F_{yy}+\beta V_{xx})^{-1}\) (invertible under concavity). Then:</p>
+  $$V_{xz}+\beta F_{xy}M V_{xz}A=F_{xz}+F_{xy}M F_{yz}.$$
+
+  <p>This is a Sylvester equation in \(V_{xz}\), which has a unique solution under standard stability conditions (the eigenvalues of \(\beta F_{xy}M\) and \(A\) don't combine to equal 1). Once \(V_{xz}\) is found, \(G_z\) follows immediately from the FOC.</p>
+
+  <div class="warning" id="warn-gz-depends-A">
+    <div class="box-title">\(G_z\) depends on \(A\) even though \(G_x\) does not</div>
+    <p>Certainty equivalence says \(G_x\) is independent of \(\Sigma\) and \(A\). But \(G_z\) — the response to current shocks — depends on \(A\) (the persistence of shocks) through \(V_{xz}A\) in the FOC. When a shock arrives, the agent responds not just to its current level but to its expected future path; that path depends on persistence \(A\). This is entirely consistent with certainty equivalence: the \(G_x\) part of the rule (how the agent responds to the endogenous state) is unaffected by the shock process.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s9">9. LQ as an approximation to nonlinear problems</h2>
+
+  <p>Even when the true model is nonlinear, the LQ framework gives the correct <em>local</em> (first-order) policy dynamics around the deterministic steady state <a class="slide-ref" href="../sources/slides9-stochastic-dp.pdf#page=26">Stoch p.26</a>.</p>
+
+  <p>The key idea: consider a parameterized family where \(\Sigma(\epsilon)=\epsilon\bar\Sigma\) for \(\epsilon\in\mathbb{R}_+\). As \(\epsilon\to0\) (small shocks), the stochastic problem approaches the deterministic one. Under smoothness, stability, and small-shock conditions:</p>
+  <ul>
+    <li>The optimal decision rule is \(y^*=g(x,z)\approx G_x x+G_z z\) to first order in \((x,z,\epsilon)\).</li>
+    <li>The LQ solution gives the correct first-order approximation even when \(F\) is not exactly quadratic.</li>
+    <li>Higher-order terms (from curvature of \(F\) or nonlinear dynamics) require second- or higher-order perturbation methods and break certainty equivalence.</li>
+  </ul>
+
+  <div class="warning" id="warn-local">
+    <div class="box-title">LQ gives local accuracy only</div>
+    <p>The LQ / log-linearization approach is a first-order approximation. For large shocks, nonlinear effects matter: precautionary saving (from risk aversion), occasionally binding constraints, and asymmetric responses are all lost in the linearization. The approximation is valid near the steady state; far from it, errors can be large. For quantitative work with large shocks, global nonlinear methods (value function iteration, policy function iteration, projection methods) are needed.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s10">10. Quiz</h2>
+
+  <div class="quiz-section">
+
+    <div class="quiz-question" data-correct="b">
+      <p class="quiz-title">Why does \(\Sigma\) not appear in the optimal decision matrix \(G_x\)?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Because \(F\) does not contain any \(z\) terms in the quadratic form</li>
+        <li class="quiz-option" data-option="b">Because \(E[\Sigma^{1/2}e]=0\) so variance drops from the first-order condition</li>
+        <li class="quiz-option" data-option="c">Because the Bellman operator contracts toward zero regardless of \(\Sigma\)</li>
+        <li class="quiz-option" data-option="d">Because \(V_{xz}\) is set to zero by the normalization around the steady state</li>
+      </ul>
+      <div class="quiz-explain">The continuation value is \(\beta E[V(y,z')]=\beta[\tfrac12 y'V_{xx}y+y'V_{xz}Az+\text{const}]\). The \(\Sigma\) term enters via \(y'V_{xz}\Sigma^{1/2}E[e]=0\). Since \(E[e]=0\), variance drops from the FOC entirely. The first-order condition is therefore identical whether \(\Sigma=0\) (deterministic) or \(\Sigma\ne0\) (stochastic).</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <p class="quiz-title">What does the Riccati operator \(T(P)\) compute?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">The optimal policy matrix \(G_x\) for an infinite-horizon problem</li>
+        <li class="quiz-option" data-option="b">The unique fixed point of the Bellman equation in function space</li>
+        <li class="quiz-option" data-option="c">The quadratic coefficient of the value function of one more period</li>
+        <li class="quiz-option" data-option="d">The variance of the optimal state path given initial condition \(x_0\)</li>
+      </ul>
+      <div class="quiz-explain">\(T^m(P)\) is the coefficient matrix \(V_{xx}\) of the \(m\)-horizon problem with terminal value \(\tfrac12 x'Px\). One application of \(T\) adds one more period of optimization. The infinite-horizon \(V_{xx}=P^*=T(P^*)\) is the fixed point. This is the matrix analogue of value function iteration: iterate \(T\) until convergence.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <p class="quiz-title">Which statement about \(G_z\) in the LQ stochastic problem is correct?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">\(G_z\) is independent of both \(\Sigma\) and \(A\) by certainty equivalence</li>
+        <li class="quiz-option" data-option="b">\(G_z=0\) always because shocks do not affect the first-order condition</li>
+        <li class="quiz-option" data-option="c">\(G_z\) is determined by the same Riccati equation as \(G_x\) and \(V_{xx}\)</li>
+        <li class="quiz-option" data-option="d">\(G_z\) depends on \(A\) (shock persistence) through \(V_{xz}A\) in the FOC</li>
+      </ul>
+      <div class="quiz-explain">Certainty equivalence says \(G_x\) is independent of \(\Sigma\) and \(A\). But \(G_z=-(F_{yy}+\beta V_{xx})^{-1}(F_{yz}+\beta V_{xz}A)\) depends on \(A\). When shocks are persistent, the agent accounts for their future expected path, and that path depends on \(A\). \(G_z\) is determined by the Sylvester equation after \(V_{xx}\) is found.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <p class="quiz-title">The LQ approximation to a nonlinear problem is valid:</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">Near the deterministic steady state, to first order in deviations and shock size</li>
+        <li class="quiz-option" data-option="b">Globally for all initial conditions when the value function is concave</li>
+        <li class="quiz-option" data-option="c">Only when the utility function is exactly quadratic with no higher-order terms</li>
+        <li class="quiz-option" data-option="d">Whenever the Markov process \(Q\) satisfies the Feller property</li>
+      </ul>
+      <div class="quiz-explain">Log-linearization produces a first-order approximation around the deterministic steady state. For small deviations \((x,z)\approx0\) and small shocks \(\Sigma\approx0\), the LQ solution is accurate. Far from the steady state or for large shocks, nonlinear curvature (precautionary motives, asymmetric responses) causes the linear rule to err. Global accuracy requires nonlinear solution methods.</div>
+    </div>
+
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s11">11. True or False</h2>
+
+  <div class="box exercise" id="tf">
+    <div class="box-title">True or False — justify in one or two lines</div>
+    <ol class="tf-list">
+      <li>In the LQ stochastic DP, the optimal policy rule \(y=G_x x+G_z z\) is exactly linear in the state \((x,z)\). <span class="tf-src">Stoch p.19</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> The first-order condition \((F_{yy}+\beta V_{xx})y+F_{yx}x+(F_{yz}+\beta V_{xz}A)z=0\) is linear in \((y,x,z)\). Since \(F_{yy}+\beta V_{xx}\) is invertible (strict concavity), we can solve for \(y\) exactly: \(y=G_x x+G_z z\). The linearity is not an approximation — it is exact given the quadratic return and quadratic value function.</p></div></details></li>
+      <li>Certainty equivalence implies that the welfare level is the same in the stochastic and deterministic problems with the same initial \(x_0\). <span class="tf-src">Stoch p.17–18</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> Certainty equivalence says the <em>policy rule</em> \(G_x\) is the same. The value function \(V(x,z)=\tfrac12 x'V_{xx}x+x'V_{xz}z+\tfrac12 z'V_{zz}z+v_0\) contains the term \(v_0\) which captures the welfare cost of uncertainty. Specifically, \(v_0=\beta/(1-\beta)\cdot\tfrac12\text{tr}(V_{zz}\Sigma)\) (or similar) — it depends on \(\Sigma\). So the welfare level differs, only the decision rule is identical.</p></div></details></li>
+      <li>The Riccati operator \(T(P)=F_{xx}-F_{xy}(F_{yy}+\beta P)^{-1}F_{yx}\) is the discrete-time counterpart of the algebraic Riccati equation from the continuous-time LQR. <span class="tf-src">Stoch p.22</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> Both are second-order (quadratic) matrix equations for the coefficient of the quadratic value function. The continuous-time ARE (Lesson 39) is \(-S(BR^{-1}B')S+S\tilde A+\tilde A'S-\rho S+\tilde Q=0\); it arises from \(\dot\lambda=S\dot x\) along the saddle path. The discrete-time Riccati \(V_{xx}=T(V_{xx})\) arises from one-step Bellman iteration. They are structurally identical, differing only in the continuous vs.\ discrete discounting.</p></div></details></li>
+      <li>For a problem where \(F_{xz}=0\) and \(F_{yz}=0\), the cross-partial \(V_{xz}=0\) and hence \(G_z=0\). <span class="tf-src">Stoch p.24</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> From the Sylvester equation: \(V_{xz}+\beta F_{xy}MV_{xz}A=F_{xz}+F_{xy}MF_{yz}\). If \(F_{xz}=0\) and \(F_{yz}=0\), then the right-hand side is zero, so \(V_{xz}=0\) is the unique solution. Then \(G_z=-(F_{yy}+\beta V_{xx})^{-1}(0+\beta\cdot0\cdot A)=0\). Economically: if shocks \(z\) enter neither the return function (\(F_{xz}=F_{yz}=0\)) nor indirectly (they still enter the law of motion), the agent ignores current \(z\) in the decision rule.</p></div></details></li>
+    </ol>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s12">12. Exercises</h2>
+
+  <div class="box exercise" id="ex-44-1">
+    <div class="box-title">Exercise 44.1 <span class="tag slides">Stoch p.23</span> (scalar Riccati)</div>
+    <p>Study the scalar Riccati operator \(T:\mathbb{R}\to\mathbb{R}\) in the univariate LQ problem: \(T(p)=F_{xx}-F_{xy}^2/(F_{yy}+\beta p)\), where \(F_{xx},F_{yy}\lt0\), \(F_{xy}\ne0\), and \(\beta\in(0,1)\).</p>
+    <ol class="parts" type="a">
+      <li>Sketch \(T(p)\) for \(p\in\mathbb{R}\) (make sure to include both positive and negative values of \(p\)). Compute \(T(0)\) and \(\lim_{p\to\pm\infty}T(p)\). <span class="pts">(10 pts)</span></li>
+      <li>Find the fixed point(s) \(p^*=T(p^*)\). Write the fixed-point equation as a quadratic in \(p^*\) and solve. <span class="pts">(10 pts)</span></li>
+      <li>For which initial conditions \(p_0\) do the iterations \(p_{m+1}=T(p_m)\) converge to the economically relevant fixed point? <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (a): \(T(0)=F_{xx}-F_{xy}^2/F_{yy}\). The vertical asymptote is at \(p=-F_{yy}/\beta\gt0\) (since \(F_{yy}\lt0\)). For (b): \(p^*=F_{xx}-F_{xy}^2/(F_{yy}+\beta p^*)\) rearranges to \(\beta(p^*)^2+(F_{yy}-\beta F_{xx})p^*-F_{xx}F_{yy}+F_{xy}^2=0\). The economically relevant root is the negative one (value function is non-positive).</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) \(T(p)=F_{xx}-F_{xy}^2/(F_{yy}+\beta p)\). Vertical asymptote at \(F_{yy}+\beta p=0\), i.e., \(p=-F_{yy}/\beta\gt0\). \(T(0)=F_{xx}-F_{xy}^2/F_{yy}\). Since \(F_{xx},F_{yy}\lt0\) and \(-F_{xy}^2/F_{yy}\gt0\), \(T(0)\) could be either sign depending on parameters. \(\lim_{p\to\infty}T(p)=F_{xx}\lt0\). \(\lim_{p\to-\infty}T(p)=F_{xx}\lt0\). The function has a vertical asymptote at the positive value \(p=-F_{yy}/\beta\gt0\) and horizontal asymptote at \(F_{xx}\lt0\).</p>
+      <p>(b) \(p^*(F_{yy}+\beta p^*)=F_{xx}(F_{yy}+\beta p^*)-F_{xy}^2\). Rearranging: \(\beta(p^*)^2+(F_{yy}-\beta F_{xx})p^*-F_{xx}F_{yy}+F_{xy}^2=0\). Using the quadratic formula, the two roots are \(p^*_\pm=\frac{(\beta F_{xx}-F_{yy})\pm\sqrt{(\beta F_{xx}-F_{yy})^2+4\beta(F_{xx}F_{yy}-F_{xy}^2)}}{2\beta}\). The economically relevant root is \(p^*_-\le0\), since the value function of a maximization problem is non-positive under the normalization.</p>
+      <p>(c) The iterations \(p_{m+1}=T(p_m)\) converge to \(p^*_-\) for all \(p_0\) in the domain \((-\infty,-F_{yy}/\beta)\) where \(T\) is defined and maps into itself. Starting from \(p_0=0\) or any negative \(p_0\) works. The other fixed point \(p^*_+\gt0\) is unstable and corresponds to an explosive (non-stabilizing) solution, analogous to choosing the wrong root of the scalar ARE in Lesson 39.</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-44-2">
+    <div class="box-title">Exercise 44.2 <span class="tag proof">Proof</span> (Certainty Equivalence, fully spelled out)</div>
+    <p>Prove rigorously that in the LQ stochastic DP, the optimal policy \(G_x\) is independent of \(\Sigma\).</p>
+    <ol class="parts" type="a">
+      <li>Write the stochastic Bellman equation. Expand \(E[V(y,z')]\) using the quadratic guess \(V(x,z)=\tfrac12 x'V_{xx}x+x'V_{xz}z+\ldots\) and \(z'=Az+\Sigma^{1/2}e\). Show explicitly that \(E[y'V_{xz}\Sigma^{1/2}e]=0\) when \(E[e]=0\). <span class="pts">(10 pts)</span></li>
+      <li>Write the first-order condition for the choice of \(y\) and show that \(\Sigma\) does not appear. Conclude that \(G_x\) satisfies \(G_x=-(F_{yy}+\beta V_{xx})^{-1}F_{yx}\), independent of \(\Sigma\). <span class="pts">(10 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) The stochastic Bellman: \(V(x,z)=\max_y\{F(x,y,z)+\beta E_{z'|z}[V(y,z')]\}\). Using the guess: \(E[V(y,z')]=E[\tfrac12 y'V_{xx}y+y'V_{xz}z'+\tfrac12(z')'V_{zz}z'+v_0]\). The only \(y\)-dependent term is \(\tfrac12 y'V_{xx}y+y'V_{xz}E[z']\). Now \(E[z']=E[Az+\Sigma^{1/2}e]=Az+\Sigma^{1/2}E[e]=Az\) since \(E[e]=0\). The term involving \(\Sigma\) would be \(y'V_{xz}\Sigma^{1/2}E[e]=y'V_{xz}\Sigma^{1/2}\cdot0=0\). So \(E[V(y,z')]=\tfrac12 y'V_{xx}y+y'V_{xz}Az+\text{(terms not involving }y\text{)}\). The \(\Sigma\) matrix is entirely absent from the terms relevant for the choice of \(y\).</p>
+      <p>(b) The maximand (terms depending on \(y\)): \(\tfrac12 y'F_{yy}y+x'F_{xy}y+y'F_{yz}z+\beta[\tfrac12 y'V_{xx}y+y'V_{xz}Az]\). Differentiating with respect to \(y\): \((F_{yy}+\beta V_{xx})y+F_{yx}x+(F_{yz}+\beta V_{xz}A)z=0\). No \(\Sigma\). Setting \(z=0\): \((F_{yy}+\beta V_{xx})y+F_{yx}x=0\implies y=G_x x\) where \(G_x=-(F_{yy}+\beta V_{xx})^{-1}F_{yx}\). This equation does not involve \(\Sigma\), so \(G_x\) is independent of \(\Sigma\). \(\square\)</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-44-3">
+    <div class="box-title">Exercise 44.3 <span class="tag exam">Exam-style</span> (univariate LQ with shock-state interaction)</div>
+    <p>Consider a univariate LQ stochastic problem with return \(F(x,y,z)=-\tfrac12 qx^2-\tfrac12 ry^2+\psi xz\) (\(q,r\gt0\), \(\psi\in\mathbb{R}\)) and law of motion \(z_{t+1}=az_t+e_{t+1}\) (\(|a|\lt1\), \(e_t\) i.i.d. mean zero).</p>
+    <ol class="parts" type="a">
+      <li>Identify the matrices \(F_{xx}\), \(F_{yy}\), \(F_{xy}\), \(F_{xz}\), \(F_{yz}\) for this problem. Write the Bellman equation. <span class="pts">(10 pts)</span></li>
+      <li>Find \(V_{xx}\) from the scalar Riccati equation. Find \(G_x\). <span class="pts">(10 pts)</span></li>
+      <li>Find \(V_{xz}\) and \(G_z\). (Hint: use the Sylvester equation with scalar \(A=a\).) <span class="pts">(10 pts)</span></li>
+      <li>Interpret: for \(\psi\gt0\) and \(a\gt0\), is \(G_z\) positive or negative? What does this say about how the agent responds to a positive shock \(z\gt0\)? <span class="pts">(5 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (b): \(F_{xx}=-q\), \(F_{yy}=-r\), \(F_{xy}=0\), so the Riccati becomes \(V_{xx}=-q-0=\ldots\). Wait: \(T(p)=F_{xx}-F_{xy}^2/(F_{yy}+\beta p)=-q-0/(-r+\beta p)=-q\). So \(V_{xx}=-q\) always (the Riccati degenerates when \(F_{xy}=0\)). Then \(G_x=-(F_{yy}+\beta V_{xx})^{-1}F_{yx}=0\). For (c): with \(F_{xz}=\psi\) (the cross term is \(2x'F_{xz}z=2x\cdot(\psi/2)\cdot z\)? No — check the normalization: \(F(x,y,z)=-\tfrac12 qx^2-\tfrac12 ry^2+\psi xz\) means \(F_{xz}=\psi\) as a scalar since \(\partial^2F/\partial x\partial z=\psi\); \(F_{yz}=0\). Use these in the Sylvester equation.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) The return in standard form: \(F=-\tfrac12 qx^2-\tfrac12 ry^2+\psi xz=\tfrac12(-q)x^2+\tfrac12(-r)y^2+2\cdot\tfrac\psi2\cdot xz\). Matching \(F(x,y,z)=\tfrac12[x'F_{xx}x+y'F_{yy}y+2x'F_{xy}y+2x'F_{xz}z+2y'F_{yz}z]\): \(F_{xx}=-q\), \(F_{yy}=-r\), \(F_{xy}=0\), \(F_{xz}=\psi/1\)... Actually \(2x'F_{xz}z=2x\cdot F_{xz}\cdot z=2\psi xz\) would require \(F_{xz}=\psi\); but the standard form has \(2x'F_{xz}z\), so \(F_{xz}=\psi/2\)? No — in the form \(\tfrac12\cdot 2x'F_{xz}z=x'F_{xz}z\), so \(x'\cdot F_{xz}\cdot z=\psi xz\implies F_{xz}=\psi\). Similarly \(F_{yz}=0\). Bellman: \(V(x,z)=\max_y\{-\tfrac12 qx^2-\tfrac12 ry^2+\psi xz+\beta E[V(y,az+e)]\}\).</p>
+      <p>(b) Since \(F_{xy}=0\), the Riccati: \(V_{xx}=F_{xx}-F_{xy}(F_{yy}+\beta V_{xx})^{-1}F_{yx}=-q-0=-q\). So \(V_{xx}=-q\). Then \(G_x=-(F_{yy}+\beta V_{xx})^{-1}F_{yx}=-(-r+\beta(-q))^{-1}\cdot0=0\). The agent does not respond to its own state (the endogenous state has no effect since \(F_{xy}=0\)).</p>
+      <p>(c) Sylvester equation: \(V_{xz}+\beta F_{xy}M V_{xz}a=F_{xz}+F_{xy}MF_{yz}\) where \(M=-(F_{yy}+\beta V_{xx})^{-1}=1/(r+\beta q)\gt0\). Since \(F_{xy}=0\): \(V_{xz}=F_{xz}=\psi\). Then \(G_z=-(F_{yy}+\beta V_{xx})^{-1}(F_{yz}+\beta V_{xz}a)=M(0+\beta\psi a)=\beta\psi a/(r+\beta q)\).</p>
+      <p>(d) For \(\psi\gt0\) and \(a\gt0\): \(G_z=\beta\psi a/(r+\beta q)\gt0\). A positive shock \(z\gt0\) leads to a higher choice \(y\gt0\). Intuition: when \(\psi\gt0\), the current shock \(z\) is complementary to the state \(x\) (they appear together as \(\psi xz\gt0\)). A positive shock today also predicts positive shocks in the future (since \(a\gt0\)). Responding to \(z\) by increasing \(y\) allows the agent to benefit from future complementarities between \(y\) (which becomes next period's \(x\)) and the persistent shock.</p>
+    </div></details>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="takeaways">
+    <h2 id="takeaways">Key takeaways</h2>
+    <ul>
+      <li>The LQ stochastic DP has quadratic return \(F(x,y,z)=\tfrac12[x'F_{xx}x+y'F_{yy}y+2x'F_{xy}y+2x'F_{xz}z+2y'F_{yz}z]\) and linear shock dynamics \(z_{t+1}=Az_t+\Sigma^{1/2}e_{t+1}\). The value function is quadratic: \(V(x,z)=\tfrac12 x'V_{xx}x+x'V_{xz}z+\tfrac12 z'V_{zz}z+v_0\).</li>
+      <li><strong>Certainty equivalence:</strong> \(G_x=-(F_{yy}+\beta V_{xx})^{-1}F_{yx}\) is independent of \(\Sigma\) (and of \(A\)). The variance matrix \(\Sigma\) drops from the first-order condition because \(E[\Sigma^{1/2}e]=0\). The same decision rule governs the stochastic and deterministic problems.</li>
+      <li>The discrete-time <strong>Riccati equation</strong> is \(V_{xx}=F_{xx}-F_{xy}(F_{yy}+\beta V_{xx})^{-1}F_{yx}\), i.e., \(V_{xx}=T(V_{xx})\). The Riccati operator \(T(P)=F_{xx}-F_{xy}(F_{yy}+\beta P)^{-1}F_{yx}\) is the discrete-time analogue of the continuous-time ARE (Lesson 39). Iterate \(T\) to convergence to find \(V_{xx}=P^*\).</li>
+      <li>Once \(V_{xx}\) is known, solve the <strong>Sylvester equation</strong> for \(V_{xz}\), then \(G_z=-(F_{yy}+\beta V_{xx})^{-1}(F_{yz}+\beta V_{xz}A)\). Note \(G_z\) depends on \(A\) (shock persistence) even though \(G_x\) does not.</li>
+      <li>The LQ framework provides a <strong>first-order approximation</strong> around the deterministic steady state. For small shocks (\(\Sigma\to0\)), the LQ solution gives accurate local policy dynamics for nonlinear models. Large shocks require global nonlinear methods.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "explain why certainty equivalence breaks in a model with precautionary saving", "how does the Riccati operator T relate to the Bellman operator", or "what is the second-order perturbation correction to the LQ policy rule?"</div>
+
+  <div class="lesson-nav">
+    <a href="0043-stochastic-bellman-equation.html">← Lesson 43: Stochastic Bellman equation and Markov processes</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="../reference/dynamic-programming-cheatsheet.html">Part X cheatsheet →</a>
+  </div>
+
+</div>
+</body>
+</html>

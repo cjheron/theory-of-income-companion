@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 41 — Contraction Mapping, Blackwell's Conditions, and Properties of V*</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], tags: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../assets/quiz.js" defer></script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="course-tag">Theory of Income · Part IX: Deterministic Dynamic Programming · Lesson 41 of 44</div>
+    <h1>Contraction Mapping, Blackwell's Conditions, and Properties of V*</h1>
+    <div class="meta">Covers <a href="../sources/slides8-dynamic-programming.pdf#page=11">Det DP slides 11–20</a> · About 35 min · Prerequisites: <a href="0040-principle-of-optimality-and-bellman-equation.html">Lesson 40</a> (Bellman equation, Principle of Optimality)</div>
+  </div>
+
+  <div class="goal">
+    <strong>By the end you can:</strong>
+    <ol>
+      <li>define a contraction mapping on a metric space and state the Contraction Mapping Theorem (CMT);</li>
+      <li>state Blackwell's sufficient conditions (monotonicity + discounting) and prove they imply \(T\) is a contraction;</li>
+      <li>use the Corollary of the CMT to show \(V^*\) inherits properties of \(T\)-invariant subspaces;</li>
+      <li>prove that \(V^*\) is monotone in \(x\) when \(F(\cdot,y)\) is increasing and \(\Gamma\) is increasing;</li>
+      <li>prove that \(V^*\) is concave in \(x\) when \(X\) and \(\Gamma\) are convex and \(F\) is concave.</li>
+    </ol>
+  </div>
+
+  <div class="primary-source">
+    <strong>Primary source</strong>
+    Alvarez, <a href="../sources/slides8-dynamic-programming.pdf#page=11">Deterministic DP slides 11–20</a>. Standard reference: Stokey, Lucas &amp; Prescott (SLP), Chapter 3 (Metric Spaces, the Contraction Mapping Theorem) and Chapter 4 (Bounded Dynamic Programming).
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s1">1. Bounded Dynamic Programming: the function space</h2>
+
+  <p>To apply the Principle of Optimality rigorously, we need a space of candidate value functions and a notion of distance on that space. The natural choice is the space of continuous bounded functions <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=11">Det DP p.11</a>:</p>
+
+  <div class="definition" id="def-S">
+    <div class="box-title">Definition: the space \(S\) of bounded continuous functions</div>
+    <p>Let \(X\) be the state space. Define:</p>
+    $$S = \bigl\{f : X \to \mathbb{R} \;\big|\; f \text{ is continuous and } \|f\| \equiv \sup_{x \in X} |f(x)| \lt \infty \bigr\}.$$
+    <p>Equip \(S\) with the <strong>sup norm</strong> \(\|f\| = \sup_{x \in X}|f(x)|\) and define the metric \(\rho(f, g) = \|f - g\|\).</p>
+  </div>
+
+  <div class="theorem" id="thm-S-complete">
+    <div class="box-title">Theorem: \((S, \rho)\) is a complete metric space</div>
+    <p>The set of bounded and continuous functions is complete: every Cauchy sequence in \(S\) converges to a limit in \(S\). See SLP or RMED for a proof.</p>
+  </div>
+
+  <div class="intuition" id="int-why-S">
+    <div class="box-title">Why these two properties?</div>
+    <p><strong>Bounded</strong> so that the sup norm is finite and iterating the Bellman operator stays in the space. <strong>Continuous</strong> so that the Theorem of the Maximum guarantees the maximizer \(g(x)\) exists and is well-behaved. <strong>Completeness</strong> is what lets us invoke the Contraction Mapping Theorem — it ensures the limit of an iterative procedure actually lives in the space we started with.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s2">2. Contractions and the Contraction Mapping Theorem</h2>
+
+  <div class="definition" id="def-contraction">
+    <div class="box-title">Definition: contraction mapping</div>
+    <p>Let \((S, \rho)\) be a metric space. An operator \(T : S \to S\) is a <strong>contraction with modulus \(\beta \in (0,1)\)</strong> if:</p>
+    $$\rho(Tf, Tg) \leq \beta\, \rho(f, g) \quad \text{for all } f, g \in S.$$
+    <p><em>Exercise.</em> Let \(S = [0,1]\), \(\rho(x,y)=|x-y|\), and \(T\) be a function from \([0,1]\) to itself. What does it mean for \(T\) to be a contraction?</p>
+  </div>
+
+  <p>In our application, \(S\) will be the space of continuous bounded functions from \(X\) to \(\mathbb{R}\), and \(T\) will be the Bellman operator. The key result is <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=13">Det DP p.13</a>:</p>
+
+  <div class="theorem" id="thm-cmt">
+    <div class="box-title">Contraction Mapping Theorem (CMT)</div>
+    <p>If \((S, \rho)\) is a <strong>complete</strong> metric space and \(T : S \to S\) is a contraction with modulus \(\beta\), then:</p>
+    <ol>
+      <li>There exists a <strong>unique fixed point</strong> \(s^* \in S\) such that \(s^* = Ts^*\).</li>
+      <li>Iterations of \(T\) converge to the fixed point from any starting point: for any \(s_0 \in S\),
+      $$\rho(T^n s_0,\, s^*) \leq \beta^n\, \rho(s_0, s^*).$$</li>
+    </ol>
+    <p>Here \(T^{n+1}(s) = T(T^n(s))\).</p>
+  </div>
+
+  <div class="intuition" id="int-vfi">
+    <div class="box-title">Value function iteration</div>
+    <p>The CMT says: pick any starting guess \(V_0 \in S\) (even \(V_0 \equiv 0\)), apply the Bellman operator repeatedly, and the sequence \(V_0, TV_0, T^2 V_0, \ldots\) converges to the true value function \(V^*\) at the geometric rate \(\beta\). This is <strong>value function iteration</strong>, the workhorse algorithm for solving DP problems numerically. The error after \(n\) iterations is at most \(\beta^n \|V_0 - V^*\|\). With \(\beta = 0.95\), 100 iterations cut the error by a factor of \(0.95^{100} \approx 0.006\).</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s3">3. The Corollary: inheriting properties</h2>
+
+  <p>One of the most elegant tools in the DP toolkit is the following corollary, which lets us read off properties of \(V^*\) <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=14">Det DP p.14</a>:</p>
+
+  <div class="theorem" id="thm-corollary">
+    <div class="box-title">Corollary of the CMT (inheritance of properties)</div>
+    <p>Let \((S, \rho)\) be a complete metric space, let \(T : S \to S\) be a contraction, and let \(s^* = Ts^*\) be the unique fixed point. Suppose \(S' \subset S\) is a <strong>closed</strong> subset such that</p>
+    $$T S' \subset S', \quad \text{i.e., } s \in S' \implies Ts \in S'.$$
+    <p>Then \(s^* \in S'\). Moreover, if \(S'' \subset S'\) and \(T S'' \subset S''\), then \(s^* \in S''\).</p>
+  </div>
+
+  <div class="intuition" id="int-corollary">
+    <div class="box-title">How to use the Corollary</div>
+    <p>Strategy: to show \(V^*\) has some property (monotonicity, concavity, differentiability), define \(S' = \{f \in S : f \text{ has the property}\}\) and show (a) \(S'\) is closed in \(S\) and (b) \(Tf\) has the property whenever \(f\) does. The Corollary then gives \(V^* \in S'\) for free — no direct proof about \(V^*\) needed.</p>
+  </div>
+
+  <div class="warning" id="warn-corollary">
+    <div class="box-title">Common mistake: invariance is essential</div>
+    <p>It is <em>not</em> enough to know \(V^* \in S\) and that \(S'\) contains "nice" functions. You must verify that \(T\) maps \(S'\) into itself — i.e., the property is preserved by one application of \(T\). Without \(TS' \subset S'\), the Corollary gives nothing.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s4">4. Blackwell's Sufficient Conditions</h2>
+
+  <p>Checking the contraction inequality \(\|Tf - Tg\| \leq \beta\|f-g\|\) directly can be tedious. Blackwell's conditions offer a convenient shortcut <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=15">Det DP p.15</a>:</p>
+
+  <div class="theorem" id="thm-blackwell">
+    <div class="box-title">Blackwell's Sufficient Conditions</div>
+    <p>Let \(S\) be the space of bounded functions from \(X\) to \(\mathbb{R}\) with the sup norm. Let \(T : S \to S\). Assume:</p>
+    <ol>
+      <li><strong>Monotonicity.</strong> For any \(f, g \in S\) with \(f(x) \leq g(x)\) for all \(x \in X\):
+      $$Tf(x) \leq Tg(x) \quad \text{for all } x \in X.$$</li>
+      <li><strong>Discounting.</strong> There exists \(\beta \in (0,1)\) such that for any \(f \in S\) and \(a \in \mathbb{R}_+\):
+      $$T(f + a)(x) \leq Tf(x) + \beta a \quad \text{for all } x \in X.$$</li>
+    </ol>
+    <p>Then \(T\) is a contraction with modulus \(\beta\).</p>
+  </div>
+
+  <div class="proof" id="pf-blackwell">
+    <div class="box-title">Proof of Blackwell's Theorem</div>
+    <ol>
+      <li>For any \(f, g \in S\), write \(f = g + (f - g)\). Since \(\|f - g\|\) is the sup norm, we have \(f(x) \leq g(x) + \|f - g\|\) for all \(x\).</li>
+      <li>Applying monotonicity: \(Tf(x) \leq T(g + \|f-g\|)(x)\).</li>
+      <li>Applying discounting with \(a = \|f-g\|\): \(T(g + \|f-g\|)(x) \leq Tg(x) + \beta\|f-g\|\).</li>
+      <li>Combining: \(Tf(x) \leq Tg(x) + \beta\|f-g\|\).</li>
+      <li>Reversing the roles of \(f\) and \(g\): \(Tg(x) \leq Tf(x) + \beta\|f-g\|\).</li>
+      <li>Taking sup over \(x\): \(\|Tf - Tg\| = \sup_x |Tf(x) - Tg(x)| \leq \beta\|f - g\|\). \(\square\)</li>
+    </ol>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s5">5. The Bellman operator maps \(S\) into itself</h2>
+
+  <p>Now we apply this to the Bellman operator \(Tv\)(x) = \(\max_{y \in \Gamma(x)}\{F(x,y) + \beta v(y)\}\). Assume \(F\) is bounded and continuous and \(\Gamma\) is continuous and has compact range <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=17">Det DP p.17</a>:</p>
+
+  <div class="theorem" id="thm-T-maps-S">
+    <div class="box-title">Theorem: \(T\) maps \(S\) into itself and is a contraction</div>
+    <p>Assume \(F : X \times X \to \mathbb{R}\) is bounded and continuous, and \(\Gamma : X \rightrightarrows X\) is continuous with compact range. Define the Bellman operator:</p>
+    $$(Tv)(x) = \max_{y \in \Gamma(x)} \bigl\{F(x,y) + \beta v(y)\bigr\}.$$
+    <p>Then: (i) \(T\) maps \(S\) into itself (the maximum exists and \(Tv\) is continuous and bounded); and (ii) \(T\) is a contraction with modulus \(\beta\).</p>
+  </div>
+
+  <div class="proof" id="pf-T-maps-S">
+    <div class="box-title">Proof sketch</div>
+    <ol>
+      <li><strong>\(T\) maps into \(S\):</strong> \(F\) bounded and continuous and \(\Gamma\) continuous with compact range imply \(F(x,y)+\beta v(y)\) is continuous in \((x,y)\). By the Theorem of the Maximum, \(Tv(x)\) is continuous and the maximizer \(g(x)\) exists. Boundedness of \(F\) and \(v\) gives \(\|Tv\| \leq \|F\|/(1-\beta) \lt \infty\).</li>
+      <li><strong>Monotonicity:</strong> If \(f \geq v\) pointwise, then \(F(x,y)+\beta f(y) \geq F(x,y)+\beta v(y)\) for each \((x,y)\). Taking the max over \(y\in\Gamma(x)\) preserves the inequality: \(Tf(x) \geq Tv(x)\).</li>
+      <li><strong>Discounting:</strong> \(T(v+a)(x) = \max_{y\in\Gamma(x)}\{F(x,y)+\beta(v(y)+a)\} = \max_{y\in\Gamma(x)}\{F(x,y)+\beta v(y)\} + \beta a = Tv(x) + \beta a\).</li>
+      <li>By Blackwell's Theorem, \(T\) is a contraction with modulus \(\beta\). \(\square\)</li>
+    </ol>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s6">6. Monotonicity of \(V^*\)</h2>
+
+  <p>We now use the Corollary to establish that \(V^*\) is increasing in \(x\) <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=19">Det DP p.19</a>:</p>
+
+  <div class="theorem" id="thm-mono">
+    <div class="box-title">Theorem: \(V^*\) is increasing</div>
+    <p>Assume \(F(\cdot, y)\) is increasing in \(x\) for each fixed \(y\), and \(\Gamma\) is increasing in \(x\) (i.e., \(x \leq x' \implies \Gamma(x) \subset \Gamma(x')\)). Then the fixed point \(V^*\) satisfying \(V^* = TV^*\) is <strong>increasing</strong> in \(x\).</p>
+  </div>
+
+  <div class="proof" id="pf-mono">
+    <div class="box-title">Proof (using the Corollary)</div>
+    <ol>
+      <li>Define \(S' = \{f \in S : f \text{ is increasing}\} \subset S\). \(S'\) is closed in \(S\) (the pointwise limit of increasing functions is increasing, and uniform limits of increasing functions converge to an increasing function).</li>
+      <li>We show \(TS' \subset S'\): take \(f \in S'\) and \(x \leq x'\). Let \(g(x)\) achieve the maximum \(Tf(x) = F(x, g(x)) + \beta f(g(x))\).</li>
+      <li>Since \(\Gamma(x) \subset \Gamma(x')\) (Γ increasing), we have \(g(x) \in \Gamma(x')\), so \(g(x)\) is feasible at \(x'\).</li>
+      <li>Since \(F(\cdot,y)\) is increasing: \(F(x', g(x)) \geq F(x, g(x))\).</li>
+      <li>Therefore: \(Tf(x') = \max_{y \in \Gamma(x')}\{F(x',y)+\beta f(y)\} \geq F(x', g(x)) + \beta f(g(x)) \geq F(x, g(x)) + \beta f(g(x)) = Tf(x)\).</li>
+      <li>So \(Tf\) is increasing, i.e., \(Tf \in S'\). By the Corollary of the CMT, \(V^* \in S'\). \(\square\)</li>
+    </ol>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s7">7. Concavity of \(V^*\)</h2>
+
+  <p>By a parallel argument, convexity of the problem implies concavity of the value function <a class="slide-ref" href="../sources/slides8-dynamic-programming.pdf#page=20">Det DP p.20</a>:</p>
+
+  <div class="theorem" id="thm-concave">
+    <div class="box-title">Theorem: \(V^*\) is concave</div>
+    <p>Assume \(X\) is convex, \(\Gamma\) is convex (i.e., \(y \in \Gamma(x)\) and \(y' \in \Gamma(x')\) imply \(\theta y + (1-\theta)y' \in \Gamma(\theta x + (1-\theta)x')\) for all \(\theta \in (0,1)\)), and \(F\) is concave in \((x,y)\). Then \(V^*\) is <strong>concave</strong> in \(x\). Moreover, if \(F\) is strictly concave in \((x,y)\), then \(V^*\) is strictly concave.</p>
+  </div>
+
+  <div class="proof" id="pf-concave">
+    <div class="box-title">Proof (using the Corollary)</div>
+    <ol>
+      <li>Define \(S'' = \{f \in S : f \text{ is concave}\}\). \(S''\) is closed in \(S\) (uniform limits of concave functions are concave).</li>
+      <li>We show \(TS'' \subset S''\): take \(f \in S''\), any \(x, x' \in X\), and \(\theta \in (0,1)\). Let \(x^\theta = \theta x + (1-\theta)x'\).</li>
+      <li>Let \(y\) achieve \(Tf(x) = F(x,y)+\beta f(y)\) and \(y'\) achieve \(Tf(x') = F(x',y')+\beta f(y')\).</li>
+      <li>Define \(y^\theta = \theta y + (1-\theta)y'\). By convexity of \(\Gamma\): \(y^\theta \in \Gamma(x^\theta)\), so it is feasible.</li>
+      <li>By concavity of \(F\): \(F(x^\theta, y^\theta) \geq \theta F(x,y) + (1-\theta)F(x',y')\).</li>
+      <li>By concavity of \(f\): \(f(y^\theta) \geq \theta f(y) + (1-\theta)f(y')\).</li>
+      <li>Therefore: \(Tf(x^\theta) \geq F(x^\theta, y^\theta) + \beta f(y^\theta) \geq \theta[F(x,y)+\beta f(y)] + (1-\theta)[F(x',y')+\beta f(y')] = \theta Tf(x) + (1-\theta)Tf(x')\).</li>
+      <li>So \(Tf\) is concave, i.e., \(Tf \in S''\). By the Corollary, \(V^* \in S''\). \(\square\)</li>
+    </ol>
+  </div>
+
+  <div class="intuition" id="int-concave-econ">
+    <div class="box-title">Economic meaning of concavity</div>
+    <p>Concavity of \(V^*\) in \(x\) means diminishing marginal value of wealth: an extra unit of capital is worth more when you have little than when you have a lot. This is the DP analogue of diminishing marginal utility. It also implies (by the Benveniste-Scheinkman theorem in Lesson 42) that \(V^*\) is differentiable almost everywhere, and the derivative has a clean expression in terms of the primitives.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s8">8. Quiz</h2>
+
+  <div class="quiz-section">
+
+    <div class="quiz-question" data-correct="b">
+      <p class="quiz-title">What does the Contraction Mapping Theorem guarantee?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">That Cauchy sequences converge in every metric space</li>
+        <li class="quiz-option" data-option="b">A unique fixed point and geometric convergence of iterations</li>
+        <li class="quiz-option" data-option="c">That the maximum of a continuous function is always attained</li>
+        <li class="quiz-option" data-option="d">That bounded monotone sequences converge to their supremum</li>
+      </ul>
+      <div class="quiz-explain">The CMT says: on a complete metric space, a contraction \(T\) has a unique fixed point \(s^* = Ts^*\), and for any starting point \(s_0\), the iterates satisfy \(\rho(T^n s_0, s^*) \leq \beta^n \rho(s_0, s^*)\) — geometric convergence at rate \(\beta\). The other statements are the completeness axiom, the Extreme Value Theorem, and the Monotone Convergence Theorem — all different results.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="c">
+      <p class="quiz-title">Blackwell's discounting condition says \(T(f+a)(x) \leq Tf(x) + \beta a\). Why does \(\beta\lt 1\) matter?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">It ensures the max in the Bellman operator is always finite</li>
+        <li class="quiz-option" data-option="b">It guarantees the feasibility correspondence Γ is non-empty</li>
+        <li class="quiz-option" data-option="c">It makes \(T\) shrink differences so iterates converge together</li>
+        <li class="quiz-option" data-option="d">It prevents the fixed point from lying at the boundary of \(S\)</li>
+      </ul>
+      <div class="quiz-explain">The factor \(\beta \lt 1\) is what makes \(T\) a contraction: when you shift a function up by \(a\), \(T\) only shifts the image by \(\beta a \lt a\). Combined with monotonicity, this yields \(\|Tf - Tg\| \leq \beta\|f-g\|\). Without \(\beta \lt 1\), the gap between iterates would not shrink and they might not converge.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="a">
+      <p class="quiz-title">To show \(V^*\) is increasing via the Corollary, what must you verify?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">That \(T\) maps increasing functions to increasing functions</li>
+        <li class="quiz-option" data-option="b">That \(V^*\) is a fixed point of a monotone Bellman operator</li>
+        <li class="quiz-option" data-option="c">That the feasibility set Γ contains only increasing sequences</li>
+        <li class="quiz-option" data-option="d">That the starting guess \(V_0\) is an increasing function</li>
+      </ul>
+      <div class="quiz-explain">The Corollary requires showing \(TS' \subset S'\) where \(S' = \{\text{increasing functions}\}\): if \(f\) is increasing, then \(Tf\) is also increasing. Once this invariance is established, the Corollary gives \(V^* \in S'\). The starting guess \(V_0\) is irrelevant to the conclusion — the Corollary works from any starting point.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="d">
+      <p class="quiz-title">Why does the proof of concavity of \(V^*\) need \(\Gamma\) to be convex?</p>
+      <ul class="quiz-options">
+        <li class="quiz-option" data-option="a">To ensure the Bellman operator maps continuous functions to continuous ones</li>
+        <li class="quiz-option" data-option="b">To verify that \(F\) is bounded on the feasible set</li>
+        <li class="quiz-option" data-option="c">To apply the Blackwell discounting condition pointwise</li>
+        <li class="quiz-option" data-option="d">To construct a feasible mix \(y^\theta = \theta y + (1{-}\theta)y'\) at the mix state \(x^\theta\)</li>
+      </ul>
+      <div class="quiz-explain">The key step is: given optimal choices \(y\) at \(x\) and \(y'\) at \(x'\), define \(y^\theta = \theta y + (1-\theta)y'\) and use it to lower-bound \(Tf(x^\theta)\). This requires \(y^\theta\in\Gamma(x^\theta)\), which is exactly what convexity of \(\Gamma\) provides. Without it, \(y^\theta\) might not be feasible and the lower bound breaks.</div>
+    </div>
+
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s9">9. True or False</h2>
+
+  <div class="box exercise" id="tf">
+    <div class="box-title">True or False — justify in one or two lines</div>
+    <ol class="tf-list">
+      <li>If \(T\) is a contraction on \((S,\rho)\) and \(s_0 \in S\), then \(\rho(T^{100}s_0, s^*) \leq \beta^{100}\rho(s_0, s^*)\). <span class="tf-src">Det DP p.13</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> This is exactly the second conclusion of the CMT: \(\rho(T^n s_0, s^*) \leq \beta^n \rho(s_0, s^*)\) for all \(n\geq 0\). Since \(\beta \in (0,1)\), after 100 iterations the distance to the fixed point is reduced by the factor \(\beta^{100}\). If \(\beta=0.95\), that is \(0.95^{100} \approx 0.006\), less than 1% of the original error.</p></div></details></li>
+      <li>Blackwell's discounting condition alone (without monotonicity) is sufficient to conclude \(T\) is a contraction. <span class="tf-src">Det DP p.15</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>False.</strong> Both conditions are needed. Monotonicity is used to go from the pointwise inequality \(f \leq g + \|f-g\|\) to \(Tf \leq T(g+\|f-g\|)\). Without monotonicity, that step fails. The discounting condition alone only tells you how \(T\) responds to adding a constant, not how it compares two arbitrary functions.</p></div></details></li>
+      <li>If \(V^*\) is the fixed point of the Bellman operator and \(S' \subset S\) is closed with \(TS' \subset S'\), then \(V^* \in S'\). <span class="tf-src">Det DP p.14</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> This is precisely the Corollary of the CMT. Starting from any \(s_0 \in S'\): \(Ts_0 \in S'\) (by invariance), \(T^2 s_0 \in S'\), and so on. The iterates stay in \(S'\) and converge (in \(S\)) to \(V^*\). Since \(S'\) is closed and contains the entire sequence, the limit \(V^*\) is in \(S'\).</p></div></details></li>
+      <li>Strict concavity of \(F\) in \((x,y)\) implies that the optimal policy \(g^*\) is a function (not a correspondence). <span class="tf-src">Det DP p.20</span>
+        <details class="solution"><summary>Answer</summary><div class="body"><p><strong>True.</strong> The Bellman equation maximizes \(F(x,y)+\beta V^*(y)\) over \(y \in \Gamma(x)\). Under the theorem's assumptions, \(V^*\) is concave. If \(F\) is strictly concave in \(y\) (or \(F+\beta V^*\) is strictly concave in \(y\)), the maximum is attained at a unique point \(g^*(x)\) for each \(x\). With only weak concavity, there might be a whole interval of optimizers, so strict concavity is needed to pin down a unique policy function.</p></div></details></li>
+    </ol>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <h2 id="s10">10. Exercises</h2>
+
+  <div class="box exercise" id="ex-41-1">
+    <div class="box-title">Exercise 41.1 <span class="tag slides">Det DP p.20</span> (neoclassical growth: checking monotonicity assumptions)</div>
+    <p>Consider the neoclassical growth model with \(F(k, k') = U(f(k) - k')\), where \(U\) is strictly increasing, and \(\Gamma(k) = [0, f(k)]\).</p>
+    <ol class="parts" type="a">
+      <li>Show \(F(k, k')\) is increasing in \(k\) for each fixed \(k' \geq 0\). What property of \(U\) and \(f\) do you need? <span class="pts">(8 pts)</span></li>
+      <li>Show \(\Gamma(k) = [0, f(k)]\) is increasing in \(k\): i.e., \(k \leq k'\) implies \(\Gamma(k) \subset \Gamma(k')\). What property of \(f\) do you need? <span class="pts">(5 pts)</span></li>
+      <li>Conclude that \(V^*\) is increasing in \(k\). <span class="pts">(3 pts)</span></li>
+    </ol>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>For (a): increasing \(k\) with fixed \(k'\) increases consumption \(f(k)-k'\), which raises \(U\) since \(U'>0\). For (b): \(f\) increasing means \(f(k) \leq f(k')\), so any \(y \leq f(k) \leq f(k')\) is feasible at \(k'\) as well.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Fix \(k'\geq 0\). Let \(k \leq \tilde k\). Since \(f\) is increasing (Inada conditions imply \(f'>0\)), we have \(f(k) \leq f(\tilde k)\), so \(f(k)-k' \leq f(\tilde k)-k'\). Since \(U\) is strictly increasing (\(U'>0\)), \(U(f(k)-k') \leq U(f(\tilde k)-k')\), i.e., \(F(k,k') \leq F(\tilde k, k')\). Assumptions needed: \(f\) increasing and \(U\) increasing.</p>
+      <p>(b) Let \(k \leq k'\). Then \(f(k) \leq f(k')\) (since \(f\) is increasing). So \(\Gamma(k) = [0, f(k)] \subset [0, f(k')] = \Gamma(k')\). Assumption: \(f\) increasing.</p>
+      <p>(c) By parts (a) and (b), the assumptions of the monotonicity theorem are satisfied. By the theorem, \(V^*(k)\) is increasing in \(k\). \(\square\)</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-41-2">
+    <div class="box-title">Exercise 41.2 <span class="tag proof">Proof</span> (Blackwell's conditions for the Bellman operator)</div>
+    <p>Let \((Tv)(x) = \max_{y \in \Gamma(x)}\{F(x,y) + \beta v(y)\}\) with \(\beta \in (0,1)\).</p>
+    <ol class="parts" type="a">
+      <li>Verify that \(T\) is monotone: if \(v(x) \leq w(x)\) for all \(x\), then \(Tv(x) \leq Tw(x)\) for all \(x\). <span class="pts">(8 pts)</span></li>
+      <li>Verify the discounting condition: for any constant \(a \geq 0\), show \(T(v+a)(x) = Tv(x) + \beta a\). <span class="pts">(8 pts)</span></li>
+      <li>Conclude from Blackwell's theorem that \(T\) is a contraction with modulus \(\beta\). <span class="pts">(4 pts)</span></li>
+    </ol>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p>(a) Since \(v(y) \leq w(y)\) for all \(y\), we have \(F(x,y)+\beta v(y) \leq F(x,y)+\beta w(y)\) for each \((x,y)\). Taking the max over \(y \in \Gamma(x)\) preserves the inequality: \(\max_{y \in \Gamma(x)}\{F(x,y)+\beta v(y)\} \leq \max_{y\in\Gamma(x)}\{F(x,y)+\beta w(y)\}\), i.e., \(Tv(x) \leq Tw(x)\).</p>
+      <p>(b) \(T(v+a)(x) = \max_{y\in\Gamma(x)}\{F(x,y)+\beta(v(y)+a)\} = \max_{y\in\Gamma(x)}\{F(x,y)+\beta v(y)\}+\beta a = Tv(x)+\beta a\). (The constant \(\beta a\) pulls out of the max.) Note this holds with equality, which is stronger than the \(\leq\) required by Blackwell.</p>
+      <p>(c) Both conditions of Blackwell's theorem are satisfied (with the constant \(\beta \in (0,1)\) appearing in the discounting condition). By Blackwell's theorem, \(T\) is a contraction with modulus \(\beta\). Combined with the fact that \(S\) is complete, the CMT gives a unique fixed point \(V^*\) with \(TV^* = V^*\). \(\square\)</p>
+    </div></details>
+  </div>
+
+  <div class="box exercise" id="ex-41-3">
+    <div class="box-title">Exercise 41.3 <span class="tag exam">Exam-style</span> (value function iteration convergence)</div>
+    <p>True or false: "If we apply the Bellman operator \(T\) starting from \(V_0 \equiv 0\), the sequence \(T^n V_0\) converges to \(V^*\) at the geometric rate \(\beta\)." Justify carefully. <span class="pts">(15 pts)</span></p>
+    <details class="hint"><summary>Hint</summary><div class="body"><p>The CMT bounds the distance after \(n\) iterations by \(\beta^n \rho(V_0, V^*)\). Is "geometric rate \(\beta\)" an exact or asymptotic statement? Also think about whether the choice \(V_0 \equiv 0\) is necessary.</p></div></details>
+    <details class="solution"><summary>Show solution</summary><div class="body">
+      <p><strong>True (with clarification of "rate").</strong></p>
+      <p>Under the standard boundedness assumptions, \(T\) is a contraction with modulus \(\beta \in (0,1)\) on the complete metric space \((S, \|\cdot\|)\). By the CMT, for any starting point \(V_0 \in S\):</p>
+      $$\|T^n V_0 - V^*\| \leq \beta^n \|V_0 - V^*\|.$$
+      <p>Starting from \(V_0 \equiv 0\): \(\|V_0 - V^*\| = \|V^*\| \leq \|F\|/(1-\beta) \lt \infty\) (since \(F\) is bounded). So:</p>
+      $$\|T^n V_0 - V^*\| \leq \beta^n \cdot \|V^*\|.$$
+      <p>This is a geometric bound at rate \(\beta\). The choice \(V_0 \equiv 0\) is not necessary — the CMT holds from any \(V_0 \in S\). The convergence is at <em>least</em> geometric (the bound may be tighter in practice). \(\square\)</p>
+    </div></details>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="takeaways">
+    <h2 id="takeaways">Key takeaways</h2>
+    <ul>
+      <li>The Bellman operator \(T\) acts on \(S\), the space of continuous bounded functions with the sup norm. \(S\) is complete, which is the foundation for the CMT.</li>
+      <li><strong>CMT:</strong> a contraction \(T\) on a complete metric space has a unique fixed point \(V^*\), and iterates \(T^n V_0 \to V^*\) at geometric rate \(\beta\). This is the basis for value function iteration.</li>
+      <li><strong>Blackwell's conditions:</strong> (i) monotonicity (\(f \leq g \Rightarrow Tf \leq Tg\)) and (ii) discounting (\(T(f+a) \leq Tf + \beta a\)) together imply \(T\) is a contraction. The Bellman operator satisfies both.</li>
+      <li><strong>Corollary:</strong> if \(S' \subset S\) is closed and \(T\)-invariant (\(TS' \subset S'\)), then \(V^* \in S'\). This lets you read off properties of \(V^*\) by checking them for one application of \(T\).</li>
+      <li><strong>Monotonicity of \(V^*\):</strong> follows when \(F(\cdot,y)\) is increasing and \(\Gamma\) is increasing. <strong>Concavity of \(V^*\):</strong> follows when \(X\) and \(\Gamma\) are convex and \(F\) is concave in \((x,y)\). Both are proved via the Corollary.</li>
+    </ul>
+  </div>
+
+  <div class="ask-teacher">💬 <strong>Stuck or curious?</strong> Ask me (your Claude teacher) anything. Try "how does value function iteration work numerically?", "can I use this to show \(V^*\) is differentiable?", or "what happens if \(\beta=1\) or \(F\) is unbounded?"</div>
+
+  <div class="lesson-nav">
+    <a href="0040-principle-of-optimality-and-bellman-equation.html">← Lesson 40: Principle of optimality and the Bellman equation</a>
+    <a href="../index.html">Course index</a>
+    <a href="../reference/ge-glossary.html">Glossary</a>
+    <a href="0042-envelope-euler-equations-and-continuous-time-dp.html">Lesson 42: Envelope theorem, Euler equations, and continuous-time DP →</a>
+  </div>
+
+</div>
+</body>
+</html>
